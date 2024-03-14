@@ -1,0 +1,16 @@
+class alpha_zeta0_epsilon0
+force $knuc
+class alpha_beta_zeta0
+force $knuc
+class alpha_beta_gamma
+force $knuc
+class beta_gamma_delta
+force $knuc
+class gamma_delta_epsilon
+force $knuc
+class delta_epsilon_zeta
+force $knuc
+class gamma_delta_chi
+force $knuc
+class delta_epsilon_chi
+force $knuc

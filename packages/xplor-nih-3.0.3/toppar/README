@@ -1,0 +1,20 @@
+
+2005/03/08 parameter file name change
+
+the recommended topology and parameter files to use are
+protein.top and protein.par
+
+These are symlinks to the latest version of the respective files. If a
+particular version is desired (say to reproduce old results), use that
+version named
+
+protein-VERSION.top and protein-VERSION.par
+
+parameters  for small molecules might be generated using this facility
+ http://davapc1.bioch.dundee.ac.uk/prodrg/
+
+Obtaining parameters for prosthetic groups is discussed at these sites:
+ http://people.brandeis.edu/~lepore/connect_heme_to_protein.tutorial.php
+ http://www.personal.rdg.ac.uk/~sas01app/page32.html
+
+

@@ -1,0 +1,197 @@
+
+remark  File atcun.par
+remark    Parameters associated with atcun.top, a patch for the ATCUN motif bound to Cu+2.
+remark 
+remark  Use in combination with atcun.top.
+remark  Use after loading protein-v.par (v = any version).
+remark 
+remark  Parameters based on the CU+2-GLY-GLY-HIS complex (molecule 1) 
+remark  in Camerman, N et al. Can. J. Chem. 1976, 54: 1309-1316.
+remark 
+remark
+remark  WARNING: The following variables must be defined **before** loading this file:
+remark 
+remark  $atcun_segid  -> segid of the atcun polypeptide (if no segid, set to "")
+remark  $atcun_resid1 -> number of the first ATCUN residue 
+remark  $atcunCu_segid -> segid of the ATCUN Cu+2 atom (if no segid, set to "")
+remark  $atcun_residCu -> residue number of the ATCUN Cu+2 atom 
+remark
+remark  Author: Guillermo A. Bermejo (08/07/2014). 
+
+
+! Values for $kbon, $kang, and $kchi are set in protein-v.par.
+
+! All parameters are atom-based, and override type-based parameters in protein-v.par.
+! *** There are no nonbonded parameters here: they are taken from protein-v.par ***
+
+
+set echo=off message=on end 
+
+@TOPPAR:ion.par
+
+ evaluate ($atcun_resid2 = $atcun_resid1 + 1)
+ evaluate ($atcun_resid3 = $atcun_resid1 + 2)
+
+
+! Protein part learned (in the XPLOR sense, using protein-1.0.top).
+
+ BOND (resid $atcun_resid1 and segid $atcun_segid and name  N   ) (resid $atcun_resid1 and segid $atcun_segid and name  CA  )   $kbon      1.450
+ BOND (resid $atcun_resid1 and segid $atcun_segid and name  CA  ) (resid $atcun_resid1 and segid $atcun_segid and name  C   )   $kbon      1.512
+ BOND (resid $atcun_resid1 and segid $atcun_segid and name  C   ) (resid $atcun_resid1 and segid $atcun_segid and name  O   )   $kbon      1.254
+ BOND (resid $atcun_resid2 and segid $atcun_segid and name  N   ) (resid $atcun_resid2 and segid $atcun_segid and name  CA  )   $kbon      1.446
+ BOND (resid $atcun_resid2 and segid $atcun_segid and name  CA  ) (resid $atcun_resid2 and segid $atcun_segid and name  C   )   $kbon      1.520
+ BOND (resid $atcun_resid2 and segid $atcun_segid and name  C   ) (resid $atcun_resid2 and segid $atcun_segid and name  O   )   $kbon      1.267
+ BOND (resid $atcun_resid1 and segid $atcun_segid and name  C   ) (resid $atcun_resid2 and segid $atcun_segid and name  N   )   $kbon      1.304
+ BOND (resid $atcun_resid3 and segid $atcun_segid and name  N   ) (resid $atcun_resid3 and segid $atcun_segid and name  CA  )   $kbon      1.457
+ BOND (resid $atcun_resid3 and segid $atcun_segid and name  CA  ) (resid $atcun_resid3 and segid $atcun_segid and name  CB  )   $kbon      1.500
+ BOND (resid $atcun_resid3 and segid $atcun_segid and name  CB  ) (resid $atcun_resid3 and segid $atcun_segid and name  CG  )   $kbon      1.499
+ BOND (resid $atcun_resid3 and segid $atcun_segid and name  CG  ) (resid $atcun_resid3 and segid $atcun_segid and name  ND1 )   $kbon      1.379
+ BOND (resid $atcun_resid3 and segid $atcun_segid and name  ND1 ) (resid $atcun_resid3 and segid $atcun_segid and name  CE1 )   $kbon      1.335
+ BOND (resid $atcun_resid3 and segid $atcun_segid and name  CG  ) (resid $atcun_resid3 and segid $atcun_segid and name  CD2 )   $kbon      1.353
+ BOND (resid $atcun_resid3 and segid $atcun_segid and name  CD2 ) (resid $atcun_resid3 and segid $atcun_segid and name  NE2 )   $kbon      1.377
+ BOND (resid $atcun_resid3 and segid $atcun_segid and name  CE1 ) (resid $atcun_resid3 and segid $atcun_segid and name  NE2 )   $kbon      1.340
+ BOND (resid $atcun_resid3 and segid $atcun_segid and name  CA  ) (resid $atcun_resid3 and segid $atcun_segid and name  C   )   $kbon      1.538
+ BOND (resid $atcun_resid2 and segid $atcun_segid and name  C   ) (resid $atcun_resid3 and segid $atcun_segid and name  N   )   $kbon      1.331
+ BOND (resid $atcun_resid3 and segid $atcun_segid and name  C   ) (resid $atcun_resid3 and segid $atcun_segid and name  OT1 )   $kbon      1.232
+
+ ANGL (resid $atcun_resid1 and segid $atcun_segid and name  N   ) (resid $atcun_resid1 and segid $atcun_segid and name  CA  ) 
+                            					  (resid $atcun_resid1 and segid $atcun_segid and name  C   )    $kang    112.066
+ ANGL (resid $atcun_resid1 and segid $atcun_segid and name  CA  ) (resid $atcun_resid1 and segid $atcun_segid and name  C   ) 
+                                                                  (resid $atcun_resid1 and segid $atcun_segid and name  O   )    $kang    119.637
+ ANGL (resid $atcun_resid2 and segid $atcun_segid and name  N   ) (resid $atcun_resid2 and segid $atcun_segid and name  CA  ) 
+                                                                  (resid $atcun_resid2 and segid $atcun_segid and name  C   )    $kang    109.208
+ ANGL (resid $atcun_resid2 and segid $atcun_segid and name  CA  ) (resid $atcun_resid2 and segid $atcun_segid and name  C   ) 
+                                                                  (resid $atcun_resid2 and segid $atcun_segid and name  O   )    $kang    117.477
+ ANGL (resid $atcun_resid1 and segid $atcun_segid and name  CA  ) (resid $atcun_resid1 and segid $atcun_segid and name  C   ) 
+                                                                  (resid $atcun_resid2 and segid $atcun_segid and name  N   )    $kang    113.688
+ ANGL (resid $atcun_resid1 and segid $atcun_segid and name  O   ) (resid $atcun_resid1 and segid $atcun_segid and name  C   ) 
+                                                                  (resid $atcun_resid2 and segid $atcun_segid and name  N   )    $kang    126.646
+ ANGL (resid $atcun_resid1 and segid $atcun_segid and name  C   ) (resid $atcun_resid2 and segid $atcun_segid and name  N   ) 
+                                                                  (resid $atcun_resid2 and segid $atcun_segid and name  CA  )    $kang    123.386
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  N   ) (resid $atcun_resid3 and segid $atcun_segid and name  CA  ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  CB  )    $kang    111.382
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  N   ) (resid $atcun_resid3 and segid $atcun_segid and name  CA  ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  C   )    $kang    114.469
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  CA  ) (resid $atcun_resid3 and segid $atcun_segid and name  CB  ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  CG  )    $kang    116.899
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  CB  ) (resid $atcun_resid3 and segid $atcun_segid and name  CA  ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  C   )    $kang    110.785
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  CB  ) (resid $atcun_resid3 and segid $atcun_segid and name  CG  ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  ND1 )    $kang    121.867
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  CB  ) (resid $atcun_resid3 and segid $atcun_segid and name  CG  ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  CD2 )    $kang    129.032
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  CG  ) (resid $atcun_resid3 and segid $atcun_segid and name  ND1 ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  CE1 )    $kang    105.769
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  ND1 ) (resid $atcun_resid3 and segid $atcun_segid and name  CG  ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  CD2 )    $kang    109.068
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  ND1 ) (resid $atcun_resid3 and segid $atcun_segid and name  CE1 ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  NE2 )    $kang    111.143
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  CG  ) (resid $atcun_resid3 and segid $atcun_segid and name  CD2 ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  NE2 )    $kang    107.025
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  CD2 ) (resid $atcun_resid3 and segid $atcun_segid and name  NE2 ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  CE1 )    $kang    106.990
+ ANGL (resid $atcun_resid2 and segid $atcun_segid and name  CA  ) (resid $atcun_resid2 and segid $atcun_segid and name  C   ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  N   )    $kang    115.443
+ ANGL (resid $atcun_resid2 and segid $atcun_segid and name  O   ) (resid $atcun_resid2 and segid $atcun_segid and name  C   ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  N   )    $kang    127.074
+ ANGL (resid $atcun_resid2 and segid $atcun_segid and name  C   ) (resid $atcun_resid3 and segid $atcun_segid and name  N   ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  CA  )    $kang    117.440
+ ANGL (resid $atcun_resid3 and segid $atcun_segid and name  CA  ) (resid $atcun_resid3 and segid $atcun_segid and name  C   ) 
+                                                                  (resid $atcun_resid3 and segid $atcun_segid and name  OT1 )    $kang    117.794
+
+ IMPR (resid $atcun_resid1 and segid $atcun_segid and name  O   ) (resid $atcun_resid1 and segid $atcun_segid and name  C   ) 
+      (resid $atcun_resid2 and segid $atcun_segid and name  N   ) (resid $atcun_resid2 and segid $atcun_segid and name  CA  )       $kchi   0       2.12
+
+ IMPR (resid $atcun_resid1 and segid $atcun_segid and name  CA  ) (resid $atcun_resid1 and segid $atcun_segid and name  C   ) 
+      (resid $atcun_resid2 and segid $atcun_segid and name  N   ) (resid $atcun_resid2 and segid $atcun_segid and name  CA  )       $kchi   0    -179.89
+
+ IMPR (resid $atcun_resid3 and segid $atcun_segid and name  CG  ) (resid $atcun_resid3 and segid $atcun_segid and name  CB  ) 
+      (resid $atcun_resid3 and segid $atcun_segid and name  ND1 ) (resid $atcun_resid3 and segid $atcun_segid and name  CD2 )       $kchi   0       1.22
+
+ IMPR (resid $atcun_resid3 and segid $atcun_segid and name  CG  ) (resid $atcun_resid3 and segid $atcun_segid and name  ND1 ) 
+      (resid $atcun_resid3 and segid $atcun_segid and name  CE1 ) (resid $atcun_resid3 and segid $atcun_segid and name  NE2 )       $kchi   0       0.50
+
+ IMPR (resid $atcun_resid3 and segid $atcun_segid and name  ND1 ) (resid $atcun_resid3 and segid $atcun_segid and name  CE1 ) 
+      (resid $atcun_resid3 and segid $atcun_segid and name  NE2 ) (resid $atcun_resid3 and segid $atcun_segid and name  CD2 )       $kchi   0      -0.18
+
+ IMPR (resid $atcun_resid3 and segid $atcun_segid and name  CE1 ) (resid $atcun_resid3 and segid $atcun_segid and name  NE2 ) 
+      (resid $atcun_resid3 and segid $atcun_segid and name  CD2 ) (resid $atcun_resid3 and segid $atcun_segid and name  CG  )       $kchi   0      -0.22
+
+ IMPR (resid $atcun_resid3 and segid $atcun_segid and name  NE2 ) (resid $atcun_resid3 and segid $atcun_segid and name  CD2 ) 
+      (resid $atcun_resid3 and segid $atcun_segid and name  CG  ) (resid $atcun_resid3 and segid $atcun_segid and name  ND1 )       $kchi   0       0.53
+
+ IMPR (resid $atcun_resid3 and segid $atcun_segid and name  CD2 ) (resid $atcun_resid3 and segid $atcun_segid and name  CG  ) 
+      (resid $atcun_resid3 and segid $atcun_segid and name  ND1 ) (resid $atcun_resid3 and segid $atcun_segid and name  CE1 )       $kchi   0      -0.64
+
+ IMPR (resid $atcun_resid2 and segid $atcun_segid and name  O   ) (resid $atcun_resid2 and segid $atcun_segid and name  C   ) 
+      (resid $atcun_resid3 and segid $atcun_segid and name  N   ) (resid $atcun_resid3 and segid $atcun_segid and name  CA  )       $kchi   0       4.04
+
+ IMPR (resid $atcun_resid2 and segid $atcun_segid and name  CA  ) (resid $atcun_resid2 and segid $atcun_segid and name  C   ) 
+      (resid $atcun_resid3 and segid $atcun_segid and name  N   ) (resid $atcun_resid3 and segid $atcun_segid and name  CA  )       $kchi   0    -176.94
+
+
+
+! Parameters manually added, involving Cu+2 and other atoms.
+
+! BONDS
+
+ bond  (resid $atcun_resid1 and segid $atcun_segid and name N)   (resid $atcun_residCu and segid $atcunCu_segid)      $kbon   2.06             
+ bond  (resid $atcun_resid2 and segid $atcun_segid and name N)   (resid $atcun_residCu and segid $atcunCu_segid)      $kbon   1.93    
+ bond  (resid $atcun_resid3 and segid $atcun_segid and name N)   (resid $atcun_residCu and segid $atcunCu_segid)      $kbon   1.94     
+ bond  (resid $atcun_resid3 and segid $atcun_segid and name ND1) (resid $atcun_residCu and segid $atcunCu_segid)      $kbon   1.94
+
+
+
+! ANGLES
+
+ angle (resid $atcun_resid1 and segid $atcun_segid and name N) (resid $atcun_residCu and segid $atcunCu_segid) 
+                                                               (resid $atcun_resid2 and segid $atcun_segid and name N)    $kang   80.67
+ angle (resid $atcun_resid2 and segid $atcun_segid and name N) (resid $atcun_residCu and segid $atcunCu_segid) 
+                                                               (resid $atcun_resid3 and segid $atcun_segid and name N)    $kang   83.38
+ angle (resid $atcun_resid3 and segid $atcun_segid and name N) (resid $atcun_residCu and segid $atcunCu_segid) 
+                                                               (resid $atcun_resid3 and segid $atcun_segid and name ND1)  $kang   95.26
+ angle (resid $atcun_resid1 and segid $atcun_segid and name N) (resid $atcun_residCu and segid $atcunCu_segid) 
+                                                               (resid $atcun_resid3 and segid $atcun_segid and name ND1)  $kang  100.27
+
+ angle (resid $atcun_resid1 and segid $atcun_segid and name N) (resid $atcun_residCu and segid $atcunCu_segid) 
+                                                               (resid $atcun_resid3 and segid $atcun_segid and name N)    $kang  163.79
+ angle (resid $atcun_resid2 and segid $atcun_segid and name N) (resid $atcun_residCu and segid $atcunCu_segid) 
+                                                               (resid $atcun_resid3 and segid $atcun_segid and name ND1)  $kang  173.52
+
+ angle (resid $atcun_resid1 and segid $atcun_segid and name HT2) (resid $atcun_resid1 and segid $atcun_segid and name N) 
+                                                                 (resid $atcun_residCu and segid $atcunCu_segid)          $kang  109.24  ! optimized
+ angle (resid $atcun_resid1 and segid $atcun_segid and name HT1) (resid $atcun_resid1 and segid $atcun_segid and name N) 
+                                                                 (resid $atcun_residCu and segid $atcunCu_segid)          $kang  108.95  ! optimized
+ 
+
+! IMPROPERS
+
+ improper (resid $atcun_resid1 and segid $atcun_segid and name N)   (resid $atcun_resid2 and segid $atcun_segid and name N)
+          (resid $atcun_resid3 and segid $atcun_segid and name ND1) (resid $atcun_resid3 and segid $atcun_segid and name N)   $kchi   0    -177.54
+
+ improper (resid $atcun_resid3 and segid $atcun_segid and name N)  (resid $atcun_resid3 and segid $atcun_segid and name CA)
+          (resid $atcun_resid3 and segid $atcun_segid and name CB) (resid $atcun_resid3 and segid $atcun_segid and name CG)   $kchi   0      59.09
+
+ improper (resid $atcun_resid1 and segid $atcun_segid and name N)  (resid $atcun_resid1 and segid $atcun_segid and name CA)
+          (resid $atcun_resid1 and segid $atcun_segid and name C)  (resid $atcun_resid2 and segid $atcun_segid and name N)    $kchi   0      -3.99  ! 1psi
+
+ improper (resid $atcun_resid1 and segid $atcun_segid and name C)  (resid $atcun_resid2 and segid $atcun_segid and name N)
+          (resid $atcun_resid2 and segid $atcun_segid and name CA) (resid $atcun_resid2 and segid $atcun_segid and name C)    $kchi   0    -155.13  ! 2phi
+
+ improper (resid $atcun_resid2 and segid $atcun_segid and name N)  (resid $atcun_resid2 and segid $atcun_segid and name CA)
+          (resid $atcun_resid2 and segid $atcun_segid and name C)  (resid $atcun_resid3 and segid $atcun_segid and name N)    $kchi   0      -1.56  ! 2psi
+
+ improper (resid $atcun_resid2 and segid $atcun_segid and name C)  (resid $atcun_resid3 and segid $atcun_segid and name N)
+          (resid $atcun_resid3 and segid $atcun_segid and name CA) (resid $atcun_resid3 and segid $atcun_segid and name C)    $kchi   0     -88.54  ! 3phi
+
+ improper (resid $atcun_resid3 and segid $atcun_segid and name N)  (resid $atcun_resid3 and segid $atcun_segid and name CA)
+          (resid $atcun_resid3 and segid $atcun_segid and name C)  (resid $atcun_resid3 and segid $atcun_segid and name O)    $kchi   0      161.72
+
+
+ improper (resid $atcun_resid1 and segid $atcun_segid and name HT1) (resid $atcun_resid1 and segid $atcun_segid and name HT2)
+          (resid $atcun_residCu and segid $atcunCu_segid)           (resid $atcun_resid1 and segid $atcun_segid and name CA)  $kchi   0      68.48
+
+
+
+
+

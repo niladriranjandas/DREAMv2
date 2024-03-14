@@ -1,0 +1,984 @@
+#!/bin/sh -f
+
+#
+#this to prevent open from complaining
+#
+FORTRAN_OPENED_UNITS=200
+
+GREP=grep
+[ `uname | grep ^SunOS >/dev/null` ] && GREP=/usr/xpg4/bin/grep
+
+# choose XPLOR_TMPDIR carefully on multiprocessor machines. Much communication
+# between the Fortran and C++ interfaces employs temporary files. If many
+# processes are vying for io at the same time performance on some filesystems
+# (e.g. ext3) is exceptionally poor. 
+#
+[ -w /dev/shm ] && TMPDIR=/dev/shm                   # on Linux
+[ ! -w "$TMPDIR" ] && TMPDIR=""
+[ "$XPLOR_TMPDIR" != "" ] && TMPDIR=$XPLOR_TMPDIR
+[ "$TMPDIR" = "" ] && TMPDIR=/var/tmp
+
+if echo $TMPDIR |$GREP -qv "xplor-nih-$USER"; then
+    TMPDIR=${TMPDIR}/xplor-nih-$USER-$$
+    rm -rf $TMPDIR 
+fi
+
+[ -d $TMPDIR ] || mkdir $TMPDIR 
+
+
+VMDSCRATCH=$TMPDIR/$USER
+exported="TMPDIR VMDSCRATCH FORTRAN_OPENED_UNITS"
+
+[ "$OMP_NUM_THREADS" = "" ] && OMP_NUM_THREADS=1
+exported="$exported OMP_NUM_THREADS"
+
+[ -d $VMDSCRATCH ] || mkdir $VMDSCRATCH
+[ -d $VMDSCRATCH/xplor ] || mkdir $VMDSCRATCH/xplor
+
+        
+XPLORNIH_BASE_URL=__XPLORNIH_BASE_URL__
+XPLORNIH_HEADERHELP_URL=${XPLORNIH_BASE_URL}/doc/current/headerHelp
+exported="$exported XPLORNIH_HEADERHELP_URL"
+
+XPLOR_DIR=__XPLOR_DIR__
+exported="$exported XPLOR_DIR"
+
+PATH="/usr/bin:/bin:${XPLOR_DIR}/bin:$PATH"; export PATH
+
+ARCH=`uname -sr |sed 's/ /_/g'`
+
+#on Linux redefine ARCH
+[ `uname` = "Linux" ] && ARCH=Linux_`uname -m`
+
+if [ $ARCH = "Linux_i686" ]; then
+    #
+    # ugly Linux-specific semphore cleanup 
+    #
+    SEM=`ipcs -s -c | $GREP "$USER" | sed -e 's/ .*//' | egrep '^[0-9]'`
+    for sem in $SEM; do
+	pid=`ipcs -s -i $sem | tail -2 | head -1 |\
+	    sed 's/.* \([0-9][0-9]* *$\)/\1/'`
+	[ -d /proc/$pid ] || ipcrm sem $sem 2>&1 > /dev/null
+    done	
+fi
+
+if [ $ARCH = "Linux_x86_64" ]; then
+    #2017 Intel compilers have a strong dependence on glibc version 2.12 or
+    #newer, so we split the version there.
+    if [ `$XPLOR_DIR/arch/getGlibcVersion -minor` -lt 12 ]; then
+	ARCH=${ARCH}.old
+    #else
+    #    #
+    #    # ugly Linux-specific hack for Intel compiler bug exposed by change in 
+    #    # glibc git commit fb0f7a6755c1bfaec38f490fbfcaa39a66ee3604 commited
+    #    # 2016-09-06. It is present in glibc-2.25 and patched versions of 
+    #    # glibc-2.24 shipped with some distributions. This workaround is
+    #	# necessary if glibc is 2.24 or newer and Xplor-NIH is compiled with
+    #	# Intel compilers older than 18.0.0.
+    #    #
+    #	LD_BIND_NOW=1
+    #	export LD_BIND_NOW
+    fi
+fi
+
+if [ `uname` = "Darwin" ]; then
+    # only a single binary now
+    ARCH=`uname`
+    #hw=`$XPLOR_DIR/arch/getDarwinCPU`
+    #ARCH=${ARCH}
+    #special workaround for strange problems when multiple processes
+    # try to write to /dev/null
+    #if [ "$hw" != "x86_64" -a "$THREAD_FILENAME" = "" ]; then
+    #	THREAD_FILENAME=$TMPDIR/xplor-nih-scratch
+    #	export THREAD_FILENAME
+    #fi
+fi
+
+if [ -d $XPLOR_DIR/bin.$ARCH ]; then
+    arch=$ARCH
+else
+    #see if arch is in equivList
+    arch=`$GREP ' '${ARCH} $XPLOR_DIR/arch/equivList|cut -d' ' -f1|tail -1`
+fi
+
+[ "$XPLOR_EXE" = "" ] && XPLOR_EXE=$XPLOR_DIR/bin.$arch/xplor
+exported="$exported XPLOR_EXE"
+
+[ -x $XPLOR_EXE ] || { echo "xplor not configured for platform: $ARCH"; 
+			exit 1; }
+
+ARCH=$arch
+exported="$exported ARCH"
+
+LD_LIBPATH_VAR=LD_LIBRARY_PATH
+exported="$exported LD_LIBPATH_VAR"
+
+if [ `uname` = "Darwin" ]; then
+    LD_LIBPATH_VAR=DYLD_LIBRARY_PATH
+    #find libraries which aren't in their install path
+    DYLD_FALLBACK_LIBRARY_PATH=/usr/X11/lib:/lib:/usr/lib:/opt/X11/lib
+    exported="$exported DYLD_FALLBACK_LIBRARY_PATH"
+fi
+
+if [ "$LD_LIBRARYN32_PATH" != "" -a `uname` = "IRIX64" ]; then
+    #special handling for Irix
+    LD_LIBPATH_VAR=LD_LIBRARYN32_PATH
+fi
+
+eval "$LD_LIBPATH_VAR=$XPLOR_DIR/bin.${arch}:\$$LD_LIBPATH_VAR"
+exported="$exported $LD_LIBPATH_VAR"
+
+if [ -d $XPLOR_DIR/bin.$ARCH/xlibs ]; then
+    xlibs_spec="env \
+      $LD_LIBPATH_VAR=$XPLOR_DIR/bin.$ARCH/xlibs:\$$LD_LIBPATH_VAR"
+fi
+
+
+TCL_LIBRARY=$XPLOR_DIR/tcl/bin.${arch}/tcl
+TK_LIBRARY=$XPLOR_DIR/tcl/bin.${arch}/tk
+TCLLIBPATH="$XPLOR_DIR/tcl/bin.${arch} $XPLOR_DIR/bin.${arch}"
+exported="$exported TCL_LIBRARY TCLLIBPATH TK_LIBRARY"
+
+if [ "$XPLORNIH_PYTHONHOME" != "" ]; then
+    PYTHONHOME=$XPLORNIH_PYTHONHOME
+else
+    PYTHONHOME=$XPLOR_DIR/python/bin.${ARCH}
+fi
+if [ -d $PYTHONHOME ]; then
+    exported="$exported PYTHONHOME"
+else
+    unset PYTHONHOME
+fi
+
+PYTHONOPTIMIZE=1
+PYTHONPATH=$XPLOR_DIR/python/bin.${arch}:$PYTHONPATH
+PYTHONPATH=$XPLOR_DIR/python:$XPLOR_DIR/python/wrappers:$PYTHONPATH
+PYTHONPATH=$XPLOR_DIR/bin.${arch}:$PYTHONPATH
+exported="$exported PYTHONPATH PYTHONOPTIMIZE"
+
+XPLOR_HELPDIR=$XPLOR_DIR/helplib/
+exported="$exported XPLOR_HELPDIR"
+
+#xplor database paths
+CHEMSHIFTTENS=$XPLOR_DIR/databases/chemShiftTens
+GAUSSIANS=$XPLOR_DIR/databases/torsions_gaussians
+QUARTS=$XPLOR_DIR/databases/torsions_quarts
+TORSIONS=$XPLOR_DIR/databases/torsions
+[ "$HBPOT" = "" ] && HBPOT=$XPLOR_DIR/databases/hbPot/current
+DNA_DNA_PAIRS=$XPLOR_DIR/databases/dna_dna_pairs
+RNA_RNA_PAIRS=$XPLOR_DIR/databases/rna_rna_pairs
+C13SHIFTS=$XPLOR_DIR/databases/c13shifts
+PROTSHIFTS=$XPLOR_DIR/databases/protshifts
+HBDB=$XPLOR_DIR/databases/hbdb
+SAXS=$XPLOR_DIR/databases/saxs
+SPARTA=$XPLOR_DIR/databases/sparta
+CAMSHIFT1=$XPLOR_DIR/databases/camshift/
+CAMSHIFT2=$XPLOR_DIR/databases/camshift/camshift-2.db
+SYMMETRY=$XPLOR_DIR/deprecated/xtallib
+TOPPAR=${TOPPAR:-$XPLOR_DIR/toppar}
+TOPPAR_C22=$XPLOR_DIR/toppar/charmm22
+exported="$exported GAUSSIANS QUARTS TORSIONS DNA_DNA_PAIRS RNA_RNA_PAIRS C13SHIFTS"
+exported="$exported PROTSHIFTS HBDB SAXS SPARTA SYMMETRY TOPPAR TOPPAR_C22"
+exported="$exported CHEMSHIFTTENS CAMSHIFT1 CAMSHIFT2 HBPOT"
+
+#on SGIs: to dump core on floating point exception
+#TRAP_FPE="UNDERFL=ZERO; OVERFL=ABORT;DIVZERO=ABORT;INVALID=ABORT"
+#export TRAP_FPE
+
+#hack under Darwin: try to synch C/Fortran output
+#
+GFORTRAN_UNBUFFERED_PRECONNECTED=1
+exported="$exported GFORTRAN_UNBUFFERED_PRECONNECTED"
+# these lines needed for gfortran versionsprior to 4.4
+# GFORTRAN_UNBUFFERED_ALL=1
+# exported="$exported GFORTRAN_UNBUFFERED_ALL"
+ 
+#
+# under xlf compiler, to get proper mixed C/Fortran io behavior
+#
+XLFRTEOPTS="buffering=disable_preconn"
+exported="$exported XLFRTEOPTS"
+
+#for echoing commands
+XPLOR_TRACE_LEVEL=${XPLOR_TRACE_LEVEL:-1}
+exported="$exported XPLOR_TRACE_LEVEL"
+
+#process number for parallel jobs
+XPLOR_PROCESS=0
+exported="$exported XPLOR_PROCESS"
+XPLOR_NUM_PROCESSES=1
+exported="$exported XPLOR_NUM_PROCESSES"
+[ "$XPLOR_PPORT_BASE" = "" ] && XPLOR_PPORT_BASE=9021
+[ "$XPLOR_PPORT" = "" ] && \
+    XPLOR_PPORT=`echo "$XPLOR_PPORT_BASE + $$ % 1000" | bc`
+exported="$exported XPLOR_PPORT"
+XPLOR_PHOST=
+exported="$exported XPLOR_PHOST"
+XPLOR_ALLOWSTARTUPFAILURES=1
+exported="$exported XPLOR_ALLOWSTARTUPFAILURES"
+XPLOR_STARTUPDELAY=0.1
+exported="$exported XPLOR_STARTUPDELAY"
+
+#number of processes to use in ensembleSimulation calculations
+NUM_THREADS=${XPLOR_NUM_THREADS:-1}
+exported="$exported NUM_THREADS"
+
+#no command-line option for this yet.
+exported="$exported XPLOR_NOLINEBUFFER"
+
+#jupyter
+JUPYTER_PATH=$XPLOR_DIR/python/jupyter/path
+exported="$exported JUPYTER_PATH"
+
+cingsh=__CINGSH__
+if [ ! -f "$cingsh" ]; then
+    [ "$CINGSH" != "" ] && [ -f "$CINGSH" ] && cingsh=$CINGSH
+fi
+
+parallel_mode=0
+rsh="ssh -n -x"
+
+export $exported
+
+usage () {
+    name=`echo $0 | sed 's/.*\///'`
+    echo "usage: $name [option] [file]"
+    echo
+    echo "where option is one of::"
+    echo
+    echo "     -py              - invoke the Python interpreter"
+    echo "     -py -c <command> - invoke the Python interpreter, running"
+    echo "                         the specified command."
+    echo "     -py -m module... - invoke the Python interpreter, running"
+    echo "                         the specified module."
+    echo "     -pydoc [options] - invoke the pydoc help facility"
+    echo "     -tcl             - invoke the TCL interpreter"
+    echo "     -csh-env         - print csh commands to appropriately set"
+    echo "                        environment to use Xplor-NIH as an extension"
+    echo "                        try: eval \`xplor -csh-env\`"
+    echo "     -sh-env          - same as above for Bourne-derived shells"
+    echo "     -sh              - invoke the /bin/sh interpreter"
+    echo "     -help            - print this message."
+    echo "     -version         - print version info"
+    echo "     -features        - print version info, and a list of features"
+    echo
+    echo "If no file is specified on the command-line, commands will be"
+    echo "read from stdin."
+    echo
+    usage_common
+}
+py_usage () {
+    name=`echo $PROGNAME | sed 's/.*\///'`
+    echo "usage: $name [option] [file]"
+    echo
+    echo "where option is one of::"
+    echo
+    echo "     -c <command>     - invoke the Python interpreter, running"
+    echo "                        the specified command."
+    echo "     -m module...     - invoke the Python interpreter, running"
+    echo "                        the specified module."
+    echo "     -help            - print this message."
+    echo "     -version         - print version info"
+    echo "     -features        - print version info, and a list of features"
+    echo
+    echo "If no file is specified on the command-line, commands will be"
+    echo "read from stdin."
+    echo
+    usage_common
+}
+tcl_usage () {
+    echo "usage: tclXplor [option] [file]"
+    echo
+    echo "where option is one of::"
+    echo
+    echo "     -help            - print this message."
+    echo "     -version         - print version info"
+    echo "     -features        - print version info, and a list of features"
+    echo
+    echo "If no file is specified on the command-line, commands will be"
+    echo "read from stdin."
+    echo
+    usage_common
+}
+usage_common () {
+    echo
+    echo "Common options::"
+    echo
+    echo "     -debug <cmd> - run xplor under debugger given by cmd"
+    echo "     -notrace         - turn command echoing off (set echo=off)"
+    echo "     -quiet           - turn off verbose output (set messages=NONE)"
+    echo "     -nice <#>        - specify a nice (see man nice) increment"
+    echo "     -omp <#>         - specify the number of OpenMP threads to use."
+    echo "                        This overrides the value of the environment"
+    echo "                        variable OMP_NUM_THREADS."
+    echo "                        The default value is 1."
+    echo "     -fpe             - enable detection of floating point exceptions."
+    echo "                        If an overflow, divide by zero occurs, the"
+    echo "                        program will halt and core dumped"
+    echo
+    echo "Options for VMD-XPLOR::"
+    echo
+    echo "     -host        - specify host on which VMD is running"
+    echo "     -port        - specify port for connection to VMD"
+    echo
+    echo "Options for parallel jobs::"
+    echo
+    echo "     -parallel    - spawn multiple jobs on remote hosts"
+    echo "     -machines <list> - list of machines on which to run. This "
+    echo "      option overrides the MACHINES environment variable."
+    echo "     -crash_on_startup - specify this flag if you wish a parallel"
+    echo "                         calculation to fail at startup if any"
+    echo "                         process fails to startup. The default"
+    echo "                         behavior is to continue the full calculation"
+    echo "                         using only those processes which start."
+    echo "     -startup_delay <#> - specify a delay factor for processes"
+    echo "                          connecting to the server (process 0)."
+    echo "                          The delay time is the factor multiplied by"
+    echo "                          the process number."
+    echo "     -pport <port #>  - port for parallel communication. This"
+    echo "                        overrides the environment variable"
+    echo "                        XPLOR_PPORT. By default this value is"
+    echo "                        $XPLOR_PPORT_BASE + PID mod 1000, where"
+    echo "                        PID is the process id."    
+    echo "     -rsh <cmd>       - command to connect to remote machine."
+    echo "                        This overrides env var XPLOR_RSH"
+    echo "                        [default value: $rsh]"
+    echo "     -slurm           - used when called by slurmXplor. Specifies"
+    echo "                        that srun is used to launch each process"
+    echo "                        individually instead of forking N local"
+    echo "                        processes on each node."
+    echo "     -scyld <#>       - on a Scyld cluster, specify the number of"
+    echo "                        structures to run in parallel. This option"
+    echo "                        overrides the environment variable"
+    echo "                        SCYLD_PROCESSES."
+    echo "     -smp <#>         - on a multiprocessor node, specify the number of"
+    echo "                        structures to run in parallel. This option"
+    echo "                        overrides the environment variable"
+    echo "                        SMP_PROCESSES."
+    echo "     -o <file>        - specify prefix for log file."
+    echo "                      name will be file.XPLOR_PROCESS"
+    echo
+    echo "Options for parallelization of ensemble calculations::"
+    echo
+    echo "     -num_threads <#> - number of processors to use in"
+    echo "                        ensemble calculations. This option"
+    echo "                        overrides the environment variable"
+    echo "                        NUM_THREADS"
+    echo "     -thread_filename <file> - prefix for thread output"
+    echo "                               (use for ensemble calculations)"
+    echo
+}
+
+PROGNAME=$0
+
+nice=$XPLOR_NICECMD
+
+XPLOR_PPID=$$
+
+#arguments passed to parallel jobs
+pargs=""
+gethelp=0
+debugCmd=""
+scriptName=""
+slurm=$XPLOR_ISSLURM
+while [ $# -gt 0 ]; do
+ opt=`printf "%s\n"  "$1"|cut -d= -f 1`
+ arg=`printf "%s\n" "$1"|$GREP =|sed 's/[^=]*=\(.*\)/\1/'`
+ shift
+
+ case "$opt" in
+    -*help-common)
+        usage_common
+	exit 0
+    ;;
+    -help|-h|--help)
+        gethelp=1
+    ;;
+    -csh-env)
+        for var in $exported; do
+	    if [ $var != PYTHONHOME ]; then
+		cmd="echo \$$var"
+		echo "setenv $var \""`eval $cmd`\"\;
+	    fi
+	done
+	exit 0
+    ;;
+    -sh)
+	 XPLOR_EXE=/bin/sh
+	 xlibs_spec=""
+	 ;;
+    -sh-env)
+        for var in $exported; do
+	    if [ $var != PYTHONHOME ]; then
+		cmd="echo \$$var"
+		echo "$var=\""`eval $cmd`\"\;
+		echo "export $var"\;
+	    fi
+	done
+	exit 0
+    ;;
+    -features)
+	output=`eval "echo 'cpython \"\"\
+	      ctcl \"\"\
+	      dyna inte end stop' | \
+              $xlibs_spec $XPLOR_EXE"`
+	[ $? -ne 0 ] && exit $?
+	echo $output | sed 's/\([0123456789.][0123456789.]*\).*/\1/'
+	features=""
+        echo $output | $GREP '%ERR: command not available' >/dev/null \
+	    || features="$features C++"
+        echo $output | $GREP '%ERR: PYTHon command not available' >/dev/null \
+	    || features="$features PYTHON"
+        echo $output | $GREP '%ERR: TCL command not available' >/dev/null \
+	    || features="$features TCL"
+	#echo $output
+	echo "features: $features"
+	#echo stop | $XPLOR_EXE | head -1 | sed 's/^[^A-Z]*//'
+	exit 0
+    ;;
+    -version)
+        echo __VERSION__
+	exit 0
+    ;;
+    -debug)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	debugCmd="$arg"
+    ;;
+    -omp)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	OMP_NUM_THREADS=$arg
+	export OMP_NUM_THREADS
+	pargs="$pargs -omp $OMP_NUM_THREADS"
+    ;;
+    -port)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	DP_PORT=$arg
+	export DP_PORT
+	pargs="$pargs -port $DP_PORT"
+    ;;
+    -host)
+	[ "$arg" = "" ] && { arg=$1; shift; }	
+	DP_HOST=$arg
+	export DP_HOST
+	pargs="$pargs -host $DP_HOST"
+    ;;
+    -pport)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	XPLOR_PPORT=$arg
+	export XPLOR_PPORT
+    ;;
+    -nice)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	nice="nice -n $arg"
+	pargs="$pargs -nice $arg"
+    ;;
+    -phost)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	XPLOR_PHOST=$arg
+	export XPLOR_PHOST
+    ;;
+    -parallel)
+	parallel_mode=1
+    ;;
+    -rsh)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	XPLOR_RSH=$arg
+    ;;
+    -startup_delay)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	XPLOR_STARTUPDELAY=$arg
+	pargs="$pargs -startup_delay $arg"
+    ;;
+    -crash_on_startup)
+	XPLOR_ALLOWSTARTUPFAILURES=0
+	export XPLOR_ALLOWSTARTUPFAILURES
+    ;;
+    -ppid)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	XPLOR_PPID=$arg
+    ;;
+    -process)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        XPLOR_PROCESS=$arg
+	export XPLOR_PROCESS
+    ;;
+    -node_filename)
+	 # for internal use only: used by the signal trap handler to
+	 # clean up on irregular exit. It is populated by socketComm.startServer
+	 # on process 0
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	NODE_FILENAME=$arg
+	export NODE_FILENAME
+    ;;
+    -num_processes)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        XPLOR_NUM_PROCESSES=$arg
+	export XPLOR_NUM_PROCESSES
+    ;;
+    -num_threads)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        NUM_THREADS=$arg
+	export NUM_THREADS
+    ;;
+    -thread_filename)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        THREAD_FILENAME=$arg
+	export THREAD_FILENAME
+	pargs="$pargs -thread_filename $THREAD_FILENAME"
+    ;;
+    -directory)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        cd $arg
+    ;; 
+   -machines)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        MACHINES=$arg
+    ;;
+   -notrace)
+	XPLOR_TRACE_LEVEL=0
+	export XPLOR_TRACE_LEVEL
+	pargs="$pargs -notrace"
+	args="$args -notrace"
+    ;;
+   -o)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	outFile=$arg
+	[ "$LAMRANK" != "" ] && outFile="$outFile".$LAMRANK
+	[ "$MPD_JRANK" != "" ] && outFile="$outFile".$MPD_JRANK
+    ;;
+   -p4pg)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        MPI_P4PG=$arg
+	export MPI_P4PG
+    ;;
+   -p4wd)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        MPI_P4WD=$arg
+	export MPI_P4WD
+    ;;
+   -pydoc)
+        args="-quiet -notrace -py $XPLOR_DIR/python/xplorDoc.py"
+    ;;
+   -program_name)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        PROGNAME=$arg
+    ;;
+   -scyld)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        SCYLD_PROCESSES=$arg
+	parallel_mode=1
+    ;;
+   -slurm)
+       rsh="srun --nodes=1 --ntasks=1 --hint=compute_bound -w"
+       #option available in SLURM version 18: --cpu-bind=verbose
+       parallel_mode=1
+       slurm=true
+    ;;
+   -smp)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        SMP_PROCESSES=$arg
+	parallel_mode=1
+	;;
+   -argfile)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        argfile=$arg
+        [ -f "$argfile" ] || { echo "file argument to -argfile does not exist"
+                               exit 1; }
+	args="$args `cat $argfile`"
+        rm $argfile
+	;;
+   *)
+       echo $opt | $GREP -q '^[a-zA-Z/0-9.]' && \
+	   [ "$scriptName" = "" ] && scriptName=$opt
+       
+       if [ "$arg" = "" ]; then
+	   arg=`printf "%s\n" "$opt"|sed s/"'"/%q%/g`
+       else
+           arg=`printf "%s\n" "$opt=$arg"|sed s/"'"/%q%/g`
+       fi
+       args="$args '""$arg""'"
+    ;;
+ esac
+done
+
+if [ -z "$PDF_OPEN_COMMAND" ]; then
+    PDF_OPEN_COMMAND="xdg-open"
+    [ `uname` = "Darwin" ] && PDF_OPEN_COMMAND="open"
+fi
+export PDF_OPEN_COMMAND
+    
+
+export XPLOR_PPID
+export PROGNAME
+
+if [ $gethelp -eq 1 ]; then
+    if  echo "$args" | $GREP -q -e '-pyshell';then
+	args="$args '""--help-script""'"
+
+	if [ "$scriptName" != "" ]; then
+	    { usage_common ; } | eval "$nice $xlibs_spec $XPLOR_EXE $args"
+	else
+	    py_usage
+	fi
+	exit 0 
+    elif  echo "$args" | $GREP -q -e '-tcl';then
+	args="$args '""--help-script""'"
+	tcl_usage
+	exit 0
+    else
+	usage
+	exit 0
+    fi
+fi
+
+[ -f "$cingsh" ] && . $cingsh
+
+if [ "$scriptName" != "" ]; then
+    echo $scriptName | $GREP -q '\.py$' && {
+	echo $args | $GREP -q -- -py || args="-py $args"
+    }
+    echo $scriptName | $GREP -q '\.tcl$' && {
+	echo $args | $GREP -q -- -tcl || args="-tcl $args"
+    }
+fi
+
+if [ -f "$MACHINES" ]; then
+    MACHINES=`$GREP -v ^# $MACHINES`
+fi
+
+
+if [ "$SMP_PROCESSES" != "" ]; then
+    if [ "$MACHINES" = "" ]; then
+	while [ $SMP_PROCESSES -gt 0 ]; do
+	    SMP_PROCESSES=`expr $SMP_PROCESSES - 1`
+	    MACHINES="$MACHINES localhost"
+	done
+    fi
+fi
+
+#host names or addresses corresponding to MACHINES
+MACHINE_HOSTS=$MACHINES
+
+if [ $parallel_mode -ne 0 -a "$SCYLD_PROCESSES" != "" ]; then
+    parallel_mode=1
+    XPLOR_RSH=bpsh
+    # MACHINES can be manually set
+    # 
+    # idea behind the logic below:
+    #   pack the jobs on cluster nodes, such that each one of num_threads
+    #   processes gets a single core.
+    #
+    if [ "$MACHINES" = "" ]; then
+	allNodes=`beomap --nolocal --np $SCYLD_PROCESSES|\
+		sed 's/:/\n/g'|uniq`
+	cnt=0
+	MACHINES=
+	[ $NUM_THREADS -lt 1 ] && NUM_THREADS=1
+	for node in $allNodes; do
+	    load=`beostat --node=$node | $GREP -A 1 "loadavg" | \
+		tail -1 | cut -d \  -f 1`
+	    if [ `echo "$load > 1.1" | bc` -eq 1 ]; then
+		continue
+	    fi
+	    np=`beostat --node=$node --cpuinfo | \
+		$GREP "num processors" | sed 's/[^0-9]*\([0-9]*\)/\1/'`
+	    cnt1=$NUM_THREADS
+	    while [ $cnt1 -le $np ]; do
+		MACHINES="$MACHINES $node"
+		cnt1=`expr $cnt1 + $NUM_THREADS`
+		cnt=`expr $cnt + 1`
+		[ $cnt -ge $SCYLD_PROCESSES ] && break 2
+	    done
+	done
+    fi
+    MACHINE_HOSTS=""
+    for machine in $MACHINES; do
+	addr=`bpstat -a $machine`
+	MACHINE_HOSTS="$MACHINE_HOSTS $addr"
+    done
+    echo "MACHINES     : $MACHINES"
+    SCYLD_PROCESSES=
+    export SCYLD_PROCESSES
+fi
+
+
+
+if [ $parallel_mode -ne 0 -a "$MACHINES" = "" ]; then
+    echo "no machines specified. Disabling -parallel..."
+    parallel_mode=0
+fi
+
+if [ $parallel_mode -eq 0 ]; then
+    [ "$debugCmd" = "" ] || XPLOR_EXE="$xlibs_spec $debugCmd $XPLOR_EXE"
+    
+    if  [ "$outFile" =  "" ]; then
+        eval $nice $xlibs_spec $XPLOR_EXE $args 9>&1 
+    else
+	[ $XPLOR_PROCESS -gt 0 ] && outFile="$outFile.$XPLOR_PROCESS"
+        eval $nice $xlibs_spec $XPLOR_EXE $args 9>&1 > $outFile 2>&1
+    fi 
+    ret=$?
+    echo $TMPDIR | $GREP -q xplor-nih-$USER-$$ && rm -rf $TMPDIR
+    exit $ret
+fi
+
+#
+# now in parallel mode
+#
+
+children=""
+
+#
+# read stdin if we can
+#
+if [ ! -t 0 ]; then
+    inputFile=".xplorInput.$$"
+    cat > $inputFile
+    [ -s $inputFile ] || inputFile=""
+fi
+
+[ "$XPLOR_RSH" != "" ] && rsh=$XPLOR_RSH
+
+if [ $XPLOR_NUM_PROCESSES -eq 1 ]; then
+    numProcs=0
+    allLocal=t
+    for host in $MACHINE_HOSTS; do
+	eval "host$numProcs=$host"
+	numProcs=`expr $numProcs + 1`
+	[ "$host" != "localhost" ] && allLocal=f
+    done
+else
+    numProcs=$XPLOR_NUM_PROCESSES
+fi
+
+if [ "$XPLOR_PHOST" = "" ]; then
+    XPLOR_PHOST=$host0
+    # if there are nonlocal machines in $MACHINE_HOSTS, XPLOR_PHOST
+    # must be a proper host name.
+    [ "$XPLOR_PHOST" = "localhost" -a "$allLocal" = "f" ] \
+	&& XPLOR_PHOST=`hostname`
+fi
+
+[ "$outFile" = "" ] && outFile=xplor.log.$$
+
+dir=`pwd`
+tmpdir=$TMPDIR
+cpuset=`cpuset -w $$  2>/dev/null`
+if [ `uname | $GREP -q ^SunOS` ]; then
+    numa_nodes=""
+elif [ "$cpuset" != "" ]; then
+    noderanges=`cpuset -d $cpuset | \
+	grep ^mems|sed 's/^mems //' | sed 's/,/ /g'`
+    numa_nodes=""
+    for noderange in $noderanges; do
+	if `echo $noderange | $GREP -q -- -`; then
+	    cnt=`echo $noderange | cut -d- -f 1`
+	    end=`echo $noderange | cut -d- -f 2`
+	    while [ $cnt -le $end ]; do
+		numa_nodes="$numa_nodes $cnt"
+		cnt=`expr $cnt + 1`
+	    done
+	else
+	    numa_nodes="$numa_nodes $noderange"
+	fi
+    done
+    echo "numa_nodes: $numa_nodes"
+else
+    numa_nodes=`numactl --show 2>/dev/null|$GREP ^nodebind: | \
+                 sed 's/nodebind://'`
+fi
+
+num_numa_nodes=`echo $numa_nodes | wc -w`
+numaNodesAvailable=,`echo $numa_nodes | sed 's/ /,/g'`,
+for node in $numa_nodes; do
+    eval "numaNodeAllocated$node=0"
+    cores=`find /sys/devices/system/node/node$node \
+          -maxdepth 1 -name 'cpu[0-9]*' -print|wc -l`
+    eval "numaNodeCount$node=$cores"
+done
+nodeFilename=".nodeInfo.$$"
+
+cmdBase="$0 -ppid $XPLOR_PPID"
+cmdBase="$cmdBase -pport $XPLOR_PPORT -phost $XPLOR_PHOST"
+if [ $XPLOR_ALLOWSTARTUPFAILURES -eq 0 ]; then
+    cmdBase="$cmdBase -crash_on_startup"
+fi
+cmdBase="$cmdBase $pargs"
+cmdBase="$cmdBase -num_threads $NUM_THREADS"
+[ "$debugCmd" = "" ] || cmdBase="$cmdBase -debug $debugCmd"
+
+cmdBase="$cmdBase -o $outFile"
+
+#machine names are not sorted. The maximum rsh efficiency will
+#occur if they are grouped by hostname.
+#count number of machine
+countMachines=`echo $MACHINES | tr ' ' '\n' | uniq -c | \
+    sed 's/^ *//' | sed 's/[ \t]/:/'`
+count=0
+
+#one rsh command per node in these cases
+# special workaround for ppc macs
+[ `uname` = "Darwin" -a "$hw" = "ppc" ] && \
+    countMachines=`echo $MACHINES | tr ' ' '\n' | sed 's/^/1:/'`
+
+#This is for slurm when using srun- it should use one srun per process
+echo $rsh | grep -q ^srun && \
+    countMachines=`echo $MACHINES | tr ' ' '\n' | sed 's/^/1:/'`
+
+for countMachine in $countMachines; do
+    machCount=`echo $countMachine | cut -d : -f 1`
+    machine=`echo $countMachine | cut -d : -f 2`
+
+    if [ "$machine" = "localhost" ]; then
+	count=`expr $count + $machCount`
+	continue
+    fi
+
+    # use argfile option when spawning via $rsh, because we can't control
+    # how shell-special characters might be interpreted in this case.
+    argfile=.argfile.$$.$count
+    echo $args > $argfile
+    cmd="$cmdBase -directory $dir -argfile $argfile"
+    cmd="$cmd -process $count -num_processes $numProcs"
+    if [ $machCount -gt 1 ]; then
+	cmd="$cmd -smp $machCount"
+    fi
+    if [ $numProcs -gt 1 -a $count -eq 0 ]; then
+	cmd="$cmd -node_filename=$nodeFilename"
+    fi
+    if [ "$inputFile" != "" ]; then
+	cmd="$cmd `pwd`/$inputFile"
+    fi
+
+    eval $rsh $machine $cmd &
+
+    children="$children $!"
+    eval "child$count=$!"
+    count=`expr $count + $machCount`
+done
+
+[ "$NODE_FILENAME" != "" ] && nodeFilename=$NODE_FILENAME
+count=$XPLOR_PROCESS
+numa_count=0
+localMachine=`hostname`
+for machine in $MACHINES; do
+    if [ $machine != localhost ]; then
+	count=`expr $count + 1`
+	continue
+    fi
+
+    cmd="$cmdBase $args -process $count -num_processes $numProcs"
+    if [ $numProcs -gt 1 ]; then
+	if [ $count -eq 0 ]; then
+	    cmd="$cmd -node_filename=$nodeFilename"
+	    firstMachine=$machine
+	fi
+    fi
+
+    # conserve privileged ports, resources:
+    # remap all machines on this host to localhost s.t. $rsh is not used
+    # for them.
+    if [ $machine = "$firstMachine" -a \
+	"$localMachine" = "$firstMachine" ]; then
+	machine=localhost
+    fi
+
+    if [ "$inputFile" != "" ]; then
+	cmd="$cmd `pwd`/$inputFile"
+    fi
+    if [ "$numa_nodes" != "" ]; then
+	#run jobs efficiently on linux numa machines using numabind
+	# this assumes that all nodes returned by numactl --show
+	# are dedicated to the running job.
+	ncpus=0
+	nodes=""
+	threadsToGo=$NUM_THREADS
+	while /bin/true; do
+	    if echo $numaNodesAvailable  | egrep -qv '[0-9]'; then
+		echo "Warning: out of numa cores."
+		echo "  Running process $count non-numa aware (inefficiently)."
+		break
+	    fi
+
+	    useNode=1
+	    field=`expr $numa_count % $num_numa_nodes + 1`
+	    numa_count=`expr $numa_count + 1`
+	    node=`echo $numa_nodes|cut -d' ' -f $field`
+	    eval 'nncpus=$'numaNodeCount$node
+	    eval 'prevAllocated=$'numaNodeAllocated$node
+	    ncpusToUse=`echo \
+		"if ( $nncpus<$threadsToGo ) $nncpus else $threadsToGo" | bc`
+	    nna=`expr $prevAllocated + $ncpusToUse`
+	    eval 'nnc=$'numaNodeCount$node
+	    if [ $nna -gt $nnc ]; then
+		ncpusToUse=`expr $nnc - $prevAllocated`
+		eval "numaNodeAllocated$node=$nnc"
+#		echo "ncpusToUse: $ncpusToUse"
+		if [ $ncpusToUse -le 0 ]; then
+		    useNode=0
+		    numaNodesAvailable=`echo $numaNodesAvailable | \
+			sed 's/[^0-9]'$node'[^0-9]/,/'`
+		fi
+	    else
+		eval "numaNodeAllocated$node=$nna"
+	    fi
+	    [ $useNode -eq 1 ] && nodes=$nodes$node
+	    ncpus=`expr $ncpus + $ncpusToUse`
+	    threadsToGo=`expr $threadsToGo - $ncpusToUse`
+	    # We want NUM_THREADS to not be greater than ncpus,
+	    # otherwise we get poor performance. If a single node
+	    # doesn't have enough cores, we still win by specifying a
+	    # small number of nodes, because communication is localized.
+	    if [ $threadsToGo -le 0 ]; then
+		echo "${count}: running under numactl using nodes: $nodes"
+		cmd="numactl --cpunodebind=$nodes -- $cmd"
+		break
+	    fi
+	    [ $useNode -eq 1 ] && nodes=$nodes,
+	done
+    fi
+    # redirecting stdin is a hack to work around some fortran runtimes
+    # which have a problem with stdin coming from /dev/null
+    eval env TMPDIR=$tmpdir/proc-$count $cmd </etc/passwd &
+    children="$children $!"
+    eval "child$count=$!"
+    count=`expr $count + 1`
+done
+
+
+
+[ "$child0" = "" ] && exit 0
+
+#the remainder is for process 0 only
+
+killChildren () {
+    trap - INT
+    trap - TERM
+    kill $children
+    
+    for nodePID in `sed 's/ /+/g' < $nodeFilename`; do
+	node=`echo $nodePID | cut -d+ -f 1`
+	pid=`echo $nodePID | cut -d+ -f 2`
+	if [ "$machine" = "localhost" ]; then
+	    kill $pid
+	else
+	    $rsh $node kill $pid
+	fi
+    done
+    rm -f $nodeFilename
+}
+
+trap killChildren INT TERM
+
+
+#
+# wait for first child to finish
+#
+wait $child0
+
+#clean up
+
+echo $TMPDIR | $GREP -q xplor-nih-$USER-$$ && rm -rf $TMPDIR
+[ "$inputFile" = "" ] || rm -f $inputFile
+rm -f $nodeFilename
+

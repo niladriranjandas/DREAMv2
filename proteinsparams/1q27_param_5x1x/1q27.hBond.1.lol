@@ -1,0 +1,110 @@
+ 22 ILE  H       9 LEU  O       1.80
+ 22 ILE  N       9 LEU  O       2.80
+  9 LEU  H      22 ILE  O       1.80
+  9 LEU  N      22 ILE  O       2.80
+ 13 ASN  H      17 GLU  O       1.80
+ 13 ASN  N      17 GLU  O       2.80
+ 20 GLY  H      11 LEU  O       1.80
+ 20 GLY  N      11 LEU  O       2.80
+ 11 LEU  H      20 GLY  O       1.80
+ 11 LEU  N      20 GLY  O       2.80
+ 68 VAL  H      39 ALA  O       1.80
+ 68 VAL  N      39 ALA  O       2.80
+ 70 GLY  H      37 VAL  O       1.80
+ 70 GLY  N      37 VAL  O       2.80
+ 37 VAL  H      70 GLY  O       1.80
+ 37 VAL  N      70 GLY  O       2.80
+ 39 ALA  H      68 VAL  O       1.80
+ 39 ALA  N      68 VAL  O       2.80
+ 36 VAL  H     115 PHE  O       1.80
+ 36 VAL  N     115 PHE  O       2.80
+ 38 ASN  H     117 CYS  O       1.80
+ 38 ASN  N     117 CYS  O       2.80
+ 40 PHE  H     119 TYR  O       1.80
+ 40 PHE  N     119 TYR  O       2.80
+119 TYR  H      38 ASN  O       1.80
+119 TYR  N      38 ASN  O       2.80
+121 LEU  H      40 PHE  O       1.80
+121 LEU  N      40 PHE  O       2.80
+120 GLU  H     100 ARG  O       1.80
+120 GLU  N     100 ARG  O       2.80
+118 VAL  H     103 ALA  O       1.80
+118 VAL  N     103 ALA  O       2.80
+105 PHE  H     116 MET  O       1.80
+105 PHE  N     116 MET  O       2.80
+102 LEU  H     118 VAL  O       1.80
+102 LEU  N     118 VAL  O       2.80
+103 ALA  H     118 VAL  O       1.80
+103 ALA  N     118 VAL  O       2.80
+100 ARG  H     120 GLU  O       1.80
+100 ARG  N     120 GLU  O       2.80
+117 CYS  H      36 VAL  O       1.80
+117 CYS  N      36 VAL  O       2.80
+115 PHE  H      34 VAL  O       1.80
+115 PHE  N      34 VAL  O       2.80
+123 SER  H      42 ARG  O       1.80
+123 SER  N      42 ARG  O       2.80
+116 MET  H     105 PHE  O       1.80
+116 MET  N     105 PHE  O       2.80
+122 ARG  H      98 SER  O       1.80
+122 ARG  N      98 SER  O       2.80
+ 50 ILE  H     138 GLU  O       1.80
+ 50 ILE  N     138 GLU  O       2.80
+ 48 LEU  H     140 LEU  O       1.80
+ 48 LEU  N     140 LEU  O       2.80
+140 LEU  H      48 LEU  O       1.80
+140 LEU  N      48 LEU  O       2.80
+138 GLU  H      50 ILE  O       1.80
+138 GLU  N      50 ILE  O       2.80
+ 49 TRP  H      41 LEU  O       1.80
+ 49 TRP  N      41 LEU  O       2.80
+ 42 ARG  H     121 LEU  O       1.80
+ 42 ARG  N     121 LEU  O       2.80
+ 43 ASN  H      47 GLN  O       1.80
+ 43 ASN  N      47 GLN  O       2.80
+ 47 GLN  H      43 ASN  O       1.80
+ 47 GLN  N      43 ASN  O       2.80
+ 81 ALA  H      77 THR  O       1.80
+ 81 ALA  N      77 THR  O       2.80
+ 82 PHE  H      78 TYR  O       1.80
+ 82 PHE  N      78 TYR  O       2.80
+ 83 ARG  H      79 GLU  O       1.80
+ 83 ARG  N      79 GLU  O       2.80
+ 84 ARG  H      80 GLU  O       1.80
+ 84 ARG  N      80 GLU  O       2.80
+ 85 GLU  H      81 ALA  O       1.80
+ 85 GLU  N      81 ALA  O       2.80
+ 86 ALA  H      82 PHE  O       1.80
+ 86 ALA  N      82 PHE  O       2.80
+ 87 ARG  H      83 ARG  O       1.80
+ 87 ARG  N      83 ARG  O       2.80
+ 88 GLU  H      84 ARG  O       1.80
+ 88 GLU  N      84 ARG  O       2.80
+145 LEU  H     141 THR  O       1.80
+145 LEU  N     141 THR  O       2.80
+146 LEU  H     142 PRO  O       1.80
+146 LEU  N     142 PRO  O       2.80
+147 ALA  H     143 GLU  O       1.80
+147 ALA  N     143 GLU  O       2.80
+148 ARG  H     144 HIS  O       1.80
+148 ARG  N     144 HIS  O       2.80
+149 ILE  H     145 LEU  O       1.80
+149 ILE  N     145 LEU  O       2.80
+150 ALA  H     146 LEU  O       1.80
+150 ALA  N     146 LEU  O       2.80
+167 TYR  H     163 VAL  O       1.80
+167 TYR  N     163 VAL  O       2.80
+166 CYS  H     162 LEU  O       1.80
+166 CYS  N     162 LEU  O       2.80
+165 ARG  H     161 GLU  O       1.80
+165 ARG  N     161 GLU  O       2.80
+164 ARG  H     160 ALA  O       1.80
+164 ARG  N     160 ALA  O       2.80
+163 VAL  H     159 LEU  O       1.80
+163 VAL  N     159 LEU  O       2.80
+162 LEU  H     158 ASP  O       1.80
+162 LEU  N     158 ASP  O       2.80
+161 GLU  H     157 GLY  O       1.80
+161 GLU  N     157 GLY  O       2.80
+160 ALA  H     156 LYS  O       1.80
+160 ALA  N     156 LYS  O       2.80

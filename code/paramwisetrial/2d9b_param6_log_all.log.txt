@@ -1,0 +1,217 @@
+Found PARAM file
+Found PARAM file
+Found PARAM file
+Found PARAM file
+Found PARAM file
+Found PARAM file
+Found PARAM file
+Found PARAM file
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+MATLAB is selecting SOFTWARE OPENGL rendering.
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                               March 8, 2019
+
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                               March 8, 2019
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+>> 
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                               March 8, 2019
+
+>> 
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                               March 8, 2019
+
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                               March 8, 2019
+
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                               March 8, 2019
+
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                               March 8, 2019
+
+
+                            < M A T L A B (R) >
+                  Copyright 1984-2019 The MathWorks, Inc.
+                  R2019a (9.6.0.1072779) 64-bit (glnxa64)
+                               March 8, 2019
+
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+>> >> >>  
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+ 
+To get started, type doc.
+For product information, visit www.mathworks.com.
+ 
+>> >> >> [Warning: Directory access failure:
+/data2/nmr/our_algo_final/packages/xplor-nih-3.0.3/python/bin.Linux_x86_64/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local] 
+[> In path (line 109)
+  In addpath (line 86)] 
+[Warning: Name is nonexistent or not a directory:
+/data2/nmr/our_algo_final/protein/2d9b_param6] 
+[> In path (line 109)
+  In addpath (line 86)] 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+omit = 
+
+  struct with fields:
+
+    percent: 0
+
+>> >> >> >> [Warning: Directory access failure:
+/data2/nmr/our_algo_final/packages/xplor-nih-3.0.3/python/bin.Linux_x86_64/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local] 
+[> In path (line 109)
+  In addpath (line 86)] 
+[Warning: Name is nonexistent or not a directory:
+/data2/nmr/our_algo_final/protein/2d9b_param6] 
+[> In path (line 109)
+  In addpath (line 86)] 
+>> >> >> >> >> >> >> >> >> >> >> >> [Warning: Directory access failure:
+/data2/nmr/our_algo_final/packages/xplor-nih-3.0.3/python/bin.Linux_x86_64/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local] 
+[> In path (line 109)
+  In addpath (line 86)] 
+[Warning: Name is nonexistent or not a directory:
+/data2/nmr/our_algo_final/protein/2d9b_param6] 
+[> In path (line 109)
+  In addpath (line 86)] 
+>> >> >> 
+omit = 
+
+  struct with fields:
+
+    percent: 0
+
+>> >> >> [Warning: Directory access failure:
+/data2/nmr/our_algo_final/packages/xplor-nih-3.0.3/python/bin.Linux_x86_64/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local] 
+[> In path (line 109)
+  In addpath (line 86)] 
+[Warning: Name is nonexistent or not a directory:
+/data2/nmr/our_algo_final/protein/2d9b_param6] 
+[> In path (line 109)
+  In addpath (line 86)] 
+>> >> >> [Warning: Directory access failure:
+/data2/nmr/our_algo_final/packages/xplor-nih-3.0.3/python/bin.Linux_x86_64/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local] 
+[> In path (line 109)
+  In addpath (line 86)] 
+[Warning: Name is nonexistent or not a directory:
+/data2/nmr/our_algo_final/protein/2d9b_param6] 
+[> In path (line 109)
+  In addpath (line 86)] 
+>> [Warning: Directory access failure:
+/data2/nmr/our_algo_final/packages/xplor-nih-3.0.3/python/bin.Linux_x86_64/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local] 
+[> In path (line 109)
+  In addpath (line 86)] 
+[Warning: Name is nonexistent or not a directory:
+/data2/nmr/our_algo_final/protein/2d9b_param6] 
+[> In path (line 109)
+  In addpath (line 86)] 
+[Warning: Directory access failure:
+/data2/nmr/our_algo_final/packages/xplor-nih-3.0.3/python/bin.Linux_x86_64/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local] 
+[> In path (line 109)
+  In addpath (line 86)] 
+[Warning: Name is nonexistent or not a directory:
+/data2/nmr/our_algo_final/protein/2d9b_param6] 
+[> In path (line 109)
+  In addpath (line 86)] 
+>> [Warning: Directory access failure:
+/data2/nmr/our_algo_final/packages/xplor-nih-3.0.3/python/bin.Linux_x86_64/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local/local] 
+[> In path (line 109)
+  In addpath (line 86)] 
+[Warning: Name is nonexistent or not a directory:
+/data2/nmr/our_algo_final/protein/2d9b_param6] 
+[> In path (line 109)
+  In addpath (line 86)] 
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+omit = 
+
+  struct with fields:
+
+    percent: 0
+
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+omit = 
+
+  struct with fields:
+
+    percent: 0
+
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 
+omit = 
+
+  struct with fields:
+
+    percent: 0
+
+>> >> >> >> >> >> >> >> >> >> >> >> 
+omit = 
+
+  struct with fields:
+
+    percent: 0
+
+>> >> >> >> >> >> 
+omit = 
+
+  struct with fields:
+
+    percent: 0
+
+>> 
+omit = 
+
+  struct with fields:
+
+    percent: 0
+
+>> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> >> 

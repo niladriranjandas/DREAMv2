@@ -1,0 +1,68 @@
+
+vector do (segid = DNA1) (resid 101:114)
+vector do (segid = DNA2) (resid 115:128)
+
+
+!vector do (segid = DNA1) (resid 101:105 or resid 111:114)
+!vector do (segid = DNA2) (resid 115:118 or resid 124:128)
+
+
+vector identify (store9) (segid DNA1 or segid DNA2)
+
+vector do (ustring = "") (all)
+vector do (ustring = "DNA2") (segid DNA1)
+vector do (ustring = "DNA1") (segid DNA2)
+
+vector do (store4 = 0) (all)
+
+vector do (store4 = 128) (resid 101)
+vector do (store4 = 127) (resid 102)
+vector do (store4 = 126) (resid 103)
+vector do (store4 = 125) (resid 104)
+vector do (store4 = 124) (resid 105)
+vector do (store4 = 123) (resid 106)
+vector do (store4 = 122) (resid 107)
+vector do (store4 = 121) (resid 108)
+vector do (store4 = 120) (resid 109)
+vector do (store4 = 119) (resid 110)
+vector do (store4 = 118) (resid 111)
+vector do (store4 = 117) (resid 112)
+vector do (store4 = 116) (resid 113)
+vector do (store4 = 115) (resid 114)
+
+vector do (store4 = 114) (resid 115)
+vector do (store4 = 113) (resid 116)
+vector do (store4 = 112) (resid 117)
+vector do (store4 = 111) (resid 118)
+vector do (store4 = 110) (resid 119)
+vector do (store4 = 109) (resid 120)
+vector do (store4 = 108) (resid 121)
+vector do (store4 = 107) (resid 122)
+vector do (store4 = 106) (resid 123)
+vector do (store4 = 105) (resid 124)
+vector do (store4 = 104) (resid 125)
+vector do (store4 = 103) (resid 126)
+vector do (store4 = 102) (resid 127)
+vector do (store4 = 101) (resid 128)
+
+
+!set echo off message off end
+orient
+   nres 10000
+   residues 10000
+   scale 0.6
+!   cuto=-10
+!   height = 4.5
+    shape quart
+    @/net/octave1/clore/xplor_charles/rna_rna_pairs/rna_quarts.tbl
+end
+set echo on message on end
+
+@/net/octave2/clore/xplor_40/dna_dna_pairs/dna_gaussians_bases_setup.tbl
+
+
+vector do (segid = "") (segid DNA1)
+vector do (segid = "") (segid DNA2)
+
+
+

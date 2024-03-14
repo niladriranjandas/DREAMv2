@@ -1,0 +1,245 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+
+#
+# cluster molecular structures by distance RMSD using the given atom
+# selection
+
+sel="name CA"
+fitSel=None
+noFit=False
+tol=1.
+psf=None
+
+(options,args) = xplor.parseArguments(("psf:1",
+                                       "selection:1",
+                                       "fitSelection:1",
+				       "noFit:0",
+                                       "tolerance:1"),
+                                      cmdline="[option] <pdb files>",
+                                      description="""
+This script clusters structures by their positional RMSD, using the given
+atom selection. 
+                                      """,
+                                      usageString="""
+ where options are zero or more of::
+
+   -psf=<psf file>
+   -selection=<atoms to consider for clustering [%s]>
+   -fitSelection=<atoms to use for fitting [defauts to -selection]>
+   -noFit
+   -tolerance=<distance tol used to exit algorithm [%f]>
+
+ If -noFit is specified, then the structures are not fit before 
+ being clustered.
+
+ Initially, each structure is in a separate cluster. The algorithm to
+ combine these clusters is as follows: 
+
+   1) find closest clusters, combine these
+   2) generate a new distance matrix, where now distance between clusters is
+      the shortest structure-structure distance of the clusters
+   3) repeat until the shortest distance is larger than the tolerance
+
+ The result is printed to stdout.
+
+ If the -psf option is not given, PSF information is automatically generated
+ from the input PDB. All input structures must have the same PSF.
+
+""" % (sel, tol)
+)
+
+#
+#specify selection used for fitting structures and measuring
+# interstructure distance
+for option in options:
+    if option[0]=="psf":
+        psf=option[1]
+        pass
+    if option[0]=="selection":
+        sel = option[1]
+        pass
+    if option[0]=="fitSelection":
+        fitSel = option[1]
+        pass
+    if option[0]=="noFit":
+        noFit=True
+        pass
+    if option[0]=="tolerance":
+        tol = float(option[1])
+        pass
+    pass
+
+#split long selections into multiple lines
+selWords=sel.split()
+sel=""
+line=""
+for word in selWords:
+    if len(word)+len(line) < 80:
+        line += word + " "
+    else:
+        sel += line + '\n'
+        line=word + " "
+        pass
+    pass
+sel += line
+
+if not fitSel: fitSel=sel
+
+if len(args)<1:
+    raise Exception("must specify at least one structure file")
+
+import protocol
+# generate psf
+if psf:
+    protocol.initStruct(psf)
+else:
+    import psfGen
+    psfGen.pdbToPSF(args[0])
+    pass
+protocol.initCoords(args[0])
+
+xplor.command("delete sele=(not known) end")
+print("number of atoms: %d" % xplor.simulation.numAtoms())
+
+# read in structures fit to first file
+saveCoords=[ xplor.simulation.atomPosArr() ]
+from atomSelAction import Fit, RMSD
+from atomSel import AtomSel
+import sys
+print('reading coordinate files...', end=' ') ; sys.stdout.flush()
+for file in args[1:]:
+    protocol.initCoords(file)
+    if not noFit:
+        AtomSel(sel).apply( Fit(saveCoords[0],fitSel) )
+        pass
+    saveCoords.append( xplor.simulation.atomPosArr() )
+    pass
+print('  read %d files' % len(saveCoords))
+
+
+#compute distance matrix
+distances=[]
+for i in range(len(saveCoords)):
+    distances.append( [0]*len(saveCoords) )
+    pass
+
+for i in range(len(saveCoords)):
+    measure = RMSD(saveCoords[i])
+    for j in range(i+1,len(saveCoords)):
+        xplor.simulation.setAtomPosArr( saveCoords[j] )
+        AtomSel(sel).apply( measure )
+        distances[i][j] =  measure.rmsd()
+        distances[j][i] =  measure.rmsd()
+        pass
+    pass
+
+# print distances
+
+class Cluster:
+    def __init__(s,initMember):
+        s.members=[initMember]
+        pass
+    def combine(s,otherCluster):
+        for m in otherCluster.members:
+            s.members.append(m)
+            pass
+        pass
+    pass
+
+def calcClusterDistances(clusters):
+    """ calculate the nearest distance between two clusters
+    """
+    cDistances=[]
+    for i in range(len(clusters)):
+        cDistances.append( [1e30]*len(clusters) )
+    for i in range(len(clusters)):
+        for j in range(i+1,len(clusters)):
+            for ki in clusters[i].members:
+                for kj in clusters[j].members:
+                    if distances[ki][kj] < cDistances[i][j]:
+                        cDistances[i][j] = distances[ki][kj]
+                        pass
+                    pass
+                pass
+            pass
+        pass
+    return cDistances
+
+def findSmallestDistance(distances):
+    smallest=1e30
+    iSave=-1
+    jSave=-1
+    for i in range(len(distances)):
+        for j in range(i+1,len(distances)):
+            if distances[i][j]<smallest:
+                iSave=i
+                jSave=j
+                smallest=distances[i][j]
+                pass
+            pass
+        pass
+    return (iSave,jSave,smallest)
+        
+    
+
+clusters=[]
+# initially, each structure is a cluster
+for i in range(len(saveCoords)):
+    clusters.append(Cluster(i))
+    pass
+
+
+# 1) find closest clusters, combine these
+# 2) generate a new distance matrix, where now distance between clusters is
+#    the shortest strucuture-structure distance of the clusters
+# 3) repeat until the shortest distance is larger than the tolerance
+iter=0
+while True:
+    #cluster distance
+    print("iteration %d" % iter, end=' ') ; sys.stdout.flush()
+    cDistances=calcClusterDistances(clusters)
+    (i,j,dist) = findSmallestDistance(cDistances)
+    print(" smallest intercluster distance: ", dist)
+
+    #print ' ',
+    #for i in range(len(clusters)):
+    #    print "%7d " % i,
+
+    #print "cluster distance matrix:"
+    #print
+    #for i in range(len(clusters)):
+    #    print "%3d " % i,
+    #    for j in range(len(clusters)):
+    #        if cDistances[i][j]>1e10:
+    #            print "   -    ",
+    #        else:
+    #            print "%7f" % cDistances[i][j],
+    #        pass
+    #    print
+    #    pass
+    if dist>tol:
+        break
+
+    clusters[i].combine(clusters[j])
+    cSize = len(clusters)
+    nClusters = clusters[:j]
+    if j<cSize-1:
+        nClusters += clusters[j+1:]
+        pass
+    clusters = nClusters
+
+    iter+=1
+    pass
+
+
+
+# print out the cluster list
+print("found %d clusters" % len(clusters))
+for i in range(len(clusters)):
+    print("cluster %d:" % i)
+    for sNum in clusters[i].members:
+        print("\t%s" % args[sNum])
+        pass
+    pass
+

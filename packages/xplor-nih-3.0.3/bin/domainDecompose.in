@@ -1,0 +1,205 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+import sys
+atmSelect='name CA'
+rmsdThreshold0=3.5
+rmsdTol=1.5
+
+(opts,structures)=xplor.parseArguments(["selection:1",
+                                        "mSelect:0",
+                                        "verbose:0",
+                                        "rmsdThreshold:1",
+                                        "rmsdTolerance:1"],
+					cmdline="[options] <structures to fit>",
+					description="""
+Given an ensemble of
+structures, find regions of structural similarity, using
+maximum-likelihood fitting.
+""",
+                                        usageString="""
+where the structures to fit is a space-separated list of pdb filenames.
+
+Options are zero or more of::
+
+   -selection <string> - atom selection specifying which atoms to use in the
+                         fit [default value: %s]
+   -mSelect            - specify method of regularizing the inverse of the
+                         covariance matrix -
+                         if 0 use perturbative approach - add a small value to
+                         the diagonal. If 1 use diagonal elements as
+                         ``eigenvalues,'' and follow the scheme of Theoboald
+                         and Wuttke. [default: 0]
+   -verbose            - cause intermediate values of log likelihood and
+                         RMSD to be printed.
+   -rmsdThreshold <value> - specify the RMSD value for determining whether
+                            an atom is in an ordered region [default: %f
+                            angstrom]
+   -rmsdTolerance <value> - specify the ML RMSD value for determining whether
+                            the fit using the current set of atoms is
+                            well-defined [default: %f angstrom]
+
+The algorithm is described in:
+
+J.J. Kuszewski, R. Augustine Thottungal, G.M. Clore and C.D. Schwieters,
+"Automated error-tolerant macromolecular structure determination
+from multidimensional nuclear Overhauser enhancement spectra and
+chemical shift assignments: Improved robustness and performance of
+the PASD algorithm," J. Biomol. NMR 41, 221-239 (2008).                            
+
+""" %(atmSelect,rmsdThreshold0,rmsdTol))
+
+
+mSelect=0
+verbose=1
+for op in opts:
+   if(op[0]=='selection'):
+      atmSelect='(%s)' % op[1]
+   elif(op[0]=='mSelect'):
+      mSelect=1 
+   elif(op[0]=='verbose'):
+      verbose=1
+   elif(op[0]=='rmsdThreshold'):
+       rmsdThreshold0=float(op[1])
+   elif(op[0]=='rmsdTolerance'):
+       rmsdTol=float(op[1])
+   pass
+
+
+# load structures
+
+print("generating PSF and reading coordinates")
+
+import protocol
+protocol.loadPDB(structures[0])  # this generates psf info and load coords
+xplor.simulation.deleteAtoms("not known")
+
+coords=[]
+coords.append(xplor.simulation.atomPosArr())
+
+def write(str):
+    sys.stdout.write(str)
+    sys.stdout.flush()
+    pass
+write('  *');
+
+import pdbTool
+for file in structures[1:]:
+   pdbTool.PDBTool(file).read()
+   write('*')
+   coords.append(xplor.simulation.atomPosArr())
+   pass
+print(' [%d files read]' % len(structures))
+
+# perform initial mle fit with initial selection
+import maxLikelyFit
+ml= maxLikelyFit.MaxLikelyFit(atmSelect,mSelect,verbose)
+
+
+#import cProfile
+#cProfile.run( 'obj.iterate(coords)', 'cprof.out' )
+
+deltaThreshold=0.5 # how much to reduce the threshold
+runsPerThreshold=2 # how many fits to perform at a given threshold
+smallestDomain=20  # smallest allowed domain size (# residues)
+
+from selectTools import numResidues
+numDisorderedResidues=numResidues(atmSelect)
+
+domains=[]
+ordered=[]
+while numDisorderedResidues>smallestDomain:
+    ml.RMSD_ml=rmsdTol+1
+    rmsdThreshold=rmsdThreshold0
+    iter=0
+    iterThresh=0
+    ml.atmSelect = str(atmSelect)
+    print('using selection:', ml.atmSelect)
+    while ml.RMSD_ml>rmsdTol:
+        print("Iteration:", iter)
+        print("   ordered atom threshold %.2f" % rmsdThreshold)
+        write("   fitting")
+        ml.fit(coords)
+        print()
+        print("   RMSD:    %.3f" % ml.LsSigma)
+        print("   ml_RMSD: %.3f" % ml.RMSD_ml)
+    
+        # obtain the range of residues with rmsd < threshold0 (3.5A)
+        (numOrdered,orderedTups)=ml.orderedResidues(rmsdThreshold,
+                                                    selection=atmSelect)
+        print("   orderedTups:", orderedTups)
+    
+        if not orderedTups:
+            print("no residues selected")
+            break
+        first=orderedTups[0][0]
+        last =orderedTups[-1][1]
+    
+        ml.atmSelect =  "(%s) and resid %d:%d" % (atmSelect,first,last)
+    #    ml.atmSelect =  "(%s)\n" % atmSelect
+    #    ml.atmSelect += " and (resid %d:%d" % orderedTups[0]
+    #    for tup in orderedTups[1:]:
+    #        ml.atmSelect +=  "\nor resid %d:%d" % tup
+    #        pass
+    #    ml.atmSelect += ")"
+        print('   ordered interval: residues %d-%d' % (first,last))
+        iterThresh+=1
+        if iterThresh==runsPerThreshold:
+            rmsdThreshold -= deltaThreshold
+            iterThresh=0
+            pass
+        iter+=1
+        pass
+
+    if not orderedTups:
+       break
+
+    # determine residue sequence omitting any holes
+    # of size smallestDomain or larger
+    resids=[]
+    first=orderedTups[0][0]
+    for i in range(len(orderedTups)-1):
+        if orderedTups[i+1][0]-orderedTups[i][1] >= smallestDomain:
+            resids.append( (first,orderedTups[i][1]) )
+            first = orderedTups[i+1][0]
+            pass
+        pass
+    resids.append( (first,orderedTups[-1][1]) )
+
+    # update atom selection to omit atoms in this domain
+    #
+    atmSelect+="\n   "
+    for (first,last) in resids:
+        atmSelect+=" and not resid %d:%d" % (first,last)
+        pass
+    domains.append( resids )
+    ordered.append( orderedTups )
+    numDisorderedResidues=numResidues(atmSelect)
+    #numDisorderedResidues -= numOrdered
+    pass
+
+print()
+print("The following domains were found")
+
+for i in range(len(domains)):
+    comma=''
+    for t in domains[i]:
+        if t[0]==t[1]:
+            print('%s%d' % (comma,t[0]), end=' ')
+        else:
+            print('%s%d-%d' % (comma,t[0],t[1]), end=' ')
+            pass
+        comma=', '
+        pass
+    print(":", end=' ')
+   
+    comma=''
+    for t in ordered[i]:
+        if t[0]==t[1]:
+            print('%s%d' % (comma,t[0]), end=' ')
+        else:
+            print('%s%d-%d' % (comma,t[0],t[1]), end=' ')
+            pass
+        comma=', '
+        pass
+    print()
+   

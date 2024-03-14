@@ -1,0 +1,18 @@
+REMARKS  TOPH11.NUC  MACRO for RNA/DNA sequence
+SET ECHO=FALSE END
+
+! this is a macro to define standard DNA/RNA polynucleotide bonds
+! and termini to generate a sequence.
+! it should be added as @TOPTRNA8.NUC in the SEGMent SEQUence
+! level.
+! 
+! Axel Brunger, 17-AUG-84
+
+
+LINK NUC  HEAD - *  TAIL + *  END
+
+FIRST  5PHO  TAIL + * END
+
+LAST 3TER  HEAD - * END
+
+SET ECHO=TRUE END

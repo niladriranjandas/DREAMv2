@@ -1,0 +1,130 @@
+!
+! setup_quarts_torsion_inter.tbl
+!
+! interresidue phi-psi-phi-psi correlations
+!
+
+!
+! select the Cas of the residues you want to create delphic torsion 
+! assignments for here
+!
+
+vector identify (store2) (all)
+
+!
+! select all cis-prolines here
+! fix this
+!
+
+vector identify (store6) (resn cisp)
+
+!
+! need to select all the residues that immediately preceed a proline
+! in order to designate them "xpr"
+!
+! xpr residues are stored in the store7 array
+!
+
+vector do (store7 = 0) (all)
+
+for $count in id (name ca and resn pro) loop database
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = decode($result))
+   eval ($prevRes = $curRes - 1)
+   vector identify (store7) (store7 or (resid $prevRes and segid $curSeg))
+end loop database
+
+
+set echo off message off end
+
+!
+! these are the groups--cis residues should be eliminated from these selections
+!
+
+vector do (store1 = 1) (resn glu or resn ala or resn leu or resn met or resn gln or
+                        resn lys or resn arg or resn his)
+vector do (store1 = 2) (resn val or resn ile or resn tyr or resn cys or resn trp or
+                        resn phe or resn thr)
+vector do (store1 = 3) (resn asn or resn ser or resn asp)
+vector do (store1 = 4) (resn gly)
+vector do (store1 = 5) (resn pro)
+
+!
+! 4D inter-residue constraints
+!
+
+for $c in id (name ca and store2) loop fourdee 
+
+   vector show elem (segid) (id $c)
+   eval ($curseg = $result)
+
+   vector show elem (resid) (id $c)
+   eval ($cur = decode($result))
+   eval ($p1 = $cur + 1)
+   eval ($p2 = $cur + 2)
+   eval ($p3 = $cur + 3)
+
+   vector show elem (store1) (segid $curseg and resid $cur and name ca)
+   eval ($curn = $result)
+   vector show elem (store1) (segid $curseg and resid $p1 and name ca)
+   eval ($p1n = $result)
+   vector show elem (store1) (segid $curseg and resid $p2 and name ca)
+   eval ($p2n = $result)
+   vector show elem (store1) (segid $curseg and resid $p3 and name ca)
+   eval ($p3n = $result)
+
+
+   if ($p1n = 1) then
+      eval ($p1name = "HLX")
+   elseif ($p1n = 2) then
+      eval ($p1name = "SHT")
+   elseif ($p1n = 3) then
+      eval ($p1name = "TRN")
+   elseif ($p1n = 4) then
+      eval ($p1name = "GLY")
+   elseif ($p1n = 5) then
+      eval ($p1name = "PRO")
+   end if
+
+   if ($p2n = 1) then
+      eval ($p2name = "HLX")
+   elseif ($p2n = 2) then
+      eval ($p2name = "SHT")
+   elseif ($p2n = 3) then
+      eval ($p2name = "TRN")
+   elseif ($p2n = 4) then
+      eval ($p2name = "GLY")
+   elseif ($p2n = 5) then
+      eval ($p2name = "PRO")
+   end if
+
+
+   eval ($n = $p1name + "_" + $p2name + "_PHI_PSI_PHI_PSI")
+
+   rama
+      class $n
+      assign
+         (segid $curseg and resid $cur and name c)
+         (segid $curseg and resid $p1 and name n)
+         (segid $curseg and resid $p1 and name ca)
+         (segid $curseg and resid $p1 and name c)
+         (segid $curseg and resid $p1 and name n)
+         (segid $curseg and resid $p1 and name ca)
+         (segid $curseg and resid $p1 and name c)
+         (segid $curseg and resid $p2 and name n)
+         (segid $curseg and resid $p1 and name c)
+         (segid $curseg and resid $p2 and name n)
+         (segid $curseg and resid $p2 and name ca)
+         (segid $curseg and resid $p2 and name c)
+         (segid $curseg and resid $p2 and name n)
+         (segid $curseg and resid $p2 and name ca)
+         (segid $curseg and resid $p2 and name c)
+         (segid $curseg and resid $p3 and name n)
+      end
+
+end loop fourdee
+
+
+set echo on message on end

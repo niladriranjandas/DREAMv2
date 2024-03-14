@@ -1,0 +1,37 @@
+acceptor bb_O  name O
+acceptor SER_O (resname SER and name OG) (name CB)
+acceptor THR_O (resname THR and name OG1) (name CB)
+acceptor GLU_O (resname GLU and name OE*)
+acceptor ASP_O resname ASP and name OD*
+acceptor GLN_O resname GLN and name OE1
+acceptor ASN_O resname ASN and name OD1
+acceptor TYR_O (resname TYR and name OH) (name CZ)
+acceptor HIS_ND1 (resname HIS and name ND1) (name CG)
+
+#
+donor bb_H name HN
+donor SER_H resname SER and name HG
+donor THR_H resname THR and name HG1
+donor GLN_H resname GLN and name HE2*
+donor ASN_H resname ASN and name HD2*
+donor HIS_H resname HIS and name HE2
+donor LYS_H resname LYS and name HZ*
+donor ARG_H resname ARG and (name HE or name HH*)
+donor TRP_H resname TRP and name HE1
+donor TYR_H resname TYR and name HH
+
+
+#       type pair delta_resid   file name
+mapping bb_O:bb_H     4         helix_0.2.dat
+mapping bb_O:bb_H     *         sheet_0.2.dat
+mapping bb_O:*        *         scbb_0.2.dat
+
+
+mapping SER_O:*       *         SERTHRTYR_0.2.dat
+mapping THR_O:*       *         SERTHRTYR_0.2.dat
+mapping GLU_O:*       *         GLUASP_0.2.dat
+mapping ASP_O:*       *         GLUASP_0.2.dat
+mapping GLN_O:*       *         GLNASN_0.2.dat
+mapping ASN_O:*       *         GLNASN_0.2.dat
+mapping TYR_O:*       *         SERTHRTYR_0.2.dat
+mapping HIS_ND1:*     *         HIS_0.2.dat

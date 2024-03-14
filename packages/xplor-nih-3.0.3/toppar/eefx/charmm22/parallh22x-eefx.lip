@@ -1,0 +1,294 @@
+ REMARKS Charmm parameter set for lipids v22 b4
+ REMARKS FILENAME="parallh22x.lip"
+
+ SET ECHO=FALSE END 
+
+ { \\\\\\\\\\ All-Hydrogen Lipid Parameter File ////////////
+   \\\\\\\\\\\\\\\\\\ Developmental ///////////////////////
+      Alexander D. MacKerell Jr. and Michael Schlenkrich
+              Version 4.0, January, 1993
+  All comments to ADM jr.  bitnet:alex,tammy.harvard.edu
+                  telephone: 410-706-7442
+  These files are a beta release; additional parameter development
+  and testing may lead to alteration of the contents.}
+
+ BOND  CTL3 CL       200.000 {SD=      .038}      1.522 ! methyl acetate 
+ BOND  CTL2 CL       200.000 {SD=      .038}      1.522 ! methyl acetate 
+ BOND  CTL1 CL       200.000 {SD=      .038}      1.522 ! methyl acetate 
+ BOND  OBL  CL       750.000 {SD=      .020}      1.220 ! methyl acetate 
+ BOND  OSL  CL       150.000 {SD=      .044}      1.334 ! methyl acetate 
+ BOND  OHL  CL       230.000 {SD=      .036}      1.400 ! methyl acetate 
+ BOND  HOL  OHL      545.000 {SD=      .023}       .960 ! acetic acid 
+ BOND  CTL3 HAL      322.000 {SD=      .030}      1.111 ! alkanes, 3/92 
+ BOND  CTL2 HAL      309.000 {SD=      .031}      1.111 ! alkanes, 3/92 
+ BOND  CTL1 HAL      309.000 {SD=      .031}      1.111 ! alkanes, 3/92 
+ BOND  CTL3 OSL      340.000 {SD=      .030}      1.430 ! phosphate 
+ BOND  CTL2 OSL      340.000 {SD=      .030}      1.430 ! phosphate 
+ BOND  CTL1 OSL      340.000 {SD=      .030}      1.430 ! phosphate 
+ BOND  OSL  PL       270.000 {SD=      .033}      1.600 ! phosphate 
+ BOND  O2L  PL       580.000 {SD=      .023}      1.480 ! phosphate 
+ BOND  OHL  PL       237.000 {SD=      .035}      1.590 ! phosphate 
+ BOND  NH3L HCL      410.000 {SD=      .027}      1.040 ! ethanolamine 
+ BOND  NH3L CTL2     261.000 {SD=      .034}      1.510 ! ethanolamine 
+ BOND  NTL  CTL2     215.000 {SD=      .037}      1.510 ! tetramethylammonium 
+ BOND  NTL  CTL3     215.000 {SD=      .037}      1.510 ! tetramethylammonium 
+ BOND  CTL3 HL       300.000 {SD=      .031}      1.080 ! tetramethylammonium 
+ BOND  CTL2 HL       300.000 {SD=      .031}      1.080 ! tetramethylammonium 
+ BOND  CTL1 CTL1     222.500 {SD=      .036}      1.500 ! alkanes, 3/92 
+ BOND  CTL1 CTL2     222.500 {SD=      .036}      1.538 ! alkanes, 3/92 
+ BOND  CTL1 CTL3     222.500 {SD=      .036}      1.538 ! alkanes, 3/92 
+ BOND  CTL2 CTL2     222.500 {SD=      .036}      1.530 ! alkanes, 3/92 
+ BOND  CTL2 CTL3     222.500 {SD=      .036}      1.528 ! alkanes, 3/92 
+ BOND  CTL3 CTL3     222.500 {SD=      .036}      1.530 ! alkanes, 3/92 
+ BOND  OHL  CTL1     428.000 {SD=      .026}      1.420 !  glycerol 
+ BOND  OHL  CTL2     428.000 {SD=      .026}      1.420 !  glycerol 
+ BOND  OHL  CTL3     428.000 {SD=      .026}      1.420 !  glycerol 
+ BOND  SL   O2L      540.000 {SD=      .023}      1.448 ! methylsulfate 
+ BOND  SL   OSL      250.000 {SD=      .034}      1.575 ! methylsulfate 
+ BOND  HT   HT          .000 {SD=999999.000}      1.514 ! from TIPS3P geometry (for SHAKE w/PARAM) 
+ BOND  HT   OT       450.000 {SD=      .026}       .957 ! from TIPS3P geometry 
+
+ BOND  CTL3 OSLP     340.000 {SD=      .030}      1.430 ! phosphate !!added for EEFx
+ BOND  CTL2 OSLP     340.000 {SD=      .030}      1.430 ! phosphate !!added for EEFx 
+ BOND  CTL1 OSLP     340.000 {SD=      .030}      1.430 ! phosphate !!added for EEFx 
+ BOND  OSLP PL       270.000 {SD=      .033}      1.600 ! phosphate !!added for EEFx 
+
+
+ ANGLE  OBL  CL   CTL3      70.00 {SD=      .065}    125.0000    UB     20.000       2.442 ! methyl acetate 
+ ANGLE  OBL  CL   CTL2      70.00 {SD=      .065}    125.0000    UB     20.000       2.442 ! methyl acetate 
+ ANGLE  OBL  CL   CTL1      70.00 {SD=      .065}    125.0000    UB     20.000       2.442 ! methyl acetate 
+ ANGLE  OSL  CL   OBL       90.00 {SD=      .057}    125.9000    UB    160.000       2.258 ! acetic acid 
+ ANGLE  CL   OSL  CTL1      40.00 {SD=      .086}    109.6000    UB     30.000       2.265 ! methyl acetate 
+ ANGLE  CL   OSL  CTL2      40.00 {SD=      .086}    109.6000    UB     30.000       2.265 ! methyl acetate 
+ ANGLE  CL   OSL  CTL3      40.00 {SD=      .086}    109.6000    UB     30.000       2.265 ! methyl acetate 
+ ANGLE  HAL  CTL2 CL        33.00 {SD=      .095}    109.5000    UB     30.000       2.163 ! methyl acetate 
+ ANGLE  HAL  CTL3 CL        33.00 {SD=      .095}    109.5000    UB     30.000       2.163 ! methyl acetate 
+ ANGLE  CTL2 CTL2 CL        52.00 {SD=      .075}    108.0000 ! alkane 
+ ANGLE  CTL3 CTL2 CL        52.00 {SD=      .075}    108.0000 ! alkane 
+ ANGLE  OSL  CL   CTL3      55.00 {SD=      .073}    109.0000    UB     20.000       2.326 ! methyl acetate 
+ ANGLE  OSL  CL   CTL2      55.00 {SD=      .073}    109.0000    UB     20.000       2.326 ! methyl acetate 
+ ANGLE  OHL  CL   OBL       50.00 {SD=      .077}    123.0000    UB    210.000       2.262 ! acetic acid 
+ ANGLE  OHL  CL   CTL3      55.00 {SD=      .073}    110.5000 ! acetic acid 
+ ANGLE  OHL  CL   CTL2      55.00 {SD=      .073}    110.5000 ! acetic acid 
+ ANGLE  HOL  OHL  CL        55.00 {SD=      .073}    115.0000 ! acetic acid 
+ ANGLE  OSL  CTL1 CTL2      75.70 {SD=      .063}    110.1000 ! acetic acid 
+ ANGLE  OSL  CTL1 CTL3      75.70 {SD=      .063}    110.1000 ! acetic acid 
+ ANGLE  OSL  CTL2 CTL1      75.70 {SD=      .063}    110.1000 ! acetic acid 
+ ANGLE  OSL  CTL2 CTL2      75.70 {SD=      .063}    110.1000 ! acetic acid 
+ ANGLE  OSL  CTL2 CTL3      75.70 {SD=      .063}    110.1000 ! acetic acid 
+ ANGLE  HAL  CTL2 HAL       35.50 {SD=      .091}    109.0000    UB      5.400       1.802 ! alkane, 3/92 
+ ANGLE  HAL  CTL3 HAL       35.50 {SD=      .091}    108.4000    UB      5.400       1.802 ! alkane, 3/92 
+ ANGLE  HAL  CTL1 OSL       60.00 {SD=      .070}    109.5000 ! phosphate 
+ ANGLE  HAL  CTL2 OSL       60.00 {SD=      .070}    109.5000 ! phosphate 
+ ANGLE  HAL  CTL3 OSL       60.00 {SD=      .070}    109.5000 ! phosphate 
+ ANGLE  CTL2 OSL  PL        20.00 {SD=      .122}    120.0000    UB     35.000       2.330 ! phosphate 
+ ANGLE  CTL3 OSL  PL        20.00 {SD=      .122}    120.0000    UB     35.000       2.330 ! phosphate 
+ ANGLE  HOL  OHL  PL        30.00 {SD=      .099}    115.0000    UB     40.000       2.300 ! phosphate 
+ ANGLE  OSL  PL   OSL       80.00 {SD=      .061}    104.3000 ! phosphate 
+ ANGLE  OSL  PL   O2L       98.90 {SD=      .055}    111.6000 ! phosphate 
+ ANGLE  OSL  PL   OHL       48.10 {SD=      .078}    108.0000 ! phosphate 
+ ANGLE  O2L  PL   O2L      120.00 {SD=      .050}    120.0000 ! phosphate 
+ ANGLE  O2L  PL   OHL       98.90 {SD=      .055}    108.2300 ! phosphate 
+ ANGLE  NTL  CTL2 HL        40.00 {SD=      .086}    109.5000    UB     27.000       2.130 ! tetramethylammonium 
+ ANGLE  NTL  CTL3 HL        40.00 {SD=      .086}    109.5000    UB     27.000       2.130 ! tetramethylammonium 
+ ANGLE  HL   CTL2 HL        24.00 {SD=      .111}    109.5000    UB     28.000       1.767 ! tetramethylammonium 
+ ANGLE  HL   CTL3 HL        24.00 {SD=      .111}    109.5000    UB     28.000       1.767 ! tetramethylammonium 
+ ANGLE  CTL3 NTL  CTL2      60.00 {SD=      .070}    109.5000    UB     26.000       2.466 ! tetramethylammonium 
+ ANGLE  CTL3 NTL  CTL3      60.00 {SD=      .070}    109.5000    UB     26.000       2.466 ! tetramethylammonium 
+ ANGLE  HL   CTL2 CTL2      33.43 {SD=      .094}    110.1000    UB     22.530       2.179 ! alkane 
+ ANGLE  HL   CTL2 CTL3      33.43 {SD=      .094}    110.1000    UB     22.530       2.179 ! alkane 
+ ANGLE  HAL  CTL1 CTL1      34.50 {SD=      .093}    110.1000    UB     22.530       2.179 ! alkane, 3/92 
+ ANGLE  HAL  CTL1 CTL2      34.50 {SD=      .093}    110.1000    UB     22.530       2.179 ! alkane, 3/92 
+ ANGLE  HAL  CTL1 CTL3      34.50 {SD=      .093}    110.1000    UB     22.530       2.179 ! alkane, 3/92 
+ ANGLE  HAL  CTL2 CTL1      26.50 {SD=      .106}    110.1000    UB     22.530       2.179 ! alkane, 3/92 
+ ANGLE  HAL  CTL2 CTL2      26.50 {SD=      .106}    110.1000    UB     22.530       2.179 ! alkane, 3/92 
+ ANGLE  HAL  CTL2 CTL3      34.60 {SD=      .093}    110.1000    UB     22.530       2.179 ! alkane, 3/92 
+ ANGLE  HAL  CTL3 CTL1      33.43 {SD=      .094}    110.1000    UB     22.530       2.179 ! alkane, 3/92 
+ ANGLE  HAL  CTL3 CTL2      34.60 {SD=      .093}    110.1000    UB     22.530       2.179 ! alkane, 3/92 
+ ANGLE  HAL  CTL3 CTL3      37.50 {SD=      .089}    110.1000    UB     22.530       2.179 ! alkane, 3/92 
+ ANGLE  NTL  CTL2 CTL2      67.70 {SD=      .066}    115.0000 ! tetramethylammonium 
+ ANGLE  NTL  CTL2 CTL3      67.70 {SD=      .066}    115.0000 ! tetramethylammonium 
+ ANGLE  HCL  NH3L CTL2      33.00 {SD=      .095}    109.5000    UB      4.000       2.056 ! ethanolamine 
+ ANGLE  HCL  NH3L HCL       41.00 {SD=      .085}    109.5000 ! ethanolamine 
+ ANGLE  NH3L CTL2 CTL2      67.70 {SD=      .066}    110.0000 ! ethanolamine 
+ ANGLE  NH3L CTL2 HAL       45.00 {SD=      .081}    107.5000    UB     35.000       2.084 ! ethanolamine 
+ ANGLE  CTL1 CTL1 CTL1      53.35 {SD=      .074}    111.0000    UB      8.000       2.561 ! alkane, 3/92 
+ ANGLE  CTL1 CTL1 CTL2      58.35 {SD=      .071}    113.5000    UB     11.160       2.561 ! glycerol 
+ ANGLE  CTL1 CTL1 CTL3      53.35 {SD=      .074}    108.5000    UB      8.000       2.561 ! alkane, 3/92 
+ ANGLE  CTL1 CTL2 CTL1      58.35 {SD=      .071}    113.5000    UB     11.160       2.561 ! glycerol 
+ ANGLE  CTL1 CTL2 CTL2      58.35 {SD=      .071}    113.5000    UB     11.160       2.561 ! glycerol 
+ ANGLE  CTL1 CTL2 CTL3      58.35 {SD=      .071}    113.5000    UB     11.160       2.561 ! glycerol 
+ ANGLE  CTL2 CTL1 CTL2      58.35 {SD=      .071}    113.5000    UB     11.160       2.561 ! glycerol 
+ ANGLE  CTL2 CTL1 CTL3      58.35 {SD=      .071}    113.5000    UB     11.160       2.561 ! glycerol 
+ ANGLE  CTL2 CTL2 CTL2      58.35 {SD=      .071}    113.6000    UB     11.160       2.561 ! alkane, 3/92 
+ ANGLE  CTL2 CTL2 CTL3      58.00 {SD=      .071}    115.0000    UB      8.000       2.561 ! alkane, 3/92 
+ ANGLE  HOL  OHL  CTL1      57.50 {SD=      .072}    106.0000 ! glycerol 
+ ANGLE  HOL  OHL  CTL2      57.50 {SD=      .072}    106.0000 ! glycerol 
+ ANGLE  HOL  OHL  CTL3      57.50 {SD=      .072}    106.0000 ! glycerol 
+ ANGLE  OHL  CTL1 CTL2      75.70 {SD=      .063}    110.1000 ! glycerol 
+ ANGLE  OHL  CTL2 CTL1      75.70 {SD=      .063}    110.1000 ! glycerol 
+ ANGLE  OHL  CTL2 CTL2      75.70 {SD=      .063}    110.1000 ! glycerol 
+ ANGLE  OHL  CTL2 CTL3      75.70 {SD=      .063}    110.1000 ! glycerol 
+ ANGLE  OHL  CTL1 HAL       45.90 {SD=      .080}    108.8900 ! glycerol 
+ ANGLE  OHL  CTL2 HAL       45.90 {SD=      .080}    108.8900 ! glycerol 
+ ANGLE  OHL  CTL3 HAL       45.90 {SD=      .080}    108.8900 ! glycerol 
+ ANGLE  O2L  SL   O2L      130.00 {SD=      .048}    109.4700    UB     35.000       2.450 ! methylsulfate 
+ ANGLE  O2L  SL   OSL       85.00 {SD=      .059}     98.0000 ! methylsulfate 
+ ANGLE  CTL2 OSL  SL        15.00 {SD=      .140}    109.0000    UB     27.000       1.900 ! methylsulfate 
+ ANGLE  CTL3 OSL  SL        15.00 {SD=      .140}    109.0000    UB     27.000       1.900 ! methylsulfate 
+ ANGLE  HT   OT   HT        55.00 {SD=      .073}    104.5200 ! FROM TIPS3P GEOMETRY 
+ ANGLE  OT   HT   HT          .00 {SD=999999.000}    104.5200 ! FROM TIPS3P GEOMETRY 
+
+!!added for eefx
+ ANGLE  HAL  CTL1 OSLP      60.00 {SD=      .070}    109.5000 ! phosphate                              
+ ANGLE  HAL  CTL2 OSLP      60.00 {SD=      .070}    109.5000 ! phosphate 
+ ANGLE  HAL  CTL3 OSLP      60.00 {SD=      .070}    109.5000 ! phosphate 
+ ANGLE  CTL2 OSLP PL        20.00 {SD=      .122}    120.0000    UB     35.000       2.330 ! phosphate 
+ ANGLE  CTL3 OSLP PL        20.00 {SD=      .122}    120.0000    UB     35.000       2.330 ! phosphate
+ ANGLE  OSLP PL   OSLP      80.00 {SD=      .061}    104.3000 ! phosphate 
+ ANGLE  OSLP PL   O2L       98.90 {SD=      .055}    111.6000 ! phosphate 
+ ANGLE  OSLP PL   OHL       48.10 {SD=      .078}    108.0000 ! phosphate 
+ ANGLE  OSLP CTL2 CTL2      75.700{SD=      .078}    110.10   ! acetic acid
+ ANGLE  OSLP CTL2 CTL1      75.70 {SD=      .063}    110.1000 ! acetic acid 
+
+
+ DIHEDRAL  X    CTL1 OHL  X            .14 {SD=     1.454}    3       .0000 ! glycerol 
+ DIHEDRAL  X    CTL2 OHL  X            .14 {SD=     1.454}    3       .0000 ! glycerol 
+ DIHEDRAL  X    CTL3 OHL  X            .14 {SD=     1.454}    3       .0000 ! glycerol 
+ DIHEDRAL  OBL  CL   CTL2 HAL          .00 {SD=999999.000}    6    180.0000 ! acetic acid 
+ DIHEDRAL  OBL  CL   CTL3 HAL          .00 {SD=999999.000}    6    180.0000 ! acetic acid 
+ DIHEDRAL  OSL  CL   CTL2 HAL          .00 {SD=999999.000}    6    180.0000 ! acetic acid 
+ DIHEDRAL  OSL  CL   CTL3 HAL          .00 {SD=999999.000}    6    180.0000 ! acetic acid 
+ DIHEDRAL  OBL  CL   OSL  CTL1   MULTIPLE= 2         .965     1    180.0000 ! methyl acetate 
+                                                    3.85      2    180.0000 ! methyl acetate 
+ DIHEDRAL  OBL  CL   OSL  CTL2   MULTIPLE= 2         .965     1    180.0000 ! methyl acetate 
+                                                    3.85      2    180.0000 ! methyl acetate 
+ DIHEDRAL  OBL  CL   OSL  CTL3   MULTIPLE= 2         .965     1    180.0000 ! methyl acetate 
+                                                    3.85      2    180.0000 ! methyl acetate 
+ DIHEDRAL  X    CL   OSL  X           2.05 {SD=      .380}    2    180.0000 ! methyl acetate 
+ DIHEDRAL  X    CTL2 CL   X            .05 {SD=     2.433}    6    180.0000 ! methyl acetate 
+ DIHEDRAL  X    CTL3 CL   X            .05 {SD=     2.433}    6    180.0000 ! methyl acetate 
+ DIHEDRAL  X    CL   OHL  X           2.05 {SD=      .380}    2    180.0000 ! acetic acid 
+ DIHEDRAL  HAL  CTL2 CL   OHL          .00 {SD=999999.000}    6    180.0000  
+ DIHEDRAL  HAL  CTL3 CL   OHL          .00 {SD=999999.000}    6    180.0000  
+ DIHEDRAL  OSL  PL   OSL  CTL2   MULTIPLE= 2         .95      2       .0000 ! phosphate 
+                                                     .50      3       .0000 ! phosphate 
+ DIHEDRAL  O2L  PL   OSL  CTL2         .10 {SD=     1.721}    3       .0000 ! phosphate 
+ DIHEDRAL  OSL  PL   OSL  CTL3   MULTIPLE= 2         .95      2       .0000 ! phosphate 
+                                                     .50      3       .0000 ! phosphate 
+ DIHEDRAL  O2L  PL   OSL  CTL3         .10 {SD=     1.721}    3       .0000 ! phosphate 
+ DIHEDRAL  OHL  PL   OSL  CTL2   MULTIPLE= 2         .95      2       .0000 ! phosphate 
+                                                     .50      3       .0000 ! phosphate 
+ DIHEDRAL  OHL  PL   OSL  CTL3   MULTIPLE= 2         .95      2       .0000 ! phosphate 
+                                                     .50      3       .0000 ! phosphate 
+ DIHEDRAL  X    OHL  PL   X            .30 {SD=      .993}    3       .0000 ! phosphate 
+ DIHEDRAL  X    CTL1 OSL  X           -.10 {SD=999999.000}    3       .0000 ! phosphate 
+ DIHEDRAL  X    CTL2 OSL  X           -.10 {SD=999999.000}    3       .0000 ! phosphate 
+ DIHEDRAL  X    CTL3 OSL  X           -.10 {SD=999999.000}    3       .0000 ! phosphate 
+ DIHEDRAL  CTL3 CTL2 OSL  CL           .70 {SD=      .650}    1    180.0000 ! ethyl acetate, 12/92 
+ DIHEDRAL  CTL2 CTL2 OSL  CL           .70 {SD=      .650}    1    180.0000 ! ethyl acetate, 12/92 
+ DIHEDRAL  CTL3 CTL1 OSL  CL           .70 {SD=      .650}    1    180.0000 ! ethyl acetate, 12/92 
+ DIHEDRAL  CTL2 CTL1 OSL  CL           .70 {SD=      .650}    1    180.0000 ! ethyl acetate, 12/92 
+ DIHEDRAL  CTL2 CTL2 CL   OSL     MULTIPLE= 2       -.15      1    180.0000 ! methyl propionate, 12/92 
+                                                     .53      2    180.0000 ! methyl propionate, 12/92
+ DIHEDRAL  CTL3 CTL2 CL   OSL     MULTIPLE= 2       -.15      1    180.0000 ! methyl propionate, 12/92 
+                                                     .53      2    180.0000 ! methyl propionate, 12/92
+ DIHEDRAL  X    CTL2 NTL  X            .26 {SD=     1.067}    3       .0000 ! tetramethylammonium 
+ DIHEDRAL  X    CTL3 NTL  X            .23 {SD=     1.135}    3       .0000 ! tetramethylammonium 
+ DIHEDRAL  X    CTL2 NH3L X            .10 {SD=     1.721}    3       .0000 ! ethanolamine 
+ DIHEDRAL  NH3L CTL2 CTL2 OHL          .70 {SD=      .650}    1    180.0000 ! ethanolamine 
+ DIHEDRAL  NH3L CTL2 CTL2 OSL          .70 {SD=      .650}    1    180.0000 ! ethanolamine 
+ DIHEDRAL  NTL  CTL2 CTL2 OHL     MULTIPLE= 2       4.30      1    180.0000 ! choline, 12/92 
+                                                    -.40      3    180.0000               
+ DIHEDRAL  NTL  CTL2 CTL2 OSL     MULTIPLE= 2       3.30      1    180.0000 ! choline, 12/92 
+                                                    -.40      3    180.0000
+ DIHEDRAL  CTL3 CTL2 CTL2 CTL3         .15 {SD=     1.405}    1       .0000 ! alkane, 3/92 
+ DIHEDRAL  CTL2 CTL2 CTL2 CTL2         .15 {SD=     1.405}    1       .0000 ! alkane, 3/92 
+ DIHEDRAL  CTL2 CTL2 CTL2 CTL3         .15 {SD=     1.405}    1       .0000 ! alkane, 3/92 
+ DIHEDRAL  X    CTL1 CTL1 X            .20 {SD=     1.217}    3       .0000 ! alkane, 3/92 
+ DIHEDRAL  X    CTL1 CTL2 X            .20 {SD=     1.217}    3       .0000 ! alkane, 3/92 
+ DIHEDRAL  X    CTL1 CTL3 X            .20 {SD=     1.217}    3       .0000 ! alkane, 3/92 
+ DIHEDRAL  X    CTL2 CTL2 X            .195{SD=     1.232}    3       .0000 ! alkane, 3/92 
+ DIHEDRAL  X    CTL2 CTL3 X            .16 {SD=     1.360}    3       .0000 ! alkane, 3/92 
+ DIHEDRAL  X    CTL3 CTL3 X            .155{SD=     1.382}    3       .0000 ! alkane, 3/92 
+ DIHEDRAL  HAL  CTL3 OSL  SL           .00 {SD=999999.000}    3       .0000 ! methylsulfate 
+ DIHEDRAL  CTL2 OSL  SL   O2L          .00 {SD=999999.000}    3       .0000 ! methylsulfate 
+ DIHEDRAL  CTL3 OSL  SL   O2L          .00 {SD=999999.000}    3       .0000 ! methylsulfate 
+
+!!added for eefx
+ DIHEDRAL  OSLP  PL   OSLP  CTL2   MULTIPLE= 2         .95      2       .0000 ! phosphate 
+                                                     .50      3       .0000 ! phosphate 
+ DIHEDRAL  O2L  PL   OSLP  CTL2         .10 {SD=     1.721}    3       .0000 ! phosphate 
+ DIHEDRAL  OSLP  PL   OSLP  CTL3   MULTIPLE= 2         .95      2       .0000 ! phosphate 
+                                                     .50      3       .0000 ! phosphate 
+ DIHEDRAL  O2L  PL   OSLP  CTL3         .10 {SD=     1.721}    3       .0000 ! phosphate 
+ DIHEDRAL  OHL  PL   OSLP  CTL2   MULTIPLE= 2         .95      2       .0000 ! phosphate 
+                                                     .50      3       .0000 ! phosphate 
+ DIHEDRAL  OHL  PL   OSLP  CTL3   MULTIPLE= 2         .95      2       .0000 ! phosphate 
+                                                     .50      3       .0000 ! phosphate 
+ DIHEDRAL  X    CTL1 OSLP  X           -.10 {SD=999999.000}    3       .0000 ! phosphate 
+ DIHEDRAL  X    CTL2 OSLP  X           -.10 {SD=999999.000}    3       .0000 ! phosphate 
+ DIHEDRAL  X    CTL3 OSLP  X           -.10 {SD=999999.000}    3       .0000 ! phosphate 
+
+
+
+ IMPROPER  OBL  X    X    CL        100.00 {SD=      .054}    0       .0000 ! acetic acid 
+
+ NBONDS 
+
+! -----NONBONDED-LIST-OPTIONS-------------------------------
+  CUTNB=  13.000 TOLERANCE=    .500 WMIN=   1.500 ATOM   
+  INHIBIT=    .250                                       
+! -----ELECTROSTATIC OPTIONS--------------------------------
+  EPS=   1.000 E14FAC=   1.000 CDIELECTRIC SHIFT         
+! -----VAN DER WAALS OPTIONS--------------------------------
+  VSWITCH                                                
+! -----SWITCHING /SHIFTING PARAMETERS-----------------------
+  CTONNB=  10.000 CTOFNB=  12.000                        
+! -----EXCLUSION LIST OPTIONS-------------------------------
+  NBXMOD=   5                                            
+! ----------------------------------------------------------
+
+ END 
+
+ !                    EPS     SIGMA    EPS(1:4)  SIGMA(1:4)
+
+ NONBONDED  HOL      .0460    .4000    .0460    .4000  
+ NONBONDED  HAL      .0220   2.3520    .0220   2.3520 ! alkane, 3/92 
+ NONBONDED  HCL      .0460    .4000    .0460    .4000 ! ethanolamine 
+ NONBONDED  HT       .0460    .4000    .0460    .4000  
+ NONBONDED  HL       .0460   1.2473    .0460   1.2473 ! polar H on NC4+ 
+ NONBONDED  CL       .0700   3.5636    .0700   3.5636 ! methyl acetate update 
+ NONBONDED  CTL1     .0200   4.0536    .0100   3.3854 ! alkane, 3/92 
+ NONBONDED  CTL2     .0550   3.8754    .0100   3.3854 ! alkane, 3/92 
+ NONBONDED  CTL3     .0800   3.6705    .0100   3.3854 ! alkane, 3/92 
+ NONBONDED  OBL      .1200   3.0291    .1200   2.4945  
+ NONBONDED  O2L      .1200   3.0291    .1200   3.0291  
+ NONBONDED  OHL      .1521   3.1538    .1521   3.1538  
+ NONBONDED  OSL      .1521   3.1538    .1521   3.1538  
+ NONBONDED  OSLP     .1521   3.1538    .1521   3.1538  !! added for eefx
+ NONBONDED  OT       .1521   3.1506    .1521   3.1506 ! 
+ NONBONDED  NH3L     .2000   3.2963    .2000   3.2963 ! ethanolamine 
+ NONBONDED  NTL      .2000   3.2963    .2000   3.2963 ! as all other Nitogens in Charmm 
+ NONBONDED  PL       .5850   3.8309    .5850   3.8309 ! ADM Jr. 
+ NONBONDED  SOD      .1000   2.7297    .1000   2.7297 ! FROM BENOIT ROUX 
+ NONBONDED  MG       .0010   2.9400    .0010   2.9400 ! from Blaise Prodhom 
+ NONBONDED  CLA      .1500   4.2763    .1500   4.2763 ! chloride 
+ NONBONDED  SL       .4700   3.7418    .4700   3.7418 ! methylsulfate 
+
+
+ !                      A             B          A(1:4)       B(1:4)
+
+!NBFIX  SOD  OT      82964.866      439.895    82964.866      439.895 ! FROM BENOIT ROUX 
+!NBFIX  MG   OT      84928.658     1626.769    84928.658     1626.769 ! From Blaise Prodhom 
+ NBFIX  MG   OSL     84928.658     1626.769    84928.658     1626.769 ! From Blaise Prodhom 
+ NBFIX  MG   O2L     36779.138      857.661    36779.138      857.661 ! From Blaise Prodhom 
+ NBFIX  MG   OHL     84928.658     1626.769    84928.658     1626.769 ! From Blaise Prodhom 
+
+! for use with TIP3P water
+! NBFIx  OW  SOD    199609.8644     313.8003       0.1000       2.7297
+! NBFIx  OW  MG      31158.4944      39.2058       0.0010       2.9400
+! NBFIx  HW  SOD         0.0000       0.0000       0.0000       0.0000
+! NBFIx  HW  MG          0.0000       0.0000       0.0000       0.0000
+
+ SET ECHO=TRUE END

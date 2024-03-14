@@ -1,0 +1,164 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+psf=None
+par=None
+bondOrderFile=None
+threshold=0.85
+
+import chirality
+#manually set thresholds between single, double, triple bond order
+chirality.bondOrderByLength["cc"] = (1.41,1.25)
+
+
+(opts,files) = xplor.parseArguments(("par:1",
+                                     "psf:1",
+                                     "bondOrder:1",
+                                     "centers:1",
+                                     "anchored:0"),
+					                                   cmdline="[options] <pdb file>",
+                                   description="""
+Determine the chirality of centers in the specified PDB file.
+
+                                   """,
+                                   usageString="""
+where options are one or more of::
+
+  -psf <file.psf>         - psf file- required.
+  -par <file.par>         - load parameters to help in determining bond order.
+  -bondOrder <file.bo>    - load explicitly defined bond order information.
+                            This file consists of entry lines taking form:
+                                     double name1 name2
+                                     triple name1 name2
+                            where name1 and name2 are atom names. By default all
+                            bonds are single bonds, so they do not need to be
+                            specified.
+  -centers <vals>         - a space- or colon-separated list of atom names
+                            specifying the the chiral centers to the queried.
+                            By default, this list consists of all carbon
+                            atoms.
+  -anchored               - If this flag is not specified, the absolute
+                            chirality is chosen to optimize the match with the
+                            first structure. If this is set, absolute chirality
+                            is not changed.
+
+                                   """
+                                   )	
+
+centerNames="C*"
+anchored=False
+
+for opt in opts:
+    if opt[0]=="bondOrder":
+        bondOrderFile=opt[1]
+        pass
+    if opt[0]=="par":
+        par=opt[1]
+        pass
+    if opt[0]=="psf":
+        psf=opt[1]
+        pass
+    if opt[0]=="centers":
+        if ":" in opt[1]:       
+            centerNames=opt[1].split(':')
+        else:
+            centerNames=opt[1].split()
+            pass
+        pass
+    if opt[0]=="anchored":
+        anchored=True
+        pass
+    pass
+pass
+
+
+
+import protocol
+protocol.initStruct(psf)
+if par:
+    protocol.initParams(par)
+    pass
+
+if not bondOrderFile and not par:
+    print("Warning: no parameter or bond order file specified.")
+    print("         Determining bond order from distances in PDB file.")
+    print()
+    pass
+
+
+from chirality import reportChiralities, absoluteChirality
+
+
+if type(centerNames)==type("string"):
+    sel=AtomSel("name "+centerNames)
+    centerNames=[atom.atomName() for atom in sel]
+    pass
+    
+centers=centerNames
+centersByFile=[{} for center in centers]
+centers0=None
+for file in files:
+    print('PDB file:', file)
+    protocol.initCoords(file)
+    print(reportChiralities( centerNames, bondOrderFile ))
+    for i,center in enumerate(centers):
+        cname,sortedBoundNames,chirality = absoluteChirality(center,
+                                                             bondOrderFile)
+        centersByFile[i][file] = chirality
+        
+        pass
+    if centers0==None:
+        centers0=[centersByFile[i][file] for i in range(len(centers))]
+    pass
+
+if len(files)==1: exit(0)
+
+from cdsVector import CDSVector_int as IntVector
+from cdsVector import dot
+centers0=IntVector([1 if c=='R' else -1 for c in centers0])
+# now flip absolute chirality to maximize overlap to centers0
+# make them +/-1, multiply by -1 if dot prob is < 0.
+for file in files:
+    centers=[centersByFile[i][file] for i in range(len(centers))]
+    centers=IntVector( [1 if c=='R' else -1 for c in centers] )
+    if not anchored and dot(centers,centers0)<0:
+        centers *= -1
+        pass
+    for i,c in enumerate(centers):
+        centersByFile[i][file] = 'R' if c==1 else 'S'
+        pass
+    pass
+    
+
+print()
+brief=''
+conString="consensus for center"
+for i,center in enumerate(centerNames):
+    counts={}
+    values = list(centersByFile[i].values())
+    N = len(values)
+    consensus = None
+    for c in ("S","R"):
+        if values.count(c) >= threshold * N:
+            print('%s %s: %s (%d %s / %d %s)' %( conString,
+                                                 centerNames[i], c,
+                                                 values.count("R"),
+                                                 "R",
+                                                 values.count("S"),
+                                                 "S"))
+            brief += c
+            consensus = c
+            pass
+        pass
+    if not consensus:
+        print('no %s %s (%d %s / %d %s)' % (conString,
+                                            centerNames[i],
+                                            values.count("R"),
+                                            "R",
+                                            values.count("S"),
+                                            "S"))
+        brief += '.'
+        pass
+    pass
+print()
+print("in brief:", brief)
+

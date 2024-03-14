@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>2kk1</protein_name>
+		<seq_file>2kk1.seq</seq_file>
+		<upl_file>2kk1_concat_dist.upl</upl_file>
+		<hbond_file>2kk1_concat_hBond.upl</hbond_file>
+		<ang_file>2kk1_concat_dihed.aco</ang_file>
+		<protein_path>../protein/2kk1</protein_path>
+	</inputs>

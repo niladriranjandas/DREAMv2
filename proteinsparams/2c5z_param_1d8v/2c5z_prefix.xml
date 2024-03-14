@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>2c5z</protein_name>
+		<seq_file>2c5z.seq</seq_file>
+		<upl_file>2c5z_concat_dist.upl</upl_file>
+		<hbond_file>2c5z_concat_hBond.upl</hbond_file>
+		<ang_file>2c5z_concat_dihed.aco</ang_file>
+		<protein_path>../protein/2c5z</protein_path>
+	</inputs>

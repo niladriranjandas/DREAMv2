@@ -1,0 +1,150 @@
+remark - parameter file toph19x.heme
+remark - X-PLOR parameter file for heme and histidine
+remark
+set echo=false end
+remark IRON - PYRROLE NITROGEN BOND LENGTH CHANGED TO 1.969 FROM 2.09
+remark IN ORDER TO MAKE THE IRON EQUIVALENT TO LOW SPIN FE.
+remark NEW BOND LENGTH IS THE AVERAGE VALUE FOUND IN THE X-RAY
+remark STRUCTURE OF CO-MB (KURIYAN ET AL, 1985) ...JK
+remark NEW ATOM TYPES INTRODUCED FOR HISTIDINE J.K. OCT 29 1985
+remark HIS PARAMETERS ARE FROM MBCO STRUCTURE
+remark John Kuriyan 19/may/1986
+     
+     
+bond FE   NP     270.2       1.958     !
+bond FE   NR     270.2       1.98!   FROM NAGAI ET AL(1980)
+bond CPA  CPB    299.8       1.443     !FOLLOWING BOND LENGTHS ARE FROM
+bond CPB  CPB    340.7       1.346     ! AVERAGED VALUES FROM CULLEN AND
+bond CPA  NP     377.2       1.376     ! MEYER AND KITAGAWA ET AL.
+bond CPA  CPM    360.0       1.371
+bond CPM  HA     367.6       1.09
+bond CPB  CH2E   441.3       1.52
+bond CPB  CH3E   441.3       1.52
+bond CPB  CR1E   441.3       1.38
+!
+bond FE   CM     258.0       1.90   !   FROM MB-CO X-RAY KURIYAN ET AL.
+bond FE   OM     250.0       1.8    !    JUST A GUESS.
+bond CC   CH2E   405.0       1.52   !HISTIDINE PARAMETERS FROM MBCO STRUCT
+bond CC   CF     450.0       1.40
+bond CF   NB     450.0       1.40
+bond NB   CP     450.0       1.30
+bond CP   NA     450.0       1.35
+bond NB   FE      65.0       2.20
+bond CC   NA     471.0       1.40
+bond NA   H      405.0       0.98
+!
+BOND FE   O      400.0       2.1
+BOND FE   OC     400.0       2.1
+BOND FE   N      400.0       2.1
+BOND N    N      400.0       1.4
+!
+angle NP   FE   NR      5.0      115.0
+angle CR1E NR   FE      30.0     124.8!  FORCE CONSTANT FROM PARMFIX9
+angle C    NP   FE      50.0     128.0!  FORCE CONSTANT FROM PARMFIX9
+angle FE   OM   OM       0.0     180.0!  DUMMY PARAMETER FOR PATCH AND ANALYSIS.
+angle NR   FE   CM      5.0      180.0
+angle NR   FE   OM      5.0      180.0! JUST A GUESS FROM EXISTING FE CM DATA
+angle NP   FE   NP     14.39       90.0
+angle CPA  NP   FE     96.15      128.05
+angle CPA  NP   CPA   139.3      103.9
+angle CPB  CPA  CPM    61.6      124.0
+angle NP   CPA  CPM    88.0      124.4
+angle NP   CPA  CPB   122.0      111.6
+angle CPA  CPB  CPB    30.8      106.5
+angle CPA  CPM  CPA    94.2      125.1
+angle CPA  CPM  HA     12.7      117.45    ! -- " --
+!
+angle CPA  CPB  CR1E   70.0      126.8
+angle CPB  CPB  CR1E   70.0      126.8
+angle CPB  CPB  CH3E   65.0      126.8
+angle CPA  CPB  CH3E   65.0      126.8
+angle CPB  CPB  CH2E   65.0      126.8
+angle CPA  CPB  CH2E   65.0      126.8
+angle CPB  CR1E CH2E   70.0      121.5
+angle CPB  CH2E CH2E   70.0      113.0
+!
+angle CC   CF   NB     90.0      102.0    ! NEW HISTIDINE PARAM FROM MBCO
+angle CF   NB   CP     65.0      110.0
+angle NB   CP   NA     70.0      111.0
+angle CP   NA   CC     60.0      105.0
+angle NA   CC   CF     65.0      110.5
+angle CH2E CC   NA     20.0      117.5
+angle CH2E CC   CF     70.0      121.5
+angle FE   NB   CP     30.0      130.0
+angle FE   NB   CF     30.0      120.0
+angle NB   FE   NP     50.0       90.0 ! HIS/HEME/LIG LINKAGE PARAMS FOLLOW
+angle NP   FE   CM     50.0       90.0 ! F.C. FROM JONES (1972) JCP 57 2050
+angle NB   FE   CM     50.0      180.0 !  - "-
+angle FE   CM   OM     35.0      180.0 !  - "-
+angle NP   FE   OM      5.0       90.0 ! JUST A GUESS FROM EXISTING FE CM DATA
+angle CH1E CH2E CC     30.0      112.5
+angle CC   NA   H      30.0      127.5 ! THIS AND THE NEXT ONE SET TO
+angle CP   NA   H      35.0      127.5 ! 127.5 TO MAINTAIN PLANAR H. CHECK!
+!
+ANGLE O    FE   NR     50.0       90.0
+ANGLE N    N    N     200.0      180.0
+ANGLE O    FE   OC     50.0       90.0
+ANGLE O    FE   NB     50.0       90.0
+ANGLE NB   FE   OC     50.0       90.0
+ANGLE NB   FE   NB     50.0       90.0
+ANGLE NB   FE   N      50.0       90.0
+ANGLE OC   FE   OC     50.0       90.0
+ANGLE O    FE   N      50.0       90.0
+ANGLE N    FE   OC     50.0       90.0
+!
+dihe X    FE   NR   X        0.05      4       0.0
+dihe X    FE   CM   X        0.05      4       0.0
+dihe X    FE   OM   X        0.00      4       0.0
+!
+dihe X    CPB  CR1E X         1.0      2     180.0 !JUST A GUESS J.K.
+dihe X    CPB  CH2E X         0.0      3       0.0 ! REPLACED BY IMPROPER
+dihe X    CH2E CC   X         0.0      3       0.0 !NEW HISTIDINE (WHY ZERO??)
+     
+!
+!
+impr CPB  X    X    CH2E    90.0    0     0.0
+impr CPB  X    X    CH3E    90.0    0     0.0
+impr CPB  X    X    CR1E    90.0    0     0.0
+!
+impr CC   X    X    CH2E    90.0    0     0.0 !NEW HIS PARAM
+!
+impr NA   X    X    H       45.0    0     0.0
+impr CC   X    X    NB      25.0    0     0.0 !HIS OUT OF PLANE IMPROPERS
+impr NA   X    X    CF      25.0    0     0.0
+impr CP   X    X    CC      25.0    0     0.0
+impr CF   X    X    CP      25.0    0     0.0
+impr NB   X    X    NA      25.0    0     0.0
+! IMPROPER TORSIONS ARE FROM LI AND SPIRO'S OUT-OF-PLANE
+! FORCE FIELD. OPTIMIZED
+!
+impr HA   CPA  CPA  CPM     29.4    0     0.0
+impr CPA  CPB  CPM  NP      32.7    0     0.0
+impr FE   CPA  CPA  NP     137.4    0     0.0
+impr NP   CPA  CPB  CPB     40.6    0     0.0
+impr CPB  CPA  NP   CPA     20.8    0     0.0
+impr NP   CPA  CPM  CPA     18.3    0     0.0
+!
+!
+{* nonbonding parameter section *}
+{* ============================ *}
+!! for use with:
+!! NBXMOD=5  ATOM CDIEL SHIFT vswitch
+!!    CUTNB=8.0  CTOFNB=7.5  CTONNB=6.5  EPS=1.0  E14FAC=0.4  WMIN=1.5
+!!
+ !                  eps     sigma       eps(1:4) sigma(1:4)
+ !                  (kcal/mol) (A)
+ !                  ---------------------------------------
+ !
+ NONBonded  CC       0.1200   3.7418      0.1000   3.3854 ! HISTIDINE CG
+ NONBonded  CP       0.1200   3.7418      0.1000   3.3854 ! HIS RING CARBON
+ NONBonded  CF       0.1200   3.7418      0.1000   3.3854 ! HIS RING CARBON
+!
+ NONBonded  CPA      0.1200   3.7418      0.1000   3.3854 ! HEME SP2 CARBON
+ NONBonded  CPB      0.1200   3.7418      0.1000   3.3854 ! HEME SP2 CARBON
+ NONBonded  CPM      0.1200   3.7418      0.1000   3.3854 ! HEME MESO CARBON
+!
+ NONBonded  NB      0.2384   2.8509      0.2384   2.8509  ! HISTIDINE
+ NONBonded  NA      0.2384   2.8509      0.2384   2.8509  ! HISTIDINE
+ !
+ NONBonded  FE       0.2000  4.0         0.2000   4.00    !PURELY A GUESS
+SET ECHO = TRUE END

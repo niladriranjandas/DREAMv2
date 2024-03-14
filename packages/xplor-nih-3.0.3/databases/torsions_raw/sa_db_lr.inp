@@ -1,0 +1,521 @@
+REMARK   This protocol allows computer to select dimer noes
+REMARKS very slow cooling with increase of vdw 
+evaluate ($seed=3785824)
+
+set seed $seed  end
+
+!----------------------------------------------------------------------
+! read in the PSF file and initial structure
+evaluate ($kbbang = 500.0)
+evaluate ($kbbimp = 500.0)
+
+! read in the PSF file and initial structure
+
+structure @p53_tet_sa.psf @h2o.psf end
+
+param reset @parallhdg_new_db.pro @h2o.inp end
+
+coor @p53_shift_test8_ave_new.min
+!delete select (resid 1:6 or resid 39:42) end
+
+
+!----------------------------------------------------------------------
+! set the weights for the experimental energy terms
+    
+evaluate ($knoe  = 30.0)   ! noes
+evaluate ($asym  = 0.1)   ! slope of NOE potential
+evaluate ($kcdi  = 10.0)   ! torsion angles
+evaluate ($krama = 0.002)    !rama
+evaluate ($kandb = 0.001)      
+evaluate ($kimdb = 0.001)      
+evaluate ($k_ncs = 0.01)
+!----------------------------------------------------------------------
+! The next statement makes sure the experimental energies are used in the
+! calculation, and switches off the unwanted energy terms.
+! note that the NMR torsions are only switched on in the cooling stage
+! we include the noncrystallographic symmetry right from the start
+
+!--------------------------------------------------------------------------- 
+
+! Read experimental restraints
+  set echo on message on end 
+
+!----------------------------------------------------------------------
+! The next statement makes sure the experimental energies are used in the
+! calculation, and switches off the unwanted energy terms.
+! note that the NMR torsions are only switched on in the cooling stage
+! we include the noncrystallographic symmetry right from the start
+
+ncs restraints
+ initialize
+ group 
+  equi (segid A)
+  equi (segid B)
+  equi (segid C)
+  equi (segid D)
+  weight = $k_ncs
+ end
+ ?
+end
+
+
+    
+
+!--------------------------------------------------------------------------- 
+
+! Read experimental restraints
+set message off echo off end
+
+
+noe
+  reset
+  nrestraints = 8000                   ! allocate space for NOEs
+  ceiling 100
+  
+{
+  class      all 
+
+!               set message off echo off end
+!	     @[-]@[-]inter_monomer_NA.tbl
+!	     @[-]@[-]intra_monomer_NA.tbl
+!
+!              @[-]hbonds_dim.tbl
+!  set echo on message on end
+!             @[-]hbonds_dim.tbl
+!             @[-]noe_dimer.tbl
+
+  averaging  all sum
+  monomers   all 4
+  potential  all soft
+  scale      all $knoe                           
+  sqconstant all 1.0
+  sqexponent all 2
+  soexponent all 1
+  rswitch    all 1.0
+  sqoffset   all 0.0
+  asymptote  all 2.0
+  
+ }
+ 
+  class     mon
+            @noe_mon_full.tbl
+            @dimer_a_b_full.tbl
+            @dimer_a_c_full.tbl
+            @dimer_a_d_full.tbl
+            @hbonds_mon_full.tbl
+            @hbonds_dimer_full.tbl
+            @h2o.tbl
+  averaging  mon sum
+  potential  mon square
+  scale      mon $knoe                           
+  sqconstant mon 1.0
+  sqexponent mon 2
+{    
+  class      symm @[-]symmetry.tbl
+  potential  symm symmetry
+  scale      symm 1.0                           
+  sqconstant symm 1.0
+  sqexponent symm 2
+  soexponent symm 1
+  rswitch    symm 0.5
+  sqoffset   symm 0.0
+  asymptote  symm 1.0
+
+}
+
+end
+
+set message on echo on end
+
+set message off echo off end
+
+carb
+!shifts
+   phistep = 180
+   psistep = 180
+   nres = 300
+   class all
+   force 0.5
+   potential harmonic
+   @expected_edited.tbl
+   @rcoil.tbl
+   @shifts_p53.tbl
+end
+
+
+
+set message off echo off end
+@dihed_full.tbl                    
+
+restraints dihed 
+
+  scale $kcdi  
+
+end 
+
+couplings
+  nres 400
+  potential harmonic
+  class phi
+  degen 1
+  force 1.0
+  coefficients 6.98 -1.38 1.72 -60.0 -60.0
+  @phij.tbl
+end
+
+set message on echo on end
+
+
+evaluate ($rcon  = 0.003) 
+
+parameters
+  nbonds
+    atom
+    nbxmod 3
+    wmin  =   0.01  ! warning off
+    cutnb =   4.5   ! nonbonded cutoff
+    tolerance 0.5
+    repel=    0.9   ! scale factor for vdW radii = 1 ( L-J radii)
+    rexp   =  2     ! exponents in (r^irex - R0^irex)^rexp
+    irex   =  2
+    rcon=$rcon      ! actually set the vdW weight
+      end
+end 
+
+
+
+
+angledb 
+nres 10000
+@/gmc5/clore/xplor_40/newdb/angledb_expe.tbl
+potential harmonic
+@/gmc5/clore/xplor_40/newdb/force_angledb.tbl
+!deriv off
+end
+@/gmc5/clore/xplor_40/newdb/setup_angledb.tbl
+
+
+xram
+nres=10000
+set message off echo off end
+  potential harmonic
+  @/gmc5/clore/xplor_40/newdb/expected_newdb.tbl
+  @/gmc5/clore/xplor_40/newdb/force_newdb.tbl
+  @/gmc5/clore/xplor_40/newdb/longrange_ener.tbl
+  @/gmc5/clore/xplor_40/newdb/force_longrange.tbl
+end
+
+set message on echo on end
+
+@/gmc5/clore/xplor_40/newdb/setup_newdb.tbl
+@/gmc5/clore/xplor_40/newdb/setup_longrange.tbl
+
+
+
+
+{evaluate ($ktrio = 0.01)
+@/gmc5/clore/xplor_40/newdb/setup_restrios.tbl
+trio
+ @/gmc5/clore/xplor_40/newdb/trio_ener.tbl
+ generate
+ @/gmc5/clore/xplor_40/newdb/trio_force.tbl
+end
+}
+
+evaluate ($cool_steps = 3000)
+evaluate ($init_t  = 3000.01)
+
+vector do (mass  = 100.0) (all)         ! uniform mass for all atoms
+vector do (fbeta = 10.0) (all)         ! coupling to heat bath
+
+
+coor copy end
+
+
+
+evaluate ($count =0)
+while ($count < 50)
+  loop structure
+  evaluate ($count = $count + 1)
+
+{====>}                             {*Filename(s) for embedded coordinates.*}
+
+vector do (x=xcomp) (all)
+vector do (y=ycomp) (all)
+vector do (z=zcomp) (all)
+
+
+evaluate ($ini_rad  = 0.9)        evaluate ($fin_rad  = 0.80)
+evaluate ($ini_con=  0.004)       evaluate ($fin_con=  4.0)
+evaluate ($ini_ang = 0.4)         evaluate ($fin_ang = 1.0)
+evaluate ($ini_imp = 0.1)         evaluate ($fin_imp = 1.0) 
+
+evaluate ($ini_noe = 2.0)         evaluate ($fin_noe = 30.0)
+evaluate ($knoe  = $ini_noe)   ! slope of NOE potential
+evaluate ($ini_rama = 0.002)        evaluate ($fin_rama = 1.0)
+evaluate ($krama = $ini_rama)
+evaluate ($ini_andb = 0.001)        evaluate ($fin_andb = 1000.0)
+evaluate ($kandb = $ini_andb)
+evaluate ($ini_imdb = 0.001)        evaluate ($fin_imdb = 2000.0)
+evaluate ($kimdb = $ini_imdb)
+
+evaluate ($ini_kbb_a = 500.0)        evaluate ($fin_kbb_a = 100.0)
+evaluate ($kbbang = $ini_kbb_a)
+evaluate ($ini_kbb_i = 500.0)        evaluate ($fin_kbb_i = 10.0)
+evaluate ($kbbimp = $ini_kbb_i)
+
+evaluate ($kcdi  = 10.0)   ! torsion angles
+
+evaluate ($ini_ncs = 0.01)        evaluate ($fin_ncs = 50)   !usually 10
+evaluate ($k_ncs = $ini_ncs)
+
+ncs restraints
+ initialize
+ group 
+
+  equi (segid A)
+  equi (segid B)
+  equi (segid C)
+  equi (segid D)
+  weight = $k_ncs
+ end
+ ?
+end
+
+
+    
+flags 
+  exclude *
+  include bonds angl impr vdw noe cdih coup carb xram ncs !trio 
+  exclude elec dihe
+
+end
+
+
+noe
+  averaging  all sum
+  potential  all square
+  scale      all $knoe                           
+  sqconstant all 1.0
+  sqexponent all 2
+end
+
+
+restraints dihed 
+  scale $kcdi  
+end 
+
+evaluate ($rcon  = 1.0) 
+
+parameters
+  nbonds
+    atom
+    nbxmod 3
+    wmin  =   0.01  ! warning off
+    cutnb =   100   ! nonbonded cutoff
+    tolerance 45
+    repel=    1.2   ! scale factor for vdW radii = 1 ( L-J radii)
+    rexp   =  2     ! exponents in (r^irex - R0^irex)^rexp
+    irex   =  2
+    rcon=$rcon      ! actually set the vdW weight
+     end
+end 
+
+
+
+constraints 
+
+        interaction (not name ca) (all) 
+
+        weights * 1 angl 0.4 impr 0.1 vdw 0 elec 0 end 
+
+        interaction (name ca) (name ca) 
+
+        weights * 1 angl 0.4 impr 0.1 vdw 1.0 end 
+
+end
+
+
+dynamics  verlet
+      nstep=5000           ! 
+
+      timestep=0.002        ! 
+
+      iasvel=maxwell        firsttemp= $init_t
+      tcoupling = true
+      tbath = $init_t   
+
+      nprint=50
+      iprfrq=0
+      ntrfr = 99999999
+end
+
+
+
+parameters
+  nbonds
+    atom
+    nbxmod 3
+    wmin  =   0.01  ! warning off
+    cutnb =   4.5   ! nonbonded cutoff
+    tolerance 0.5
+    repel=    0.9   ! scale factor for vdW radii = 1 ( L-J radii)
+    rexp   =  2     ! exponents in (r^irex - R0^irex)^rexp
+    irex   =  2
+    rcon =1.0      ! actually set the vdW weight
+  end
+end 
+
+
+evaluate ($kcdi = 200)
+restraints dihed 
+
+  scale $kcdi  
+
+end
+
+
+evaluate ($final_t = 100)     { K }
+evaluate ($tempstep = 50)     { K }
+
+evaluate ($ncycle = ($init_t-$final_t)/$tempstep)
+evaluate ($nstep = int($cool_steps*2.0/$ncycle))
+
+evaluate ($bath  = $init_t)
+evaluate ($k_vdw = $ini_con)
+evaluate ($k_vdwfact = ($fin_con/$ini_con)^(1/$ncycle))
+evaluate ($radius=    $ini_rad)
+evaluate ($radfact = ($fin_rad/$ini_rad)^(1/$ncycle))
+evaluate ($k_ang = $ini_ang)
+evaluate ($ang_fac = ($fin_ang/$ini_ang)^(1/$ncycle))
+evaluate ($k_imp = $ini_imp)
+evaluate ($imp_fac = ($fin_imp/$ini_imp)^(1/$ncycle))
+evaluate ($noe_fac = ($fin_noe/$ini_noe)^(1/$ncycle))
+evaluate ($knoe = $ini_noe)
+evaluate ($rama_fac = ($fin_rama/$ini_rama)^(1/$ncycle))
+evaluate ($krama = $ini_rama)
+evaluate ($andb_fac = ($fin_andb/$ini_andb)^(1/$ncycle))
+evaluate ($kandb = $ini_andb)
+evaluate ($imdb_fac = ($fin_imdb/$ini_imdb)^(1/$ncycle))
+evaluate ($kimdb = $ini_imdb)
+evaluate ($kbb_fac_i = ($fin_kbb_i/$ini_kbb_i)^(1/$ncycle))
+evaluate ($kbb_fac_a = ($fin_kbb_a/$ini_kbb_a)^(1/$ncycle))
+evaluate ($kbbang = $ini_kbb_a)
+evaluate ($kbbimp = $ini_kbb_i)
+evaluate ($ncs_fac = ($fin_ncs/$ini_ncs)^(1/$ncycle))
+evaluate ($k_ncs = $ini_ncs)
+
+
+flags 
+  exclude *
+  include bonds angl impr vdw noe cdih coup carb xram andb ncs !trio
+  exclude elec dihe
+
+end
+
+vector do (vx = maxwell($bath)) (all)
+vector do (vy = maxwell($bath)) (all)
+vector do (vz = maxwell($bath)) (all)
+
+evaluate ($i_cool = 0)
+while ($i_cool < $ncycle) loop cool
+    evaluate ($i_cool=$i_cool+1)
+
+    evaluate ($bath  = $bath  - $tempstep)
+    evaluate ($k_vdw=min($fin_con,$k_vdw*$k_vdwfact))
+    evaluate ($radius=max($fin_rad,$radius*$radfact))
+    evaluate ($k_ang = $k_ang*$ang_fac)
+    evaluate ($k_imp = $k_imp*$imp_fac)
+    evaluate ($knoe  = $knoe*$noe_fac)
+    evaluate ($krama  = $krama*$rama_fac)
+    evaluate ($kandb  = $kandb*$andb_fac)
+    evaluate ($kimdb  = $kimdb*$imdb_fac)
+    evaluate ($kbbang  = $kbbang*$kbb_fac_a)
+    evaluate ($kbbimp  = $kbbimp*$kbb_fac_i)
+    evaluate ($k_ncs = $k_ncs*$ncs_fac)
+    
+    parameter reset @parallhdg_new_db.pro @h2o.inp end
+    constraints interaction (all) (all) weights
+        * 1 angles $k_ang improper $k_imp
+    end end
+    parameter
+        nbonds
+        cutnb=4.5 rcon=$k_vdw nbxmod=3 repel=$radius
+    end       end
+    noe scale all $knoe end
+    xram @/gmc5/clore/xplor_40/newdb/force_newdb.tbl end
+    xram @/gmc5/clore/xplor_40/newdb/force_longrange.tbl end
+    angledb @/gmc5/clore/xplor_40/newdb/force_angledb.tbl end
+    ncs restraints
+        initialize
+        group equi (segid A)  equi (segid B) 
+              equi (segid C)  equi (segid D)
+        weight = $k_ncs end
+        ?
+    end
+    dynamics  verlet
+        nstep=$nstep  timestep=0.002 iasvel=current  firsttemp= $bath
+        tcoupling = true  tbath = $bath   nprint=$nstep  iprfrq=0
+        ntrfr = 99999999
+    end
+end loop cool
+
+evaluate ($kandb=1000.0)
+evaluate ($kimdb=3000.0)
+angledb @/gmc5/clore/xplor_40/newdb/force_angledb.tbl end
+
+mini powell nstep= 500 nprint= 50 end
+
+   print threshold=0.5 noe
+   evaluate ($rms_noe=$result)
+   evaluate ($violations_noe=$violations)
+   print threshold=5. cdih
+   evaluate ($rms_cdih=$result)
+   evaluate ($violations_cdih=$violations)
+   print thres=0.05 bonds          
+   evaluate ($rms_bonds=$result)
+   print thres=5. angles
+   evaluate ($rms_angles=$result)
+   print thres=5. impropers
+   evaluate ($rms_impropers=$result)
+   couplings print threshold 1.0 class phi end
+   evaluate ($rms_coup = $result)
+   evaluate ($end_viols = $violations)
+   couplings print threshold 1.0 class gly end
+   evaluate ($rms_coup_g = $result)
+   evaluate ($end_viols_g = $violations)
+   carbon print threshold = 1.0 end
+   evaluate ($rms_ashift = $rmsca)
+   evaluate ($rms_bshift = $rmscb)
+   evaluate ($viol_shift = $violations)
+   angledb print threshold=0.5 type torsion end
+   evaluate ($rms_tordb = $rms)
+   angledb print threshold=0.5 type angle end
+   evaluate ($rms_angdb = $rms)
+   remarks =============================================================== 
+   remarks      overall,bonds,angles,improper,vdw,cdih,noe,coup, shift, 
+    remarks      rama, andb, ncs 
+   remarks energies: $ener, $bond, $angl, $impr, $vdw, $cdih, $noe, $coup, 
+   remarks $carb, $rama, $andb, $ncs
+   remarks =============================================================== 
+   remarks            bonds,angles,impropers,cdih,noe,coup,angdb
+   remarks  $rms_bonds,$rms_angles,$rms_impropers,$rms_cdih,$rms_noe,$rms_coup,$rms_angdb, $rms_tordb
+   remarks  shifts RMS a, b: $rms_ashift, $rms_bshift
+   remarks =============================================================== 
+   remarks                cdih end_coup end_coup_gly noe 
+!   remarks violations :  $violations_cdih  $end_viols $violations_noe 
+   remarks violations :  $violations_cdih  $end_viols $end_viols_g $violations_noe 
+   remarks shifts:  $viol_shift
+   remarks =============================================================== 
+   remarks jcoup stats:  end_rms  end_rms_gly
+!   remarks rms-d:  $rms_coup 
+   remarks rms-d:  $rms_coup $rms_coup_g
+   remarks ===============================================================
+
+{====>}                        {*Name(s) of the family of final structures.*}
+evaluate ($file = "p53_rama_ang_lr_" + encode($count) + ".sa")
+write coor output= $file end
+
+end loop structure
+stop
+

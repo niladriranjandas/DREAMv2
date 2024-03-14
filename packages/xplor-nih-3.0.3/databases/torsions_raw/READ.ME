@@ -1,0 +1,67 @@
+1. general protein database:
+
+   setup_newdb.tbl  
+   force_newdb.tbl*  
+   expected_newdb.tbl  
+
+2. longrange conformational database for phi and psi
+
+ 3D database
+    longrange_3D_energy.tbl  
+    setup_longrange_3D.tbl  
+    force_longrange_3D.tbl  
+ 4D database
+    setup_longrange_4D.tbl  
+    force_longrange_4D.tbl*  
+    longrange_4D_energy.tbl  
+
+3. nucleic acid conformational database
+  force_nucleic.tbl  
+  expected_nucleic.tbl  
+  setup_nucleic.tbl  
+
+
+4. databse for phi/psi dependence of tau3 and omega
+  setup_angledb.tbl  
+  angledb_expe.tbl  
+  force_angledb.tbl
+
+
+(1), (2) and (3) are called by the XRAM command:
+xram
+nres=10000
+set message off echo off end
+  @expected_newdb.tbl
+  @force_newdb.tbl
+  @longrange_3D_energy.tbl
+  @force_longrange_3D.tbl
+
+end
+
+set message on echo on end
+
+@setup_newdb.tbl
+@setup_longrange_3D.tbl
+
+
+for general database and nucleic acid database, increase force constant slowly
+up to a maximum value of 1.0
+for 4D longrange database, increase force constant slowly up to max value of 0.15
+for 3D longrange databse, increase force constant slowly up to a max value of 0.1
+
+
+(4) is called by the angledb command
+angledb
+nres 10000
+@angledb_expe.tbl
+potential harmonic
+@force_angledb.tbl
+deriv off
+end
+@setup_angledb.tbl
+
+
+
+
+
+look at sa_db_lr.inp which has everything in except nucleic acid database:

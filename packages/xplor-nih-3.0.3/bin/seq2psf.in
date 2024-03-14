@@ -1,0 +1,192 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+
+opts, seqFiles = xplor.parseArguments(
+      cmdline="[-protein | -dna | -rna] [option] <sequence filename>",
+      description="""
+Generate a PSF file from a PDB file. This is only possible for PDBs with
+residues contained in Xplor-NIH's default topology database.
+""",
+      usageString="""
+Option is one or more of::
+
+       -outFile <filename>
+       -segname <segment name>
+       -startresid <lowest residue number>
+       -cisPeptide resid
+       -disulfide_bond resid1:resid2
+       -disulfide_bridge resid1:resid2
+       -protonateHIS
+       -deprotonateHIS resid1[:resid2...]
+       -amidate_cterm
+       -custom_rename
+       -singleChar
+
+If the sequence type is omitted, a guess is made- this will not work
+correctly for rna sequences- you must specify -rna.
+
+generates a psf file from protein or nucleic acid sequence
+the psf file is written in a filename derived the input filename.
+
+multiple chains (not covalently linked) can be obtained by using the
+special residue name '*'.
+
+The -cisPeptide N option specifies that there is a cis peptide bond between
+residues N and N+1.
+
+use -disulfide_bond to make actual bonds, and -disulfide_bridge
+to remove the cysteine HG proton- to form disulfide with an
+NOE restraint.
+
+use -amidate_cterm to terminate the c-terminal end with a CONH2 group.
+
+By default the HIS HD1 atom is deleted. If -protonateHIS is specified,
+this proton is not deleted. Alternately, the resids of all residues
+which should be deprotonated can be specified using the
+-deprotonateHIS option, with resids specified, separated by
+colons. Finally, residue name variants can be used to specify
+protonation state: HIS (fully protonated), HSD (HD1 present, no HE2),
+and HSE (HE2 present, no HD1). If HSD or HSE is present, the
+-protonateHIS and -depronateHIS flags are ignored.
+
+If -outFile is omitted, the output filename is that of the input file with its
+suffix replaced with .psf.
+
+If -custom_rename is specified, certain convenient atom renamings are 
+made for nucleic acids::
+
+      ADE H61 --> HN'   
+      ADE H62 --> HN''  
+      GUA H21 --> HN'   
+      GUA H22 --> HN''  
+      CYT H41 --> HN'   
+      CYT H42 --> HN''  
+      THY C5A --> CM    
+
+The -singleChar option should be used for an input filename containing
+sequence information in single-character format. By default, residues
+are specified by the full 3 residue (or 4, for modified residues) name.
+
+Example::
+
+  % seq2psf -segname PROT -startresid 300 -protein protG.seq
+
+creates protG.psf with segid PROT starting with residue id 300.
+""",
+      options=["protein:0",
+               "dna:0",
+               "rna:0",
+               "segname:1",
+               "protonateHIS:0",
+               "deprotonateHIS:1",
+               "startresid:1",
+               "disulfide_bond:1",
+               "disulfide_bridge:1",
+	       "outFile:1",
+               "amidate_cterm:0",
+               "custom_rename:0",
+               "singleChar:0",
+               "cisPeptide:1"])
+
+
+seqType='auto'
+segname='    '
+startResid=1
+disulfide_bonds=[]
+disulfide_bridges=[]
+amidate_cterm=0
+custom_rename=0
+deprotonateHIS=True
+cisPeptides=[]
+outFile=None
+singleChar=False
+
+for opt in opts:
+    if opt[0] == 'protein':
+          seqType='prot'
+    elif opt[0] == 'dna':
+          seqType='dna'
+    elif opt[0] == 'rna':
+        seqType='rna'
+    elif opt[0] == 'segname':
+        segname=opt[1]
+    elif opt[0] == 'outFile':
+        outFile=opt[1]
+    elif opt[0] == 'protonateHIS':
+        deprotonateHIS=False
+    elif opt[0] == 'deprotonateHIS':
+        deprotonateHIS=[int(val) for val in opt[1].split(':')]
+    elif opt[0] == 'startresid':
+        startResid=int(opt[1])
+    elif opt[0] == 'disulfide_bond':
+        disulfide_bonds.append( list(map(int,opt[1].split(':'))) )
+    elif opt[0] == 'disulfide_bridge':
+        disulfide_bridges.append( list(map(int,opt[1].split(':'))) )
+    elif opt[0] == 'amidate_cterm':
+        amidate_cterm=1
+    elif opt[0] == 'custom_rename':
+        custom_rename=1
+    elif opt[0] == 'singleChar':
+        singleChar=True
+    elif opt[0] == 'cisPeptide':
+        cisPeptides.append( int(opt[1]) )
+        pass
+    pass
+
+
+if not seqFiles: 
+        print("must specify one or more sequence files")
+        exit(1)
+
+seq = open(seqFiles[0]).read()
+
+for file in seqFiles[1:]:
+    seq += ' * '
+    seq += open(file).read()
+    pass
+
+seqFile = seqFiles[0]
+if not outFile:
+    dotIndex=seqFile.rfind('.')
+    outFile=outFile=seqFile[:dotIndex] if dotIndex>=0 else seqFile 
+    outFile += ".psf"
+    pass
+
+seqs = seq.split('*')
+
+from psfGen import seqToPSF, cisPeptide
+for seq in seqs:
+    seqToPSF(seq,
+             startResid=startResid,
+             seqType=seqType,
+             segName=segname,
+             deprotonateHIS=deprotonateHIS,
+             disulfide_bonds=disulfide_bonds,
+             disulfide_bridges=disulfide_bridges,
+             amidate_cterm=amidate_cterm,
+             singleChar=singleChar,
+             customRename=custom_rename         )
+    startResid += len(seq.split())
+    pass
+
+for resid in cisPeptides:
+    cisPeptide(resid)
+    pass
+
+
+xplorCommand="remark Created with the command:\n"
+cmd='  '
+import sys
+for arg in sys.argv:
+    cmd += arg + ' '
+    if len(cmd)>70:
+        xplorCommand += "remark %s\n" % cmd
+        cmd='    '
+        pass
+    pass
+if len(cmd)>4:
+    xplorCommand += "remark %s\n" % cmd
+    pass
+
+xplor.command(xplorCommand)
+xplor.command('write structure output = "%s" end' % outFile)

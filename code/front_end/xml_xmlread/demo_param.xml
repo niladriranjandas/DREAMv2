@@ -1,0 +1,25 @@
+<set_up>
+	<inputs>
+		<protein_name>demo</protein_name>
+		<seq_file>demo.in</seq_file>
+		<upl_file>demo1.upl,demo2.upl</upl_file>
+		<hbond_file>demo_h.upl</hbond_file>
+		<ang_file>demo.aco</ang_file>
+		<protein_path>../abc/edf</protein_path>
+	</inputs>
+	<params>
+		<hydrogen_omission>1</hydrogen_omission>
+		<break_graph>
+			<eta_lo>0.7</eta_lo>
+			<eta_hi>1</eta_hi>
+		</break_graph>
+		<include_neighbour>7</include_neighbour>
+		<multi_expand>
+			<k_2>4</k_2>
+			<size_cutoff>250</size_cutoff>
+			<grp_min>2</grp_min>
+			<incr_min>2</incr_min>
+		</multi_expand>
+		<grp_expand>50</grp_expand>
+	</params>
+</set_up>

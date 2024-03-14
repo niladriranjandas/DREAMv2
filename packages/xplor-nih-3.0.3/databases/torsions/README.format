@@ -1,0 +1,132 @@
+This file describes the format of torsion angle database files of the type found
+in this directory.  The files contain information on one or more torsion angle
+database potential terms, used to set up torsion angle interpolated potentials
+defined in the torsionInterpolPot module.
+
+File Description:
+
+Comment lines, specified by a preceeding # symbol, and empty lines are
+disregarded.
+
+The 'name' keyword indicates the start of data associated with a term, and 
+must be followed by the name of the term, e.g.:
+
+--------------------------------------------------
+name pro_phi_psi
+--------------------------------------------------
+
+The 'atom' keyword preceeds an XPLOR atom metaselection.  A collection of such 
+atoms defines the torsion angles the potential is applied to.  For example, for 
+a Pro phi/psi term:
+
+--------------------------------------------------
+# Definition of torsion angle 1: Pro phi
+atom1 name C and resid _RESID-1
+atom2 resname PRO and resid _RESID and name N
+atom3 resname PRO and resid _RESID and name CA
+atom4 resname PRO and resid _RESID and name C
+
+# Definition of torsion angle 2: Pro psi
+atom1 resname PRO and resid _RESID and name N
+atom2  resname PRO and resid _RESID and name CA
+atom3 resname PRO and resid _RESID and name C
+atom4  resid _RESID+1 and name N
+--------------------------------------------------
+
+The first four 'atom' keywords define the phi angle of a Pro, and the remaining 
+four its psi angle.  _RESID signifies a residue number, subject to the addition
+or subtraction indicated; no spaces are allowed for such operations: 
+
+'_RESID + 2' is wrong
+'_RESID+ 2' is wrong
+'_RESID +2' is wrong
+'_RESID+2' is the only right way 
+
+The replacement of _RESID by the residue number of a Pro in the protein under 
+study yields a valid XPLOR selection string.  The metaselections *must* contain
+a 'resid _RESID' string ('_RESID' possibly modified by addition or subtraction
+of a number; see above), linked to the rest by 'and', as in the above examples.
+
+For clarity, each 'atom' keyword may be appended with a number within 1-4.  
+However, regardless of numbering, the order in which the atom keywords appear 
+is what matters, e.g.: 
+
+--------------------------------------------------
+# Does not define a Pro phi
+atom2 resname PRO and resid _RESID and name N
+atom1 name C and resid _RESID-1
+atom3 resname PRO and resid _RESID and name CA
+atom4 resname PRO and resid _RESID and name C
+--------------------------------------------------
+
+The above is wrong because the C atom of the preceeding residue is not bonded 
+to the CA atom of the residue of interest, thus the sequence of metaselections 
+does not define the appropriate torsion angle.  Except for the 'name' keyword,
+which must be at the beginning, the 'atom' keywords are the only ones that 
+must be ordered, all others can appear anywhere (as long as they are below the 
+corresponding 'name').
+
+The optional 'info' keyword is followed by some comments on how the potential  
+was generated from the database, e.g., B-factor cutoff used to filter x-ray
+structures in the database, the resulting number of points, etc.:
+
+--------------------------------------------------
+info B-factor<30. 4567 data points.
+info More info may go in extra lines.
+--------------------------------------------------
+
+The 'axis' keywords define the torsion angle grid on which the energy has been
+sampled.  For example:
+
+--------------------------------------------------
+# This axis has only 3 points (in a real case scenario
+# on should have many more) arranged in a single line.
+# (Both end points must be included in 'axis' entries.)
+axis1 -180.0 0.0 180.0  
+
+# This axis has 4 points. Points can be arranged in more than one line, as done here.
+axis2 -180.0 -60.0 
+
+# this sequence is appended to that in the first line of axis2
+axis2  60.0  180.0
+--------------------------------------------------
+
+All axis values, separated by spaces, may follow an 'axis' keyword in a single
+line, or they can be split in two or more lines as is the case with axis2 above.  
+The number appended to 'axis' indicates the torsion angle to with it is associated; 
+in our  example axis1 corresponds torsion angle 1 = phi (i.e., the first angle 
+defined by the 'atom' entries).
+
+Energy values are needed for the grid points defined by the 'axis' entries above.
+For this purpose, axis values can be thought to be arranged in the following matrix:
+
+-180.0	-180.0	-180.0	   0.0	   0.0	   0.0	 <- from axis1, with last point (180.0) omitted
+-180.0	 -60.0	  60.0	-180.0	 -60.0	  60.0	 <- from axis2, with last point (180.0) omitted
+
+(Omission of end points above is warranted by the torsion angle periodicity.)
+
+The energy values associated with the points in torsion angle space given by
+the columns of the above matrix are given by the 'energy' keyword:
+
+--------------------------------------------------
+energy 17.456 17.689 17.709 15.321 18.945 19.881
+--------------------------------------------------
+
+where the sequence of energy values corresponds to torsion angle points:
+
+(-180.0, -180.0) (-180.0, -60.0) (-180.0, -60.0) (0.0, -180.0) (0.0, -60.0) (0.0, -60.0)
+
+Similarly to the axis keywords, energy values may be split into more than 
+one line.
+
+An optional 'elevel' keyword indicates the energy below which a given percentage of
+the database points lie.  For example,
+
+--------------------------------------------------
+elevel	99.95	15.949
+--------------------------------------------------
+
+means that 99.95% of database points have an energy of 15.949 or lower.  More than one
+elevel entries are allowed.
+
+

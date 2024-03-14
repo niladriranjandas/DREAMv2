@@ -1,0 +1,143 @@
+remarks  file TOPPAR/param.nad
+remarks  parameter file for NAD
+
+set echo=false end
+ 
+     bond P    OM   900.0 1.48
+     bond P    OS   600.0 1.61
+     bond CS2  OS   600.0 1.435
+     bond CS2  CS1  600.0 1.52
+     bond CS1  OS   600.0 1.435
+     bond CS1  CS1  600.0 1.52
+     bond CS1  NR5' 600.0 1.48
+     bond CB   NR5' 1000.0 1.33
+     bond CR51 NR5' 1000.0 1.33
+     bond NR6  CB   1000.0 1.34
+     bond CB   CB   1000.0 1.39
+     bond NR6  CR61 1000.0 1.32
+     bond CB   NT   900.0 1.33
+     bond HPR  NT   895.0 1.00
+     bond CB   NR5  1000.0 1.33
+     bond CR51 NR5  1000.0 1.33
+     bond CS1  OA   600.0 1.43
+     bond HO   OA   750.0 1.00
+     bond NR6' CS1  800.0 1.48
+     bond NR6' CR61 800.0 1.40
+     bond CR61 CR61 1000.0 1.39
+     bond CB   CR61 1000.0 1.39
+     bond CS2  CB   800.0 1.39
+     bond CB   CPR  800.0 1.53
+     bond CS2  CR61 800.0 1.39
+     bond CPR  OPR  1200.0 1.23
+     bond CPR  NT   900.0 1.33
+ 
+     angles OM P OM       140.0 120.0
+     angles OS P OM       95.0 109.6
+     angles OS P OS       95.0 103.0
+     angles CS2 OS P      95.0 120.0
+     angles P OS P        95.0 136.0
+     angles CS1 CS2 OS     68.0 109.5
+     angles CS2 CS1 OS     68.0 109.5
+     angles CS2 CS1 CS1    60.0 109.5
+     angles CS1 CS1 OS     68.0 109.5
+     angles CS1 OS CS1    80.0 109.5
+     angles OS CS1 NR5'    68.0 109.5
+     angles CS1 CS1 NR5'   68.0 109.5
+     angles CS1 NR5' CB   100.0 126.0
+     angles CS1 NR5' CR51 100.0 126.0
+     angles CB NR5' CR51  100.0 108.0
+     angles NR6 CB NR5'   100.0 132.0
+     angles CB CB NR5'    100.0 108.0
+     angles NR6 CB CB     100.0 120.0
+     angles CB NR6 CR61   100.0 120.0
+     angles NR6 CR61 NR6  100.0 120.0
+     angles NR6 CB NT     100.0 120.0
+     angles CB CB NT      100.0 120.0
+     angles HPR NT CB      70.0 120.0
+     angles HPR NT HPR    80.0 120.0
+     angles CB CB CB      100.0 120.0
+     angles CB CB NR5     100.0 108.0
+     angles CB NR5 CR51   100.0 108.0
+     angles NR5' CR51 NR5 100.0 108.0
+     angles CS1 CS1 OA     68.0 109.5
+     angles CS1 CS1 CS1    60.0 109.5
+     angles CS1 OA HO     95.0 109.5
+     angles NR6' CS1 OS    68.0 109.5
+     angles NR6' CS1 CS1   60.0 109.5
+     angles CS1 NR6' CR61  100.0 120.0
+     angles CR61 NR6' CR61 100.0 120.0
+     angles NR6' CR61 CR61 100.0 120.0
+     angles NR6' CR61 CB   100.0 120.0
+     angles CS2 CB CR61    100.0 120.0
+     angles CR61 CB CPR    100.0 120.0
+     angles CS2 CB CPR     100.0 120.0
+     angles CB CS2 CR61    100.0 120.0
+     angles CS2 CR61 CR61  100.0 120.0
+     angles CB CPR OPR    120.0 121.0
+     angles CB CPR NT     120.0 115.0
+     angles NT CPR OPR    120.0 124.0
+     angles HPR NT CPR     70.0 120.0
+ 
+     dihedral OS P OS CS2  0.25 3 0.0
+     dihedral OS P OS CS2  0.75 2 0.0
+     dihedral OS P OS P    0.25 3 0.0
+     dihedral OS P OS P    0.75 2 0.0
+     dihedral X OS CS2 X   0.90 3 0.0
+     dihedral OS CS2 CS1 CS1   1.40 3 0.0
+     dihedral OS CS2 CS1 CS1   0.10 2 0.0
+     dihedral OS CS2 CS1 OS    0.50 2 0.0
+     dihedral CS2 CS1 CS1 CS1  1.40 3 0.0
+     dihedral CS2 CS1 CS1 OA   0.10 2 0.0
+     dihedral CS1 CS1 CS1 OS   1.40 3 0.0
+     dihedral CS1 CS1 CS1 OS   0.10 2 0.0
+     dihedral OS CS1 CS1 OA    0.50 2 0.0
+     dihedral CS1 CS1 CS1 CS1  1.40 3 0.0
+     dihedral OA CS1 CS1 CS1   0.10 2 0.0
+     dihedral OA CS1 CS1 OA    0.50 2 0.0
+     dihedral OA CS1 CS1 NR5'  0.10 2 0.0
+     dihedral CS1 CS1 OS CS1   0.90 3 0.0
+     dihedral CS1 CS1 OA HO    0.30 3 0.0
+     dihedral OS CS1 NR5' CB   0.00 2 0.0
+     dihedral CB CB NT HPR     8.00 2 180.0
+     dihedral OA CS1 CS1 NR6'  0.10 2 0.0
+     dihedral OS CS1 NR6' CR61 0.00 2 0.0
+     dihedral CR61 CB CPR NT   1.40 2 180.0
+     dihedral CB CPR NT HPR    8.00 2 180.0
+ 
+     improper CS1 X X CS1  80.0 0 35.26439
+     improper NR5' X X CS1 40.0 0 0.0
+     improper CB X X NR5   40.0 0 0.0
+     improper CR51 X X CB  40.0 0 0.0
+     improper NR5' X X CB  40.0 0 0.0
+     improper NR5' X X NR5 40.0 0 0.0
+     improper CB X X CB    40.0 0 0.0
+     improper NR6 X X CB   40.0 0 0.0
+     improper CB X X CS1   40.0 0 0.0
+     improper CB X X NT    40.0 0 0.0
+     improper NR6' X X CS1 40.0 0 0.0
+     improper CR61 X X CR61 40.0 0 0.0
+     improper CR61 X X CB  40.0 0 0.0
+     improper NR6' X X CS2 40.0 0 0.0
+     improper CB X X CPR   40.0 0 0.0
+     improper NT X X CPR   40.0 0 0.0
+ 
+     nonbonded CS2      0.1142    3.9823   0.1   3.3854
+     nonbonded CPR      0.1200    3.7418   0.1   3.3854
+     nonbonded CB       0.1200    3.7418   0.1   3.3854
+     nonbonded CS1      0.0486    4.2140   0.1   3.3854
+     nonbonded CR51     0.0486    4.2140   0.1   3.3854
+     nonbonded CR61     0.0486    4.2140   0.1   3.3854
+     nonbonded HPR      0.0498    1.4254   0.0498 1.4254
+     nonbonded HO       0.0498    1.4254   0.0498 1.4254
+     nonbonded NT       0.2384    2.8509   0.2384 2.8509
+     nonbonded NR5      0.2384    2.8509   0.2384 2.8509
+     nonbonded NR6      0.2384    2.8509   0.2384 2.8509
+     nonbonded NR5'     0.2384    2.8509   0.2384 2.8509
+     nonbonded NR6'     0.2384    2.8509   0.2384 2.8509
+     nonbonded OPR      0.1591    2.8509   0.1591 2.8509
+     nonbonded OA       0.1591    2.8509   0.1591 2.8509
+     nonbonded OS       0.1591    2.8509   0.1591 2.8509
+     nonbonded OM       0.1591    2.8509   0.1591 2.8509
+     nonbonded P        0.5849    3.3854   0.5849 3.3854
+ 
+set echo=true end

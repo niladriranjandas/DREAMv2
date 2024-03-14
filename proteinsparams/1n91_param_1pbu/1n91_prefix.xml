@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1n91</protein_name>
+		<seq_file>1n91.seq</seq_file>
+		<upl_file>1n91_concat_dist.upl</upl_file>
+		<hbond_file>1n91_concat_hBond.upl</hbond_file>
+		<ang_file>1n91_concat_dihed.aco</ang_file>
+		<protein_path>../protein/1n91</protein_path>
+	</inputs>

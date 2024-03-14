@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1wjk</protein_name>
+		<seq_file>1wjk.seq</seq_file>
+		<upl_file>1wjk_concat_dist.upl</upl_file>
+		<hbond_file></hbond_file>
+		<ang_file>1wjk_concat_dihed.aco</ang_file>
+		<protein_path>../protein/1wjk</protein_path>
+	</inputs>

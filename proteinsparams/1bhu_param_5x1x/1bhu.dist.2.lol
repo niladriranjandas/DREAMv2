@@ -1,0 +1,24 @@
+  5 PRO  HB3    17 LEU  QD2     0.30
+  5 PRO  HB2    47 ALA  QB      0.30
+  9 LEU  QD2    98 GLN  HB3     1.80
+  9 LEU  QD1    98 GLN  HB3     0.00
+  9 LEU  QD1   100 LEU  QD1     1.80
+  9 LEU  QD2   100 LEU  QD1     1.80
+  9 LEU  HB2   100 LEU  QD2     0.30
+  9 LEU  HB3   100 LEU  HB3     1.80
+ 26 ALA  QB    100 LEU  QD1     1.80
+ 26 ALA  QB    100 LEU  QD2     1.80
+ 26 ALA  QB    100 LEU  HB3     0.30
+ 28 ASP  HB2   100 LEU  HB3     1.80
+ 29 MET  HB2    30 GLU  QB      0.80
+ 29 MET  HB3   100 LEU  HB2     1.80
+ 39 LEU  HB2    94 VAL  QG1     0.30
+ 41 ALA  QB     44 ARG  HB3     0.30
+ 54 LEU  QD1    78 VAL  HB      0.30
+ 78 VAL  QG1    82 ALA  QB      1.80
+ 83 GLN  HB2    87 LEU  QD2     0.30
+ 84 LEU  QD1    87 LEU  QD2     1.80
+ 84 LEU  HB2    84 LEU  QD1     0.30
+ 94 VAL  QG2    96 VAL  QG2     1.80
+100 LEU  HB3   100 LEU  QD1     0.30
+100 LEU  QD2   100 LEU  HB3     0.30

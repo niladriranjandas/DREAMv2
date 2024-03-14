@@ -1,0 +1,701 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+import sys
+from functools import reduce
+
+(opts, files) = xplor.parseArguments(('psf:1',
+                                      'table:1',
+                                      "plot:0", 
+                                      'subSel:1',
+                                      'showRDCs:0',
+                                      "aveType:1", 
+                                      "noUseSign:0",
+                                      'singleEns:0',
+                                      'ensWeights:1',
+                                      'ensWeightsRegexp:1',
+                                      'ensWeightsTerm:1',
+                                      "crossValidate:1", 
+                                      'noScaleOptimize:0'),
+                                      cmdline=
+           "[option] -table <rdc table> <pdb files>",
+                                     description="""
+Given one or more structures, compute the Residual Dipolar Couplings 
+resulting from partial alignment in a steric alignment medium and compare 
+with observed values, optionally producing a plot. This will produce garbage 
+for measurements made in charged alignment media.
+                                     """,
+                                     usageString="""
+The rdc table can be a single file name or a space- or
+colon-delimited list of files.
+
+Options::
+
+   -psf <psf filename>      - specify a psf filename. If omitted PSF info is
+                              automatically generated from the pdb file.
+
+   -subSel <atom selection> - specify a subset of RDC restraints used in
+                              backcalculation. 
+   -crossValidate <files>   - colon- or space- separated list of files with
+                              XPLOR SANI-style assignment statements of
+                              measured RDC values which are not used for
+                              fitting, but for which backcalculated RDCs
+                              are printed with the calculated tensor. Use of
+                              this term implies -showRDCs.
+   -ensWeights <weights>    - a colon-separated list of weights to use on
+                              structure ensemble members.
+   -ensWeightsRegexp=value  - regular expression used to identify the
+                              beginning of the EnsWeights section
+   			      of PDB REMARKs. This should be :
+                              'EnsWeights.*\{' 
+			      The weights obtained using this argument are 
+			      multiplicatively combined with those from the
+			      -ensWeights option.
+   -ensWeightsTerm=value   - string used to identify ensemble 
+   			      weights from remarks section of the PDB header.
+                              This is the name of a potential term.
+			      The weights obtained using this argument are 
+			      multiplicatively combined with those from the
+			      -ensWeights option.
+   -showRDCs                - print out all back-calculated RDC values to
+                              the terminal.
+   -aveType <type>          - Specify the type of averaging when an atom
+   	    		      selection specifies more than one atom.  The
+			      choices are: sum, average, and pairwise.  The
+			      default value is pairwise.
+   -noUseSign               - Do not consider the sign of the RDC when 
+   			      comparing observed with computed values.
+   -noScaleOptimize         - disable optimization of tensor scale factor.
+   -plot                    - produce a plot of calculated vs. observed
+                              couplings. Error bars indicate input experimental
+			      errors and the spread between calculated
+			      structures' rdcs.
+   -singleEns               - normally, specification of multiple pdb files
+                              denotes that each structure should be fit
+                              separately. However, if a filename is a
+                              glob, it is treated as an ensemble (note that
+                              it may be helpful to set -o glob in your
+                              shell to avoid expanding them too early.
+                              If -singleEns is specified, the files
+                              specified are treated as an ensemble
+                              regardless.
+""")
+
+
+psf=None
+plot=False
+showRDCs=False
+tables=()
+ensWeights=None
+ensWeightsRegexp="EnsWeights.*{"
+ensWeightsTerm=None
+aveType="pairwise"
+subSelSet=['all']
+crossTabs=[]   #cross-validation file names
+optimizeScale=True
+useSign=True
+singleEns=False
+for opt in opts:
+    if opt[0]=='psf':
+        psf=opt[1]
+        pass
+    if opt[0]=='table':
+        if ':' in opt[1]:
+            tables = opt[1].split(':')
+        else:
+            tables = opt[1].split()
+            pass
+        pass
+    if opt[0]=='plot':
+        plot=True
+        pass
+    if opt[0]=='showRDCs':
+        showRDCs=True
+        pass
+    if opt[0]=="aveType":
+        aveType=opt[1]
+        pass
+    if opt[0]=="noUseSign":
+        useSign=False
+        pass
+    if opt[0]=='singleEns':
+        singleEns=True
+        pass
+    if opt[0]=='subSel':
+        subSelSet.append(opt[1])
+        pass
+    if opt[0]=='crossValidate':
+        printRDCs=True
+        if ':' in opt[1]:
+            crossTabs = opt[1].split(':')
+        else:
+            crossTabs = opt[1].split()
+            pass
+        pass
+    if opt[0]=='ensWeights':
+        if ':' in opt[1]:
+            ensWeights = opt[1].split(':')
+        else:
+            ensWeights = opt[1].split()
+            pass
+        ensWeights = [float(s) for s in ensWeights]
+        pass           
+    if opt[0]=='ensWeightsRegexp':
+        ensWeightsRegexp = opt[1]
+        pass           
+    if opt[0]=='ensWeightsTerm':
+        ensWeightsTerm = opt[1]
+        pass           
+    if opt[0]=='noScaleOptimize':
+        optimizeScale=False
+        pass
+    pass
+
+
+
+if not tables:
+    print('-table must be specified')
+    sys.exit(0)
+    pass
+
+#note that weights are normalized when set
+from glob import glob
+
+if singleEns:
+    ensSize=len(files)
+    ensembleFiles=files
+    numEnsembles=1
+    pass
+    
+else: # treat each pdb separately (unless they are a glob- see below)
+    ensSize=1
+    ensembleFiles=files
+    numEnsembles=len(files)
+
+import os
+if not os.path.isfile(files[0]):
+    globList=glob(files[0])
+    ensSize=len(globList)
+    ensembleFiles=sorted(globList)
+    numEnsembles=len(files)
+    pass
+
+# (try to) sort by ensemble member: we need to line up ensemble weights
+# with files
+from simulationTools import sortFilesByEnsMember
+sortedEnsembleFiles = sortFilesByEnsMember(ensembleFiles)
+
+def setEnsWeights(ens,
+                  passedEnsWeights,
+                  ensWeightsRegexp,
+                  ensWeightsTerm,
+                  pdbRemarks):
+    """
+    set ensemble weights as a product of the ensWeights argument and those
+    deduced using the ensWeightsRegexp to scan pdbRemarks.
+    """
+    ensWeights=[1]*ens.size()
+    if passedEnsWeights:
+        ensWeights=list(passedEnsWeights)
+        pass
+    elif ensWeightsRegexp and ens.size()>1:
+        import re
+        weights={}
+        for remark in pdbRemarks:
+            match=re.search(ensWeightsRegexp,remark)
+            if match:
+                substr=remark[remark.rfind('{'):]
+                dict=eval(substr)
+                for key,val in list(dict.items()):
+                    weights[key] = val
+                    pass
+                pass
+            pass
+        if len(weights):
+            print("using ensemble weights from pdb file")
+            if len(weights)!=ens.size():
+                raise Exception('ensWeights values differ from ensemble size')
+            for key in list(weights.keys()):
+                ensWeights[key] *= weights[key]
+                pass
+            pass
+        
+        pass
+    if ensWeightsTerm:
+        import re
+        memWeight=-1
+        for remark in pdbRemarks:
+            match=re.search("^EnsWeights *(.*): Ensemble Weight:",remark)
+            if match and match.group(1)==ensWeightsTerm:
+                memWeight = float(remark.split()[-1])
+                pass
+            pass
+        if memWeight==-1:
+            raise Exception("ensWeightsTerm %s does not exist" %
+                            ensWeightsTerm)
+        sharedWeights=[]
+        for i in range(ens.size()):
+            sharedWeights.append( ens.sharedObj(0) )
+            pass
+        sharedWeights[ensIndex].set( memWeight )
+        ens.barrier()
+        for i,w in enumerate([w.get() for w in sharedWeights]):
+            ensWeights[i] *= w
+            pass
+        pass
+
+    ens.setWeights( ensWeights )
+    if ens.size()>1 and (ensWeightsRegexp or ensWeightsTerm or 
+                         passedEnsWeights):
+        print("Using ensemble weights:", end=' ')
+        for i in range(ens.size()):
+            print(ens.weight(i), end=' ')
+            pass
+        print()
+    return
+
+
+
+print('ensembleFiles:', ensembleFiles)
+print("ensembleSize:", ensSize)
+print("number of ensembles:",numEnsembles)
+
+
+
+from ensembleSimulation import EnsembleSimulation
+
+ens=EnsembleSimulation('ensemble',ensSize)
+
+ensIndex=ens.member().memberIndex()
+
+
+import protocol
+print("reading:", sortedEnsembleFiles[ensIndex])
+pdbData=None
+if psf:
+    if psf.contains(":"):
+        psf = psf.split(':')[ens.member().memberIndex()]
+        pass
+    protocol.initStruct(psf)
+    pdbData=protocol.initCoords(pdbFiles[ensIndex],
+                                deleteUnknownAtoms=True)
+else:
+    pdbData=protocol.loadPDB(sortedEnsembleFiles[ensIndex],
+                             deleteUnknownAtoms=True)
+    pass
+
+
+setEnsWeights(ens,ensWeights,ensWeightsRegexp,ensWeightsTerm,
+              pdbData.remarks)
+
+from sardcPotTools import create_SARDCPot
+from sardcPotTools import addRestraints
+
+sardc = create_SARDCPot("saRDC")
+try:
+    sardc.setAveType(aveType)
+except SystemError:
+    print('Invalid averaging.')
+    print('Please try specifying -aveType average or -aveType sum.')
+    pass
+
+sardc.setOptimizeScale(optimizeScale)
+for table in tables:
+    addRestraints(sardc,open(table).read(),
+                  useSign=useSign)
+    pass
+
+sardc.setAveType(aveType)
+sardc.tensor.setSphericalN(200)
+
+#make sure it's up-to-date
+sardc.calcEnergy()
+
+#assume all restraints are of same type
+dmax = sardc.restraints()[0].Dmax() * sardc.avectorScale()
+
+from varTensorTools import saupeToVarTensor
+from sardcPotTools import saupeMatrix
+medium = saupeToVarTensor( saupeMatrix(sardc),dmax )
+
+from rdcPotTools import create_RDCPot
+
+crossTerms=PotList("cross")
+cnt=0
+for table in crossTabs:
+    rdc = create_RDCPot("c_"+table,oTensor=medium,file=table)
+    rdc.setAveType(aveType)
+    rdc.setShowAllRestraints( True )
+    crossTerms.append(rdc)
+    cnt += 1
+    del rdc
+    pass
+from varTensorTools import deletePseudoAtoms
+deletePseudoAtoms(medium)
+del medium
+from simulationTools import gcRegisteredTopoTerms
+gcRegisteredTopoTerms()
+
+
+
+
+from simulationTools import analyze
+#print analyze(medium)
+#import sys; sys.exit()
+print(analyze(sardc,crossTerms))
+from atomAction import centerOfMass
+
+class StatVals:
+    def __init__(s,name,calcd,obs,err):
+        s.name = name
+        s.sum=calcd
+        s.obs=obs
+        s.err=err
+        s.num=1
+
+        s.sum2 = calcd**2
+        return
+    def accumulate(s,calcd):
+        s.sum += calcd
+        s.sum2 += calcd**2
+        s.num += 1
+        return
+
+    def ave(s):
+        if s.num<1:
+            return 0
+        return s.sum/s.num
+
+    def sigma(s):
+        from math import sqrt
+        if s.num<2:
+            return 0
+        return sqrt((s.sum2 - s.num*s.ave()**2) / (s.num-1))
+        
+    pass
+
+calcdObs={}
+count={}
+for sel in subSelSet:
+    calcdObs[sel]=[]
+    pass
+
+msim = sardc.restraints()[0].aSelection().simulation()
+
+import atomSel
+for r in sardc.restraints():
+    for sel in subSelSet:
+        if atomSel.intersection(r.aSelection(),AtomSel(sel,msim)):
+            calcdObs[sel].append( StatVals(r.name(),
+                                           r.calcd() ,
+                                           r.obs(),
+                                           r.plusErr()) )
+            pass
+        pass
+    pass
+
+#compute R factor
+from sardcPotTools import Rfactor, chi2, rmsd
+rFactorSum={}
+rFactorSum2={}
+nrFactorSum={}
+nrFactorSum2={}
+chi2Sum={}
+chi2Sum2={}
+rmsdSum={}
+rmsdSum2={}
+
+for sel in subSelSet:
+    nrFactorSum[sel] = Rfactor(sardc,AtomSel(sel,ens.subSim()),normalize=True)
+    nrFactorSum2[sel] = nrFactorSum[sel]**2
+    rFactorSum[sel] = Rfactor(sardc,AtomSel(sel,ens.subSim()))
+    rFactorSum2[sel] = rFactorSum[sel]**2
+    val = chi2(sardc,sel)
+    chi2Sum[sel]  = val
+    chi2Sum2[sel] = val**2
+    val = rmsd(sardc,sel)
+    rmsdSum[sel]  = val
+    rmsdSum2[sel] = val**2
+    pass
+
+#print '%3d: rmsd: %.2f avector scale: %.3f' % (0,
+#                                               sardc.rms(),
+#                                               sardc.avectorScale())
+#
+sumRMSD=sardc.rms()
+sumScale=sardc.avectorScale()
+
+cnt=0
+if numEnsembles>1:
+    for fileSpec in files[1:]:
+        sortedEnsembleFiles = sortFilesByEnsMember(glob(fileSpec))
+        cnt+=1
+        print("reading:", sortedEnsembleFiles[ensIndex])
+        pdbData=protocol.initCoords( sortedEnsembleFiles[ensIndex] )
+        setEnsWeights(ens,ensWeights,ensWeightsRegexp,ensWeightsTerm,
+                      pdbData.remarks)
+        
+
+        print(analyze(sardc,crossTerms))
+        
+        sumRMSD+=sardc.rms()
+        sumScale+=sardc.avectorScale()
+#        print '%3d: rmsd: %.2f avector scale: %.3f' % (cnt,
+#                                                       sardc.rms(),
+#                                                       sardc.avectorScale())
+#    
+        for sel in subSelSet:
+            count[sel]=0
+
+        for r in sardc.restraints():
+            for sel in subSelSet:
+                if atomSel.intersection(r.aSelection(),AtomSel(sel,msim)):
+                    calcdObs[sel][count[sel]].accumulate( r.calcd() )
+                    count[sel] += 1
+                    pass
+                pass
+            pass
+
+        for sel in subSelSet:
+            r=Rfactor(sardc,sel)
+            rFactorSum[sel] += r
+            rFactorSum2[sel] += r**2
+            r=Rfactor(sardc,sel,normalize=True)
+            nrFactorSum[sel] += r
+            nrFactorSum2[sel] += r**2
+            val = chi2(sardc,sel)
+            chi2Sum[sel]  += val
+            chi2Sum2[sel] += val**2
+            val = rmsd(sardc,sel)
+            rmsdSum[sel]  += val
+            rmsdSum2[sel] += val**2
+            pass
+        pass
+
+
+    pass
+
+
+
+#for sel in subSelSet:
+#    calcdObs[sel] = [(t[0]/numEnsembles,t[1],t[2],t[3]) for t in
+#                     calcdObs[sel]]
+#
+#    calcdObs[sel] = [(t[0],t[1],t[2]/numEnsembles-t[0]**2,t[3]) for t in
+#                     calcdObs[sel]]
+#    pass
+
+sumRMSD /= numEnsembles
+sumScale/= numEnsembles
+print('ave rmsd: %.2f'% sumRMSD, 'ave avector scale: %.3f' % sumScale)
+
+from math import sqrt
+rFactorSigma={}
+nrFactorSigma={}
+chi2Sigma={}
+rmsdSigma={}
+for sel in subSelSet:
+    nrFactorSum[sel] /= numEnsembles
+    rFactorSum[sel] /= numEnsembles
+    chi2Sum[sel] /= numEnsembles
+    rmsdSum[sel] /= numEnsembles
+
+    nrFactorSigma[sel] = 0.
+    rFactorSigma[sel] = 0.
+    chi2Sigma[sel] = 0.
+    rmsdSigma[sel] = 0.
+    if numEnsembles>1:
+        var = (rFactorSum2[sel] -
+               numEnsembles*rFactorSum[sel]**2) / (numEnsembles-1)
+        nvar = (nrFactorSum2[sel] -
+                numEnsembles*nrFactorSum[sel]**2) / (numEnsembles-1)
+        if var>0.: rFactorSigma[sel] = sqrt(var)
+        if nvar>0.: nrFactorSigma[sel] = sqrt(nvar)
+        var = (chi2Sum2[sel] -
+               numEnsembles*chi2Sum[sel]**2) / (numEnsembles-1)
+        if var>0.:
+            chi2Sigma[sel] = sqrt(var)
+            pass
+        var = (rmsdSum2[sel] -
+               numEnsembles*rmsdSum[sel]**2) / (numEnsembles-1)
+        if var>0.:
+            rmsdSigma[sel] = sqrt(var)
+            pass
+        pass
+    
+
+selDiff2={}
+selObs2={}
+for sel in subSelSet:
+    selDiff2[sel]=0
+    selObs2[sel]=0
+
+    for s in calcdObs[sel]:
+
+        selDiff2[sel] += (s.ave() - s.obs)**2
+        selObs2[sel] +=  s.obs**2
+        pass
+
+
+
+#Rinf = 100 * sqrt(diff2) / sqrt(2*obs2)
+selRinf={}
+selAveCalcd={}
+selAveObs={}
+slope={}
+intercept={}
+selCorr={}
+for sel in subSelSet:
+    if len(calcdObs[sel])==0:
+        print("Warning: selection ``%s'' contains no restraints" % sel)
+        subSelSet.remove(sel)
+        continue
+    
+    selRinf[sel] = 100 * sqrt(selDiff2[sel]) / sqrt(2*selObs2[sel])
+
+    selAveCalcd[sel] = reduce( lambda x,s: s.ave()+x,
+                               calcdObs[sel],0) / len(calcdObs[sel])
+    selAveObs[sel]   = reduce( lambda x,s: s.obs+x,
+                               calcdObs[sel],0) / len(calcdObs[sel])
+
+    cross = reduce( lambda c,s: s.ave()*s.obs+c, calcdObs[sel],0)
+    obs2 = reduce( lambda c,s: s.obs**2+c, calcdObs[sel],0)
+    slope[sel] = (cross - len(calcdObs[sel])*selAveCalcd[sel]*selAveObs[sel]) / \
+             (obs2 - len(calcdObs[sel])*selAveObs[sel]**2)
+    intercept[sel] = (selAveCalcd[sel] - slope[sel]*selAveObs[sel])
+                      
+    #print slopeN, intN
+                
+    aveCalcd2 = reduce( lambda c,s: (s.ave()-selAveCalcd[sel])**2+c,
+                        calcdObs[sel],0)
+    aveObs2   = reduce( lambda c,s: (s.obs-selAveObs[sel])**2+c  ,
+                        calcdObs[sel],0)
+    cross = reduce( lambda c,s:
+                    (s.ave()-selAveCalcd[sel])*(s.obs-selAveObs[sel])+c,
+                    calcdObs[sel],0)
+
+    selCorr[sel] = cross / sqrt(aveCalcd2*aveObs2)
+
+    pass
+
+colors=['k','r','g','b']
+
+if showRDCs:
+    lenName = max([len(s.name) for s in calcdObs['all']])
+    fmt = r"%" + "%d" % lenName + r"s %7s %7s %7s %7s"
+    print(fmt%("Identity                          ",
+                "ave", "dev", "Obs", "ObsErr"))
+                                   
+    fmt = r"%" + "%d" % lenName + r"s %7.3f %7.3f %7.3f %7.3f"
+    for s in calcdObs['all']:
+        print(fmt %(s.name,s.ave(),s.sigma(), s.obs, s.err))
+        pass
+    pass
+
+
+#
+#
+#print sardc.chisq(), sardc.rms()
+#
+ 
+print(" %30s  %13s %14s %13s %13s" % ("","R factor  ","Chi^2   ","RMSD    ",
+                                      "Norm. R-fac"))
+print(" %-30s  %5.2f+/-%5.2f %6.2f+/-%5.2f %5.2f+/-%5.2f %5.2f+/-%5.2f" % \
+      ("All restraints",
+       rFactorSum['all'],rFactorSigma['all'],
+       chi2Sum['all'],chi2Sigma['all'],
+       rmsdSum['all'],rmsdSigma['all'],
+       nrFactorSum['all'],nrFactorSigma['all'],))
+       
+for sel in subSelSet:
+    if sel=='all':
+        continue
+    print(" %-30s  %5.2f+/-%5.2f %6.2f+/-%5.2f %5.2f+/-%5.2f %5.2f+/-%5.2f" % \
+          (sel,
+           rFactorSum[sel],rFactorSigma[sel],
+           chi2Sum[sel],chi2Sigma[sel],
+           rmsdSum[sel],rmsdSigma[sel],
+           nrFactorSum[sel],nrFactorSigma[sel],))
+
+
+if ensIndex==0 and plot:
+
+    
+    import pylab
+    pylab.rcParams['figure.figsize'] = 8.5,8.5
+    x0 = 0.15
+    x1 = 0.40
+    x2 = 0.54
+    x3 = 0.65
+    y = 0.85
+    dy=0.03
+
+    ensString= '$N_e$ = %d' % ensSize if ensSize>1 else ""
+
+    cnt=0
+    minObs=min([s.obs for s in calcdObs['all']])
+    maxObs=max([s.obs for s in calcdObs['all']])
+
+    pylab.figtext(x0,y,ensString)
+
+    if len(subSelSet)>1:
+        pylab.figtext(x1,y,"R-factor",ha='center')
+        pylab.figtext(x2,y,r"$\chi^2$",ha='center')
+        pylab.figtext(x3,y,"Corr.",ha='center')
+        pass
+
+    y-= dy
+    
+    for sel in subSelSet:
+        calcdSel = [t.ave() for t in calcdObs[sel]]
+        obsSel   = [t.obs for t in calcdObs[sel]]
+        calcdErrSel   = [t.sigma() for t in calcdObs[sel]]
+        obsErrSel   = [t.err for t in calcdObs[sel]]
+        #plot(calcdN, obsN,"ro")
+
+        color=colors[cnt%len(colors)]
+        pylab.errorbar(obsSel, calcdSel,xerr=obsErrSel,yerr=calcdErrSel,
+                       fmt="%so"%color)
+
+        
+        cnt+=1
+
+        if sel=='all':
+            continue
+        
+        pylab.plot([minObs,maxObs],
+             [slope[sel]*minObs+intercept[sel],
+              slope[sel]*maxObs+intercept[sel]],
+             "%s--"%color)
+
+        size = 12 if len(sel) < 17 else 12. * 17 / len(sel)
+        pylab.figtext(x0,y,sel,color=color,size=size)
+
+        pylab.figtext(x1,y,"%5.2f+/-%4.2f" % (rFactorSum[sel],
+                                              rFactorSigma[sel]),
+                      ha='center',color=color)
+        pylab.figtext(x2,y,"%5.2f+/-%4.2f" % (chi2Sum[sel],
+                                              chi2Sigma[sel]),
+                      ha='center',color=color)
+        pylab.figtext(x3,y,"%.3f" % selCorr[sel],
+                      ha='center',color=color)
+
+        y-= dy
+
+
+        pass
+
+    pylab.plot([minObs,maxObs],[minObs,maxObs],"k-")
+
+    pylab.xlabel('Observed')
+    pylab.ylabel('Calculated')
+
+    pylab.title(
+        'R=%.2f+/-%.2f   $\chi^2$=%5.2f+/-%4.2f   Corr. Coeff=%.3f' % \
+        (rFactorSum['all'],
+         rFactorSigma['all'],
+         chi2Sum['all'],
+         chi2Sigma['all'],
+         selCorr['all']))
+    pylab.show()
+
+    pass

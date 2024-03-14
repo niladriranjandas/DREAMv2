@@ -1,0 +1,11 @@
+<set_up>
+	<inputs>
+		<protein_name>1owa</protein_name>
+		<seq_file>1owa.seq</seq_file>
+		<upl_file>1owa_concat_dist.upl</upl_file>
+		<hbond_file></hbond_file>
+		<ang_file></ang_file>
+ 		<upl_xplor>1owa_concatupl_noe.tbl</upl_xplor>
+ 		<aco_xplor></aco_xplor>
+		<protein_path>../protein/1owa</protein_path>
+	</inputs>

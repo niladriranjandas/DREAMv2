@@ -1,0 +1,66 @@
+ 47 LEU  H      89 LEU  O       1.80
+ 47 LEU  N      89 LEU  O       2.50
+ 48 ARG  H     119 ASP  O       1.80
+ 48 ARG  N     119 ASP  O       2.50
+ 49 ILE  H      87 ALA  O       1.80
+ 49 ILE  N      87 ALA  O       2.50
+ 50 ILE  H     117 ARG  O       1.80
+ 50 ILE  N     117 ARG  O       2.50
+ 51 VAL  H      85 PHE  O       1.80
+ 51 VAL  N      85 PHE  O       2.50
+ 52 GLU  H     115 THR  O       1.80
+ 52 GLU  N     115 THR  O       2.50
+ 63 LEU  H      59 THR  O       1.80
+ 63 LEU  N      59 THR  O       2.50
+ 64 HIS  H      60 LEU  O       1.80
+ 64 HIS  N      60 LEU  O       2.50
+ 65 GLN  H      61 ASP  O       1.80
+ 65 GLN  N      61 ASP  O       2.50
+ 66 ILE  H      62 VAL  O       1.80
+ 66 ILE  N      62 VAL  O       2.50
+ 67 PHE  H      63 LEU  O       1.80
+ 67 PHE  N      63 LEU  O       2.50
+ 68 SER  H      64 HIS  O       1.80
+ 68 SER  N      64 HIS  O       2.50
+ 76 ILE  H     136 ARG  O       1.80
+ 76 ILE  N     136 ARG  O       2.50
+ 77 ILE  H      88 LEU  O       1.80
+ 77 ILE  N      88 LEU  O       2.50
+ 78 THR  H     134 LYS  O       1.80
+ 78 THR  N     134 LYS  O       2.50
+ 79 PHE  H      86 GLN  O       1.80
+ 79 PHE  N      86 GLN  O       2.50
+ 86 GLN  H      79 PHE  O       1.80
+ 86 GLN  N      79 PHE  O       2.50
+ 87 ALA  H      49 ILE  O       1.80
+ 87 ALA  N      49 ILE  O       2.50
+ 88 LEU  H      77 ILE  O       1.80
+ 88 LEU  N      77 ILE  O       2.50
+ 89 LEU  H      47 LEU  O       1.80
+ 89 LEU  N      47 LEU  O       2.50
+ 90 GLN  H      75 LYS  O       1.80
+ 90 GLN  N      75 LYS  O       2.50
+ 98 GLN  H      94 PRO  O       1.80
+ 98 GLN  N      94 PRO  O       2.50
+ 99 HIS  H      95 VAL  O       1.80
+ 99 HIS  N      95 VAL  O       2.50
+100 ALA  H      96 SER  O       1.80
+100 ALA  N      96 SER  O       2.50
+101 LYS  H      97 ALA  O       1.80
+101 LYS  N      97 ALA  O       2.50
+102 LEU  H      98 GLN  O       1.80
+102 LEU  N      98 GLN  O       2.50
+103 SER  H      99 HIS  O       1.80
+103 SER  N      99 HIS  O       2.50
+104 LEU  H     100 ALA  O       1.80
+104 LEU  N     100 ALA  O       2.50
+105 ASP  H     101 LYS  O       1.80
+105 ASP  N     101 LYS  O       2.50
+117 ARG  H      50 ILE  O       1.80
+117 ARG  N      50 ILE  O       2.50
+119 ASP  H      48 ARG  O       1.80
+119 ASP  N      48 ARG  O       2.50
+136 ARG  H      76 ILE  O       1.80
+136 ARG  N      76 ILE  O       2.50
+138 TYR  H      74 LEU  O       1.80
+138 TYR  N      74 LEU  O       2.50

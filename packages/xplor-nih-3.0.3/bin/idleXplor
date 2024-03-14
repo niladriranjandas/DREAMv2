@@ -1,0 +1,17 @@
+#!/usr/bin/env /data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/pyXplor
+
+# startup script for running idle within Xplor-NIH
+#
+
+opts,args= xplor.parseArguments(["help-script:0"],
+                                allowExtraOptions=True,
+                                description="Edit and run Xplor-NIH scripts."
+                                )
+if "help-script" in [opt[0] for opt in opts]:
+    import sys
+    sys.argv=[sys.argv[0],"-h"]
+    pass
+
+from idlelib.pyshell import main
+if __name__ == '__main__':
+    main()

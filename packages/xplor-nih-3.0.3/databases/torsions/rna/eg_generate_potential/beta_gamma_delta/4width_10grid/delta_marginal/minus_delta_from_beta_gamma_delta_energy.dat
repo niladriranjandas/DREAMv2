@@ -1,0 +1,24 @@
+name minus_delta_from_beta_gamma_delta
+
+atom1 resid _RESID and name C5'
+atom2 resid _RESID and name C4'
+atom3 resid _RESID and name C3'
+atom4 resid _RESID and name O3'
+
+info B-factor<60. 
+info Number of data points: 9194
+info Overall width for density estimation (deg.): 4.00
+info Grid spacing for interpolation (deg.): 10.00
+info Sign of energy term: negative
+
+axis1 -180.000 -170.000 -160.000 -150.000 -140.000 -130.000 -120.000 -110.000 -100.000 -90.000 
+axis1 -80.000 -70.000 -60.000 -50.000 -40.000 -30.000 -20.000 -10.000 0.000 10.000 
+axis1 20.000 30.000 40.000 50.000 60.000 70.000 80.000 90.000 100.000 110.000 
+axis1 120.000 130.000 140.000 150.000 160.000 170.000 180.000 
+
+energy -7.702 -8.214 -8.690 -9.158 -9.634 -10.127 -10.640 -11.177 -11.738 -12.311 
+energy -12.847 -13.201 -13.170 -12.779 -12.235 -11.665 -11.109 -10.573 -10.054 -9.547 
+energy -9.043 -8.529 -7.987 -7.388 -6.658 -5.418 -2.571 -4.308 -5.883 -6.529 
+energy -6.696 -6.541 -6.293 -6.262 -6.588 -7.137 
+
+

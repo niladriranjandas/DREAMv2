@@ -1,0 +1,164 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+import sys
+
+(opts,files) = xplor.parseArguments(['rdc:1','rdcWeights:1',
+                                     'csa:1',
+                                     "maxDa:1",
+                                     'weights:1',
+                                     'svdTol:1',
+                                     "aveType:1", 
+                                     "noUseErrs:0"],
+                                     cmdline=
+     "[options] -rdc <rdc table> <structure files>",
+                                    description="""
+Calculate an ensemble of SVD alignment tensors from an ensemble of
+structures and observed RDC values. The tensors are underdetermined.
+""",
+                                    usageString="""
+rdc table is a colon- or space- separated list of dipolar coupling assignment
+tables relating to the same medium.
+
+structure files is a list of pdbs to use in determining the tensors.
+
+options::
+
+  -weights <weights>    - a colon-separated list of weights to use on
+                          structure ensemble members.
+  -rdcWeights <weights> - a colon-separated list of weights used to
+                          weight rdc experiments relative to each other.
+  -csa <csa table>      - not yet supported.
+  -maxDa <value>        - set the maximum absolute value of Da
+                          [default: 50].
+  -svdTol <value>       - discard singular values less than value times the
+                          average of the singular values.
+  -aveType <type>       - specify the type of averaging when an atom
+   	    		  selection specifies more than one atom. The
+			  choices are: sum, average, and pairwise. The
+			  default value is pairwise.
+  -noUseErrs            - do not weight the terms with 1/err in the SVD 
+   			  calculation.
+
+
+tensor details, predicted and observed dipolar couplings and rmsd values are
+printed.
+ 
+""")
+
+ensembleSize=1
+rdcTables=''
+csaTables=''
+weights=None
+rdcWeights=None
+maxDa=50
+svdTol=0.01
+aveType="pairwise"
+useErrs=True
+
+for opt in opts:
+    if opt[0]=="maxDa":
+        maxDa=float(opt[1])
+        pass
+    if opt[0]=='rdc':
+        if ':' in opt[1]:
+            rdcTables = opt[1].split(':')
+        else:
+            rdcTables = opt[1].split()
+            pass
+        pass
+    if opt[0]=='rdcWeights':
+        if ':' in opt[1]:
+            rdcWeights = opt[1].split(':')
+        else:
+            rdcWeights = opt[1].split()
+            pass
+        rdcWeights = [float(s) for s in rdcWeights]
+        pass
+    if opt[0]=='svdTol':
+        svdTol=float(opt[1])
+        pass
+    if opt[0]=='csa':
+        raise Exception("csas not yet supported")
+    if opt[0]=="aveType":
+        aveType=opt[1]
+        pass
+    if opt[0]=='noUseErrs':
+        useErrs=False
+        pass
+    if opt[0]=='weights':
+        if ':' in opt[1]:
+            weights = opt[1].split(':')
+        else:
+            weights = opt[1].split()
+            pass
+        weights = [float(s) for s in weights]
+        pass
+    pass
+
+
+Ne=len(files)
+
+
+if not weights:
+    weights=[1]*Ne
+    pass
+
+if len(weights)!=Ne:
+    raise Exception("there must be one weight per file")
+
+if not rdcWeights:
+    rdcWeights=[1]*len(rdcTables)
+    pass
+
+if len(rdcWeights)!=len(rdcTables):
+    raise Exception("there must be one weight per file")
+
+rdcPairs=[]
+for i in range(len(rdcTables)):
+    rdcPairs.append((rdcTables[i],rdcWeights[i]))
+
+
+from ensembleSimulation import EnsembleSimulation
+
+esim = EnsembleSimulation("esim",Ne)
+
+eIndex = esim.member().memberIndex()
+esim.setWeights( weights )
+
+print('reading ensemble of size %d with weights:' % Ne, end=' ', file=sys.stderr)
+print([esim.weight(i) for i in range(esim.size())], file=sys.stderr)
+
+import protocol
+protocol.loadPDB(files[eIndex],deleteUnknownAtoms=True)
+
+from rdcPotTools import create_RDCPot, scale_toNH
+
+from varTensorTools import create_VarTensor, calcTensor_ensemble, calcTensor
+oTensor = create_VarTensor("medium")
+
+if maxDa:
+    oTensor.setDaMax(maxDa)
+    pass
+
+from potList import PotList
+rdcs=PotList()
+for (rdcTable,rdcWeight) in rdcPairs:
+    print('reading %s with weight %f' % (rdcTable, rdcWeight), file=sys.stderr)
+    rdc =  create_RDCPot(rdcTable,file=rdcTable,oTensor=oTensor) 
+    rdc.setAveType(aveType)
+    rdc.setShowAllRestraints(1)
+    scale_toNH( rdc )
+    rdc.setScale( rdcWeight )
+
+    rdcs.append(rdc)
+    pass
+
+tensors = calcTensor_ensemble(oTensor,useErr=useErrs,
+                              svdTolerance=svdTol)
+#tensors = calcTensor(oTensor)
+
+from simulationTools import analyze
+print(analyze(rdcs))
+#print "total energy:", rdcs.calcEnergy().energy
+from rdcPotTools import composite_Rfactor_infinite as total_Rfactor
+print("                 Overall R-factor: %.2f" % total_Rfactor(rdcs))

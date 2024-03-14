@@ -1,0 +1,49 @@
+#!/bin/sh
+
+system_profiler=/usr/sbin/system_profiler
+
+
+[ ! -w "$TMPDIR" ] && TMPDIR=""
+[ "$XPLOR_TMPDIR" != "" ] && TMPDIR=$XPLOR_TMPDIR
+[ "$TMPDIR" = "" ] && TMPDIR=/var/tmp
+
+sysprofOut=$TMPDIR/${$}-sysProf.out
+sysprofErr=$TMPDIR/${$}-sysProf.err
+
+$system_profiler SPHardwareDataType >$sysprofOut 2>$sysprofErr
+
+#on 10.10.3, system_profile spits out the (apparently ignorable error message)
+# platformPluginDictionary: Can't get X86PlatformPlugin
+cat $sysprofErr | \
+    grep -v "platformPluginDictionary: Can't get X86PlatformPlugin">&2
+
+procName=`cat $sysprofOut | grep "Processor Name" |\
+    sed 's/^.*Processor Name://'|sed 's/ *//g'`
+cpuType=`cat $sysprofOut | grep "CPU Type" |
+    sed 's/^.*CPU Type://'|sed 's/ *//'`
+
+plat=unknown
+case "$procName" in 
+    IntelCoreDuo*)
+        plat=x86
+	;;
+    IntelCore2Duo*|Inteli*)
+        plat=x86_64
+	;;
+    *Xeon*)
+        plat=x86_64
+	;;
+    *i3|*i5|*i7)
+        plat=x86_64
+        ;;
+esac
+
+case "$cpuType" in 
+    PowerPC*)
+        plat=ppc
+	;;
+esac
+    
+echo $plat
+
+rm $sysprofOut $sysprofErr

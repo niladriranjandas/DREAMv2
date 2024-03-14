@@ -1,0 +1,34 @@
+toph.so4 ======================================================================
+
+REMARKS - toph.so4 - topology for SO4
+
+set echo=false end
+
+AUTOGENERATE ANGLES=TRUE END
+{*===========================*}
+
+MASS   OS    15.99940 ! sulfate oxygen
+MASS   SS    32.06000 ! sulfate sulfur
+
+RESIdue SO4
+ GROUp
+  ATOM S    TYPE=SS   CHARge= +2.000  END
+  ATOM O1   TYPE=OS   CHARge= -1.000  END
+  ATOM O2   TYPE=OS   CHARge= -1.000  END
+  ATOM O3   TYPE=OS   CHARge= -1.000  END
+  ATOM O4   TYPE=OS   CHARge= -1.000  END
+
+
+ BOND S  O1
+ BOND S  O2
+ BOND S  O3
+ BOND S  O4
+
+ ACCEptor O1 S
+ ACCEptor O2 S
+ ACCEptor O3 S
+ ACCEptor O4 S
+
+END {SO4} 
+
+set echo=true end

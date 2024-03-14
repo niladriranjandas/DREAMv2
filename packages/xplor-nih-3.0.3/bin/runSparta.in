@@ -1,0 +1,108 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+(opts,files) = xplor.parseArguments(["table:1",
+                                     "format:1",
+                                     "selection:1",
+                                     "showShifts:0",
+                                     "segid:1"],
+                                    cmdline="[options] <pdb files>",
+                                    description="""
+Compute the backbone chemical shifts, and optionally fit to
+experimental values. This uses a modified version of "SPARTA+: a
+modest improvement in empirical NMR chemical shift prediction by means
+of an artificial neural network Yang Shen and Ad Bax,"
+J. Biomol. NMR, 48, 13-22 (2010).
+                                    """,
+                                    usageString= '''
+
+Options are one or more of::
+
+ -table <filename>   - filename of observed chem shift values.
+ -format <format>    - format of the table (TALOS, PIPP or NMRSTAR). For
+                       NMRSTAR tables, a save set can be specified by
+                       appending a colon followed by its name to the file
+                       name. [default: TALOS].
+ -selection <string> - atom selection for which to predict chemical shifts
+ -showShifts         - if specified, print out chemical shift values.
+ -segid <val>        - specify which segid the shifts correspond to
+      		       [default: blank]
+
+Statistics for the specified input files are reported.
+
+'''
+)
+
+import protocol
+protocol.loadPDB(files[0])
+xplor.simulation.deleteAtoms("not known")
+table=None
+format="talos"
+segid=None
+selection='all'
+showShifts=False
+for opt in opts:
+    if opt[0].startswith("table"):
+        table=opt[1]
+        pass
+    if opt[0].startswith("format"):
+        format=opt[1]
+        pass
+    if opt[0].startswith("segid"):
+        segid=opt[1]
+        pass
+    if opt[0]=="selection":
+        selection=opt[1]
+        pass
+    if opt[0]=="showShifts":
+        showShifts=True
+        pass
+    pass
+
+restraints=None
+
+saveSet=None
+if format.lower()=="nmrstar" and ":" in table:
+    table,saveSet=table.split(":")
+    pass
+
+from spartaPotTools import create_SpartaPot
+shifts=create_SpartaPot('sparta',table,
+			selection=selection,
+                        format=format,
+                        saveSet=saveSet,
+                        verbose=True,
+                        segid=segid,
+			annSet="20110211",	)
+
+try:
+    shifts[0]
+except AttributeError:
+    from potList import PotList
+    pl=PotList()
+    pl.append( shifts )
+    shifts = pl
+    pass    
+
+sparta = shifts[0].sparta()
+
+from restraintStats import RestraintStats
+rStats=RestraintStats()
+
+from simulationTools import analyze
+structNums=list(range(len(files)))
+for cnt in structNums:
+    file=files[cnt]
+    protocol.initCoords(file)
+    shifts.calcEnergy()
+    if showShifts:
+        print(analyze(shifts))
+    rStats.accumulate(shifts,cnt)
+    pass
+    
+
+
+print(rStats.summarizeTerms(xplor.p_comm,structNums))
+
+print(rStats.summarizeExtraQuantities(structNums))
+
+#print rStats.summarizeViolations(structNums)

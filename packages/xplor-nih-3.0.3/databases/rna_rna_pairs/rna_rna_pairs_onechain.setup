@@ -1,0 +1,41 @@
+vector do (segid = RNA1) (resid 1:33) 
+
+vector identify (store9) (segid RNA1) 
+
+vector do (ustring = "RNA1") (segid RNA1) 
+
+vector do (store4 = 0) (all) 
+
+vector do (store4 = 33) (resid 1)  
+vector do (store4 = 31) (resid 3) 
+vector do (store4 = 30) (resid 4)  
+vector do (store4 = 20) (resid 11) 
+vector do (store4 = 19) (resid 12)  
+vector do (store4 = 18) (resid 13) 
+
+vector do (store4 = 13) (resid 18)  
+vector do (store4 = 12) (resid 19) 
+vector do (store4 = 11) (resid 20)  
+vector do (store4 = 4) (resid 30) 
+vector do (store4 = 3) (resid 31) 
+vector do (store4 = 1) (resid 33) 
+
+!set echo off message off end 
+
+orient
+   nres 10000
+   residues 10000
+   cuto=-100
+   maxgauss = 1000
+   scale $kori
+   shape quart
+   @rna_quarts_combo.tbl 
+end 
+
+
+set echo on message on end
+
+@rna_gaussians_setup.tbl
+
+vector do (segid = "") (segid RNA1) 
+

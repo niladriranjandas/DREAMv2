@@ -1,0 +1,25 @@
+protein_name="1A7M"
+
+gen_pdb='md_0_1a7m_script_4.pdb'
+org_pdb='1A7M_0010.pdb'
+
+gen_name='md_0_1a7m_script_4'
+org_name='1A7M_0010'
+
+./pdbtorsions $org_pdb > test_org.tsv
+./pdbtorsions $gen_pdb > test_gen.tsv
+
+./secstr <<< $org_pdb
+./secstr <<< $gen_pdb
+
+org_rin_file=`find "." -name $org_name*rin`
+gen_rin_file=`find "." -name $gen_name*rin`
+cat $org_rin_file | cut -c'15' > org_2ary.txt
+cat $gen_rin_file | cut -c'15' > gen_2ary.txt
+
+paste org_2ary.txt gen_2ary.txt > "$protein_name"_2ary.txt
+
+./makeConfPlotOfEnsemble $protein_name test_org.tsv test_gen.tsv "$protein_name"_2ary.txt
+
+
+./makeConfPlotOfEnsemble 1A7M md_0_1a7m_script_1_torsion.tsv 1A7M_torsion.tsv -2ary=1a7m_2ary.txt

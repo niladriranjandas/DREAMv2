@@ -1,0 +1,95 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+opts,args = xplor.parseArguments(
+    ("genTxtFiles:1",
+     "listTerms:0",
+     "pdf:0"
+     ),
+    cmdline="< [-pdf] TERM | -genTxtFile | -listTerms>",
+    description="""
+Print out documentation for the specified header term.
+    """,
+    usageString="""
+
+    Options::
+
+      -listTerms  - list all TERMs which may be specified.
+      -genTxtFile - generate documentation for all terms and place in
+                    files named TERM.txt.
+      -pdf        - if specified, a PDF version of the documentation is
+                    displayed. Otherwise, a text version is printed.
+    """
+    )
+
+mode="singleTerm"
+dir=None
+for opt in opts:
+    if opt[0]=='genTxtFiles':
+        mode="genTxtFiles"
+        dir=opt[1]
+        pass
+    if opt[0]=='listTerms':
+        mode="listTerms"
+        pass
+    pass
+
+from termAnalysis import loadRegisteringModules, genHeaderHelp
+from termAnalysis import canonicalTermName
+import termAnalysis
+import os
+
+loadRegisteringModules()
+
+if mode=="genTxtFiles":
+    from termAnalysis import getHeaderNames
+    indexFile=open(dir+"/index.txt","w")
+    indexFile.write(
+r"""
+================================================
+ Description of items printed in the PDB Header
+================================================
+
+Please click on the appropriate term below for a description of the
+associated information printed in the PDB header.
+
+""")
+    trailer="\n\nback to index_\n"
+    trailer+="\n.. _index: ./index.html\n"
+    from codecs import open
+    for name in getHeaderNames():
+        open(dir+'/'+name+".txt",encoding='utf-8',
+             mode="w").write(genHeaderHelp(name)+trailer)
+        indexFile.write(":%s_:\n" % name)
+        pass
+    indexFile.write("\nback to Xplor-NIH Documentation_\n")
+    indexFile.write("\n.. _Documentation: ../index.html\n")
+    pass
+elif mode=="listTerms":
+    from termAnalysis import getHeaderNames
+    for name in getHeaderNames():
+        print(name)
+        pass
+elif mode=="singleTerm":
+    for term in args:
+        termName = canonicalTermName(term)
+        from utils import printReStructuredText
+        moduleName = termAnalysis.moduleName(termName)
+        import importlib
+        modSpec = importlib.util.find_spec(moduleName)
+        if modSpec and modSpec.has_location:
+            filePath = modSpec.origin
+        else:
+            print("Could not file module file for {}".format(moduleName))
+            exit(1)
+            pass
+
+        moduleModTime = os.stat(filePath).st_mtime
+        dir=os.path.join( os.environ['XPLOR_HELPDIR'], 'headerHelp')
+        rstString = genHeaderHelp(termName)
+        printReStructuredText(rstString,
+                              outputType="pdf" if xplor.outputPDF else "txt",
+                              cachePrefix=termName,
+                              cacheDir=dir,
+                              cacheTime=moduleModTime)
+        pass
+    pass

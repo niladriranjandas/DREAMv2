@@ -1,0 +1,1 @@
+python3 findViolations_s_m_w.py /data2/nmr/our_algo_final/protein/2m4k_param_2m4k/distviols/2m4k_param_2m4k_1_ancloc_refine_5_em_nosol_wref.onlyviols 2m4k_param_2m4k_1_ancloc_refine_5_em_nosol_wref

@@ -1,0 +1,888 @@
+!
+! xplor-nih protein parameter file, version 3.1
+!
+! This file is intended to work with the topology file protein-1.0.top
+!
+! This is a re-named copy of the file parallhdg_procheck.pro
+!
+! We've created this new filename in order to eliminate confusion 
+! between the various parameter/topology combinations that ship
+! with xplor-nih.  It has version numbers, and will be updated 
+! along with the rest of the xplor-nih package.  
+!
+! Its backbone bond lengths and angles are designed to agree with 
+! the Engh & Huber parameter set (reference below), which is used by 
+! PROCHECK, among other structure-validation programs.
+!
+! If you find errors, PLEASE let us know.  
+!
+
+
+
+
+remark file protein-3.1.par
+remark Changed version of parallhdg_new.pro so that the bond lengths and angles 
+remark agree with what PROCHECK expects.
+remark JJK 9/14/98
+
+!   file parallhdg_new.pro
+!   geometric energy function parameters for distance geometry and
+!   simulated annealing.  Modified by G.M.C. to have sigma's of Param19x and parafloat
+
+set message off echo off end
+
+eval ($prot_prev_echo=$prev_echo)
+eval ($prot_prev_mess=$prev_messages)
+
+eval ($protein_par_vers="3.1")
+
+! The values of the force constants are somewhat arbitrary. The aim
+! is to make ALL of them stiff compared to the weight on the NOE 
+! term. The force constant for the angles is adjusted such that the
+! 1-3 distance is approximately as well maintained as the 1-2 distance.
+! 
+! All angles around tetrahedral carbons (type CT) have been set
+! to the ideal methane value, 109.5 degrees, by JK.
+!
+! the non-bonded parameters have been modified such that they
+! give approximately the large DISMAN radii with repel=0.9,
+! and the small DISMAN radii (or the DISGEO radii) with
+! repel= 0.75.
+
+!
+remark corrected proline angles to Engh & Huber, Acta Cryst., A47, 392 (1991) values.
+remark Needed to define a new atom type, CP, which is equivalent to their 
+remark CH2P atom type. JJK 9/22/95
+!
+
+! Added HAR type to distinguish aromatic protons, which are given different atomic
+! radii than aliphatic ones.  Implemented new atomic radii: those of MolProbity.
+! Guillermo A. Bermejo, 23-Jun-2016.
+
+
+                                             {* set energy constants *} 
+evaluate ($kbon = 1000)  ! kcal / mol-A^2
+evaluate ($kang =  500)  ! kcal / mol-rad^2
+evaluate ($kchi =  500)  ! kcal / mol-rad^2
+evaluate ($kback = 500)
+
+evaluate ($kpx = $kback)
+if ( $exist_weak_omega = TRUE ) then
+  if ( $weak_omega=1 ) then
+	evaluate ($kpx = $kback*0.5)
+	display reducing the omega improper force constant
+  end if
+end if
+
+evaluate ($kssbon = 1000)
+evaluate ($kssang = 500) 
+evaluate ($kpla =  500)  ! kcal / mol-rad^2
+
+evaluate ($kdih =    0)  ! kcal / mol-rad^2
+if ( $exist_use_dihe = TRUE ) then
+  if ( $use_dihe=1 ) then
+	evaluate ($kdih =  50)  ! kcal / mol-rad^2
+	display enabling the dihe force constant
+  end if
+end if
+
+
+! BONDS
+
+ bonds     H    NA                 $kbon     0.98
+ bonds     H    NB                 $kbon     0.98 ! protonated his, copied from his ND-HD bond JJK 7/2/99
+ bond      H    NH2                $kbon     0.98
+ bond      H    NH1                $kbon     0.98
+ bond      H    OH                 $kbon     0.96
+ bond      H    S                  $kbon     0.96
+ bond      HA   CT                 $kbon     1.08
+ bond      HA   CP                 $kbon     1.08 ! CP added
+ bond      HA   C                  $kbon     1.08
+ bond      HC   NC2                $kbon     1.00
+ bond      HC   NH1                $kbon     0.98
+ bond      HC   NH3                $kbon     1.04
+ bond      C    C                  $kbon     1.38
+ bond      C    CT                 $kbon     1.525  ! was 1.530 PROCHECK
+ bond      C    N                  $kbon     1.305
+ bond      C    NP                 $kbon     1.305
+ bond      C    NR                 $kbon     1.305
+ bond      C    NH1                $kbon     1.329  ! was 1.305 PROCHECK
+ bond      CARG NH1                $kbon     1.329
+ bond      C    NH2                $kbon     1.305
+ bond      C    NC2                $kbon     1.305
+ bond      CARG NC2                $kbon     1.305
+ bond      C    O                  $kbon     1.231  ! was 1.215 PROCHECK
+ bond      C    OC                 $kbon     1.22
+ bond      C    OH                 $kbon     1.38
+ bond      CTYR OH                 $kbon     1.38
+ bond      C    CA                 $kbon     1.400
+ bond      CTYR CA                 $kbon     1.400
+ bond      CA   CA                 $kbon     1.400
+ bond      CA   CB                 $kbon     1.404
+ bond      CA   CN                 $kbon     1.400
+ bond      CA   CT                 $kbon     1.510
+ bond      CA   HAR                $kbon     1.080  ! aromatic CH (e.g., TYR CD1-HD1; GAB 20-Jun-2016)
+ bond      CB   CN                 $kbon     1.419
+ bond      CC   CT                 $kbon     1.504
+ bond      CC   CV                 $kbon     1.375
+ bond      CC   NA                 $kbon     1.385
+ bond      CN   NA                 $kbon     1.380
+ bond      CR   HAR                $kbon     1.080  ! HIS CE1-HE1 (GAB 20-Jun-2016)
+ bond      CR   NA                 $kbon     1.343
+ bond      CR   NB                 $kbon     1.3350
+ bond      CT   CT                 $kbon     1.53
+ bond      CP   CP                 $kbon     1.53
+ bond      CP   CT                 $kbon     1.492 ! CP
+ bond      CT   N                  $kbon     1.49
+ bond      CP   N                  $kbon     1.473 ! CP
+ bond      CP   NH3                $kbon     1.49  ! CP - proline at N terminus
+ bond      CT   NH1                $kbon     1.458  ! was 1.490 PROCHECK
+ bond      CT   NH2                $kbon     1.49
+ bond      CT   NH3                $kbon     1.49
+ bond      CT   NC2                $kbon     1.49
+ bond      CT   OH                 $kbon     1.42
+ bond      CT   S                  $kbon     1.81
+ bond      CV   HAR                $kbon     1.080  ! HIS CD2-HD2 (GAB 20-Jun-2016)
+ bond      CV   NB                 $kbon     1.394
+ bond      CX   CB                 $kbon     1.459
+ bond      CX   CT                 $kbon     1.495
+ bond      CX   CW                 $kbon     1.352
+ bond      CW   HAR                $kbon     1.080  ! TRP CD1-HD1 (GAB 20-Jun-2016)
+ bond      CW   NA                 $kbon     1.381
+ bond      S    S                  $kssbon   2.02
+
+! ANGLES
+
+ angle     H    NH1  H             $kang     107.5
+ angle     H    NH1  C             $kang     120.0
+ angle     H    NH1  CARG          $kang     120.0 
+ angle     H    NH1  CT            $kang     120.0
+ angle     H    NH2  H             $kang     120.0
+ angle     H    NH2  C             $kang     120.0
+ angle     H    NH2  CT            $kang     120.0
+ angle     H    OH   CT            $kang     108.0
+ angle     H    S    CT            $kang     108.0
+ angle     H    OH   C             $kang     108.0
+ angle     H    OH   CTYR          $kang     108.0
+ angle     HC   NH3  HC            $kang     109.5
+ angle     HC   NH3  CT            $kang     109.5
+ angle     HC   NH3  CP            $kang     109.5 ! CP, in N-terminal pro
+ angle     HC   NC2  HC            $kang     120.0
+ angle     HC   NC2  C             $kang     120.0
+ angle     HC   NC2  CARG          $kang     120.0 
+ angle     HC   NC2  CT            $kang     107.5
+ angle     HA   C    C             $kang     120.0
+ angle     HA   C    NH1           $kang     120.0
+ angle     HA   C    NH2           $kang     120.0
+ angle     HA   C    NR            $kang     120.0
+ angle     HA   C    O             $kang     120.0
+ angle     HAR  CR   NA            $kang     124.2     !corrected by JK
+ angle     HAR  CR   NB            $kang     124.2     !corrected by JK
+ angle     HA   CT   HA            $kang     109.5
+ angle     HA   CT   C             $kang     109.5
+ angle     HA   CT   CT            $kang     109.5
+ angle     HA   CT   N             $kang     109.5
+ angle     HA   CT   NH1           $kang     109.5
+ angle     HA   CT   NH3           $kang     109.5
+ angle     HA   CT   NC2           $kang     109.5
+ angle     HA   CT   OH            $kang     109.5 !corrected by JK
+ angle     HA   CT   S             $kang     109.5
+ angle     HAR  CV   NB            $kang     125.05    !corrected by JK
+ angle     HAR  CW   NA            $kang     125.65    !corrected JK
+ angle     HA   CT   CP            $kang     109.5 ! CP hydrogen angles are guesses
+ angle     HA   CP   CT            $kang     109.5 ! CP
+ angle     HA   CP   HA            $kang     109.5 ! CP
+ angle     HA   CP   CP            $kang     109.5 ! CP
+ angle     HA   CP   N             $kang     109.5 ! CP
+ angle     HA   CP   NH3           $kang     109.5 ! CP, N-terminal pro
+ angle     C    C    C             $kang     126.5
+ angle     C    C    CT            $kang     122.3
+ angle     C    C    NH1           $kang     108.6
+ angle     C    C    NP            $kang     109.5
+ angle     C    C    NR            $kang     109.5
+ angle     C    C    OH            $kang     122.3
+ angle     C    CA   CA            $kang     120.000
+ angle     CTYR CA   CA            $kang     120.000
+ angle     CTYR CA   HAR           $kang     120.0
+ angle     C    CT   CT            $kang     110.10 ! was 109.5 PROCHECK
+ angle     C    CT   N             $kang     111.8 ! updated with CP
+ angle     C    CT   NH1           $kang     111.2 ! was 109.5 PROCHECK
+ angle     C    CT   NH2           $kang     109.5
+ angle     C    CT   NH3           $kang     109.5
+ angle     C    N    CT            $kang     122.6 ! updated with CP
+ angle     C    N    CP            $kang     125.0 ! CP
+ angle     C    NH1  C             $kang     119.1
+ angle     C    NH1  CT            $kang     121.7  ! was 120.0 PROCHECK was by JK unq. ARG
+ angle     CARG NH1  CT            $kang     121.7  
+ angle     C    NC2  CT            $kang     107.5
+ angle     C    NP   C             $kang     106.0
+ angle     C    NR   C             $kang     106.0
+ angle     CA   C    CA            $kang     120.0
+ angle     CA   CTYR CA            $kang     120.0
+ angle     CA   C    OH            $kang     120.0
+ angle     CA   CTYR OH            $kang     120.0
+ angle     CA   CA   CA            $kang     120.0
+ angle     CA   CA   CB            $kang     120.0
+ angle     CA   CA   CN            $kang     120.0
+ angle     CA   CA   CT            $kang     120.0
+ angle     CA   CA   HAR           $kang     120.000 
+ angle     CA   CB   CN            $kang     118.0
+ angle     CA   CN   CB            $kang     122.0
+ angle     CA   CT   CT            $kang     109.5
+ angle     CA   CT   HA            $kang     109.5000
+ angle     CB   CA   HAR           $kang     120.0
+ angle     CB   CX   CT            $kang     128.6
+ angle     CB   CX   CW            $kang     106.4 
+ angle     CB   CN   NA            $kang     104.40
+ angle     CC   CT   CT            $kang     109.5
+ angle     CC   CT   HA            $kang     109.5000
+ angle     CC   CV   HAR           $kang     125.05    !corrected by JK
+ angle     CC   CV   NB            $kang     109.9000
+ angle     CC   NA   CR            $kang     107.3000
+ angle     CC   NA   H             $kang     126.300
+ angle     CN   CA   HAR           $kang     120.00
+ angle     CN   NA   CW            $kang     111.6000
+ angle     CN   NA   H             $kang     123.100
+ angle     CR   NA   H             $kang     126.3000
+ angle     CR   NB   CV            $kang     105.3000
+ angle     CV   NB   H             $kang     127.35 ! added for protonated his, JJK 7/2/99
+ angle     CR   NB   H             $kang     127.35 ! added for protonated his, JJK 7/2/99
+ angle     CT   C    N             $kang     116.9 ! updated with CP
+ angle     CT   C    NH1           $kang     116.2 ! was 117.5 PROCHECK
+ angle     CT   C    NH2           $kang     120.0
+ angle     CT   C    O             $kang     120.80  ! was 121.25 PROCHECK was by JK (pept planarity)
+ angle     CT   C    OH            $kang     117.5
+ angle     CT   C    OC            $kang     118.0
+ angle     CT   CC   CV            $kang     131.900
+ angle     CT   CC   NA            $kang     122.2000
+ angle     CT   CT   CT            $kang     109.5 !JK
+ angle     CT   CT   N             $kang     103.0 ! updated with CP
+ angle     CP   CP   N             $kang     103.2 ! CP
+ angle     CP   CP   NH3           $kang     103.2 ! CP, N-terminal pro
+ angle     CP   CP   CT            $kang     106.1 ! CP
+ angle     CP   CT   CT            $kang     104.5 ! CP
+ angle     CT   CT   NH1           $kang     110.5 ! was 109.5 PROCHECK
+ angle     CT   CT   NH2           $kang     109.5
+ angle     CT   CT   NH3           $kang     109.5
+ angle     CT   CT   NC2           $kang     109.5
+ angle     CT   CT   OH            $kang     109.5 !corrected by JK
+ angle     CT   CT   S             $kang     109.5
+ angle     CT   CX   CW            $kang     125.0000
+ angle     CT   N    CT            $kang     119.5 !PRO
+ angle     CT   N    CP            $kang     112.0 ! CP
+ angle     CT   NH3  CP            $kang     109.5 ! CP, N-terminal pro
+ angle     CT   NH3  CT            $kang     109.5 !PRO N-ter
+ angle     CT   S    CT            $kang     97.20
+ angle     CT   S    S             $kssang   104.2
+ angle     CV   CC   NA            $kang     105.900
+ angle     CW   NA   H             $kang     125.300
+ angle     CX   CB   CN            $kang     108.800
+ angle     CX   CT   CT            $kang     109.5  
+ angle     CX   CT   HA            $kang     109.5
+ angle     CX   CW   HAR           $kang     125.65   !corrected by JK
+ angle     CX   CW   NA            $kang     108.7
+ angle     N    C    O             $kang     122.0 ! updated with CP
+ angle     NA   CR   NB            $kang     111.60
+ angle     NH1  C    NC2           $kang     120.0  !corrected by JK
+ angle     NH1  CARG NC2           $kang     120.0  
+ angle     NH1  C    NR            $kang     117.0
+ angle     NH1  C    O             $kang     123.00 ! was 121.25 PROCHECK was by JK (pept planarity)
+ angle     NH2  C    O             $kang     120.6
+ angle     NC2  C    NC2           $kang     120.0  !corrected by JK
+ angle     NC2  CARG NC2           $kang     120.0 
+ angle     O    C    OH            $kang     124.5
+ angle     OC   C    OC            $kang     124.0  !corrected by JK
+ angle     CA   CN   NA            $kang     133.6  !trp addition
+ angle     CA   CB   CX            $kang     133.2  !trp addition
+
+! IMPROPERS
+
+! For dihedrals and impropers, the following convention was adopted:
+! All dihedral terms maintaining planarity (esp. omega) have been
+! converted into impropers. The only dihedrals left are around
+! rotatable bonds. 
+
+ improper  H    X    X    C        $kpla    0    0.0
+ improper  H    X    X    NH1      $kpla    0    0.0
+ improper  H    X    X    NH2      $kpla    0    0.0
+ improper  H    X    X    O        $kpla    0    0.0
+ improper  HC   X    X    NH1      $kpla    0    0.0
+ improper  HC   X    X    NC2      $kpla    0    0.0
+ improper  HC   X    X    NH3      $kpla    0    0.0
+ improper  HA   X    X    C        $kpla    0    0.0
+ improper  C    X    X    C        $kpla    0    0.0
+ improper  C    X    X    CT       $kpla    0    0.0
+ improper  C    X    X    N        $kpla    0    0.0
+ improper  C    X    X    NH1      $kpla    0    0.0
+ improper  CARG X    X    NH1      $kpla    0    0.0
+ improper  C    X    X    NH2      $kpla    0    0.0
+ improper  C    X    X    NC2      $kpla    0    0.0
+ improper  CARG X    X    NC2      $kpla    0    0.0
+ improper  C    X    X    NR       $kpla    0    0.0
+ improper  C    X    X    O        $kpla    0    0.0
+ improper  C    X    X    OH       $kpla    0    0.0
+ improper  C    X    X    OC       $kpla    0    0.0
+ improper  CT   X    X    N        $kpla    0    0.0
+ improper  CP   CT   CT   N        $kpla    0    0.0    ! new pro ring pucker --JK
+ improper  CP   CT   CT   NH3      $kpla    0    0.0    ! CP, N-terminal pro
+ improper  CT   X    X    NH1      $kpla    0    0.0
+ improper  CT   X    X    NH3      $kpla    0    0.0
+ improper  CT   X    X    NC2      $kpla    0    0.0
+ improper  CT   X    X    NR       $kpla    0    0.0
+ improper  NH1  X    X    NH1      $kpla    0    0.0
+ improper  NH1  X    X    NR       $kpla    0    0.0
+ improper  NH1  CT   NC2  HC       $kpla    0    0.0    ! Arg
+ improper  CT   C    NH2  H        $kpla    0    0.0    ! Asn and Gln
+
+! note the way the omega planarity is defined which allows switch
+! between trans and cis by a patch. 
+
+ improper  CT   C    NH1  CT       $kpx     0  180.0    ! new trans peptide bond 
+ improper  CT   C    N    CT       $kback   0  180.0    ! proline
+ improper  CT   N    C    CP       $kback   0  180.0    ! CP peptide bond
+ improper  CT   N    CP   C        $kback   0  180.0    ! CP cis peptide bond
+ improper  O    C    NH1  CT       $kpx   0    0.0    ! CO peptide planarity
+ improper  O    C    N    CT       $kback   0    0.0    ! proline
+ improper  H    NH1  C    CT       $kpx     0    0.0    ! NH peptide planarity
+ improper  C    CT   CT   NH1      $kpx   0  180.0    ! trans peptide bond
+ improper  C    CT   NH1  CT       $kback   0  180.0    ! cis   peptide bond
+ improper  C    CT   CT   N        $kback   0  180.0    ! Pro trans peptide bond
+ improper  C    CT   N    CT       $kback   0  180.0    ! Pro cis   peptide bond
+
+! 65.977 degrees for the chirality restraints are from
+! isolated CAs minimized with bonds and angles only --JK
+
+ improper  HA   NH1  C    CT       $kchi    0   65.977  ! CA chirality
+ improper  HA   N    C    CT       $kchi    0   65.977  ! Pro CA chirality
+ improper  HA   NH3  C    CT       $kchi    0   65.977  ! N-terminal CA chirality
+ improper  HA   C    NH1  CT       $kchi    0   65.977  ! D  CA chirality
+ improper  HA   C    N    CT       $kchi    0   65.977  ! D  Pro CA chirality
+ improper  HA   C    NH3  CT       $kchi    0   65.977  ! D  N-terminal CA chirality
+ improper  HA   CT   OH   CT       $kchi    0   65.977  ! Thr CB chirality
+ improper  HA   CT   CT   CT       $kchi    0   -65.977  ! val, leu, ile CB chirality
+
+! stereospecific hydrogen impropers
+ improper  HA   HA   NH1  C        $kchi   0   -70.874  ! stereo GLY CA
+ improper  HA   HA   NH3  C        $kchi   0   -70.874  ! stereo N-terminal GLY CA JJK 8/16/02
+ improper  HA   HA   CT   HA       $kchi   0   -66.514  ! methyl
+ improper  HA   HA   C    HA       $kchi   0   -66.514  ! ace methyl
+ improper  HA   HA   S    HA       $kchi   0   -66.0    ! met methyl
+ improper  HC   HC   CT   HC       $kchi   0   -66.0    ! amine for lys & N terminus
+ improper  HC   HC   CT   CT       $kchi   0   -70.874  ! PRO N-terminus
+ improper  HC   HC   CT   CP       $kchi   0   -70.874  ! CP, N-terminal pro
+ improper  HA   HA   CT   CT       $kchi   0   -70.874  ! methylene
+! need to get better values for this
+ improper  HA   HA   CT   CP       $kchi   0   -70.874  ! CP methylene
+ improper  HA   HA   CP   N        $kchi   0   -70.874  ! CP methylene
+ improper  HA   HA   CP   NH3      $kchi   0   -70.874  ! CP methylene N-terminal
+
+ improper  HA   HA   CT   CA       $kchi   0   -70.874  ! methylene phe 
+ improper  HA   HA   CT   CX       $kchi   0   -70.874  ! methylene trp
+ improper  HA   HA   CT   CC       $kchi   0   -70.874  ! methylene his
+ improper  HA   HA   CT   C        $kchi   0   -70.874  ! methylene glu, asp
+ improper  HA   HA   C    NH1      $kchi   0   -70.874  ! methylene gly
+ improper  HA   HA   CT   NH1      $kchi   0   -70.874  ! methylene arg
+ improper  HA   HA   CT   NH3      $kchi   0   -70.874  ! methylene lys
+ improper  HA   HA   CT   N        $kchi   0   -70.874  ! methylene pro
+ improper  HA   HA   CT   S        $kchi   0   -73.230  ! methylene cys, met
+ improper  HA   HA   CT   OH       $kchi   0   -71.884  ! methylene ser
+
+
+! hold rings flat (from parallhgeo)
+! trp
+ improper   CB   CN   CA   CA      $kpla    0    0.0
+ improper   CN   CA   CA   CA      $kpla    0    0.0
+ improper   CA   CA   CA   CA      $kpla    0    0.0
+ improper   CA   CA   CA   CB      $kpla    0    0.0
+ improper   CA   CA   CB   CN      $kpla    0    0.0
+ improper   CA   CB   CN   CA      $kpla    0    0.0
+ improper   CW   NA   CN   CA      $kpla    0  180.0
+ improper   CW   CX   CB   CA      $kpla    0  180.0
+ improper   NA   CN   CA   CA      $kpla    0  180.0
+ improper   NA   CN   CB   CA      $kpla    0  180.0
+ improper   CX   CB   CA   CA      $kpla    0  180.0
+ improper   CX   CB   CN   CA      $kpla    0  180.0
+ improper   HAR  CA   CA   CA      $kpla    0  180.0
+ improper   H    NA   CN   CB      $kpla    0  180.0
+ improper   HAR  CW   NA   CN      $kpla    0  180.0
+ improper   CT   CX   CB   CN      $kpla    0  180.0
+!phe 
+ improper   CT   CA   CA   CA      $kpla    0  180.0
+!tyr
+ improper   OH   CTYR CA   CA      $kpla    0  180.0
+ improper   HAR  CA   CA   CTYR    $kpla    0  180.0
+ improper   HAR  CA   CTYR CA      $kpla    0  180.0
+ 
+! improper   CA   C    CA   HA      $kpla    0    0.0
+ improper   CA   CA   C    CA      $kpla    0    0.0
+ improper   CA   CA   CTYR CA      $kpla    0    0.0
+ improper   CA   CA   C    HA      $kpla    0    0.0
+ improper   CA   CA   CA   C       $kpla    0    0.0
+ improper   CA   CA   CA   CTYR    $kpla    0    0.0
+ improper   CA   CA   CB   HA      $kpla    0    0.0
+ improper   CA   CA   CN   CA      $kpla    0    0.0
+ improper   CA   CB   CA   CA      $kpla    0    0.0
+ improper   CA   CN   CA   HA      $kpla    0    0.0
+ improper   CB   CX   CN   CA      $kpla    0    0.0
+ improper   CC   CT   NA   CV      $kpla    0    0.0
+ improper   CC   NA   CR   NB      $kpla    0    0.0
+ improper   CN   CB   CA   NA      $kpla    0    0.0
+ improper   CN   CB   CX   CW      $kpla    0    0.0
+ improper   CN   NA   CW   CX      $kpla    0    0.0
+ improper   CR   NA   NB   HAR     $kpla    0    0.0
+ improper   CR   NB   CV   CC      $kpla    0    0.0
+ improper   CV   CC   NA   CR      $kpla    0    0.0
+ improper   CV   NB   CC   HAR     $kpla    0    0.0
+ improper   CW   CX   NA   HA      $kpla    0    0.0
+ improper   CW   NA   CN   CB      $kpla    0    0.0
+ improper   CX   CW   CB   CT      $kpla    0    0.0
+ improper   NA   CN   CB   CX      $kpla    0    0.0
+ improper   NA   CR   CC   H       $kpla    0    0.0
+ improper   NA   CR   NB   CV      $kpla    0    0.0
+ improper   NA   CW   CN   H       $kpla    0    0.0
+ improper   NA   CW   CX   CB      $kpla    0    0.0
+ improper   NB   CV   CC   NA      $kpla    0    0.0
+ improper   NB   CV   CR   H       $kpla    0    0.0
+
+
+! DIHEDRALS
+
+ dihedral  CA   CA   CT   CT       $kdih    3    0.0
+ dihedral  CW   CX   CT   CT       $kdih    3    0.0
+ dihedral  NA   CC   CT   CT       $kdih    3    0.0
+ dihedral  X    NH1  CT   X        $kdih    3    0.0  ! chi1 - chi4
+ dihedral  X    CT   CT   X        $kdih    3    0.0  ! chi1 - chi4
+ dihedral  X    C    CT   X        $kdih    3    0.0  ! chi1 - chi4
+ dihedral  X    S    CT   X        $kdih    3    0.0  ! chi1 - chi4
+
+
+ dihedral  X    NH1   C    X     2.50000000   2   180.0  !isopeptide
+ dihedral  X    NH1   C    X     2.50000000   2   180.0  !isopeptide
+
+
+! NONBONDED
+
+! MolProbity vdw radii.  
+! (Table 1 in [Word et. al (1999) J. Mol. Biol. 285:1711].)
+
+evaluate ($R_H = 1.17)  ! H
+evaluate ($R_HH = 1.0)  ! H (polar/aromatic)
+evaluate ($R_C = 1.75)  ! C
+evaluate ($R_CO = 1.65) ! C (carbonyl)
+evaluate ($R_N = 1.55)  ! N 
+evaluate ($R_O = 1.40)  ! O
+evaluate ($R_P = 1.80)  ! P
+evaluate ($R_S = 1.80)  ! S
+
+! Lennard-Jones sigma = (R1 + R2) * 2^(-1/6)
+! The NONBonded statement assumes the two atoms are of the same type (R1 = R2 = R).
+! Then, sigma = R * 2^(5/6)
+
+! Sigmas:
+evaluate ($S_H     = $R_H * 2^(5/6))
+evaluate ($S_HH    = $R_HH * 2^(5/6))  
+evaluate ($S_C     = $R_C * 2^(5/6))
+evaluate ($S_CO    = $R_CO * 2^(5/6))  
+evaluate ($S_N     = $R_N * 2^(5/6))
+evaluate ($S_O     = $R_O * 2^(5/6))
+evaluate ($S_P     = $R_P * 2^(5/6))
+evaluate ($S_S     = $R_S * 2^(5/6))
+
+
+!                   epsilon  sigma      epsilon  sigma
+!                                        (1:4)   (1:4)
+!                                                                               
+ nonbonded  C       0.0903   $S_CO      0.0903   $S_CO  ! carbonyl          
+ nonbonded  CA      0.120    $S_C       0.120    $S_C
+ nonbonded  CARG    0.120    $S_C       0.120    $S_C
+ nonbonded  CTYR    0.120    $S_C       0.120    $S_C
+ nonbonded  CB      0.145    $S_C       0.145    $S_C
+ nonbonded  CC      0.145    $S_C       0.145    $S_C
+ nonbonded  CN      0.145    $S_C       0.145    $S_C
+ nonbonded  CR      0.1200   $S_C       0.1200   $S_C
+ nonbonded  CT      0.0903   $S_C       0.0903   $S_C
+ nonbonded  CP      0.0903   $S_C       0.0903   $S_C
+ nonbonded  CV      0.1200   $S_C       0.1200   $S_C
+ nonbonded  CW      0.1200   $S_C       0.1200   $S_C
+ nonbonded  CX      0.1450   $S_C       0.1450   $S_C
+ nonbonded  H       0.0498   $S_HH      0.0498   $S_HH   ! polar H
+ nonbonded  HA      0.0045   $S_H       0.0045   $S_H          
+ nonbonded  HAR     0.0045   $S_HH      0.0045   $S_HH   ! aromatic
+ nonbonded  HC      0.0498   $S_HH      0.0498   $S_HH   ! polar H
+ nonbonded  N       0.1592   $S_N       0.1592   $S_N          
+ nonbonded  NA      0.1592   $S_N       0.1592   $S_N
+ nonbonded  NB      0.1592   $S_N       0.1592   $S_N
+ nonbonded  NC2     0.1592   $S_N       0.1592   $S_N
+ nonbonded  NH1     0.1592   $S_N       0.1592   $S_N
+ nonbonded  NH2     0.1592   $S_N       0.1592   $S_N
+ nonbonded  NH3     0.1592   $S_N       0.1592   $S_N
+ nonbonded  O       0.2342   $S_O       0.2342   $S_O           
+ nonbonded  OC      1.0244   $S_O       1.0244   $S_O
+ nonbonded  OH      0.2342   $S_O       0.2342   $S_O
+ nonbonded  S       0.0239   $S_S       0.0239   $S_S        
+
+
+! the following nbfixes allow hydrogen bonding 
+! the distance used is (A/B)^(1/6)*repel                                    distances
+!                         A    B   A1-4  B1-4
+ nbfix      H     NB    44.2  1.0  44.2  1.0               !         2.111   1.900   1.689   1.583
+ nbfix      H     O     44.2  1.0  44.2  1.0 
+ nbfix      H     OC    44.2  1.0  44.2  1.0 
+ nbfix      H     OH    44.2  1.0  44.2  1.0 
+ nbfix      HC    NB    44.2  1.0  44.2  1.0 
+ nbfix      HC    O     44.2  1.0  44.2  1.0 
+ nbfix      HC    OC    44.2  1.0  44.2  1.0 
+ nbfix      HC    OH    44.2  1.0  44.2  1.0 
+
+
+! extra parameters for phosphoserine and phosphocysteine
+! these should probably be placed elsewhere
+! CDS 2005/7/6
+!
+evaluate ($ktran=500.0)
+evaluate ($ktran2 = $ktran/2)
+evaluate ($ktran25 = $ktran/2.5)
+
+bond PPP OH  500.0 2.0 !20.0 3.3
+angle OH PPP OP1 $ktran2 107.0
+angle OH PPP OP2 $ktran2 107.0
+angle OH PPP OP3 $ktran2 107.0
+angle CT OH PPP  $ktran25 97.0 
+angle C  OH PPP  $ktran25 97.0 !is this right?
+angle CTYR OH PPP  $ktran25 97.0 !is this right?
+
+bond PPP S  500.0 2.0 !20.0 3.3
+angle S PPP OP1 $ktran2 109.0
+angle S PPP OP2 $ktran2 109.0
+angle S PPP OP3 $ktran2 109.0
+angle CT S PPP  $ktran25 97.0 
+
+
+!===============================================================================
+
+! Parameters for CYSP - MTSL-derivatized cysteine
+! CDS 2008/02/09
+!  Originally by John Battiste, Harvard Medical School (9-Aug-1999)
+!
+
+!spin label (MTSL) definitions
+ BOND  CT   CS1     1000.000 {sd=     0.001}      1.490
+ BOND  CS1  CSN1    1000.000 {sd=     0.001}      1.511
+ BOND  CSN1 C3S8    1000.000 {sd=     0.001}      1.526
+ BOND  C3S8 HA      1000.000 {sd=     0.001}      1.080
+ BOND  CSN1 C3S9    1000.000 {sd=     0.001}      1.521
+ BOND  C3S9 HA      1000.000 {sd=     0.001}      1.080
+ BOND  CSN1 NO      1000.000 {sd=     0.001}      1.486
+ BOND  NO   ON      1000.000 {sd=     0.001}      1.267
+ BOND  NO   CSN2    1000.000 {sd=     0.001}      1.477
+ BOND  CSN2 C3S6    1000.000 {sd=     0.001}      1.529
+ BOND  C3S6 HA      1000.000 {sd=     0.001}      1.080
+ BOND  CSN2 C3S7    1000.000 {sd=     0.001}      1.517
+ BOND  C3S7 HA      1000.000 {sd=     0.001}      1.080
+ BOND  CSN2 CS2     1000.000 {sd=     0.001}      1.487
+ BOND  CS2  HAR     1000.000 {sd=     0.001}      1.080
+ BOND  CS2  CS1     1000.000 {sd=     0.001}      1.319
+
+
+!following ANGLEs uncertain from paper describing crystal structure
+ ANGLe  CS1  CSN1 C3S9     500.00 {sd=     0.031}    109.7000
+ ANGLe  C3S8 CSN1 NO       500.00 {sd=     0.031}    115.3000
+ ANGLe  HA   C3S8 HA       500.00 {sd=     0.031}    109.4074
+ ANGLe  HA   C3S9 HA       500.00 {sd=     0.031}    109.4074
+ ANGLe  HA   C3S6 HA       500.00 {sd=     0.031}    109.4074
+ ANGLe  HA   C3S7 HA       500.00 {sd=     0.031}    109.4074
+ ANGLe  C3S6 CSN2 NO       500.00 {sd=     0.031}    112.4000
+ ANGLe  CS2  CSN2 C3S7     500.00 {sd=     0.031}    110.1000
+
+!remainder of angles of spin label from crystal structure
+ ANGLe  CS1  CT   S        500.00 {sd=     0.031}    114.3551
+!uses CH1E CT   S value
+ ANGLe  CS1  CT   HA       500.00 {sd=     0.031}    108.1831
+!uses C5W CT   HA value
+ ANGLe  CSN1 CS1  CT       500.00 {sd=     0.031}    122.4000
+ ANGLe  CS2  CS1  CT       500.00 {sd=     0.031}    125.1000
+ ANGLe  CSN1 CS1  CS2      500.00 {sd=     0.031}    112.5000
+ ANGLe  CS1  CSN1 C3S8     500.00 {sd=     0.031}    115.3000
+ ANGLe  CS1  CSN1 NO       500.00 {sd=     0.031}     99.2000
+ ANGLe  CSN1 C3S8 HA       500.00 {sd=     0.031}    109.4726
+ ANGLe  CSN1 C3S9 HA       500.00 {sd=     0.031}    109.4726
+!uses CH1E CH3E HA value
+ ANGLe  C3S8 CSN1 C3S9     500.00 {sd=     0.031}    111.2000
+ ANGLe  C3S9 CSN1 NO       500.00 {sd=     0.031}    109.7000
+ ANGLe  CSN1 NO   ON       500.00 {sd=     0.031}    122.2000
+ ANGLe  CSN1 NO   CSN2     500.00 {sd=     0.031}    114.8000
+ ANGLe  ON   NO   CSN2     500.00 {sd=     0.031}    123.0000
+ ANGLe  NO   CSN2 C3S7     500.00 {sd=     0.031}    110.1000
+ ANGLe  NO   CSN2 CS2      500.00 {sd=     0.031}     99.7000
+ ANGLe  CSN2 C3S6 HA       500.00 {sd=     0.031}    109.4726
+ ANGLe  CSN2 C3S7 HA       500.00 {sd=     0.031}    109.4726
+!uses CH1E CH3E HA value
+ ANGLe  C3S6 CSN2 C3S7     500.00 {sd=     0.031}    110.7000
+ ANGLe  C3S6 CSN2 CS2      500.00 {sd=     0.031}    112.4000
+ ANGLe  CSN2 CS2  HAR      500.00 {sd=     0.031}    123.1000
+ ANGLe  CS1  CS2  HAR      500.00 {sd=     0.031}    123.1000
+!uses 360 - (CSN2-CS2-CS1 angle) % 2
+ ANGLe  CSN2 CS2  CS1      500.00 {sd=     0.031}    113.8000
+
+
+ IMPRoper  S    CS1  HA   HA        500.00 {sd=     0.031}    0    -70.4072
+! the next entry was changed from -70.4072 to that fixupCovalentGeom works
+! with the new default threshold values  CDS 2007/12/04 
+ IMPRoper  C3S8 C3S9 NO   CS1       500.00 {sd=     0.031}    0    -72.867
+ IMPRoper  C3S6 C3S7 NO   CS2       500.00 {sd=     0.031}    0     70.4072
+
+ IMPRoper  ON   NO   CSN1 CSN2      500.00 {sd=     0.031}    0   -180.0000
+ IMPRoper  HAR  CS2  CSN2 CS1       500.00 {sd=     0.031}    0   -180.0000
+ IMPRoper  CT   CS1  CSN1 CS2       500.00 {sd=     0.031}    0   -180.0000
+
+ IMPRoper  NO   CSN1 CS1  CS2       500.00 {sd=     0.031}    0      0.0000
+ IMPRoper  CSN1 CS1  CS2  CSN2      500.00 {sd=     0.031}    0      0.0000
+ IMPRoper  CS1  CS2  CSN2 NO        500.00 {sd=     0.031}    0      0.0000
+ IMPRoper  CS2  CSN2 NO   CSN1      500.00 {sd=     0.031}    0      0.0000
+ IMPRoper  CSN2 NO   CSN1 CS1       500.00 {sd=     0.031}    0      0.0000
+
+ IMPRoper  HA HA HA CSN1            500.00                    0     75
+ IMPRoper  HA HA HA CSN2            500.00                    0     75
+
+!Nonbond values all adapted from existing types in parallhdg.pro:	type adapted
+!(Except that sigmas reflect the MolProbity radii; GAB 21-Jun-2016.)
+!
+!                     eps      sigma       eps(1:4) sigma(1:4)  
+! 
+ NONBonded  CS1       0.1200   $S_C        0.1200   $S_C		!C5
+ NONBonded  CSN1      0.1200   $S_C        0.1200   $S_C		!CR*
+ NONBonded  C3S8      0.0903   $S_C        0.0903   $S_C		!CH3E
+ NONBonded  C3S9      0.0903   $S_C        0.0903   $S_C		!CH3E
+ NONBonded  NO        0.1592   $S_N        0.1592   $S_N		!N
+ NONBonded  ON        0.2342   $S_O        0.2342   $S_O		!OH1
+ NONBonded  CSN2      0.1200   $S_C        0.1200   $S_C		!CR*
+ NONBonded  C3S6      0.0903   $S_C        0.0903   $S_C		!CH3E
+ NONBonded  C3S7      0.0903   $S_C        0.0903   $S_C		!CH3E
+ NONBonded  CS2       0.1200   $S_C        0.1200   $S_C		!CR1E
+
+
+!===============================================================================
+
+! Parameters for cysteine residue derivatized with iodoacetamido-PROXYL (CIAP residue).
+
+! Derived from coordinates and parameters kindly provided by Gunnar Jeschke.
+! Polyhach Y. et al. Phys. Chem. Chem. Phys. 2011, 13: 2356-2366.
+!
+! Added by Guillermo A. Bermejo (28 July 2015).
+
+! Comments by GAB:
+{*
+Up to CB parameters are those of CYS in protein-1.0.par; the rest of the side chain is 
+based on Gunnar's data.  Gunnar provided coordinates and parameters in the form of Tinker 
+.xyz and .prm files, respectively.  Coordinates were converted to pdb format for analysis.
+(Some H-atoms are missing from the provided data; their associated parameters are
+implemented using protein-1.0.par as reference.)    The dihedral and improper parameters 
+were not used, but added manually here.  All applicable bond parameter values are as 
+provided (and very similar to those in the coordinates).  However, some angle parameter 
+values differ from those in the structure (by up to 10 deg).  When using the original angle 
+parameters, structure generation failed to yield a model without endocyclic angle violations.  
+This problem was solved by replacing all endocyclic angle values by those in the provided 
+coordinates.
+*}
+
+!BONDS 
+
+bond    CH2X  S          $kbon     1.810	!1.813 (SG-C10 from coords; delta: 0.003)
+bond    CPX   CH2X       $kbon     1.520	!1.522 (C10-C11 from coords; delta: 0.002)
+bond    CPX   OPX        $kbon     1.230	!1.230 (C11-O2 from coords; delta: 0.0)
+bond    CPX   NH1X       $kbon     1.330	!1.334 (C11-N2 from coords; delta: 0.004)
+bond    CH1X  NH1X       $kbon     1.450	!1.460 (N2-C3 from coords; delta: 0.01)
+bond    HPX   NH1X       $kbon     0.980	!0.979 (N2-H2 from coords; delta: 0.001)
+bond    CH1X  CTPX       $kbon     1.53	!1.541 (C3-C2 from coords; delta: 0.011)
+bond    CH1X  CH2X       $kbon     1.520	!1.524 (C3-C4 from coords; delta: 0.004)
+bond    CTPX  NN5X       $kbon     1.48	!1.487 (C2-N1 from coords; delta: 0.007)
+bond    CH3X  CTPX       $kbon     1.53	!1.542 (C2-C8 from coords; delta: 0.012)
+bond    NN5X  ONPX       $kbon     1.28	!1.285 (N1-O1 from coords; delta: 0.005)
+bond    CH2X  CTPX       $kbon     1.53	!1.529 (C5-C4 from coords; delta: 0.001)
+
+! Missing protons (added manually).
+bond    HAPX   CH2X      $kbon     1.08
+bond    HAPX   CH1X      $kbon     1.08  
+bond    HAPX   CH3X      $kbon     1.08 
+
+
+
+
+!ANGLES 
+
+angle    CT     S       CH2X      $kang     99.5	!99.216 (CB-SG-C10 from coords; delta: 0.284). CT "backbone"
+angle    CPX    CH2X    S         $kang     112.5	!115.530 (SG-C10-C11 from coords; delta: 3.03)
+!!angle    CPX    CH2X  S         $kang     104.2	!115.530 (SG-C10-C11 from coords; delta: 11.33) DUPLICATED W/DIFF VALUE!!
+angle    CH2X   CPX     OPX       $kang     121.6	!120.280 (C10-C11-O2 from coords; delta: 1.32)
+angle    CH2X   CPX     NH1X      $kang     117.5	!118.927 (C10-C11-N2 from coords; delta: 1.427)
+angle    NH1X   CPX     OPX       $kang     121.0	!120.792 (O2-C11-N2 from coords; delta: 0.208)
+angle    CPX    NH1X    CH1X      $kang     120.0	!121.958 (C11-N2-C3 from coords; delta: 1.958)
+angle    CPX    NH1X    HPX       $kang     120.0	!116.736 (C11-N2-H2 from coords; delta: 3.264)
+angle    CH1X   NH1X    HPX       $kang     120.0	!121.292 (C3-N2-H2 from coords; delta: 1.292)
+angle    NH1X   CH1X    CTPX      $kang     110.8	!116.636 (N2-C3-C2 from coords; delta: 5.836)
+angle    CH2X   CH1X    NH1X      $kang     110.0	!114.506 (N2-C3-C4 from coords; delta: 4.506)
+angle    CH2X   CH1X    CTPX      $kang     103.6	!103.645 (C2-C3-C4 from coords; delta: 5.855)   !original value: 109.5
+angle    CH1X   CTPX    NN5X      $kang     101.8	!101.824 (C3-C2-N1 from coords; delta: 6.176)   !origianl value: 108.0
+angle    CH1X   CTPX    CH3X      $kang     109.1	!113.494 (C3-C2-C8 from coords; delta: 4.394)
+                                                        !110.297 (C3-C2-C9 from coords; delta: 1.197)
+angle    CH1X   CH2X    CTPX      $kang     104.6	!104.581 (C3-C4-C5 from coords; delta: 10.019)  !original value: 114.6
+angle    CH3X   CTPX    NN5X      $kang     108.0	!108.114 (N1-C2-C8 from coords; delta: 0.114)
+                                                 	!110.535 (N1-C2-C9 from coords; delta: 2.535)
+                                                        !111.124 (N1-C5-C6 from coords; delta: 3.124)
+                                                        !108.901 (N1-C5-C7 from coords; delta: 0.901)
+angle    CTPX   NN5X    ONPX      $kang     123.3	!123.376 (C2-N1-O1 from coords; delta: 2.376)   !original value: 121.0
+                                                        !123.300 (O1-N1-C5 from coords; delta: 2.3)
+angle    CTPX   NN5X    CTPX      $kang     111.6	!111.564 (C2-N1-C5 from coords; delta: 3.436)   !original value: 115.0
+angle    CH2X   CTPX    NN5X      $kang     104.0	!104.046 (N1-C5-C4 from coords; delta: 5.254)   !original value: 109.3
+angle    CH2X   CTPX    CH3X      $kang     109.1	!110.109 (C4-C5-C6 from coords; delta: 1.009)
+                                                 	!110.442 (C4-C5-C7 from coords; delta: 1.342)
+angle    CH3X   CTPX    CH3X      $kang     111.0	!111.933 (C6-C5-C7 from coords; delta: 0.933)
+                                                        !112.076 (C8-C2-C9 from coords; delta: 1.076)
+
+
+! Missing protons (added manually; all tetrahedral).
+angle    HAPX   CH2X   HAPX       $kang     109.5 ! linker and ring methylene
+angle    HAPX   CH2X   S          $kang     109.5 ! linker methylene
+angle    HAPX   CH2X   CPX        $kang     109.5 ! linker methylene
+angle    HAPX   CH2X   CTPX       $kang     109.5 ! ring methylene
+angle    HAPX   CH2X   CH1X       $kang     109.5 ! ring methylene
+angle    HAPX   CH3X   HAPX       $kang     109.5 ! methyl
+angle    HAPX   CH3X   CTPX       $kang     109.5 ! methyl
+angle    HAPX   CH1X   CH2X       $kang     109.5 ! ring C-H proton 
+angle    HAPX   CH1X   CTPX       $kang     109.5 ! ring C-H proton 
+angle    HAPX   CH1X   NH1X       $kang     109.5 ! ring C-H proton 
+
+
+
+!DIHEDRALS 
+
+! Only around the linker.
+dihedral    CT      CT      S       CH2X     $kdih  3   0.0
+dihedral    CT      S       CH2X    CPX      $kdih  3   0.0
+dihedral    S       CH2X    CPX     NH1X     $kdih  3   0.0
+dihedral    CPX     NH1X    CH1X    CTPX     $kdih  3   0.0
+
+
+
+!IMPROPERS 
+
+! Decided to add all impropers manually.
+! When possible, I get the values from the provided coordinates.
+
+improper    HAPX   HAPX   S     CPX       $kchi  0   70.5  ! C10 methylene chirality (using Cys CB 73.23 value  
+                                                                 ! in protein-1.0.par yields viol. => decreased)
+improper    OPX    CPX    NH1X  CH1X      $kchi  0   0.00  ! trans amide (as presidue PEPT)
+improper    HPX    NH1X   CPX   CH2X      $kchi  0   0.00  ! trans amide (as presidue PEPT)
+improper    CH2X   CPX    NH1X  CH1X      $kchi  0   180.00  ! trans amide (as presidue PEPT)
+
+improper    HAPX   CH2X   NH1X  CTPX      $kchi  0   65.977  ! C3 chirality (as in PRO CA)
+improper    CH3X   CH3X   CH1X  NN5X      $kchi  0   69.43 ! C2 chirality (from coorditates)
+improper    ONPX   CTPX   CTPX  NN5X      $kchi  0   0.00  ! planar nitroxide N
+improper    CH3X   CH3X   NN5X  CH2X      $kchi  0   71.20 ! C5 chirality (from coordinates)
+improper    HAPX   HAPX   CTPX  CH1X      $kchi  0   70.3  ! C4 chirality (average between values for C2 and C5)
+
+improper    HAPX   HAPX   CTPX  HAPX      $kchi  0   -66.514  ! methyl chirality (as ALA)
+
+
+
+!NONBONDED
+
+!                   epsilon  sigma      epsilon  sigma
+!                                        (1:4)   (1:4)
+!                                                                                                               
+nonbonded  CPX     0.0903   $S_CO      0.0903   $S_CO  ! carbonyl 
+nonbonded  CH1X    0.0903   $S_C       0.0903   $S_C
+nonbonded  CH2X    0.0903   $S_C       0.0903   $S_C
+nonbonded  CH3X    0.0903   $S_C       0.0903   $S_C
+nonbonded  CTPX    0.0903   $S_C       0.0903   $S_C
+nonbonded  HPX     0.0498   $S_HH      0.0498   $S_HH   ! polar H (as type H)
+nonbonded  HAPX    0.0045   $S_H       0.0045   $S_H    ! (as type HA)
+nonbonded  OPX     0.2342   $S_O       0.2342   $S_O    ! (as type O)
+nonbonded  ONPX    0.2342   $S_O       0.2342   $S_O    ! (as type O)
+nonbonded  NH1X    0.1592   $S_N       0.1592   $S_N    ! (as type NH1)
+nonbonded  NN5X    0.1592   $S_N       0.1592   $S_N   
+
+
+! the following nbfixes allow hydrogen bonding 
+! the distance used is (2A/B)^(1/6)*repel                                    
+!                         A    B   A1-4  B1-4
+nbfix      HPX  OPX    44.2  1.0  44.2  1.0  ! as H-O 
+nbfix      HPX  ONPX   44.2  1.0  44.2  1.0  ! as H-O 
+
+nbfix      H     OPX    44.2  1.0  44.2  1.0  ! as H-O 
+nbfix      H     ONPX   44.2  1.0  44.2  1.0  ! as H-O 
+nbfix      HC    OPX    44.2  1.0  44.2  1.0  ! as HC-O 
+nbfix      HC    ONPX   44.2  1.0  44.2  1.0  ! as HC-O 
+
+nbfix      HPX  NB      44.2  1.0  44.2  1.0  ! as H-X             
+nbfix      HPX  O       44.2  1.0  44.2  1.0 
+nbfix      HPX  OC      44.2  1.0  44.2  1.0 
+nbfix      HPX  OH      44.2  1.0  44.2  1.0 
+
+!===============================================================================
+
+
+!-----------------------------------------------------------
+!-----------------------------------------------------------
+! Residue LYR: modified Lysine with retinoic acid, protonated schiff base
+! From: Hamanaka et al (1972) Acta Cryst B28:214.
+!       Hayashi & Ohmine (2000) J. Phys. Chem. B 104:10678.
+!       Hayashi et al (2001) J. Phys. Chem. B 105:10124.
+!       Nina et al. (1995) Biophys. J. 68:25.
+!       Baudry et al. (1997) J. Chem. Info. Comput. Sci. 37:1018. 
+!       Tajkhorshid et al (1997) J. Phys. Chem. B 101:8021.
+!       Tajkhorshid et al (1999) J. Phys. Chem. B 103:5581.
+!       Tajkhorshid et al (2000) Biophys. J. 78:683.
+!-----------------------------------------------------------
+!-----------------------------------------------------------
+
+! BONDS (CHARMM36 values)
+ BOND   CT    NCH1  $kbon   1.49
+ BOND   NCH1  HCR   $kbon   1.00
+ BOND   NCH1  CA1   $kbon   1.32
+ BOND   CA1   HA    $kbon   1.07
+ BOND   CA1   CA1   $kbon   1.37
+ BOND   CA1   CT    $kbon   1.52
+
+! ANGLES (CHARMM36 values)
+ ANGLE   HA    CT    NCH1    $kang     109.50
+ ANGLE   HCR   NCH1  CT      $kang     118.40
+ ANGLE   NCH1  CA1   HA      $kang     119.10
+ ANGLE   NCH1  CA1   CA1     $kang     122.90
+ ANGLE   CA1   NCH1  HCR     $kang     120.00
+ ANGLE   CA1   CA1   HA      $kang     119.70
+ ANGLE   CA1   CA1   CA1     $kang     122.90
+ ANGLE   CA1   CA1   CT      $kang     119.70
+ ANGLE   CA1   CT    CT      $kang     111.10
+ ANGLE   CA1   CT    HA      $kang     109.50
+ ANGLE   CT    NCH1  CA1     $kang     123.20
+ ANGLE   CT    CT    NCH1    $kang     111.20
+ ANGLE   CT    CA1   CT      $kang     119.70
+
+! IMPROPERS used to define chain and ring planarity
+! LYS moiety geometry
+ IMPRoper   HA    HA    CT    NCH1  $kchi     0  -70.4126 !stereo CE from LYS
+! Retinal chain double bond planarity
+ IMPRoper   NCH1  CT    CA1   HCR   $kpla     0    0.0000
+ IMPRoper   CA1   NCH1  CA1   HA    $kpla     0    0.0000
+ IMPRoper   CA1   CA1   CA1   HA    $kpla     0    0.0000
+ IMPRoper   CA1   CA1   CA1   CT    $kpla     0    0.0000
+! Retinal ring  planarity
+ IMPRoper   CA1   CT    CA1   CA1   $kpla     0    0.0000 
+ IMPRoper   CA1   CA1   CT    CT    $kpla     0    0.0000 
+ IMPRoper   CA1   HA    CA1   CT    $kpla     0    0.0000 
+! LYS moiety dihedrals converted to impropers to allow use of torsionDB without DIHE
+ IMPRoper   NH1   CT    CT    CT    $kpla     3    0.0000 ! N-CA-CB-CG    (LYS chi1)
+ IMPRoper   CT    CT    CT    CT    $kpla     3    0.0000 ! CA-CB-CG-CD / CB-CG-CD-CE  (LYS chi2/chi3)
+ IMPRoper   CT    CT    CT    NCH1  $kpla     3    0.0000 ! CG-CD-CE-N16  (LYS chi4)
+ IMPRoper   CT    CT    NCH1  CA1   $kpla     2    0.0000 ! CD-CE-N16-C15 (LYR schiff base)
+
+! NONBONDED (CHARMM19 values from residue LYS)
+!------------------ EPS      SIGMA     EPS(1:4)  SIGMA(1:4)
+ NONBonded  NCH1    0.1592   $S_N       0.1592    $S_N  ! from LYS NZ (type=NH3)
+ NONBonded  CA1     0.1450   $S_C       0.1450    $S_C  ! from TRP CD2 (type=CB)
+ NONBonded  HCR     0.0498   $S_HH      0.0498    $S_HH ! from TRP HE1 (type=H)
+
+@TOPPAR:edta.par
+
+set message $prot_prev_mess echo $prot_prev_echo end

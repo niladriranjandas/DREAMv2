@@ -1,0 +1,64 @@
+!This file just illustrates what needs to be read in for the conformational
+database torsion angle potentials.
+
+
+!set values of force constants
+
+evaluate ($krama = 1.0)    !intraresidue protein
+evaluate ($kramalr = 0.15) !long range protein
+evaluate ($kvirt1doverall=0.0001) !virtual ca-ca
+evaluate ($kvirt1d=0.001)
+evaluate ($kvirt2d=0.001)
+evaluate ($kvirt3d=0.001)
+evaluate ($knuc = 1.000)    !nucleic acids
+
+
+
+rama
+nres=10000
+!set message off echo off end
+
+!intraresidue protein torsion angles
+@shortrange_gaussians.tbl
+@new_shortrange_force.tbl
+
+!interresidue protein torsion angle correlations i with i+/-1
+@longrange_gaussians.tbl
+@longrange_4D_hstgp_force.tbl
+
+!virtual ca-ca torsion angles (usually not needed)
+@virtualTA_hstgp_gauss.tbl
+@virtualTA_force_hstgp.tbl
+
+!nucleic acid database potential (DNA and RNA)
+@all_na_gaussians.tbl
+@gaussians/force_nucleic.tbl
+
+end
+
+set message on echo on end
+@/net/octave2/clore/xplor_40/gaussians/newshortrange_setup.tbl
+@/net/octave2/clore/xplor_40/gaussians/setup_4D_hstgp.tbl
+@/net/octave2/clore/xplor_40/gaussians/setup_virtualTA_hstgp.tbl
+@/net/octave2/clore/xplor_40/gaussians/setup_nucleic_new.tbl
+
+
+
+
+!to change forces just read the following in:
+
+evaluate ($krama = 1.0)    !intraresidue protein
+evaluate ($kramalr = 0.15) !long range protein
+evaluate ($kvirt1doverall=0.0001) !virtual ca-ca
+evaluate ($kvirt1d=0.001)
+evaluate ($kvirt2d=0.001)
+evaluate ($kvirt3d=0.001)
+evaluate ($knuc = 1.000)    !nucleic acids
+rama
+ nres=10000
+ @new_shortrange_force.tbl
+ @longrange_4D_hstgp_force.tbl
+ @virtualTA_force_hstgp.tbl
+ @gaussians/force_nucleic.tbl
+end
+

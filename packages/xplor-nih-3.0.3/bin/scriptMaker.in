@@ -1,0 +1,1620 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+import os.path
+import sys
+
+(optList, args) = xplor.parseArguments(description="""
+Generate an Xplor-NIH script using a graphical user interface (written by 
+Alex Maltsev).
+"""
+                                       )
+
+
+from tkinter import *
+from tkinter.filedialog import *
+import tkinter.messagebox
+import tkinter.font
+
+import sys
+import os
+import pickle
+from time import time, localtime, strftime
+
+# The "official" name of this script
+scriptName = "ScriptMaker"
+
+# Declaration for the auto-hiding scroll bar class
+class AutoScrollbar(Scrollbar):
+    # a scrollbar that hides itself if it's not needed.  only
+    # works if you use the grid geometry manager.
+    def set(self, lo, hi):
+        if float(lo) <= 0.0 and float(hi) >= 1.0:
+            self.grid_remove()
+        else:
+            self.grid()
+        Scrollbar.set(self, lo, hi)
+
+    def set_canvas(self, c):
+    # This function must be called with a valid canvas to be able to handle mouse scrolling
+        self.canvas = c
+
+    def scroll(self, dir, delta=0.05):
+    # dir is the direction of scroll: negative number means scroll down, positive means scroll up
+    # delta is the amount by which to scroll
+        pos_tuple=self.get()
+        upper = pos_tuple[0]
+        lower = pos_tuple[1]
+        if float(upper) <= 0.0 and float(lower) >= 1.0: return # The scrollbar is invisible, so do nothing
+   
+        if dir < 0:  # Scrolling down
+            if lower == 1.0: return  # Already all the way down
+            
+            lower += delta
+            if lower >= 1.0:
+                delta -= lower - 1.0 # Deal with the situation of running out of bounds
+                lower = 1.0
+            upper += delta
+        else:   # Scrolling up
+            if upper == 0.0: return  # Already all the way up
+
+            upper -= delta
+            if upper < 0.0:
+                delta -= -upper # Deal with the situation of running out of bounds
+                upper = 0.0
+            lower -= delta
+
+        self.canvas.yview_moveto(upper)
+
+
+class ToolTip( Toplevel ):
+    """
+    Provides a ToolTip widget for Tkinter.
+    To apply a ToolTip to any Tkinter widget, simply pass the widget to the
+    ToolTip constructor
+    """ 
+    def __init__( self, wdgt, msg=None, msgFunc=None, delay=0.5, follow=False ):
+        """
+        Initialize the ToolTip
+        
+        Arguments:
+          wdgt: The widget this ToolTip is assigned to
+          msg:  A static string message assigned to the ToolTip
+          msgFunc: A function that retrieves a string to use as the ToolTip text
+          delay:   The delay in seconds before the ToolTip appears(may be float)
+          follow:  If True, the ToolTip follows motion, otherwise hides
+        """
+        self.wdgt = wdgt
+        self.parent = self.wdgt.master                                          # The parent of the ToolTip is the parent of the ToolTips widget
+        Toplevel.__init__( self, self.parent, bg='black', padx=1, pady=1 )      # Initalise the Toplevel
+        self.withdraw()                                                         # Hide initially
+        self.overrideredirect( True )                                           # The ToolTip Toplevel should have no frame or title bar
+        
+        self.msgVar = StringVar()                                               # The msgVar will contain the text displayed by the ToolTip        
+        if msg == None:                                                         
+            self.msgVar.set( 'No message provided' )
+        else:
+            self.msgVar.set( msg )
+        self.msgFunc = msgFunc
+        self.delay = delay
+        self.follow = follow
+        self.visible = 0
+        self.lastMotion = 0
+        Message( self, textvariable=self.msgVar, bg='#FFFFDD',
+                 aspect=1000 ).grid()                                           # The test of the ToolTip is displayed in a Message widget
+        self.wdgt.bind( '<Enter>', self.spawn, '+' )                            # Add bindings to the widget.  This will NOT override bindings that the widget already has
+        self.wdgt.bind( '<Leave>', self.hide, '+' )
+        self.wdgt.bind( '<Motion>', self.move, '+' )
+        
+    def spawn( self, event=None ):
+        """
+        Spawn the ToolTip.  This simply makes the ToolTip eligible for display.
+        Usually this is caused by entering the widget
+        
+        Arguments:
+          event: The event that called this funciton
+        """
+        self.visible = 1
+        self.after( int( self.delay * 1000 ), self.show )                       # The after function takes a time argument in miliseconds
+        
+    def show( self ):
+        """
+        Displays the ToolTip if the time delay has been long enough
+        """
+        if self.visible == 1 and time() - self.lastMotion > self.delay:
+            self.visible = 2
+        if self.visible == 2:
+            self.deiconify()
+            
+    def move( self, event ):
+        """
+        Processes motion within the widget.
+        
+        Arguments:
+          event: The event that called this function
+        """
+        self.lastMotion = time()
+        if self.follow == False:                                                # If the follow flag is not set, motion within the widget will make the ToolTip dissapear
+            self.withdraw()
+            self.visible = 1
+        self.geometry( '+%i+%i' % ( event.x_root+10, event.y_root+10 ) )        # Offset the ToolTip 10x10 pixes southwest of the pointer
+        try:
+            self.msgVar.set( self.msgFunc() )                                   # Try to call the message function.  Will not change the message if the message function is None or the message function fails
+        except:
+            pass
+        self.after( int( self.delay * 1000 ), self.show )
+            
+    def hide( self, event=None ):
+        """
+        Hides the ToolTip.  Usually this is caused by leaving the widget
+        
+        Arguments:
+          event: The event that called this function
+        """
+        self.visible = 0
+        self.withdraw()
+
+
+# Common handler for file name selection and saving to a text field
+def browseForFile(text_field):
+    filename = askopenfilename() # Bring up the file selection dialog
+    if filename:
+        filename = os.path.basename(filename) # Take only the file name rather than the full path
+        text_field.delete(0, END)
+        text_field.insert(0, filename)
+
+
+# Common handler to activate/deactivate a set of widgets, depending on the state of a check button
+def changeActivation(state_var, widget_list):
+    if state_var.get() == 1:
+        for elem in widget_list:
+            elem.configure(state=NORMAL)
+    else:
+        for elem in widget_list:
+            elem.configure(state=DISABLED)
+
+
+# Resetting the text in an Entry
+def setEntryText(entry, text):
+    entry.delete(0, END)
+    entry.insert(0, text)
+
+
+# Functionality for a more ordered sequential gridding of control elements
+currentRow = 0
+def startNextRow():
+    global currentRow
+    currentRow += 1
+
+def resetRow():   # To be called when ready to grid elements into a new frame
+    global currentRow
+    currentRow = 0
+
+
+# Create and name the main window
+root = Tk()
+root.title(scriptName)
+
+# Force the Frame classes to return focus to main window if use clicks within them.
+# This makes it possible to remove focus from an Entry when clicking outside of it.
+root.bind_class("Frame", "<Button-1>", lambda event: root.focus_set())
+root.bind_class("Labelframe", "<Button-1>", lambda event: root.focus_set())
+
+# Create binding for Checkbox class that will make a checkbox take focus when it is clicked.
+# NB: The "+" argument makes sure that the existing bindings are not removed - extremely important here.
+root.bind_class("Checkbutton", "<Button-1>", lambda event: event.widget.focus_set(), "+")
+
+#
+# Create scrolled canvas with mouse scrolling support
+
+# Using horizontal and vertical scroll bars, that only appear when there is need for scrolling
+vscrollbar = AutoScrollbar(root)
+vscrollbar.grid(row=0, column=1, sticky=N+S)
+hscrollbar = AutoScrollbar(root, orient=HORIZONTAL)
+hscrollbar.grid(row=1, column=0, sticky=E+W)
+
+# Handling of mouse scrolling on Linux
+root.bind("<Button-4>", lambda event: vscrollbar.scroll(1))  #  button4 is scroll down
+root.bind("<Button-5>", lambda event: vscrollbar.scroll(-1))  #  button5 is scroll up
+
+# Handling of mouse scrolling on MacOS and Windows
+root.bind("<MouseWheel>", lambda event: vscrollbar.scroll(event.delta))  # Single event for scroll up and down
+
+canvas = Canvas(root, yscrollcommand=vscrollbar.set, xscrollcommand=hscrollbar.set)
+canvas.grid(row=0, column=0, sticky=N+S+E+W)
+
+vscrollbar.config(command=canvas.yview)
+hscrollbar.config(command=canvas.xview)
+
+vscrollbar.set_canvas(canvas)  # Canvas must be set for vscrollbar, in order to handle mouse scrolling
+
+# Make the canvas expandable
+root.grid_rowconfigure(0, weight=1)
+root.grid_columnconfigure(0, weight=1)
+
+#
+# Create canvas contents
+
+frame = Frame(canvas)
+frame.rowconfigure(1, weight=1)
+frame.columnconfigure(1, weight=1)
+
+# Function to reflect the change in canvas content in scrollbar behavior
+def resizeCanvas():
+    frame.update_idletasks()
+    canvas.config(scrollregion=canvas.bbox("all"))
+
+# The dictionary to be filled with save functions for various potentials.
+# The key in the dictionary will serve as the number in the saving order.
+saveFunctionsDict = {}
+
+# The list used for saving states of checkboxes. Each element is a tuple containing 
+# names of respective IntVar and checkBox variable as strings.
+checkboxStates = []
+
+# The list used for saving names of text fields (as strings).
+entryStates = []
+
+####### Initial structure frame ########################################
+strucFrame = LabelFrame(frame, text="Starting structure", relief=GROOVE, borderwidth=2)
+
+resetRow()
+
+## Configure "use PSF" widgets
+usePSF = IntVar()
+psfCheckButton = Checkbutton(strucFrame,
+                             text="Use manually prepared PSF file",
+                             variable=usePSF,
+                             width=28, justify=LEFT, anchor=W)
+psfCheckButton.grid(row=currentRow, column=0, sticky=W, padx=5, pady=1)
+fieldPSF = Entry(strucFrame, width=28)
+fieldPSF.insert(0, "struc.psf")
+fieldPSF.configure(state=DISABLED)
+fieldPSF.grid(row=currentRow, column=1, sticky=W, padx=5)
+strucButton3 = Button(strucFrame, text="Browse", state=DISABLED,
+                      command=lambda:browseForFile(fieldPSF))
+strucButton3.grid(row=currentRow, column=2, sticky=W, padx=5, pady=1)
+
+ToolTip(psfCheckButton,
+        msg="A PSF file is required if nonstandard residues or ligands are "
+        "present")
+
+checkboxStates.append(("usePSF", "psfCheckButton"))
+entryStates.append("fieldPSF")
+
+## End configure "Use PSF" behavior
+
+## Configure radiobutton selection between "Use sequence" and "Use PDB structure"
+strucMode = IntVar()
+
+# Event handler for radio button selection change
+def strucSelChanged():
+    if strucMode.get() == 1:
+        strucField1.configure(state=NORMAL)
+        strucButton1.configure(state=NORMAL)
+        strucField2.configure(state=DISABLED)
+        strucButton2.configure(state=DISABLED)
+    elif strucMode.get() == 2:
+        strucField2.configure(state=NORMAL)
+        strucButton2.configure(state=NORMAL)
+        strucField1.configure(state=DISABLED)
+        strucButton1.configure(state=DISABLED)
+    else:
+        strucField1.configure(state=DISABLED)
+        strucButton1.configure(state=DISABLED)
+        strucField2.configure(state=DISABLED)
+        strucButton2.configure(state=DISABLED)
+
+
+startNextRow()
+strucField2 = Entry(strucFrame, width=28)
+strucField2.insert(0, "struc.pdb")
+strucField2.grid(row=currentRow, column=1, sticky=W, padx=5)
+strucButton2 = Button(strucFrame, text="Browse",
+                      command=lambda:browseForFile(strucField2))
+strucButton2.grid(row=currentRow, column=2, sticky=W, padx=5, pady=1)
+strucRadio2 = Radiobutton(strucFrame, text="Use PDB file", variable=strucMode, command=strucSelChanged, value=2, width=28, justify=LEFT, anchor=W)
+strucRadio2.grid(row=currentRow, column=0, sticky=W, padx=5)
+
+pdbToolTipText_PSF = 'Coordinates will be read from this file'
+pdbToolTipText_noPSF = 'PSF will be generated and coordinates will be read '\
+                       'from this file'
+pdbToolTip=ToolTip(strucRadio2,msg=pdbToolTipText_noPSF)
+
+startNextRow()
+strucField1 = Entry(strucFrame, width=28)
+strucField1.insert(0, "sequence.seq")
+strucField1.grid(row=currentRow, column=1, sticky=W, padx=5)
+strucButton1 = Button(strucFrame, text="Browse",
+                      command=lambda:browseForFile(strucField1))
+strucButton1.grid(row=currentRow, column=2, sticky=W, padx=5, pady=1)
+strucRadio1 = Radiobutton(strucFrame, text="Use protein sequence", variable=strucMode, command=strucSelChanged, value=1, width=28, justify=LEFT, anchor=W)
+strucRadio1.grid(row=currentRow, column=0, sticky=W, padx=5)
+
+ToolTip(strucRadio1,
+        msg="PSF will be generated from 3-character residue codes, and "
+        "initial coordinates will correspond to an extended chain")
+
+startNextRow()
+strucRadio3 = Radiobutton(strucFrame,
+                          text="Start from extended strand",
+                          variable=strucMode, command=strucSelChanged, value=3, width=28, justify=LEFT, anchor=W)
+strucRadio3.grid(row=currentRow, column=0, sticky=W, padx=5, pady=2)
+
+ToolTip(strucRadio3, msg="No initial coordinate file is specified")
+
+entryStates.append("strucField1")
+entryStates.append("strucField2")
+
+# Set the default state: 1 = "Use protein sequence", 2 = "Use PDB structure"
+strucMode.set(1)
+strucSelChanged()
+## End configure radiobutton selection between "Use sequence" and "Use PDB structure" 
+
+def PSFStateChanged():
+    changeActivation(usePSF, [fieldPSF, strucButton3])
+    if usePSF.get() == 1:
+        strucRadio3.grid()
+        strucRadio1.grid_remove()
+        strucButton1.grid_remove()
+        strucField1.grid_remove()
+        pdbToolTip.msgVar.set(pdbToolTipText_PSF)
+
+        # When the 1st radio gets hidden, it cannot remain selected
+        if strucMode.get() == 1:
+            strucMode.set(3)
+            strucSelChanged()
+    else:
+        strucRadio3.grid_remove()
+        strucRadio1.grid()
+        strucButton1.grid()
+        strucField1.grid()
+        pdbToolTip.msgVar.set(pdbToolTipText_noPSF)
+
+        # When the 3rd radio gets hidden, it cannot remain selected
+        if strucMode.get() == 3:  
+            strucMode.set(1)
+            strucSelChanged()
+
+psfCheckButton.configure(command=PSFStateChanged)
+PSFStateChanged()
+
+strucFrame.grid(row=1, column=0, columnspan=3, padx=10, pady=5, ipady=2, sticky=W)
+
+def saveStructureSetup():
+    str = ""
+    if usePSF.get(): # PSF file is supplied
+        str += '''protocol.initStruct("%s")     # Use the supplied PSF file\n''' % fieldPSF.get()
+        if strucMode.get() == 2:  # Use PDB structure
+            str += '''
+# Read in the coordinates from an existng PDB file
+protocol.initCoords("%s")    
+protocol.fixupCovalentGeom(maxIters=100,useVDW=1)\n''' % strucField2.get()
+        else:  # If no PDB supplied then generate an extended structure
+            str += '''\n# Generate a random extended structure with correct covalent geometry\n'''
+            str += 'protocol.genExtendedStructure("extended_%d.pdb" % protocol.initialRandomSeed())\n'
+
+    else:  # PSF file is not supplied
+        if strucMode.get() == 1: # If only sequence is given, then generate PSF and an extended structure
+            str += '''# Generate PSF data from the protein sequence\nfrom psfGen import seqToPSF\n'''
+            str += 'seqToPSF("%s")\n' % strucField1.get()
+            str += '''\n# Generate a random extended structure with correct covalent geometry\n'''
+            str += 'protocol.genExtendedStructure("extended_%d.pdb" % protocol.initialRandomSeed())\n'
+        elif strucMode.get() == 2: # If PDB is given then use loadPDB
+            str += '''
+# Read in an existng PDB file
+protocol.loadPDB("%s")
+xplor.simulation.deleteAtoms("not known")
+         
+protocol.fixupCovalentGeom(maxIters=100,useVDW=1)\n''' % strucField2.get()
+
+    return str
+
+#####################################################################
+
+####### Structural restraints frame ########################################
+restFrame = LabelFrame(frame, text="Structural restraints", relief=GROOVE, borderwidth=2)
+
+## Configure "Use NOEs" behavior
+useNOEs = IntVar()
+tempFrame = Frame(restFrame)
+cbNOEs = Checkbutton(tempFrame, 
+                     text="Distance restraints",
+                     variable=useNOEs, width=28, justify=LEFT, anchor=W)
+cbNOEs.grid(row=0, column=0, sticky=W, padx=5, pady=1)
+fieldNOEs = Entry(tempFrame, width=28)
+fieldNOEs.insert(0, "noes.tbl")
+fieldNOEs.grid(row=0, column=1, sticky=W, padx=5)
+restButton1 = Button(tempFrame, text="Browse",
+                     command=lambda:browseForFile(fieldNOEs))
+restButton1.grid(row=0, column=2, sticky=W, padx=5, pady=1)
+cbNOEs.configure(command=lambda:changeActivation(useNOEs, [fieldNOEs, restButton1]))
+
+useNOEs.set(0)  # Set default state: 0 = unchecked, 1 = checked
+changeActivation(useNOEs, [fieldNOEs, restButton1])
+
+ToolTip(cbNOEs, msg="Include NOE and hydrogen bonding restraints")
+
+checkboxStates.append(("useNOEs", "cbNOEs"))
+entryStates.append("fieldNOEs")
+
+tempFrame.pack(anchor=W)
+
+def saveNOEs():
+    if useNOEs.get(): str = '''
+# Set up NOE potential
+noe=PotList('noe')
+potList.append(noe)
+from noePotTools import create_NOEPot
+
+for (name,scale,filename) in [('all', 1, "%s"),
+                          #add entries for additional tables
+                          ]:
+    pot = create_NOEPot(name,filename)
+    # pot.setPotType("soft") - if you think there may be bad NOEs
+    pot.setScale(scale)
+    noe.append(pot)
+
+rampedParams.append( MultRamp(2,30, "noe.setScale( VALUE )") )\n''' % fieldNOEs.get()
+    else: str = ""
+    return str
+
+saveFunctionsDict[10] = saveNOEs
+
+## End configure "Use NOEs" behavior
+
+## Configure "Use dihedrals" behavior
+useDihedrals = IntVar()
+tempFrame = Frame(restFrame)
+cbDihedrals = Checkbutton(tempFrame, text="Dihedral angle restraints", variable=useDihedrals, width=28, justify=LEFT, anchor=W)
+cbDihedrals.grid(row=0, column=0, sticky=W, padx=5, pady=1)
+fieldDihedrals = Entry(tempFrame, width=28)
+fieldDihedrals.insert(0, "dihedrals.tbl")
+fieldDihedrals.grid(row=0, column=1, sticky=W, padx=5)
+restButton2 = Button(tempFrame, text="Browse",
+                     command=lambda:browseForFile(fieldDihedrals))
+restButton2.grid(row=0, column=2, sticky=W, padx=5, pady=1)
+cbDihedrals.configure(command=lambda:changeActivation(useDihedrals, [fieldDihedrals, restButton2]))
+
+useDihedrals.set(0)
+changeActivation(useDihedrals, [fieldDihedrals, restButton2])
+
+ToolTip(cbDihedrals, msg="Dihedral angle restraints")
+
+checkboxStates.append(("useDihedrals", "cbDihedrals"))
+entryStates.append("fieldDihedrals")
+
+tempFrame.pack(anchor=W)
+
+def saveDihedrals():
+    if useDihedrals.get(): str = '''
+# Set up dihedral angles
+from xplorPot import XplorPot
+protocol.initDihedrals("%s",
+                       #useDefaults=False  # by default, symmetric sidechain
+                                           # restraints are included
+                       )
+potList.append( XplorPot('CDIH') )
+highTempParams.append( StaticRamp("potList['CDIH'].setScale(10)") )
+rampedParams.append( StaticRamp("potList['CDIH'].setScale(200)") )
+potList['CDIH'].setThreshold( 5 ) # Set threshold to 5 degrees \n''' % fieldDihedrals.get()
+    else: str = ""
+    return str
+
+saveFunctionsDict[20] = saveDihedrals
+
+## End configure "Use dihedrals" behavior
+
+
+selHelpMsg = 'This selection uses the Xplor-NIH selection language.\n' \
+             'For example, "all" selects all atoms, while "resid 5:85" ' \
+	     'selects residues 5 to 85 only.'
+
+## Configure "Use h-bonds" behavior
+useHBonds = IntVar()
+tempFrame = Frame(restFrame)
+cbHBonds = Checkbutton(tempFrame, text="HBDB restraints", variable=useHBonds, width=28, justify=LEFT, anchor=W)
+cbHBonds.grid(row=0, column=0, sticky=W, padx=5, pady=5)
+labelHBonds = Label(tempFrame, text="Using selection", width=15, justify=RIGHT, anchor=W)
+labelHBonds.grid(row=0, column=1, sticky=E, padx=5)
+fieldHBonds = Entry(tempFrame, width=10)
+fieldHBonds.insert(0, "all")
+fieldHBonds.grid(row=0, column=2, sticky=W, padx=5)
+
+cbHBonds.configure(command=lambda:changeActivation(useHBonds, [labelHBonds, fieldHBonds]))
+
+useHBonds.set(0)
+changeActivation(useHBonds, [labelHBonds, fieldHBonds])
+
+ToolTip(fieldHBonds, msg=selHelpMsg)
+
+ToolTip(cbHBonds,
+        msg="Backbone hydrogen bonds are formed opportunistically with "
+        "proper geometry")
+
+checkboxStates.append(("useHBonds", "cbHBonds"))
+entryStates.append("fieldHBonds")
+
+tempFrame.pack(anchor=W)
+
+def saveHBonds():
+    if useHBonds.get(): str = '''
+# HBDB - distance/angle bb hbond term
+protocol.initHBDB(selection="%s")
+potList.append( XplorPot('HBDB') )\n''' % fieldHBonds.get()
+    else: str = ""
+    return str
+
+saveFunctionsDict[30] = saveHBonds
+
+## End configure "Use h-bonds" behavior
+
+## Configure "Use gyration" behavior
+useGyration = IntVar()
+tempFrame = Frame(restFrame)
+cbGyration = Checkbutton(tempFrame, text="Gyration volume term", variable=useGyration, width=28, justify=LEFT, anchor=W)
+cbGyration.grid(row=0, column=0, sticky=W, padx=5, pady=5)
+labelGyration = Label(tempFrame, text="Using selection", width=15, justify=RIGHT, anchor=W)
+labelGyration.grid(row=0, column=1, sticky=E, padx=5)
+fieldGyration = Entry(tempFrame, width=10)
+fieldGyration.insert(0, "all")
+fieldGyration.grid(row=0, column=2, sticky=W, padx=5)
+cbGyration.configure(command=lambda:changeActivation(useGyration, [fieldGyration, labelGyration]))
+
+useGyration.set(0)
+changeActivation(useGyration, [fieldGyration, labelGyration])
+
+ToolTip(fieldGyration, msg=selHelpMsg)
+
+ToolTip(cbGyration,
+        msg="In the selection exclude regions known to be loosely packed")
+
+checkboxStates.append(("useGyration", "cbGyration"))
+entryStates.append("fieldGyration")
+
+tempFrame.pack(anchor=W)
+
+def saveGyration():
+    if useGyration.get(): str = '''
+# Set up the gyration volume term 
+from gyrPotTools import create_GyrPot
+gyr = create_GyrPot("Vgyr", "%s") # selection should exclude disordered tails
+potList.append(gyr)
+rampedParams.append( MultRamp(.002,1,"gyr.setScale(VALUE)") ) \n''' % fieldGyration.get()
+    else: str = ""
+    return str
+
+saveFunctionsDict[50] = saveGyration
+
+## End configure "Use gyration" behavior
+
+## Configure "TorsionDB"
+useTorsionDB = IntVar()
+tempFrame = Frame(restFrame)
+cbTorsion = Checkbutton(tempFrame, text="TorsionDB restraints", variable=useTorsionDB, width=28, justify=LEFT, anchor=W)
+cbTorsion.grid(row=0, column=0, sticky=W, padx=5, pady=5)
+labelTorsion = Label(tempFrame, text="Using selection", width=15, justify=RIGHT, anchor=W)
+labelTorsion.grid(row=0, column=1, sticky=E, padx=5)
+fieldTorsion = Entry(tempFrame, width=10)
+fieldTorsion.insert(0, "all")
+fieldTorsion.grid(row=0, column=2, sticky=W, padx=5)
+cbTorsion.configure(command=lambda:changeActivation(useTorsionDB, [fieldTorsion, labelTorsion]))
+
+useTorsionDB.set(1)
+changeActivation(useTorsionDB, [fieldTorsion, labelTorsion])
+
+ToolTip(fieldTorsion, msg=selHelpMsg)
+
+ToolTip(cbTorsion,
+        msg="Knowledge-based term restraining backbone and sidechain "
+        "torsion angles")
+
+checkboxStates.append(("useTorsionDB", "cbTorsion"))
+entryStates.append("fieldTorsion")
+
+tempFrame.pack(anchor=W)
+
+def saveTorsionDB():
+    if useTorsionDB.get(): str = '''
+# Use statistical torsion angle potential
+from torsionDBPotTools import create_TorsionDBPot
+torsionDBPot = create_TorsionDBPot('tDB', selection="%s")
+potList.append( torsionDBPot )
+rampedParams.append( MultRamp(.002,2,"torsionDBPot.setScale(VALUE)") ) \n''' % fieldTorsion.get()
+    else: str = ""
+    return str
+
+saveFunctionsDict[40] = saveTorsionDB
+
+## End configure "TorsionDB"
+
+## Configure "VDW"
+useVDW = IntVar()
+useVDW.set(1)
+cbVDW = Checkbutton(restFrame, text="Atom-atom repulsive term", variable=useVDW, width=28, justify=LEFT, anchor=W)
+cbVDW.pack(anchor=W, padx=5, pady=4)
+
+ToolTip(cbVDW, msg="Prevents atomic overlap")
+
+checkboxStates.append(("useVDW", "cbVDW"))
+
+def saveVDW():
+    if useVDW.get(): str = '''
+# Set up parameters for atom-atom repulsive term. (van der Waals-like term)
+potList.append( XplorPot('VDW') )
+rampedParams.append( StaticRamp("protocol.initNBond(nbxmod=4)") )
+rampedParams.append( MultRamp(0.9,0.8,
+                              "command('param nbonds repel VALUE end end')") )
+rampedParams.append( MultRamp(.004,4,
+                              "command('param nbonds rcon VALUE end end')") ) \n'''
+    else: str = ""
+    return str
+
+saveFunctionsDict[60] = saveVDW
+
+## End configure "VDW"
+
+######## RDC frame ################################################
+rdcFrame = Frame(restFrame, relief=GROOVE, borderwidth=1)
+
+RDC_TYPES = [ 'NH', 'NCO', 'HNCO', 'CAHN', 'CACO', 'CACB', 'CAHA', 'CH' ]
+
+try:
+    from rdcPotTools import DaMax
+except:  # Not running within Xplor-NIH environment
+    RDC_scales = [ 1.0, 68.0, 10.0, 36.0, 25.0, 25.0, 0.25, 0.25 ] # Use precalculated scaling factors
+else:
+    # Within Xplor-NIH, recalculate scaling factors afresh
+    RDC_scales = []
+    for t in RDC_TYPES:
+        da_max = DaMax(t)
+        RDC_scales.append(1/(da_max*da_max))
+        pass
+
+# Combine the RDC_TYPES and RDC_scales into a dictionary
+RDC_scales_dict = dict(list(zip(RDC_TYPES, RDC_scales))) 
+
+mediaCounter = 0
+rdcFilesCounter = 0
+
+Label(rdcFrame, text="Medium name").grid(row=0, column=1, sticky=W, pady=3)
+Label(rdcFrame, text=" ").grid(row=0, column=3, sticky=W, padx=5)
+Label(rdcFrame, text="RDC type", width=9).grid(row=0, column=4, sticky=W)
+Label(rdcFrame, text="File name", width=14, justify=LEFT, anchor=W).grid(row=0, column=5, sticky=W)
+Label(rdcFrame, text=" ").grid(row=0, column=6, sticky=W, padx=5)
+
+rdcMedia = []
+
+class RDCtype:
+    def __init__(self, parent):  # Accepts object of class RDCmedium as parameter
+        self.parent_medium = parent
+        self.parent_frame = parent.sub_frame
+        self.entry = Entry(self.parent_frame, width=16)
+        self.remove_button = Button(self.parent_frame, text="-", command=self.removeType)
+        self.type_name = StringVar()
+        self.type_name.set("NH")
+        self.menu = OptionMenu(*(self.parent_frame, self.type_name) + tuple(RDC_TYPES))
+        self.menu.configure(width=8)
+        self.browse_button = Button(self.parent_frame, text="Browse",
+                                    command=lambda:browseForFile(self.entry))
+
+    def add(self):
+        global rdcFilesCounter
+        self.parent_medium.types.append(self)
+        size = self.parent_frame.grid_size()
+        currentRow = size[1]
+        self.remove_button.grid(row=currentRow, column=0, sticky=E, padx=2)
+        self.menu.grid(row=currentRow, column=1)
+        self.entry.grid(row=currentRow, column=2)
+        self.browse_button.grid(row=currentRow, column=3, sticky=E, padx=2)
+        rdcFilesCounter += 1
+        self.entry.insert(0, "rdcs%02d.tbl" % rdcFilesCounter) # Give some default name to the RDC file based on the counter
+        resizeCanvas()
+        
+    def removeType(self):
+        if(len(self.parent_medium.types) == 1):  # If only one RDC type exists, don't remove it
+            return
+        self.remove_button.grid_forget()
+        self.menu.grid_forget()
+        self.entry.grid_forget()
+        self.browse_button.grid_forget()
+        index = self.parent_medium.types.index(self)
+        self.parent_medium.types.remove(self)
+        resizeCanvas()
+
+class RDCmedium:
+    def __init__(self, parent):
+        self.parent_frame = parent
+        self.frame = Frame(self.parent_frame)
+        self.entry = Entry(self.frame, width=8)
+        self.remove_button = Button(self.frame, text="-", command=self.removeMedium)
+        self.add_button = Button(self.frame, text="Add type", command=self.addType)
+        self.Da_label = Label(self.frame, text="Da")
+        self.Da_entry = Entry(self.frame, width=5)
+        self.Rh_label = Label(self.frame, text="Rh")
+        self.Rh_entry = Entry(self.frame, width=5)
+        self.sub_frame = Frame(self.parent_frame, relief=GROOVE, borderwidth=1)
+        self.types = []
+        self.showingDaRh = 1
+
+    def add(self, doShow):
+        global mediaCounter
+        rdcMedia.append(self)
+        size = self.parent_frame.grid_size()
+        currentRow = size[1]
+        self.remove_button.grid(row=0, column=0, sticky=E, padx=2)
+        self.entry.grid(row=0, column=1)
+        self.add_button.grid(row=0, column=2, columnspan=2, sticky=W, padx=2)
+
+        self.Da_label.grid(row=1, column=0, sticky=E)
+        self.Da_entry.grid(row=1, column=1, sticky=W, pady=2)
+        self.Da_entry.insert(0, "10.0")
+        self.Rh_label.grid(row=1, column=2, sticky=E)
+        self.Rh_entry.grid(row=1, column=3, sticky=W, pady=2)
+        self.Rh_entry.insert(0, "0.4")
+
+        self.frame.grid(row=currentRow, column=0, columnspan=3, padx=5, pady=2)
+        self.sub_frame.grid(row=currentRow, column=3, columnspan=4, padx=5, pady=2)
+        mediaCounter += 1
+        self.entry.insert(0, "medium%d" % mediaCounter) # Give some default name to the medium based on the counter
+        self.addType()
+        self.refreshDaRh(doShow) # If doShow==false then hide the Da/Rh fields
+
+    def refreshDaRh(self, doShow):  # Display or hide the Da and Rh entry fields depending on the value of doShow flag
+        if doShow == self.showingDaRh: return  # If the requested state matched the current state then don't do anything
+        if doShow == 1:
+            self.Da_label.grid()
+            self.Da_entry.grid()
+            self.Rh_label.grid()
+            self.Rh_entry.grid()
+            self.showingDaRh = doShow
+        else:
+            self.Da_label.grid_remove()
+            self.Da_entry.grid_remove()
+            self.Rh_label.grid_remove()
+            self.Rh_entry.grid_remove()
+            self.showingDaRh = doShow
+        resizeCanvas()
+
+
+    def removeMedium(self, requestConfirmation=True):
+        if(len(rdcMedia) == 1): return # If only one medium exists, don't remove it
+
+        if requestConfirmation:
+            doDelete = tkinter.messagebox.askquestion("Warning", "Are you sure you want to completely delete this alignment medium?", icon='warning', default='no')
+            if doDelete == 'no': return
+
+        self.frame.grid_forget()
+        self.sub_frame.grid_forget()
+        resizeCanvas()
+        index = rdcMedia.index(self)
+        rdcMedia.remove(self)
+
+    def addType(self):
+        new_type = RDCtype(self)
+        new_type.add()
+        
+
+useRDCs = IntVar()
+tempFrame = Frame(restFrame)
+cbRDCs = Checkbutton(tempFrame, text="RDC orientational restraints", variable=useRDCs, width=28, justify=LEFT, anchor=W)
+cbRDCs.grid(row=0, column=0, sticky=W, padx=5, pady=1)
+
+ToolTip(cbRDCs,
+        msg="Energy term for dipolar or residual dipolar couplings")
+
+checkboxStates.append(("useRDCs", "cbRDCs"))
+
+useDaRh = IntVar()
+useDaRh.set(1)
+
+def DaRhCheckChanged():
+    for m in rdcMedia: 
+        m.refreshDaRh(useDaRh.get())
+
+cbDaRh = Checkbutton(tempFrame, text="Specify Da and Rh", variable=useDaRh, command=DaRhCheckChanged, justify=RIGHT, anchor=E)
+cbDaRh.grid(row=0, column=2, sticky=E, padx=30, pady=1)
+
+ToolTip(cbDaRh,
+        msg="If Da and rhombicity are not specified, they will be determined "
+        "from the starting structure, and optimized during structure "
+        "calculation")
+
+checkboxStates.append(("useDaRh", "cbDaRh"))
+
+# Create and add the first medium, because there will always be at least
+# one when RDCs are used
+medium = RDCmedium(rdcFrame)
+medium.add(useDaRh.get())
+
+# This function is used to add subsequent media
+def addMedium():
+    medium = RDCmedium(rdcFrame)
+    medium.add(useDaRh.get())
+
+addMediumButton = Button(tempFrame, text="Add medium", command=addMedium)
+addMediumButton.grid(row=0, column=1, sticky=W, padx=5, pady=1)
+
+def rdcCheckChanged():
+    if useRDCs.get()==1:
+        addMediumButton.configure(state=NORMAL)
+        cbDaRh.configure(state=NORMAL)
+        rdcFrame.pack()
+    else:
+        addMediumButton.configure(state=DISABLED)
+        cbDaRh.configure(state=DISABLED)
+        rdcFrame.pack_forget()
+        
+    frame.update_idletasks()
+    canvas.config(scrollregion=canvas.bbox("all"))
+    
+cbRDCs.configure(command=rdcCheckChanged)
+
+useRDCs.set(0)
+rdcCheckChanged() # Set the default state for using RDCs
+
+tempFrame.pack(anchor=W)
+
+rdcFrame.pack(padx=10, pady=5, ipady=1, anchor=CENTER)
+
+def saveRDCs():
+    str = ""
+    if not useRDCs.get(): return str
+    
+    str += '''
+# Orientation tensor - used with the dipolar coupling term
+# One tensor is used for each medium
+from varTensorTools import create_VarTensor
+media={}\n\n'''
+
+    if not useDaRh.get():
+        str += "for medium in [ "
+        isFirst = 1
+        for m in rdcMedia:
+            if not isFirst: str += ", "
+            str += "'%s'" % m.entry.get()
+            isFirst = 0
+            pass
+        str += ''' ]:
+    oTensor = create_VarTensor(medium)'''
+    else:
+        str += "for (medium,Da,Rh) in [ "
+        isFirst = 1
+        for m in rdcMedia:
+            if not isFirst: str += ",\n                        "
+            str += "('%s',\t%s,\t%s)" % (m.entry.get(), m.Da_entry.get(), m.Rh_entry.get())
+            isFirst = 0
+            pass
+        str += ''' ]:
+    oTensor = create_VarTensor(medium)
+    oTensor.setDa(Da)
+    oTensor.setRh(Rh)'''
+
+    str += '''
+    media[medium] = oTensor
+    pass
+        
+# Load RDCs of all types for each medium
+# Collect all RDCs in the 'rdcs' PotList
+from rdcPotTools import create_RDCPot, scale_toNH
+rdcs = PotList('rdc')
+            
+for (medium, expt, filename, scale) in \\
+    [ '''
+        
+    isFirst = 1
+    for m in rdcMedia:
+        for t in m.types:
+            if not isFirst: str += ",\n      "
+            str += "('%s',\t'%s',\t'%s',\t%.2f)" % (m.entry.get(), t.type_name.get(), t.entry.get(), RDC_scales_dict[t.type_name.get()])
+            isFirst = 0
+            pass
+        
+    str += "\n    ]:"
+        
+    str += '''
+    rdc = create_RDCPot("%s_%s"%(medium,expt),filename,media[medium])
+    scale_toNH(rdc)
+
+    rdc.setScale(scale)  # The scale was set to bring energy contributions from all RDC types to the same level.
+                         # To account for larger relative experimental errors of weaker RDCs, their scales may need to be brought down.
+    rdc.setShowAllRestraints(1) # All restraints are printed during analysis
+    rdc.setThreshold(1.5)       # Threshold for being considered a violation (in Hz)
+    rdcs.append(rdc)
+    pass
+            
+potList.append(rdcs)
+rampedParams.append( MultRamp(0.05,5.0, "rdcs.setScale( VALUE )") ) \n'''
+    
+    str += '''
+# Calculate the initial tensor orientation based on the structure
+# and set up tensor calculation during simulated annealing
+from varTensorTools import calcTensorOrientation, calcTensor
+for medium in media.keys():'''
+    if useDaRh.get(): str += "\n    calcTensorOrientation(media[medium])"
+    else: str += "\n    calcTensor(media[medium])"
+    
+    return str
+
+
+def rdcSetTensorsFreedom(doFixDaRh):
+    """
+        Output a piece of code that sets the behavior of alignment tensors
+        during a dynamics run.
+        In all cases outputs two lines (for fixing or varying Da and Rh), but
+        comments out one of these lines.
+        
+        Argument doFixDaRh:
+           TRUE - make "fixDa, fixRh" line active
+           FALSE - make "varyDa, varyRh" line active
+    """
+    if useRDCs.get():
+        if doFixDaRh:
+            firstComment, secondComment = '', '#'
+        else:
+            firstComment, secondComment = '#', ''
+        str = '''
+for m in media.values():
+%s    m.setFreedom("fixDa, fixRh")        #fix tensor Rh, Da, vary orientation
+%s    m.setFreedom("varyDa, varyRh")      #vary tensor Rh, Da, vary orientation
+    pass\n''' % (firstComment, secondComment)
+    else: str = ""
+    return str
+
+saveFunctionsDict[0] = saveRDCs
+
+###### End of RDC frame definitions ###############################
+
+restFrame.grid(row=3, column=0, columnspan=3, padx=10, pady=5, ipady=2, sticky=W)
+#############################################################################
+
+####### Simulation parameters frame ########################################
+simFrame = LabelFrame(frame, text="Simulation parameters", relief=GROOVE, borderwidth=2)
+
+###### Configure "Initial minimization" ################################################################
+doInitialMin = IntVar()
+tempFrame = Frame(simFrame)
+cbInitialMin = Checkbutton(tempFrame, text="Do initial minimization", variable=doInitialMin, width=28, justify=LEFT, anchor=W)
+cbInitialMin.grid(row=0, column=0, sticky=W, padx=5, pady=7)
+labelInitMin = Label(tempFrame, text="Number of steps")
+labelInitMin.grid(row=0, column=1, sticky=E, padx=5)
+fieldInitSteps = Entry(tempFrame, width=8)
+fieldInitSteps.insert(0, "100")
+fieldInitSteps.grid(row=0, column=2, sticky=W, padx=5)
+cbInitialMin.configure(command=lambda:changeActivation(doInitialMin, [fieldInitSteps, labelInitMin]))
+
+doInitialMin.set(0)
+changeActivation(doInitialMin, [fieldInitSteps, labelInitMin])
+
+ToolTip(cbInitialMin,
+        msg="Perform gradient minimization before high-temperature dynamics")
+
+checkboxStates.append(("doInitialMin", "cbInitialMin"))
+entryStates.append("fieldInitSteps")
+
+tempFrame.pack(anchor=W)
+
+def saveInitialMin():
+    if doInitialMin.get(): str = """
+# Initially minimize in Cartesian space with only the covalent constraints.
+#   Note that bonds, angles and many impropers can't change with the 
+#   internal torsion-angle dynamics
+#   breaks bonds topologically - doesn't change force field
+
+dyn.potList().add( XplorPot("BOND") )
+dyn.potList().add( XplorPot("ANGL") )
+dyn.potList().add( XplorPot("IMPR") )
+
+dyn.breakAllBondsIn("not resname ANI")
+protocol.initMinimize(dyn,numSteps=%s)
+dyn.run() \n""" % fieldInitSteps.get()
+    else: str = ""
+    return str
+
+######### End configure "Initial minimization" ########################################################
+
+###### Configure "Simulated annealing" ################################################################
+doSimAnneal = IntVar()
+tempFrame = Frame(simFrame)
+cbSimAnneal = Checkbutton(tempFrame, text="Do simulated annealing", variable=doSimAnneal, width=26, justify=LEFT, anchor=W)
+cbSimAnneal.grid(row=0, column=0, sticky=W, padx=5, pady=4)
+
+ToolTip(cbSimAnneal,
+        msg="Simulated annealing consists of high-temperature dynamics "
+        "followed by short MD runs at decreasing temperatures")
+
+checkboxStates.append(("doSimAnneal", "cbSimAnneal"))
+
+# Create underlined font based on the font currently used for labels (TkDefaultFont)
+font_underlined = tkinter.font.Font(root, "TkDefaultFont")
+font_underlined.configure(underline=True)
+
+Label(tempFrame, text="High-temperature dynamics:", font=font_underlined, justify=RIGHT, anchor=E).grid(row=1, column=0, sticky=E, padx=5)
+tempFrame1 = Frame(tempFrame)
+htNumStepsLabel = Label(tempFrame1, text="Number of steps", justify=RIGHT, anchor=E)
+htNumStepsLabel.grid(row=0, column=0, sticky=E, padx=5)
+htNumSteps = Entry(tempFrame1, width=6)
+htNumSteps.insert(0, "5000")
+htNumSteps.grid(row=0, column=1, sticky=W, padx=5)
+
+htFinalTimeLabel = Label(tempFrame1, text="Final time (ps)", justify=RIGHT, anchor=E)
+htFinalTimeLabel.grid(row=0, column=2, sticky=E, padx=5)
+htFinalTime = Entry(tempFrame1, width=5)
+htFinalTime.insert(0, "10")
+htFinalTime.grid(row=0, column=3, sticky=W, padx=5, pady=5)
+
+entryStates.append("htNumSteps")
+entryStates.append("htFinalTime")
+
+tempFrame1.grid(row=1, column=1, sticky=W)
+
+Label(tempFrame, text="Temperature:", font=font_underlined, justify=RIGHT, anchor=E).grid(row=2, column=0, sticky=E, padx=5)
+tempFrame2 = Frame(tempFrame)
+saInitTempLabel = Label(tempFrame2, text="Initial", justify=RIGHT, anchor=E)
+saInitTempLabel.grid(row=1, column=1, sticky=E, padx=5)
+saInitTemp = Entry(tempFrame2, width=6)
+saInitTemp.insert(0, "1000")
+saInitTemp.grid(row=1, column=2, sticky=W, padx=5)
+
+saFinalTempLabel = Label(tempFrame2, text=" Final", justify=RIGHT, anchor=E)
+saFinalTempLabel.grid(row=1, column=3, sticky=E, padx=5)
+saFinalTemp = Entry(tempFrame2, width=6)
+saFinalTemp.insert(0, "100")
+saFinalTemp.grid(row=1, column=4, sticky=W, padx=5)
+
+saStepTempLabel = Label(tempFrame2, text=" Step", justify=RIGHT, anchor=E)
+saStepTempLabel.grid(row=1, column=5, sticky=E, padx=5)
+saStepTemp = Entry(tempFrame2, width=6)
+saStepTemp.insert(0, "20")
+saStepTemp.grid(row=1, column=6, sticky=W, padx=5, pady=5)
+
+entryStates.append("saInitTemp")
+entryStates.append("saFinalTemp")
+entryStates.append("saStepTemp")
+
+tempFrame2.grid(row=2, column=1, sticky=W)
+
+Label(tempFrame, text="At each temperature:", font=font_underlined, justify=RIGHT, anchor=E).grid(row=3, column=0, sticky=E, padx=5)
+tempFrame3 = Frame(tempFrame)
+saNumStepsLabel = Label(tempFrame3, text="Number of steps", justify=RIGHT, anchor=E)
+saNumStepsLabel.grid(row=0, column=0, sticky=E, padx=5)
+saNumSteps = Entry(tempFrame3, width=6)
+saNumSteps.insert(0, "100")
+saNumSteps.grid(row=0, column=1, sticky=W, padx=5)
+
+saFinalTimeLabel = Label(tempFrame3, text="Final time (ps)", justify=RIGHT, anchor=E)
+saFinalTimeLabel.grid(row=0, column=2, sticky=E, padx=5)
+saFinalTime = Entry(tempFrame3, width=5)
+saFinalTime.insert(0, "0.2")
+saFinalTime.grid(row=0, column=3, sticky=W, padx=5, pady=5)
+
+entryStates.append("saNumSteps")
+entryStates.append("saFinalTime")
+
+tempFrame3.grid(row=3, column=1, sticky=W)
+
+cbSimAnneal.configure(command=lambda:changeActivation(doSimAnneal, [saInitTemp, saFinalTemp, saStepTemp, saFinalTime, saNumSteps, htNumSteps, htFinalTime]))
+
+doSimAnneal.set(1)
+changeActivation(doSimAnneal, [saInitTemp, saFinalTemp, saStepTemp, saFinalTime, saNumSteps, htNumSteps, htFinalTime])
+
+tempFrame.pack(anchor=W)
+
+def saveSimAnnealing():
+    if doSimAnneal.get(): str = '''
+# Create object that performs simulated annealing
+#
+from simulationTools import AnnealIVM
+init_t  = %s
+cool = AnnealIVM(initTemp =init_t,
+                 finalTemp=%s,
+                 tempStep =%s,
+                 ivm=dyn,
+                 rampedParams = rampedParams) \n''' % ( saInitTemp.get(), saFinalTemp.get(), saStepTemp.get() )
+    else: str = ""
+    return str
+
+######### End configure "Simulated annealing" ########################################################
+
+doFinalTorsion = IntVar()
+doFinalTorsion.set(1)
+cbFinalTorsion = Checkbutton(simFrame, text="Do final torsion-space minimization", variable=doFinalTorsion, width=34, justify=LEFT, anchor=W)
+cbFinalTorsion.pack(anchor=W, padx=5, pady=4)
+
+checkboxStates.append(("doFinalTorsion", "cbFinalTorsion"))
+
+ToolTip(cbFinalTorsion, msg="Do final torsion-space minimization")
+
+######## Configure "final Cartesian minimization" ###################################################
+doFinalCart = IntVar()
+doFinalCart.set(1)
+cbFinalCart = Checkbutton(simFrame, text="Do final cartesian-space minimization", variable=doFinalCart, width=34, justify=LEFT, anchor=W)
+cbFinalCart.pack(anchor=W, padx=5, pady=4)
+
+checkboxStates.append(("doFinalCart", "cbFinalCart"))
+
+ToolTip(cbFinalCart, msg="Do final cartesian-space minimization")
+
+def saveFinalCartesian():
+    if doFinalCart.get(): str = '''
+# minc used for final cartesian minimization
+#
+minc = IVM()
+protocol.initMinimize(minc)
+%s
+protocol.cartesianTopology(minc)\n''' % rdcSetTensorsFreedom(useDaRh.get())
+    else: str = ""
+    return str
+#####################################################################################################
+
+def saveCalcOneStruc():
+    str = '''
+def calcOneStructure(loopInfo):
+    """ this function calculates a single structure, performs analysis on the
+    structure, and then writes out a pdb file, with remarks.
+    """\n'''
+
+  # If necessary, add code for simulated annealing
+    if doSimAnneal.get(): 
+        # First add code for high temperature dynamics
+        str += '''
+    # initialize parameters for high temp dynamics.
+    InitialParams( rampedParams )
+    # high-temp dynamics setup - only need to specify parameters which
+    #   differ from initial values in rampedParams
+    InitialParams( highTempParams )
+
+    # high temp dynamics
+    #
+    protocol.initDynamics(dyn,
+                          potList=potList, # potential terms to use
+                          bathTemp=init_t,
+                          initVelocities=1,
+                          finalTime=%s,    # stops at %s ps or %s steps
+                          numSteps=%s,   # whichever comes first
+                          printInterval=100)
+
+    dyn.setETolerance( init_t/100 )  #used to det. stepsize. default: t/1000 
+    dyn.run()\n''' % ( htFinalTime.get(), htFinalTime.get(), htNumSteps.get(), htNumSteps.get() )
+
+        # Add code for simulated annealing proper
+        str += '''
+    # Initialize parameters for cooling loop
+    InitialParams( rampedParams )
+
+    # Initialize integrator for simulated annealing
+    #
+    protocol.initDynamics(dyn,
+                          potList=potList,
+                          numSteps=%s,       #at each temp: %s steps or
+                          finalTime=%s ,       # %s ps, whichever is less
+                          printInterval=100)
+
+    # Perform simulated annealing
+    #
+    cool.run()\n''' % ( saNumSteps.get(), saNumSteps.get(), saFinalTime.get(), saFinalTime.get() )
+
+  # If necessary, add code for final torsion angle minimization
+    if doFinalTorsion.get(): str += '''
+    # Final torsion angle minimization
+    #
+    protocol.initMinimize(dyn,
+                          printInterval=50)
+    dyn.run()\n'''
+
+  # If necessary, add code for final Cartesian space minimization
+    if doFinalCart.get(): str += '''
+    # Final all-atom Cartesian space minimization
+    #
+    protocol.initMinimize(minc,
+                          potList=potList,
+                          dEPred=10)
+    minc.run()\n'''
+
+    str += '''
+    #do analysis and write structure when this routine is finished.
+    pass\n'''
+
+    return str
+
+
+####### Configure "number of structures" ###############################################################
+tempFrame = Frame(simFrame)
+labelNumStruc = Label(tempFrame, text="    Number of structures to calculate", width = 30, justify=LEFT, anchor=W)
+labelNumStruc.grid(row=0, column=1, sticky=E, padx=5)
+fieldNumStruc = Entry(tempFrame, width=8)
+fieldNumStruc.insert(0, "20")
+fieldNumStruc.grid(row=0, column=2, sticky=W, padx=5, pady=5)
+
+entryStates.append("fieldNumStruc")
+
+tempFrame.pack(anchor=W)
+####### End configure "number of structures" ##########################################################
+
+
+simFrame.grid(row=4, column=0, columnspan=3, padx=10, pady=5, ipady=2, sticky=W)
+##############################################################################
+
+
+canvas.create_window(0, 0, anchor=NW, window=frame)
+
+resizeCanvas()
+
+# Setup the main window size based on the canvas size
+size = canvas.bbox("all") # size is of the form (0, 0, Horiz_size, Vert_size)
+win_size = "%dx730" % (size[2]+10)
+root.geometry(win_size)
+
+# If necessary, hide the RDC frame and resize canvas
+if not useRDCs.get():
+    rdcFrame.pack_forget()
+    resizeCanvas()
+
+
+def saveState(filename):
+    print("Saving state to ", filename)
+    out = open(filename, 'wb')
+
+    checkbox_list = []
+    # Get the checkboxes info ready for pickling as a list of tuples
+    for state_var_str, cb_var_str in checkboxStates:
+        state_var = eval(state_var_str)
+        checkbox_list.append((state_var_str, cb_var_str, state_var.get()))
+
+    pickle.dump(checkbox_list, out)
+
+    # Pickle the structural information radiobutton as a single number strucMode.get()
+    pickle.dump(strucMode.get(), out)
+
+    entry_list = []
+    # Get the entry fileds info ready for pickling as a list of tuples
+    for entry_str in entryStates:
+        entry_list.append((entry_str, eval(entry_str).get()))
+
+    pickle.dump(entry_list, out)
+
+    # If RDCs are not used then close file and return
+    if not useRDCs.get():
+        out.close()
+        return
+
+    rdcs_list = []
+    # Get the RDC info ready as a complicated list including RDC type sublists
+    for counter in range(len(rdcMedia)):
+        medium = rdcMedia[counter]
+        # 'sublist' holds all info on the current RDC medium.
+        # First, add the basic info into sublist: medium name, Da, Rh.
+        sublist = [ medium.entry.get(), medium.Da_entry.get(), medium.Rh_entry.get() ]
+    
+        types_list = [] # This list will hold the info on all the RDC types for the current medium
+        # Each RDC type is saved as tuple of RDC type string and the datafile name
+        for types_counter in range(len(medium.types)):
+            type = medium.types[types_counter]
+            types_list.append((type.entry.get(), type.type_name.get()))
+
+        sublist.append(types_list)
+        rdcs_list.append(sublist)
+
+    pickle.dump(rdcs_list, out)
+
+    out.close()
+
+
+def loadState(filename):
+    print("Loading state from ", filename)
+    input = open(filename, 'rb')
+
+    # If there are more than one RDC media set up, then remove the extra ones.
+    while len(rdcMedia)>1:
+        rdcMedia[0].removeMedium(requestConfirmation=False)
+    
+    # If there are more than one RDC type set up, then remove the extra ones.
+    while len(rdcMedia[0].types)>1:
+        rdcMedia[0].types[0].removeType()
+
+    # Load checkbox info and invoke the appropriate ones
+    checkbox_list = pickle.load(input)
+    for (state_var_str, cb_var_str, flag) in checkbox_list:
+        if not eval(state_var_str).get()==flag: eval(cb_var_str).invoke()
+    
+    mode = pickle.load(input)
+    eval("strucRadio%d" % mode).invoke()
+
+    # Load entry field info and set entry values
+    entry_list = pickle.load(input)
+    for (entry_str, text) in entry_list:
+        setEntryText(eval(entry_str), text)
+
+    # If RDCs are not used then close file and return
+    if not useRDCs.get():
+        input.close()
+        return
+
+    # Load the RDC info as a complicated list including RDC type sublists
+    rdcs_list = pickle.load(input)
+
+    # If more than one RDC media are set up, issue the necessary addMedium commands
+    for counter in range(len(rdcs_list)-1): addMedium()
+
+    for counter in range(len(rdcs_list)):
+        name, Da, Rh, types_list = rdcs_list[counter]
+        
+        medium = rdcMedia[counter]
+        setEntryText(medium.entry, name)
+        setEntryText(medium.Da_entry, Da)
+        setEntryText(medium.Rh_entry, Rh)
+        
+        for types_counter in range(len(types_list)-1): medium.addType()
+
+        for types_counter in range(len(types_list)):
+            type = medium.types[types_counter]
+            file_name, type_name = types_list[types_counter]
+            setEntryText(type.entry, file_name)
+            type.type_name.set(type_name)
+        
+    input.close()
+
+
+# Set up autosave #############
+AUTOSAVE_INTERVAL = 60  # Autosave interval in seconds
+def doAutosave():
+    print("Autosaving")
+    canvas.after(AUTOSAVE_INTERVAL*1000, doAutosave)  # Reschedule the timer (time is given in milliseconds)
+
+#canvas.after(AUTOSAVE_INTERVAL*1000, doAutosave)
+###############################
+
+###############################################################################
+###### Most important part - script generation ################################
+###############################################################################
+
+def generateScript():
+    scriptBody = '''
+xplor.requireVersion("2.33")
+
+# filename for output structures. This string must contain the STRUCTURE
+# literal so that each calculated structure has a unique name. The SCRIPT
+# literal is replaced by this filename (or stdin if redirected using <),
+# but it is optional.
+#
+outFilename = "SCRIPT_STRUCTURE.sa"
+numberOfStructures=%s   #usually you want to create at least 20 
+
+import protocol
+protocol.initRandomSeed(3421)   #explicitly set random seed
+protocol.initParams("protein")
+
+command = xplor.command \n''' % fieldNumStruc.get()
+    
+    scriptBody += saveStructureSetup()
+    
+# Start dealing with potentials
+    scriptBody += '''
+#
+# A PotList contains a list of potential terms. This is used to specify which
+# terms are active during refinement.
+#
+from potList import PotList
+potList = PotList()
+
+from xplorPot import XplorPot
+
+# Parameters to ramp up during the simulated annealing protocol
+from simulationTools import MultRamp, StaticRamp, InitialParams
+rampedParams=[]
+highTempParams=[]\n'''
+
+    saveFunctionsKeys = list(saveFunctionsDict.keys())
+    saveFunctionsKeys.sort()
+
+    for key in saveFunctionsKeys:
+        saveFunction = saveFunctionsDict[key]
+        scriptBody += saveFunction()
+
+    scriptBody += '''
+# Enforce geometry (bonds, angles, and impropers)
+potList.append( XplorPot("BOND") )
+potList.append( XplorPot("ANGL") )
+potList['ANGL'].setThreshold( 5 )
+rampedParams.append( MultRamp(0.4,1,"potList['ANGL'].setScale(VALUE)") )
+potList.append( XplorPot("IMPR") )
+potList['IMPR'].setThreshold( 5 )
+rampedParams.append( MultRamp(0.1,1,"potList['IMPR'].setScale(VALUE)") ) \n'''
+
+    scriptBody += '''
+# Give atoms uniform weights, except for the anisotropy axis
+protocol.massSetup()
+
+
+# IVM setup
+#   the IVM is used for performing dynamics and minimization in torsion-angle
+#   space, and in Cartesian space.
+#
+from ivm import IVM
+dyn = IVM()
+'''
+
+    scriptBody += saveInitialMin()
+
+    scriptBody += '''
+# Reset ivm topology for torsion-angle dynamics
+dyn.reset()
+%s
+protocol.torsionTopology(dyn) \n''' % rdcSetTensorsFreedom(useDaRh.get())
+
+    scriptBody += saveFinalCartesian() #  These two functions only save code
+    scriptBody += saveSimAnnealing()   #  for creating the necessary objects
+
+    scriptBody += saveCalcOneStruc() # This is where most of the minimization choices are handled
+
+    scriptBody += '''\n
+from simulationTools import StructureLoop, FinalParams
+StructureLoop(numStructures=numberOfStructures,
+              pdbTemplate=outFilename,
+              structLoopAction=calcOneStructure,
+              doWriteStructures=True,     # analyze and write coords after calc
+              genViolationStats=1,
+              averageFilename="SCRIPT_ave.pdb",    # generate regularized average structure
+              averageTopFraction=0.5,    #report stats on best 50% of structs
+              averageContext=FinalParams(rampedParams),
+              averagePotList=potList).run()\n'''
+
+    return scriptBody
+
+
+def saveScript():
+    scriptName = asksaveasfilename()
+    if not scriptName: return
+    writeScript(scriptName)
+    return
+
+def writeScript(scriptName):
+    scriptFile = open(scriptName, 'w')
+    scriptFile.write(generateScript()) # Generate the script and write it into file
+    scriptFile.close()
+
+##### End of script generation ###############################################
+
+# We want the root window background to be slightly darker than that of the main frame.
+# Normally these two colors are the same. So we get the current background of "root",
+# extract its RGB components, and use them to create a slightly darker "darker_bg" color.
+# This color is then applied to "root", "footerFrame", and "FooterFrame2".
+rgb = root.winfo_rgb(root.cget("background"))
+darken = 0.97
+red, green, blue = darken*rgb[0]/256, darken*rgb[1]/256, darken*rgb[2]/256
+darker_bg = "#%02x%02x%02x" % tuple((int(x) for x in (red, green, blue)))
+root.configure(background=darker_bg)
+
+footerFrame = Frame(root, background=darker_bg)
+
+# Handler for "Save state" button
+def pushedSaveState():
+    filename = asksaveasfilename() # Bring up the file selection dialog
+    if filename: saveState(filename)
+
+
+saveStateButton=Button(footerFrame, text="Save state",
+                       command=pushedSaveState)
+saveStateButton.grid(row=0, column=0, pady=7)
+
+ToolTip(saveStateButton, msg="Save the current state of this application")
+
+# Handler for "Load state" button
+def pushedLoadState():
+    filename = askopenfilename() # Bring up the file selection dialog
+    if filename: loadState(filename)
+
+
+loadStateButton=Button(footerFrame, text="Load state",
+                       command=pushedLoadState)
+loadStateButton.grid(row=0, column=1, pady=7)
+
+ToolTip(loadStateButton,
+        msg="Load a previously saved state for this application")
+
+def exitProgram():
+    doExit = tkinter.messagebox.askquestion("Warning",
+                                      "Once you exit, the script must be "
+                                      "edited by hand.\n\n"
+                                      "Are you sure you want exit?",
+                                      icon='warning', default='no')
+    if doExit == 'yes': sys.exit()
+
+Button(footerFrame, text="Exit", command = exitProgram).grid(row=0, column=2, pady=7)
+
+saveScriptButton=Button(footerFrame, text="Write script",
+                        command=saveScript)
+saveScriptButton.grid(row=0, column=3, pady=7)
+
+ToolTip(saveScriptButton,
+        msg="Write an Xplor-NIH script")
+
+footerFrame.grid(row=2, column=0, columnspan=2)
+
+footerFrame2 = Frame(root, background=darker_bg)
+
+def openAboutDialog():
+    aboutFrame = Toplevel(root)
+    aboutFrame.title('About')
+
+    Label(aboutFrame, text=" ").pack(pady=5) # Dummy label for vertical spacing
+
+    # Get to the default font (TkDefaultFont)
+    f = tkinter.font.Font(root, "TkDefaultFont")
+    # Get the font size to later make larger-size fonts
+    std_font_size = f.cget("size")
+    size_sign = std_font_size / abs(std_font_size)
+
+    f.configure(size=std_font_size+5*size_sign)
+    Label(aboutFrame, text=scriptName, font=f, fg="blue").pack(pady=2, padx=40)
+    Label(aboutFrame, 
+          text="Graphical tool to generate Xplor-NIH scripts", 
+          font=f).pack(pady=2, padx=40)
+
+    Label(aboutFrame, text=" ").pack(pady=0) # Dummy label for vertical spacing
+
+    f = f.copy()
+    f.configure(size=std_font_size+3*size_sign)
+    Label(aboutFrame, text="Programmed by Alexander S. Maltsev", font=f).pack(pady=0)
+    f = f.copy()
+    f.configure(size=std_font_size+2*size_sign)
+    f.configure(weight="bold")
+    Label(aboutFrame, text="Bax group, NIH/NIDDK, 2013", font=f).pack(pady=2)
+
+    Label(aboutFrame, text=" ").pack(pady=0) # Dummy label for vertical spacing
+
+    Button(aboutFrame, text="Close", command=lambda:aboutFrame.destroy()).pack(pady=10)
+
+
+Button(footerFrame2, text="About", command = openAboutDialog).grid(row=0, column=0, pady=5)
+
+
+def openFeedbackDialog():
+    """ Setup and show the 'Feedback' dialog """
+    feedbackFrame = Toplevel(root)
+    feedbackFrame.title('Provide feedback')
+    #    Label(feedbackFrame, text="Please enter your message below. It will be sent\n specifically to the maintainer of Script Builder.", width=50).pack(padx=10, pady=5, anchor=W)
+    Label(feedbackFrame, text="Please enter your message below. It will be sent\n specifically to the maintainer of Script Builder.").pack(padx=10, pady=5)
+    messageText = Text(feedbackFrame, width=50, height=15, wrap=WORD, relief=GROOVE, borderwidth=2)
+    messageText.pack(padx=6, pady=5)
+
+    attachScript = IntVar()
+    Checkbutton(feedbackFrame, text="Attach the current script", variable=attachScript).pack(padx=6, pady=2, anchor=W)
+
+    def sendMessage():
+        """ Submit the text given as the argument via POST protocol"""
+        import urllib.request, urllib.parse, urllib.error
+        import urllib.request, urllib.error, urllib.parse
+
+        text = messageText.get("1.0", END)
+
+        if attachScript.get(): # If user so chose, attach the current script
+            text += "\n\n---------------Attached script follows----------------------\n\n"
+            text += generateScript()
+
+        url = "http://nmr.cit.nih.gov/xplor-nih/download.cgi"
+        data = urllib.parse.urlencode({'SupportEmail': 'True',
+                             'SupportContent': text})
+        try:
+            urllib.request.urlopen(url, data)
+        except:
+            tkinter.messagebox.showerror("Error", "There was a problem with sending your message!")
+        else:
+            tkinter.messagebox.showinfo("Success", "Your feedback was successfully submitted")
+
+        feedbackFrame.lift(aboveThis=root) # To ensure that the Feedback window remains on top
+        pass
+
+    Button(feedbackFrame, text="Send message", command=sendMessage).pack(pady=5)
+#   Button(feedbackFrame, text="Close", command=lambda:feedbackFrame.destroy()).pack(pady=2)
+
+
+Button(footerFrame2, 
+       text="Feedback", 
+       command = openFeedbackDialog).grid(row=0, column=1, pady=5, padx=5)
+
+## When option '-test' is used, don't start mainloop
+if len(sys.argv)>1 and sys.argv[1]=="-test":
+    print("Test mode")
+else:
+    footerFrame2.grid(row=3, column=0, columnspan=2, sticky=E)
+    root.mainloop()

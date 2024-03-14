@@ -1,0 +1,480 @@
+!
+! setup_longrange.tbl
+! Sets up the selections for the various long-range torsion angle database energies
+! Works with longrange_4D_energy.tbl
+!
+! WARNING: this script overwrites the store7, store8, and store9 arrays
+!
+! by John Kuszewski 11/7/96
+!
+
+!set message off echo off end
+
+!
+! get selections for N and C termini
+! 
+! atoms that are in N terminal residues are selected in store7
+! atoms that are in C terminal residues are selected in store8
+! 
+
+vector do (store7 = 0) (all)
+vector do (store8 = 0) (all)
+
+for $count in id (name ca) loop database
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = decode($result))
+   eval ($nextRes = $curRes + 1)
+   eval ($prevRes = $curRes - 1)
+   vector do (store9 = 1) (all)
+   vector show sum (store9) (resid $nextRes and segid $curSeg)
+   eval ($nextResExists = $result)
+   vector show sum (store9) (resid $prevRes and segid $curSeg)
+   eval ($prevResExists = $result)
+   if ($nextResExists = 0) then
+      vector identify (store7) (store7 or (resid $curRes and segid $curSeg))
+   end if
+   if ($prevResExists = 0) then
+      vector identity (store8) (store8 or (resid $curRes and segid $curSeg))
+   end if
+end loop database
+
+!
+! get selection for gly and pro residues.
+! Stored in store9.
+!
+
+vector identity (store9) (resn gly or resn pro) 
+
+!
+! now loop through the struct, selecting i..i-4 phi/psi/phi/psi interactions.
+! Neither residue i nor residue i-4 can be gly or pro
+!
+
+for $count in id (name ca and not store9) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherres = encode(decode ($curRes) - 4))
+   eval ($prevOtherRes = encode(decode($otherres) - 1))
+   eval ($nextOtherRes = encode(decode($otherres) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherres and store9)
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+      xrama 
+      class phi_psi_phi_psi_m4
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! now loop through the struct, selecting i..i-3 phi/psi/phi/psi interactions.
+! Neither residue i nor residue i-3 can be gly or pro
+!
+
+for $count in id (name ca and not store9) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherres = encode(decode ($curRes) - 3))
+   eval ($prevOtherRes = encode(decode($otherres) - 1))
+   eval ($nextOtherRes = encode(decode($otherres) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherres and store9)
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+      xrama 
+      class phi_psi_phi_psi_m3
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! now loop through the struct, selecting i..i-2 phi/psi/phi/psi interactions.
+! Neither residue i nor residue i-2 can be gly or pro
+!
+
+for $count in id (name ca and not store9) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherres = encode(decode ($curRes) - 2))
+   eval ($prevOtherRes = encode(decode($otherres) - 1))
+   eval ($nextOtherRes = encode(decode($otherres) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherres and store9)
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+      xrama 
+      class phi_psi_phi_psi_m2
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! now loop through the struct, selecting i..i-1 phi/psi/phi/psi interactions.
+! Neither residue i nor residue i-1 can be gly or pro
+!
+
+for $count in id (name ca and not store9) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherres = encode(decode ($curRes) - 1))
+   eval ($prevOtherRes = encode(decode($otherres) - 1))
+   eval ($nextOtherRes = encode(decode($otherres) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherres and store9)
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+      xrama 
+      class phi_psi_phi_psi_m1
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+
+end loop database
+
+
+!
+! now loop through the struct, selecting i..i+4 phi/psi/phi/psi interactions.
+! Neither residue i nor residue i+4 can be gly or pro
+!
+
+for $count in id (name ca and not store9) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherres = encode(decode ($curRes) + 4))
+   eval ($prevOtherRes = encode(decode($otherres) - 1))
+   eval ($nextOtherRes = encode(decode($otherres) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherres and store9)
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+      xrama 
+      class phi_psi_phi_psi_p4
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! now loop through the struct, selecting i..i+3 phi/psi/phi/psi interactions.
+! Neither residue i nor residue i+3 can be gly or pro
+!
+
+for $count in id (name ca and not store9) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherres = encode(decode ($curRes) + 3))
+   eval ($prevOtherRes = encode(decode($otherres) - 1))
+   eval ($nextOtherRes = encode(decode($otherres) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherres and store9)
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+      xrama 
+      class phi_psi_phi_psi_p3
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! now loop through the struct, selecting i..i+2 phi/psi/phi/psi interactions.
+! Neither residue i nor residue i+2 can be gly or pro
+!
+
+for $count in id (name ca and not store9) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherres = encode(decode ($curRes) + 2))
+   eval ($prevOtherRes = encode(decode($otherres) - 1))
+   eval ($nextOtherRes = encode(decode($otherres) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherres and store9)
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+      xrama 
+      class phi_psi_phi_psi_p2
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! now loop through the struct, selecting i..i+1 phi/psi/phi/psi interactions.
+! Neither residue i nor residue i+1 can be gly or pro
+!
+
+for $count in id (name ca and not store9) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherres = encode(decode ($curRes) + 1))
+   eval ($prevOtherRes = encode(decode($otherres) - 1))
+   eval ($nextOtherRes = encode(decode($otherres) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherres and store9)
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+      xrama 
+      class phi_psi_phi_psi_p1
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+
+end loop database
+
+
+!
+! the end
+!
+
+set echo on message on end

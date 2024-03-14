@@ -1,0 +1,67 @@
+
+remark  File atcun.top
+remark    Topology patch for the ATCUN motif bound to Cu+2.
+remark
+remark  Use in combination with atcun.par.
+remark  Use after loading protein-v.top (v = any version).  It loads ion.top.
+remark
+remark  For an application, see Donaldson, LW et al. JACS 2001, 123: 9843-9847.
+remark
+remark  Author: Guillermo A. Bermejo (08/07/2014).
+
+
+
+! *** No new atom types are defined here ***
+
+
+set echo=off message=on end
+
+autogenerate  angles=true  end
+
+@TOPPAR:ion.top
+
+
+presidue ATCUN  ! 1=Xaa1 2=Xaa2 3=His3 4=Cu2  (Xaa is any residue except PRO)
+
+   delete atom 1HT3  end ! leave HT1 and HT2 (arbitrary)
+   delete atom 2HN   end
+   delete atom 3HN   end
+   delete atom 3HD1  end
+
+
+   add bond 1N   4CU+2
+   add bond 2N   4CU+2
+   add bond 3N   4CU+2
+   add bond 3ND1 4CU+2
+
+
+   add angle 1N  4CU+2  2N
+   add angle 2N  4CU+2  3N
+   add angle 3N  4CU+2  3ND1
+   add angle 1N  4CU+2  3ND1
+
+   add angle 1N  4CU+2  3N
+   add angle 2N  4CU+2  3ND1
+
+   add angle 1HT2 1N  4CU+2
+   add angle 1HT1 1N  4CU+2
+
+
+
+   add improper 1N  2N  3ND1 3N
+
+   add improper 1N  1CA 1C   2N   ! 1psi
+   add improper 1C  2N  2CA  2C   ! 2phi
+   add improper 2N  2CA 2C   3N   ! 2psi 
+   add improper 2C  3N  3CA  3C   ! 3phi
+   add improper 3N  3CA 3C   3O   ! (3N not in X-ray model) - Warning: 3O doesn't exist in C-terminus
+                                                              !(it would be either 3OT1 or 3OT2)
+
+   add improper 3N  3CA 3CB  3CG  ! HIS chi1
+
+   add improper 1HT1  1HT2  4CU+2  1CA  ! terminal NH2 group chirality
+
+ 
+end
+   
+

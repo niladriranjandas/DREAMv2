@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>2cqo</protein_name>
+		<seq_file>2cqo.seq</seq_file>
+		<upl_file>2cqo_concat_dist.upl</upl_file>
+		<hbond_file></hbond_file>
+		<ang_file></ang_file>
+		<protein_path>../protein/2cqo</protein_path>
+	</inputs>

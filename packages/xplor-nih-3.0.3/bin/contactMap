@@ -1,0 +1,581 @@
+#!/usr/bin/env /data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/pyXplor
+
+(opts,args) = xplor.parseArguments(["cutoff:1",
+                                    "psf:1",
+                                    "xticks:1",
+                                    "yticks:1",
+                                    "selection:1",
+                                    "selection2:1",
+                                    "absolute:0",
+                                    "selPair:3",
+                                    "printAtomContacts:0",
+                                    "printContacts:0",
+                                    "printTable:0",
+                                    "includeZeros:0",
+                                    'ensWeightRegexp:1',
+                                    "noPlot:0",
+                                    "cmpPDB:1",
+                                    "cmpPSF:1",
+                                    "popEnumerated:1",
+                                    "suppressDiag:1",
+                                    "outFile:1"],
+                                    cmdline="[options]  <structure files>",
+                                   description="""
+Generate contact map from one or more pdb files.
+                                   """,
+                                   usageString="""
+where options are one or more of::
+
+    -cutoff <val>       -- default distance cutoff used to determine contacts
+                           [default: 4 angstroms]
+    -psf <psf file>     -- optional psf file
+    -xticks <vals>      -- colon-separated xtick values
+    -yticks <vals>      -- colon-separated ytick values
+
+    -selection <atom selection>
+    -selection2 <atom selection>
+    -selPair <sel1> <sel2> <color[:cutoff]>
+                        -- specified instead of -selection and
+    	     	     	   -selection2. Display contacts between
+			   residues in the specified pair of
+			   atom selections using the specified
+			   color. Currently supported colors are
+			   red, green and blue. A per-selection pair distance
+                           cutoff can be optionally specified by appending a
+                           colon-separated value to the color specification. 
+                        
+    -printTable         -- print out a texual representation of the table
+    -includeZeros       -- if specified, include zero values in the output table.
+    -printContacts      -- print contacts for each file processed.
+    -printAtomContacts  -- print the identity of all atom pairs which are within
+    			   cutoff, and the associated distance.
+    -ensWeightRegexp=value -- regular expression used to extract ensemble 
+   			      weights from remarks section of the PDB header. 
+			      The weight for contacts from a pdb file is
+			      taken from all characters on the matched remark 
+			      after the ensWeightRegexp.
+    -absolute           -- for the color shading: make the darkest color 
+     			   be relative to the absolute number of weighted 
+			   contacts divided by number of structures. By default 
+			   it is relative to the maximum contact value.
+    -popEnumerated <spec>- enumerate which colors to use for a specific
+                           population range. The colors and ranges are specified
+                           by a space, or column separated list of values
+                            'val1 color1  ... valN colorN'
+                           where colorI is displayed for populations between
+                           val(I-1) and valI, and so on.
+    -cmpPDB <pdb file>  -- if specified, denote the contact map for a comparison
+    -cmpPSF <psf file>     file as a green contour. -cmpPSF should be specified
+                           for non-standard structures.
+    -suppressDiag <num> -- do not display contacts for which |i-j| <= num, 
+                           where i and j are residue numbers. For instance,
+                           specifying -suppressDiag 0 will prevent contacts 
+			   for which i==j
+    -noPlot             -- don't create plot.
+    -outFile <filename> -- plot filename
+
+Specific MODEL records within a pdb file can be chosen using the syntax file.pdb:2
+where the integer following the colon specifies the MODEL record. A range
+of MODELs can be chosen using a model specifier BEG-END, where BEG and END specify
+start and end record numbers, respecitvely.
+""")
+
+cmpPSF=None
+cmpPDB=None
+cutoff=4
+outFilename=None
+noPlot=False
+psf=None
+selection="all"
+selection2=None
+printTable=False
+includeZeros=False
+printContacts=False
+printAtomContacts=False
+ensWeightRegexp=None
+absolute=False
+popEnumerated=None
+from vec3 import Vec3, norm
+selPairs=[]
+colorMasks={
+    'red'   : Vec3(0,1,1) ,
+    'green' : Vec3(1,0,1) ,
+    'blue'  : Vec3(1,1,0)
+    }
+xticks=None
+yticks=None
+suppressDiag=None
+for opt in opts:
+    if opt[0]=="cutoff":
+        cutoff=float(opt[1])
+        pass
+    if opt[0]=="psf":
+        psf=opt[1]
+        pass
+    if opt[0]=="xticks":
+        xticks=[float(val) for val in opt[1].split(":")]
+        pass
+    if opt[0]=="yticks":
+        yticks=[float(val) for val in opt[1].split(":")]
+        pass
+    if opt[0]=="noPlot":
+        noPlot=True
+        pass
+    if opt[0]=="outFile":
+        outFilename=opt[1]
+        pass
+    if opt[0]=="selection":
+        selection=opt[1]
+        pass
+    if opt[0]=="selection2":
+        selection2=opt[1]
+        pass
+    if opt[0]=="selPair":
+        colorSpec=opt[3]
+        if ":" in colorSpec:
+            colorSpec,cutoffSpec = colorSpec.split(":")
+            cutoffSpec=float(cutoffSpec)
+        else:
+            cutoffSpec=cutoff
+            pass
+        try:
+            colorMask = colorMasks[colorSpec]
+        except KeyError:
+            print("invalid color: %s. Please choose one of" % colorSpec)
+            for key in sorted(colorMasks.keys()):
+                print("\t%s" % key)
+                pass
+            pass
+        selPairs.append( (opt[1],opt[2],colorMask,cutoffSpec) )
+    if opt[0]=="printContacts":
+        printContacts=True
+        pass
+    if opt[0]=="printAtomContacts":
+        printAtomContacts=True
+        pass
+    if opt[0]=="printTable":
+        printTable=True
+        pass
+    if opt[0]=="includeZeros":
+        includeZeros=True
+        pass
+    if opt[0]=="absolute":
+        absolute=True
+        pass
+    if opt[0]=='ensWeightRegexp':
+        ensWeightRegexp = opt[1]
+        pass	   
+    if opt[0]=='cmpPDB':
+        cmpPDB = opt[1]
+        pass	   
+    if opt[0]=='cmpPSF':
+        cmpPSF = opt[1]
+    if opt[0]=='popEnumerated':
+        popEnumerated = opt[1].split(":") if ':' in opt[1] else opt[1].split()
+    if opt[0]=='suppressDiag':
+        suppressDiag = int(opt[1])
+        pass           
+    pass
+
+pdbFiles=args
+
+files0=list(pdbFiles)
+pdbFiles=[]
+import re
+for file in files0:
+    if re.search(":[0-9]+$",file):
+        pdbFiles.append( file )
+    elif re.search(":[0-9]-[0-9]+$",file):
+        suff = file.split(":")[-1]
+        pref = file[:-len(suff)]
+        start,stop = [int(s) for s in suff.split('-')]
+        for model in range(start,stop+1):
+            pdbFiles.append(pref+str(model))
+            pass
+    else:
+        import pdbTool
+        pdb = pdbTool.PDBTool(file)
+        models = pdb.models()
+        for model in models:
+            pdbFiles.append(file+":"+str(model))
+            pass
+        if not models: pdbFiles.append(file)
+        pass
+    pass
+
+import matplotlib
+if popEnumerated:
+    absolute=True
+    tmpVals = popEnumerated
+    popEnumerated=[]
+    for i in range(len(tmpVals)/2):
+        try:
+            colorString = tmpVals[2*i+1]
+        except:
+            raise Exception("popEnumerated should consist of pairs of (val,color)")
+        try:
+            colorRGB = matplotlib.colors.to_rgb(colorString)
+        except:
+            print("no such color:", colorString)
+            exit(1)
+            pass
+        popEnumerated.append( (float(tmpVals[2*i]), colorRGB) )
+        pass
+    pass
+
+import protocol
+if psf:
+    protocol.initStruct(psf)
+    protocol.initCoords(pdbFiles[0],maxUnreadEntries=None)
+else:
+    protocol.loadPDB(pdbFiles[0])
+    pass
+
+if not selection2:
+    selection2=selection
+    pass
+
+if not selPairs:
+   selPairs.append( (selection,selection2,colorMasks['red'],cutoff) )
+   pass
+
+
+xplor.simulation.deleteAtoms("not known")
+# or not ((%s) or (%s))" %
+#                             (selection,selection2))
+
+
+#from atomSel import union
+#allAtoms = union(selection,selection2)
+
+import selectTools
+minResid1=1e30
+minResid2=1e30
+maxResid1=-1e30
+maxResid2=-1e30
+for (sel1,sel2,mask,cutoffSpec) in selPairs:
+    #this assumes there's a single segid
+    minResid1=min(minResid1,selectTools.minResid(sel1) )
+    minResid2=min(minResid2,selectTools.minResid(sel2) )
+    maxResid1=max(maxResid1, selectTools.maxResid(sel1) )
+    maxResid2=max(maxResid2, selectTools.maxResid(sel2) )
+    pass
+
+
+maps=[]
+cmpMaps=[]
+for selPair in selPairs:
+    map=[]
+    cmpMap=[]
+    for i in range(minResid1,maxResid1+1):
+        a=[]
+        for j in range(minResid2,maxResid2+1):
+            a.append(0)
+            pass
+        map.append(a)
+        a2= [0 for j in range(minResid2,maxResid2+1)]
+        cmpMap.append(a2)
+        pass
+    maps.append(map)
+    cmpMaps.append(cmpMap)
+    pass
+
+numContacts=0
+
+import re
+from atomSelAction import minDistance
+from nbond import findContacts
+if printContacts: print("%-29s  Contacts by residue pair" % "Filename")
+if printAtomContacts:
+    print("%-31s %22s %22s  %s" % ("Filename","Atom_i      ",
+                                    "Atom_j      ", "distance"))
+    pass
+
+def processOneFile(loopInfo):
+    print('processing file:', loopInfo.pdbFileIn())
+    pdbData=loopInfo.initCoordsRet
+    weight=1
+    if ensWeightRegexp:
+        weight=None
+        for remark in pdbData.remarks:
+            match=re.search(ensWeightRegexp,remark)
+            if match:
+                weight=float(remark[match.end():])
+                pass
+            pass
+        pass
+
+    
+    sim = xplor.simulation
+    for selCnt,(sel1,sel2,colorMask,cutoffSpec) in enumerate(selPairs):
+#        print "sels:", sel1, ',', sel2
+        contactAtoms = findContacts(sel1,sel2,cutoffSpec)
+#        print "end"
+        if printContacts: print("%-29s" % file, contactAtoms)
+        if printAtomContacts:
+            print("%-31s" % file)
+            from atomSel import intersection
+            for resid_i,resid_j in contactAtoms:
+                resSel_i=intersection(sel1,AtomSel("resid %d" % resid_i))
+                resSel_j=intersection(sel2,AtomSel("resid %d" % resid_j))
+                for atom_i in resSel_i:
+                    for atom_j in resSel_j:
+                        if (atom_i.residueNum()==atom_j.residueNum() and
+                            atom_i.segmentName()==atom_j.segmentName() ):
+                            continue
+                        dist = norm(atom_i.pos()-atom_j.pos())
+                        if dist<=cutoffSpec:
+                            print("%31s(%20s) (%20s)  %.3f" % (" ",
+                                                               atom_i.string(),
+                                                               atom_j.string(),
+                                                               dist ))
+                            pass
+                        pass
+                    pass
+                pass
+            pass
+        for resid_i,resid_j in contactAtoms:
+            if suppressDiag!=None and abs(resid_i-resid_j)<=suppressDiag:
+                continue
+            maps[selCnt][resid_i-minResid1][resid_j-minResid2] += weight
+            pass
+        pass
+    pass
+
+from simulationTools import StructureLoop
+parallelRet=StructureLoop( structLoopAction=processOneFile,
+                           pdbFilesIn=pdbFiles,
+                          ).run()
+
+
+import xplor
+comm = xplor.p_comm
+from cdsMatrix import CDSMatrix_double as RMat
+for i,map in enumerate(comm.collect( maps )):
+    if i==0:
+        for selCnt,(sel1,sel2,colorMask,cutoffSpec) in enumerate(selPairs):
+            maps[selCnt] = RMat(maps[selCnt])
+        continue
+    for selCnt,(sel1,sel2,colorMask,cutoffSpec) in enumerate(selPairs):
+        maps[selCnt] += RMat(map[selCnt])
+        pass
+    pass
+
+import sys
+if comm.procNum!=0: sys.exit(0)
+
+
+
+#find maximum
+maxVal=[]
+from cdsMatrix import max
+for selCnt in range(len(selPairs)):
+    maxVal.append( max(maps[selCnt]) )
+    pass
+
+
+print('ave number of contacts/file:', float(numContacts) / len(pdbFiles), end=' ')
+print('  Number of PDB records:', len(pdbFiles))
+for i,selPair in enumerate(selPairs):
+    print('max number of contacts/bin/file for selPair (%s) (%s): %.3f' %\
+          (selPair[0],selPair[1],float(maxVal[i]) / len(pdbFiles)))
+    pass
+
+    
+if printTable==True:
+    maxV = float(len(pdbFiles)) if absolute else float(maxVal[selCnt])
+    for selCnt in range(len(selPairs)):
+        print("selection pair: (%s) (%s)" % selPairs[selCnt][:2])
+        print("resid_i  resid_j  fraction_present")
+        for i in range(minResid1,maxResid1+1):
+            for j in range(minResid2,maxResid2+1):
+                frac=maps[selCnt][i-minResid1,j-minResid2]/ maxV
+                if not includeZeros and abs(frac)<1e-12:
+                    continue
+                print("%7d  %7d  %f" %(i,j,frac))
+            pass
+        pass
+    pass
+
+if noPlot:
+    exit()
+
+if cmpPDB:
+    import xplorSimulation
+    xsim = xplorSimulation.XplorSimulation(clone=False)
+    import simulation
+    simulation.makeCurrent(xsim)
+    if cmpPSF:
+        protocol.initStruct(cmpPSF)
+        pdbData=protocol.initCoords(cmpPDB,maxUnreadEntries=None)
+    else:
+        pdbData=protocol.loadPDB(cmpPDB,maxUnreadEntries=None)
+        pass
+
+    for selCnt,(sel1,sel2,colorMask,cutoffSpec) in enumerate(selPairs):
+        contactAtoms = findContacts(sel1,sel2,cutoffSpec)
+        for resid_i,resid_j in contactAtoms:
+            if suppressDiag!=None and abs(resid_i-resid_j)<=suppressDiag:
+                continue
+            cmpMaps[selCnt][resid_i-minResid1][resid_j-minResid2] = 1
+            pass
+        pass
+    pass
+pass
+
+
+    
+
+import pylab
+#from pylab import subplot, pcolor, title, ndarray, show, get_cmap
+import numpy as np
+
+manager = pylab.get_current_fig_manager() 
+manager.window.title("contact map")
+            
+
+xstart=minResid1/10 * 10  # start value should be multiple of ten
+ystart=minResid2/10 * 10
+
+xdelta = max(10,(maxResid1-minResid1)/7/10 * 10) # delta should be multiple 
+ydelta = max(10,(maxResid2-minResid2)/7/10 * 10) # of ten
+
+pylab.xticks(pylab.arange(xstart,maxResid1,xdelta))
+pylab.yticks(pylab.arange(ystart,maxResid2,ydelta))
+
+if xticks:
+    pylab.xticks( xticks )
+    pass
+if yticks:
+    pylab.yticks( yticks )
+    pass
+
+
+p = pylab.subplot(111)
+
+tmap=[]
+cmpMap=[]
+for i in range(minResid1,maxResid1+1):
+    tmap.append( [ Vec3(0,0,0) for j in range(minResid2,maxResid2+1)] )
+    cmpMap.append( [ Vec3(0,0,0) for j in range(minResid2,maxResid2+1)] )
+    pass
+
+if not popEnumerated:
+    for selCnt in range(len(maps)):
+        if maxVal[selCnt]==0:
+            continue
+        for i in range(maps[selCnt].rows()):
+            for j in range(maps[selCnt].cols()):
+                tmap[i][j] += float(maps[selCnt][i,j]) / maxVal[selCnt] * \
+                              selPairs[selCnt][2]
+                if cmpPDB:
+                    cmpMap[i][j] = cmpMaps[selCnt][i][j]
+                    pass
+                pass
+            pass
+        pass
+    pass
+
+if absolute:
+    maxVal=float(len(pdbFiles))
+else:
+    maxVal=max(maps[selCnt])
+    pass
+
+
+if popEnumerated:
+    for selCnt in range(len(maps)):
+        for i in range(maps[selCnt].rows()):
+            for j in range(maps[selCnt].cols()):
+                val = float(maps[selCnt][i,j]) / maxVal
+                for popThreshold,color in popEnumerated:
+                    if val<popThreshold:
+                        break
+                    tmap[i][j] = Vec3(color)
+                    pass        
+                if cmpPDB:        
+                    cmpMap[i][j] = cmpMaps[selCnt][i][j]
+                    pass
+                pass
+            pass
+        pass
+    pass
+else:
+    zeroVec=Vec3(0,0,0)
+    oneVec=Vec3(1,1,1)
+    minInten=0.25
+    eta = 1 -minInten
+    from math import sqrt
+    for i in range(len(tmap)):
+        for j in range(len(tmap[i])):
+            if (norm(tmap[i][j]- zeroVec)<1e-5):
+                tmap[i][j] = (0,0,0)
+                tmap[i][j] = (1,1,1)
+            else:
+                v=tmap[i][j]/maxVal
+                scale = sqrt(3)*(1 + eta*(norm(v)-1))
+                v = scale*v/norm(v)
+                tmap[i][j] =Vec3(1-min(v[0],1),1-min(v[1],1),1-min(v[2],1))
+    #            print tmap[i][j], [map[i][j] for map in maps]
+                pass
+            pass
+        pass
+    pass
+        
+
+        
+#            tmap[i][j] = tuple(Vec3(1,1,1) - tmap[i][j])
+#            tmap[i][j] = tuple((Vec3(1,1,1) - tmap[i][j]))
+#            if map[selCnt][i][j]==0:
+#                map[selCnt][i][j] = (1,1,1)
+#                map[selCnt][i][j] = (0,0,0)
+#            else:
+#                v = float(map[i][j]) / maxVal
+#                map[selCnt][i][j] = tuple(Vec3(1,1,1) - v*colorMask)
+#                pass
+
+#(1.0,1.0-v,1.0-v)
+            
+
+#tups=[(int(t.split(':')[0]),int(t.split(':')[1])) for t,v in map.items()]
+#
+#x=[t[0] for t in tups]
+#y=[t[1] for t in tups]
+#p.plot(x,y,'s',color='g')
+
+map=np.rollaxis(np.array(tmap),1) # transpose
+p.imshow(map,origin='lower',interpolation="none",#interpolation="nearest",
+         extent=[minResid1-0.5,maxResid1+0.5,minResid2-0.5,maxResid2+0.5])
+
+p.set_xlabel("Residue Number",size=20)
+p.set_ylabel("Residue Number",size=20)
+
+if cmpPDB:
+    xgrid = [minResid1+i for i in range(len(cmpMap))]
+    ygrid = [minResid2+i for i in range(len(cmpMap[0]))]
+    surfl=cmpMap
+    surfl=[]
+    for j in range(len(cmpMap[0])):
+        l = [cmpMap[i][j] for i in range(len(cmpMap))]
+        surfl.append(l)
+        pass
+    p.contour(xgrid,ygrid,surfl,
+              levels=[0.1],colors=["green"])
+    pass
+
+
+p.grid(True)
+
+
+#axis([2,20,2,14])
+#setp(gca(), xticklabels=[], yticks=(4,8,12), xticks=(0,10,20))
+#text(3,12, 'I', fontsize=20)
+
+
+#title('contact map')
+
+if outFilename:
+    pylab.savefig(outFilename)
+else:
+    pylab.show()
+    pass

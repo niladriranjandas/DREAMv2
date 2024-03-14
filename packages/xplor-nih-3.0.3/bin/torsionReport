@@ -1,0 +1,120 @@
+#!/usr/bin/env /data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/pyXplor
+
+# script to analyze and average protein torsion angles
+#
+# usage:
+#   ./tang.py -psf=[psf file] [pdb files] >average.info
+#
+#
+
+from sys import argv
+from selectTools import minResid, maxResid
+from simulationTools import StructureLoop
+from dihedral import Dihedral
+from pdbTool import PDBTool
+import protocol
+
+
+(optList,files) = xplor.parseArguments(["psf:1",
+                                        "selection:1",
+                                        ],
+					cmdline=
+                                       "[option] <pdb files> > file.out",
+					description="""
+Generate report on all protein torsion angle values for one or more structure
+files. Reports generated for individual structures and averages.
+                                        """,
+                                       usageString="""
+ Information averaged over all the structures is sent to stdout.
+
+ Possible options are:
+
+    -psf <file.psf> - a PSF file. This option must be used if the protein
+                      contains nonstandard residues.
+
+    -selection <string> - specify a sub-region of the protein to report on.
+
+
+ For each structure, a printout of all the torsion angles is saved to 
+ a file named structN.angles
+
+
+ By default, all MODELs in a PDB file are analyzed. A particular model can be 
+ chosen using the syntax file.pdb:MODEL, where file.pdb is the filename, and MODEL
+ is the model number. e.g. 1.
+
+  """)
+
+psfRead=0
+selection="all"
+for opt in optList:
+    if opt[0]=='psf':
+        psf = opt[1]
+        protocol.initStruct(psf)
+        psfRead=1
+        pass
+    if opt[0]=='selection':
+        selection = opt[1]
+        pass
+    pass
+
+if not psfRead:
+   protocol.loadPDB(files[0])
+   pass	
+
+files0=files
+pdbFiles=[]
+import re
+for file in files0:
+    if re.search(":[0-9]+$",file):
+        pdbFiles.append( file )
+    elif re.search(":[0-9]-[0-9]+$",file):
+        suff = file.split(":")[-1]
+        pref = file[:-len(suff)]
+        start,stop = [int(s) for s in suff.split('-')]
+        for model in range(start,stop+1):
+            pdbFiles.append(pref+str(model))
+            pass
+    else:
+        import pdbTool
+        pdb = pdbTool.PDBTool(file)
+        models = pdb.models()
+        for model in models:
+            pdbFiles.append(file+":"+str(model))
+            pass
+        if not models: pdbFiles.append(file)
+        pass
+    pass
+
+import torsionTools
+rotStat=torsionTools.RotomericStats()     
+for filename in  pdbFiles:
+    protocol.initCoords(filename)
+    rotStat.binAngles(angleFilename=filename+".angles")
+    pass
+
+
+angleBins=rotStat.angleBins
+print("residue        angle   bin    cnt    ave     dev")
+from atomSel import intersection
+for atom in intersection("tag",selection):
+    resid = atom.residueNum()
+    segid = atom.segmentName()
+    resType = atom.residueName()
+    uid = "%4s %4d %4s" % (segid, resid,resType)
+    if uid not in angleBins:
+        continue
+    angles=list(angleBins[uid].keys())
+    angles.sort()
+    for angle in angles:
+        bins = list(angleBins[uid][angle].keys())
+        bins.sort()
+        for bin in bins:
+           print("%14s %5s %6s" % (uid, angle, bin), end=' ')
+           print("%4d" % len(angleBins[uid][angle][bin]), end=' ')
+           print("%7.2f" % rotStat.circularStat(angleBins[uid][angle][bin])[0], end=' ')
+           print("%7.2f" % rotStat.circularStat(angleBins[uid][angle][bin])[1])
+           pass
+        pass
+    pass
+            

@@ -1,0 +1,40 @@
+
+PSF 
+
+       4 !NTITLE
+ REMARKS FILENAME="axis.psf"                                                                                                        
+ REMARKS   para_anis.pro                                                                                                            
+ REMARKS molecule for anisotropy                                                                                                    
+ REMARKS DATE:15-Jun-97  05:13:52       created by user: nico                                                                       
+
+       4 !NATOM
+       1      500  ANI  X    XXX    0.000000E+00   10.0000           0
+       2      500  ANI  Y    YYY    0.000000E+00   10.0000           0
+       3      500  ANI  Z    ZZZ    0.000000E+00   10.0000           0
+       4      500  ANI  OO   OOO    0.000000E+00   10.0000           0
+
+       3 !NBOND: bonds
+       4       1       4       2       4       3
+
+       3 !NTHETA: angles
+       1       4       2       1       4       3       2       4       3
+
+       0 !NPHI: dihedrals
+
+
+       0 !NIMPHI: impropers
+
+
+       0 !NDON: donors
+
+
+       0 !NACC: acceptors
+
+
+       0 !NNB
+
+       0       0       0       0
+
+       1       0 !NGRP
+       0       0       0
+

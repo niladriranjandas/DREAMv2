@@ -1,0 +1,401 @@
+remark  file parallhdg.dna
+remark   geometric energy function parameters for distance geometry and
+remark   simulated annealing.
+remark
+remark  history: 
+remark
+remark  derived from parnah1er1.dna, MN 1991
+remark
+remark  parnah1er1.dna derived from parmdna8. LN and MP 1984
+remark  H-bond wells made 0.5 kcal deeper to improve basepair energies
+remark    8/20/84/ln
+remark  H stretch & bend constants from URACIL normal mode fit.
+remark  Magnesium (fudge) and spermine included.
+remark  all references to water removed, ATB, 3-JAN-85
+remark  ALL IMPROPERS force constants increased to 500 to
+remark    ensure perfect planes and chirality: GMC 1987
+remark  DIHEDRAL force constants that keep purin rings parallel
+remark    increased to 500 (MN 7-NOV-86)
+remark  includes parameters for purine GMC 1987
+remark  various changes Michael Nilges and John Kuszewski, 1991
+
+set echo off end
+ 
+evaluate ($kbond = 1000)
+evaluate ($kangle = 500)
+evaluate ($kimproper = 500)
+
+
+
+bond H    NA     $kbond    1.0100 ! URA
+bond H    NS     $kbond    1.0100 ! INFERENCE
+bond H    NH3    $kbond    1.04   ! -"- AND DISTANCE FROM PARAM7
+bond H    OH2    $kbond    0.96
+bond H2   N2     $kbond    1.0100 ! Infer.
+bond HO   OH     $kbond    0.9600 ! PARAM7 (IR stretch 3400 cm-1)
+bond HO   OS     $kbond    0.9600
+bond H    CE     $kbond    1.09! CH R0 from RKR K from DEP opt.
+bond H    CF     $kbond    1.09
+bond H    C2     $kbond    1.09
+bond H    C3     $kbond    1.09
+bond H    CH     $kbond    1.09
+bond P    O2     $kbond    1.4800 ! DEP
+bond P    OS     $kbond    1.6100 ! DEP
+bond P    OH     $kbond    1.6100 ! Infer.
+bond OS   C2     $kbond    1.4300 ! DEP
+bond OS   CH     $kbond    1.4300 ! Infer.
+bond O    C      $kbond    1.2290 ! URA
+bond OH   C2     $kbond    1.4300
+bond OH   CH     $kbond    1.4300
+bond C2   CH     $kbond    1.5250
+bond C2   C2     $kbond    1.5250
+bond CH   CH     $kbond    1.5250
+bond C3   CH     $kbond    1.5250
+bond C3   C2     $kbond    1.5250 ! DEP
+bond CB   CB     $kbond    1.3700 ! similar to CF=CF
+bond CA   CB     $kbond    1.4040 ! Infer. from URA
+bond CE   CB     $kbond    1.4040 ! Infer. from URA
+bond C    CB     $kbond    1.4190
+bond CF   C      $kbond    1.4440 ! URA
+bond CF   CA     $kbond    1.4330
+bond CF   CF     $kbond    1.3500 ! URA
+bond C    CS     $kbond    1.4440
+bond CS   C3     $kbond    1.5250
+bond CS   CF     $kbond    1.3430
+bond NS   CH     $kbond    1.4750
+bond NS   CB     $kbond    1.3740
+bond NS   CE     $kbond    1.3710
+bond NS   C      $kbond    1.3830
+bond NS   CF     $kbond    1.3650
+bond NC   CB     $kbond    1.3540
+bond NC   CE     $kbond    1.3240
+bond NC   CA     $kbond    1.3390
+bond NC   C      $kbond    1.3580
+bond N2   CA     $kbond    1.3330
+bond NB   CB     $kbond    1.3910
+bond NB   CE     $kbond    1.3040
+bond NA   CA     $kbond    1.3810
+bond NA   C      $kbond    1.3880
+bond NH2E CH     $kbond    1.49   !        FROM PARAM3
+bond BR   CS     $kbond    1.880
+ 
+angle H    CE   NC      $kangle     120.0
+angle H    CE   CB      $kangle     120.0
+angle H    CA   NC      $kangle     120.0
+angle H    CE   NS      $kangle     120.0  ! atb 6/6/92
+angle H    CE   NB      $kangle     120.0  ! atb 6/6/92
+angle H    CF   CA      $kangle     120.0
+angle H    CF   CF      $kangle     120.0
+angle H    CF   NS      $kangle     120.0
+angle H    CF   CS      $kangle     120.0
+angle H    CF   C       $kangle     120.0
+angle H    C3   CS      $kangle     109.47
+angle H    C3   CH      $kangle     109.47
+angle H    C3   OS      $kangle     109.47    ! FOR DMP
+angle H    C3   H       $kangle     109.47
+angle H    CH   H       $kangle     109.47
+angle H    CH   C3      $kangle     109.47
+angle H    CH   CH      $kangle     109.47
+angle H    CH   C2      $kangle     109.47
+angle H    CH   OS      $kangle     109.47
+angle H    CH   OH      $kangle     109.47
+angle H    CH   NS      $kangle     109.47
+angle H    CH   NH2E    $kangle     109.47
+angle H    C2   CH      $kangle     109.47
+angle H    C2   C2      $kangle     109.47
+angle H    C2   C3      $kangle     109.47
+angle H    C2   OS      $kangle     109.47
+angle H    C2   OH      $kangle     109.47
+angle H    C2   H       $kangle     109.47
+angle P    OS   C2      $kangle  120.5000   ! DEP
+angle P    OS   C3      $kangle  120.5000   ! Guess (inferred from P-OS-C2) /LN
+angle CH   OS   CH      $kangle  111.5000
+angle P    OS   CH      $kangle  120.5000
+angle HO   OS   CH      $kangle  107.3000
+angle HO   OS   C2      $kangle  107.3000
+angle HO   OH   CH      $kangle  107.3000
+angle HO   OH   C2      $kangle  107.3000
+angle HO   OH   P       $kangle  107.3000
+angle OS   P    OS      $kangle  102.6000  ! DEP
+angle OH   P    OS      $kangle  102.6000
+angle OS   P    O2      $kangle  108.2300  ! DEP
+angle OH   P    O2      $kangle  108.2300
+angle O2   P    O2      $kangle  119.9000  ! DEP
+angle C    NA   H       $kangle  116.5000  ! URA
+angle C    NA   C       $kangle  126.4000  ! URA
+angle CA   NA   H       $kangle  119.3000  ! Infer.
+angle CA   NA   C       $kangle  125.2000  ! Infer.
+angle CB   NB   CE      $kangle  103.8000
+angle CB   NC   CE      $kangle  111.0000
+angle CA   NC   CE      $kangle  118.6000
+angle CE   NC   CE      $kangle  118.6000
+angle C    NC   CA      $kangle  120.5000
+angle CA   NC   CB      $kangle  112.2000
+angle CA   N2   H2      $kangle  120.0000
+angle H2   N2   H2      $kangle  120.0000
+angle CH   NS   CB      $kangle  125.8000
+angle CH   NS   CE      $kangle  128.8000
+angle CB   NS   CE      $kangle  105.4000  ! Infer.
+angle C    NS   CH      $kangle  117.6000
+angle CF   NS   CH      $kangle  121.2000
+angle C    NS   CF      $kangle  121.6000  ! Infer.
+angle C    NS   H       $kangle  119.3000
+angle CB   NS   H       $kangle  119.3000
+angle CE   NS   H       $kangle  119.3000
+angle CF   NS   H       $kangle  119.3000
+angle H    NH3  H       $kangle     109.5    ! FROM PARAM7
+angle H    NH3  C2      $kangle     109.5
+angle C2   NH3  C2      $kangle     109.5
+angle NS   C    O       $kangle  120.9000
+angle NA   C    O       $kangle  120.6000
+angle CB   C    O       $kangle  128.8000
+angle NC   C    O       $kangle  122.5000
+angle CF   C    O       $kangle  125.3000
+angle CS   C    O       $kangle  125.3000
+angle CF   C    NA      $kangle  114.1000
+angle CS   C    NA      $kangle  114.1000
+angle NS   C    NA      $kangle  115.4000
+angle CB   C    NA      $kangle  111.3000
+angle NS   C    NC      $kangle  118.6000
+angle N2   CA   NB      $kangle  118.3000
+angle N2   CA   NC      $kangle  119.8000
+angle CB   CA   NC      $kangle  117.3000
+angle CB   CE   NC      $kangle  117.3000
+angle CB   CA   N2      $kangle  123.5000
+angle CF   CA   NC      $kangle  121.5000
+angle N2   CA   CF      $kangle  120.1000
+angle NC   CA   NA      $kangle  123.3000
+angle N2   CA   NA      $kangle  116.0000
+angle CB   CB   NS      $kangle  106.2000
+angle NC   CB   NS      $kangle  126.0000
+angle NC   CB   CB      $kangle  127.7000
+angle CA   CB   NB      $kangle  132.4000
+angle CE   CB   NB      $kangle  132.4000
+angle CA   CB   CB      $kangle  117.3000
+angle CE   CB   CB      $kangle  117.3000
+angle CB   CB   NB      $kangle  110.4000
+angle C    CB   NB      $kangle  130.0000
+angle C    CB   CB      $kangle  119.2000
+angle NC   CE   NC      $kangle  129.1000
+angle NB   CE   NS      $kangle  120.000   ! atb 6/6/92
+angle NS   CF   CF      $kangle  121.2000
+angle NA   CF   CF      $kangle  121.2000  ! URA
+angle CA   CF   CF      $kangle  117.0000  ! DEP infer.
+angle CS   CF   NS      $kangle  121.2000
+angle C    CF   CF      $kangle  120.7000
+angle C2   CH   OS      $kangle  111.0000
+angle C2   CH   OH      $kangle  111.0000
+angle CH   CH   OH      $kangle  111.0000
+angle C2   CH   CH      $kangle  111.0000
+angle CH   CH   CH      $kangle  111.0000
+angle CH   CH   OS      $kangle  111.0000
+angle C3   CH   OS      $kangle  111.0000
+angle OS   CH   NS      $kangle  111.0000
+angle C2   CH   NS      $kangle  111.0000
+angle CH   CH   NS      $kangle  111.0000
+angle C2   CH   NH2E    $kangle  111.0000  !    GUESSED BY INFERENCE
+angle CH   CH   NH2E    $kangle  111.0000  !    GUESSED BY INFERENCE
+angle OS   CH   NH2E    $kangle  111.0000  !    GUESSED BY INFERENCE
+angle C3   CH   CH      $kangle  111.0000  !    ADDED WITHOUT CHECKING
+angle OS   C2   C3      $kangle  111.0000  !    DEP
+angle OS   C2   CH      $kangle  112.0000
+angle OH   C2   CH      $kangle  112.0000
+angle CH   C2   CH      $kangle  112.0000
+angle C2   C2   NH3     $kangle     109.5    ! FROM PARAM7
+angle C2   C2   C2      $kangle     110.0    ! FROM PARAM7
+angle C2   C2   C3      $kangle     112.0
+angle C    CS   C3      $kangle  119.7000
+angle C    CS   CF      $kangle  120.7000
+angle C3   CS   CF      $kangle  119.7000
+angle BR   CS   CF      $kangle  119.7000
+angle BR   CS   CA      $kangle  119.7000
+ 
+ 
+dihedral X    C2   CH   X        1.5000    3    0.0000
+dihedral X    C2   C2   X        1.6000    3    0.0000   ! PARAM7
+dihedral X    CH   CH   X        1.5000    3    0.0000
+dihedral X    CH   OS   X        0.5000    3    0.0000
+dihedral X    CH   OH   X        0.5000    3    0.0000
+dihedral X    C2   OH   X        0.5000    3    0.0000
+dihedral X    C2   OS   X        0.5000    3    0.0000
+dihedral X    OS   P    X        0.7500    3    0.0000
+dihedral X    OH   P    X        0.7500    3    0.0000
+dihedral X    CH   NS   X        0.3000    2    0.0000
+dihedral X    C2   NH3  X        0.6       3    0.0   !SPERMINE,E/BOND 3 BONDS
+! dihedral X    CA   N2   X        6.0000    2  180.0 !converted to impropers
+! dihedral X    NS   CE   X        7.0       2  180.0 !ATB
+! dihedral X    NS   CF   X        7.0       2  180.0 !
+! dihedral X    NC   CE   X        7.0       2  180.0 !
+! dihedral X    CF   CF   X        8.0       2  180.0 !
+dihedral X    CS   C3   X        0.5       3    0.0  ! METHYL E/3 PER BOND
+dihedral X    OS   C3   X        0.5       3    0.0  ! METHYL E/3 PER BOND
+ 
+! "WILMA OLSON SUGAR MODEL":
+dihedral OH   CH   CH   CH       0.5000    2    0.0000 ! ONLY AS GAUCHE
+dihedral C3   CH   CH   OS       0.2       2    0.0    ! FOR C5' WHICH IS A C3 I
+! N MODEL
+dihedral OS   CH   CH   OS       0.5000    2    0.0000 !
+dihedral OS   CH   CH   OS       1.4000    3    0.0000 !
+dihedral OS   CH   CH   CH       0.5000    2    0.0000 !
+dihedral OS   CH   CH   CH       1.4000    3    0.0000
+dihedral OH   CH   CH   OS       0.5000    2    0.0000 !
+dihedral OH   CH   CH   OS       1.4000    3    0.0000 !
+dihedral OS   CH   C2   CH       0.5000    2    0.0000 !
+dihedral OS   CH   C2   CH       0.5000    3    0.0000 ! DECR from 1.4
+dihedral OS   CH   CH   C2       0.2000    2    0.0000 ! DECR FROM 0.5
+dihedral OS   CH   CH   C2       1.0000    3    0.0000 ! decr from 1.4
+!
+! OUT OF THE SUGAR
+dihedral OS   P    OS   C2       0.7500    3    0.0000
+dihedral OS   P    OS   C2       0.7500    2    0.0000
+dihedral OS   P    OS   C3       0.7500    3    0.0000 ! Added by inference
+dihedral OS   P    OS   C3       0.7500    2    0.0000 ! Added by inference
+dihedral OS   P    OS   CH       0.7500    3    0.0000
+dihedral OS   P    OS   CH       0.7500    2    0.0000
+ 
+! Keeping purine rings parallel (from PARAM6):
+improper CE   CB   CB   NC     $kimproper       0   180.00
+improper CE   CB   CB   CE     $kimproper       0   180.00
+improper CE   CB   CB   CA     $kimproper       0   180.00
+improper CE   CB   CB   NA     $kimproper       0   180.00
+improper NC   CB   CB   NB     $kimproper       0   180.00
+improper CA   CB   CB   NS     $kimproper       0   180.00
+improper CE   CB   CB   NS     $kimproper       0   180.00
+improper C    CB   CB   NS     $kimproper       0   180.00
+
+! chiral centers in the sugar ring
+improper H    CH   OS   NS      $kimproper   0 -65.0000  !c1'
+improper H    C2   OS   NS      $kimproper   0 -65.0000 !added(dna),ATB
+improper H    CH   CH   OH      $kimproper   0  65.0000  !c2'
+improper H    CH   CH   OS      $kimproper   0  65.0000  !c3'
+improper H    CH   C2   OH      $kimproper   0  65.0000 !added(dna),ATB
+improper H    CH   C2   OS      $kimproper   0  65.0000 !added(dna),ATB
+improper H    C2   CH   OS      $kimproper   0  65.0000  !c4'
+improper H    CH   CH   H       $kimproper   0 120.0000  !c2', c5'
+
+improper H    X    X    CE      $kimproper 0   0.0000 !added for h's in
+improper H    X    X    CF      $kimproper 0   0.0000 !base planes (GMC)
+improper C2   X    X    CH      $kimproper 0  35.2600
+improper C3   X    X    CH      $kimproper 0  35.2600 ! ADDED WITHOUT CHECKING
+improper OH   X    X    CH      $kimproper 0  35.2600
+improper OS   X    X    CH      $kimproper 0  35.2600
+improper CH   OS   C2   NS      $kimproper 0  35.2600
+improper CH   OS   CH   NS      $kimproper 0  35.2600
+improper CH   OS   C2   NH2E    $kimproper 0  35.2600
+improper CH   OS   CH   NH2E    $kimproper 0  35.2600
+improper H    X    X    NA      $kimproper 0   0.0000  ! URA
+improper H    X    X    NS      $kimproper 0   0.0000  ! INFERENCE
+improper H2   X    X    N2      $kimproper 0   0.0000
+improper C    X    X    CB      $kimproper 0   0.0000  ! PLANAR IMPROPERS FROM URA
+! FIT
+improper C    X    X    CS      $kimproper 0   0.0000  !  (OR INFERRED FROM IT)
+improper C    X    X    CF      $kimproper 0   0.0000
+improper C    X    X    O       $kimproper 0   0.0000  ! URA
+improper C    X    X    NC      $kimproper 0   0.0000
+improper C    X    X    NS      $kimproper 0   0.0000
+improper CA   X    X    CB      $kimproper 0   0.0000
+improper CA   X    X    NC      $kimproper 0   0.0000
+improper CE   X    X    NC      $kimproper 0   0.0000
+improper CA   X    X    N2      $kimproper 0   0.0000
+improper CA   X    X    NS      $kimproper 0   0.0000
+improper CB   X    X    CE      $kimproper 0   0.0000
+improper CB   X    X    NA      $kimproper 0   0.0000
+improper CB   X    X    NB      $kimproper 0   0.0000
+improper CB   X    X    NC      $kimproper 0   0.0000
+improper CB   X    X    NS      $kimproper 0   0.0000
+improper CF   X    X    NC      $kimproper 0   0.0000
+improper CF   X    X    NA      $kimproper 0   0.0000
+improper CH   X    X    NS      $kimproper 0   0.0000 !increased from 40
+improper C3   X    X    CS      $kimproper 0   0.0000 !to 80 for planarity
+improper NB   X    X    NS      $kimproper 0   0.0000
+improper BR   X    X    CS      $kimproper 0   0.0000
+
+improper X    CA   N2   X       $kimproper    2  180.0  !converted to impropers
+improper X    NS   CE   X       $kimproper    2  180.0  !with large energy constants
+improper X    NS   CF   X       $kimproper    2  180.0  !ATB
+improper X    NC   CE   X       $kimproper    2  180.0  !
+improper X    CF   CF   X       $kimproper    2  180.0  !
+ 
+! Taken from Rossky Karplus and Rahman BIOPOLY (1979)
+! 0.05 ADDED TO RADII TO IMPROVE ON NUCL.ACID STACKING/LN
+!
+!                  eps     sigma       eps(1:4) sigma(1:4)
+NONBonded  BR      0.8000   3.5636      0.8000   3.5636
+NONBonded  C       0.0900   3.2970      0.0900   3.2970
+NONBonded  C2      0.0900   3.2970      0.0900   3.2970
+NONBonded  C3      0.0900   3.2970      0.0900   3.2970
+NONBonded  CA      0.0900   3.2970      0.0900   3.2970
+NONBonded  CB      0.0900   3.2970      0.0900   3.2970
+NONBonded  CE      0.0900   3.2970      0.0900   3.2970
+NONBonded  CF      0.0900   3.2970      0.0900   3.2970
+NONBonded  CH      0.0900   3.2970      0.0900   3.2970
+NONBonded  CS      0.0900   3.2970      0.0900   3.2970
+NONBonded  H       0.0045   2.6160      0.0045   2.6160
+NONBonded  H2      0.0045   1.6040      0.0045   1.6040
+!
+! give it the same as th Hn from RKR
+NONBonded  HO      0.0045   1.6040      0.0045   1.6040
+NONBonded  MG      0.2000   2.8509      0.2000   2.8509   ! G U E S S
+NONBonded  N2      0.1600   2.8591      0.1600   2.8591
+NONBonded  NA      0.1600   2.8591      0.1600   2.8591
+NONBonded  NB      0.1600   2.8591      0.1600   2.8591
+NONBonded  NC      0.1600   2.8591      0.1600   2.8591
+!
+! THIS STILL IS AN EXTENDED ATOM
+NONBonded  NH2E    0.1600   3.0291      0.1600   3.0291
+NONBonded  NH3     0.1600   2.8591      0.1600   2.8591
+NONBonded  NS      0.1600   2.8591      0.1600   2.8591
+NONBonded  O       0.2304   2.7290      0.2304   2.7290
+NONBonded  O2      0.2304   2.7290      0.2304   2.7290
+NONBonded  OH      0.2304   2.5508      0.2304   2.5508
+NONBonded  OS      0.2304   2.7290      0.2304   2.7290
+NONBonded  P       0.5849   3.3854      0.5849   3.3854
+NONBonded  SD      0.3515   2.6727      0.3515   2.6727   ! G U E S S
+ 
+ 
+! NOTE: the NBFIXES include aliphatic hydrogens !!!!!!!!! check !!!
+! the following NBFIXes are for DNA-DNA hydrogen bonding
+! terms
+!                                         ------1-4------
+!                   A           B           A          B
+!           [Kcal/(mol A^12)] [Kcal/(mol A^6)]
+!
+nbfix  HO   O       0.05       0.1      0.05       0.1
+nbfix  HO   O2      0.05       0.1      0.05       0.1
+nbfix  HO   OS      0.05       0.1      0.05       0.1
+nbfix  HO   OH      0.05       0.1      0.05       0.1
+nbfix  HO   NB      0.05       0.1      0.05       0.1
+nbfix  HO   NC      0.05       0.1      0.05       0.1
+ 
+nbfix  H    O       0.05       0.1      0.05       0.1
+nbfix  H    O2      0.05       0.1      0.05       0.1
+nbfix  H    OS      0.05       0.1      0.05       0.1
+nbfix  H    OH      0.05       0.1      0.05       0.1
+nbfix  H    NB      0.05       0.1      0.05       0.1
+nbfix  H    NC      0.05       0.1      0.05       0.1
+ 
+nbfix  H2   O       0.05       0.1      0.05       0.1
+nbfix  H2   O2      0.05       0.1      0.05       0.1
+nbfix  H2   OS      0.05       0.1      0.05       0.1
+nbfix  H2   OH      0.05       0.1      0.05       0.1
+nbfix  H2   NB      0.05       0.1      0.05       0.1
+nbfix  H2   NC      0.05       0.1      0.05       0.1
+ 
+ 
+ 
+AEXP=4 REXP=6 HAEX=4 AAEX=2
+! "all" possible combinations of HB-pairs in nucleic acids:
+!  WELL DEPTHS DEEPENED BY 0.5 KCAL TO IMPROVE BASEPAIR ENERGIES /LN
+!  AND DISTANCES INCREASED BY 0.05
+ hbond N*  N*      -3.5       3.05
+ hbond N*  O*      -4.0       2.95
+ hbond O*  O*      -4.75      2.80
+ hbond O*  N*      -4.50      2.90
+
+!flatter wells did not work so well, MN
+!hbond N*  N*      -3.0       3.05
+!hbond N*  O*      -3.5       2.95
+!hbond O*  O*      -4.25      2.80
+!hbond O*  N*      -4.00      2.90
+ 
+set echo on end

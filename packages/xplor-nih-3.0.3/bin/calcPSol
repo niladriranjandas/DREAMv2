@@ -1,0 +1,1157 @@
+#!/usr/bin/env /data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/pyXplor
+
+import sys
+from functools import reduce
+probeR= 5.4 # probe radius (Angstroms)
+radiusOffset= None # offset added to all atomic radii (Angstroms)
+rmin=0.1    # minimimum distance to surface
+(opts, files) = xplor.parseArguments(('psf:1',
+                                      'table:1',
+                                      "plot:0",
+                                      "plotVsResid:0",
+                                      "selection:1",
+                                      "noFitConc:0",
+                                      "prefactor:1",
+                                      "probeR:1",
+                                      "radiusOffset:1",
+                                      "probeC:1",
+                                      "tauc:1",
+                                      "rmin:1",
+                                      "centerOffset:1",
+                                      "nbTarget:0",
+                                      "addMissingAtoms:0",
+                                      "singleEns:0",
+                                      "ensWeights:1",
+                                      "optEnsWeights:0",
+                                      "targetType:1",
+                                      "genSurface:0",
+                                      "genPDB:0",
+                                      'residTable:0',
+                                      'genSel:1',
+                                      'showRestraints:0'),
+                                     cmdline=
+                         "[option] -table <solvent PRE table> <pdb files>",
+                                     description="""
+Compute the solvent PRE given a molecule structure and a restraint list.
+                                      """,
+                                     usageString=r"""
+
+Options::
+
+   -psf <psf filename>      - specify a psf filename. If omitted PSF info is
+                              automatically generated from the pdb file.
+
+   -showRestraints          - print out all back-calculated solvent PRE values 
+   			      to the terminal.
+   -selection <atom sel>    - atom selection string used to in defining the
+                              molecular surface. By default all read atoms are
+                              used.
+   -probeR <val>            - specify probe radius [%.3f]
+   -radiusOffset <val>      - specify value to be added to all atomic
+                              radii [same as probeR]
+   -rmin <val>              - specify minimum distance from nucleus to the
+                              surface describing the excluded volume [%.3f]
+   -centerOffset <val>      - center offset of solute - for off-center
+                              paramagnetic center [0]
+   -noFitConc               - dont' adjust the concentration rho0 to optimize 
+   			      the fit to experiment.
+   -prefactor <val>         - Specify the prefactor k in the expression for
+                              solvent PRE:
+
+                                 \Gamma_2 = k \int_{V_e} dv  1/r^6,
+ 
+                              where \Gamma_2 is the sPRE value, 
+			      r is the distance of the measured 
+			      nucleus to a point in the solvent, and the 
+			      integral is over all space excluding the 
+			      PRE-cosolute-excluded region.
+                              This implies -noFitConc behavior, as the
+                              calculated values will no longer depend on
+                              rho0. 
+   -addMissingAtoms         - Adds missing atomic coordinates in the genSel
+   			      atom selection. These atoms are added only if 
+			      there is an existing atom to which they are 
+			      bound. 
+   -singleEns               - Treat the files specified as an ensemble instead
+   			      of a set of individual structures.
+   -ensWeights <vals>       - a colon-separated list of weights to use on
+                              structure ensemble members. If not specified, the
+                              ensemble members are weighted equally.
+   -optEnsWeights           - If specified, the ensemble populations will be
+                              optimized to fit the experimental solvent PREs.
+   -targetType <spec>          - The energy term used for ensemble population
+                              optimization- can be "gamma" or "correlation"
+                              ["gamma"]
+   -residTable              - allow an input table where each line takes the
+                              format:
+                                RESID OBS ERR
+                              In this case, each restraint atom selection
+                              becomes the intersection of the -genSel argument
+                              and "resid RESID".
+   -genSel                  - selection used to generate dummy restraints if
+   			      the table is specified as "generate" ["name HN"], o
+			      or -residTable is specified.
+   -genPDB                  - write a PDB file named psol.pdb which has the 
+   			      calculated sPREs in the occupancies column and the 
+			      observed values in the b-factor column.
+   -genSurface              - generate a molecular surface describing the 
+   			      surface-excluded volume to be loaded in VMD
+			      TCL commands.
+   -plot                    - produce a plot of calculated vs. observed
+                              solvent PREs. Error bars indicate input experimental
+			      errors and the spread between calculated
+			      structures' rdcs.
+   -plotVsResid             - produce a plot of calculated and observed
+                              couplings as a function of residue number.
+                              Error bars indicate input experimental
+			      errors and the spread between calculated
+			      structures' sPREs.
+
+If the string "generate" is given as the table name, dummy restraints are
+generated from the -genSel argument, so that no input table is required.
+Specific MODEL records within a pdb file can be chosen using the syntax file.pdb:2
+where the integer following the colon specifies the MODEL record. A range
+of MODELs can be chosen using a model specifier BEG-END, where BEG and END specify
+start and end record numbers, respecitvely.
+"""  % (probeR, rmin)
+)
+
+
+psf=None
+plot=False
+plotVsResid=False
+showRestraints=False
+tables=()
+subSelSet=['all'] # not yet used
+selection="known"
+genSel="name HN"
+tauc=0.2
+probeC= 4.0 # probe concentration - need units
+nbTarget=False
+fitConc=True
+prefactor=None
+genSurface=False
+genPDB=False
+addMissingAtoms=False
+singleEns=False
+ensWeights=None
+optEnsWeights=False
+targetType="gamma"
+residTable=False
+centerOffset=0
+for opt in opts:
+    if opt[0]=='psf':
+        psf=opt[1]
+        pass
+    if opt[0]=='table':
+        if ':' in opt[1]:
+            tables = opt[1].split(':')
+        else:
+            tables = opt[1].split()
+            pass
+        pass
+    if opt[0]=='plot':
+        plot=True
+        pass
+    if opt[0]=='plotVsResid':
+        plotVsResid=True
+        pass
+    if opt[0]=='selection':
+        selection=opt[1]
+        pass
+    if opt[0]=='noFitConc':
+        fitConc=False
+        pass
+    if opt[0]=='prefactor':
+        prefactor=float(opt[1])
+        fitConc=False
+        pass
+    if opt[0]=='showRestraints':
+        showRestraints=True
+        pass
+    if opt[0]=='nbTarget':
+        nbTarget=True
+        pass
+    if opt[0]=='genSurface':
+        genSurface=True
+        pass
+    if opt[0]=='genPDB':
+        genPDB=True
+        pass
+    if opt[0]=='probeR':
+        probeR = float(opt[1])
+        pass
+    if opt[0]=='radiusOffset':
+        radiusOffset = float(opt[1])
+        pass
+    if opt[0]=='rmin':
+        rmin = float(opt[1])
+        pass
+    if opt[0]=='centerOffset':
+        centerOffset = float(opt[1])
+        pass
+    if opt[0]=='probeC':
+        probeC = float(opt[1])
+        pass
+    if opt[0]=='tauc':
+        tauc = float(opt[1])
+        pass
+    if opt[0]=='residTable':
+        residTable=True
+        pass
+    if opt[0]=='genSel':
+        genSel = opt[1]
+        pass
+    if opt[0]=='addMissingAtoms':
+        addMissingAtoms=True
+        pass
+    if opt[0]=='singleEns':
+        singleEns=True
+        pass
+    if opt[0]=='ensWeights':
+        if ':' in opt[1]:
+            ensWeights = opt[1].split(':')
+        else:
+            ensWeights = opt[1].split()
+            pass
+        ensWeights = map(lambda s: float(s), ensWeights)
+        pass           
+    if opt[0]=='optEnsWeights':
+        optEnsWeights = True
+        pass
+    if opt[0]=='targetType':
+        targetType = opt[1]
+        pass
+    if opt[0]=='help-script':
+        print(usage)
+        sys.exit(0)
+        pass
+    pass
+
+
+files0=list(files)
+files=[]
+import re
+for file in files0:
+    if re.search(":[0-9]+$",file):
+        files.append( file )
+    elif re.search(":[0-9]-[0-9]+$",file):
+        suff = file.split(":")[-1]
+        pref = file[:-len(suff)]
+        start,stop = [int(s) for s in suff.split('-')]
+        for model in range(start,stop+1):
+            files.append(pref+str(model))
+            pass
+    else:
+        import pdbTool
+        pdb = pdbTool.PDBTool(file)
+        models = pdb.models()
+        for model in models:
+            files.append(file+":"+str(model))
+            pass
+        if not models: files.append(file)
+        pass
+    pass
+
+if singleEns:
+    ensSize=len(files)
+    ensembleFiles=list(files)
+    numEnsembles=1
+else:
+    ensembleFiles=[files[0]]
+    ensSize=1
+    pass
+
+from ensembleSimulation import EnsembleSimulation
+
+ens=EnsembleSimulation('ensemble',ensSize)
+ensIndex=ens.member().memberIndex()
+
+if ens.size()>1:
+    if not ensWeights:
+        ensWeights=[1]*ens.size()
+        pass
+    ens.setWeights( ensWeights )
+    pass
+
+if singleEns:
+    files = [ ensembleFiles[ensIndex] ]
+    pass
+
+import protocol
+if psf:
+    if ":" in psf:
+        psf = psf.split(':')[ens.member().memberIndex()]
+        pass
+    protocol.initStruct(psf)
+    pdbData=protocol.initCoords(ensembleFiles[ensIndex],
+                                deleteUnknownAtoms=(not addMissingAtoms))
+else:
+    protocol.loadPDB(ensembleFiles[ensIndex],
+                     deleteUnknownAtoms=(not addMissingAtoms))
+    pass
+
+if addMissingAtoms:
+    toAdd=AtomSel("(%s) and (bondedto known)"%genSel)
+    from atomSel import union, notSelection
+    xplor.simulation.deleteAtoms( notSelection(union("known",toAdd)) )
+    print('known', len(AtomSel('known')))
+    print('not known', len(AtomSel('not known')))
+    protocol.addUnknownAtoms()
+    pass
+
+if not tables:
+    print('-table must be specified')
+    sys.exit(0)
+    pass
+
+restraints=""
+if tables[0]=="generate":
+    if len(tables)==1: fitConc=False
+    tables[0]=None
+    for atom in AtomSel(genSel):
+        restraints+='assign (atom "%s" %d %s) 0 1\n' % (atom.segmentName(),
+                                                        atom.residueNum(),
+                                                        atom.atomName())
+        pass
+    pass
+
+if residTable:
+    data=open(tables[0]).readlines()
+    tables[0]=None
+    for line in data:
+        resid,obs,err = line.split()[:3]
+        try:
+            resid=int(resid)
+            restraints += 'assign (%s and resid %s) %s %s\n' %(genSel,resid,
+                                                               obs,err)
+        except ValueError:
+            pass
+        pass
+    pass
+    
+    
+
+
+if nbTarget:
+    from nbTargetPotTools import calibrate, create_NBTargetPot
+    psol = create_NBTargetPot('sPRE',file=tables[0],
+                              restraints=restraints,restraintFormat="xplor")
+    psol.setShowAllRestraints(True)
+
+    calibrate(psol,verbose=True)
+   
+else:
+    from psolPotTools import create_PSolPot
+    
+    psol = create_PSolPot("psol",file=tables[0],
+                          restraints=restraints,
+                          domainSelection=selection)
+    if psol.numRestraints()<3:
+        print("read only %d restraints!"%psol.numRestraints())
+        exit(1)
+        pass
+    
+    if prefactor: psol.setCoeff( prefactor )
+    psol.setTargetType( targetType )
+    psol.setRmin(rmin) 
+    psol.setCenterOffset(centerOffset) 
+    psol.setFixTauc(True)
+    psol.setTauC( tauc )
+    psol.setSqn(3.5)      # electron spin quantum number
+    psol.setRho0( probeC )
+    
+    #psol.setVerbose(True)
+    #psol.tessellation().setVerbose(True)
+    psol.tessellation().setMoveTol(0.7)
+    #psol.tessellation().setSavePrev(True)
+    psol.setThreshold(0)
+    psol.setProbeRadius( probeR )
+    psol.setRadiusOffset( probeR if radiusOffset==None else radiusOffset )
+
+    if optEnsWeights:
+        from ivm import IVM
+        min = IVM()
+        from ensWeightsTools import create_EnsWeights
+        ensWeights=create_EnsWeights("eWeights")
+        ensWeights.setWeights( [ens.weight(i)  for i in range(ens.size())] )
+        psol.addEnsWeights(ensWeights)
+        min.fix("not pseudo")
+        protocol.torsionTopology(min)
+#        import simulationTools
+#        simulationTools.testGradient(psol,selString="pseudo",
+#                                     alwaysPrint=True)
+#        exit()
+
+        protocol.initMinimize(min,potList=[psol],
+                              numSteps=100,
+                              printInterval=1)
+        min.run()
+
+        optWeights=ensWeights.weights()
+
+        print("optimal ensemble weights:", optWeights)
+        pass
+    #for r in psol.tessellation().radii:
+    #    print r
+    pass
+
+def correlation(x,y):
+    "Pearson correlation coefficient"
+    from cdsVector import sum, CDSVector_double
+    x=CDSVector_double(x)
+    y=CDSVector_double(y)
+    avex=sum(x)/ len(x)
+    avey=sum(y)/ len(y)
+    x2 = sum( (x-avex)**2 )
+    y2 = sum( (y-avey)**2 )
+    cross = sum( (x-avex) * (y-avey) )
+
+    from math import sqrt
+    corr =  cross / sqrt(x2*y2) if x2*y2>0 else 0
+    return corr
+
+def rmsd(x,y):
+    from cdsVector import sum, CDSVector_double
+    x=CDSVector_double(x)
+    y=CDSVector_double(y)
+    sum = sum( (x-y)**2 ) / len(x)
+
+    from math import sqrt
+    return sqrt(sum)
+
+def qFactor(x,y):
+    from cdsVector import sum, CDSVector_double
+    x=CDSVector_double(x)
+    y=CDSVector_double(y)
+    from math import sqrt
+    arg = sum(y**2)/len(y)
+    return 100* rmsd(x,y) / sqrt( arg ) if arg>0. else 100.
+
+    
+
+
+metrics=[list() for i in range(5)]
+restraintVals=[list() for i in range(psol.numRestraints())]
+for file in files:
+    if len(files)>1: print("reading:", file)
+    pdbData=protocol.initCoords( file ,erase=True)
+    protocol.addUnknownAtoms()
+
+    if fitConc:
+        from psolPotTools import fitRho0
+        fitRho0(psol,weighted=True)
+        pass
+    
+    rms=psol.rms()
+    restraints = psol.restraints()
+    for i,r in enumerate(restraints):
+        restraintVals[i].append(r.calcd())
+        pass
+    
+    pairs=[(r.obs(),r.calcd()) for r in restraints]
+    
+    ave_x = reduce( lambda x,t: t[0]+x, pairs,0) / len(pairs)
+    ave_y = reduce( lambda y,t: t[1]+y, pairs,0) / len(pairs)
+    
+    x2 = reduce( lambda c,t: (t[0]-ave_x)**2+c, pairs,0)
+    y2 = reduce( lambda c,t: (t[1]-ave_y)**2+c, pairs,0)
+    cross = reduce( lambda c,t: (t[0]-ave_x)*(t[1]-ave_y)+c, pairs,0)
+    
+    from math import sqrt
+    
+    corr =  cross / sqrt(x2*y2) if x2*y2>0 else 0
+        
+    q = 100*psol.qFactor()
+    rho0 = psol.rho0()
+    energy=psol.calcEnergy()
+    
+
+    if showRestraints:
+        from simulationTools import analyze
+        print(analyze(psol))
+    else:
+        print("  rmsd Energy correlation Q-factor probe conc.")
+        print("  %.3f %.2f %.4f %.3f %.3f" % (rms, energy, corr,q,rho0))
+        pass
+#        for r in restraints:
+#            print r.name(),r.calcd(), r.obs(),r.err()
+
+    [metrics[i].append(val) for i,val in enumerate([rms, energy, corr,q,rho0])]
+    if singleEns:
+        break
+    pass
+
+from restraintStats import aveDev
+if len(files)>0:
+    calcdVals=[aveDev(r)[0] for r in restraintVals]
+    obsVals=[r.obs() for r in restraints]
+    rms = rmsd(calcdVals,obsVals)
+    corr = correlation(calcdVals,obsVals)
+    print()
+    print("      Average Values                         ")
+    for str,w in (("RMSD",24),("Correlation",20), ("Q-factor %",18), ("Probe conc.",12)):
+        print(str.center(w), end=' ')
+        pass
+    print()
+    print("%24s %20s %18s %12s" % ("%.3f [%.3f(%.3f)]" % tuple([rms]+
+                                                               list(aveDev(metrics[0]))),
+                                   "%.3f [%.3f(%.3f)]" % tuple([corr]+
+                                                               list(aveDev(metrics[2]))),
+                                   "%.1f [%.1f(%.1f)]" % tuple([qFactor(calcdVals,obsVals)]+
+                                                               list(aveDev(metrics[3]))),
+                                   "%.2f(%.2f)" % aveDev(metrics[4])))
+    if showRestraints:
+        print()
+        print("          calculated  Observed")
+        print("   name    mean dev    obs err")
+        for i,r in enumerate(restraints):
+            ave,dev = aveDev(restraintVals[i])
+            print(r.name(),ave, dev,r.obs(),r.err())
+            pass
+        pass
+    
+
+    pass
+                                                                      
+
+
+
+
+
+if plotVsResid:
+    import pylab
+
+    x0 = 0.15
+    x1 = 0.38
+    x2 = 0.54
+    x3 = 0.65
+    y = 0.85
+    dy=0.03
+
+
+    resids = [r.sel1[0].residueNum() for r in restraints]
+    obs  = [r.obs() for r in restraints]
+    calcd = [r.calcd() for r in restraints]
+    err = [r.err() for r in restraints]
+
+    cnt=0
+    minObs=min(obs)
+    maxObs=max(obs)
+
+    pylab.figtext(x0,y," ".join(files0))
+
+#    if len(subSelSet)>1:
+#        pylab.figtext(x1,y,"R-factor",ha='center')
+#        pylab.figtext(x2,y,r"$\chi^2$",ha='center')
+#        pylab.figtext(x3,y,"Corr.",ha='center')
+#        pass
+
+    y-= dy
+    
+    global picked
+    picked=[]
+
+    def picker(line,event):
+        #print str(event)
+        #print str(obj)
+        #thisline = event.artist
+        #name = thisline.name
+        #print name
+        xdata = line.get_xdata()
+        ydata = line.get_ydata()
+        xdata = event.xdata
+        ydata = event.ydata
+        closestObs=(1e30,None)
+        closestCalcd=(1e30,None)
+        for r in psol.restraints():
+            distObs = abs( (xdata-r.sel1[0].residueNum())**2 +
+                           (ydata-r.obs())**2 )
+            distCalcd = abs( (xdata-r.sel1[0].residueNum())**2 +
+                           (ydata-r.calcd())**2 )
+            #print 'dist',dist
+            if closestObs[0]>distObs:
+                closestObs = (distObs,r)
+                pass
+            if closestCalcd[0]>distCalcd:
+                closestCalcd = (distCalcd,r)
+                pass
+            pass
+        global picked
+        distObs,r=closestObs
+        if distObs<1.5:
+            import matplotlib.transforms as mtransforms
+            from matplotlib.patches import FancyBboxPatch
+            # Bbox object around which the fancy box will be drawn.
+            bb = mtransforms.Bbox([[0.3, 0.4], [0.7, 0.6]])
+
+            p_fancy = FancyBboxPatch((bb.xmin, bb.ymin),
+                         abs(bb.width), abs(bb.height),
+                         boxstyle="round,pad=0.1",
+                         fc=(1., .8, 1.),
+                         ec=(1., 0.5, 1.))
+
+
+            picked.append( 
+                pylab.text(r.sel1[0].residueNum(),r.obs(),
+                           r.sel1[0].string(),
+                           horizontalalignment='center',
+                           bbox=dict(facecolor='yellow', alpha=0.5))
+                )
+            pylab.draw()
+            pass
+        distCalcd,r=closestCalcd
+        if distCalcd<1.5:
+            import matplotlib.transforms as mtransforms
+            from matplotlib.patches import FancyBboxPatch
+            # Bbox object around which the fancy box will be drawn.
+            bb = mtransforms.Bbox([[0.3, 0.4], [0.7, 0.6]])
+
+            p_fancy = FancyBboxPatch((bb.xmin, bb.ymin),
+                         abs(bb.width), abs(bb.height),
+                         boxstyle="round,pad=0.1",
+                         fc=(1., .8, 1.),
+                         ec=(1., 0.5, 1.))
+
+
+            picked.append(
+                pylab.text(r.sel1[0].residueNum(),r.calcd(),
+                           r.sel1[0].string(),
+                           horizontalalignment='center',
+                           bbox=dict(facecolor='yellow', alpha=0.5))
+                )
+            pylab.draw()
+            pass
+        if distObs>3 and distCalcd>3:
+            for p in picked:
+                p.remove()
+                pass
+            picked=[]
+            pylab.draw()
+            pass
+        #print dist,r.name()
+                   
+        #print xdata,ydata
+        maxd = 0.05
+#        print event.xdata, event.ydata
+        return True, dict(ind=True, pickx=xdata, picky=ydata)
+        return False, dict()  
+
+    pylab.errorbar(resids,obs, yerr=err,
+                   fmt="ko",picker=picker)
+    ave = [aveDev(r)[0] for r in restraintVals]
+    dev = [aveDev(r)[1] for r in restraintVals]
+    pylab.errorbar(resids,ave,yerr=dev,fmt="ro",picker=picker)
+
+        
+    cnt+=1
+
+        
+#    pylab.plot([minObs,maxObs],
+#               [slope[sel]*minObs+intercept[sel],
+#                slope[sel]*maxObs+intercept[sel]],
+#               "%s--"%color)
+#
+#    pylab.figtext(x0,y,sel,color=color)
+#    
+#    pylab.figtext(x1,y,"%5.2f+/-%4.2f" % (rFactorSum[sel],
+#                                          rFactorSigma[sel]),
+#                  ha='center',color=color)
+#    pylab.figtext(x2,y,"%5.2f+/-%4.2f" % (chi2Sum[sel],
+#                                          chi2Sigma[sel]),
+#                  ha='center',color=color)
+#    pylab.figtext(x3,y,"%.3f" % selCorr[sel],
+#                  ha='center',color=color)
+#
+#    y-= dy
+#
+#
+#
+#    pylab.plot([minObs,maxObs],[minObs,maxObs],"k-")
+
+
+
+    pylab.xlabel('Residue Number')
+    pylab.ylabel('PRE')
+
+    pylab.title(
+        'RMSD=%.3f   Corr. Coeff=%.3f' % (rms,corr))
+    pylab.show()
+
+    pass
+
+if plot:
+    import pylab
+
+    x0 = 0.15
+    x1 = 0.38
+    x2 = 0.54
+    x3 = 0.65
+    y = 0.85
+    dy=0.03
+
+
+    obs  = [r.obs() for r in restraints]
+    calcd = [r.calcd() for r in restraints]
+    err = [r.err() for r in restraints]
+
+    cnt=0
+    minObs=min(obs)
+    maxObs=max(obs)
+
+    pylab.figtext(x0,y," ".join(files0))
+
+#    if len(subSelSet)>1:
+#        pylab.figtext(x1,y,"R-factor",ha='center')
+#        pylab.figtext(x2,y,r"$\chi^2$",ha='center')
+#        pylab.figtext(x3,y,"Corr.",ha='center')
+#        pass
+
+    y-= dy
+    
+
+    def picker(line,event):
+        #print str(event)
+        #print str(obj)
+        #thisline = event.artist
+        #name = thisline.name
+        #print name
+        xdata = line.get_xdata()
+        ydata = line.get_ydata()
+        xdata = event.xdata
+        ydata = event.ydata
+        closest=(1e30,None)
+        for r in psol.restraints():
+            dist = abs( (xdata-r.obs())**2 +
+                        (ydata-r.calcd())**2 )
+            #print 'dist',dist
+            if closest[0]>dist:
+                closest = (dist,r)
+                pass
+            pass
+        dist,r=closest
+        if dist<1.5:
+            import matplotlib.transforms as mtransforms
+            from matplotlib.patches import FancyBboxPatch
+            # Bbox object around which the fancy box will be drawn.
+            bb = mtransforms.Bbox([[0.3, 0.4], [0.7, 0.6]])
+
+            p_fancy = FancyBboxPatch((bb.xmin, bb.ymin),
+                         abs(bb.width), abs(bb.height),
+                         boxstyle="round,pad=0.1",
+                         fc=(1., .8, 1.),
+                         ec=(1., 0.5, 1.))
+
+            # draws control points for the fancy box.
+            #l = p_fancy.get_path().vertices
+            #ax.plot(l[:,0], l[:,1], ".")
+
+            a=r.sel()[0]
+            if a.segmentName()=="":
+                label="%d %s" % (a.residueNum(), a.atomName())
+            else:
+                label="%s %d %s" % (a.segmentName(), a.residueNum(), a.atomName())
+                pass
+            
+            pylab.text(r.obs(),r.calcd(),
+                       label,
+#                  r.sel1[0].residueNum(),
+                 horizontalalignment='center',
+                 bbox=dict(facecolor='yellow', alpha=0.5))
+            #add_patch(bb)
+            #draw_bbox(ax, bb)
+            #y=y0
+            #summarizeAndPlot(rdcs,"blue")
+            #summarizeAndPlot(crossTerms,"red")
+            pylab.draw()
+            pass
+        #print dist,r.name()
+                   
+        #print xdata,ydata
+        maxd = 0.05
+        print(event.xdata, event.ydata)
+        return True, dict(ind=True, pickx=xdata, picky=ydata)
+        #d = np.sqrt((xdata-mouseevent.xdata)**2. + (ydata-mouseevent.ydata)**2.)
+
+        #ind = np.nonzero(np.less_equal(d, maxd))
+        #if len(ind):
+        #    pickx = np.take(xdata, ind)
+        #    picky = np.take(ydata, ind)
+        #    props = dict(ind=ind, pickx=pickx, picky=picky)
+        #    return True, props
+        #else:
+        return False, dict()  
+
+
+    ave = [aveDev(r)[0] for r in restraintVals]
+    dev = [aveDev(r)[1] for r in restraintVals]
+    color="r"#colors[cnt%len(colors)]
+    pylab.errorbar(obs, ave,xerr=err,yerr=dev,
+                   fmt="%so"%color,picker=picker)
+
+        
+    cnt+=1
+
+        
+#    pylab.plot([minObs,maxObs],
+#               [slope[sel]*minObs+intercept[sel],
+#                slope[sel]*maxObs+intercept[sel]],
+#               "%s--"%color)
+#
+#    pylab.figtext(x0,y,sel,color=color)
+#    
+#    pylab.figtext(x1,y,"%5.2f+/-%4.2f" % (rFactorSum[sel],
+#                                          rFactorSigma[sel]),
+#                  ha='center',color=color)
+#    pylab.figtext(x2,y,"%5.2f+/-%4.2f" % (chi2Sum[sel],
+#                                          chi2Sigma[sel]),
+#                  ha='center',color=color)
+#    pylab.figtext(x3,y,"%.3f" % selCorr[sel],
+#                  ha='center',color=color)
+#
+#    y-= dy
+#
+#
+#
+    pylab.plot([minObs,maxObs],[minObs,maxObs],"k-")
+
+    pylab.xlabel('Observed')
+    pylab.ylabel('Calculated')
+
+    pylab.title(
+        'RMSD=%.3f   Corr. Coeff=%.3f' % (rms,corr))
+    pylab.show()
+
+    pass
+
+
+#class StatVals:
+#    def __init__(s,name,calcd,obs,err):
+#        s.name = name
+#        s.sum=calcd
+#        s.obs=obs
+#        s.err=err
+#        s.num=1
+#
+#        s.sum2 = calcd**2
+#        return
+#    def accumulate(s,calcd):
+#        s.sum += calcd
+#        s.sum2 += calcd**2
+#        s.num += 1
+#        return
+#
+#    def ave(s):
+#        if s.num<1:
+#            return 0
+#        return s.sum/s.num
+#
+#    def sigma(s):
+#        from math import sqrt
+#        if s.num<2:
+#            return 0
+#        return sqrt((s.sum2 - s.num*s.ave()**2) / (s.num-1))
+#        
+#    pass
+#
+#calcdObs={}
+#count={}
+#for sel in subSelSet:
+#    calcdObs[sel]=[]
+#    pass
+#
+#msim = sardc.restraints()[0].aSelection().simulation()
+#
+#import atomSel
+#for r in sardc.restraints():
+#    for sel in subSelSet:
+#        if atomSel.intersection(r.aSelection(),AtomSel(sel,msim)):
+#            calcdObs[sel].append( StatVals(r.name(),
+#                                           r.calcd() ,
+#                                           r.obs(),
+#                                           r.plusErr()) )
+#            pass
+#        pass
+#    pass
+#
+##compute R factor
+#from sardcPotTools import Rfactor, chi2, rmsd
+#rFactorSum={}
+#rFactorSum2={}
+#chi2Sum={}
+#chi2Sum2={}
+#rmsdSum={}
+#rmsdSum2={}
+#
+#for sel in subSelSet:
+#    rFactorSum[sel] = Rfactor(sardc,AtomSel(sel,ens.subSim()))
+#    rFactorSum2[sel] = rFactorSum[sel]**2
+#    val = chi2(sardc,sel)
+#    chi2Sum[sel]  = val
+#    chi2Sum2[sel] = val**2
+#    val = rmsd(sardc,sel)
+#    rmsdSum[sel]  = val
+#    rmsdSum2[sel] = val**2
+#    pass
+#
+##print '%3d: rmsd: %.2f avector scale: %.3f' % (0,
+##                                               sardc.rms(),
+##                                               sardc.avectorScale())
+##
+#sumRMSD=sardc.rms()
+#sumScale=sardc.avectorScale()
+#
+#cnt=0
+#if numEnsembles>1:
+#    for fileSpec in files[1:]:
+#        sortedEnsembleFiles = sortFilesByEnsMember(glob(fileSpec))
+#        cnt+=1
+#        print "reading:", sortedEnsembleFiles[ensIndex]
+#        pdbData=protocol.initCoords( sortedEnsembleFiles[ensIndex] )
+#        setEnsWeights(ens,ensWeights,ensWeightsRegexp,ensWeightsTerm,
+#                      pdbData.remarks)
+#        
+#
+#        sumRMSD+=sardc.rms()
+#        sumScale+=sardc.avectorScale()
+##        print '%3d: rmsd: %.2f avector scale: %.3f' % (cnt,
+##                                                       sardc.rms(),
+##                                                       sardc.avectorScale())
+##    
+#        for sel in subSelSet:
+#            count[sel]=0
+#
+#        for r in sardc.restraints():
+#            for sel in subSelSet:
+#                if atomSel.intersection(r.aSelection(),AtomSel(sel,msim)):
+#                    calcdObs[sel][count[sel]].accumulate( r.calcd() )
+#                    count[sel] += 1
+#                    pass
+#                pass
+#            pass
+#
+#        for sel in subSelSet:
+#            r=Rfactor(sardc,sel)
+#            rFactorSum[sel] += r
+#            rFactorSum2[sel] += r**2
+#            val = chi2(sardc,sel)
+#            chi2Sum[sel]  += val
+#            chi2Sum2[sel] += val**2
+#            val = rmsd(sardc,sel)
+#            rmsdSum[sel]  += val
+#            rmsdSum2[sel] += val**2
+#            pass
+#        pass
+#
+#
+#    pass
+#
+#
+#
+##for sel in subSelSet:
+##    calcdObs[sel] = [(t[0]/numEnsembles,t[1],t[2],t[3]) for t in
+##                     calcdObs[sel]]
+##
+##    calcdObs[sel] = [(t[0],t[1],t[2]/numEnsembles-t[0]**2,t[3]) for t in
+##                     calcdObs[sel]]
+##    pass
+#
+#sumRMSD /= numEnsembles
+#sumScale/= numEnsembles
+#print 'ave rmsd: %.2f'% sumRMSD, 'ave avector scale: %.3f' % sumScale
+#
+#from math import sqrt
+#rFactorSigma={}
+#chi2Sigma={}
+#rmsdSigma={}
+#for sel in subSelSet:
+#    rFactorSum[sel] /= numEnsembles
+#    chi2Sum[sel] /= numEnsembles
+#    rmsdSum[sel] /= numEnsembles
+#
+#    rFactorSigma[sel] = 0.
+#    chi2Sigma[sel] = 0.
+#    rmsdSigma[sel] = 0.
+#    if numEnsembles>1:
+#        var = (rFactorSum2[sel] -
+#               numEnsembles*rFactorSum[sel]**2) / (numEnsembles-1)
+#        if var>0.:
+#            rFactorSigma[sel] = sqrt(var)
+#            pass
+#        var = (chi2Sum2[sel] -
+#               numEnsembles*chi2Sum[sel]**2) / (numEnsembles-1)
+#        if var>0.:
+#            chi2Sigma[sel] = sqrt(var)
+#            pass
+#        var = (rmsdSum2[sel] -
+#               numEnsembles*rmsdSum[sel]**2) / (numEnsembles-1)
+#        if var>0.:
+#            rmsdSigma[sel] = sqrt(var)
+#            pass
+#        pass
+#    
+#
+#selDiff2={}
+#selObs2={}
+#for sel in subSelSet:
+#    selDiff2[sel]=0
+#    selObs2[sel]=0
+#
+#    for s in calcdObs[sel]:
+#
+#        selDiff2[sel] += (s.ave() - s.obs)**2
+#        selObs2[sel] +=  s.obs**2
+#        pass
+#
+#
+#
+##Rinf = 100 * sqrt(diff2) / sqrt(2*obs2)
+#selRinf={}
+#selAveCalcd={}
+#selAveObs={}
+#slope={}
+#intercept={}
+#selCorr={}
+#for sel in subSelSet:
+#    if len(calcdObs[sel])==0:
+#        print "Warning: selection ``%s'' contains no restraints" % sel
+#        subSelSet.remove(sel)
+#        continue
+#    
+#    selRinf[sel] = 100 * sqrt(selDiff2[sel]) / sqrt(2*selObs2[sel])
+#
+#    selAveCalcd[sel] = reduce( lambda x,s: s.ave()+x,
+#                               calcdObs[sel],0) / len(calcdObs[sel])
+#    selAveObs[sel]   = reduce( lambda x,s: s.obs+x,
+#                               calcdObs[sel],0) / len(calcdObs[sel])
+#
+#    cross = reduce( lambda c,s: s.ave()*s.obs+c, calcdObs[sel],0)
+#    obs2 = reduce( lambda c,s: s.obs**2+c, calcdObs[sel],0)
+#    slope[sel] = (cross - len(calcdObs[sel])*selAveCalcd[sel]*selAveObs[sel]) / \
+#             (obs2 - len(calcdObs[sel])*selAveObs[sel]**2)
+#    intercept[sel] = (selAveCalcd[sel] - slope[sel]*selAveObs[sel])
+#                      
+#    #print slopeN, intN
+#                
+#    aveCalcd2 = reduce( lambda c,s: (s.ave()-selAveCalcd[sel])**2+c,
+#                        calcdObs[sel],0)
+#    aveObs2   = reduce( lambda c,s: (s.obs-selAveObs[sel])**2+c  ,
+#                        calcdObs[sel],0)
+#    cross = reduce( lambda c,s:
+#                    (s.ave()-selAveCalcd[sel])*(s.obs-selAveObs[sel])+c,
+#                    calcdObs[sel],0)
+#
+#    selCorr[sel] = cross / sqrt(aveCalcd2*aveObs2)
+#
+#    pass
+#
+#colors=['k','r','g','b']
+#
+#if showRDCs:
+#    lenName = max([len(s.name) for s in calcdObs['all']])
+#    fmt = r"%" + "%d" % lenName + r"s %7s %7s %7s %7s"
+#    print  fmt%("Identity                          ",
+#                "ave", "dev", "Obs", "ObsErr")
+#                                   
+#    fmt = r"%" + "%d" % lenName + r"s %7.3f %7.3f %7.3f %7.3f"
+#    for s in calcdObs['all']:
+#        print fmt %(s.name,s.ave(),s.sigma(), s.obs, s.err)
+#        pass
+#    pass
+#
+#
+##
+##
+##print sardc.chisq(), sardc.rms()
+##
+# 
+#print " %30s  %13s %14s %13s" % ("","R factor  ","Chi^2   ","RMSD    ")
+#print " %-30s  %5.2f+/-%5.2f %6.2f+/-%5.2f %5.2f+/-%5.2f" % \
+#      ("All restraints",
+#       rFactorSum['all'],rFactorSigma['all'],
+#       chi2Sum['all'],chi2Sigma['all'],
+#       rmsdSum['all'],rmsdSigma['all'])
+#       
+#for sel in subSelSet:
+#    if sel=='all':
+#        continue
+#    print " %-30s  %5.2f+/-%5.2f %6.2f+/-%5.2f %5.2f+/-%5.2f" % \
+#          (sel,
+#           rFactorSum[sel],rFactorSigma[sel],
+#           chi2Sum[sel],chi2Sigma[sel],
+#           rmsdSum[sel],rmsdSigma[sel])
+#
+#
+
+if genSurface:
+    surfFile = open("surf.tcl","w")
+    surfFile.write("molecule load graphics surf\n")
+    surfFile.write("graphics top color green\n")
+    surfFile.write("graphics top material Opaque\n")
+    
+    import trace
+    trace.suspend()
+
+    import surfD 
+    surf = psol.tessellation().surf
+    
+    for i,spt in enumerate(surf.atomPoints):
+#        print i, sel[i].string(), spt.Norm, len(spt.grid), surf.atoms[i].center
+    #    if spt.Norm>0.:
+    
+        for j in range(0,len(spt.grid),3):
+            vert0 = spt.grid[j  ]
+            vert1 = spt.grid[j+1]
+            vert2 = spt.grid[j+2]
+    
+            v1=tuple(vert0.coord)
+            v2=tuple(vert1.coord)
+            v3=tuple(vert2.coord)
+            cmd = "graphics top trinorm "
+            cmd += "{%f %f %f} {%f %f %f} {%f %f %f} " % (v1 + v2 + v3)
+            v1=tuple(vert0.normal)
+            v2=tuple(vert1.normal)
+            v3=tuple(vert2.normal)
+            cmd += "{%f %f %f} {%f %f %f} {%f %f %f}\n" % (v1 + v2 + v3)
+            surfFile.write(cmd)
+
+            pass
+        pass
+
+    for r in psol.restraints():
+        ratom = r.sel1[0]
+        surfFile.write("molecule load graphics %d\n" % ratom.residueNum())
+        surfFile.write("graphics top color green\n")
+        surfFile.write("graphics top material Opaque\n")
+        for ai in r.importantAtoms:
+            a = psol.selection()[ai]
+            aPos = a.pos()
+            rPos = ratom.pos()
+            cmd = "graphics top line "
+            cmd += "{%f %f %f} {%f %f %f} " % ( tuple(aPos) + tuple(rPos) )
+            cmd += "width 2\n"
+            surfFile.write(cmd)
+
+    pass
+
+
+        
+if genPDB:
+    from cdsVector import CDSVector_double
+    import pdbTool
+    pdb = pdbTool.PDBTool('psol.pdb')
+    bfactors=CDSVector_double(xplor.simulation.numAtoms(),0.)
+    from atomSel import AtomSel
+    for a in AtomSel("all"):
+        pdb.setAux1(a,0.)
+        pass
+    for r in psol.restraints():
+        for a in r.sel1:
+            pdb.setAux1(a,r.calcd())
+            pdb.setAux2(a,r.obs())
+#            bfactors[a.index()] = r.obs()
+            pass
+        pass
+    pdb.write()
+    pass
+    

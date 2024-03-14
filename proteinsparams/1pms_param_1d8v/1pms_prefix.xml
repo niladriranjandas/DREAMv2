@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1pms</protein_name>
+		<seq_file>1pms.seq</seq_file>
+		<upl_file>1pms_concat_dist.upl</upl_file>
+		<hbond_file>1pms_concat_hBond.upl</hbond_file>
+		<ang_file>1pms_concat_dihed.aco</ang_file>
+		<protein_path>../protein/1pms</protein_path>
+	</inputs>

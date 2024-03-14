@@ -1,0 +1,3603 @@
+ assi 
+   (  resid 98   and name  HG1#)
+   (( resid 99   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 40   and name  HN  ))
+   (( resid 41   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 41   and name  HN  ))
+   (( resid 40   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 42   and name  HN  ))
+   (( resid 41   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 42   and name  HN  ))
+   (  resid 41   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 43   and name  HN  ))
+   (( resid 42   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 43   and name  HN  ))
+   (  resid 42   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 43   and name  HN  ))
+   (  resid 42   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 44   and name  HN  ))
+   (( resid 43   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 45   and name  HN  ))
+   (( resid 46   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 45   and name  HN  ))
+   (( resid 44   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 45   and name  HN  ))
+   (  resid 44   and name  HG1#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 45   and name  HN  ))
+   (  resid 44   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 46   and name  HN  ))
+   (( resid 47   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 46   and name  HN  ))
+   (( resid 45   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 47   and name  HN  ))
+   (( resid 48   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 47   and name  HN  ))
+   (  resid 46   and name  HA# )
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 48   and name  HN  ))
+   (( resid 47   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 48   and name  HN  ))
+   (( resid 47   and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 49   and name  HN  ))
+   (( resid 48   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 93   and name  HN  ))
+   (( resid 94   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 49   and name  HN  ))
+   (( resid 50   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 49   and name  HN  ))
+   (( resid 48   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 49   and name  HN  ))
+   (( resid 48   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 49   and name  HN  ))
+   (( resid 48   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 50   and name  HN  ))
+   (( resid 49   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 50   and name  HN  ))
+   (( resid 49   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 50   and name  HN  ))
+   (( resid 49   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 52   and name  HN  ))
+   (( resid 51   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 52   and name  HN  ))
+   (( resid 51   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 53   and name  HN  ))
+   (( resid 52   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 53   and name  HN  ))
+   (( resid 52   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 53   and name  HN  ))
+   (  resid 52   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 54   and name  HN  ))
+   (( resid 55   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 54   and name  HN  ))
+   (( resid 53   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 54   and name  HN  ))
+   (  resid 53   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 55   and name  HN  ))
+   (( resid 56   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 55   and name  HN  ))
+   (( resid 54   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 56   and name  HN  ))
+   (( resid 57   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 56   and name  HN  ))
+   (  resid 55   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 56   and name  HN  ))
+   (( resid 55   and name  HG1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 57   and name  HN  ))
+   (( resid 58   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 57   and name  HN  ))
+   (( resid 56   and name  HA2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 57   and name  HN  ))
+   (( resid 56   and name  HA1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 58   and name  HN  ))
+   (( resid 57   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 58   and name  HN  ))
+   (  resid 57   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 59   and name  HN  ))
+   (( resid 60   and name  HD1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 59   and name  HN  ))
+   (( resid 60   and name  HD2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 61   and name  HN  ))
+   (( resid 62   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 61   and name  HN  ))
+   (( resid 60   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HN  ))
+   (( resid 60   and name  HD1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HN  ))
+   (( resid 60   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HN  ))
+   (( resid 60   and name  HD2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 62   and name  HN  ))
+   (( resid 61   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 63   and name  HN  ))
+   (  resid 62   and name  HA# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 64   and name  HN  ))
+   (( resid 63   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 64   and name  HN  ))
+   (  resid 63   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 65   and name  HN  ))
+   (  resid 64   and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 65   and name  HN  ))
+   (( resid 64   and name  HG12))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 66   and name  HN  ))
+   (( resid 65   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 66   and name  HN  ))
+   (( resid 65   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 66   and name  HN  ))
+   (( resid 65   and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 66   and name  HN  ))
+   (( resid 65   and name  HG11))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 66   and name  HN  ))
+   (  resid 65   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 67   and name  HN  ))
+   (( resid 68   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 67   and name  HN  ))
+   (( resid 66   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 67   and name  HN  ))
+   (( resid 66   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 67   and name  HN  ))
+   (( resid 66   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 67   and name  HN  ))
+   (( resid 66   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 68   and name  HN  ))
+   (( resid 69   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 68   and name  HN  ))
+   (( resid 67   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 68   and name  HN  ))
+   (( resid 67   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 69   and name  HN  ))
+   (( resid 68   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 69   and name  HN  ))
+   (  resid 68   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 70   and name  HN  ))
+   (( resid 69   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 73   and name  HN  ))
+   (( resid 72   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 73   and name  HN  ))
+   (( resid 72   and name  HD1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 73   and name  HN  ))
+   (( resid 72   and name  HD2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 73   and name  HN  ))
+   (( resid 72   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 73   and name  HN  ))
+   (( resid 72   and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 74   and name  HN  ))
+   (( resid 73   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 74   and name  HN  ))
+   (( resid 73   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 75   and name  HN  ))
+   (( resid 74   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 75   and name  HN  ))
+   (( resid 74   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 76   and name  HN  ))
+   (( resid 75   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 76   and name  HN  ))
+   (( resid 75   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 77   and name  HN  ))
+   (( resid 76   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 77   and name  HN  ))
+   (  resid 76   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 78   and name  HN  ))
+   (( resid 77   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 78   and name  HN  ))
+   (  resid 77   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 79   and name  HN  ))
+   (( resid 78   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 79   and name  HN  ))
+   (  resid 78   and name  HG1#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 79   and name  HN  ))
+   (  resid 78   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 80   and name  HN  ))
+   (( resid 79   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 80   and name  HN  ))
+   (  resid 79   and name  HG2#)
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 81   and name  HN  ))
+   (( resid 80   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 82   and name  HN  ))
+   (( resid 83   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 82   and name  HN  ))
+   (( resid 81   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 83   and name  HN  ))
+   (( resid 84   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 83   and name  HN  ))
+   (( resid 82   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 83   and name  HN  ))
+   (( resid 82   and name  HG1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 84   and name  HN  ))
+   (( resid 83   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 84   and name  HN  ))
+   (  resid 83   and name  HG# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 85   and name  HN  ))
+   (( resid 84   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 85   and name  HN  ))
+   (( resid 86   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 85   and name  HN  ))
+   (  resid 86   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 86   and name  HN  ))
+   (( resid 85   and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 86   and name  HN  ))
+   (( resid 85   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 87   and name  HN  ))
+   (( resid 86   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 87   and name  HN  ))
+   (( resid 86   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 87   and name  HN  ))
+   (  resid 86   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 88   and name  HN  ))
+   (( resid 87   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 88   and name  HN  ))
+   (( resid 87   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 89   and name  HN  ))
+   (( resid 88   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 89   and name  HN  ))
+   (( resid 88   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 89   and name  HN  ))
+   (  resid 90   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 90   and name  HN  ))
+   (( resid 91   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 90   and name  HN  ))
+   (  resid 89   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 91   and name  HN  ))
+   (( resid 90   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 91   and name  HN  ))
+   (( resid 90   and name  HB  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 91   and name  HN  ))
+   (  resid 90   and name  HG1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 92   and name  HN  ))
+   (( resid 91   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 92   and name  HN  ))
+   (( resid 91   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 92   and name  HN  ))
+   (  resid 91   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 93   and name  HN  ))
+   (( resid 92   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 93   and name  HN  ))
+   (( resid 92   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 94   and name  HN  ))
+   (( resid 95   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 94   and name  HN  ))
+   (( resid 93   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 94   and name  HN  ))
+   (  resid 93   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 95   and name  HN  ))
+   (( resid 94   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 96   and name  HN  ))
+   (( resid 95   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 96   and name  HN  ))
+   (( resid 95   and name  HA1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 96   and name  HN  ))
+   (( resid 95   and name  HA2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 97   and name  HN  ))
+   (( resid 98   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 97   and name  HN  ))
+   (( resid 96   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 97   and name  HN  ))
+   (( resid 96   and name  HB  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 97   and name  HN  ))
+   (( resid 96   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 97   and name  HN  ))
+   (  resid 96   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 98   and name  HN  ))
+   (( resid 97   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 98   and name  HN  ))
+   (  resid 97   and name  HG# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 99   and name  HN  ))
+   (( resid 100  and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 99   and name  HN  ))
+   (( resid 98   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 99   and name  HN  ))
+   (( resid 98   and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 99   and name  HN  ))
+   (  resid 98   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 100  and name  HN  ))
+   (( resid 99   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 100  and name  HN  ))
+   (  resid 99   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 102  and name  HN  ))
+   (( resid 101  and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 103  and name  HN  ))
+   (( resid 102  and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 103  and name  HN  ))
+   (  resid 102  and name  HG# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 104  and name  HN  ))
+   (( resid 105  and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 104  and name  HN  ))
+   (( resid 103  and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 104  and name  HN  ))
+   (( resid 103  and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 104  and name  HN  ))
+   (  resid 103  and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 104  and name  HN  ))
+   (( resid 103  and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 105  and name  HN  ))
+   (( resid 104  and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 106  and name  HN  ))
+   (( resid 105  and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 107  and name  HN  ))
+   (( resid 106  and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 107  and name  HN  ))
+   (( resid 106  and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 107  and name  HN  ))
+   (( resid 106  and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 108  and name  HN  ))
+   (  resid 107  and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 108  and name  HN  ))
+   (( resid 107  and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 101  and name  HG2#)
+   (( resid 103  and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 42   and name  HD1#)
+   (  resid 44   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 57   and name  HB# )
+   (  resid 54   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 50   and name  HN  ))
+   (( resid 53   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 50   and name  HN  ))
+   (( resid 53   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 50   and name  HN  ))
+   (( resid 53   and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 50   and name  HN  ))
+   (  resid 53   and name  HD2#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 52   and name  HN  ))
+   (( resid 50   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 53   and name  HN  ))
+   (( resid 55   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 57   and name  HN  ))
+   (( resid 55   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 58   and name  HN  ))
+   (( resid 55   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 59   and name  HN  ))
+   (( resid 61   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HN  ))
+   (( resid 59   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 62   and name  HN  ))
+   (( resid 59   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 66   and name  HN  ))
+   (( resid 64   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 66   and name  HN  ))
+   (  resid 64   and name  HG2#)
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 82   and name  HN  ))
+   (( resid 85   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 82   and name  HN  ))
+   (( resid 80   and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 84   and name  HN  ))
+   (( resid 82   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 86   and name  HN  ))
+   (  resid 84   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 87   and name  HN  ))
+   (( resid 85   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 87   and name  HN  ))
+   (( resid 84   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 89   and name  HN  ))
+   (( resid 91   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 91   and name  HN  ))
+   (( resid 93   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 93   and name  HN  ))
+   (( resid 89   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 96   and name  HN  ))
+   (( resid 94   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 98   and name  HN  ))
+   (( resid 102  and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 78   and name  HG1#)
+   (( resid 58   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 78   and name  HG1#)
+   (( resid 58   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 78   and name  HG1#)
+   (  resid 42   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 44   and name  HG2#)
+   (  resid 78   and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 65   and name  HD1#)
+   (( resid 81   and name  HG1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 42   and name  HD1#)
+   (( resid 86   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 42   and name  HD1#)
+   (  resid 78   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 105  and name  HG2#)
+   (( resid 94   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 105  and name  HG2#)
+   (( resid 94   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 108  and name  HB# )
+   (( resid 42   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 41   and name  HG2#)
+   (( resid 79   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 41   and name  HG2#)
+   (  resid 108  and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 65   and name  HG2#)
+   (( resid 81   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 79   and name  HG2#)
+   (( resid 41   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 79   and name  HG2#)
+   (( resid 66   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 79   and name  HG2#)
+   (( resid 66   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 80   and name  HA  ))
+   (( resid 64   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 79   and name  HA  ))
+   (( resid 41   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 77   and name  HA  ))
+   (( resid 43   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 75   and name  HA  ))
+   (( resid 45   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 40   and name  HN  ))
+   (  resid 79   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 42   and name  HN  ))
+   (( resid 80   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 42   and name  HN  ))
+   (( resid 78   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 42   and name  HN  ))
+   (( resid 78   and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 43   and name  HN  ))
+   (( resid 108  and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 44   and name  HN  ))
+   (( resid 76   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 44   and name  HN  ))
+   (  resid 76   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 46   and name  HN  ))
+   (( resid 75   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 59   and name  HN  ))
+   (  resid 64   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 65   and name  HN  ))
+   (( resid 80   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 66   and name  HN  ))
+   (( resid 79   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 68   and name  HN  ))
+   (( resid 78   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 68   and name  HN  ))
+   (  resid 77   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 70   and name  HN  ))
+   (( resid 75   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 76   and name  HN  ))
+   (( resid 45   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 77   and name  HN  ))
+   (  resid 68   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 78   and name  HN  ))
+   (  resid 41   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 79   and name  HN  ))
+   (( resid 66   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 80   and name  HN  ))
+   (( resid 40   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 80   and name  HN  ))
+   (( resid 40   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 102  and name  HN  ))
+   (( resid 97   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 67   and name  HA  ))
+   (( resid 78   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 68   and name  HN  ))
+   (( resid 77   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 69   and name  HA  ))
+   (( resid 76   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 58   and name  HD# )
+   (  resid 78   and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 58   and name  HD# )
+   (  resid 78   and name  HG1#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HE# )
+   (  resid 78   and name  HG1#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 80   and name  HE# )
+   (( resid 86   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 80   and name  HE# )
+   (  resid 86   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 62   and name  HN  ))
+   (  resid 80   and name  HE# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 58   and name  HD# )
+   (  resid 80   and name  HE# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 89   and name  HN  ))
+   (  resid 80   and name  HE# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 89   and name  HN  ))
+   (  resid 80   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 81   and name  HN  ))
+   (  resid 80   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 44   and name  HN  ))
+   (  resid 43   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 45   and name  HN  ))
+   (  resid 43   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 46   and name  HN  ))
+   (  resid 45   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 76   and name  HN  ))
+   (  resid 45   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 75   and name  HA  ))
+   (  resid 45   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 64   and name  HA  ))
+   (  resid 80   and name  HD# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 64   and name  HG11))
+   (  resid 80   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 64   and name  HG12))
+   (  resid 80   and name  HD# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 58   and name  HN  ))
+   (( resid 59   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 108  and name  HN  ))
+   (( resid 42   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 107  and name  HA  ))
+   (( resid 42   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 105  and name  HA  ))
+   (( resid 44   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 106  and name  HN  ))
+   (( resid 43   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 43   and name  HN  ))
+   (( resid 107  and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 104  and name  HN  ))
+   (( resid 45   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 45   and name  HN  ))
+   (( resid 105  and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 97   and name  HA  ))
+   (( resid 102  and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 98   and name  HN  ))
+   (( resid 101  and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 88   and name  HN  ))
+   (( resid 85   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HE# )
+   (( resid 85   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HE# )
+   (( resid 85   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HZ  ))
+   (  resid 93   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HZ  ))
+   (  resid 93   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HZ  ))
+   (( resid 92   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 93   and name  HD2#)
+   (  resid 105  and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 41   and name  HN  ))
+   (( resid 41   and name  HB  ))
+
+      2.250     0.450     0.450
+ assi 
+   (  resid 41   and name  HG2#)
+   (  resid 77   and name  HD# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 41   and name  HG2#)
+   (  resid 77   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 45   and name  HD# )
+   (  resid 46   and name  HA# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 43   and name  HE# )
+   (  resid 75   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 43   and name  HE# )
+   (( resid 75   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 89   and name  HB# )
+   (  resid 93   and name  HD2#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 89   and name  HB# )
+   (( resid 86   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 89   and name  HB# )
+   (  resid 80   and name  HE# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 89   and name  HB# )
+   (( resid 80   and name  HH  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 89   and name  HB# )
+   (  resid 61   and name  HD# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 89   and name  HB# )
+   (  resid 58   and name  HE# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 57   and name  HB# )
+   (  resid 93   and name  HD2#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 57   and name  HB# )
+   (  resid 58   and name  HD# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 57   and name  HB# )
+   (  resid 58   and name  HE# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 58   and name  HE# )
+   (  resid 93   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 89   and name  HA  ))
+   (  resid 93   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 89   and name  HA  ))
+   (( resid 92   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 89   and name  HA  ))
+   (( resid 92   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 92   and name  HB1 ))
+   (( resid 61   and name  HZ  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 92   and name  HB2 ))
+   (( resid 61   and name  HZ  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 92   and name  HN  ))
+   (( resid 93   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 89   and name  HA  ))
+   (( resid 92   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 103  and name  HN  ))
+   (( resid 97   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 104  and name  HN  ))
+   (  resid 45   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 104  and name  HN  ))
+   (  resid 46   and name  HA# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 53   and name  HN  ))
+   (( resid 54   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 53   and name  HN  ))
+   (( resid 50   and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 100  and name  HN  ))
+   (  resid 98   and name  HG1#)
+
+      2.650     0.850     0.850
+ or 
+   (( resid 100  and name  HN  ))
+   (  resid 98   and name  HG2#)
+ assi 
+   (( resid 100  and name  HN  ))
+   (( resid 98   and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 100  and name  HN  ))
+   (( resid 101  and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 101  and name  HN  ))
+   (( resid 97   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 103  and name  HD2#)
+   (  resid 58   and name  HE# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 103  and name  HD2#)
+   (  resid 46   and name  HA# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 49   and name  HE# )
+   (( resid 75   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 49   and name  HE# )
+   (( resid 46   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 69   and name  HE# )
+   (( resid 50   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 95   and name  HN  ))
+   (( resid 104  and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 49   and name  HE# )
+   (( resid 45   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 49   and name  HE# )
+   (  resid 54   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 78   and name  HG2#)
+   (  resid 54   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 69   and name  HE# )
+   (( resid 50   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 64   and name  HD1#)
+   (( resid 58   and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 64   and name  HD1#)
+   (( resid 58   and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 64   and name  HD1#)
+   (  resid 58   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 64   and name  HD1#)
+   (( resid 59   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 64   and name  HD1#)
+   (  resid 59   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 64   and name  HD1#)
+   (( resid 55   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 64   and name  HD1#)
+   (  resid 78   and name  HG1#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 64   and name  HG2#)
+   (  resid 78   and name  HG1#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 49   and name  HE# )
+   (  resid 46   and name  HA# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 49   and name  HE# )
+   (  resid 44   and name  HG1#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 49   and name  HE# )
+   (( resid 74   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 49   and name  HE# )
+   (  resid 76   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 58   and name  HE# )
+   (  resid 78   and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 42   and name  HB1 ))
+   (  resid 78   and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 42   and name  HN  ))
+   (( resid 79   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 43   and name  HN  ))
+   (  resid 108  and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 44   and name  HN  ))
+   (( resid 77   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 93   and name  HN  ))
+   (( resid 90   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 101  and name  HN  ))
+   (( resid 101  and name  HB  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 100  and name  HA  ))
+   (( resid 97   and name  HE21))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 100  and name  HA  ))
+   (( resid 98   and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 100  and name  HA  ))
+   (  resid 98   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 58   and name  HB1 ))
+   (( resid 80   and name  HH  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 58   and name  HB2 ))
+   (( resid 80   and name  HH  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 59   and name  HN  ))
+   (( resid 58   and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 59   and name  HN  ))
+   (( resid 58   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 62   and name  HN  ))
+   (( resid 60   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 62   and name  HN  ))
+   (( resid 80   and name  HH  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 65   and name  HN  ))
+   (( resid 64   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 70   and name  HN  ))
+   (  resid 76   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 73   and name  HN  ))
+   (( resid 70   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 73   and name  HN  ))
+   (( resid 70   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 76   and name  HN  ))
+   (  resid 49   and name  HE# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 76   and name  HN  ))
+   (  resid 75   and name  HB# )
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 78   and name  HN  ))
+   (( resid 43   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 78   and name  HN  ))
+   (( resid 41   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 78   and name  HN  ))
+   (  resid 77   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 78   and name  HN  ))
+   (  resid 44   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 78   and name  HN  ))
+   (( resid 42   and name  HG  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 78   and name  HN  ))
+   (( resid 42   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 81   and name  HN  ))
+   (( resid 82   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 81   and name  HN  ))
+   (  resid 63   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 82   and name  HN  ))
+   (  resid 80   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 82   and name  HN  ))
+   (( resid 80   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 84   and name  HN  ))
+   (( resid 86   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 85   and name  HN  ))
+   (( resid 88   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 85   and name  HN  ))
+   (( resid 80   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 89   and name  HN  ))
+   (( resid 90   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 64   and name  HN  ))
+   (( resid 64   and name  HB  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 64   and name  HN  ))
+   (  resid 80   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 64   and name  HN  ))
+   (  resid 80   and name  HE# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 62   and name  HA1 ))
+   (  resid 80   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 62   and name  HA2 ))
+   (  resid 80   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 42   and name  HD1#)
+   (  resid 80   and name  HE# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 42   and name  HD1#)
+   (  resid 80   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 42   and name  HD1#)
+   (  resid 58   and name  HD# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 42   and name  HD1#)
+   (  resid 58   and name  HE# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 42   and name  HD1#)
+   (  resid 89   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 42   and name  HD1#)
+   (  resid 86   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 64   and name  HD1#)
+   (( resid 80   and name  HH  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 64   and name  HD1#)
+   (  resid 80   and name  HE# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 51   and name  HA  ))
+   (  resid 67   and name  HD1#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 51   and name  HA  ))
+   (  resid 54   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 51   and name  HA  ))
+   (( resid 54   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 51   and name  HA  ))
+   (( resid 54   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 51   and name  HA  ))
+   (  resid 69   and name  HE# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 69   and name  HE# )
+   (( resid 51   and name  HD2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 69   and name  HE# )
+   (( resid 51   and name  HD1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 69   and name  HE# )
+   (  resid 54   and name  HD2#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 69   and name  HE# )
+   (  resid 76   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 69   and name  HE# )
+   (( resid 49   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 69   and name  HE# )
+   (( resid 70   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 67   and name  HD2#)
+   (  resid 78   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HN  ))
+   (( resid 60   and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 61   and name  HN  ))
+   (( resid 80   and name  HH  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 61   and name  HN  ))
+   (  resid 89   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 62   and name  HN  ))
+   (( resid 85   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 62   and name  HN  ))
+   (( resid 60   and name  HB2 ))
+
+      3.900     2.100     2.100
+ assi 
+   (( resid 58   and name  HA  ))
+   (  resid 93   and name  HD2#)
+
+      3.900     2.100     2.100
+ assi 
+   (( resid 58   and name  HA  ))
+   (( resid 80   and name  HH  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 85   and name  HN  ))
+   (( resid 84   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 88   and name  HN  ))
+   (( resid 84   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 86   and name  HN  ))
+   (( resid 84   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 84   and name  HA  ))
+   (  resid 87   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 89   and name  HA  ))
+   (( resid 93   and name  HG  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 103  and name  HD1#)
+   (  resid 93   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 103  and name  HD1#)
+   (  resid 58   and name  HE# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 103  and name  HD1#)
+   (( resid 93   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 80   and name  HN  ))
+   (( resid 80   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 80   and name  HN  ))
+   (( resid 80   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 81   and name  HN  ))
+   (( resid 80   and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 81   and name  HN  ))
+   (( resid 80   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 78   and name  HN  ))
+   (( resid 78   and name  HB  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 77   and name  HA  ))
+   (( resid 78   and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 44   and name  HN  ))
+   (( resid 44   and name  HB  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 44   and name  HB  ))
+   (  resid 58   and name  HE# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 44   and name  HB  ))
+   (  resid 76   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 44   and name  HB  ))
+   (( resid 43   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 78   and name  HN  ))
+   (  resid 78   and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 44   and name  HN  ))
+   (  resid 44   and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 90   and name  HN  ))
+   (( resid 90   and name  HB  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 101  and name  HN  ))
+   (  resid 101  and name  HG1#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 105  and name  HB  ))
+   (( resid 90   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 105  and name  HB  ))
+   (( resid 94   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 105  and name  HB  ))
+   (( resid 94   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 103  and name  HN  ))
+   (( resid 103  and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 53   and name  HN  ))
+   (( resid 53   and name  HB1 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 53   and name  HN  ))
+   (( resid 53   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 54   and name  HN  ))
+   (( resid 54   and name  HG  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 54   and name  HN  ))
+   (( resid 54   and name  HB1 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 58   and name  HN  ))
+   (( resid 58   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 61   and name  HN  ))
+   (( resid 61   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 66   and name  HN  ))
+   (( resid 79   and name  HB  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 66   and name  HN  ))
+   (  resid 79   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 79   and name  HG2#)
+   (  resid 65   and name  HD1#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 92   and name  HN  ))
+   (( resid 92   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 93   and name  HN  ))
+   (( resid 93   and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 94   and name  HN  ))
+   (( resid 94   and name  HB1 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 94   and name  HN  ))
+   (( resid 94   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 107  and name  HN  ))
+   (( resid 107  and name  HB  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 47   and name  HN  ))
+   (  resid 103  and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 47   and name  HN  ))
+   (  resid 101  and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 50   and name  HN  ))
+   (( resid 54   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 50   and name  HN  ))
+   (( resid 49   and name  HG1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 57   and name  HN  ))
+   (  resid 93   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 74   and name  HB1 ))
+   (  resid 45   and name  HE# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 74   and name  HB2 ))
+   (  resid 45   and name  HE# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 58   and name  HD# )
+   (  resid 93   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 68   and name  HN  ))
+   (  resid 78   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 68   and name  HN  ))
+   (  resid 67   and name  HD1#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 68   and name  HB# )
+   (  resid 77   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 68   and name  HB# )
+   (  resid 77   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 98   and name  HN  ))
+   (( resid 98   and name  HB  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 85   and name  HA  ))
+   (( resid 61   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HE# )
+   (  resid 64   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HE# )
+   (( resid 42   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HE# )
+   (( resid 61   and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 80   and name  HE# )
+   (  resid 42   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HE# )
+   (( resid 58   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HE# )
+   (( resid 58   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HE# )
+   (( resid 62   and name  HA1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HE# )
+   (( resid 62   and name  HA2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 40   and name  HN  ))
+   (  resid 39   and name  HA# )
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 40   and name  HN  ))
+   (( resid 40   and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 40   and name  HN  ))
+   (( resid 40   and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 43   and name  HN  ))
+   (( resid 42   and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 45   and name  HN  ))
+   (( resid 104  and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 45   and name  HN  ))
+   (( resid 104  and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 46   and name  HN  ))
+   (  resid 45   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 47   and name  HN  ))
+   (( resid 47   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 47   and name  HN  ))
+   (( resid 47   and name  HG1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 52   and name  HN  ))
+   (  resid 52   and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 52   and name  HN  ))
+   (( resid 51   and name  HG2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 52   and name  HN  ))
+   (( resid 51   and name  HD1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 52   and name  HN  ))
+   (( resid 50   and name  HB  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 53   and name  HN  ))
+   (( resid 52   and name  HB  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 54   and name  HN  ))
+   (( resid 56   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 55   and name  HN  ))
+   (  resid 54   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 55   and name  HN  ))
+   (( resid 55   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 55   and name  HN  ))
+   (( resid 54   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 56   and name  HN  ))
+   (( resid 58   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 58   and name  HN  ))
+   (( resid 60   and name  HD2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 58   and name  HN  ))
+   (( resid 80   and name  HH  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HN  ))
+   (( resid 58   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 62   and name  HN  ))
+   (( resid 61   and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 62   and name  HN  ))
+   (( resid 63   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 62   and name  HN  ))
+   (  resid 61   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 63   and name  HN  ))
+   (( resid 62   and name  HA2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 63   and name  HN  ))
+   (( resid 62   and name  HA1 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 63   and name  HN  ))
+   (( resid 64   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 66   and name  HN  ))
+   (( resid 65   and name  HG12))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 70   and name  HN  ))
+   (  resid 69   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 70   and name  HN  ))
+   (( resid 76   and name  HA  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 73   and name  HN  ))
+   (( resid 72   and name  HG1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 74   and name  HN  ))
+   (  resid 73   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 75   and name  HN  ))
+   (  resid 73   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 75   and name  HN  ))
+   (( resid 70   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 76   and name  HN  ))
+   (( resid 44   and name  HB  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 79   and name  HN  ))
+   (  resid 64   and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 79   and name  HN  ))
+   (( resid 67   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 81   and name  HN  ))
+   (  resid 65   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 82   and name  HN  ))
+   (( resid 85   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 83   and name  HN  ))
+   (( resid 82   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 85   and name  HN  ))
+   (( resid 82   and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 85   and name  HN  ))
+   (  resid 84   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 86   and name  HN  ))
+   (  resid 86   and name  HB# )
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 86   and name  HN  ))
+   (( resid 80   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 86   and name  HN  ))
+   (( resid 85   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 87   and name  HN  ))
+   (( resid 87   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 87   and name  HN  ))
+   (( resid 88   and name  HN  ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 87   and name  HN  ))
+   (( resid 89   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 88   and name  HN  ))
+   (( resid 88   and name  HB1 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 88   and name  HN  ))
+   (( resid 88   and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 88   and name  HN  ))
+   (( resid 86   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 89   and name  HN  ))
+   (  resid 89   and name  HB# )
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 89   and name  HN  ))
+   (( resid 61   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 89   and name  HN  ))
+   (  resid 61   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 90   and name  HN  ))
+   (( resid 89   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 90   and name  HN  ))
+   (( resid 88   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 90   and name  HN  ))
+   (( resid 87   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 91   and name  HN  ))
+   (  resid 91   and name  HB# )
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 91   and name  HN  ))
+   (( resid 88   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 92   and name  HN  ))
+   (( resid 90   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 92   and name  HN  ))
+   (( resid 88   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 93   and name  HN  ))
+   (( resid 93   and name  HG  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 93   and name  HN  ))
+   (( resid 92   and name  HB2 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 94   and name  HN  ))
+   (( resid 92   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 95   and name  HN  ))
+   (( resid 105  and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 96   and name  HN  ))
+   (( resid 103  and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 96   and name  HN  ))
+   (( resid 103  and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 97   and name  HN  ))
+   (( resid 97   and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 98   and name  HN  ))
+   (  resid 98   and name  HG2#)
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 98   and name  HN  ))
+   (( resid 97   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 98   and name  HN  ))
+   (( resid 100  and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 98   and name  HN  ))
+   (( resid 100  and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 98   and name  HN  ))
+   (( resid 103  and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 99   and name  HN  ))
+   (  resid 98   and name  HG1#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 99   and name  HN  ))
+   (  resid 99   and name  HB# )
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 99   and name  HN  ))
+   (( resid 101  and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 100  and name  HN  ))
+   (  resid 98   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 101  and name  HN  ))
+   (  resid 98   and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 101  and name  HN  ))
+   (  resid 98   and name  HG1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 101  and name  HN  ))
+   (( resid 98   and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 101  and name  HN  ))
+   (  resid 97   and name  HG# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 101  and name  HN  ))
+   (( resid 100  and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 102  and name  HN  ))
+   (  resid 101  and name  HG2#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 102  and name  HN  ))
+   (  resid 101  and name  HG1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 103  and name  HN  ))
+   (  resid 98   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 103  and name  HN  ))
+   (( resid 102  and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 104  and name  HN  ))
+   (  resid 44   and name  HG1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 104  and name  HN  ))
+   (( resid 103  and name  HG  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 105  and name  HN  ))
+   (( resid 94   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 106  and name  HN  ))
+   (  resid 105  and name  HG1#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 106  and name  HN  ))
+   (( resid 43   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 106  and name  HN  ))
+   (  resid 43   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 108  and name  HN  ))
+   (( resid 109  and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 39   and name  HA# )
+   (  resid 65   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 40   and name  HB1 ))
+   (( resid 83   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 40   and name  HB2 ))
+   (( resid 83   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 40   and name  HB2 ))
+   (  resid 86   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 41   and name  HA  ))
+   (( resid 80   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 41   and name  HB  ))
+   (  resid 108  and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 41   and name  HG2#)
+   (( resid 77   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 42   and name  HD1#)
+   (( resid 90   and name  HN  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 43   and name  HA  ))
+   (  resid 77   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 43   and name  HB2 ))
+   (  resid 108  and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 75   and name  HB1 ))
+   (  resid 43   and name  HE# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 44   and name  HG1#)
+   (( resid 76   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 44   and name  HG1#)
+   (( resid 105  and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 44   and name  HG2#)
+   (  resid 58   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 44   and name  HG2#)
+   (( resid 77   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 44   and name  HG2#)
+   (( resid 105  and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 44   and name  HG2#)
+   (  resid 105  and name  HG1#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 45   and name  HA  ))
+   (( resid 75   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 45   and name  HB# )
+   (( resid 104  and name  HB2 ))
+
+      2.250     0.450     0.450
+ assi 
+   (( resid 75   and name  HB2 ))
+   (  resid 45   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 104  and name  HB1 ))
+   (  resid 45   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 104  and name  HD# )
+   (  resid 45   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 46   and name  HA# )
+   (  resid 101  and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 47   and name  HA  ))
+   (( resid 74   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 48   and name  HB2 ))
+   (  resid 101  and name  HG1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 49   and name  HB1 ))
+   (  resid 54   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 49   and name  HB1 ))
+   (  resid 54   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 49   and name  HB1 ))
+   (  resid 69   and name  HE# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 49   and name  HB2 ))
+   (  resid 69   and name  HE# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 49   and name  HE# )
+   (  resid 69   and name  HE# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 51   and name  HB1 ))
+   (  resid 67   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 51   and name  HB2 ))
+   (  resid 67   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 53   and name  HD2#)
+   (  resid 103  and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 54   and name  HB1 ))
+   (  resid 67   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 54   and name  HD1#)
+   (  resid 78   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 54   and name  HD1#)
+   (  resid 103  and name  HD2#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 54   and name  HD2#)
+   (  resid 67   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 54   and name  HD2#)
+   (( resid 69   and name  HG1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 54   and name  HD2#)
+   (( resid 69   and name  HG2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 54   and name  HD2#)
+   (  resid 76   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 55   and name  HG2 ))
+   (  resid 64   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 57   and name  HA  ))
+   (  resid 93   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 57   and name  HA  ))
+   (  resid 93   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 57   and name  HB# )
+   (  resid 93   and name  HD1#)
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 58   and name  HN  ))
+   (  resid 64   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HB1 ))
+   (( resid 80   and name  HH  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HB1 ))
+   (  resid 89   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HB1 ))
+   (( resid 85   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HB2 ))
+   (( resid 80   and name  HH  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HB2 ))
+   (  resid 89   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 88   and name  HB1 ))
+   (  resid 61   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 88   and name  HB2 ))
+   (  resid 61   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 88   and name  HG1 ))
+   (  resid 61   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 88   and name  HG2 ))
+   (  resid 61   and name  HD# )
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 89   and name  HA  ))
+   (  resid 61   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 62   and name  HA1 ))
+   (( resid 85   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 63   and name  HN  ))
+   (  resid 80   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 63   and name  HB# )
+   (( resid 81   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 63   and name  HB# )
+   (( resid 81   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 64   and name  HG11))
+   (  resid 80   and name  HE# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 64   and name  HG2#)
+   (( resid 80   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 65   and name  HN  ))
+   (( resid 79   and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 65   and name  HN  ))
+   (( resid 81   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 65   and name  HG11))
+   (( resid 79   and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 65   and name  HD1#)
+   (( resid 79   and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 65   and name  HD1#)
+   (( resid 81   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (( resid 66   and name  HB2 ))
+   (( resid 79   and name  HB  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 67   and name  HD2#)
+   (  resid 78   and name  HG1#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 69   and name  HB# )
+   (  resid 76   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 69   and name  HG1 ))
+   (  resid 76   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 69   and name  HG2 ))
+   (  resid 76   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 80   and name  HB1 ))
+   (( resid 85   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 80   and name  HB1 ))
+   (  resid 86   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 90   and name  HG1#)
+   (( resid 106  and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 94   and name  HA  ))
+   (( resid 104  and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 94   and name  HB1 ))
+   (( resid 105  and name  HB  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 97   and name  HA  ))
+   (  resid 102  and name  HG# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 97   and name  HG# )
+   (( resid 102  and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 61   and name  HE# )
+   (  resid 93   and name  HD1#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 61   and name  HE# )
+   (  resid 93   and name  HD2#)
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 61   and name  HE# )
+   (( resid 92   and name  HB1 ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 61   and name  HE# )
+   (( resid 93   and name  HG  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 77   and name  HD# )
+   (  resid 108  and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HD# )
+   (  resid 58   and name  HD# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HD# )
+   (( resid 85   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HD# )
+   (  resid 86   and name  HB# )
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 80   and name  HD# )
+   (  resid 89   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HD# )
+   (  resid 78   and name  HG1#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HD# )
+   (  resid 42   and name  HD2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HD# )
+   (  resid 64   and name  HG2#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 80   and name  HD# )
+   (( resid 85   and name  HB2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HZ  ))
+   (( resid 93   and name  HN  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HZ  ))
+   (( resid 93   and name  HG  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HZ  ))
+   (( resid 92   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HZ  ))
+   (( resid 92   and name  HG1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 61   and name  HZ  ))
+   (( resid 92   and name  HG2 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 58   and name  HD# )
+   (( resid 80   and name  HH  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 58   and name  HD# )
+   (( resid 54   and name  HA  ))
+
+      2.650     0.850     0.850
+ assi 
+   (  resid 58   and name  HD# )
+   (( resid 55   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 58   and name  HD# )
+   (( resid 86   and name  HA  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 58   and name  HD# )
+   (( resid 54   and name  HB1 ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 58   and name  HD# )
+   (( resid 54   and name  HG  ))
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 58   and name  HD# )
+   (  resid 89   and name  HB# )
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 58   and name  HD# )
+   (  resid 54   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (  resid 58   and name  HD# )
+   (  resid 64   and name  HD1#)
+
+      3.400     1.600     1.600
+ assi 
+   (( resid 56   and name  HN  ))
+   (( resid 52   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 56   and name  N   ))
+   (( resid 52   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 57   and name  HN  ))
+   (( resid 53   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 57   and name  N   ))
+   (( resid 53   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 58   and name  HN  ))
+   (( resid 54   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 58   and name  N   ))
+   (( resid 54   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 59   and name  HN  ))
+   (( resid 55   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 59   and name  N   ))
+   (( resid 55   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 87   and name  HN  ))
+   (( resid 83   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 87   and name  N   ))
+   (( resid 83   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 88   and name  HN  ))
+   (( resid 84   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 88   and name  N   ))
+   (( resid 84   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 89   and name  HN  ))
+   (( resid 85   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 89   and name  N   ))
+   (( resid 85   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 90   and name  HN  ))
+   (( resid 86   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 90   and name  N   ))
+   (( resid 86   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 91   and name  HN  ))
+   (( resid 87   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 91   and name  N   ))
+   (( resid 87   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 92   and name  HN  ))
+   (( resid 88   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 92   and name  N   ))
+   (( resid 88   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 44   and name  HN  ))
+   (( resid 76   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 44   and name  N   ))
+   (( resid 76   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 76   and name  HN  ))
+   (( resid 44   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 76   and name  N   ))
+   (( resid 44   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 42   and name  HN  ))
+   (( resid 78   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 42   and name  N   ))
+   (( resid 78   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 78   and name  HN  ))
+   (( resid 42   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 78   and name  N   ))
+   (( resid 42   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 80   and name  HN  ))
+   (( resid 40   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 80   and name  N   ))
+   (( resid 40   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 68   and name  HN  ))
+   (( resid 77   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 68   and name  N   ))
+   (( resid 77   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 77   and name  HN  ))
+   (( resid 68   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 77   and name  N   ))
+   (( resid 68   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 75   and name  HN  ))
+   (( resid 70   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 75   and name  N   ))
+   (( resid 70   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 43   and name  HN  ))
+   (( resid 106  and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 43   and name  N   ))
+   (( resid 106  and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 106  and name  HN  ))
+   (( resid 43   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 106  and name  N   ))
+   (( resid 43   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 45   and name  HN  ))
+   (( resid 104  and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 45   and name  N   ))
+   (( resid 104  and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 104  and name  HN  ))
+   (( resid 45   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 104  and name  N   ))
+   (( resid 45   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 56   and name  HN  ))
+   (( resid 52   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 56   and name  N   ))
+   (( resid 52   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 57   and name  HN  ))
+   (( resid 53   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 57   and name  N   ))
+   (( resid 53   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 58   and name  HN  ))
+   (( resid 54   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 58   and name  N   ))
+   (( resid 54   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 87   and name  HN  ))
+   (( resid 83   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 87   and name  N   ))
+   (( resid 83   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 88   and name  HN  ))
+   (( resid 84   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 88   and name  N   ))
+   (( resid 84   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 89   and name  HN  ))
+   (( resid 85   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 89   and name  N   ))
+   (( resid 85   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 90   and name  HN  ))
+   (( resid 86   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 90   and name  N   ))
+   (( resid 86   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 44   and name  HN  ))
+   (( resid 76   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 44   and name  N   ))
+   (( resid 76   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 76   and name  HN  ))
+   (( resid 44   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 76   and name  N   ))
+   (( resid 44   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 42   and name  HN  ))
+   (( resid 78   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 42   and name  N   ))
+   (( resid 78   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 78   and name  HN  ))
+   (( resid 42   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 78   and name  N   ))
+   (( resid 42   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 40   and name  HN  ))
+   (( resid 80   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 40   and name  N   ))
+   (( resid 80   and name  O   ))
+
+      2.550     0.750     0.750
+ assi 
+   (( resid 80   and name  HN  ))
+   (( resid 40   and name  O   ))
+
+      2.050     0.250     0.250
+ assi 
+   (( resid 80   and name  N   ))
+   (( resid 40   and name  O   ))
+
+      2.550     0.750     0.750

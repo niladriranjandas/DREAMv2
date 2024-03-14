@@ -1,0 +1,175 @@
+!
+! setup_virtualTA.tbl
+!
+! Automatically sets up virtual torsion angle constraints for 
+! proteins
+!
+! JJK 6/2/97
+!
+! changed to handle 1D "helix/sheet/turn" groupings JJK 7/4/97
+! changed to handle 1D "helix/sheet/turn/gly/pro" groupings JJK 7/30/97
+!
+
+!
+! select the Cas of the 
+! residues you want virtual TA assignments applied to here
+!
+
+vector identify (store6) (all)
+
+set echo off message off end
+
+!
+! first, deal with the sequence-specific 1D potentials
+!
+
+vector do (store1 = 1) (resn glu or resn ala or resn leu or resn met or resn gln or
+                        resn lys or resn arg or resn his)
+vector do (store1 = 2) (resn val or resn ile or resn tyr or resn cys or resn trp or
+                        resn phe or resn thr)
+vector do (store1 = 3) (resn asn or resn ser or resn asp)
+vector do (store1 = 4) (resn gly)
+vector do (store1 = 5) (resn pro)
+
+for $c in id (name ca and store6) loop virt 
+
+   vector show elem (segid) (id $c)
+   eval ($curseg = $result)
+
+   vector show elem (resid) (id $c)
+   eval ($cur = decode($result))
+   eval ($p1 = $cur + 1)
+   eval ($p2 = $cur + 2)
+   eval ($p3 = $cur + 3)
+
+   vector show elem (store1) (segid $curseg and resid $cur and name ca)
+   eval ($curn = $result)
+   vector show elem (store1) (segid $curseg and resid $p1 and name ca)
+   eval ($p1n = $result)
+   vector show elem (store1) (segid $curseg and resid $p2 and name ca)
+   eval ($p2n = $result)
+   vector show elem (store1) (segid $curseg and resid $p3 and name ca)
+   eval ($p3n = $result)
+
+
+   if ($p1n = 1) then
+      eval ($p1name = "HLX")
+   elseif ($p1n = 2) then
+      eval ($p1name = "SHT")
+   elseif ($p1n = 3) then
+      eval ($p1name = "TRN")
+   elseif ($p1n = 4) then
+      eval ($p1name = "GLY")
+   elseif ($p1n = 5) then
+      eval ($p1name = "PRO")
+   end if
+
+   if ($p2n = 1) then
+      eval ($p2name = "HLX")
+   elseif ($p2n = 2) then
+      eval ($p2name = "SHT")
+   elseif ($p2n = 3) then
+      eval ($p2name = "TRN")
+   elseif ($p2n = 4) then
+      eval ($p2name = "GLY")
+   elseif ($p2n = 5) then
+      eval ($p2name = "PRO")
+   end if
+
+
+   eval ($n = "ZETA_" + $p1name + "_" + $p2name)
+
+   rama
+      class $n
+      assign (name ca and segid $curseg and resid $cur) (name ca and segid $curseg and resid $p1) 
+             (name ca and segid $curseg and resid $p2) (name ca and segid $curseg and resid $p3)
+   end
+
+end loop virt
+
+!
+! deal with the overall 1D potential
+!
+
+
+for $c in id (name ca and store6) loop virt 
+
+   vector show elem (segid) (id $c)
+   eval ($curseg = $result)
+
+   vector show elem (resid) (id $c)
+   eval ($cur = decode($result))
+   eval ($p1 = $cur + 1)
+   eval ($p2 = $cur + 2)
+   eval ($p3 = $cur + 3)
+
+   rama
+      class zeta
+      assign (name ca and segid $curseg and resid $cur) (name ca and segid $curseg and resid $p1) 
+             (name ca and segid $curseg and resid $p2) (name ca and segid $curseg and resid $p3)
+   end
+
+end loop virt
+
+!
+! now deal with the 2D potential
+!
+
+
+for $c in id (name ca and store6) loop virt 
+
+   vector show elem (segid) (id $c)
+   eval ($curseg = $result)
+
+   vector show elem (resid) (id $c)
+   eval ($cur = decode($result))
+   eval ($p1 = $cur + 1)
+   eval ($p2 = $cur + 2)
+   eval ($p3 = $cur + 3)
+   eval ($p4 = $cur + 4)
+
+   rama
+      class zeta_zeta
+      assign (name ca and segid $curseg and resid $cur) (name ca and segid $curseg and resid $p1) 
+             (name ca and segid $curseg and resid $p2) (name ca and segid $curseg and resid $p3)
+             (name ca and segid $curseg and resid $p1) (name ca and segid $curseg and resid $p2)
+             (name ca and segid $curseg and resid $p3) (name ca and segid $curseg and resid $p4)
+   end
+
+end loop virt
+
+!
+! and now the 3D potential
+!
+
+for $c in id (name ca and store6) loop virt 
+
+   vector show elem (segid) (id $c)
+   eval ($curseg = $result)
+
+   vector show elem (resid) (id $c)
+   eval ($cur = decode($result))
+   eval ($p1 = $cur + 1)
+   eval ($p2 = $cur + 2)
+   eval ($p3 = $cur + 3)
+   eval ($p4 = $cur + 4)
+   eval ($p5 = $cur + 5)
+
+   rama
+      class zeta_zeta_zeta
+      assign (name ca and segid $curseg and resid $cur) (name ca and segid $curseg and resid $p1) 
+             (name ca and segid $curseg and resid $p2) (name ca and segid $curseg and resid $p3)
+             (name ca and segid $curseg and resid $p1) (name ca and segid $curseg and resid $p2)
+             (name ca and segid $curseg and resid $p3) (name ca and segid $curseg and resid $p4)
+             (name ca and segid $curseg and resid $p2) (name ca and segid $curseg and resid $p3)
+             (name ca and segid $curseg and resid $p4) (name ca and segid $curseg and resid $p5)
+   end
+
+end loop virt
+
+!
+! finis
+!
+
+set echo on message on end
+

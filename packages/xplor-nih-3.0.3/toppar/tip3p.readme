@@ -1,0 +1,47 @@
+
+08-26-96
+
+The original TIP3P model (J. Chem. Phys., 1983, 79, 926-935)
+is a rigid three-site one, where the hydrogens are simple
+point charges (no Lennard-Jones parameters).  Though this
+is a rigid model, bond and valence terms have been added for
+use in MD simulations (J. Phys. Chem., 1987, 91, 3349-3358).
+
+
+The OPLS/TIP3P force field utilizes a Coulomb + 6-12 LJ
+format where the combining rules are expressed as geometric
+means. NBFIX statements are used to yield accurate water-water
+interactions.  At this time, nothing has been done for solute-
+water interactions.
+
+Because of the problem with splitting dipoles, this model
+was parametrized with and requires the use of GROUP-based
+cutoffs.  Also, the use of a SHIFTing function for the cutoff
+of electrostatic interactions is very bad for fluid simulations;
+switch to truncation.
+
+If you're using one of the following parameter sets:
+
+topallh22x.lip/parallh22x.lip
+topallh22x.nuc/parallh22x.nuc
+topallh22x.pro/parallh22x.pro
+toph11.wat/param11.wat
+toph19.rcv/param19.rcv
+toph19.sol/param19.sol
+param6a.inp
+
+then comment out any lines dealing with the TIP3P or
+TIPS3P model (it is *not* the original TIP3P model).
+These lines will have 
+       OT
+       HT
+       ot
+       ht
+as atom types.  Then, use the tip3p.topology and tip3p.parameter
+files here.
+
+If you're using 
+
+opls.topology/opls.parameter
+
+everything is OK.

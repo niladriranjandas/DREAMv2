@@ -1,0 +1,9 @@
+rea sequence ../protein/2m4k_param_2m4k/2m4k.seq
+2
+rea cons cyana ../protein/2m4k_param_2m4k/2m4k_param_2m4k_concatupl.upl
+write
+../protein/2m4k_param_2m4k/2m4k_param_2m4k_concatupl_noe.tbl
+cons
+xplor
+5
+vdw

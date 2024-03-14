@@ -1,0 +1,272 @@
+#!/bin/sh -f
+
+#number of processes to use in ensembleSimulation calculations
+NUM_THREADS=${XPLOR_NUM_THREADS:-1}
+exported="$exported NUM_THREADS"
+
+#maximum number of OpenMP threads to use
+[ "$OMP_NUM_THREADS" = "" ] && OMP_NUM_THREADS=1
+exported="$exported OMP_NUM_THREADS"
+
+#
+# Xplor-NIH xplor script frontend to launch slurm jobs
+#
+
+help_cmdline () {
+    name=`echo $0 | sed 's/.*\///'`
+    echo "$name: [option]"
+}
+help_usage () {
+    echo "      where option is any of those listed under xplor -help, with"
+    echo "      the additional slurm-specific options below. By default,"
+    echo "      the output (log) file name prefix is the root name of the"
+    echo "      run script."
+    echo
+    echo "The following sbatch options are supported (see man sbatch)::"
+    echo
+    echo " -dependency <arg>       - arg is usually afterok:job_id"
+    echo "                           to order jobs"
+    echo " -mem <mem>              - amount of memory"
+    echo " -ntasks <num>           - number of tasks"
+    echo " -nodes <num>            - number of nodes"
+    echo " -no-kill                - specify that the job is fault-tolerant"
+    echo " -partition <partition>  - partition name"
+    echo " -time <arg>             - a walltime limit (2 days by default)"
+    echo 
+    echo "Other options::\n"
+    echo " -to-sbatch <arg>  - specify additional arguments to the sbatch"
+    echo "                     command."
+    echo " -nomail   - do not send emails at jobs start and stop"
+    echo " -keep     - do not delete the automatically generated slurm script"
+    echo " -dryrun   - do not actually submit the script."
+    echo " -rsh      - specify the command to execute a remote command"
+    echo " -N <name> - specify slurm job name"
+}
+help_description () {
+    echo "Generate a SLURM script and submit it as a s job using sbatch."
+}
+
+#for now, use nodes exclusively
+#sbatch_options="--exclusive"
+#this prevents failed jobs from requeuing 
+sbatch_options="$sbatch_options --no-requeue"
+
+#default time limit of 2 days
+time_limit="2-0"
+
+sendMail=True #send email at process startup and finish
+rsh=""
+outFile=""
+maxcnt=0
+while [ -n "$1" ]; do
+ opt="$1"
+ case "$1" in
+     -*)
+	 opt=`echo $1 | sed 's/^--/-/' | cut -d= -f 1`
+	 arg=`echo $1|grep =|sed 's/[^=]*=\(.*\)/\1/'`
+	 shift
+	 ;;
+    *)
+	 shift
+	 ;;
+ esac
+ 
+ case "$opt" in
+    -help|-h|--help|-*help-script)
+	 help_description
+	 echo
+	 help_cmdline
+	 help_usage
+	exit 0
+    ;;
+    -*help-description)
+	 help_description
+	 exit 0
+    ;;
+     -dependency)
+	 [ "$arg" = "" ] && { arg=$1; shift; }
+         sbatch_options="$sbatch_options --dependency $arg"
+	 ;;
+     -mem)
+	 [ "$arg" = "" ] && { arg=$1; shift; }
+         sbatch_options="$sbatch_options --mem $arg"
+	 ;;
+     -nodes)
+	 [ "$arg" = "" ] && { arg=$1; shift; }
+         sbatch_options="$sbatch_options --nodes $arg"
+	 ;;
+     -ntasks)
+	 [ "$arg" = "" ] && { arg=$1; shift; }
+         sbatch_options="$sbatch_options --ntasks $arg"
+	 ;;
+     -no-kill)
+         sbatch_options="$sbatch_options --no-kill"
+	 ;;
+     -partition)
+	 [ "$arg" = "" ] && { arg=$1; shift; }
+         sbatch_options="$sbatch_options --partition $arg"
+	 ;;
+     -time)
+	 [ "$arg" = "" ] && { arg=$1; shift; }
+	 time_limit=$arg
+	 ;;
+     -nomail)
+         sendMail=False
+	 ;;
+     -keep)                 #don't remove the generated pbs script
+         keep=1
+	 ;;
+     -dryrun)
+         dryrun=1
+	 ;;
+     -to-sbatch)
+	 [ "$arg" = "" ] && { arg=$1; shift; }
+	 sbatch_options="$sbatch_options $arg"
+	 ;;
+
+    -num_threads)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        args="$args $opt $arg"
+        NUM_THREADS=$arg
+	export NUM_THREADS
+    ;;
+    -omp)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        args="$args $opt $arg"
+        OMP_NUM_THREADS=$arg
+	export OMP_NUM_THREADS
+    ;;
+    -rsh)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        args="$args $opt $arg"
+	rsh=$arg
+    ;;
+    -sh)
+        args="$args -sh"
+	shName=sh.$$
+	maxcnt=1
+    ;;
+    -N)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	name=$arg
+    ;;
+     -o)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	outFile=$arg
+	;;
+    *.py|*.inp|*.tcl)
+        args="$args $opt"
+	name=`echo $opt|sed 's/\.\(\(py\)\|\(tcl\)\|\(inp\)\)$//'`
+    ;;
+    *)
+        arg=`echo "$opt"|sed 's/[ ?&|()*\`"'\/']/\\\\&/g'`
+        args="$args $arg"
+    ;;
+ esac
+done
+
+[ "$name" = "" ] && name=$shName
+
+if [ "$name" = "" ]; then
+    echo "Could not find a script to run."
+    echo "  Please specify a filename with a suffix of .tcl, .py, or .inp"
+    exit 1
+fi
+
+if [ "$outFile" = "" ]; then
+    outFile=${name}.out
+fi
+
+args="$args -o $outFile"
+
+#maximum length for pbs -N argument
+name=`echo $name|cut -c -15`
+
+scriptName=$name.sbatch.$$
+
+cpusPerTask=`expr $NUM_THREADS \* $OMP_NUM_THREADS `
+sbatch_options="$sbatch_options --cpus-per-task=$cpusPerTask"
+
+cwd=`pwd`
+sbatch_options="$sbatch_options --job-name=$name"
+sbatch_options="$sbatch_options -o $cwd/$name.log"
+sbatch_options="$sbatch_options --time=$time_limit"
+cat > $scriptName <<EOF
+#!/bin/sh
+
+#
+# This is an auto-generated SLURM script to run parallel Xplor-NIH jobs 
+#
+
+#
+# SLURM directives
+#
+EOF
+
+[ $sendMail = True ] && echo "#SBATCH --mail-type ALL" >> $scriptName
+
+# -D corresponds to either --workdir (slurm pre 19.05) or --chdir
+echo "#SBATCH -D $cwd" >> $scriptName
+echo "cd $cwd" >> $scriptName
+
+#
+#location of xplor script
+#
+XPLOR=/data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/xplor
+
+echo "maxcnt=$maxcnt" >> $scriptName
+
+cat >> $scriptName <<EOF
+#
+# number of parallel processes for ensemble calculations (usually 1)
+#
+NUM_THREADS=$NUM_THREADS
+OMP_NUM_THREADS=$OMP_NUM_THREADS
+EOF
+
+cat >> $scriptName <<\EOF
+#
+#list of nodes on which to run:
+# this bit of code determines how many processors are on each node and
+# runs the appropriate number of Xplor-NIH instances on that node.
+#
+XPLOR_MACHINES=xplor_machines.$SLURM_JOB_ID
+
+srun printenv SLURMD_NODENAME >$XPLOR_MACHINES
+
+EOF
+
+if [ "$rsh" = "" ] && [ "$XPLOR_RSH" != "" ]; then
+    args="-rsh $XPLOR_RSH $args"
+fi
+
+#
+# run xplor
+#
+echo "$XPLOR -slurm -machines \$XPLOR_MACHINES \\" >> $scriptName
+echo "  $args" >> $scriptName
+
+cat >> $scriptName <<\EOF
+#
+# clean up
+#
+rm $XPLOR_MACHINES
+EOF
+
+#
+# submit job
+#
+#[ "$pbs_w_options" != "" ] && wopt="-W $pbs_w_options"
+cmd="sbatch $sbatch_options $wopt $scriptName"
+if [ "$dryrun" ]; then
+    echo "submission command: $cmd"
+else
+    ret=`$cmd`
+fi
+
+#
+# clean up
+#
+[ "$keep" ] ||  rm $scriptName
+echo $ret
+exit 0

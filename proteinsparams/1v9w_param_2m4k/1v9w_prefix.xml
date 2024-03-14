@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1v9w</protein_name>
+		<seq_file>1v9w.seq</seq_file>
+		<upl_file>1v9w_concat_dist.upl</upl_file>
+		<hbond_file></hbond_file>
+		<ang_file>1v9w_concat_dihed.aco</ang_file>
+		<protein_path>../protein/1v9w</protein_path>
+	</inputs>

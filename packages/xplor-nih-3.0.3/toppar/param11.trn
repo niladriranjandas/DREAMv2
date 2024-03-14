@@ -1,0 +1,157 @@
+remarks  param11.TRN
+remarks  ===========
+remarks  TRNA parameter append file
+remarks  ADDITIONS TO PARDNA4 TO ACCOMMODATE MODIFIED BASES PRESENT
+remarks  IN tRNA-Phe AS PATCHES. 
+
+set echo=false end
+! ADDITIONS FOR TRNA WORK/LN (MOSTLY GUESSED) START HERE
+
+bond  C3   NB     400.0000    1.49   
+bond  C3   N2     400.0000    1.45 
+bond  C3   OS     292.0000    1.38   ! Infer. from DEP
+bond  C3   NA     400.0000    1.49 
+bond  C3   CA     386.0000    1.525  ! Infer. from DEP
+bond  C3   NS     400.0000    1.49
+bond  CA   C2     386.0000    1.525
+bond  CA   NB     450.0000    1.391
+bond  CA   CA     400.0000    1.37
+bond  CA   CS     400.0000    1.44
+bond  CA   NS     400.0000    1.37
+bond  C2   CN     337.0000    1.44
+bond  C2   NS     337.0000    1.48
+bond  CN   CH     405.0000    1.52  ! From PARAM6
+bond  CN   OS     292.0000    1.43  ! Infer. DEP
+bond  CB   NA     325.0000    1.388
+bond  CE   NA     300.0000    1.381
+bond  C2   NA     300.0000    1.381
+bond  CE   N2     400.0000    1.333
+bond  CE   CB     400.0000    1.404
+bond  CF   NA     301.0000    1.365 ! URA
+bond  CH   N2     422.0000    1.475 ! From PARAM6
+bond  CH   NA     422.0000    1.45  !     "
+bond  CH   CS     400.0000    1.525 !     "
+bond  CH   CB     400.0000    1.525 !     "
+
+
+! TRNA PATCH ADDITIONS/LN:
+
+angle  CH   OS   C3      46.5     107.3
+angle  CN   OS   C3      46.5     120.5 !?Angle     ...
+angle  CH   NA   C3      70.0     116.5 
+angle  CH   NA   HN      35.0     116.5 ! URA
+angle  C2   NA   HN      35.0     116.5 ! Infer.
+angle  CB   NA   CA     116.0     110.4
+angle  CF   NA   HN      30.0     121.2 ! URA
+angle  CE   NA   CH     116.0     118.6
+angle  CE   NA   C3     116.0     120.7   
+angle  CN   NA   CF     116.0     121.6
+angle  CH   NA   CN     116.0     121.0 !?Angle
+angle  C2   NA   CN     116.0     121.0 !?Angle
+angle  CB   NB   C3      70.0     128.5
+angle  CE   NB   C3      70.0     128.5
+angle  CA   NB   CB      70.0     105.4
+angle  CB   NS   CB      70.0     112.2
+angle  CB   NA   CB      70.0     112.2 ! WYE
+angle  CB   NS   C3      70.0     117.6
+angle  CB   NA   C3      70.0     117.6 ! WYE
+angle  CH   NS   C2      70.0     121.2
+angle  CN   NS   C2      70.0     121.6
+angle  CN   NS   CA      70.0     121.6 !?Angle
+angle  CN   NS   CB      70.0     121.6 !?Angle
+angle  CN   NA   CB      70.0     121.6 !WYE
+angle  CB   NS   CA      70.0     112.0   
+angle  C3   N2   CA      70.0     120.0
+angle  C3   N2   C3      70.0     120.0
+angle  C3   N2   H2      35.0     120.0
+angle  CH   N2   H2      35.0     120.0
+angle  CE   N2   H2      35.0     120.0
+angle  NS   CN   CB      70.0     111.3
+angle  NA   CN   C2      70.0     114.1
+angle  O    CN   C2      70.0     125.3
+angle  O    CN   OS      70.0     120.0
+angle  CH   CN   O       70.0     125.3 !?Angle
+angle  CH   CN   OS      70.0     125.3 !?Angle
+angle  NA   CN   OS      70.0     120.0 !?Angle 
+angle  NA   CN   NA      62.0     115.4 ! URA
+angle  NS   CA   NS      70.0     110.0 !?Angle
+angle  NS   CA   C2      70.0     120.0 !?Angle
+angle  NA   CA   CA      70.0     110.4
+angle  NB   CA   C3      70.0     123.0
+angle  NC   CA   NC      70.0     129.1 
+angle  CA   CA   C2      70.0     125.0 !?Angle
+angle  CA   CA   C3      70.0     125.0 !?Angle
+angle  NA   CA   C2      70.0     125.0 !?Angle
+angle  NB   CA   CA      70.0     110.0
+angle  NC   CA   CS      70.0     121.5
+angle  N2   CA   CS      70.0     120.1
+angle  NS   CA   CA      70.0000  116.0000
+angle  NS   CB   NS      70.0000  126.0000
+angle  NA   CB   NA      70.0000  126.0000 ! WYE
+angle  NS   CB   NA      70.0     123.3
+angle  NS   CB   NB      70.0     126.0
+angle  NA   CB   NB      70.0     126.0    ! WYE
+angle  CE   CB   CB      70.0     117.3
+angle  CE   CB   NB      70.0     132.4
+angle  CH   CB   CB      70.0     117.3
+angle  CH   CB   NB      70.0     132.4
+angle  NC   CE   NA      70.0     129.1
+angle  NC   CE   CB      70.0     117.3
+angle  CS   CF   NA      70.0     121.2
+angle  NA   CH   CB      46.5     117.3
+angle  C2   CH   NA      46.5     111.0
+angle  C2   CH   CN      46.5     111.0
+angle  NA   CH   N2      46.5     116.0
+angle  N2   CH   CB      46.5     123.5
+angle  OS   CH   CS      46.5     111.0
+angle  CH   CH   CS      46.5     111.0    
+angle  CA   C2   C2      46.5     112.0
+angle  CN   C2   NA      70.0     114.0
+angle  CN   C2   C2      46.5     112.0 !?Angle
+angle  NS   C2   C2      46.5     112.0 !?Angle
+angle  C2   C2   CH      46.5     112.0
+angle  CF   CS   CH      70.0000  120.7 !           ...
+angle  CA   CS   CF      70.0     117.0 !           ...
+angle  CA   CS   C3      70.0     119.7 !           ...
+angle  CN   CS   CH      70.0000  120.7 ! END TRNA PATCHES
+
+! TRNA PATCH ADDITIONS/LN:
+dihedral  NA   CN   C2   C2       1.5       3     0.00
+dihedral  NS   C2   C2   CN       1.5       3     0.00
+dihedral  C2   C2   NS   CN       0.3       2     0.00
+dihedral  C2   NS   CN   NA       6.0       2   180.00
+
+dihedral  OS   CH   CS   CF       1.5       3       0.0
+dihedral  CA   C2   C2   CH       1.5       3       0.0
+dihedral  NA   C2   CN   NA       1.5       3       0.0
+dihedral  C2   CH   NA   CN       0.3       2       0.0
+dihedral  CN   C2   NA   CN       0.3       2       0.0
+dihedral  C2   CH   NA   HN       0.3       2       0.0
+dihedral  CB   CH   N2   H2       6.0       2       180.00
+dihedral  X    CA   C2   X        1.5       3       0.0
+dihedral  C2   CH   CN   OS       1.5       3       0.0
+dihedral  X    CN   OS   X        0.5       3       0.0
+dihedral  X    NA   CN   X        6.0       2       180.00
+
+improper  C3   X    X    NS      43.0000 0   0.0000 ! TRNA PATCH ADDITIONS/LN:
+improper  C3   X    X    CA      43.0000 0   0.0000 !       ...
+improper  C3   X    X    NA      43.0000 0   0.0000 !       ...
+improper  C3   X    X    NB      43.0000 0   0.0000 !       ...
+improper  C3   X    X    N2      43.0000 0   0.0000
+improper  C3   X    X    CB      43.0000 0   0.0000
+improper  C3   X    X    CE      43.0000 0   0.0000
+improper  CA   X    X    NA       4.5000 0   0.0000
+improper  CB   X    X    CB       4.5000 0   0.0000
+improper  CA   X    X    NB       4.5000 0   0.0000
+improper  NB   X    X    NA       4.5000 0   0.0000
+improper  NC   X    X    CE       4.5000 0   0.0000
+improper  C2   X    X    CA       4.5000 0   0.0000
+improper  C2   X    X    CN       4.5000 0   0.0000
+improper  C2   X    X    NA       4.5000 0   0.0000
+improper  CS   X    X    CH       4.5000 0   0.0000
+improper  CH   X    X    CB       4.5000 0   0.0000
+improper  CH   X    X    N2      43.0000 0   0.0000
+improper  CH   X    X    NC      50.0000 0   0.0000
+improper  CN   X    X    NA      50.0000 0   0.0000 ! END ADDITIONS
+
+set echo=true end

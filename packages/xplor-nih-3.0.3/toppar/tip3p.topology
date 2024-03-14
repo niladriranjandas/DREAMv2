@@ -1,0 +1,30 @@
+remarks 08-26-96
+remarks TIP3P water model
+remarks leading reference:  J. Chem. Phys., 1983, 79, 926-935
+set echo=false end
+autogenerate angles=true end
+
+!       ==========          MASS ASSIGNMENTS          ==========
+
+MASS    HW     1.0079                     ! TIP3P water hydrogen
+MASS    OW     15.9994                    ! TIP3P water oxygen
+
+!       ==========        END MASS ASSIGNMENTS        ==========
+!       ==========        MOLECULE CONSTRUCTION       ==========
+
+!                =TIP3P=
+RESIdue WAT
+GROUp
+ ATOM OH2  TYPE= OW   CHARge= -0.834  END
+ ATOM H1   TYPE= HW   CHARge=  0.417  END
+ ATOM H2   TYPE= HW   CHARge=  0.417  END
+
+ BOND  H1  OH2
+ BOND  H2  OH2
+ BOND  H2  H1
+END
+!                =TIP3P=
+
+!       ==========      END MOLECULE CONSTRUCTION     ==========
+
+set echo=$prev_echo end

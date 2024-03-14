@@ -1,0 +1,13 @@
+remarks   parameters for zn patch
+
+bonds S ZN  500.0 1.40 
+
+angles S ZN S  70.0  109.5
+angles ZN S CH2E   70.0  100.0  
+
+ !                  eps     sigma       eps(1:4) sigma(1:4)
+ !                  (kcal/mol) (A)
+ !                  ---------------------------------------
+
+NONBonded  ZN       0.0430   3.3676      0.0430   3.3676   ! garbage 
+NONBonded  MG      0.2000   2.8509      0.2000   2.8509   ! G U E S S

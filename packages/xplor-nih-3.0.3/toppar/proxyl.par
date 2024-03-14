@@ -1,0 +1,177 @@
+
+
+remark  File proxyl.par
+remark    Parameters for cysteine residue derivatized with iodoacetamido-PROXYL (CIAP residue).
+remark 
+remark  Use in combination with proxyl.top.
+remark  Use after loading protein-1.0.par.
+remark 
+remark  Derived from coordinates and parameters kindly provided by Gunnar Jeschke.
+remark  Polyhach Y. et al. Phys. Chem. Chem. Phys. 2011, 13: 2356-2366.
+remark 
+remark  Author: Guillermo A. Bermejo (28 July 2015).
+
+
+{****************************************************************************************
+Up to CB parameters are those of CYS in protein-1.0.par; the rest of the side chain is 
+based on Gunnar's data.  Gunnar provided coordinates and parameters in the form of Tinker 
+.xyz and .prm files, respectively.  Coordinates were converted to pdb format for analysis.
+(Some H-atoms are missing from the provided data; their associated parameters are
+implemented using protein-1.0.par as reference.)    The dihedral and improper parameters 
+were not used, but added manually here.  All applicable bond parameter values are as 
+provided (and very similar to those in the coordinates).  However, some angle parameter 
+values differ from those in the structure (by up to 10 deg).  When using the original angle 
+parameters, structure generation failed to yield a model without endocyclic angle violations.  
+This problem was solved by replacing all endocyclic angle values by those in the provided 
+coordinates.
+****************************************************************************************}
+
+
+
+! Values for $kbon, $kang, and $kchi are set in protein-1.0.par.
+
+
+
+set echo=off message=on end
+
+
+!BONDS 
+
+bond    CH2IAP  S           $kbon     1.810	!1.813 (SG-C10 from coords; delta: 0.003)
+bond    CIAP    CH2IAP      $kbon     1.520	!1.522 (C10-C11 from coords; delta: 0.002)
+bond    CIAP    OIAP        $kbon     1.230	!1.230 (C11-O2 from coords; delta: 0.0)
+bond    CIAP    NH1IAP      $kbon     1.330	!1.334 (C11-N2 from coords; delta: 0.004)
+bond    CH1IAP  NH1IAP      $kbon     1.450	!1.460 (N2-C3 from coords; delta: 0.01)
+bond    HIAP    NH1IAP      $kbon     0.980	!0.979 (N2-H2 from coords; delta: 0.001)
+bond    CH1IAP  CTIAP       $kbon     1.53	!1.541 (C3-C2 from coords; delta: 0.011)
+bond    CH1IAP  CH2IAP      $kbon     1.520	!1.524 (C3-C4 from coords; delta: 0.004)
+bond    CTIAP   NN5         $kbon     1.48	!1.487 (C2-N1 from coords; delta: 0.007)
+bond    CH3IAP  CTIAP       $kbon     1.53	!1.542 (C2-C8 from coords; delta: 0.012)
+bond    NN5     ONIAP       $kbon     1.28	!1.285 (N1-O1 from coords; delta: 0.005)
+bond    CH2IAP  CTIAP       $kbon     1.53	!1.529 (C5-C4 from coords; delta: 0.001)
+
+! Missing protons (added manually).
+bond    HAIAP   CH2IAP      $kbon     1.08
+bond    HAIAP   CH1IAP      $kbon     1.08  
+bond    HAIAP   CH3IAP      $kbon     1.08 
+
+
+
+
+!ANGLES 
+
+angle    CT      S       CH2IAP      $kang     99.5	!99.216 (CB-SG-C10 from coords; delta: 0.284). CT from protein-1.0.* "backbone"
+angle    CIAP    CH2IAP  S           $kang     112.5	!115.530 (SG-C10-C11 from coords; delta: 3.03)
+!!angle    CIAP    CH2IAP  S           $kang     104.2	!115.530 (SG-C10-C11 from coords; delta: 11.33) DUPLICATED W/DIFF VALUE!!
+angle    CH2IAP  CIAP    OIAP        $kang     121.6	!120.280 (C10-C11-O2 from coords; delta: 1.32)
+angle    CH2IAP  CIAP    NH1IAP      $kang     117.5	!118.927 (C10-C11-N2 from coords; delta: 1.427)
+angle    NH1IAP  CIAP    OIAP        $kang     121.0	!120.792 (O2-C11-N2 from coords; delta: 0.208)
+angle    CIAP    NH1IAP  CH1IAP      $kang     120.0	!121.958 (C11-N2-C3 from coords; delta: 1.958)
+angle    CIAP    NH1IAP  HIAP        $kang     120.0	!116.736 (C11-N2-H2 from coords; delta: 3.264)
+angle    CH1IAP  NH1IAP  HIAP        $kang     120.0	!121.292 (C3-N2-H2 from coords; delta: 1.292)
+angle    NH1IAP  CH1IAP  CTIAP       $kang     110.8	!116.636 (N2-C3-C2 from coords; delta: 5.836)
+angle    CH2IAP  CH1IAP  NH1IAP      $kang     110.0	!114.506 (N2-C3-C4 from coords; delta: 4.506)
+angle    CH2IAP  CH1IAP  CTIAP       $kang     103.6	!103.645 (C2-C3-C4 from coords; delta: 5.855)   !original value: 109.5
+angle    CH1IAP  CTIAP   NN5         $kang     101.8	!101.824 (C3-C2-N1 from coords; delta: 6.176)   !origianl value: 108.0
+angle    CH1IAP  CTIAP   CH3IAP      $kang     109.1	!113.494 (C3-C2-C8 from coords; delta: 4.394)
+                                                        !110.297 (C3-C2-C9 from coords; delta: 1.197)
+angle    CH1IAP  CH2IAP  CTIAP       $kang     104.6	!104.581 (C3-C4-C5 from coords; delta: 10.019)  !original value: 114.6
+angle    CH3IAP  CTIAP   NN5         $kang     108.0	!108.114 (N1-C2-C8 from coords; delta: 0.114)
+                                                 	!110.535 (N1-C2-C9 from coords; delta: 2.535)
+                                                        !111.124 (N1-C5-C6 from coords; delta: 3.124)
+                                                        !108.901 (N1-C5-C7 from coords; delta: 0.901)
+angle    CTIAP   NN5     ONIAP       $kang     123.3	!123.376 (C2-N1-O1 from coords; delta: 2.376)   !original value: 121.0
+                                                        !123.300 (O1-N1-C5 from coords; delta: 2.3)
+angle    CTIAP   NN5     CTIAP       $kang     111.6	!111.564 (C2-N1-C5 from coords; delta: 3.436)   !original value: 115.0
+angle    CH2IAP  CTIAP   NN5         $kang     104.0	!104.046 (N1-C5-C4 from coords; delta: 5.254)   !original value: 109.3
+angle    CH2IAP  CTIAP   CH3IAP      $kang     109.1	!110.109 (C4-C5-C6 from coords; delta: 1.009)
+                                                 	!110.442 (C4-C5-C7 from coords; delta: 1.342)
+angle    CH3IAP  CTIAP   CH3IAP      $kang     111.0	!111.933 (C6-C5-C7 from coords; delta: 0.933)
+                                                        !112.076 (C8-C2-C9 from coords; delta: 1.076)
+
+
+! Missing protons (added manually; all tetrahedral).
+angle    HAIAP   CH2IAP  HAIAP       $kang     109.5 ! linker and ring methylene
+angle    HAIAP   CH2IAP  S           $kang     109.5 ! linker methylene
+angle    HAIAP   CH2IAP  CIAP        $kang     109.5 ! linker methylene
+angle    HAIAP   CH2IAP  CTIAP       $kang     109.5 ! ring methylene
+angle    HAIAP   CH2IAP  CH1IAP      $kang     109.5 ! ring methylene
+angle    HAIAP   CH3IAP  HAIAP       $kang     109.5 ! methyl
+angle    HAIAP   CH3IAP  CTIAP       $kang     109.5 ! methyl
+angle    HAIAP   CH1IAP  CH2IAP      $kang     109.5 ! ring C-H proton 
+angle    HAIAP   CH1IAP  CTIAP       $kang     109.5 ! ring C-H proton 
+angle    HAIAP   CH1IAP  NH1IAP      $kang     109.5 ! ring C-H proton 
+
+
+
+!DIHEDRALS 
+
+! Only around the linker.
+dihedral    CT      CT      S       CH2IAP      $kdih  3   0.0
+dihedral    CT      S       CH2IAP  CIAP        $kdih  3   0.0
+dihedral    S       CH2IAP  CIAP    NH1IAP      $kdih  3   0.0
+dihedral    CIAP    NH1IAP  CH1IAP  CTIAP       $kdih  3   0.0
+
+
+
+!IMPROPERS 
+
+! Decided to add all impropers manually.
+! When possible, I get the values from the provided coordinates.
+
+improper    HAIAP   HAIAP   S       CIAP        $kchi  0   70.5  ! C10 methylene chirality (using Cys CB 73.23 value  
+                                                                 ! in protein-1.0.par yields viol. => decreased)
+improper    OIAP    CIAP    NH1IAP  CH1IAP      $kchi  0   0.00  ! trans amide (as presidue PEPT in protein-1.0.par)
+improper    HIAP    NH1IAP  CIAP    CH2IAP      $kchi  0   0.00  ! trans amide (as presidue PEPT in protein-1.0.par)
+improper    CH2IAP  CIAP    NH1IAP  CH1IAP      $kchi  0   180.00  ! trans amide (as presidue PEPT in protein-1.0.par)
+
+improper    HAIAP   CH2IAP  NH1IAP  CTIAP       $kchi  0   65.977  ! C3 chirality (as in Pro CA in protein-1.0.par)
+improper    CH3IAP  CH3IAP  CH1IAP  NN5         $kchi  0   69.43 ! C2 chirality (from coorditates)
+improper    ONIAP   CTIAP   CTIAP   NN5         $kchi  0   0.00  ! planar nitroxide N
+improper    CH3IAP  CH3IAP  NN5     CH2IAP      $kchi  0   71.20 ! C5 chirality (from coordinates)
+improper    HAIAP   HAIAP   CTIAP   CH1IAP      $kchi  0   70.3  ! C4 chirality (average between values for C2 and C5)
+
+improper    HAIAP   HAIAP   CTIAP   HAIAP       $kchi  0   -66.514  ! methyl chirality (as Ala in protein-1.0.par)
+
+
+
+!NONBONDED
+
+! The following nonbonded parameters are based on those of protein-1.0.par.
+
+!Radii as in CHARMM param19x
+! the radius is sigma*2^(-5/6)
+!  use repel of 0.80
+!                   eps     sigma       eps(1:4) sigma(1:4)  
+!                                                                               
+nonbonded  CIAP     0.0903   3.2072      0.0903   3.2072   ! as C in protein-1.0.par
+nonbonded  CH1IAP   0.0903   3.2072      0.0903   3.2072
+nonbonded  CH2IAP   0.0903   3.2072      0.0903   3.2072
+nonbonded  CH3IAP   0.0903   3.2072      0.0903   3.2072
+nonbonded  CTIAP    0.0903   3.2072      0.0903   3.2072
+nonbonded  HIAP     0.0498   1.4254      0.0498   1.4254   ! as H in protein-1.0.par
+nonbonded  HAIAP    0.0045   2.6157      0.0045   2.6157   ! as HA in protein-1.0.par
+nonbonded  OIAP     0.2342   2.6406      0.2342   2.6406   ! as O in protein-1.0.par
+nonbonded  ONIAP    0.2342   2.6406      0.2342   2.6406   ! as O in protein-1.0.par
+nonbonded  NH1IAP   0.1592   2.7618      0.1592   2.7618   ! as NH1 in protein-1.0.par
+nonbonded  NN5      0.1592   2.7618      0.1592   2.7618   
+
+
+! the following nbfixes allow hydrogen bonding 
+! the distance used is (2A/B)^(1/6)*repel                                    
+!                         A    B   A1-4  B1-4
+nbfix      HIAP  OIAP    44.2  1.0  44.2  1.0  ! as H-O in protein-1.0.par
+nbfix      HIAP  ONIAP   44.2  1.0  44.2  1.0  ! as H-O in protein-1.0.par
+
+nbfix      H     OIAP    44.2  1.0  44.2  1.0  ! as H-O in protein-1.0.par
+nbfix      H     ONIAP   44.2  1.0  44.2  1.0  ! as H-O in protein-1.0.par
+nbfix      HC    OIAP    44.2  1.0  44.2  1.0  ! as HC-O in protein-1.0.par
+nbfix      HC    ONIAP   44.2  1.0  44.2  1.0  ! as HC-O in protein-1.0.par
+
+nbfix      HIAP  NB      44.2  1.0  44.2  1.0  ! as H-X in protein-1.0.par            
+nbfix      HIAP  O       44.2  1.0  44.2  1.0 
+nbfix      HIAP  OC      44.2  1.0  44.2  1.0 
+nbfix      HIAP  OH      44.2  1.0  44.2  1.0 
+
+
+

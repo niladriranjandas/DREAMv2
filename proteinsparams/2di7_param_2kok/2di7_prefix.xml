@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>2di7</protein_name>
+		<seq_file>2di7.seq</seq_file>
+		<upl_file>2di7_concat_dist.upl</upl_file>
+		<hbond_file></hbond_file>
+		<ang_file>2di7_concat_dihed.aco</ang_file>
+		<protein_path>../protein/2di7</protein_path>
+	</inputs>

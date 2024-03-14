@@ -1,0 +1,19 @@
+param.so4 =====================================================================
+
+remark - parameter file param.so4
+
+set echo=false end
+
+
+bond OS   SS     1480.0   1.475 ! energy from C    O
+
+angle OS   SS   OS   337.4      109.4 ! energy from OC   C    OC
+
+!                  eps     sigma       eps(1:4) sigma(1:4)
+!                  (kcal/mol) (A)
+!                  ---------------------------------------
+!NONBonded  OS      0.1591   2.8509      0.1591   2.8509
+NONBonded  SS      0.0430   3.3676      0.0430   3.3676
+
+set echo=true end
+

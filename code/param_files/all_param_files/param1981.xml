@@ -1,0 +1,26 @@
+<set_up>
+	<inputs>
+		<protein_name></protein_name>
+		<seq_file></seq_file>
+		<upl_file></upl_file>
+		<hbond_file></hbond_file>
+		<ang_file></ang_file>
+		<protein_path></protein_path>
+	</inputs>
+	<params>
+		<hydrogen_omission>1</hydrogen_omission>
+		<aug_bounds>8</aug_bounds>
+		<break_graph>
+			<eta_lo>0.75</eta_lo>
+			<eta_hi>1</eta_hi>
+		</break_graph>
+		<include_neighbour>6</include_neighbour>
+		<multi_expand>
+			<k_2>3</k_2>
+			<size_cutoff>0.1</size_cutoff>
+			<grp_min>250</grp_min>
+			<incr_min>2</incr_min>
+		</multi_expand>
+		<grp_expand>90</grp_expand>
+	</params>
+</set_up>

@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# return a string with space-separated major/minor glibc version
+
+LD_LIBRARY_PATH=
+export LD_LIBRARY_PATH
+
+mode=both
+while [ $# -gt 0 ]; do
+    opt=`printf "%s\n"  "$1"|cut -d= -f 1`
+    shift
+    case "$opt" in
+	-major)
+	    mode=major
+	    ;;
+	-minor)
+	    mode=minor
+	    ;;
+	-both)
+	    mode=both
+	    ;;
+	*)
+	    echo "usage: $0 [-major | -minor | -both]"
+	    exit 1
+    esac
+done
+
+
+v=`ldd --version | grep ^ldd | sed 's/.* \([2-9]\)\.\([0-9][0-9]*\).*/\1 \2/'`
+
+if [ $mode = both ]; then
+    echo $v
+elif [ $mode = major ]; then
+    echo $v | cut -d ' ' -f 1
+else
+    echo $v | cut -d ' ' -f 2
+fi

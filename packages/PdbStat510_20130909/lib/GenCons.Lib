@@ -1,0 +1,1393 @@
+#$Id: GenCons.Lib,v 4.22 2013/04/22 16:45:23 roberto Exp roberto $
+# -------------------------------------------
+# This is a Library of equivalence of atom 
+# Names between different kinds of software 
+# for NMR data tratment                     
+# -------------------------------------------
+# NOTE: Cases of NORLEUCINE and BOC were develop only for a 
+#       special case I was sutdying in Valencia (Spain)
+# -------------------------------------------
+# NOTE: *The CONGEN names are NOT by far in 
+#        shape!!! Do not use them!         
+# -------------------------------------------
+# *****************************************************************************
+# ChangeLog: 
+# -----    2011 --------
+# 1. Added Rosetta names (v 2.3) -- if 3.2.1 is used the atoms get converted
+#    to Rosetta 3.2.1 (for writing constraints mainly). 
+#    - corrected some of the Rosetta names (few bugs).
+#    - still QQG, QQD (val, leu) not properly translated.  I do not know the
+#      names assigned in Rosetta 3.2.1
+#
+# 2. Added equivalences (HB1=HB3) in XPLOR/CNS cases.  This is useful if the
+#    file being read already has the constraints in close to IUPAC format
+#    using HB2/HB3 convention.  (HB3 is made quivalent to HB1 through the
+#    use of XplorNameAlt). 
+#
+# 3. Added equivalences for CYANA when using HB for QB (pseudo = 1,2,) in
+#    CYANA program.  Now PdbStat should be able to read also that kind of
+#    constraints using CyanaNameAlt).
+#        
+# ******************************************************************************* 
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC   Rosetta
+# ----------  -----   -----   ------    ------ ---    -----  -----   -------
+NMR  A   ALA  O       O       O         O      O      O      O        O 
+NMR  A   ALA  N       N       N         N      N      N      N        N
+NMR  A   ALA  HN=H    H       HN        HN     H      HN     HN       H
+NMR  A   ALA  HA      HA      HA        HA     HA     HA     HA       HA
+NMR  A   ALA  HB1     HB1     HB1       HB1    HB1    HB1    HB1      1HB
+NMR  A   ALA  HB2     HB2     HB2       HB2    HB2    HB2    HB2      2HB
+NMR  A   ALA  HB3     HB3     HB3       HB3    HB3    HB3    HB3      3HB
+NMR  A   ALA  QB=HB   HB*     HB*       QB     HB*    HB*    HB*      HB
+NMR  A   ALA  QB=HB   HB*     HB#       QB     HB*    HB*    HB*      HB
+NMR  A   ALA  QB=HB   HB*     HB%       QB     HB*    HB*    HB*      HB
+NMR  A   ALA  QB=HB   HB*     HB+       QB     HB*    HB*    HB*      HB
+ATOM A   ALA  C       C       C         C      C      C	  C        C
+ATOM A   ALA  O       O       O         O      O      O      O        O
+ATOM A   ALA  N       N       N         N      N      N      N        N
+ATOM A   ALA  CA      CA      CA        CA     CA     CA     CA       CA
+ATOM A   ALA  CB      CB      CB        CB     CB     CB     CB       CB
+ATOM A   ALA  HN=H    H       HN        HN     H      HN     HN       H
+ATOM A   ALA  HA      HA      HA        HA     HA     HA     HA       HA
+ATOM A   ALA  HB1     HB1     HB1       HB1    1HB    HB     1HB      1HB
+ATOM A   ALA  HB2     HB2     HB2       HB2    2HB    HB     2HB      2HB
+ATOM A   ALA  HB3     HB3     HB3       HB3    3HB    HB     3HB      3HB
+DIHE A   ALA  DIH     PHI     C-   N    CA   C
+DIHE A   ALA  DIH     PSI     N    CA   C    N+
+DIHE A   ALA  DIH     CHI1    N    CA   CB   HB1
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  C   CYS  O       O       O         O      O      O      O        O
+NMR  C   CYS  N       N       N         N      N      N      N        N
+NMR  C   CYS  SG      SG      SG        SG     SG     SG     SG       SG     # for SS
+NMR  C   CYS  HN=H    H       HN        HN     H      HN     HN       H
+NMR  C   CYS  HA      HA      HA        HA     HA     HA     HA       HA
+NMR  C   CYS  HB2     HB1     HB2       HB1    HB1    HB1    HB2      1HB
+NMR  C   CYS  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3      2HB
+NMR  C   CYS  HG      HG      HG        HG     HG     HG     HG       HG
+NMR  C   CYS  QB=HB   HB*     HB*       QB     HB*    HB*    HB*      HB
+NMR  C   CYS  QB=HB   HB*     HB#       QB     HB*    HB*    HB*      HB 
+NMR  C   CYS  QB=HB   HB*     HB%       QB     HB*    HB*    HB*      HB
+NMR  C   CYS  QB=HB   HB*     HB+       QB     HB*    HB*    HB*      HB
+ATOM C   CYS  C       C       C         C      C      C      C        C
+ATOM C   CYS  O       O       O         O      O      O      O        O
+ATOM C   CYS  N       N       N         N      N      N      N        N
+ATOM C   CYS  CA      CA      CA        CA     CA     CA     CA       CA
+ATOM C   CYS  CB      CB      CB        CB     CB     CB     CB       CB
+ATOM C   CYS  SG      SG      SG        SG     SG     SG     SG       SG
+ATOM C   CYS  HN=H    H       HN        HN     H      HN     HN       H
+ATOM C   CYS  HA      HA      HA        HA     HA     HA     HA       HA
+ATOM C   CYS  HB2     HB1     HB2       HB1    1HB    HB     2HB      1HB
+ATOM C   CYS  HB3     HB2     HB1       HB2    2HB    HB     3HB      2HB
+ATOM C   CYS  HG      HG      HG        HG     HG     HG     HG       HG
+DIHE C   CYS  DIH     PHI     C-   N    CA   C 
+DIHE C   CYS  DIH     PSI     N    CA   C    N+
+DIHE C   CYS  DIH     CHI1    N    CA   CB   SG
+DIHE C   CYS  DIH     CHI2    CA   CB   SG   HG
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  D   ASP  O       O       O         O      O      O      O        O
+NMR  D   ASP  N       N       N         N      N      N      N        N
+NMR  D   ASP  OD      OD*     OD#       OD     OD*    OD*    OD*      #OD        !for OD1, OD2
+NMR  D   ASP  HN=H    H       HN        HN     H      HN     HN       H
+NMR  D   ASP  HA      HA      HA        HA     HA     HA     HA       HA
+NMR  D   ASP  HB2     HB1     HB2       HB1    HB1    HB1    HB2      1HB
+NMR  D   ASP  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3      2HB
+NMR  D   ASP  HD2     HD1     HD1       xxx    HD2    HD2    HD2      2HD
+NMR  D   ASP  QB=HB   HB*     HB*       QB     HB*    HB*    HB*      HB
+NMR  D   ASP  QB=HB   HB*     HB#       QB     HB*    HB*    HB*      HB
+NMR  D   ASP  QB=HB   HB*     HB%       QB     HB*    HB*    HB*      HB
+NMR  D   ASP  QB=HB   HB*     HB+       QB     HB*    HB*    HB*      HB
+ATOM D   ASP  C       C       C         C      C      C      C        C
+ATOM D   ASP  O       O       O         O      O      O      O        O
+ATOM D   ASP  N       N       N         N      N      N      N        N
+ATOM D   ASP  CA      CA      CA        CA     CA     CA     CA       CA
+ATOM D   ASP  CB      CB      CB        CB     CB     CB     CB       CB
+ATOM D   ASP  CG      CG      CG        CG     CG     CG     CG       CG
+ATOM D   ASP  OD1     OD1     OD1       OD1    OD1    OD2    OD1      OD1
+ATOM D   ASP  OD2     OD2     OD2       OD2    OD2    OD1    OD2      OD2
+ATOM D   ASP  HN=H    H       HN        HN     H      HN     HN       H
+ATOM D   ASP  HA      HA      HA        HA     HA     HA     HA       HA
+ATOM D   ASP  HB2     HB1     HB2       HB1    1HB    HB     2HB      1HB
+ATOM D   ASP  HB3     HB2     HB1       HB2    2HB    HB     3HB      2HB
+ATOM D   ASP  HD2     HD1     xxx       xxx    HD2    HD2    2HD      2HD
+DIHE D   ASP  DIH     PHI     C-   N    CA   C
+DIHE D   ASP  DIH     PSI     N    CA   C    N+        
+DIHE D   ASP  DIH     CHI1    N    CA   CB   CG
+DIHE D   ASP  DIH     CHI2    CA   CB   CG   OD1
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  E   GLU  O       O       O         O      O      O      O        O
+NMR  E   GLU  N       N       N         N      N      N      N        N
+NMR  E   GLU  HN=H    H       HN        HN     H      HN     HN       H
+NMR  E   GLU  HA      HA      HA        HA     HA     HA     HA       HA
+NMR  E   GLU  HB2     HB1     HB2       HB1    HB1    HB1    HB2      1HB
+NMR  E   GLU  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3      2HB
+NMR  E   GLU  HG2     HG1     HG2       HG1    HG1    HG1    HG2      1HG 
+NMR  E   GLU  HG3     HG2     HG1=HG3   HG2    HG2    HG2    HG3      2HG
+NMR  E   GLU  HE2     HE1     xxx       xxx    HE2    HE2    HE2      2HE
+NMR  E   GLU  QB=HB   HB*     HB*       QB     HB*    HB*    HB*      HB
+NMR  E   GLU  QB=HB   HB*     HB#       QB     HB*    HB*    HB*      HB
+NMR  E   GLU  QB=HB   HB*     HB%       QB     HB*    HB*    HB*      HB
+NMR  E   GLU  QB=HB   HB*     HB+       QB     HB*    HB*    HB*      HB
+NMR  E   GLU  QG=HG   HG*     HG*       QG     HG*    HG*    HG*      HG
+NMR  E   GLU  QG=HG   HG*     HG#       QG     HG*    HG*    HG*      HG
+NMR  E   GLU  QG=HG   HG*     HG%       QG     HG*    HG*    HG*      HG
+NMR  E   GLU  QG=HG   HG*     HG+       QG     HG*    HG*    HG*      HG
+ATOM E   GLU  C       C       C         C      C      C      C        C
+ATOM E   GLU  O       O       O         O      O      O      O        O 
+ATOM E   GLU  N       N       N         N      N      N      N        N
+ATOM E   GLU  CA      CA      CA        CA     CA     CA     CA       CA
+ATOM E   GLU  CB      CB      CB        CB     CB     CB     CB       CB
+ATOM E   GLU  CG      CG      CG        CG     CG     CG     CG       CG
+ATOM E   GLU  CD      CD      CD        CD     CD     CD     CD       CD
+ATOM E   GLU  OE1     OE1     OE1       OE1    OE1    OE1    OE1      OE1
+ATOM E   GLU  OE2     OE2     OE2       OE2    OE2    OE2    OE2      OE2
+ATOM E   GLU  HN=H    H       HN        HN     H      HN     HN       H
+ATOM E   GLU  HA      HA      HA        HA     HA     HA     HA       HA
+ATOM E   GLU  HB2     HB1     HB2       HB1    1HB    HB     2HB      1HB
+ATOM E   GLU  HB3     HB2     HB1       HB2    2HB    HB     3HB      2HB
+ATOM E   GLU  HG2     HG1     HG2       HG1    1HG    HG     2HG      1HG
+ATOM E   GLU  HG3     HG2     HG1       HG2    2HG    HG     3HG      2HG
+ATOM E   GLU  HE2     HE1     xxx       xxx    HE2    HE2    2HE      2HE
+DIHE E   GLU  DIH     PHI     C-   N    CA   C        
+DIHE E   GLU  DIH     PSI     N    CA   C    N+
+DIHE E   GLU  DIH     CHI1    N    CA   CB   CG
+DIHE E   GLU  DIH     CHI2    CA   CB   CG   CD
+DIHE E   GLU  DIH     CHI3    CB   CG   CD   OE1
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  F   PHE  O       O       O         O      O      O      O        O
+NMR  F   PHE  N       N       N         N      N      N      N        N
+NMR  F   PHE  HN=H    H       HN        HN     H      HN     HN       H
+NMR  F   PHE  HA      HA      HA        HA     HA     HA     HA       HA
+NMR  F   PHE  HB2     HB1     HB2       HB1    HB1    HB1    HB2      1HB
+NMR  F   PHE  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3      2HB
+NMR  F   PHE  HD1     HD1     HD1       HD2    HD1    HD1    HD*      HD1
+NMR  F   PHE  HD2     HD2     HD2       HD6    HD2    HD2    HD*      HD2
+NMR  F   PHE  HE1     HE1     HE1       HE3    HE1    HE1    HE*      HE1
+NMR  F   PHE  HE2     HE2     HE2       HE5    HE2    HE2    HE*      HE2
+NMR  F   PHE  HZ      HZ      HZ        HZ4    HZ     HZ     HZ       HZ
+NMR  F   PHE  QB=HB   HB*     HB*       QB     HB*    HB*    HB*      HB
+NMR  F   PHE  QB=HB   HB*     HB#       QB     HB*    HB*    HB*      HB
+NMR  F   PHE  QB=HB   HB*     HB%       QB     HB*    HB*    HB*      HB
+NMR  F   PHE  QB=HB   HB*     HB+       QB     HB*    HB*    HB*      HB
+NMR  F   PHE  QD=CG   HD*     HD*       CG1    HD*    HD*    HD*      HD    #DIANA also covered when CG=QD
+NMR  F   PHE  QD=CG   HD*     HD#       CG1    HD*    HD*    HD*      HD    #DIANA also covered when CG=QD
+NMR  F   PHE  QD=CG   HD*     HD%       CG1    HD*    HD*    HD*      HD    #DIANA also covered when CG=QD        
+NMR  F   PHE  QD=CG   HD*     HD+       CG1    HD*    HD*    HD*      HD    #DIANA also covered when CG=QD
+NMR  F   PHE  QD=HD   HD*     HD*       CG1    HD*    HD*    HD*      HD    #CYANA also covered when HD=QD
+NMR  F   PHE  QD=HD   HD*     HD#       CG1    HD*    HD*    HD*      HD    #CYANA also covered when HD=QD
+NMR  F   PHE  QD=HD   HD*     HD%       CG1    HD*    HD*    HD*      HD    #CYANA also covered when HD=QD        
+NMR  F   PHE  QD=HD   HD*     HD+       CG1    HD*    HD*    HD*      HD    #CYANA also covered when HD=QD
+NMR  F   PHE  QE=CZ   HE*     HE*       CZ4    HE*    HE*    HE*      HE    #DIANA also covered when CZ=QE
+NMR  F   PHE  QE=CZ   HE*     HE#       CZ4    HE*    HE*    HE*      HE    #DIANA also covered when CZ=QE
+NMR  F   PHE  QE=CZ   HE*     HE%       CZ4    HE*    HE*    HE*      HE    #DIANA also covered when CZ=QE
+NMR  F   PHE  QE=CZ   HE*     HE+       CZ4    HE*    HE*    HE*      HE    #DIANA also covered when CZ=QE
+NMR  F   PHE  QE=HE   HE*     HE*       CZ4    HE*    HE*    HE*      HE    #CYANA also covered when HE=QE
+NMR  F   PHE  QE=HE   HE*     HE#       CZ4    HE*    HE*    HE*      HE    #CYANA also covered when HE=QE
+NMR  F   PHE  QE=HE   HE*     HE%       CZ4    HE*    HE*    HE*      HE    #CYANA also covered when HE=QE
+NMR  F   PHE  QE=HE   HE*     HE+       CZ4    HE*    HE*    HE*      HE    #CYANA also covered when HE=QE
+NMR  F   PHE  QR      xxx     xxx       QR     xxx    xxx    xxx      xxx
+ATOM F   PHE  C       C       C         C      C      C      C        C
+ATOM F   PHE  O       O       O         O      O      O      O        O
+ATOM F   PHE  N       N       N         N      N      N      N        N
+ATOM F   PHE  CA      CA      CA        CA     CA     CA     CA       CA
+ATOM F   PHE  CB      CB      CB        CB     CB     CB     CB       CB 
+ATOM F   PHE  CG      CG      CG        CG1    CG     CG     CG       CG
+ATOM F   PHE  CD1     CD1     CD1       CD2    CD1    CD1    CD1      CD1
+ATOM F   PHE  CE1     CE1     CE1       CE3    CE1    CE1    CE1      CE1
+ATOM F   PHE  CZ      CZ      CZ        CZ4    CZ     CZ     CZ       CZ
+ATOM F   PHE  CE2     CE2     CE2       CE5    CE2    CE2    CE2      CE2 
+ATOM F   PHE  CD2     CD2     CD2       CD6    CD2    CD2    CD2      CD2 
+ATOM F   PHE  HN=H    H       HN        HN     H      HN     HN       H
+ATOM F   PHE  HA      HA      HA        HA     HA     HA     HA       HA
+ATOM F   PHE  HB2     HB1     HB2       HB1    1HB    HB     2HB      1HB
+ATOM F   PHE  HB3     HB2     HB1       HB2    2HB    HB     3HB      2HB
+ATOM F   PHE  HD1     HD1     HD1       HD2    HD1    HD     HD1      HD1
+ATOM F   PHE  HD2     HD2     HD2       HD6    HD2    HD     HD2      HD2
+ATOM F   PHE  HE1     HE1     HE1       HE3    HE1    HE     HE1      HE1
+ATOM F   PHE  HE2     HE2     HE2       HE5    HE2    HE     HE2      HE2 
+ATOM F   PHE  HZ      HZ      HZ        HZ4    HZ     HZ     HZ       HZ
+DIHE F   PHE  DIH     PHI     C-   N    CA   C
+DIHE F   PHE  DIH     PSI     N    CA   C    N+
+DIHE F   PHE  DIH     CHI1    N    CA   CB   CG
+DIHE F   PHE  DIH     CHI2    CA   CB   CG   CD1
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA  CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----  -----   ------    ------ ---    -----  -----
+NMR  G   GLY  O       O       O         O      O      O      O        O
+NMR  G   GLY  N       N       N         N      N      N      N        N 
+NMR  G   GLY  HN=H    H       HN        HN     H      HN     HN       H
+NMR  G   GLY  HA1=HA2 HA1     HA2       HA1    HA1    HA1    HA2      1HA
+NMR  G   GLY  HA2=HA3 HA2     HA1=HA3   HA2    HA2    HA2    HA3      2HA   #for HA1/HA2 convention
+NMR  G   GLY  QA=HA   HA*     HA*       CA     HA*    HA*    HA*      HA
+NMR  G   GLY  QA=HA   HA*     HA#       CA     HA*    HA*    HA*      HA  
+NMR  G   GLY  QA=HA   HA*     HA%       CA     HA*    HA*    HA*      HA
+NMR  G   GLY  QA      HA*     HA+       CA     HA*    HA*    HA*      HA
+ATOM G   GLY  C       C       C         C      C      C      C        C
+ATOM G   GLY  O       O       O         O      O      O      O        O
+ATOM G   GLY  N       N       N         N      N      N      N        N
+ATOM G   GLY  CA      CA      CA        CA     CA     CA     CA       CA
+ATOM G   GLY  HN=H    H       HN        HN     H      HN     HN       H
+ATOM G   GLY  HA1=HA2 HA1     HA2       HA1    1HA    HA     2HA      1HA
+ATOM G   GLY  HA2=HA3 HA2     HA1       HA2    2HA    HA     3HA      2HA
+DIHE G   GLY  DIH     PHI     C-   N    CA   C
+DIHE G   GLY  DIH     PSI     N    CA   C    N+
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  H   HIS  O       O       O         O      O      O      O       O
+NMR  H   HIS  N       N       N         N      N      N      N       N
+NMR  H   HIS  HN=H    H       HN        HN     H      HN     HN      H
+NMR  H   HIS  HA      HA      HA        HA     HA     HA     HA      HA
+NMR  H   HIS  HB2     HB1     HB2       HB1    HB1    HB1    HB2     1HB 
+NMR  H   HIS  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3     2HB
+NMR  H   HIS  HD1     HD1     HD1       HD1    HD1    HD1    HD1     HD1
+NMR  H   HIS  HD2     HD2     HD2       HD4    HD2    HD2    HD2     HD2
+NMR  H   HIS  HE1     HE1     HE1       HE2    HE1    HE1    HE1     HE1
+NMR  H   HIS  HE2     HE2     HE2       xxx    HE2    HE2    HE2     HE2
+NMR  H   HIS  QB=HB   HB*     HB*       QB     HB*    HB*    HB*     HB 
+NMR  H   HIS  QB=HB   HB*     HB#       QB     HB*    HB*    HB*     HB
+NMR  H   HIS  QB=HB   HB*     HB%       QB     HB*    HB*    HB*     HB 
+NMR  H   HIS  QB=HB   HB*     HB+       QB     HB*    HB*    HB*     HB 
+NMR  H   HIS  QD=HD   HD*     HD*       QB     HD*    HD*    HD*     HD
+NMR  H   HIS  QD=HD   HD*     HD#       QB     HD*    HD*    HD*     HD
+NMR  H   HIS  QD=HD   HD*     HD%       QB     HD*    HD*    HD*     HD
+NMR  H   HIS  QD=HD   HD*     HD+       QB     HD*    HD*    HD*     HD
+ATOM H   HIS  C       C       C         C      C      C      C       C
+ATOM H   HIS  O       O       O         O      O      O      O       O
+ATOM H   HIS  N       N       N         N      N      N      N       N
+ATOM H   HIS  CA      CA      CA        CA     CA     CA     CA      CA
+ATOM H   HIS  CB      CB      CB        CB     CB     CB     CB      CB
+ATOM H   HIS  CG      CG      CG        CG     CG     CG     CG      CG
+ATOM H   HIS  ND1     ND1     ND1       ND1    ND1    ND1    ND1     ND1
+ATOM H   HIS  CD2     CD2     CD2       CD4    CD2    CD2    CD2     CD2
+ATOM H   HIS  CE1     CE1     CE1       CE2    CE1    CE1    CE1     CE1
+ATOM H   HIS  NE2     NE2     NE2       NE3    NE2    NE2    NE2     NE2
+ATOM H   HIS  HN=H    H       HN        HN     H      HN     HN      H
+ATOM H   HIS  HA      HA      HA        HA     HA     HA     HA      HA
+ATOM H   HIS  HB2     HB1     HB2       HB1    1HB    HB     2HB     1HB
+ATOM H   HIS  HB3     HB2     HB1       HB2    2HB    HB     3HB     2HB
+ATOM H   HIS  HD1     HD1     HD1       HD1    HD1    HD     HD1     HD1
+ATOM H   HIS  HD2     HD2     HD2       HD4    HD2    HD     HD2     HD2
+ATOM H   HIS  HE1     HE1     HE1       HE2    HE1    HE     HE1     HE1 
+ATOM H   HIS  HE2     HE2     HE2       xxx    HE2    HE     HE2     HE2
+DIHE H   HIS  DIH     PHI     C-   N    CA   C  
+DIHE H   HIS  DIH     PSI     N    CA   C    N+
+DIHE H   HIS  DIH     CHI1    N    CA   CB   CG
+DIHE H   HIS  DIH     CHI2    CA   CB   CG   ND1
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  I   ILE  O       O       O         O      O      O      O        O
+NMR  I   ILE  N       N       N         N      N      N      N        N
+NMR  I   ILE  HN=H    H       HN        HN     H      HN     HN       H
+NMR  I   ILE  HA      HA      HA        HA     HA     HA     HA       HA
+NMR  I   ILE  HB      HB      HB        HB     HB     HB     HB       HB
+NMR  I   ILE  HG12    HG11    HG12      HG1    HG11   HG1    HG12     1HG1
+NMR  I   ILE  HG13    HG12    HG11=HG13 HG2    HG12   HG1    HG13     2HG1
+NMR  I   ILE  HG21    HG21    HG21      HG3    HG21   HG2    HG21     1HG2
+NMR  I   ILE  HG22    HG22    HG22      HG4    HG22   HG2    HG22     2HG2
+NMR  I   ILE  HG23    HG23    HG23      HG5    HG23   HG2    HG23     3HG2
+NMR  I   ILE  HD11    HD11    HD11      HD1    HD11   HD1    HD11     1HD1 
+NMR  I   ILE  HD12    HD12    HD12      HD2    HD12   HD1    HD12     2HD1
+NMR  I   ILE  HD13    HD13    HD13      HD3    HD13   HD1    HD13     3HD1
+NMR  I   ILE  QD1=HD1 HD1*    HD1*      QD     HD1*   HD1*   HD1*     HD1
+NMR  I   ILE  QD1=HD1 HD1*    HD1#      QD     HD1*   HD1*   HD1*     HD1
+NMR  I   ILE  QD1=HD1 HD1*    HD1%      QD     HD1*   HD1*   HD1*     HD1
+NMR  I   ILE  QD1=HD1 HD1*    HD1+      QD     HD1*   HD1*   HD1*     HD1
+NMR  I   ILE  QD1=HD1 HD*     HD*       QD     HD*    HD1*   HD*      HD
+NMR  I   ILE  QD1=HD1 HD*     HD#       QD     HD*    HD1*   HD*      HD
+NMR  I   ILE  QD1=HD1 HD*     HD%%      QD     HD*    HD1*   HD*      HD 
+NMR  I   ILE  QD1=HD1 HD*     HD++      QD     HD*    HD1*   HD*      HD 
+NMR  I   ILE  QG1=HG1 HG1*    HG1*      QG1    HG1*   HG1*   HG1*     HG1
+NMR  I   ILE  QG1=HG1 HG1*    HG1#      QG1    HG1*   HG1*   HG1*     HG1
+NMR  I   ILE  QG1=HG1 HG1*    HG1%      QG1    HG1*   HG1*   HG1*     HG1
+NMR  I   ILE  QG1=HG1 HG1*    HG1+      QG1    HG1*   HG1*   HG1*     HG1
+NMR  I   ILE  QG2=HG2 HG2*    HG2*      QG2    HG2*   HG2*   HG2*     HG2
+NMR  I   ILE  QG2=HG2 HG2*    HG2#      QG2    HG2*   HG2*   HG2*     HG2
+NMR  I   ILE  QG2=HG2 HG2*    HG2%      QG2    HG2*   HG2*   HG2*     HG2
+NMR  I   ILE  QG2=HG2 HG2*    HG2+      QG2    HG2*   HG2*   HG2*     HG2
+# special, added for analysis done by Binchen, March 2013
+NMR  I   ILE  QQG     HG*     HG#       QQG    HG*    HG*    HG*      HG
+NMR  I   ILE  QQG     HG*     HG*       QQG    HG*    HG*    HG*      HG
+ATOM I   ILE  C       C       C         C      C      C      C        C
+ATOM I   ILE  O       O       O         O      O      O      O        O 
+ATOM I   ILE  N       N       N         N      N      N      N        N
+ATOM I   ILE  CA      CA      CA        CA     CA     CA     CA       CA
+ATOM I   ILE  CB      CB      CB        CB     CB     CB     CB       CB
+ATOM I   ILE  CG2     CG2     CG2       CG2    CG2    CG2    CG2      CG2
+ATOM I   ILE  CG1     CG1     CG1       CG1    CG1    CG1    CG1      CG1 
+ATOM I   ILE  CD1     CD1     CD1       CD1    CD1    CD1    CD1      CD1
+ATOM I   ILE  HN=H    H       HN        HN     H      HN     HN       H
+ATOM I   ILE  HA      HA      HA        HA     HA     HA     HA       HA
+ATOM I   ILE  HB      HB      HB        HB     HB     HB     HB       HB
+ATOM I   ILE  HG12    HG11    HG12      HG1    1HG1   HG1    2HG1     1HG1
+ATOM I   ILE  HG13    HG12    HG11      HG2    2HG1   HG1    3HG1     2HG1
+ATOM I   ILE  HG21    HG21    HG21      HG3    1HG2   HG2    1HG2     1HG2 
+ATOM I   ILE  HG22    HG22    HG22      HG4    2HG2   HG2    2HG2     2HG2
+ATOM I   ILE  HG23    HG23    HG23      HG5    3HG2   HG2    3HG2     3HG2
+ATOM I   ILE  HD11    HD11    HD11      HD1    1HD1   HD1    1HD1     1HD1 
+ATOM I   ILE  HD12    HD12    HD12      HD2    2HD1   HD1    2HD1     2HD1 
+ATOM I   ILE  HD13    HD13    HD13      HD3    3HD1   HD1    3HD1     3HD1 
+DIHE I   ILE  DIH     PHI     C-   N    CA   C
+DIHE I   ILE  DIH     PSI     N    CA   C    N+
+DIHE I   ILE  DIH     CHI1    N    CA   CB   CG1
+DIHE I   ILE  DIH     CHI22   CA   CB   CG2  HG21
+DIHE I   ILE  DIH     CHI21   CA   CB   CG1  CD1
+DIHE I   ILE  DIH     CHI31   CB   CG1  CD1  HD11
+# special, fake, to CG2
+#DIHE I   ILE  DIH    CHIX    N    CA   CB   CG2         
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  K   LYS  O       O       O         O      O      O      O        O
+NMR  K   LYS  N       N       N         N      N      N      N        N
+NMR  K   LYS  HN=H    H       HN        HN     H      HN     HN       H
+NMR  K   LYS  HA      HA      HA        HA     HA     HA     HA       HA
+NMR  K   LYS  HB2     HB1     HB2       HB1    HB1    HB1    HB2      1HB
+NMR  K   LYS  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3      2HB
+NMR  K   LYS  HG2     HG1     HG2       HG1    HG1    HG1    HG2      1HG
+NMR  K   LYS  HG3     HG2     HG1=HG3   HG2    HG2    HG2    HG3      2HG
+NMR  K   LYS  HD2     HD1     HD2       HD1    HD1    HD1    HD2      1HD  
+NMR  K   LYS  HD3     HD2     HD1=HD3   HD2    HD2    HD2    HD3      2HD
+NMR  K   LYS  HE2     HE1     HE2       HE1    HE1    HE1    HE2      1HE
+NMR  K   LYS  HE3     HE2     HE1=HE3   HE2    HE2    HE2    HE3      2HE
+NMR  K   LYS  QB=HB   HB*     HB*       QB     HB*    HB*    HB*      HB
+NMR  K   LYS  QB=HB   HB*     HB#       QB     HB*    HB*    HB*      HB 
+NMR  K   LYS  QB=HB   HB*     HB%       QB     HB*    HB*    HB*      HB 
+NMR  K   LYS  QB=HB   HB*     HB+       QB     HB*    HB*    HB*      HB 
+NMR  K   LYS  QG=HG   HG*     HG*       QG     HG*    HG*    HG*      HG
+NMR  K   LYS  QG=HG   HG*     HG#       QG     HG*    HG*    HG*      HG
+NMR  K   LYS  QG=HG   HG*     HG%       QG     HG*    HG*    HG*      HG
+NMR  K   LYS  QG=HG   HG*     HG+       QG     HG*    HG*    HG*      HG
+NMR  K   LYS  QD=HD   HD*     HD*       QD     HD*    HD*    HD*      HD
+NMR  K   LYS  QD=HD   HD*     HD#       QD     HD*    HD*    HD*      HD
+NMR  K   LYS  QD=HD   HD*     HD%       QD     HD*    HD*    HD*      HD
+NMR  K   LYS  QD=HD   HD*     HD+       QD     HD*    HD*    HD*      HD
+NMR  K   LYS  QE=HE   HE*     HE*       QE     HE*    HE*    HE*      HE
+NMR  K   LYS  QE=HE   HE*     HE#       QE     HE*    HE*    HE*      HE
+NMR  K   LYS  QE=HE   HE*     HE%       QE     HE*    HE*    HE*      HE
+NMR  K   LYS  QE=HE   HE*     HE+       QE     HE*    HE*    HE*      HE
+NMR  K   LYS  QZ=HZ   HZ*     HZ*       QZ     HZ*    HZ*    HZ*      HZ
+NMR  K   LYS  QZ=HZ   HZ*     HZ#       QZ     HZ*    HZ*    HZ*      HZ
+NMR  K   LYS  QZ=HZ   HZ*     HZ%       QZ     HZ*    HZ*    HZ*      HZ
+NMR  K   LYS  QZ=HZ   HZ*     HZ+       QZ     HZ*    HZ*    HZ*      HZ
+ATOM K   LYS  C       C       C         C      C      C      C        C
+ATOM K   LYS  O       O       O         O      O      O      O        O
+ATOM K   LYS  N       N       N         N      N      N      N        N
+ATOM K   LYS  CA      CA      CA        CA     CA     CA     CA       CA
+ATOM K   LYS  CB      CB      CB        CB     CB     CB     CB       CB
+ATOM K   LYS  CG      CG      CG        CG     CG     CG     CG       CG 
+ATOM K   LYS  CD      CD      CD        CD     CD     CD     CD       CD
+ATOM K   LYS  CE      CE      CE        CE     CE     CE     CE       CE
+ATOM K   LYS  NZ      NZ      NZ        NZ     NZ     NZ     NZ       NZ
+ATOM K   LYS  HN=H    H       HN        HN     H      HN     HN       H
+ATOM K   LYS  HA      HA      HA        HA     HA     HA     HA       HA
+ATOM K   LYS  HB2     HB1     HB2       HB1    1HB    HB     2HB      1HB
+ATOM K   LYS  HB3     HB2     HB1       HB2    2HB    HB     3HB      2HB
+ATOM K   LYS  HG2     HG1     HG2       HG1    1HG    HG     2HG      1HG
+ATOM K   LYS  HG3     HG2     HG1       HG2    2HG    HG     3HG      2HG 
+ATOM K   LYS  HD2     HD1     HD2       HD1    1HD    HD     2HD      1HD
+ATOM K   LYS  HD3     HD2     HD1       HD2    2HD    HD     3HD      2HD
+ATOM K   LYS  HE2     HE1     HE2       HE1    1HE    HE     2HE      1HE
+ATOM K   LYS  HE3     HE2     HE1       HE2    2HE    HE     3HE      2HE
+ATOM K   LYS  HZ1     HZ1     HZ1       HZ1    1HZ    HZ     1HZ      1HZ
+ATOM K   LYS  HZ2     HZ2     HZ2       HZ2    2HZ    HZ     2HZ      2HZ
+ATOM K   LYS  xxx     HZ3     HZ3       HZ3    3HZ    HZ     3HZ      3HZ
+DIHE K   LYS  DIH     PHI     C-   N    CA   C     
+DIHE K   LYS  DIH     PSI     N    CA   C    N+
+DIHE K   LYS  DIH     CHI1    N    CA   CB   CG
+DIHE K   LYS  DIH     CHI2    CA   CB   CG   CD
+DIHE K   LYS  DIH     CHI3    CB   CG   CD   CE
+DIHE K   LYS  DIH     CHI4    CG   CD   CE   NZ
+DIHE K   LYS  DIH     CHI5    CD   CE   NZ   HZ1
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA  CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----  -----   ------    ------ ---    -----  -----
+NMR  L   LEU  O       O       O         O      O      O      O      O
+NMR  L   LEU  N       N       N         N      N      N      N      N
+NMR  L   LEU  HN=H    H       HN        HN     H      HN     HN     H
+NMR  L   LEU  HA      HA      HA        HA     HA     HA     HA     HA
+NMR  L   LEU  HB2     HB1     HB2       HB1    HB1    HB1    HB2    1HB
+NMR  L   LEU  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3    2HB
+NMR  L   LEU  HG      HG      HG        HG     HG     HG     HG     HG
+NMR  L   LEU  HD11    HD11    HD11      HD1    HD11   HD1    HD11   1HD1
+NMR  L   LEU  HD12    HD12    HD12      HD2    HD12   HD1    HD12   2HD1
+NMR  L   LEU  HD13    HD13    HD13      HD3    HD13   HD1    HD13   3HD1 
+NMR  L   LEU  HD21    HD21    HD21      HD4    HD21   HD2    HD21   1HD2 
+NMR  L   LEU  HD22    HD22    HD22      HD5    HD22   HD2    HD22   2HD2
+NMR  L   LEU  HD23    HD23    HD23      HD6    HD23   HD2    HD23   3HD2
+NMR  L   LEU  QB=HB   HB*     HB*       QB     HB*    HB*    HB*    HB
+NMR  L   LEU  QB=HB   HB*     HB#       QB     HB*    HB*    HB*    HB
+NMR  L   LEU  QB=HB   HB*     HB%       QB     HB*    HB*    HB*    HB
+NMR  L   LEU  QB=HB   HB*     HB+       QB     HB*    HB*    HB*    HB
+NMR  L   LEU  QD1=HD1 HD1*    HD1*      QD1    HD1*   HD1*   HD1*   HD1
+NMR  L   LEU  QD1=HD1 HD1*    HD1#      QD1    HD1*   HD1*   HD1*   HD1
+NMR  L   LEU  QD1=HD1 HD1*    HD1%      QD1    HD1*   HD1*   HD1*   HD1 
+NMR  L   LEU  QD1=HD1 HD1*    HD1+      QD1    HD1*   HD1*   HD1*   HD1
+NMR  L   LEU  QD2=HD2 HD2*    HD2*      QD2    HD2*   HD2*   HD2*   HD2
+NMR  L   LEU  QD2=HD2 HD2*    HD2#      QD2    HD2*   HD2*   HD2*   HD2
+NMR  L   LEU  QD2=HD2 HD2*    HD2%      QD2    HD2*   HD2*   HD2*   HD2
+NMR  L   LEU  QD2=HD2 HD2*    HD2+      QD2    HD2*   HD2*   HD2*   HD2
+NMR  L   LEU  QQD=HD  HD*     HD*       QQD    HD*    HD*    HD*    HD
+NMR  L   LEU  QQD=HD  HD*     HD#       QQD    HD*    HD*    HD*    HD 
+NMR  L   LEU  QQD=HD  HD*     HD##      QQD    HD*    HD*    HD*    HD
+NMR  L   LEU  QQD=HD  HD*     HD%%      QQD    HD*    HD*    HD*    HD
+NMR  L   LEU  QQD=HD  HD*     HD++      QQD    HD*    HD*    HD*    HD
+ATOM L   LEU  C       C       C         C      C      C      C      C
+ATOM L   LEU  O       O       O         O      O      O      O      O 
+ATOM L   LEU  N       N       N         N      N      N      N      N
+ATOM L   LEU  CA      CA      CA        CA     CA     CA     CA     CA
+ATOM L   LEU  CB      CB      CB        CB     CB     CB     CB     CB
+ATOM L   LEU  CG      CG      CG        CG     CG     CG     CG     CG
+ATOM L   LEU  CD1     CD1     CD1       CD1    CD1    CD1    CD1    CD1
+ATOM L   LEU  CD2     CD2     CD2       CD2    CD2    CD2    CD2    CD2
+ATOM L   LEU  HN=H    H       HN        HN     H      HN     HN     H
+ATOM L   LEU  HA      HA      HA        HA     HA     HA     HA     HA
+ATOM L   LEU  HB2     HB1     HB2       HB1    1HB    HB     2HB    1HB
+ATOM L   LEU  HB3     HB2     HB1       HB2    2HB    HB     3HB    2HB
+ATOM L   LEU  HG      HG      HG        HG     HG     HG     HG     HG
+ATOM L   LEU  HD11    HD11    HD11      HD1    1HD1   HD1    1HD1   1HD1 
+ATOM L   LEU  HD12    HD12    HD12      HD2    2HD1   HD1    2HD1   2HD1 
+ATOM L   LEU  HD13    HD13    HD13      HD3    3HD1   HD1    3HD1   3HD1 
+ATOM L   LEU  HD21    HD21    HD21      HD4    1HD2   HD2    1HD2   1HD2 
+ATOM L   LEU  HD22    HD22    HD22      HD5    2HD2   HD2    2HD2   2HD2 
+ATOM L   LEU  HD23    HD23    HD23      HD6    3HD2   HD2    3HD2   3HD2 
+DIHE L   LEU  DIH     PHI     C-   N    CA   C
+DIHE L   LEU  DIH     PSI     N    CA   C    N+
+DIHE L   LEU  DIH     CHI1    N    CA   CB   CG
+DIHE L   LEU  DIH     CHI2    CA   CB   CG   CD1
+DIHE L   LEU  DIH     CHI31   CB   CG   CD1  HD11
+DIHE L   LEU  DIH     CHI32   CB   CG   CD2  HD21
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  M   MET  O       O       O         O      O      O      O      O
+NMR  M   MET  N       N       N         N      N      N      N      N
+NMR  M   MET  HN=H    H       HN        HN     H      HN     HN     H 
+NMR  M   MET  HA      HA      HA        HA     HA     HA     HA     HA
+NMR  M   MET  HB2     HB1     HB2       HB1    HB1    HB1    HB2    1HB
+NMR  M   MET  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3    2HB
+NMR  M   MET  HG2     HG1     HG2       HG1    HG1    HG1    HG2    1HG
+NMR  M   MET  HG3     HG2     HG1=HG3   HG2    HG2    HG2    HG3    2HG
+NMR  M   MET  HE1     HE1     HE1       HE1    HE1    HE1    HE1    1HE 
+NMR  M   MET  HE2     HE2     HE2       HE2    HE2    HE2    HE2    2HE
+NMR  M   MET  HE3     HE3     HE3       HE3    HE3    HE3    HE3    3HE
+NMR  M   MET  QB=HB   HB*     HB*       QB     HB*    HB*    HB*    HB
+NMR  M   MET  QB=HB   HB*     HB#       QB     HB*    HB*    HB*    HB
+NMR  M   MET  QB=HB   HB*     HB%       QB     HB*    HB*    HB*    HB
+NMR  M   MET  QB=HB   HB*     HB+       QB     HB*    HB*    HB*    HB
+NMR  M   MET  QG=HG   HG*     HG*       QG     HG*    HG*    HG*    HG
+NMR  M   MET  QG=HG   HG*     HG#       QG     HG*    HG*    HG*    HG
+NMR  M   MET  QG=HG   HG*     HG%       QG     HG*    HG*    HG*    HG
+NMR  M   MET  QG=HG   HG*     HG+       QG     HG*    HG*    HG*    HG
+NMR  M   MET  QE=HE   HE*     HE*       QE     HE*    HE*    HE*    HE
+NMR  M   MET  QE=HE   HE*     HE#       QE     HE*    HE*    HE*    HE
+NMR  M   MET  QE=HE   HE*     HE%       QE     HE*    HE*    HE*    HE
+NMR  M   MET  QE=HE   HE*     HE+       QE     HE*    HE*    HE*    HE
+ATOM M   MET  C       C       C         C      C      C      C      C
+ATOM M   MET  O       O       O         O      O      O      O      O
+ATOM M   MET  N       N       N         N      N      N      N      N
+ATOM M   MET  CA      CA      CA        CA     CA     CA     CA     CA
+ATOM M   MET  CB      CB      CB        CB     CB     CB     CB     CB
+ATOM M   MET  CG      CG      CG        CG     CG     CG     CG     CG 
+ATOM M   MET  SD      SD      SD        SD     SD     SD     SD     SD
+ATOM M   MET  CE      CE      CE        CE     CE     CE     CE     CE
+ATOM M   MET  HN=H    H       HN        HN     H      HN     HN     H
+ATOM M   MET  HA      HA      HA        HA     HA     HA     HA     HA
+ATOM M   MET  HB2     HB1     HB2       HB1    1HB    HB1    2HB    1HB
+ATOM M   MET  HB3     HB2     HB1       HB2    2HB    HB2    3HB    2HB
+ATOM M   MET  HG2     HG1     HG2       HG1    1HG    HG1    2HG    1HG
+ATOM M   MET  HG3     HG2     HG1       HG2    2HG    HG2    3HG    2HG
+ATOM M   MET  HE1     HE1     HE1       HE1    1HE    HE1    1HE    1HE
+ATOM M   MET  HE2     HE2     HE2       HE2    2HE    HE2    2HE    2HE
+ATOM M   MET  HE3     HE3     HE3       HE3    3HE    HE3    3HE    3HE  
+DIHE M   MET  DIH     PHI     C-   N    CA   C        
+DIHE M   MET  DIH     PSI     N    CA   C    N+
+DIHE M   MET  DIH     CHI1    N    CA   CB   CG
+DIHE M   MET  DIH     CHI2    CA   CB   CG   SD
+DIHE M   MET  DIH     CHI3    CB   CG   SD   CE
+DIHE M   MET  DIH     CHI4    CG   SD   CE   HE1
+###################################################################
+#             DIANA                 --- SPECIAL ---  MSE                 
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  M   MSE  O       O       O         O      O      O      O      O
+NMR  M   MSE  N       N       N         N      N      N      N      N
+NMR  M   MSE  HN=H    H       HN        HN     H      HN     HN     H 
+NMR  M   MSE  HA      HA      HA        HA     HA     HA     HA     HA
+NMR  M   MSE  HB2     HB1     HB2       HB1    HB1    HB1    HB2    1HB
+NMR  M   MSE  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3    2HB
+NMR  M   MSE  HG2     HG1     HG2       HG1    HG1    HG1    HG2    1HG
+NMR  M   MSE  HG3     HG2     HG1=HG3   HG2    HG2    HG2    HG3    2HG
+NMR  M   MSE  HE1     HE1     HE1       HE1    HE1    HE1    HE1    1HE 
+NMR  M   MSE  HE2     HE2     HE2       HE2    HE2    HE2    HE2    2HE
+NMR  M   MSE  HE3     HE3     HE3       HE3    HE3    HE3    HE3    3HE
+NMR  M   MSE  QB=HB   HB*     HB*       QB     HB*    HB*    HB*    HB
+NMR  M   MSE  QB=HB   HB*     HB#       QB     HB*    HB*    HB*    HB
+NMR  M   MSE  QB=HB   HB*     HB%       QB     HB*    HB*    HB*    HB
+NMR  M   MSE  QB=HB   HB*     HB+       QB     HB*    HB*    HB*    HB
+NMR  M   MSE  QG=HG   HG*     HG*       QG     HG*    HG*    HG*    HG
+NMR  M   MSE  QG=HG   HG*     HG#       QG     HG*    HG*    HG*    HG
+NMR  M   MSE  QG=HG   HG*     HG%       QG     HG*    HG*    HG*    HG
+NMR  M   MSE  QG=HG   HG*     HG+       QG     HG*    HG*    HG*    HG
+NMR  M   MSE  QE=HE   HE*     HE*       QE     HE*    HE*    HE*    HE
+NMR  M   MSE  QE=HE   HE*     HE#       QE     HE*    HE*    HE*    HE
+NMR  M   MSE  QE=HE   HE*     HE%       QE     HE*    HE*    HE*    HE
+NMR  M   MSE  QE=HE   HE*     HE+       QE     HE*    HE*    HE*    HE
+ATOM M   MSE  C       C       C         C      C      C      C      C
+ATOM M   MSE  O       O       O         O      O      O      O      O
+ATOM M   MSE  N       N       N         N      N      N      N      N
+ATOM M   MSE  CA      CA      CA        CA     CA     CA     CA     CA
+ATOM M   MSE  CB      CB      CB        CB     CB     CB     CB     CB
+ATOM M   MSE  CG      CG      CG        CG     CG     CG     CG     CG 
+ATOM M   MSE  SE      SE      SE        SE     SE     SE     SE     SE
+ATOM M   MSE  CE      CE      CE        CE     CE     CE     CE     CE
+ATOM M   MSE  HN=H    H       HN        HN     H      HN     HN     H
+ATOM M   MSE  HA      HA      HA        HA     HA     HA     HA     HA
+ATOM M   MSE  HB2     HB1     HB2       HB1    1HB    HB1    2HB    1HB
+ATOM M   MSE  HB3     HB2     HB1       HB2    2HB    HB2    3HB    2HB
+ATOM M   MSE  HG2     HG1     HG2       HG1    1HG    HG1    2HG    1HG
+ATOM M   MSE  HG3     HG2     HG1       HG2    2HG    HG2    3HG    2HG
+ATOM M   MSE  HE1     HE1     HE1       HE1    1HE    HE1    1HE    1HE
+ATOM M   MSE  HE2     HE2     HE2       HE2    2HE    HE2    2HE    2HE
+ATOM M   MSE  HE3     HE3     HE3       HE3    3HE    HE3    3HE    3HE  
+DIHE M   MSE  DIH     PHI     C-   N    CA   C        
+DIHE M   MSE  DIH     PSI     N    CA   C    N+
+DIHE M   MSE  DIH     CHI1    N    CA   CB   CG
+DIHE M   MSE  DIH     CHI2    CA   CB   CG   SE
+DIHE M   MSE  DIH     CHI3    CB   CG   SE   CE
+DIHE M   MSE  DIH     CHI4    CG   SE   CE   HE1
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  N   ASN  O       O       O         O      O      O      O      O
+NMR  N   ASN  N       N       N         N      N      N      N      N
+NMR  N   ASN  OD1     OD1     OD1       OD1    OD1    OD1    OD1    OD1 
+NMR  N   ASN  ND2     ND2     ND2       ND2    ND2    ND2    ND2    ND2
+NMR  N   ASN  HN=H    H       HN        HN     H      HN     HN     H
+NMR  N   ASN  HA      HA      HA        HA     HA     HA     HA     HA
+NMR  N   ASN  HB2     HB1     HB2       HB1    HB1    HB1    HB2    1HB
+NMR  N   ASN  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3    2HB
+NMR  N   ASN  HD21    HD21    HD21      HDE    HD21   HD21   HD21   2HD2
+NMR  N   ASN  HD22    HD22    HD22      HDZ    HD22   HD22   HD22   1HD2
+NMR  N   ASN  QB=HB   HB*     HB*       QB     HB*    HB*    HB*    HB
+NMR  N   ASN  QB=HB   HB*     HB#       QB     HB*    HB*    HB*    HB
+NMR  N   ASN  QB=HB   HB*     HB%       QB     HB*    HB*    HB*    HB 
+NMR  N   ASN  QB=HB   HB*     HB+       QB     HB*    HB*    HB*    HB 
+NMR  N   ASN  QD2=HD2 HD2*    HD2*      QD     HD2*   HD2    HD2*   HD2
+NMR  N   ASN  QD2=HD2 HD2*    HD2#      QD     HD2*   HD2    HD2*   HD2
+NMR  N   ASN  QD2=HD2 HD2*    HD2%      QD     HD2*   HD2    HD2*   HD2
+NMR  N   ASN  QD2=HD2 HD2*    HD2+      QD     HD2*   HD2    HD2*   HD2
+NMR  N   ASN  QD2=HD2 HD*     HD*       QD     HD*    HD2    HD*    HD
+NMR  N   ASN  QD2=HD2 HD*     HD#       QD     HD*    HD2    HD*    HD
+NMR  N   ASN  QD2=HD2 HD*     HD##      QD     HD*    HD2    HD*    HD 
+NMR  N   ASN  QD2=HD2 HD*     HD%%      QD     HD*    HD2    HD*    HD 
+NMR  N   ASN  QD2=HD2 HD*     HD++      QD     HD*    HD2    HD*    HD 
+ATOM N   ASN  C       C       C         C      C      C      C      C
+ATOM N   ASN  O       O       O         O      O      O      O      O
+ATOM N   ASN  N       N       N         N      N      N      N      N
+ATOM N   ASN  CA      CA      CA        CA     CA     CA     CA     CA
+ATOM N   ASN  CB      CB      CB        CB     CB     CB     CB     CB 
+ATOM N   ASN  CG      CG      CG        CG     CG     CG     CG     CG
+ATOM N   ASN  OD1     OD1     OD1       OD1    OD1    OD1    OD1    OD1
+ATOM N   ASN  ND2     ND2     ND2       ND2    ND2    ND2    ND2    ND2
+ATOM N   ASN  HN=H    H       HN        HN     H      HN     HN     H
+ATOM N   ASN  HA      HA      HA        HA     HA     HA     HA     HA 
+ATOM N   ASN  HB2     HB1     HB2       HB1    1HB    HB1    2HB    1HB
+ATOM N   ASN  HB3     HB2     HB1       HB2    2HB    HB2    3HB    2HB 
+ATOM N   ASN  HD21    HD21    HD21      HDE    2HD2   HD21   1HD2   2HD2
+ATOM N   ASN  HD22    HD22    HD22      HDZ    1HD2   HD22   2HD2   1HD2
+DIHE N   ASN  DIH     PHI     C-   N    CA   C
+DIHE N   ASN  DIH     PSI     N    CA   C    N+
+DIHE N   ASN  DIH     CHI1    N    CA   CB   CG
+DIHE N   ASN  DIH     CHI2    CA   CB   CG   OD1
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  P   PRO  O       O       O         O      O      O      O      O
+NMR  P   PRO  N       N       N         N      N      N      N      N
+NMR  P   PRO  HA      HA      HA        HA     HA     HA     HA     HA
+NMR  P   PRO  HB2     HB1     HB2       HB1    HB1    HB     HB2    1HB
+NMR  P   PRO  HB3     HB2     HB1=HB3   HB2    HB2    HB     HB3    2HB
+NMR  P   PRO  HD2     HD1     HD2       HD1    HD1    HD     HD2    1HD
+NMR  P   PRO  HD3     HD2     HD1=HD3   HD2    HD2    HD     HD3    2HD
+NMR  P   PRO  HG2     HG1     HG2       HG1    HG1    HG     HG2    1HG
+NMR  P   PRO  HG3     HG2     HG1=HG3   HG2    HG2    HG     HG3    2HG
+NMR  P   PRO  QB=HB   HB*     HB*       QB     HB*    HB*    HB*    HB
+NMR  P   PRO  QB=HB   HB*     HB#       QB     HB*    HB*    HB*    HB
+NMR  P   PRO  QB=HB   HB*     HB%       QB     HB*    HB*    HB*    HB 
+NMR  P   PRO  QB=HB   HB*     HB+       QB     HB*    HB*    HB*    HB 
+NMR  P   PRO  QG=HG   HG*     HG*       QG     HG*    HG*    HG*    HG 
+NMR  P   PRO  QG=HG   HG*     HG#       QG     HG*    HG*    HG*    HG
+NMR  P   PRO  QG=HG   HG*     HG%       QG     HG*    HG*    HG*    HG
+NMR  P   PRO  QG=HG   HG*     HG+       QG     HG*    HG*    HG*    HG
+NMR  P   PRO  QD=HD   HD*     HD*       QD     HD*    HD*    HD*    HD
+NMR  P   PRO  QD=HD   HD*     HD#       QD     HD*    HD*    HD*    HD
+NMR  P   PRO  QD=HD   HD*     HD%       QD     HD*    HD*    HD*    HD
+NMR  P   PRO  QD=HD   HD*     HD+       QD     HD*    HD*    HD*    HD
+ATOM P   PRO  C       C       C         C      C      C      C      C
+ATOM P   PRO  O       O       O         O      O      O      O      O
+ATOM P   PRO  N       N       N         N      N      N      N      N
+ATOM P   PRO  CA      CA      CA        CA     CA     CA     CA     CA
+ATOM P   PRO  CB      CB      CB        CB     CB     CB     CB     CB
+ATOM P   PRO  CD      CD      CD        CD     CD     CD     CD     CD
+ATOM P   PRO  CG      CG      CG        CG     CG     CG     CG     CG
+ATOM P   PRO  HA      HA      HA        HA     HA     HA     HA     HA
+ATOM P   PRO  HB2     HB1     HB2       HB1    1HB    HB     2HB    1HB
+ATOM P   PRO  HB3     HB2     HB1       HB2    2HB    HB     3HB    2HB 
+ATOM P   PRO  HD2     HD1     HD2       HD1    1HD    HD     2HD    1HD
+ATOM P   PRO  HD3     HD2     HD1       HD2    2HD    HD     3HD    2HD
+ATOM P   PRO  HG2     HG1     HG2       HG1    1HG    HG     2HG    1HG
+ATOM P   PRO  HG3     HG2     HG1       HG2    2HG    HG     3HG    2HG
+DIHE P   PRO  DIH     PHI     C-   N    CA   C     
+DIHE P   PRO  DIH     PSI     N    CA   C    N+
+DIHE P   PRO  DIH     CHI1    N    CA   CB   CG
+DIHE P   PRO  DIH     CHI2    CA   CB   CG   CD
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  Q   GLN  O       O       O         O      O      O      O      O
+NMR  Q   GLN  N       N       N         N      N      N      N      N
+NMR  Q   GLN  HN=H    H       HN        HN     H      HN     HN     H
+NMR  Q   GLN  HA      HA      HA        HA     HA     HA     HA     HA
+NMR  Q   GLN  HB2     HB1     HB2       HB1    HB1    HB1    HB2    1HB
+NMR  Q   GLN  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3    2HB
+NMR  Q   GLN  HG2     HG1     HG2       HG1    HG1    HG1    HG2    1HG
+NMR  Q   GLN  HG3     HG2     HG1=HG3   HG2    HG2    HG2    HG3    2HG
+NMR  Q   GLN  HE21    HE21    HE21      HEE    HE21   HE21   HE21   2HE2
+NMR  Q   GLN  HE22    HE22    HE22      HEZ    HE22   HE22   HE22   1HE2  
+NMR  Q   GLN  QB=HB   HB*     HB*       QB     HB*    HB*    HB*    HB
+NMR  Q   GLN  QB=HB   HB*     HB#       QB     HB*    HB*    HB*    HB
+NMR  Q   GLN  QB=HB   HB*     HB%       QB     HB*    HB*    HB*    HB
+NMR  Q   GLN  QB=HB   HB*     HB+       QB     HB*    HB*    HB*    HB
+NMR  Q   GLN  QG=HG   HG*     HG*       QG     HG*    HG*    HG*    HG
+NMR  Q   GLN  QG=HG   HG*     HG#       QG     HG*    HG*    HG*    HG
+NMR  Q   GLN  QG=HG   HG*     HG%       QG     HG*    HG*    HG*    HG
+NMR  Q   GLN  QG=HG   HG*     HG+       QG     HG*    HG*    HG*    HG
+NMR  Q   GLN  QE2=HE2 HE*     HE*       QE     HE2*   HE2    HE2*   HE2
+NMR  Q   GLN  QE2=HE2 HE*     HE%%      QE     HE2*   HE2    HE2*   HE2
+NMR  Q   GLN  QE2=HE2 HE*     HE++      QE     HE2*   HE2    HE2*   HE2
+NMR  Q   GLN  QE2=HE2 HE*     HE2*      QE     HE2*   HE2    HE2*   HE2
+NMR  Q   GLN  QE2=HE2 HE*     HE2#      QE     HE2*   HE2    HE2*   HE2
+NMR  Q   GLN  QE2=HE2 HE*     HE2%      QE     HE2*   HE2    HE2*   HE2
+NMR  Q   GLN  QE2=HE2 HE*     HE2+      QE     HE2*   HE2    HE2*   HE2
+ATOM Q   GLN  C       C       C         C      C      C      C      C
+ATOM Q   GLN  O       O       O         O      O      O      O      O
+ATOM Q   GLN  N       N       N         N      N      N      N      N
+ATOM Q   GLN  CA      CA      CA        CA     CA     CA     CA     CA
+ATOM Q   GLN  CB      CB      CB        CB     CB     CB     CB     CB
+ATOM Q   GLN  CG      CG      CG        CG     CG     CG     CG     CG
+ATOM Q   GLN  CD      CD      CD        CD     CD     CD     CD     CD
+ATOM Q   GLN  OE1     OE1     OE1       OE1    OE1    OE1    OE1    OE1
+ATOM Q   GLN  NE2     NE2     NE2       NE2    NE2    NE2    NE2    NE2
+ATOM Q   GLN  HN=H    H       HN        HN     H      HN     HN     H
+ATOM Q   GLN  HA      HA      HA        HA     HA     HA     HA     HA
+ATOM Q   GLN  HB2     HB1     HB2       HB1    1HB    HB1    2HB    1HB
+ATOM Q   GLN  HB3     HB2     HB1       HB2    2HB    HB2    3HB    2HB 
+ATOM Q   GLN  HG2     HG1     HG2       HG1    1HG    HG1    2HG    1HG
+ATOM Q   GLN  HG3     HG2     HG1       HG2    2HG    HG2    3HG    2HG
+ATOM Q   GLN  HE21    HE21    HE21      HEE    2HE2   HE21   1HE2   2HE2
+ATOM Q   GLN  HE22    HE22    HE22      HEZ    1HE2   HE22   2HE2   1HE2
+DIHE Q   GLN  DIH     PHI     C-   N    CA   C
+DIHE Q   GLN  DIH     PSI     N    CA   C    N+
+DIHE Q   GLN  DIH     CHI1    N    CA   CB   CG
+DIHE Q   GLN  DIH     CHI2    CA   CB   CG   CD
+DIHE Q   GLN  DIH     CHI3    CB   CG   CD   OE1
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  R   ARG  O       O       O         O      O      O      O      O 
+NMR  R   ARG  N       N       N         N      N      N      N      N
+NMR  R   ARG  HN=H    H       HN        HN     H      HN     HN     H  
+NMR  R   ARG  HA      HA      HA        HA     HA     HA     HA     HA
+NMR  R   ARG  HB2     HB1     HB2       HB1    HB1    HB1    HB2    1HB
+NMR  R   ARG  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3    2HB
+NMR  R   ARG  HG2     HG1     HG2       HG1    HG1    HG1    HG2    1HG
+NMR  R   ARG  HG3     HG2     HG1=HG3   HG2    HG2    HG2    HG3    2HG
+NMR  R   ARG  HD2     HD1     HD2       HD1    HD1    HD1    HD2    1HD
+NMR  R   ARG  HD3     HD2     HD1=HD3   HD2    HD2    HD2    HD3    2HD
+NMR  R   ARG  HE      HE      HE        HE     HE     HE     HE     HE
+NMR  R   ARG  HH11    HH11    HH11      xxx    HH11   HH1    HH11   2HH1          Z
+NMR  R   ARG  HH12    HH12    HH12      xxx    HH12   HH1    HH12   1HH1          E
+NMR  R   ARG  HH21    HH21    HH21      xxx    HH21   HH2    HH21   2HH2          Z
+NMR  R   ARG  HH22    HH22    HH22      xxx    HH22   HH2    HH22   1HH2          E
+NMR  R   ARG  QB=HB   HB*     HB*       QB     HB*    HB*    HB*    HB 
+NMR  R   ARG  QB=HB   HB*     HB#       QB     HB*    HB*    HB*    HB
+NMR  R   ARG  QB=HB   HB*     HB%       QB     HB*    HB*    HB*    HB
+NMR  R   ARG  QB=HB   HB*     HB+       QB     HB*    HB*    HB*    HB
+NMR  R   ARG  QG=HG   HG*     HG*       QG     HG*    HG*    HG*    HG
+NMR  R   ARG  QG=HG   HG*     HG#       QG     HG*    HG*    HG*    HG
+NMR  R   ARG  QG=HG   HG*     HG%       QG     HG*    HG*    HG*    HG
+NMR  R   ARG  QG=HG   HG*     HG+       QG     HG*    HG*    HG*    HG
+NMR  R   ARG  QD=HD   HD*     HD*       QD     HD*    HD*    HD*    HD
+NMR  R   ARG  QD=HD   HD*     HD#       QD     HD*    HD*    HD*    HD
+NMR  R   ARG  QD=HD   HD*     HD%       QD     HD*    HD*    HD*    HD
+NMR  R   ARG  QD=HD   HD*     HD+       QD     HD*    HD*    HD*    HD
+NMR  R   ARG  QH1=HH1 HH1*    HH1*      xxx    HH1*   HH1    HH1*   HH1
+NMR  R   ARG  QH1=HH1 HH1*    HH1#      xxx    HH1*   HH1    HH1*   HH1
+NMR  R   ARG  QH1=HH1 HH1*    HH1%      xxx    HH1*   HH1    HH1*   HH1 
+NMR  R   ARG  QH1=HH1 HH1*    HH1+      xxx    HH1*   HH1    HH1*   HH1 
+NMR  R   ARG  QH2=HH2 HH2*    HH2*      xxx    HH2*   HH2    HH2*   HH2
+NMR  R   ARG  QH2=HH2 HH2*    HH2#      xxx    HH2*   HH2    HH2*   HH2
+NMR  R   ARG  QH2=HH2 HH2*    HH2%      xxx    HH2*   HH2    HH2*   HH2
+NMR  R   ARG  QH2=HH2 HH2*    HH2+      xxx    HH2*   HH2    HH2*   HH2
+NMR  R   ARG  xxx     HH*     HH*       CZ     HH*    xxx    HH*    HH
+NMR  R   ARG  xxx     HH*     HH#       CZ     HH*    xxx    HH*    HH
+NMR  R   ARG  xxx     HH*     HH##      CZ     HH*    xxx    HH*    HH 
+NMR  R   ARG  xxx     HH*     HH%%      CZ     HH*    xxx    HH*    HH 
+NMR  R   ARG  xxx     HH*     HH++      CZ     HH*    xxx    HH*    HH 
+ATOM R   ARG  C       C       C         C      C      C      C      C
+ATOM R   ARG  O       O       O         O      O      O      O      O
+ATOM R   ARG  N       N       N         N      N      N      N      N
+ATOM R   ARG  CA      CA      CA        CA     CA     CA     CA     CA
+ATOM R   ARG  CB      CB      CB        CB     CB     CB     CB     CB
+ATOM R   ARG  CG      CG      CG        CG     CG     CG     CG     CG
+ATOM R   ARG  CD      CD      CD        CD     CD     CD     CD     CD
+ATOM R   ARG  NE      NE      NE        NE     NE     NE     NE     NE
+ATOM R   ARG  CZ      CZ      CZ        CZ     CZ     CZ     CZ     CZ
+ATOM R   ARG  NH1     NH1     NH1       NH1    NH1    NH2    NH1    NH1
+ATOM R   ARG  NH2     NH2     NH2       NH2    NH2    NH1    NH2    NH2
+ATOM R   ARG  HN=H    H       HN        HN     H      HN     HN     H
+ATOM R   ARG  HA      HA      HA        HA     HA     HA     HA     HA
+ATOM R   ARG  HB2     HB1     HB2       HB1    1HB    HB1    2HB    1HB
+ATOM R   ARG  HB3     HB2     HB1       HB2    2HB    HB2    3HB    2HB
+ATOM R   ARG  HG2     HG1     HG2       HG1    1HG    HG1    2HG    1HG
+ATOM R   ARG  HG3     HG2     HG1       HG2    2HG    HG2    3HG    2HG
+ATOM R   ARG  HD2     HD1     HD2       HD1    1HD    HD1    2HD    1HD
+ATOM R   ARG  HD3     HD2     HD1       HD2    2HD    HD2    3HD    2HD
+ATOM R   ARG  HE      HE      HE        HE     HE     HE     HE     HE
+ATOM R   ARG  xxx     HH11    HH11      xxx    1HH1   HH1    1HH1   2HH1        ZZ
+ATOM R   ARG  xxx     HH12    HH12      xxx    2HH1   HH1    2HH1   1HH1        ZE
+ATOM R   ARG  HH21    HH21    HH21      xxx    1HH2   HH2    1HH2   2HH2        EZ
+ATOM R   ARG  HH22    HH22    HH22      xxx    2HH2   HH2    2HH2   1HH2        EE
+DIHE R   ARG  DIH     PHI     C-   N    CA   C
+DIHE R   ARG  DIH     PSI     N    CA   C    N+
+DIHE R   ARG  DIH     CHI1    N    CA   CB   CG
+DIHE R   ARG  DIH     CHI2    CA   CB   CG   CD
+DIHE R   ARG  DIH     CHI3    CB   CG   CD   NE   
+DIHE R   ARG  DIH     CHI4    CG   CD   NE   CZ
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  S   SER  O       O       O         O      O      O       O       O
+NMR  S   SER  N       N       N         N      N      N       N       N 
+NMR  S   SER  HN=H    H       HN        HN     H      HN      HN      H
+NMR  S   SER  HA      HA      HA        HA     HA     HA      HA      HA
+NMR  S   SER  HB2     HB1     HB2       HB1    HB1    HB1     HB2     1HB
+NMR  S   SER  HB3     HB2     HB1=HB3   HB2    HB2    HB2     HB3     2HB
+NMR  S   SER  HG      HG      HG        HG     HG     HG      HG      HG 
+NMR  S   SER  QB=HB   HB*     HB*       QB     HB*    HB*     HB*     HB
+NMR  S   SER  QB=HB   HB*     HB#       QB     HB*    HB*     HB*     HB
+NMR  S   SER  QB=HB   HB*     HB%       QB     HB*    HB*     HB*     HB
+NMR  S   SER  QB=HB   HB*     HB+       QB     HB*    HB*     HB*     HB
+NMR  S   SER  HG      HG*     HG        HG     HG     HG      HG*     HG
+ATOM S   SER  C       C       C         C      C      C       C       C
+ATOM S   SER  O       O       O         O      O      O       O       O
+ATOM S   SER  N       N       N         N      N      N       N       N
+ATOM S   SER  CA      CA      CA        CA     CA     CA      CA      CA
+ATOM S   SER  CB      CB      CB        CB     CB     CB      CB      CB
+ATOM S   SER  OG      OG      OG        OG     OG     OG      OG      OG
+ATOM S   SER  HN=H    H       HN        HN     H      HN      HN      H
+ATOM S   SER  HA      HA      HA        HA     HA     HA      HA      HA
+ATOM S   SER  HB2     HB1     HB2       HB1    1HB    HB1     2HB     1HB 
+ATOM S   SER  HB3     HB2     HB1       HB2    2HB    HB2     3HB     2HB
+ATOM S   SER  HG      HG      HG        HG     HG     HG      HG      HG
+DIHE S   SER  DIH     PHI     C-   N    CA   C         
+DIHE S   SER  DIH     PSI     N    CA   C    N+
+DIHE S   SER  DIH     CHI1    N    CA   CB   OG
+DIHE S   SER  DIH     CHI2    CA   CB   OG   HG
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  T   THR  O       O       O         O      O      O       O       O
+NMR  T   THR  N       N       N         N      N      N       N       N
+NMR  T   THR  HN=H    H       HN        HN     H      HN      HN      H 
+NMR  T   THR  HA      HA      HA        HA     HA     HA      HA      HA
+NMR  T   THR  HB      HB      HB        HB     HB     HB      HB      HB
+NMR  T   THR  HG1     HG1     HG1       HG1    HG1    HG1     HG1     HG1 
+NMR  T   THR  HG21    HG21    HG21      HG2    HG21   HG1     HG21    1HG2
+NMR  T   THR  HG22    HG22    HG22      HG3    HG22   HG2     HG22    2HG2
+NMR  T   THR  HG23    HG23    HG23      HG4    HG23   HG2     HG23    3HG2
+NMR  T   THR  QG2=HG2 HG2*    HG2*      QG     HG2*   HG2*    HG2*    HG2  
+NMR  T   THR  QG2=HG2 HG2*    HG2#      QG     HG2*   HG2*    HG2*    HG2
+NMR  T   THR  QG2=HG2 HG2*    HG2%      QG     HG2*   HG2*    HG2*    HG2
+NMR  T   THR  QG2=HG2 HG2*    HG2+      QG     HG2*   HG2*    HG2*    HG2
+NMR  T   THR  QG2=HG2 HG*     HG*       xxx    HG*    xxx     HG*     HG
+ATOM T   THR  C       C       C         C      C      C       C       C
+ATOM T   THR  O       O       O         O      O      O       O       O
+ATOM T   THR  N       N       N         N      N      N       N       N
+ATOM T   THR  CA      CA      CA        CA     CA     CA      CA      CA
+ATOM T   THR  CB      CB      CB        CB     CB     CB      CB      CB
+ATOM T   THR  OG1     OG1     OG1       OG1    OG1    OG1     OG1     OG1
+ATOM T   THR  CG2     CG2     CG2       CG2    CG2    CG2     CG2     CG2
+ATOM T   THR  HN=H    H       HN        HN     H      HN      HN      H
+ATOM T   THR  HA      HA      HA        HA     HA     HA      HA      HA
+ATOM T   THR  HB      HB      HB        HB     HB     HB      HB      HB
+ATOM T   THR  HG1     HG1     HG1       HG1    HG1    HG1     HG1     HG1
+ATOM T   THR  HG21    HG21    HG21      HG2    1HG2   HG2     1HG2    1HG2
+ATOM T   THR  HG22    HG22    HG22      HG3    2HG2   HG2     2HG2    2HG2
+ATOM T   THR  HG23    HG23    HG23      HG4    3HG2   HG2     3HG2    3HG2
+DIHE T   THR  DIH     PHI     C-   N    CA   C
+DIHE T   THR  DIH     PSI     N    CA   C    N+
+DIHE T   THR  DIH     CHI1    N    CA   CB   OG1
+DIHE T   THR  DIH     CHI21   CA   CB   OG1  HG1
+DIHE T   THR  DIH     CHI21   CA   CB   CG2  HG21
+# special, fake, to CG2
+#DIHE T   THR  DIH     CHIX    N    CA   CB   CG2         
+#DIHE T   THR  DIH     CHIY    C    CA   CB   CG2         
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  V   VAL  O       O       O         O      O      O      O      O
+NMR  V   VAL  N       N       N         N      N      N      N      N
+NMR  V   VAL  HN=H    H       HN        HN     H      HN     HN     H
+NMR  V   VAL  HA      HA      HA        HA     HA     HA     HA     HA
+NMR  V   VAL  HB      HB      HB        HB     HB     HB     HB     HB
+NMR  V   VAL  HB      HB      HB#       HB     HB     HB     HB     HB
+NMR  V   VAL  HG11    HG11    HG11      HG1    HG11   HG1    HG11   1HG1  
+NMR  V   VAL  HG12    HG12    HG12      HG2    HG12   HG1    HG12   2HG1 
+NMR  V   VAL  HG13    HG13    HG13      HG3    HG13   HG1    HG13   3HG1
+NMR  V   VAL  HG21    HG21    HG21      HG4    HG21   HG2    HG21   1HG2
+NMR  V   VAL  HG22    HG22    HG22      HG5    HG22   HG2    HG22   2HG2
+NMR  V   VAL  HG23    HG23    HG23      HG6    HG23   HG2    HG23   3HG2
+NMR  V   VAL  QG1=HG1 HG1*    HG1*      QG1    HG1*   HG1*   HG1*   HG1
+NMR  V   VAL  QG1=HG1 HG1*    HG1#      QG1    HG1*   HG1*   HG1*   HG1
+NMR  V   VAL  QG1=HG1 HG1*    HG1%      QG1    HG1*   HG1*   HG1*   HG1
+NMR  V   VAL  QG1=HG1 HG1*    HG1+      QG1    HG1*   HG1*   HG1*   HG1
+NMR  V   VAL  QG2=HG2 HG2*    HG2*      QG2    HG2*   HG2*   HG2*   HG2
+NMR  V   VAL  QG2=HG2 HG2*    HG2#      QG2    HG2*   HG2*   HG2*   HG2
+NMR  V   VAL  QG2=HG2 HG2*    HG2%      QG2    HG2*   HG2*   HG2*   HG2
+NMR  V   VAL  QG2=HG2 HG2*    HG2+      QG2    HG2*   HG2*   HG2*   HG2
+NMR  V   VAL  QQG=HG  HG*     HG*       QQG    HG*    HG*    HG*    HG 
+NMR  V   VAL  QQG=HG  HG*     HG#       QQG    HG*    HG*    HG*    HG 
+NMR  V   VAL  QQG=HG  HG*     HG##      QQG    HG*    HG*    HG*    HG 
+NMR  V   VAL  QQG=HG  HG*     HG%%      QQG    HG*    HG*    HG*    HG  
+NMR  V   VAL  QQG=HG  HG*     HG++      QQG    HG*    HG*    HG*    HG  
+ATOM V   VAL  C       C       C         C      C      C      C      C
+ATOM V   VAL  O       O       O         O      O      O      O      O
+ATOM V   VAL  N       N       N         N      N      N      N      N
+ATOM V   VAL  CA      CA      CA        CA     CA     CA     CA     CA 
+ATOM V   VAL  CB      CB      CB        CB     CB     CB     CB     CB
+ATOM V   VAL  CG1     CG1     CG1       CG1    CG1    CG1    CG1    CG1
+ATOM V   VAL  CG2     CG2     CG2       CG2    CG2    CG2    CG2    CG2
+ATOM V   VAL  HN=H    H       HN        HN     H      HN     HN     H
+ATOM V   VAL  HA      HA      HA        HA     HA     HA     HA     HA
+ATOM V   VAL  HB      HB      HB        HB     HB     HB     HB     HB
+ATOM V   VAL  HG11    HG11    HG11      HG1    1HG1   HG1    1HG1   1HG1 
+ATOM V   VAL  HG12    HG12    HG12      HG2    2HG1   HG1    2HG1   2HG1
+ATOM V   VAL  HG13    HG13    HG13      HG3    3HG1   HG1    3HG1   3HG1
+ATOM V   VAL  HG21    HG21    HG21      HG4    1HG2   HG2    1HG2   1HG2 
+ATOM V   VAL  HG22    HG22    HG22      HG5    2HG2   HG2    2HG2   2HG2
+ATOM V   VAL  HG23    HG23    HG23      HG6    3HG2   HG2    3HG2   3HG2
+DIHE V   VAL  DIH     PHI     C-   N    CA   C
+DIHE V   VAL  DIH     PSI     N    CA   C    N+
+DIHE V   VAL  DIH     CHI1    N    CA   CB   CG1
+DIHE V   VAL  DIH     CHI21   CA   CB   CG1  HD11
+DIHE V   VAL  DIH     CHI22   CA   CB   CG2  HD21
+# special, fake, to CG2
+#DIHE V   VAL  DIH     CHIX    N    CA   CB   CG2         
+#DIHE V   VAL  DIH     CHIY    C    CA   CB   CG2         
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  W   TRP  O       O       O         O      O      O      O       O
+NMR  W   TRP  N       N       N         N      N      N      N       N
+NMR  W   TRP  NE1     NE1     NE1       NE1    NE1    NE1    NE1     NE1  # for h-bond
+NMR  W   TRP  HN=H    H       HN        HN     H      HN     HN      H
+NMR  W   TRP  HA      HA      HA        HA     HA     HA     HA      HA
+NMR  W   TRP  HB2     HB1     HB2       HB1    HB1    HB1    HB2     1HB
+NMR  W   TRP  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3     2HB
+NMR  W   TRP  HD1     HD1     HD1       HD2    HD1    HD1    HD1     HD1
+NMR  W   TRP  HE3     HE3     HE3       HE4    HE3    HE3    HE3     HE3 
+NMR  W   TRP  HE1     HE1     HE1       HE1    HE1    HE1    HE1     HE1
+NMR  W   TRP  HZ3     HZ3     HZ3       HZ5    HZ3    HZ3    HZ3     HZ3
+NMR  W   TRP  HZ2     HZ2     HZ2       HZ7    HZ2    HZ2    HZ2     HZ2
+NMR  W   TRP  HH2     HH2     HH2       HH6    HH2    HH2    HH2     HH2
+NMR  W   TRP  QB=HB   HB*     HB*       QB     HB*    HB*    HB*     HB
+NMR  W   TRP  QB=HB   HB*     HB#       QB     HB*    HB*    HB*     HB
+NMR  W   TRP  QB=HB   HB*     HB%       QB     HB*    HB*    HB*     HB
+NMR  W   TRP  QB=HB   HB*     HB+       QB     HB*    HB*    HB*     HB
+ATOM W   TRP  C       C       C         C      C      C      C       C 
+ATOM W   TRP  O       O       O         O      O      O      O       O
+ATOM W   TRP  N       N       N         N      N      N      N       N
+ATOM W   TRP  CA      CA      CA        CA     CA     CA     CA      CA
+ATOM W   TRP  CB      CB      CB        CB     CB     CB     CB      CB
+ATOM W   TRP  CG      CG      CG        CG3    CG     CG     CG      CG
+ATOM W   TRP  CD1     CD1     CD1       CD2    CD1    CD1    CD1     CD1
+ATOM W   TRP  CD2     CD2     CD2       CD9    CD2    CD2    CD2     CD2
+ATOM W   TRP  CE3     CE3     CE3       CE4    CE3    CE3    CE3     CE3
+ATOM W   TRP  CE2     CE2     CE2       CE8    CE2    CE2    CE2     CE2
+ATOM W   TRP  NE1     NE1     NE1       NE1    NE1    NE1    NE1     NE1
+ATOM W   TRP  CZ3     CZ3     CZ3       CZ5    CZ3    CZ3    CZ3     CZ3
+ATOM W   TRP  CZ2     CZ2     CZ2       CZ7    CZ2    CZ2    CZ2     CZ2
+ATOM W   TRP  CH2     CH2     CH2       CH6    CH2    CH2    CH2     CH2
+ATOM W   TRP  HN=H    H       HN        HN     H      HN     HN      H
+ATOM W   TRP  HA      HA      HA        HA     HA     HA     HA      HA
+ATOM W   TRP  HB2     HB1     HB2       HB1    1HB    HB     2HB     1HB
+ATOM W   TRP  HB3     HB2     HB1       HB2    2HB    HB     3HB     2HB
+ATOM W   TRP  HD1     HD1     HD1       HD2    HD1    HD1    HD1     HD1
+ATOM W   TRP  HE1     HE1     HE1       HE1    HE1    HE1    HE1     HE1
+ATOM W   TRP  HE3     HE3     HE3       HE4    HE3    HE3    HE3     HE3
+ATOM W   TRP  HZ3     HZ3     HZ3       HZ5    HZ3    HZ3    HZ3     HZ3
+ATOM W   TRP  HZ2     HZ2     HZ2       HZ7    HZ2    HZ2    HZ2     HZ2
+ATOM W   TRP  HH2     HH2     HH2       HH6    HH2    HH2    HH2     HH2
+DIHE W   TRP  DIH     PHI     C-   N    CA   C      
+DIHE W   TRP  DIH     PSI     N    CA   C    N+
+DIHE W   TRP  DIH     CHI1    N    CA   CB   CG
+DIHE W   TRP  DIH     CHI2    CA   CB   CG   CD1
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+NMR  Y   TYR  O       O       O         O      O      O      O       O
+NMR  Y   TYR  N       N       N         N      N      N      N       N
+NMR  Y   TYR  HN=H    H       HN        HN     H      HN     HN      H
+NMR  Y   TYR  HA      HA      HA        HA     HA     HA     HA      HA
+NMR  Y   TYR  HB2     HB1     HB2       HB1    HB1    HB1    HB2     1HB
+NMR  Y   TYR  HB3     HB2     HB1=HB3   HB2    HB2    HB2    HB3     2HB
+NMR  Y   TYR  HD1     HD1     HD1       HD2    HD1    HD1    HD*     HD1
+NMR  Y   TYR  HD2     HD2     HD2       HD6    HD2    HD2    HD*     HD2
+NMR  Y   TYR  HE1     HE1     HE1       HE3    HE1    HE1    HE*     HE1
+NMR  Y   TYR  HE2     HE2     HE2       HE5    HE2    HE2    HE*     HE2
+NMR  Y   TYR  HH      HH      HH        HH     HH     HH     HH      HH
+NMR  Y   TYR  OH      OH      OH        OH     OH     OH     OH      OH
+NMR  Y   TYR  QB=HB   HB*     HB*       QB     HB*    HB*    HB*     HB
+NMR  Y   TYR  QB=HB   HB*     HB#       QB     HB*    HB*    HB*     HB
+NMR  Y   TYR  QB=HB   HB*     HB%       QB     HB*    HB*    HB*     HB
+NMR  Y   TYR  QB=HB   HB*     HB+       QB     HB*    HB*    HB*     HB
+NMR  Y   TYR  QD=CG   HD*     HD*       CG1    HD*    HD*    HD*     HD  #DIANA also covered when CG=QD
+NMR  Y   TYR  QD=CG   HD*     HD#       CG1    HD*    HD*    HD*     HD  #DIANA also covered when CG=QD
+NMR  Y   TYR  QD=CG   HD*     HD%       CG1    HD*    HD*    HD*     HD  #DIANA also covered when CG=QD
+NMR  Y   TYR  QD=CG   HD*     HD+       CG1    HD*    HD*    HD*     HD  #DIANA also covered when CG=QD
+NMR  Y   TYR  QD=HD   HD*     HD*       CG1    HD*    HD*    HD*     HD  #CYANA also covered when HD=QD
+NMR  Y   TYR  QD=HD   HD*     HD#       CG1    HD*    HD*    HD*     HD  #CYANA also covered when HD=QD
+NMR  Y   TYR  QD=HD   HD*     HD%       CG1    HD*    HD*    HD*     HD  #CYANA also covered when HD=QD
+NMR  Y   TYR  QD=HD   HD*     HD+       CG1    HD*    HD*    HD*     HD  #CYANA also covered when HD=QD
+NMR  Y   TYR  QE=CZ   HE*     HE*       CZ4    HE*    HE*    HE*     HE  #DIANA also covered when CZ=QE
+NMR  Y   TYR  QE=CZ   HE*     HE#       CZ4    HE*    HE*    HE*     HE  #DIANA also covered when CZ=QE
+NMR  Y   TYR  QE=CZ   HE*     HE%       CZ4    HE*    HE*    HE*     HE  #DIANA also covered when CZ=QE
+NMR  Y   TYR  QE=CZ   HE*     HE+       CZ4    HE*    HE*    HE*     HE  #DIANA also covered when CZ=QE
+NMR  Y   TYR  QE=HE   HE*     HE*       CZ4    HE*    HE*    HE*     HE  #CYANA also covered when HE=QE
+NMR  Y   TYR  QE=HE   HE*     HE#       CZ4    HE*    HE*    HE*     HE  #CYANA also covered when HE=QE
+NMR  Y   TYR  QE=HE   HE*     HE%       CZ4    HE*    HE*    HE*     HE  #CYANA also covered when HE=QE
+NMR  Y   TYR  QE=HE   HE*     HE+       CZ4    HE*    HE*    HE*     HE  #CYANA also covered when HE=QE
+NMR  Y   TYR  QR      xxx     xxx       QR     xxx    xxx    xxx     xxx
+ATOM Y   TYR  C       C       C         C      C      C      C       C
+ATOM Y   TYR  O       O       O         O      O      O      O       O
+ATOM Y   TYR  N       N       N         N      N      N      N       N
+ATOM Y   TYR  CA      CA      CA        CA     CA     CA     CA      CA
+ATOM Y   TYR  CB      CB      CB        CB     CB     CB     CB      CB
+ATOM Y   TYR  CG      CG      CG        CG1    CG     CG     CG      CG
+ATOM Y   TYR  CD1     CD1     CD1       CD2    CD1    CD1    CD1     CD1
+ATOM Y   TYR  CE1     CE1     CE1       CE3    CE1    CE1    CE1     CE1
+ATOM Y   TYR  CE2     CE2     CE2       CE5    CE2    CE2    CE2     CE2 
+ATOM Y   TYR  CD2     CD2     CD2       CD6    CD2    CD2    CD2     CD2
+ATOM Y   TYR  CZ      CZ      CZ        CZ4    CZ     CZ     CZ      CZ
+ATOM Y   TYR  HN=H    H       HN        HN     H      HN     HN      H
+ATOM Y   TYR  HA      HA      HA        HA     HA     HA     HA      HA
+ATOM Y   TYR  HB2     HB1     HB2       HB1    1HB    HB     2HB     1HB
+ATOM Y   TYR  HB3     HB2     HB1       HB2    2HB    HB     3HB     2HB
+ATOM Y   TYR  HD1     HD1     HD1       HD2    HD1    HD     HD1     HD1
+ATOM Y   TYR  HD2     HD2     HD2       HD6    HD2    HD     HD2     HD2
+ATOM Y   TYR  HE1     HE1     HE1       HE3    HE1    HE     HE1     HE1
+ATOM Y   TYR  HE2     HE2     HE2       HE5    HE2    HE     HE2     HE2
+ATOM Y   TYR  HH      HH      HH        HH     HH     HH     HH      HH
+ATOM Y   TYR  OH      OH      OH        OH     OH     OH     OH      OH
+DIHE Y   TYR  DIH     PHI     C-   N    CA   C
+DIHE Y   TYR  DIH     PSI     N    CA   C    N+
+DIHE Y   TYR  DIH     CHI1    N    CA   CB   CG
+DIHE Y   TYR  DIH     CHI2    CA   CB   CG   CD1
+DIHE Y   TYR  DIH     CHI6    CE1  CZ   OH   HH
+###################################################################
+#             DIANA                                  
+#             CYANA          CNS
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+###################################################################
+#     ADE                                                     
+ATOM  X  DA    P     P     P     P     P     P     P     P    
+ATOM  X  DA    OP1   OP1   OP1   OP1   OP1   OP1   OP1   OP1  
+ATOM  X  DA    OP2   OP2   OP2   OP2   OP2   OP2   OP2   OP2  
+ATOM  X  DA    O5'   O5'   O5'   O5'   O5'   O5'   O5'   O5'  
+ATOM  X  DA    C5'   C5'   C5'   C5'   C5'   C5'   C5'   C5'  
+ATOM  X  DA    H5'   H5'   H5'   H5'   H5'   H5'   H5'   H5'  
+ATOM  X  DA    H5"   H5"   H5"   H5"   H5"   H5"   H5"   H5"  
+ATOM  X  DA    Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'  
+ATOM  X  DA    C4'   C4'   C4'   C4'   C4'   C4'   C4'   C4'  
+ATOM  X  DA    H4'   H4'   H4'   H4'   H4'   H4'   H4'   H4'  
+ATOM  X  DA    C3'   C3'   C3'   C3'   C3'   C3'   C3'   C3'  
+ATOM  X  DA    H3'   H3'   H3'   H3'   H3'   H3'   H3'   H3'  
+ATOM  X  DA    C2'   C2'   C2'   C2'   C2'   C2'   C2'   C2'  
+ATOM  X  DA    H2'   H2'   H2'   H2'   H2'   H2'   H2'   H2'  
+ATOM  X  DA    H2"   H2"   H2"   H2"   H2"   H2"   H2"   H2"  
+ATOM  X  DA    Q2'   Q2'   Q2'   Q2'   Q2'   Q2'   Q2'   Q2'  
+ATOM  X  DA    C1'   C1'   C1'   C1'   C1'   C1'   C1'   C1'  
+ATOM  X  DA    H1'   H1'   H1'   H1'   H1'   H1'   H1'   H1'  
+ATOM  X  DA    O4'   O4'   O4'   O4'   O4'   O4'   O4'   O4'  
+ATOM  X  DA    N9    N9    N9    N9    N9    N9    N9    N9   
+ATOM  X  DA    C4    C4    C4    C4    C4    C4    C4    C4   
+ATOM  X  DA    N3    N3    N3    N3    N3    N3    N3    N3   
+ATOM  X  DA    C2    C2    C2    C2    C2    C2    C2    C2   
+ATOM  X  DA    H2    H2    H2    H2    H2    H2    H2    H2   
+ATOM  X  DA    N1    N1    N1    N1    N1    N1    N1    N1   
+ATOM  X  DA    C6    C6    C6    C6    C6    C6    C6    C6   
+ATOM  X  DA    N6    N6    N6    N6    N6    N6    N6    N6   
+ATOM  X  DA    H61   H61   H61   H61   H61   H61   H61   H61  
+ATOM  X  DA    H62   H62   H62   H62   H62   H62   H62   H62  
+ATOM  X  DA    Q6    Q6    Q6    Q6    Q6    Q6    Q6    Q6   
+ATOM  X  DA    C5    C5    C5    C5    C5    C5    C5    C5   
+ATOM  X  DA    N7    N7    N7    N7    N7    N7    N7    N7   
+ATOM  X  DA    C8    C8    C8    C8    C8    C8    C8    C8   
+ATOM  X  DA    H8    H8    H8    H8    H8    H8    H8    H8   
+ATOM  X  DA    O3'   O3'   O3'   O3'   O3'   O3'   O3'   O3'  
+#     RADE                                                    
+ATOM  X  RA    P     P     P     P     P     P     P     P    
+ATOM  X  RA    OP1   OP1   OP1   OP1   OP1   OP1   OP1   OP1  
+ATOM  X  RA    OP2   OP2   OP2   OP2   OP2   OP2   OP2   OP2  
+ATOM  X  RA    O5'   O5'   O5'   O5'   O5'   O5'   O5'   O5'  
+ATOM  X  RA    C5'   C5'   C5'   C5'   C5'   C5'   C5'   C5'  
+ATOM  X  RA    H5'   H5'   H5'   H5'   H5'   H5'   H5'   H5'  
+ATOM  X  RA    H5"   H5"   H5"   H5"   H5"   H5"   H5"   H5"  
+ATOM  X  RA    Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'  
+ATOM  X  RA    C4'   C4'   C4'   C4'   C4'   C4'   C4'   C4'  
+ATOM  X  RA    H4'   H4'   H4'   H4'   H4'   H4'   H4'   H4'  
+ATOM  X  RA    C3'   C3'   C3'   C3'   C3'   C3'   C3'   C3'  
+ATOM  X  RA    H3'   H3'   H3'   H3'   H3'   H3'   H3'   H3'  
+ATOM  X  RA    C2'   C2'   C2'   C2'   C2'   C2'   C2'   C2'  
+ATOM  X  RA    H2'   H2'   H2'   H2'   H2'   H2'   H2'   H2'  
+ATOM  X  RA    O2'   O2'   O2'   O2'   O2'   O2'   O2'   O2'  
+ATOM  X  RA    HO2'  HO2'  HO2'  HO2'  HO2'  HO2'  HO2'  HO2' 
+ATOM  X  RA    C1'   C1'   C1'   C1'   C1'   C1'   C1'   C1'  
+ATOM  X  RA    H1'   H1'   H1'   H1'   H1'   H1'   H1'   H1'  
+ATOM  X  RA    O4'   O4'   O4'   O4'   O4'   O4'   O4'   O4'  
+ATOM  X  RA    N9    N9    N9    N9    N9    N9    N9    N9   
+ATOM  X  RA    C4    C4    C4    C4    C4    C4    C4    C4   
+ATOM  X  RA    N3    N3    N3    N3    N3    N3    N3    N3   
+ATOM  X  RA    C2    C2    C2    C2    C2    C2    C2    C2   
+ATOM  X  RA    H2    H2    H2    H2    H2    H2    H2    H2   
+ATOM  X  RA    N1    N1    N1    N1    N1    N1    N1    N1   
+ATOM  X  RA    C6    C6    C6    C6    C6    C6    C6    C6   
+ATOM  X  RA    N6    N6    N6    N6    N6    N6    N6    N6   
+ATOM  X  RA    H61   H61   H61   H61   H61   H61   H61   H61  
+ATOM  X  RA    H62   H62   H62   H62   H62   H62   H62   H62  
+ATOM  X  RA    Q6    Q6    Q6    Q6    Q6    Q6    Q6    Q6   
+ATOM  X  RA    C5    C5    C5    C5    C5    C5    C5    C5   
+ATOM  X  RA    N7    N7    N7    N7    N7    N7    N7    N7   
+ATOM  X  RA    C8    C8    C8    C8    C8    C8    C8    C8   
+ATOM  X  RA    H8    H8    H8    H8    H8    H8    H8    H8   
+ATOM  X  RA    O3'   O3'   O3'   O3'   O3'   O3'   O3'   O3'  
+#     CYT                                             
+ATOM  X  DC    P     P     P     P     P     P     P     P    
+ATOM  X  DC    OP1   OP1   OP1   OP1   OP1   OP1   OP1   OP1  
+ATOM  X  DC    OP2   OP2   OP2   OP2   OP2   OP2   OP2   OP2  
+ATOM  X  DC    O5'   O5'   O5'   O5'   O5'   O5'   O5'   O5'  
+ATOM  X  DC    C5'   C5'   C5'   C5'   C5'   C5'   C5'   C5'  
+ATOM  X  DC    H5'   H5'   H5'   H5'   H5'   H5'   H5'   H5'  
+ATOM  X  DC    H5"   H5"   H5"   H5"   H5"   H5"   H5"   H5"  
+ATOM  X  DC    Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'  
+ATOM  X  DC    C4'   C4'   C4'   C4'   C4'   C4'   C4'   C4'  
+ATOM  X  DC    H4'   H4'   H4'   H4'   H4'   H4'   H4'   H4'  
+ATOM  X  DC    C3'   C3'   C3'   C3'   C3'   C3'   C3'   C3'  
+ATOM  X  DC    H3'   H3'   H3'   H3'   H3'   H3'   H3'   H3'  
+ATOM  X  DC    C2'   C2'   C2'   C2'   C2'   C2'   C2'   C2'  
+ATOM  X  DC    H2'   H2'   H2'   H2'   H2'   H2'   H2'   H2'  
+ATOM  X  DC    H2"   H2"   H2"   H2"   H2"   H2"   H2"   H2"  
+ATOM  X  DC    Q2'   Q2'   Q2'   Q2'   Q2'   Q2'   Q2'   Q2'  
+ATOM  X  DC    C1'   C1'   C1'   C1'   C1'   C1'   C1'   C1'  
+ATOM  X  DC    H1'   H1'   H1'   H1'   H1'   H1'   H1'   H1'  
+ATOM  X  DC    O4'   O4'   O4'   O4'   O4'   O4'   O4'   O4'  
+ATOM  X  DC    N1    N1    N1    N1    N1    N1    N1    N1   
+ATOM  X  DC    C2    C2    C2    C2    C2    C2    C2    C2   
+ATOM  X  DC    O2    O2    O2    O2    O2    O2    O2    O2   
+ATOM  X  DC    N3    N3    N3    N3    N3    N3    N3    N3   
+ATOM  X  DC    C4    C4    C4    C4    C4    C4    C4    C4   
+ATOM  X  DC    N4    N4    N4    N4    N4    N4    N4    N4   
+ATOM  X  DC    H41   H41   H41   H41   H41   H41   H41   H41  
+ATOM  X  DC    H42   H42   H42   H42   H42   H42   H42   H42  
+ATOM  X  DC    Q4    Q4    Q4    Q4    Q4    Q4    Q4    Q4   
+ATOM  X  DC    C5    C5    C5    C5    C5    C5    C5    C5   
+ATOM  X  DC    H5    H5    H5    H5    H5    H5    H5    H5   
+ATOM  X  DC    C6    C6    C6    C6    C6    C6    C6    C6   
+ATOM  X  DC    H6    H6    H6    H6    H6    H6    H6    H6   
+ATOM  X  DC    O3'   O3'   O3'   O3'   O3'   O3'   O3'   O3'  
+#     RCYT                                                    
+ATOM  X  RC    P     P     P     P     P     P     P     P    
+ATOM  X  RC    OP1   OP1   OP1   OP1   OP1   OP1   OP1   OP1  
+ATOM  X  RC    OP2   OP2   OP2   OP2   OP2   OP2   OP2   OP2  
+ATOM  X  RC    O5'   O5'   O5'   O5'   O5'   O5'   O5'   O5'  
+ATOM  X  RC    C5'   C5'   C5'   C5'   C5'   C5'   C5'   C5'  
+ATOM  X  RC    H5'   H5'   H5'   H5'   H5'   H5'   H5'   H5'  
+ATOM  X  RC    H5"   H5"   H5"   H5"   H5"   H5"   H5"   H5"  
+ATOM  X  RC    Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'  
+ATOM  X  RC    C4'   C4'   C4'   C4'   C4'   C4'   C4'   C4'  
+ATOM  X  RC    H4'   H4'   H4'   H4'   H4'   H4'   H4'   H4'  
+ATOM  X  RC    C3'   C3'   C3'   C3'   C3'   C3'   C3'   C3'  
+ATOM  X  RC    H3'   H3'   H3'   H3'   H3'   H3'   H3'   H3'  
+ATOM  X  RC    C2'   C2'   C2'   C2'   C2'   C2'   C2'   C2'  
+ATOM  X  RC    H2'   H2'   H2'   H2'   H2'   H2'   H2'   H2'  
+ATOM  X  RC    O2'   O2'   O2'   O2'   O2'   O2'   O2'   O2'  
+ATOM  X  RC    HO2'  HO2'  HO2'  HO2'  HO2'  HO2'  HO2'  HO2' 
+ATOM  X  RC    C1'   C1'   C1'   C1'   C1'   C1'   C1'   C1'  
+ATOM  X  RC    H1'   H1'   H1'   H1'   H1'   H1'   H1'   H1'  
+ATOM  X  RC    O4'   O4'   O4'   O4'   O4'   O4'   O4'   O4'  
+ATOM  X  RC    N1    N1    N1    N1    N1    N1    N1    N1   
+ATOM  X  RC    C2    C2    C2    C2    C2    C2    C2    C2   
+ATOM  X  RC    O2    O2    O2    O2    O2    O2    O2    O2   
+ATOM  X  RC    N3    N3    N3    N3    N3    N3    N3    N3   
+ATOM  X  RC    C4    C4    C4    C4    C4    C4    C4    C4   
+ATOM  X  RC    N4    N4    N4    N4    N4    N4    N4    N4   
+ATOM  X  RC    H41   H41   H41   H41   H41   H41   H41   H41  
+ATOM  X  RC    H42   H42   H42   H42   H42   H42   H42   H42  
+ATOM  X  RC    Q4    Q4    Q4    Q4    Q4    Q4    Q4    Q4   
+ATOM  X  RC    C5    C5    C5    C5    C5    C5    C5    C5   
+ATOM  X  RC    H5    H5    H5    H5    H5    H5    H5    H5   
+ATOM  X  RC    C6    C6    C6    C6    C6    C6    C6    C6   
+ATOM  X  RC    H6    H6    H6    H6    H6    H6    H6    H6   
+ATOM  X  RC    O3'   O3'   O3'   O3'   O3'   O3'   O3'   O3'  
+#     GUA                                                      
+ATOM  X  DG    P     P     P     P     P     P     P     P    
+ATOM  X  DG    OP1   OP1   OP1   OP1   OP1   OP1   OP1   OP1  
+ATOM  X  DG    OP2   OP2   OP2   OP2   OP2   OP2   OP2   OP2  
+ATOM  X  DG    O5'   O5'   O5'   O5'   O5'   O5'   O5'   O5'  
+ATOM  X  DG    C5'   C5'   C5'   C5'   C5'   C5'   C5'   C5'  
+ATOM  X  DG    H5'   H5'   H5'   H5'   H5'   H5'   H5'   H5'  
+ATOM  X  DG    H5"   H5"   H5"   H5"   H5"   H5"   H5"   H5"  
+ATOM  X  DG    Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'  
+ATOM  X  DG    C4'   C4'   C4'   C4'   C4'   C4'   C4'   C4'  
+ATOM  X  DG    H4'   H4'   H4'   H4'   H4'   H4'   H4'   H4'  
+ATOM  X  DG    C3'   C3'   C3'   C3'   C3'   C3'   C3'   C3'  
+ATOM  X  DG    H3'   H3'   H3'   H3'   H3'   H3'   H3'   H3'  
+ATOM  X  DG    C2'   C2'   C2'   C2'   C2'   C2'   C2'   C2'  
+ATOM  X  DG    H2'   H2'   H2'   H2'   H2'   H2'   H2'   H2'  
+ATOM  X  DG    H2"   H2"   H2"   H2"   H2"   H2"   H2"   H2"  
+ATOM  X  DG    Q2'   Q2'   Q2'   Q2'   Q2'   Q2'   Q2'   Q2'  
+ATOM  X  DG    C1'   C1'   C1'   C1'   C1'   C1'   C1'   C1'  
+ATOM  X  DG    H1'   H1'   H1'   H1'   H1'   H1'   H1'   H1'  
+ATOM  X  DG    O4'   O4'   O4'   O4'   O4'   O4'   O4'   O4'  
+ATOM  X  DG    N9    N9    N9    N9    N9    N9    N9    N9   
+ATOM  X  DG    C4    C4    C4    C4    C4    C4    C4    C4   
+ATOM  X  DG    N3    N3    N3    N3    N3    N3    N3    N3   
+ATOM  X  DG    C2    C2    C2    C2    C2    C2    C2    C2   
+ATOM  X  DG    N2    N2    N2    N2    N2    N2    N2    N2   
+ATOM  X  DG    H21   H21   H21   H21   H21   H21   H21   H21  
+ATOM  X  DG    H22   H22   H22   H22   H22   H22   H22   H22  
+ATOM  X  DG    Q2    Q2    Q2    Q2    Q2    Q2    Q2    Q2   
+ATOM  X  DG    N1    N1    N1    N1    N1    N1    N1    N1   
+ATOM  X  DG    H1    H1    H1    H1    H1    H1    H1    H1   
+ATOM  X  DG    C6    C6    C6    C6    C6    C6    C6    C6   
+ATOM  X  DG    O6    O6    O6    O6    O6    O6    O6    O6   
+ATOM  X  DG    C5    C5    C5    C5    C5    C5    C5    C5   
+ATOM  X  DG    N7    N7    N7    N7    N7    N7    N7    N7   
+ATOM  X  DG    C8    C8    C8    C8    C8    C8    C8    C8   
+ATOM  X  DG    H8    H8    H8    H8    H8    H8    H8    H8   
+ATOM  X  DG    O3'   O3'   O3'   O3'   O3'   O3'   O3'   O3'  
+#     RGUA                                                    
+ATOM  X  RG    P     P     P     P     P     P     P     P    
+ATOM  X  RG    OP1   OP1   OP1   OP1   OP1   OP1   OP1   OP1  
+ATOM  X  RG    OP2   OP2   OP2   OP2   OP2   OP2   OP2   OP2  
+ATOM  X  RG    O5'   O5'   O5'   O5'   O5'   O5'   O5'   O5'  
+ATOM  X  RG    C5'   C5'   C5'   C5'   C5'   C5'   C5'   C5'  
+ATOM  X  RG    H5'   H5'   H5'   H5'   H5'   H5'   H5'   H5'  
+ATOM  X  RG    H5"   H5"   H5"   H5"   H5"   H5"   H5"   H5"  
+ATOM  X  RG    Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'  
+ATOM  X  RG    C4'   C4'   C4'   C4'   C4'   C4'   C4'   C4'  
+ATOM  X  RG    H4'   H4'   H4'   H4'   H4'   H4'   H4'   H4'  
+ATOM  X  RG    C3'   C3'   C3'   C3'   C3'   C3'   C3'   C3'  
+ATOM  X  RG    H3'   H3'   H3'   H3'   H3'   H3'   H3'   H3'  
+ATOM  X  RG    C2'   C2'   C2'   C2'   C2'   C2'   C2'   C2'  
+ATOM  X  RG    H2'   H2'   H2'   H2'   H2'   H2'   H2'   H2'  
+ATOM  X  RG    O2'   O2'   O2'   O2'   O2'   O2'   O2'   O2'  
+ATOM  X  RG    HO2'  HO2'  HO2'  HO2'  HO2'  HO2'  HO2'  HO2' 
+ATOM  X  RG    C1'   C1'   C1'   C1'   C1'   C1'   C1'   C1'  
+ATOM  X  RG    H1'   H1'   H1'   H1'   H1'   H1'   H1'   H1'  
+ATOM  X  RG    O4'   O4'   O4'   O4'   O4'   O4'   O4'   O4'  
+ATOM  X  RG    N9    N9    N9    N9    N9    N9    N9    N9   
+ATOM  X  RG    C4    C4    C4    C4    C4    C4    C4    C4   
+ATOM  X  RG    N3    N3    N3    N3    N3    N3    N3    N3   
+ATOM  X  RG    C2    C2    C2    C2    C2    C2    C2    C2   
+ATOM  X  RG    N2    N2    N2    N2    N2    N2    N2    N2   
+ATOM  X  RG    H21   H21   H21   H21   H21   H21   H21   H21  
+ATOM  X  RG    H22   H22   H22   H22   H22   H22   H22   H22  
+ATOM  X  RG    Q2    Q2    Q2    Q2    Q2    Q2    Q2    Q2   
+ATOM  X  RG    N1    N1    N1    N1    N1    N1    N1    N1   
+ATOM  X  RG    H1    H1    H1    H1    H1    H1    H1    H1   
+ATOM  X  RG    C6    C6    C6    C6    C6    C6    C6    C6   
+ATOM  X  RG    O6    O6    O6    O6    O6    O6    O6    O6   
+ATOM  X  RG    C5    C5    C5    C5    C5    C5    C5    C5   
+ATOM  X  RG    N7    N7    N7    N7    N7    N7    N7    N7   
+ATOM  X  RG    C8    C8    C8    C8    C8    C8    C8    C8   
+ATOM  X  RG    H8    H8    H8    H8    H8    H8    H8    H8   
+ATOM  X  RG    O3'   O3'   O3'   O3'   O3'   O3'   O3'   O3'  
+#     THY                                                      
+ATOM  X  DT    P     P     P     P     P     P     P     P    
+ATOM  X  DT    OP1   OP1   OP1   OP1   OP1   OP1   OP1   OP1  
+ATOM  X  DT    OP2   OP2   OP2   OP2   OP2   OP2   OP2   OP2  
+ATOM  X  DT    O5'   O5'   O5'   O5'   O5'   O5'   O5'   O5'  
+ATOM  X  DT    C5'   C5'   C5'   C5'   C5'   C5'   C5'   C5'  
+ATOM  X  DT    H5'   H5'   H5'   H5'   H5'   H5'   H5'   H5'  
+ATOM  X  DT    H5"   H5"   H5"   H5"   H5"   H5"   H5"   H5"  
+ATOM  X  DT    Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'  
+ATOM  X  DT    C4'   C4'   C4'   C4'   C4'   C4'   C4'   C4'  
+ATOM  X  DT    H4'   H4'   H4'   H4'   H4'   H4'   H4'   H4'  
+ATOM  X  DT    C3'   C3'   C3'   C3'   C3'   C3'   C3'   C3'  
+ATOM  X  DT    H3'   H3'   H3'   H3'   H3'   H3'   H3'   H3'  
+ATOM  X  DT    C2'   C2'   C2'   C2'   C2'   C2'   C2'   C2'  
+ATOM  X  DT    H2'   H2'   H2'   H2'   H2'   H2'   H2'   H2'  
+ATOM  X  DT    H2"   H2"   H2"   H2"   H2"   H2"   H2"   H2"  
+ATOM  X  DT    Q2'   Q2'   Q2'   Q2'   Q2'   Q2'   Q2'   Q2'  
+ATOM  X  DT    C1'   C1'   C1'   C1'   C1'   C1'   C1'   C1'  
+ATOM  X  DT    H1'   H1'   H1'   H1'   H1'   H1'   H1'   H1'  
+ATOM  X  DT    O4'   O4'   O4'   O4'   O4'   O4'   O4'   O4'  
+ATOM  X  DT    N1    N1    N1    N1    N1    N1    N1    N1   
+ATOM  X  DT    C2    C2    C2    C2    C2    C2    C2    C2   
+ATOM  X  DT    O2    O2    O2    O2    O2    O2    O2    O2   
+ATOM  X  DT    N3    N3    N3    N3    N3    N3    N3    N3   
+ATOM  X  DT    H3    H3    H3    H3    H3    H3    H3    H3   
+ATOM  X  DT    C4    C4    C4    C4    C4    C4    C4    C4   
+ATOM  X  DT    O4    O4    O4    O4    O4    O4    O4    O4   
+ATOM  X  DT    C5    C5    C5    C5    C5    C5    C5    C5   
+ATOM  X  DT    C7    C7    C7    C7    C7    C7    C7    C7   
+ATOM  X  DT    H71   H71   H71   H71   H71   H71   H71   H71  
+ATOM  X  DT    H72   H72   H72   H72   H72   H72   H72   H72  
+ATOM  X  DT    H73   H73   H73   H73   H73   H73   H73   H73  
+ATOM  X  DT    Q7    Q7    Q7    Q7    Q7    Q7    Q7    Q7   
+ATOM  X  DT    C6    C6    C6    C6    C6    C6    C6    C6   
+ATOM  X  DT    H6    H6    H6    H6    H6    H6    H6    H6   
+ATOM  X  DT    O3'   O3'   O3'   O3'   O3'   O3'   O3'   O3'  
+#     URA                                                      
+ATOM  X  DU    P     P     P     P     P     P     P     P    
+ATOM  X  DU    OP1   OP1   OP1   OP1   OP1   OP1   OP1   OP1  
+ATOM  X  DU    OP2   OP2   OP2   OP2   OP2   OP2   OP2   OP2  
+ATOM  X  DU    O5'   O5'   O5'   O5'   O5'   O5'   O5'   O5'  
+ATOM  X  DU    C5'   C5'   C5'   C5'   C5'   C5'   C5'   C5'  
+ATOM  X  DU    H5'   H5'   H5'   H5'   H5'   H5'   H5'   H5'  
+ATOM  X  DU    H5"   H5"   H5"   H5"   H5"   H5"   H5"   H5"  
+ATOM  X  DU    Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'   Q5'  
+ATOM  X  DU    C4'   C4'   C4'   C4'   C4'   C4'   C4'   C4'  
+ATOM  X  DU    H4'   H4'   H4'   H4'   H4'   H4'   H4'   H4'  
+ATOM  X  DU    C3'   C3'   C3'   C3'   C3'   C3'   C3'   C3'  
+ATOM  X  DU    H3'   H3'   H3'   H3'   H3'   H3'   H3'   H3'  
+ATOM  X  DU    C2'   C2'   C2'   C2'   C2'   C2'   C2'   C2'  
+ATOM  X  DU    H2'   H2'   H2'   H2'   H2'   H2'   H2'   H2'  
+ATOM  X  DU    O2'   O2'   O2'   O2'   O2'   O2'   O2'   O2'  
+ATOM  X  DU    HO2'  HO2'  HO2'  HO2'  HO2'  HO2'  HO2'  HO2' 
+ATOM  X  DU    C1'   C1'   C1'   C1'   C1'   C1'   C1'   C1'  
+ATOM  X  DU    H1'   H1'   H1'   H1'   H1'   H1'   H1'   H1'  
+ATOM  X  DU    O4'   O4'   O4'   O4'   O4'   O4'   O4'   O4'  
+ATOM  X  DU    N1    N1    N1    N1    N1    N1    N1    N1   
+ATOM  X  DU    C2    C2    C2    C2    C2    C2    C2    C2   
+ATOM  X  DU    O2    O2    O2    O2    O2    O2    O2    O2   
+ATOM  X  DU    N3    N3    N3    N3    N3    N3    N3    N3   
+ATOM  X  DU    H3    H3    H3    H3    H3    H3    H3    H3   
+ATOM  X  DU    C4    C4    C4    C4    C4    C4    C4    C4   
+ATOM  X  DU    O4    O4    O4    O4    O4    O4    O4    O4   
+ATOM  X  DU    C5    C5    C5    C5    C5    C5    C5    C5   
+ATOM  X  DU    H5    H5    H5    H5    H5    H5    H5    H5   
+ATOM  X  DU    C6    C6    C6    C6    C6    C6    C6    C6   
+ATOM  X  DU    H6    H6    H6    H6    H6    H6    H6    H6   
+ATOM  X  DU    O3'   O3'   O3'   O3'   O3'   O3'   O3'   O3'  
+### acaban nucleicos
+# NORLEUCINE for our studies in Valencia, **special**
+ATOM X   NOR  C       C       C         C      C      C     C      C
+ATOM X   NOR  O       O       O         O      O      O     O      O
+ATOM X   NOR  N       N       N         N      N      N     N      N
+ATOM X   NOR  CA      CA      CA        CA     CA     CA    CA     CA
+ATOM X   NOR  CB      CB      CB        CB     CB     CB    CB     CB
+ATOM X   NOR  CG      CG      CG        CG     CG     CG    CG     CG
+ATOM X   NOR  CD      CD      CD        CD     CD     CD    CD     CD
+ATOM X   NOR  CE      CE      CE        CE     CE     CE    CE     CE
+ATOM X   NOR  HN=H    HN      HN        HN     HN     HN    H      H 
+ATOM X   NOR  HA      HA      HA        HA     HA     HA    HA     HA
+ATOM X   NOR  HB      HB      HB        HB     HB     HB    HB     HB
+ATOM X   NOR  HG      HG      HG        HG     HG     HG    HG     HG 
+ATOM X   NOR  HD      HD      HD        HD     HD     HD    HD     HD
+ATOM X   NOR  HE      HE      HE        HE     HE     HE    HE     HE
+###################################################################
+### Any terminal residues, N terminal ######
+ATOM *   ANY  HT1    H1      HT1     H1     1H     HT1   1H     1H
+ATOM *   ANY  HT2    H2      HT2     H2     2H     HT2   2H     2H
+ATOM *   ANY  HT3    H3      HT3     H3     3H     HT3   3H     3H
+###################################################################
+### Any H or HN
+ATOM *   ANY  H      H       H       H      H      H     H      H
+ATOM *   ANY  HN     HN      HN      HN     HN     HN    HN     HN
+###################################################################
+### metals 
+ATOM *   ZN   ZN     ZN      ZN      ZN     ZN     ZN    ZN     ZN
+ATOM *   ZN2  ZN     ZN      ZN+2    ZN     ZN     ZN    ZN     ZN
+ATOM *   ANY  ZN     ZN      ZN      ZN     ZN     ZN    ZN     ZN
+ATOM *   ANY  CU     CU      CU      CU     CU     CU    CU     CU
+ATOM *   ANY  SE     SE      SE      SE     SE     SE    SE     SE
+ATOM *   ANY  FE     FE      FE      FE     FE     FE    FE     FE
+ATOM *   ANY  MG     MG      MG      MG     MG     MG    MG     MG
+ATOM *   ANY  AG     AG      AG      AG     AG     AG    AG     AG
+NMR  *   ZN   ZN     ZN      ZN      ZN     ZN     ZN    ZN     ZN
+NMR  *   ZN2  ZN     ZN      ZN+2    ZN     ZN     ZN    ZN     ZN
+NMR  *   ANY  CU     CU      CU      CU     CU     CU    CU     CU
+NMR  *   ANY  CU     CU      CU+2    CU     CU     CU    CU     CU
+NMR  *   ANY  SE     SE      SE      SE     SE     SE    SE     SE
+NMR  *   ANY  FE     FE      FE      FE     FE     FE    FE     FE
+NMR  *   ANY  MG     MG      MG      MG     MG     MG    MG     MG
+NMR  *   ANY  AG     AG      AG      AG     AG     AG    AG     AG
+###################################################################
+### Any terminal residues, C terminal  #####
+#    Res.     DYANA   CONGEN  X-PLOR    DISMAN PDB    ECEPP  IUPAC
+# ----------  -----   -----   ------    ------ ---    -----  -----
+ATOM *   LST  O       OCT1    OT1       O      O      O      O      O
+ATOM *   ANY  O       O       OT1       OT1    O      O      O      O
+ATOM *   ANY  O       OCT1    OT1       OT1    O      O      O      O
+ATOM *   ANY  OXT     OCT2    OT2       OT2    O2     OXT    OXT    xxx
+NMR  *   ANY  O       OCT1    OT1       OT1    O      O      O      O
+NMR  *   ANY  OXT     OCT2    OT2       OT2    O2     OXT    OXT    xxx
+### General Definitions
+DIHE *   ANY  DIH    OMEG2   O    C    N+    CA+
+DIHE *   ANY  DIH    OMEGA   CA   C    N+    CA+
+### Last record for checking purposes
+DIHE *   ANY  DIH    UNKN    xxx  xxx  xxx  xx

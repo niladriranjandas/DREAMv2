@@ -1,0 +1,172 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+import sys
+atmSelect='name CA'
+Th_hold=1
+
+
+
+(opts,structures)=xplor.parseArguments(["selection:1",
+                                        "mSelect:0",
+                                        "verbose:0",
+                                        "writeStructs:0",
+                                        "pVariance:0",
+                                        "pRTMatrix:0",
+                                        "rmsdThreshold:1"],
+                                       cmdline="[options] <structures to fit>",
+                                       description="""
+Fit structures and determine unstructured regions using the maximum 
+likelihood methodology of
+
+D.L. Theobald and D.S. Wuttke, "THESEUS: Maximum likelihood
+superpositioning and analysis of macromolecular
+structures," Bioinformatics 22, 2171-2172 (2006).
+
+                                       """,
+                                       usageString="""
+
+where the structures to fit is a space-separated list of pdb filenames.
+
+Options are zero or more of::
+
+   -selection <atom selection> - which atoms to use in the fit
+                                 [default value: %s]
+   -mSelect                    - specify method of regularizing the inverse of
+                                 the covariance matrix. By default, a 
+                                 perturbative approach is used (a small
+                                 value is added to the diagonal). If this
+                                 option is specified, use diagonal
+                                 elements as ``eigenvalues,'' and follow the
+                                 scheme of Theoboald and Wuttke.
+   -verbose                    - cause intermediate values of log likelihood
+                                 and RMSD to be printed.
+   -pVariance                  - cause a text file to be printed with
+                                 variances of all the selected atoms. The
+                                 filename will be Variance.txt.
+   -pRTMatrix                  - cause a text file to be printed containing the
+                                 rotation and tranlation matrix for each
+                                 structure.The filename will be
+                                 RotTrans_Mat.txt.
+   -rmsdThreshold <value>      - specify the RMSD value for determining whether
+                                 an atom is in an ordered region [default: %f
+                                 angstrom]
+   -writeStructs               - the PDB files of the fitted structures are
+                                 written to the current working directory
+                                 with 'mle' added to beginning the PDB
+                                 filename.In addition another PDB file is
+                                 written with the mean coordinates along with
+                                 the variance of each atom in the B-factor
+                                 column with the file name:MLE-Average.pdb.
+
+    Maximum Likelihood RMSD    = Sqrt(k/Tr(C^{-1}))
+                         where,
+                             k = number of selected atoms
+                             C = the covariance matrix
+
+    Ensemble RMSD              = Sqrt(\Sum_{i,j}(delta_{i,j}^2)*1/(3Na*Ns))
+
+    Average RMSD               = (1/Ns)*\Sum_{i}*
+                                         (Sqrt(\Sum_{j}(delta_{i,j}^2))*1/(Na))
+                where,
+                   delta_{i,j} = |q_{i,j}-qavg_{j}| ,q_{i,j} is the jth atom
+                                 in ith structure and qavg_{j} is the jth
+                                 atom of the mean structure.
+                   Ns          = Number of structures
+                   Na          = Number of selected atoms
+                                         
+    
+                                 
+
+""" % (atmSelect,Th_hold)
+)
+mSelect=0
+interResult=0
+pRTMatrix=0
+pVar=0
+wStruct=0
+for op in opts:
+   if(op[0]=='selection'):
+      atmSelect=op[1]
+   elif(op[0]=='mSelect'):
+      mSelect=1 
+   elif(op[0]=='verbose'):
+      interResult=1
+   elif(op[0]=='writeStructs'):
+      wStruct=1
+   elif(op[0]=='pVariance'):
+       pVar=1
+   elif(op[0]=='pRTMatrix'):
+      pRTMatrix=1
+   elif(op[0]=='rmsdThreshold'):
+       Th_hold=float(op[1])
+   pass
+
+import atom
+
+print("generating PSF and loading first structure...")
+import protocol
+protocol.loadPDB(structures[0])  # this generates psf info and load coords
+xplor.simulation.deleteAtoms("not known")
+
+coords=[]
+coords.append(xplor.simulation.atomPosArr())
+
+print("loading remaining structures...")
+
+import pdbTool
+for file in structures[1:]:
+   pdbTool.PDBTool(file).read()
+   coords.append(xplor.simulation.atomPosArr())
+   pass
+   
+import maxLikelyFit
+obj= maxLikelyFit.MaxLikelyFit(atmSelect,interResult,mSelect)
+
+print('performing maximum likelihood fit', end=' ')
+sys.stdout.flush()
+
+#import cProfile
+#cProfile.run( 'obj.iterate(coords)', 'cprof.out' )
+obj.fit(coords)
+
+print()
+print('\t \t Statistics:')
+print('Number of iterations=    %d'%obj.i_number)
+print('maximum likelihood RMSD= %f'%obj.RMSD_ml)
+print('Ensemble RMSD=           %f'%obj.LsSigma)
+print('Average  RMSD=           %f'%obj.nRMSD)
+print('Log Likelihood=          %f'%obj.ls)
+print()
+
+if(pRTMatrix==1):
+   obj.WriteRotTransMat( len(structures) )
+
+if(wStruct==1):
+   print('writing Fitted structures and Average structure files')
+   obj.PDBWrite(structures,wStruct)
+
+
+   
+if(pVar==1):
+   obj.PDBWrite(structures,wStruct)
+   f=open('Variance.txt','w')
+   for i in range(len(obj.variance)):
+      for j in range(len(obj.SelectedAtoms)):
+        if(obj.SelectedAtoms[j].string()==obj.variance[i][0].string()):
+          f.write('\n%s\t%f '%(obj.variance[i][0].string(),obj.variance[i][1]))
+   f.close              
+
+
+#Calculating the ordered regions
+L=obj.orderedResidues(Th_hold)
+print('ordered regions comprise the following residues:')
+
+print(' ', end=' ')
+for t in L[1]:
+   if t[0]==t[1]:
+      print('%d, ' % t[0], end=' ')
+   else:
+      print('%d-%d, ' % t, end=' ')
+   pass
+print()
+   

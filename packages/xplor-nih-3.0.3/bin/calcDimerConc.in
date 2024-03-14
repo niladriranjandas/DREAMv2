@@ -1,0 +1,70 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+
+(optList, args) = xplor.parseArguments(["conc:1",
+                                        "Kd:1",
+					"pop:0",
+                                        "subunit:0",
+                                        "copies:1",],
+					cmdline="[option]",
+					description="""
+Given subunit concentration and Kd, return
+dimer and monomer concentrations""",
+                                       usageString="""
+options::
+
+     -Kd <val>     - specify Kd
+     -conc <val>   - specify concentration
+     -subunit      - multiply dimer conc by 2
+     -copies <num> - specify the number of copies to return
+                      the format is 
+                          [dimer] [monomer] [dimer] [monomer] ...
+
+       				)
+
+Kd and conc are required and must be specified in the same units
+e.g. mM.
+""")
+
+conc=None
+Kd=None
+subunitCalc=False
+copies=1
+pop=False
+for opt in optList:
+    if opt[0]=="subunit":
+        subunitCalc=True
+        pass
+    if opt[0]=="copies":
+        copies=int(opt[1])
+        pass
+    if opt[0]=="conc":
+        conc=float(opt[1])
+        pass
+    if opt[0]=="pop":
+        pop=True
+        pass
+    if opt[0]=="Kd":
+        Kd=float(opt[1])
+        pass
+    
+
+from math import sqrt
+mono = 0.5 * (sqrt(0.25*Kd**2 + 2*conc*Kd) - 0.5*Kd)
+
+dimer = 0.5 * (conc - mono)
+
+if subunitCalc:
+    dimer *= 2
+    pass
+
+if pop:
+   mpop= mono/(mono+dimer)
+   dpop= dimer/(mono+dimer)
+   mono=mpop
+   dimer=dpop
+
+for i in range(copies):
+    print("%.4f %.4f" % (dimer, mono), end=' ')
+    pass
+print()

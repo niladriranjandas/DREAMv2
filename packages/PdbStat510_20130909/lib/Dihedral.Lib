@@ -1,0 +1,80 @@
+# $Id:#
+# Dihedral definitions Library
+# General definitions
+DIH   *     OMEGA   O    C    N    HN
+DIH   *     PHI     C-   N    CA   C
+DIH   *     PSI     N    CA   C    N+
+# ALA
+DIH   ALA   CHI1    N    CA   CB   HB1
+# ARG
+DIH   ARG   CHI1    N    CA   CB   CG
+DIH   ARG   CHI2    CA   CB   CG   CD
+DIH   ARG   CHI3    CB   CG   CD   NE   
+DIH   ARG   CHI4    CG   CD   NE   CZ
+# ASN 
+DIH   ASN   CHI1    N    CA   CB   CG
+DIH   ASN   CHI2    CA   CB   CG   OD1
+# ASP 
+DIH   ASP   CHI1    N    CA   CB   CG
+DIH   ASP   CHI2    CA   CB   CG   OD1
+# CYS
+DIH   CYS   CHI1    N    CA   CB   SG
+DIH   CYS   CHI2    CA   CB   SG   HG
+# GLN 
+DIH   GLN   CHI1    N    CA   CB   CG
+DIH   GLN   CHI2    CA   CB   CG   CD
+DIH   GLN   CHI3    CB   CG   CD   OE1
+# GLU 
+DIH   GLU   CHI1    N    CA   CB   CG
+DIH   GLU   CHI2    CA   CB   CG   CD
+DIH   GLU   CHI3    CB   CG   CD   OE1
+# GLY  doesn't have any CHI
+# HIS 
+DIH   HIS   CHI1    N    CA   CB   CG
+DIH   HIS   CHI2    CA   CB   CG   ND1
+# ILE 
+DIH   ILE   CHI1    N    CA   CB   CG1
+DIH   ILE   CHIX    N    CA   CB   CG2     # fake, special to CG2 
+DIH   ILE   CHI22   CA   CB   CG2  HG21
+DIH   ILE   CHI21   CA   CB   CG1  CD1
+DIH   ILE   CHI31   CB   CG1  CD1  HD11
+# LEU 
+DIH   LEU   CHI1    N    CA   CB   CG
+DIH   LEU   CHI2    CA   CB   CG   CD1
+DIH   LEU   CHI31   CB   CG   CD1  HD11
+DIH   LEU   CHI32   CB   CG   CD2  HD21
+# LYS
+DIH   LYS   CHI1    N    CA   CB   CG
+DIH   LYS   CHI2    CA   CB   CG   CD
+DIH   LYS   CHI3    CB   CG   CD   CE
+DIH   LYS   CHI4    CG   CD   CE   NZ
+DIH   LYS   CHI5    CD   CE   NZ   HZ1
+# MET
+DIH   MET   CHI1    N    CA   CB   CG
+DIH   MET   CHI2    CA   CB   CG   SD
+DIH   MET   CHI3    CB   CG   SD   CE
+DIH   MET   CHI4    CG   SD   CE   HE1
+# PHE
+DIH   PHE   CHI1    N    CA   CB   CG
+DIH   PHE   CHI2    CA   CB   CG   CD1
+# PRO doesn't have CHI
+# SER 
+DIH   SER   CHI1    N    CA   CB   OG
+DIH   SER   CHI2    CA   CB   OG   HG
+# THR 
+DIH   THR   CHI1    N    CA   CB   OG1
+DIH   THR   CHIX    N    CA   CB   CG2       # fake, special to CG2 
+DIH   THR   CHI21   CA   CB   OG1  HG1
+DIH   THR   CHI21   CA   CB   CG2  HG21
+# TRP 
+DIH   TRP   CHI1    N    CA   CB   CG
+DIH   TRP   CHI2    CA   CB   CG   CD1
+# TYR 
+DIH   TYR   CHI1    N    CA   CB   CG
+DIH   TYR   CHI2    CA   CB   CG   CD1
+DIH   TYR   CHI6    CE1  CZ   OH   HH
+# VAL 
+DIH   VAL   CHI1    N    CA   CB   CG1
+DIH   VAL   CHIX    N    CA   CB   CG2      # fake, special to CG2
+DIH   VAL   CHI21   CA   CB   CG1  HD11
+DIH   VAL   CHI22   CA   CB   CG2  HD21

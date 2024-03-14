@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+# Export variable for locating LIBRARY files
+#PdbStatROOT=/usr/local/PdbStat
+#PdbStatROOT=/data2/nmr/PDBstat/PdbStat510_20130909
+PdbStatROOT=/data2/nmr/our_algo/packages/PdbStat510_20130909
+AyudaPATH=${PdbStatROOT}/lib
+export AyudaPATH
+
+# launch program
+${PdbStatROOT}/bin/pdbstat_linux $* 
+
+exit

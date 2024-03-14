@@ -1,0 +1,8 @@
+#-file having details: username@ip,protein-PDB_ID's--------------
+DISTRI_FILE=
+#-LOG_In details:  pwd:username@ip,passwd,base_dir---------------
+REMOTE_IP=
+#-LOG File-------------------------------------------------------
+CURR_STATUS_LOG=
+DETAIL_REP_LOG=
+#--Local machine

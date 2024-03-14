@@ -1,0 +1,116 @@
+<html>
+<head><title>Test CGIcc form</title></head>
+<body bgcolor="#cccccc" text="#000000">
+<h2>Protein conformations from NMR NOESSY data</h2>
+<p>
+<form method="post" action="/cgi-bin/fillPagecgi">
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border:none;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-yw4l{vertical-align:top}
+</style>
+
+<br>
+<font size="5"><b>Inputs:<b></font><br>
+<table class="tg">
+  <tr>
+    <th class="tg-yw4l">Protein Name:</th>
+    <th class="tg-yw4l"><input type="text" name="protein_name" value="Mouse"></th>
+    <th class="tg-yw4l"></th>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Sequence File:</td>
+    <td class="tg-yw4l"><input type="text" name="seq_file" value="Mouse"></td>
+    <td class="tg-yw4l"></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Upl File:</td>
+    <td class="tg-yw4l"><input type="text" name="upl_file_1" value="Mouse"></td>
+    <td class="tg-yw4l"><input type="text" name="upl_file_2" value="Mouse"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l"><input type="text" name="upl_file_3" value="Mouse"></td></td>
+    <td class="tg-yw4l"><input type="text" name="upl_file_4" value="Mouse"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">H-bond file:</td>
+    <td class="tg-yw4l"><input type="text" name="H_bond_file" value="Mouse"></td></td>
+    <td class="tg-yw4l"></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Angular bound file:</td>
+    <td class="tg-yw4l"><input type="text" name="aco_file" value="Mouse"></td></td>
+    <td class="tg-yw4l"></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Protein Path:</td>
+    <td class="tg-yw4l"><input type="text" name="protein_path" value="Mouse"></td></td>
+    <td class="tg-yw4l"></td>
+  </tr>
+
+</table>
+
+<br><br>
+<font size="5"><b>Parameters:</b></font><br>
+<table class="tg">
+  <tr>
+    <th class="tg-031e">Hydrogen omission</th>
+    <th class="tg-yw4l"><input type="text" name="h_ommission" value="Mouse"></td></th>
+    <th class="tg-yw4l"></th>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Augment bounds:</td>
+    <td class="tg-yw4l"><input type="text" name="aug_bounds" value="Mouse"></td></td>
+    <td class="tg-yw4l"></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Break Graph:</td>
+    <td class="tg-yw4l">&eta;<sub>lo</sub></td>
+    <td class="tg-yw4l"><input type="text" name="eta_lo" value="Mouse"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">&eta;<sub>hi</sub></td>
+    <td class="tg-yw4l"><input type="text" name="eta_hi" value="Mouse"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Include neighbours:</td>
+    <td class="tg-yw4l"><input type="text" name="incl_neigh" value="Mouse"></td></td>
+    <td class="tg-yw4l"></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Multi Expand:</td>
+    <td class="tg-yw4l">k_2</td>
+    <td class="tg-yw4l"><input type="text" name="k_2" value="Mouse"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Size cutoff</td>
+    <td class="tg-yw4l"><input type="text" name="size_cutoff" value="Mouse"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Group min</td>
+    <td class="tg-yw4l"><input type="text" name="grp_min" value="Mouse"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l"></td>
+    <td class="tg-yw4l">Increament min</td>
+    <td class="tg-yw4l"><input type="text" name="incr_min" value="Mouse"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Group Expand</td>
+    <td class="tg-yw4l"><input type="text" name="grp_expand" value="Mouse"></td></td>
+    <td class="tg-yw4l"></td>
+  </tr>
+
+</table>
+
+<p>
+<input type="submit" value="Submit">
+</form>
+</body>
+</html>

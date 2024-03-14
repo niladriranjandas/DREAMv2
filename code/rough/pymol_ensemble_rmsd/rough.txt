@@ -1,0 +1,56 @@
+MODEL        1
+MODEL       19
+
+c=0
+for j in `ls *pdb`
+do
+    c=$((c+1))
+    printf "MODEL%10d\n" $c >> test.txt
+    strt_l=`grep -n MODEL $j | awk -F':' '{print $1}'` 
+    end_l=`grep -n ENDMDL $j | awk -F':' '{print $1}'` 
+    awk -v a=$strt_l -v b=$end_l 'FNR>=a && FNR<=b' $j >> test.txt
+done
+
+pymol -cq ensembleCompare.py -- /home/niladri/Documents/Disco_etc_all_in_1/our_algo/code/rough/pymol_ensemble_rmsd test
+
+get_distance /2L7B_0001///3/H, /2L7B_0001///142/HA
+
+
+for i in `ls proteins`
+do
+	protein_name_=`echo $i | awk -F'/' '{print $NF}'`
+        protein_name=`echo $protein_name_ | awk -F'.pdb' '{print $1}'`
+
+	echo $protein_name
+
+		mkdir proteins/$protein_name
+		cp $i proteins/.
+
+	pymol -cq ensembleCompare.py -- proteins $protein_name >> log_file.txt
+	pair_rmsd_file=`ls $protein_name*pair_rmsd.dat`
+	avg_rmsd_file=`ls $protein_name*avg_rmsd.dat`
+
+	if [ ! -f $pair_rmsd_file ]; then
+		printf "\n\tFile %s not created" $pair_rmsd_file
+	else	
+		mv $pair_rmsd_file proteins/$protein_name/.
+	fi
+	if [ ! -f $avg_rmsd_file ]; then
+		printf "\n\tFile %s not created" $avg_rmsd_file
+	else
+		mv $avg_rmsd_file proteins/$protein_name/.
+	fi
+done
+
+--------------------------------------------------------------
+
+for i in `ls proteins`
+do
+	protein_name_=`echo $i | awk -F'/' '{print $NF}'`
+        protein_name=`echo $protein_name_ | awk -F'.pdb' '{print $1}'`
+	
+	echo $protein_name
+done
+
+-----------------------------------------------------------------
+sed 's/^(\|)$//g' 1T3V_rmsd_file.txt | awk -F',' '{for(i=1;i<=NF;i++)a[i]+=$i}END{for(i in a){avg = a[i]/length(a); print avg}}'

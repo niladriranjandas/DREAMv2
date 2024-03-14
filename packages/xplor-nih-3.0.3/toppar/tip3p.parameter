@@ -1,0 +1,33 @@
+remarks 08-26-96
+remarks TIP3P water model
+remarks leading reference:  J. Chem. Phys., 1983, 79, 926-935
+set echo=false end
+
+!      Ebond = Sum [k(r-r0)**2]
+!      -------------------------------------------------
+BONDs    OW   HW        529.60     0.9572
+BONDs    HW   HW         38.25     1.5174
+
+!      Eangle = Sum [k(t-t0)**2]
+!      -------------------------------------------------
+ANGLe    HW   OW   HW    34.05     104.52
+ANGLe    OW   HW   HW     0.00      37.74
+
+!------------------------------L-J----------------------
+remarks MODIFY CUTOFF VALUES FOR PARTICULAR SYSTEM
+remarks GROUP cutoff chosen for consistency with MCPRO
+
+NBONds
+       GROUp
+       CDIE EPS=1.0
+       TRUNcation
+       CUTNb=12.0
+END
+!----------------------water sigmas and epsilons-----------------
+NONBonded   HW            0.0000    0.0000      0.0000    0.0000
+NONBonded   OW            0.1521    3.15061     0.0000    0.0000
+!--------------------------water - water-------------------------
+NBFIx       HW  HW        0.0000    0.0000      0.0000    0.0000
+NBFIx       HW  OW        0.0000    0.0000      0.0000    0.0000
+NBFIx       OW  OW   582002.6616  595.0550      0.0000    0.0000
+set echo=$prev_echo end

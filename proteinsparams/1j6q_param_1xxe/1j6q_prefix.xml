@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1j6q</protein_name>
+		<seq_file>1j6q.seq</seq_file>
+		<upl_file>1j6q_concat_dist.upl</upl_file>
+		<hbond_file></hbond_file>
+		<ang_file></ang_file>
+		<protein_path>../protein/1j6q</protein_path>
+	</inputs>

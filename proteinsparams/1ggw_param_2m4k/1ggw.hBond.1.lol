@@ -1,0 +1,62 @@
+  9 LYS  O      13 SER  N       2.40
+  9 LYS  O      13 SER  H       1.50
+ 10 GLN  O      14 LEU  N       2.40
+ 10 GLN  O      14 LEU  H       1.50
+ 28 ILE  O      32 LEU  N       2.40
+ 28 ILE  O      32 LEU  H       1.50
+ 41 LEU  O      45 THR  N       2.40
+ 41 LEU  O      45 THR  H       1.50
+ 42 ALA  O      46 GLU  N       2.40
+ 42 ALA  O      46 GLU  H       1.50
+ 43 GLU  O      47 ILE  N       2.40
+ 43 GLU  O      47 ILE  H       1.50
+ 44 ILE  O      48 GLU  N       2.40
+ 44 ILE  O      48 GLU  H       1.50
+ 45 THR  O      49 SER  N       2.40
+ 45 THR  O      49 SER  H       1.50
+ 57 MET  O      61 LEU  N       2.40
+ 57 MET  O      61 LEU  H       1.50
+ 58 GLU  O      62 GLN  N       2.40
+ 58 GLU  O      62 GLN  H       1.50
+ 59 GLN  O      63 VAL  N       2.40
+ 59 GLN  O      63 VAL  H       1.50
+ 60 PHE  O      64 LEU  N       2.40
+ 60 PHE  O      64 LEU  H       1.50
+ 76 PRO  O      80 VAL  N       2.40
+ 76 PRO  O      80 VAL  H       1.50
+ 77 GLU  O      81 LYS  N       2.40
+ 77 GLU  O      81 LYS  H       1.50
+ 78 GLU  O      82 GLY  N       2.40
+ 78 GLU  O      82 GLY  H       1.50
+ 79 PHE  O      83 PHE  N       2.40
+ 79 PHE  O      83 PHE  H       1.50
+ 80 VAL  O      84 GLN  N       2.40
+ 80 VAL  O      84 GLN  H       1.50
+ 96 VAL  O     100 ARG  N       2.40
+ 96 VAL  O     100 ARG  H       1.50
+ 97 GLY  O     101 TYR  N       2.40
+ 97 GLY  O     101 TYR  H       1.50
+ 98 GLU  O     102 VAL  N       2.40
+ 98 GLU  O     102 VAL  H       1.50
+ 99 LEU  O     103 LEU  N       2.40
+ 99 LEU  O     103 LEU  H       1.50
+100 ARG  O     104 THR  N       2.40
+100 ARG  O     104 THR  H       1.50
+112 ASN  O     116 ASP  N       2.40
+112 ASN  O     116 ASP  H       1.50
+113 GLU  O     117 GLU  N       2.40
+113 GLU  O     117 GLU  H       1.50
+114 GLU  O     118 LEU  N       2.40
+114 GLU  O     118 LEU  H       1.50
+115 MET  O     119 LEU  N       2.40
+115 MET  O     119 LEU  H       1.50
+116 ASP  O     120 LYS  N       2.40
+116 ASP  O     120 LYS  H       1.50
+117 GLU  O     121 GLY  N       2.40
+117 GLU  O     121 GLY  H       1.50
+132 HIS  O     136 GLN  N       2.40
+132 HIS  O     136 GLN  H       1.50
+133 ASP  O     137 MET  N       2.40
+133 ASP  O     137 MET  H       1.50
+134 PHE  O     138 ILE  N       2.40
+134 PHE  O     138 ILE  H       1.50

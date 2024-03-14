@@ -1,0 +1,3050 @@
+# $Id: Ayuda_PDBSTAT.hlp,v 4.22 2013/04/22 16:45:23 roberto Exp roberto $
+
+The PDBSTAT help facility has been inspired from the program RasMol by Roger Sayle. I have
+copied four of his routines to read and process the help. It was only minor-adapted to fit
+into my 'ugly' code.  Thanks a lot for such a nice code!
+ 
+The PDBSTAT help facility can be accessed by typing "help <topic>" or "help <topic>
+<subtopic>" from the command line. A complete list of PDBSTAT commands can be displayed by
+typing "help commands". A single question mark may also be used to abbreviate the keyword
+"help".
+
+
+
+?commands
+?keywords
+Commands/Keywords currently recognized by PDBSTAT
+
+ The commands/keywords currently recognized by PDBSTAT are given below. 
+ Type "help <command>" for more information on each PDBSTAT function.
+
+  align      analyze	  author    bye|quit	class	    clear	
+  close      chain	  check	    chiral	delete      debug
+  dump       dist|noe     energy    expand      evaluate    find        
+  fit        fix          get       help        history     hydrogen    
+  hyper      kabsch       ident     info	initialize  log|change  
+  load|load  menu	  missing   order       phi         rama       
+  relax      reset        restore   rotate      save        see|show|list
+  set        show         rmsd      to          trans       version   
+  what	     write
+
+  homology commands: 
+   get	    change	 homology    homa
+
+  Other kind/commands/keywords of help
+   codes(amino codes) 	 amino(amino geometry)
+
+
+?align
+Align sequences
+Syntax:  ali[gn] <int> <int> <float>
+
+   The command has changed and now it has a meaning.  It performs the Smith-Waterman
+   algorithm using Blosum-62 matrix. It was created to try to align some cases where we
+   need that for later superimpositions.  (Also, it is intended to be a basis also for
+   structural alignment done later).
+
+   The command will align model designed by first <int> into second <int> with a gap
+   penalty given by the <float>.  If no <float> is supplied a pentaly of 1.0 for gaps is
+   taken as default. This default usually works well.
+
+
+?ambiguous
+?ambiguous constraints
+
+  PdbStat in its current state is able to deal (read) ambiguous constraints for both
+  X-PLOR and CNS formats. It will make also the analysis of residual constraint vilation
+  for those.
+
+  When writing constraints the ambiguous are written down only for X-PLOR and CNS formats
+  but are silently discarded for any of the other formats.
+
+
+?analyze
+Analyze
+Syntax:  ana[lyze] 
+
+ Required files (they MUST be read before issuing this command): 
+     1. Coordinate file
+     2. Constraint file
+     
+ Get useful information about a set of constraints, mainly statistical data. Prior to
+ issue this command the user MUST read a coordinate file and a constraint file. As a result
+ it prints out on terminal a statistical summary for the constraints and also creates a
+ file named as the constraint file with the string '_USEFUL_DATA' appended, where this
+ info is stored.
+ 
+
+
+?author
+Gives information about the author. E.mail and regular mail addresses.
+Syntax: aut[hor]
+
+  ****************************************************************************
+  * In USA:                                                                  *
+  *       wwwww                                                              *
+  *     g( o o )g       Roberto Tejero, Ph.D.  [roberto@.cabm.rutgers.edu]   *
+  *---oOO--(_)---OOo---------------------------------------------------------*
+  *                     CENTER FOR ADVANCED BIOTECHNOLOGY AND MEDICINE (CABM)*
+  *    .ooo0 0ooo.      679 Hoes Lane, Piscataway.                           *
+  *    (   ) (   )      NJ 08854-5638   USA                                  *
+  *-----\ (---) /------------------------------------------------------------*
+  *      \_) (_/        Phone:  1 732 235-5361   FAX  : 1 732 235-4850 	     *
+  *	                                                                     * 
+  * **************************************************************************
+  * In Spain:                                                  \\\|///       *
+  *                                                          \\  ~ ~  //     *
+  *   Dr. Roberto Tejero          [Roberto.Tejero@uv.es]      (  @ @  )      *
+  *---------------------------------------------------------oOOo-(_)-oOOo----*
+  *   Departamento de Quimica Fisica (Universitat de Valencia)               *
+  *   Dr. Moliner, 50                                                        *
+  *-----------------------------------------------------------------Oooo-----*
+  *   E46100 Burjassot (VALENCIA)                         .oooO     (   )    *
+  *   SPAIN                   Phone: (+34) 96 354 31 64   (   )      ) /     *
+  *                           FAX:   (+34) 96 354 31 56    \ (      (_/      *
+  ********************************************************* \_)***************
+
+
+
+?bye
+?quit
+Bye
+Syntax:  bye
+         qui[t]
+
+ Simply quit the program!. 
+	 Abandon!. 
+	 Be happy!
+	 Adieu  			French
+	 Agur				Basque
+	 Ciao				Italian
+	 Sayonara?			Japanese
+	 Bye and have a nice day   	English (of course ...)
+
+ Some jokes also ...
+
+	See you later alligator!        
+        In a while crocodile!
+        Adios con el corazon que con el alma no puedo ...
+ 	Adios cara de gos! (sorry for the little Spanish[Valencian] joke) 
+
+
+
+?chain
+?ident
+Change the Chain Id in a structure or family. (Synonyms: chain, ident).
+Syntax:  chai[n] {<chain_id>}    chain_id can be a letter or a number
+         iden[t] {<chain_id>}    chain_id can be a letter or a number
+
+ Change the 'Chain Id' in a structure or family. If you read a file with a family of
+ structures you can change the 'Chain Identification' in the PDB format for the letter you
+ want (or number or ...). It is useful in some applications.
+
+
+
+?homa
+?homology
+Homology command (Synonyms: homa, homology)
+Syntax: 
+  homo[logy] template_PDB alignment_file NDis NCut NSeed Format BaseName [cols] 
+  homa       template_PDB alignment_file NDis NCut NSeed Format BaseName [cols]
+
+Description:
+ 
+ HOMA stands for the name Zeba Wunderlich came up with to define the homology modeling of
+ proteins, HOmology Modeling Automatically. homa and homol are totally equivalent
+ commands.
+	
+ HOMA builds a homologous atom constraint file in several formats to run our method of
+ homology modeling (Prot. Sci.). It is a wrap up for both, 'get' and 'change' commands. It
+ can take the following arguments:
+ 
+   template_PDB:  name of file holding PDB coordinates to use as template
+   alignment_f :  name of file storing the alignment
+   NDis        :  number of random distances we like
+   NCut        :  max. value for a distance we like to use
+   NSeed       :  seed for the random number generator
+   Format      :  Format for final constraint file [dyana|congen|xplor|cns|all]
+   BaseName    :  Base name for file with final constraints. 
+   cols        :  number of columns in alignment file, it can be 4 or 6 
+                  it is optional and defaults to 4 if no choice is made.
+
+ There is a shorcut for running automatically,
+
+ 	  homa template alignment <format> <base_name> [4 | 6]
+	  
+ this shorcut instruct PDBStat to run automatically taking default values for most of the
+ arguments.  NDis and NCut are calculated based on the size of the template.
+
+
+
+?change
+Change the names of residues given a file with an alignment
+Syntax: chan[ge]
+
+ This command is meant to be run after a 'get' command has been issued. 'Change' command
+ changes the names/numbers of residues in a constraint file given a file storing the
+ alignment for two sequences. From that it generates the constraint file to be used in
+ homology structure determination using our method (Prot. Sci.)
+
+ Related commands: get
+
+
+
+?chiral
+?check
+Chiral/Check chirality in the molecule (Synonyms: check, chiral)
+Syntax:  chir[al]
+         che[ck]
+
+ Check 'chirality' in the molecule. This option has evolved a lot and now it checks a lot
+ of things in the molecule like chirality (backbone and side chain), bad omegas,
+ Ramachandran (trying to detect bad Ramachandran angles ...)
+
+ The check is too strict in the sense that for Ramachandran for example it points as _BAD_
+ all residues that lie in 4th quadrant. No check for glycine is done, all residues are
+ treated the same.
+
+
+
+?congen
+?prepare
+Prepare bunch of input files for CONGEN
+Syntax:  cong[gen]
+
+ Files needed:	sequence, noes, dihedral. (all in CONGEN format)
+ Examples:	      zdomain.seq, zdomain.noe , zdomain.dihe
+
+ It takes a sequence file just read and prepares a bunch of files for running CONGEN. The
+ program asks for the name of a file (the base name) some strings are added to this base
+ name to create the files. Then the user is asked for a chain identification. It should
+ match the one we are going to use in the constraints file.
+
+ As results it creates a bunch of files together with some shell scripts to run
+ automatically CONGEN for structure generation from NMR data.
+
+ The files created are:
+   basename.seq			  ->  file with the sequence for CONGEN
+   basename_omega.inp		  ->  omega constraint file
+   basename_chiral.inp		  ->  chiral constraint file
+   basename_sidechain_chiral.inp  ->  side chain chiral constr. file
+   basename_0.inp		  ->  input for CONGEN
+   chk_basename_0.inp		  ->  input for check NOEs running CONGEN
+   run_auto_basename.csh	  ->  script to run automatically CONGEN
+   run_checknoes_basename.csh	  ->  script to run check NOEs with CONGEN
+
+ Some of these files _DO NEED_ inspection and check by the user as they are created from
+ templates and the sequence may be has a lack of some residues.  For example _ALL_ omegas
+ are constrained to 180 +/- 5 degrees, so watch your steps if you have _CIS_ peptide bonds
+ and fix the input.
+
+
+ 
+?energy
+?classify
+Classify by energies 
+Syntax:  cla[ssify]
+
+ Classify structures by energy if the energy for the structures is available.  For example
+ if you have a file with multiple structures from INSIGHT/DISCOVER you can classify them
+ using the energy value present in the file. I use to add the energy of the model in
+ REMARK records so I can get them classified when reading a file with multiple
+ conformations.
+
+
+?formats
+
+ Since the beginning PdbStat was created to handle a bunch of different formats for
+ coordinates, constraints, etc.  Although now the most important ones are covered, namely
+ PDB (coordinates) and CYANA|CNS|X-PLOR (constraints) the list of formats that PdbStat can
+ recognize are: DISMAN | DIANA | DYANA | CYANA CNS | X-PLOR CHARMM | CONGEN AMBER IMPACT
+ DISCOVER (old Insight-II version ) AmmP ( special implementation )
+
+ NOTE: please be aware that some of these formats may be in desuse in the program
+       and not well covered (checks by the end user are highly recommended). 
+       The most common ones in a structural biology lab, like CAYAN|CNS|X-PLOR 
+       are actively maintained. 
+
+
+
+?get
+?get distances
+Get Distances from a PDB structure to get homology constraints
+Syntax: get
+
+ Gets distances from a 'template' structure to be used as homologous constraints in the
+ homology method. You can select how many distances you like and the largest value for the
+ distance. If not sure just choose 99.0 as the largest possible value. Please note that
+ first you _MUST_ read a coordinates file.
+
+ Related commands: chan[ge]
+
+
+
+?history
+History of typed commands
+Syntax:  his[tory]
+
+ It gives the user a list with the 'history' of the commands just typed until this one
+ (this one included).  Example:
+ 
+   ------- Sequence (history) of commands ------ 
+   1 command: read coordinates pdb test.pdb 
+   2 command: check chirality, omega, etc.  
+   3 command: menu 
+   4 command: history
+
+ COMMENTS: not too much useful. This option is not properly checked/ maintained. It is
+ kept 'lazily' in the code from the past, so do not expect a good history of the commands
+ that were really typed into the program.
+
+
+
+?clear
+Clear
+Syntax:  cle[ar]
+ 
+ Clear the screen by simply adding 60 blank lines. 
+
+
+
+?close
+Close Contacts search 
+Syntax:  clo[se]
+
+ Search for close contacts in the molecule. The program asks interactively for the
+ structure # you want and for the cutoff to consider a 'close contact'. Then it displays
+ on the screen some of the calculations being done with some of the contacts and finally
+ tells the user that the whole list is written to a file usually named
+ 'name_of_your_file_Close_contacts' where name_of_your_file is the name of the file where
+ the structure/s is/are.
+
+
+
+?contact
+Draw a contact map from coordinates or constraints
+Syntax: contact
+
+ Elaborates a contact map from either constraints or coordinates. In the case of
+ calculating the contact map from coordinates the program does a close contact search
+ first with the cutoff selected by the user. The final result is a PostScript file with
+ the contact map.
+
+ Please, NOTE that it *REQUIRES* a sequence file be read prior to contact map
+ elaboration. If no sequence file have been read it may produce sometimes an awful 'core
+ dump'
+
+
+
+?debug
+Choose debug level to debug code
+Syntax:  deb[ug] {<level>}
+
+ Sets the value of DEBUG, the debug level. The level of debug is controlled by the
+ variable DEBUG. Any value greater than 0 means some printing. Values greater than 5 can
+ give LOTS of printing with some options, so be careful as the print out can get huge. At
+ starting time DEBUG has a value of 0, i.e.  no debug.
+
+
+
+?delete
+Delete a model or a range of models
+Syntax:  del[ete] {<number | range (two numbers)>}
+         del[ete] bad { rama | energy
+
+ Deletes a model from the list stored in memory. The command takes one or two numbers. In
+ the first case the model # is deleted and then the whole list is re-numbered. In the
+ second the program deletes from number 'first' to number 'second' and then re-numbers. If
+ you give no number the program asks for one (or a range)
+
+ Example:	del 1       ->   Deletes model 1
+		del 1 5     ->   Deletes from 1 to 5 (1,2,3,4 and 5)
+
+ In 1998 has been extended a little. Now the user can delete models based in RMSD, ENERGY
+ and values or Ramachandran or Chirality.
+
+ Examples:  del bad rama   -> Deletes models with bad Ramach. values
+            del bad energy -> Deletes models with E > cutoff
+            del bad rmsd   -> Deletes models with Rmsd > cutoff
+
+ Please note that the user should set the cutoff value for RMSD or ENERGY, for that please
+ see 'help set'
+
+?distances
+?dist
+Syntax: dist[ances] {options}
+Options:
+    {<analys> | <modify> | <clear> | <remove> | <to> | <matrix> | <diffmat>}
+
+ dist ana -- analize a set of constraints
+ dist mod -- modify the list of constraints signalling those meaningless
+ dist cle -- clean the list of constraints deleting meaningless ones
+ dist rem -- remove a selected set of constraints
+ dist to  -- change the set of constraints to satisfy convention names
+ dist mat -- (dist mat #mod cutoff} -- produce a Ca distance matrix map
+ dist dif -- evaluate a diff distance map
+
+ You can get more individual help typing 'help dist {ana,mod,cle,rem,to,mat,diff}'
+ 
+
+
+?evaluate
+Evaluate different measurements in a model
+Syntax:  eva[luate] { options } 
+
+ Used to evaluate distances, angles or dihedrals in a molecule. Also it can give you
+ information about a residue evaluating distances, angles and dihedrals for that
+ residue. A list of available evaluation is given below. Type "help evaluate
+ <evaluation_name>" for more information in that option,
+
+ Options:
+
+      distances      angle     dihedral    residue     OMEGA	PHI  PSI
+      ramachandran   gyration  dar 
+
+
+
+?dar
+?evaluate dar
+Evaluates Da and R for a 
+Syntax:  eval dar [n1] [n2] 
+
+  DA and R: 
+  This command will evaluate the axial (Da) an rhombic (R) components of the
+  alignment for a RDC data set read in. It uses the SVD method as published in
+  J. Magn. Reson. 138, 334-342(1999).  Results obtained are pretty similar, if not
+  identical, to the ones produced by PALES.
+
+  Options: Atlhough the normal use will be only 'eval dar' it can take two more options as in 
+  eval dar n1 n2. 
+  n1. num | all -- the model number to work on. In the default use 'eval dar' goes trhough all 
+		   models present in memory. If 'all' is used instead of a number then ALL models 
+                   are processed. 
+  n2. num       -- the number of the media to work on. When several different alignment media have
+                   been read this can calculate Da and R for only the selected one.  This can be handy
+	           if one reads RDC file from CYANA for example that keeps track of the alignment in
+                   the final column. 
+
+?evaluate distances
+Syntax: eva[luate] dis[tances] <atom selection>
+Syntax: eva[luate] dis[tances] lower <cutoff>
+Evaluate Selected distances in a molecule
+
+ DISTANCES: 
+ 
+ Evaluates *ANY* distance (hopefully!) in a molecule or model. The atom selection should
+ be: <Model# ResNum IUPAC ResNum IPUAC>. So we need to give the residue number and the
+ IUPAC labels for atoms.
+
+   eval dist * 2 N* * CA    [dist. between ANY N in res 2 and CA in ANY res.
+                             in *ANY* model ] 
+
+ Wildcard (*) can be used to make multiple selections. Be careful as the printout can be
+ HUGE!.
+
+ The command 'eval dist lower 5.0' evaluates all distances between protons in a molecule
+ that are below cutoff value (5 angstroms in this example).
+
+ Special characters are 
+   # - means the same residue number 
+  i1 - means next residue in sequence 
+
+ Example:   eval dist * # C i1 C    --will evaluate the distance bwtween the 
+            C of residue i and C of residue i+1 for any model (*).
+ 
+
+
+
+?angles
+?evaluate angles
+Syntax: eva[luate] ang[les] <atom selection>
+Evaluate Selected Angles in a molecule
+	
+ ANGLES:
+ 
+ Evaluates *ANY* angle (I hope!) in a molecule or model. The atom selection should be:
+ <Model# ResNum IUPAC ResNum IPUAC ...>. So we need to give the residue number and the
+ IUPAC labels for atoms. Some examples
+
+     'eval ang 3 2 N 2 CA 2 C' -> Calc. ang. N-CA-C in res 2 in MODEL 3
+
+ Wildcard (*) can be used to make multiple selections. Be careful as the printout can be
+ HUGE!.
+ 
+ Special characters are 
+   # - means the same residue number 
+  i1 - means next residue in sequence 
+
+ Example:   eval ang *  # C  i1 N  i1 CA    --will evaluate the angle formed
+            by C of residue i and N and CA of residue i+1 for any model (*).
+ 
+
+
+
+
+?dihedrals
+?evaluate dihedral
+Syntax: eva[luate] dih[edral] <atom selection>	
+Evaluate Selected Dihedrals in a molecule
+
+ DIHEDRAL:
+ 
+ Evaluates *ANY* dihedral (I hope!) in a molecule or model. The atom selection should be:
+ <Model# ResNum IUPAC ResNum IPUAC ...>. So we need to give the residue number and the
+ IUPAC labels for atoms. Some examples
+
+  'eval dihe 10  2 N 2 CA 2 C 3 N' Evaluates PSI in res 2 of MODEL 10
+
+ Wildcard (*) can be used to make multiple selections. Be careful as the printout might be
+ HUGE!.
+
+ Special characters are 
+   # - means the same residue number 
+  i1 - means next residue in sequence 
+
+ Example:   eval dihe *  # C  i1 CA i1 H  i1 N   --will evaluate the improper formed
+            by C of residue i and N,CA,H of residue i+1 for any model (*).
+ 
+
+
+?residue
+?evaluate residue
+Syntax:  eva[luate] res[idue] <int>
+Evaluate a set of Selected Distances, Angles and Dihedrals in a model
+
+ Evaluates several distances, angles and dihedrals for the selected residue number. It was
+ conceived to help in checking another program HYPER. It should be useful checking the
+ quality against ideal values of a structure.
+
+
+
+?omega
+?evaluate omega
+evaluate OMEGAs
+Syntax:  eva[luate] omega
+	
+ Evaluates all OMEGA angles in the model
+
+
+
+?phi
+?evaluate phi
+evaluate PHIs
+Syntax:  eva[luate] phi
+	
+ Evaluates all PHI angles in the model
+ 
+
+
+?psi
+?evaluate psi
+evaluate PSIs
+Syntax:  eva[luate] psi
+	
+ Evaluates all PSI angles in the model
+
+?evaluate ramachandran
+?evaluate procheck
+
+Syntax:  eva[luate] rama[chandran] < model# | all | * >
+         eva[luate] procheck  < model# | all | * >
+
+  Evaluates the percentages of favorable, allowed and generous for the Ramachandran
+  corresponding to every residue in the model (after evaluating phi and psi).
+
+  If 'eval procheck' is used results are the same as program ProChek (it uses same mapping
+  avoiding GLY and PRO).
+
+  If 'eval rama' is used special maps for both PRO and GLY are used.  These mapa were
+  built using data from Richardson paper.
+
+
+?find
+FindCore algorithm
+Syntax:  find [ -bb | -heavy | -all | -noe ... ]
+
+  FindCore - the 'FindCore' algorithm of Snyder and Montelione 
+                 (PROTEINS, 59:673-686, June 2005)
+ 
+  Theory
+
+  FindCore uses a completely different method for determining well-defined residues.  It
+  does not use DAOP at all and only uses the inter-atom distance variance matrix (IVM).  An
+  element (i,j) in this matrix is defined as the variance in the distance between atoms i
+  and j across the ensemble. For each atom i, corresponding to a row in the IVM matrix, and
+  a value of variance, ε2, an order parameter Tε(i) is defined as the number of elements in
+  row smaller that ε2.  The critical value of the parameter ε2 should minimise the kurtosis
+  of the set {Tε(i)}.  The set of order parameters at the critical value of ε2 is then split
+  into non-overlaping subsets such that intrasubset variances are minimized. The optimal
+  susbsets thus define the well-defined (high values of order parameters) and the
+  ill-defined (low values of the order parameters).  The well-defined atoms are then
+  analysed using Ward’s clustering algorithm and separated into individual domains if
+  needed.  The cutoff for clustering is provided by the Chauvenet criterion.
+ 
+  Output - superimpositions (one file, named <inputfile>_1.pdb, for each domain) of the
+  ensemble each with (scaled) 'Order Parameters' in the B-factor field of the first model
+  as well as a file, named <inputfile>_b.pdb with coordinate uncertainties in the B-factor
+  field and additionally statistics describing ensemble written to the standard output
+  
+  Usage:    findcore < options >        Options:  {-all | -heavy | -noe | -bb} 
+            
+      -all                   use all atoms in calculations
+      -heavy                 use only heavy atoms
+      -noe                   use only H atoms
+      -bb                    use only N,CA,C' backbone (default is -bb)
+      -p prior               alt. prior to use for Bayesian correction in domain
+                             detection method (default is 0.33)
+      -e critical_precision  value of 'epsilon' measure of precision below which 
+                             to use alternative prior (default is 0.37)
+      -rmsdToModel N         calculate RMSD to the N'th model rather than to a 
+                             mean model 
+      -biasOfModel N         calculate RMSD between model N and average of other 
+                             models rather than RMSD to mean
+      -X2ForModel N          calculate X2 statistic describing distance of model 
+                             N from spread of other models.  This procedure does 
+                             a jackknife calculation to evaluate significance of 
+                             X2 statistic and writes the superimposition for each 
+                             calculation in the jackknife also in this method, the 
+                             file named <inputfile>_b.pdb contains scaled p-values 
+                             for local X2 statistics in the B-factor field.
+                             The actual p-values are reported in a file called 
+                             <inputfile>.local_pValues
+  Note -- the -rmsdToModel, -biasOfModel and -X2ForModel change the default superimposition
+          behavior of this and are mutually exclusive of each other: please use zero or one
+          of these options, not more than one
+                  
+
+?fit
+Fit to a model specified by user
+Syntax:	 fit [model number] [sele|back|heavy ..]  
+
+ Fits sets of coordinates (selected, backbone, heavy..) defined at command line to those
+ of a specified model. If model is not specified, model 1 is taken a the one to fit
+ coordinates to.  At the same time gives the RMSD coord for the fitting.
+
+ Args can be none (--model 1 is taken as the one to fit--) or a model number and any of
+ selected, backbone, heavy.
+ 
+
+
+?fix
+Changes atom names to correctly defined proton stereo assignments
+  (stereo names following IUPAC rules).
+Syntax:   fix <stereo> 
+
+ Right now it is used to change the atom names to closely follow IUPAC rules.  The
+ algorithm was devised by Guy (Gaetano Montelione) some time ago and the code included
+ here is based in code developed by Danquin Jin, lately extended by George F. Elkins and
+ then corrected and adapted for PDBStat by me.
+
+ Algorithm: 
+ For the general case of HB for example, the vectos from ca to cb (vcab), cb to cg (vcbg),
+ cb to first hb (vbhb1) and cb to second hb (vbhb2) are computed.  Then the normal vector
+ to the plane defined by vcab and vcbg is computed (cross product).  Finally the dot
+ products of vbhb1 and vbhb2 with the normal are computed. The two dot products should
+ have different signs, since the HB's are separated by the plane.  Same thing is applied
+ in turn for HG, HD, HE, etc.
+
+
+
+
+?hyper
+Hyper simulation of data from coordinates.
+Getting HYPER input from constraints
+Syntax:  hyp[er]
+	
+ If we run this option from coordinates we get a list of distances and J's ordered as
+ input for HYPER so we can check HYPER work. The user can choose the range in distances
+ (usually 0.5 A) and in J's (usually 1.0 Hz)
+
+ If we run this option from constraints we can build up an input file for HYPER (to
+ constrain the angle space).
+
+ The user is asked for the info this option needs.
+
+
+
+?kabsch
+Kabsch
+Syntax:  kab[sch]
+
+ Evaluate average hydrogen bond energy following the work of Kabsch and Saunders in
+ Dictionary of a protein. It gives you a list like this:
+ 
+  > MAIN: [ana]lyze [rea]d [hel]p [his]tory [men]u [phi] [qui]t  ?_ kab
+  > WHAT_mdl: What model do you want ?_ :  12
+  > KABSCH_sander:    #    ATOM 1         ATOM 2         E    dON   dCN 
+  > KABSCH_sander:------------------  -------------    ----- ----- ----- 
+  > KABSCH_sander:    1 ASN A  1  N     ASN A  1  O    -0.69  2.77  2.47 
+  > KABSCH_sander:    2 ASN A  1  O     GLU A 24  N    -2.57  2.90  3.99 
+  > KABSCH_sander:    3 SER A  2  N     SER A  2  O    -0.99  3.12  2.40 
+  > KABSCH_sander:    4 TYR A  3  N     TYR A  3  O    -1.17  2.89  2.54 
+  > KABSCH_sander: average EHbond: -1.44 for 74 hbonds; ET=-106.55 Kcal
+
+ where you can see the hydrogen bonds, the associated energy and at the end the averages
+ for the whole set of possible hydrogen bonds. For more info you should look into the
+ code.
+ 
+ It also produces a file called 'name_Kabsch_Sander' where you can find a list of the
+ possible hydrogen bonds.
+ 
+
+
+?exit
+Quit
+Syntax:  exi[t]
+
+ Exit from the PDBSTAT program. Also exit from a command to the next level.
+ If the level is the outermost then exit the program
+
+?expand
+Syntax:  expa [ core | daop ]  [ log | norm ] [ domain id ]
+
+ Theory (taken from D. Snyder writing) 
+
+ Iterative editing of the FindCore core overcomes the stringency with which FindCore
+ defines the core atom set. First, the superimposition allows for the meaningful
+ calculation for each atom of mean squared displacements from the mean atomic coordinates,
+ averaged across all models in the ensemble,
+
+		 〈u^2 〉=〈‖[x y z]-〈x y z〉‖^2 〉
+
+ Where the brackets indicate taking an average across all models and [x y z] indicates the
+ x, y and z coordinates (as superimposed) of the current atom. Note that if NMR-ensembles
+ were actually Boltzmann ensembles representing the actual conformational variability in
+ the protein structure, then the <u^2> value defined above would be the same <u2> used in
+ interpreting the Debye-Waller B-factor as 8p^2<u^2>/3 .
+
+ It is found that the <u^2> values for the core atom set follow a log-normal distribution
+ (Figure 1B), which is not surprising given the previous observation of log-normal
+ distributions of square deviations in atomic positions across NMR-derived ensembles in
+ related work seeking to compare crystallographic structures with NMR ensembles
+ {{19}}. The sample mean mu and standard deviation su of log(<u2>) are thus used to define
+ a critical <u^2> = e^(mu +3 * su) corresponding to a Z-score of 3 for the (log) normal
+ distribution. Atoms characterized by <u^2> values less than the critical <u^2> value are
+ ruled into the core atom set while core atoms characterized by a <u^2> value greater than
+ the critical value are removed. Typically, this results in an expansion of the core atom
+ set by about 5%?, while only a small number (1-2) of core atoms are removed as a Z-value
+ of 3 corresponds to a 0.13% probability of a core atom being censored (Figure 1C). The
+ resulting initial expanded core atom set provides a basis for re-superimposition of the
+ NMR-derived ensemble, and <u2> values are re-calculated using this new
+ superimposition. The sample mean mu and standard deviation su are recalculated from the
+ log(<u2>) values for the edited core. These statistics are again used to define a
+ critical <u2> and to guide the construction of an expanded core set of atoms with
+ recalculated <u2> values less than the new critical value (Figure 1D).
+
+ At this point, the expanded core atoms set is suitable for various applications requiring
+ the distinction of well-defined from ill-defined atoms in the protein NMR structure
+ model.  However, certain software tools (e.g. Ramachandran analysis) require complete
+ backbone atom information. These applications may require editing of the expanded core
+ atoms set. In particular, for CASP10 many different methods were used to compare one
+ representative conformer from the target NMR structures with each of the predicted models
+ using only atoms in the expanded core atom set, and excluding atoms that are ill-defined
+ in the ensemble of coordinates. However, some of these methods require a complete set of
+ backbone atoms for each residue in order to be used without significant code
+ modifications.
+
+ The whole thing was revisited on April 2013 making the method multichain aware so now one
+ can deal with structures that are multichain.  Several improvements and optins have been
+ added.  Related commands: set core or set daop will evaluate the core based on either
+ FindCore or DAOP and classify the atoms on the basis if they belong or not to those
+ cores.  set expa core | daop will expand the original core (either FC or DAOP) set expa
+ core 1 (or integer in general) will use that domain as the basis to evaluate the critical
+ value used in the expansion of the core.
+
+
+?help Help Syntax: hel[p] {<topic> {<subtopic>}} ? {<topic>
+{<subtopic>}
+
+ The PDBSTAT `help' command provides on-line help on the given topic. 
+
+ To get help the user only needs to type 'help read' for example getting help in the read
+ topic. To have a list of the possible (actual) commands just type 'help commands' ....
+
+
+
+?hydrogen
+?hbond
+HBonds
+Syntax:  hyd[rogen] [all]
+         hbo[nds]   [all]
+
+ 1. With no options it generates a list of possible hydrogen bonds in the molecule.  It
+    asks the user for some data as the distance cutoff for donor-acceptor if no distance
+    is given it takes 3.50 angstroms as the default. Then asks for the angle formed by
+    donor-hydrogen-acceptor if no angle is given it takes 120 degrees as the default. (The
+    defaults are taken from standard texts in Biochemistry and Biology and reflect the
+    usual geometry for hydrogen bonds).  Finally it gives you something like this:
+
+    > HYDRGN_bnd: Calculating hydrogen bonds with  3.50 angs 120.00 deg cutoff
+    > HYDRGN_bnd: Sample of Hydr. bonds for molecule `test.pdb' model #1
+    > HYDRGN_bnd:                                  DIST    ANGLE    ANGLE  DIST
+    > HYDRGN_bnd:  #    ATOM 1         ATOM2       H-A      DHA      HAA   D-A 
+    > HYDRGN_bnd: ---------------  ------------   -----   ------   ------  ----
+    > HYDRGN_bnd:  1 ASN   1 2HD2   GLU  24  OE1   2.05   148.87    94.11  2.94
+    > HYDRGN_bnd:  2 ASN   1 2HD2   GLU  24  OE2   2.22   136.82    86.50  3.01
+    > HYDRGN_bnd:  3 ASN   1  O     GLU  24  H     2.12   161.35   173.59  3.06
+    > HYDRGN_bnd:  4 SER   2 1HG    SER   2  O     1.89   143.67    97.74  2.74
+    > HYDRGN_bnd: * Be patient please, it's gonna be a long work!
+    > HYDRGN_bnd: 56 Possible hydrogens bonds written to `test.pdb_Hydrogen_bond'
+
+ 2. If 'hbond all' is issued it calculates a table with possible hydrogen bonds for all
+    models in memory.  The ouput is 'a la DYANA', i.e. almost same format is used.
+ 
+
+
+?info
+Info: getting information about the model
+Syntax:  inf[o]
+	
+ With this command the user can get some useful information and analysis about the model/s
+ in memory. The program asks you for a model number and then displays information like:
+
+	 1) Model number.
+	 2) Name of the file for the family, model # and total residues
+	 3) Radius of gyration
+	 4) Center of mass (coordinates) Usually all of them are 0.0 as
+	    the model has been previously translated.
+	 5) Total Number of atoms (# of C, # of H, # of O, # of N, 
+	    # of S and # of Q --pseudo-atoms DISMAN style--)
+	 6) Number of residues (avge mol. weight of residue)
+	 7) Molecular Weight of the molecule in kD.
+	 8) List of residues indicating how many of each one are present
+	 9) Disulfide info.
+
+
+
+
+?initialize
+Initialization
+Syntax:  ini[tialize]
+
+ Initialization of every variable (I hope) in the program.  Mostly employed if one wants
+ to clear off everything and be sure that he/she is using new values
+
+
+
+?menu
+Menu: get a list of available commands 
+Syntax:  men[u]
+
+ With this command you can get a list of the available commands This is equivalent to
+ 'help command'
+
+
+
+?missing
+Find missing atoms in model/s
+Syntax:  mis[ssing] [model number | all | *]
+
+ Searches models for missing atoms. Currently PDBSTAT has a Library of atom names
+ (--GenCons.Lib--) which stores all atoms names in different conventions: DISMAN, DIANA,
+ X-PLOR, CONGEN, PDB. This options checks if the atom names in file are in the Library and
+ also checks if the atoms in Library are in the file or some of the names are missing. (It
+ takes into account the protonation state of residues and if residue is first or last
+ where H atoms and OXT are missing).
+
+ The args can be model number or 'all' or '*' if the user likes to look for missing atoms
+ in *ALL* the models stored in memory.
+
+
+?noe
+?cons
+Commands related to NOEs (or distance constraints)
+Syntax:  noe | cons  < matrix | analysis | clean | to >
+         noe delete < intra | seq | medium | long | ambi | side | back >
+
+ Command used to operate in several ways over the set of distance constraints (or NOEs)
+ stored in memory.  It can take several args
+
+ matrix   -- it produces a distance matrix
+ analysis -- it performs some statistical analysis on the restraints 
+ clean    -- it cleans the set marking meaningles or duplicated restraints
+ to       -- it transforms the atom naming convention in the distance
+             to several format 
+             PDB        follow PDB rules
+             IUPAC      IUPAC rules for atom naming
+             XPLOR      XPLOR rule
+             CONGEN     
+             DYANA
+             DIANA
+             CYANA 
+
+?noe ana
+?dist ana
+?cons analy
+Performs statistical analysis on the restraints
+
+ This command will perform a statistical analysis on the restraints and offer a
+ classification as intra, sequential, medium and long range together with some more
+ statistics about the set
+
+?dist clean
+?dist cle
+?noe clean
+?noe cle
+?cons clean
+?cons cle
+Cleans the set of distance constraints (NOEs).
+
+ This command just peroforms a search over the list of distance restraints or NOEs looking
+ for duplicated or meaningless restraints.  It gives a summary of the number of
+ meaningless or duplicated restraints found that looks like:
+
+   PdbStat> cons clean
+    ~EliminateDuplicatedNoes(): Found      0 Duplicated NOEs
+    ~~EliminateNoRestriction(): Found    259 Meaningless NOEs
+
+ All these restraints are marked as NON PRINTABLE, so any further attempt to print the
+ restraints (or save to a file) will avoid writting them.
+
+?noe completeness
+?noe match
+?completeness
+Syntax: noe completeness [shift]
+
+ If shift arg is used and a file with chemical shift data has been read, the expected NOEs
+ are calculated based on the list of chemical shifts rather than the expected from the 
+ sequence. 
+
+ This command evaluates the NOE completeness as described in the paper: "Completeness of
+ NOEs in protein structures: A statistical analysis of NMR data", Jurgen F. Doreleijers,
+ Mia L. Raves, Ton Rullmann and Robert Kaptein.  Journal of Biomolecular NMR, 14: 123–132,
+ 1999.
+
+ Theory
+
+ NOE completeness is defined as the ratio, expressed as a percentage, between the number
+ of matched observed NOEs and the number of expected NOEs:
+
+ The set of contacts expected to be observable by NMR can be generated based:
+
+     a) on a set of observable atoms: this set includes all non-exchangeable protons and
+        stereospecifically assignable protons beyond the beta-protons as pseudoatoms.
+        These atom definitions are stored in a file called Observable.nmr that must be
+        accessible for the program to work.  The user can vary the definitions to include
+        more definitions or delete some.
+
+     b) Based on chemical shift table: the set is constructed in the same way: all
+        non-exchangeable protons and everything beyond the beta-protons as pseudoatoms.
+        In order to do this one has to read previously the chemical shift data into
+        PDBStat.  Command: read shift File.shift.  The command expects the shifts in BMRB
+        format (both v2.1 and v3.1 are covered).
+
+ With this set, all distances are calculated through the models and all those distances
+ below a certain cutoff are considered to be part of a contact. The cutoff distance for
+ evaluating the number of expected contacts can be user-selected. The recommended value
+ (and now default in the code, i.e. if no value is supplied) is 4.0 angstroms.  An r-6
+ summed average is used by default for evaluating the average distance over multiple atoms
+ and a normal average is used to average finally the distance over the set of models.  The
+ kind of average over multiple atoms can be changed by the user (r-6 average, center, r-6
+ summed average).  
+
+ The normal sequence of commands (for option a):
+   •   read coo pdb File.pdb       (read a file with PDB coordinates)
+   •   read cons cns File.cns      (assuming a CNS/XPLOR restraint file)
+   •   eval expe 4.0               (evaluate expected NOEs at 4.0 angstroms)
+   •   expe rem intra              (remove all intra found)
+   •   noe clean                   (clean experimental restraints)
+   •   noe rem intra               (remove all intra experimental restraints)
+   •   noe match                   (actual calculation of completeness)
+
+  The normal sequence of commands (for option b, chemical shifts) 
+   •   read coo pdb File.pdb       (read a file with PDB coordinates)
+   •   read cons cns File.cns      (assuming a CNS/XPLOR restraint file)
+   •   eval expe shift  4.0        (evaluate expected NOEs from shifts, at 4.0 anstroms)
+   •   expe rem intra              (remove all intra found)
+   •   noe clean                   (clean experimental restraints)
+   •   noe rem intra               (remove all intra from experimental restraints)
+   •   noe match                   (actual calculation of completeness)
+
+ There is also the choice of using a full default set automatic command to calculate the
+ NOE completeness as "noe completeness".  A 4.0 angstroms cutoff and summ average is used.
+
+?dist delete
+?dist del
+?dist remove
+?dist rem
+?noe delete
+?noe del
+?cons delete
+?cons del
+Delete (not really only removes it from to-print list) selected noes
+
+Syntax: noe del < intra | seq | medium | long | ambi | side | back >
+
+	Deletes any of selected NOEs (actually only removes it from
+	the list to print).  This command can be handy to select and
+	write only those NOEs we are interested on. 
+
+
+?dist to
+?noe to
+?cons to
+Transforms the atom naming in the restraints
+
+ This command is used to change the naming convention of the atoms in the restraints to
+ several commonly used conventions.
+
+ to PDB    will change to PDB naming convention (HB1/HB2)
+ to IUPAC  will change to IUPAC naming convention (HB2/HB3)
+ to XPLOR  will change to XPLOR convention where is a flip in HB's (HB2/HB1)
+ to CONGEN will change to CONGEN naming
+ to DYANA  will change to DYANA (close to IUPAC) naming
+ to CYANA  will change to CYANA
+ to DIANA  will change to DIANA (old)
+ to DISMAN will change to DISMAN (old)
+
+
+?order
+Order parameter
+Syntax:  ord[er] some_number  <the number should be between 0. and 1.>
+
+ Evaluates order parameters (phi and psi) for a set of structures to see how well they are
+ defined. The order parameters are calculated according to:
+
+  Hyberts, SG, Golderbg, MS, Havel, TF, Wagner, G.,1992, "The solution structure of eglin
+  c based on measurements of many NOEs and coupling constants and its comparison with
+  X-ray structures". Protein Sci., 1:736-751.
+
+ The program asks the user for a cutoff value for the parameter. This value should be in
+ the range 0. to 1. A good choice is usually 0.85 or 0.90. This value means: 1.0 for
+ perfect order, i.e. _ALL_ dihedrals have the same value in _all_ the structures, 0.0 NO
+ order at all, the lower the value the worse the definition of the structures (i.e. very
+ different PHI, PSI values between the structures in the set).
+ 
+ The program presents a list with the residue number, the order parameter for PHI, then
+ for PSI and then the number of the residue if the parameter is greater than the
+ cutoff. It also creates a file called 'Order_phi_psi' where it writes these values.
+
+
+?pdb
+?pdbformat
+Description of PDB atom record format.
+
+ COLUMNS   DATA TYPE     FIELD       DEFINITION
+-----------------------------------------------------------------------------
+  1 -  6   Record name   "ATOM  "
+  7 - 11   Integer       serial      Atom serial number.
+ 13 - 16   Atom          name        Atom name.
+ 17        Character     altLoc      Alternate location indicator.
+ 18 - 20   Residue name  resName     Residue name.
+ 22        Character     chainID     Chain identifier.
+ 23 - 26   Integer       resSeq      Residue sequence number.
+ 27        AChar         iCode       Code for insertion of residues.
+ 31 - 38   Real(8.3)     x           Orthogonal coordinates for X in Angstroms.
+ 39 - 46   Real(8.3)     y           Orthogonal coordinates for Y in Angstroms.
+ 47 - 54   Real(8.3)     z           Orthogonal coordinates for Z in Angstroms.
+ 55 - 60   Real(6.2)     occupancy   Occupancy.
+ 61 - 66   Real(6.2)     tempFactor  Temperature factor.
+ 73 - 76   LString(4)    segID       Segment identifier, left-justified.
+ 77 - 78   LString(2)    element     Element symbol, right-justified.
+ 79 - 80   LString(2)    charge      Charge on the atom.
+
+Example:
+         1         2         3         4         5         6         7         8
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
+ATOM    145  N   VAL A  25      32.433  16.336  57.540  1.00 11.92      A1   N
+ATOM    146  CA  VAL A  25      31.132  16.439  58.160  1.00 11.85      A1   C
+ATOM    147  C   VAL A  25      30.447  15.105  58.363  1.00 12.34      A1   C
+ATOM    148  O   VAL A  25      29.520  15.059  59.174  1.00 15.65      A1   O
+ATOM    149  CB AVAL A  25      30.385  17.437  57.230  0.28 13.88      A1   C
+ATOM    150  CB BVAL A  25      30.166  17.399  57.373  0.72 15.41      A1   C
+ATOM    151  CG1AVAL A  25      28.870  17.401  57.336  0.28 12.64      A1   C
+ATOM    152  CG1BVAL A  25      30.805  18.788  57.449  0.72 15.11      A1   C
+ATOM    153  CG2AVAL A  25      30.835  18.826  57.661  0.28 13.58      A1   C
+ATOM    154  CG2BVAL A  25      29.909  16.996  55.922  0.72 13.25      A1   C
+
+
+
+?rama
+Rama
+Syntax:  ram[achandran]
+
+ Obtain Ramachandran plot for the selected structure/family of structures.  As always an
+ interactive cycle begins where the user is asked for a 'thousand' things just to get the
+ Ramachandran plot of the wanted selection Finally the plot is 'hopefully' made and saved
+ in a file.  It uses code adapted/taken from 'Orient' a really beautiful program written
+ by George Elkins at CABM (NJ) in G.T. Montelione's Lab.  Thanks George and Guy!.
+
+
+?ranges
+
+ Way to describe a set of atoms to be used in selections or for superpositions.  The range
+ is a comma separated list of numbers possibly separated by dashes --ranges--.  NO white
+ spaces allowed in range definition.
+
+ Maybe some examples help in getting this:
+
+ range1:   1,2-10,39,40-90
+ range2:   10-90
+ range3:   1,3,5,7,9,11,13 
+
+ Used in selections:    'select  1-2   3-5,9-11,15  n,ca,c' 
+ 	 Will select n,ca,c atoms of residues 3 to 5 plus 9 to 11 plus 15
+	 for models 1 and 2.
+	
+
+?rdc
+
+ On 2011 RDC support has been included in PdbStat.  The RDCs are read, written and can be
+ handled in different ways.  Da and R can be calculated using the SVD method.  Commands
+ that include actions over the RDC read write evaluate set see
+
+ For more specific help on these commands type 'help command rdc'.  PdbStat will read in a
+ rouns all the different RDCs (if they are in CYANA style it will interpret the
+ orientation media that usually is specified on the last column.
+
+ In cases where orientation media can not be determined the user can assign those with the
+ command 'set rdc <ori> rdci-rdcf' where ori is a number and rdci is the starting RDC
+ number to apply the ori specification and rdcf is the final RDC number we like to apply
+ that ori definition.
+
+
+?read
+Read
+Syntax:  rea[d] {<arg1>} {<arg2>} {<arg3>}
+
+         arg1 can be:  coo[rdinates] or con[straints] or seq[uence]
+	 arg2 can be:  pdb or con[gen] or cha[rmm] or dis[man]
+         arg3 can be:  the name of the file.
+
+         Examples:   read coord pdb filename
+                     read seq filename	
+		     read cons cns filename
+                     read cons xpl filename
+		     read cons cyana filename
+
+ Read coordinates/constraints/sequence in specified format from file. This command is able
+ to open the file read it locating the number of structures stored and then read them.
+
+ The user needs to type only <read> then a interactive cycle with questions begins. The
+ program offers the different formats available, so after read is typed the program offers
+ <coords/cons/seq> and then after that the program offers the different formats
+ <pdb,disman,....>
+
+ NOTE: some of these formats are more or less obsolete but they are present in the code.
+       The best supported format for coordinates is PDB that can take several flavors (as
+       PDB produced by X-PLOR, CNS, CYANA, etc).  PdbStat should be smart enoungh to
+       decide on flight the type of flavour and proceed accordingly. (I hope ...).
+
+
+
+?read cons
+Read Constraint file
+Syntax: read cons <format> <filename>
+
+  <format> :   congen, disman, diana, dyana, xplor, cns, discover, impact
+  <filename>:  name of the file storing the constraints.
+
+ Description: reads a constraint file in one of the several formats mentioned
+              above.
+
+ Notes: This command expects the input to be in the right format.  For XPLOR format there
+         is no powerful syntax checker present so any constraint having complex selection
+         items (AND, OR, etc) is discarded by the parser, only an info statement is given
+         on screen telling the user that such a constraint was found. The parser has been
+         improved since previous versions of PdbStat.
+
+
+
+?read coo
+Read Coordinates file
+Syntax:  read coo <format> <filename> 
+
+  <format> :    congen, charmm, pdb, insight, disman
+  <filename> :  name of the file with the coordinates
+
+ Description: reads a file storing coordinates for a single conformer or a family in one
+               of the several formats mentioned above.
+
+
+
+
+?read aco
+Read Angle COnstraint file
+Syntax:  read aco <format> <filename>
+
+  <format> :   congen, diana, dyana, xplor, cns.
+  <filename> : Name of the file storing the constraints.
+
+ Description: reads an ACO file in one of the several formats mentioned
+              above. 
+ 
+ Notes: Again, as in distance constraints, this command expects the input to be in the
+        right format for each case (X-PLOR, Dyana, CONGEN, ...).  There is no powerfull
+        syntax checker so in XPLOR format any complex select item (AND, OR, etc) is
+        discarded by the parser and even in some cases can confuse the parser. The reading
+        is done until 'end' is found in the file (for XPLOR format).
+
+
+
+?relax
+Relaxation
+Syntax:  rel[axation]
+
+ Relaxation analysis. Obtains N-CA and N-CA-CO and more info about the molecule showing
+ how 'relaxed' it is. By relaxed I mean the degree of satisfaction of standard bond
+ lenghts and angle values.
+
+
+?representative
+?medoid
+Syntax:  repr   [ range ]
+
+ PDBStat can inform about the most representative model in the ensemble or medoid
+ structure.  When calculating the RMSD for the best superimposition ranges the medoid for
+ those measures is marked with an asterisk.  In order to calculate the medoid structure
+ PDBStat uses the command representative (or any shortening of that) that first calculates
+ the RMSDs of all models against all models and then the averages, finally the lowest of
+ those averages is picked as the most representative or medoid.
+ 
+ With no arguments to the command the full set of residues is taken into accout for the
+ calculations.  One can use also a specified range of residues, i.e.  repr
+ 12-24,30-60,65-92, that will evaluate the medoid for those residue ranges
+
+
+?reset
+Reset numbering sequence (or coordinates)
+Syntax:  reset coords
+         rese[t] <model # | all> <integer>
+         reset 3-9 10
+
+ This command has two forms:
+ 
+ If coords is given this command resets the coordinates to the ones in the original file
+ (previous to any translation or calculation).
+ 
+ If a number or no arg is given it resets the numbering sequence for residues for model #
+ (or all models if all is typed) starting at <integer> argument. This can be handy when
+ one likes to change residue numbering in a file.
+
+ Ranges of numbers (i.e.  1-5, 6-9) can be given on command line.
+	
+ Related commands: rest[ore]
+
+
+?rotate
+?rotate angle
+?rotate matrix
+?rotate file
+Rotate the set of models by given angles or rotation matrix
+Syntax:  rotate [angles | matrix | file | x | y | z] <values> ...
+
+ This command rotates the models stored in memory by the amount given either as angles
+ (theta, phi, psi) or the rotation matrix ( 3x3 ).
+ 
+ It has six forms
+     rotate angles Ang1 Ang2 Ang3
+     rotate matrix  mat00 mat01 ... mat22
+     rotate file  FileName 
+     rotate x Angle
+     rotate y Angle
+     rotate z Angle
+
+ rotate angles <arg1> <arg2> <arg3> 
+
+   Expects three <args>, i.e. the values of theta, phi and psi angles.  These can be
+   obtained using molmol for example, rotating the molecule and saving the transformation
+
+ rotate matrix <arg1> <arg2> <arg3> <arg4> <arg5> <arg6> <arg7> <arg8> <arg9> 
+   
+   Expects nine <args>, i.e. the coefficients of the rotation matrix.  This kind of data
+   can be obtained from using molscript or other graphics programs and savinf the rotation
+   matrix (save view in molscript).  The matrix is given in the order 11, 12, 13, 21, 22,
+   23, 31, 32, 33.
+
+ rotate file <FileName>
+   
+   This command opens <FileName> (written using molmol command WriteRotation or Write
+   Transform) and then extracts the angles for rotating the molecule, then it builds the
+   rotation matrix and applies to the coordinates.  Its main use is for having the
+   coordinates of the models in the right/preferred orientation.
+
+ rotate [x | y | z] Angle
+   Rotates about the selected axis (X, Y or Z) the provided Angle (in degrees).
+
+
+?restore
+Restores original numbering sequence
+Syntax:  rest[ore] <model # | all | names >
+
+ Restores either the original numbering sequence as stored in PDB file or the items asked
+ (coordinates or atom names to their original values).
+
+ Ex:   restore coords 
+       restore names 
+       restore model 
+
+       restore 1
+       restore 10
+ 
+ If no argument is provided, i.e., 'restore model' is used a full restoration of the
+ models is done, i.e., coordinates, etc get to be the original values as it were in
+ reading the model.
+	
+ Related commands: rese[t] <integer>
+
+
+?save
+?dump
+Save/Dump requested item/info into a file. (Synonyms: save, dump)
+Syntax: save <[ rmsd | phi | chi | dih ]>  <[ref model]> <[FileName]>
+
+ This command is used to dump on a file named FileName --if given-- or to 
+ screen if no FileName given several pieces of info/properties.  
+
+ <arg> can be:
+ 	
+	- rmsd             RMSD by residue, if <ref model> is given it takes
+			   that as the reference to superpose all the models.
+			   If no arg, average model is taken. 
+			   Examples:  save rmsd average FileName
+			              save rmsd 5 FileName
+	- rmsd table       RMSD table for all models vs all models 
+	- phi              PHI angle
+	- dih              _ALL_ dihedral angles for _all_ models
+	- chi1              CHI1 angle 
+
+ to reuqest more info type 'help save rmsd' for example
+ 
+ Examples:
+ 		save  rmsd  1  RmsdByRes
+		save  rmsd  table  5-59  TableFor5to58
+		save  dih   AlDihedrals 
+
+
+
+?save rmsd
+?dump rmsd
+Save either rmsd by residue or a table in a file
+Syntax:  save rmsd [table] [<residue range>] [FileName]
+
+ If no <table> arg is given then rmsd by residue is calculated and written to FileName.
+ No <residue range> is read.  It uses order parameter of 0.90 to find best superposition
+ segments, it rotates all models using backbone and then evaluates the rmsd.`
+ 
+ If <table> is given then a table of rmsd's of _all_ vs _all_ is calculated using <residue
+ range> and printed into FileName
+
+ <residue range> must be comma separated list of ranges (numbers separated 
+ by dashes), some examples:
+                         4-40,48-51
+			 10-22,24,29,32-50
+
+
+
+
+?see
+?list
+?show
+Synonyms: see, list, show
+Shows info about a model (residue names, numbers, etc.) or Noes or Lib Data
+Syntax:  see [int|cons|noe|rmsd|viol|lib {resname or all or '*'}]
+
+ This command is used to print (on the screen or to a file) some info about the models,
+ coordinates and/or constraints read.
+
+ If no <arg> is given or <arg> is an integer number it prints on the screen some info
+ about a/the model.  More help on following topics
+ 
+ 	cons	coord	lib	noe	rmsd 	viol	pdb   rdc 
+	
+ If <arg> is:
+    - noe:     prints NOE data
+    - viol:    prints residual constraint violation 
+    - cons:    prints a list with the constraints in all format names.
+    - rdc:     prints on screen a list with the RDC data
+    - pdb key  prints the list of recognized keywords in a PDB file. If 
+               you get a message of key not recognized you can edit the
+               file PDBKeyword and add it, restart PdbStat and will work
+
+
+
+?see cons
+?list cons
+?show cons
+Shows a list of the constraints stored in memory
+Syntax: see|list|show  cons <filename> 
+
+ This command shows a list with _ALL_ the constraints stored in memory no matter if they
+ are NOE or ACO constraints. It checks if NOE and/or ACO are present and writes them
+ out. If filename is given the info is written to that file.
+
+
+
+?see lib
+?list lib
+?show lib
+Prints out on screen all the records in GenCons.Lib
+Syntax:  see|list|show  lib <tyr|ala|...|nmr>
+
+ The amount of printing can be restricted to a particular residue using 'list lib tyr' for
+ example to print only records for tyrosine, and so on.
+
+ 'list lib nmr' will print all info stored in GenCons.Lib related to NMR only.
+
+
+
+
+?see noe
+?list noe
+?show noe
+Shows a list with NOEs in memory showing also a list of the actual distances
+Syntax:  see noe [ removed | format | filename] 
+
+ This command prints on terminal a list with the NOE restraints stored in memory and also
+ the actual distances found in the coordinates for that NOE.
+
+ If 'removed' is given it will print on screen the removed noe data as if for example not
+ all the noe read matched sequence or the 'noe clean' was issued before and all removed
+ noes are shown.
+
+ If 'format' is given as in 'see noe format', it prints on the terminal a list with NOE
+ restraints stored in memory with a full description for the different atom name
+ conventions, DYANA, XPLOR, CONGEN, ...
+
+ If 'filename' is given the list is printed on that file after being opened.
+ 
+ Examples: 
+ 		see noe 
+                see noe remo       -- will print on screen removed noes
+		see noe [ sum | ave | cent ]
+
+
+?see pdb
+?see pdb key
+Shows the contents of PDBKeywords file on lib dir of PdbStat. 
+
+ It will list all the keywords currently recongnized on a PDB file.  They are stored in a
+ file like this to make it easy to add new keywords should the user need it. For example,
+ if there is a new keyword you have in your file and PdbStat dies because it can not read
+ it just edit the file PDBKeywords (present in your PdbStat lib directory) and add it to
+ the file, next time you run PdbStat the keyword will be recognized.
+
+
+?see rdc
+?list rdc 
+?show rdc
+Shows on screen the RDC data 
+Syntax:  see rdc  [ val | viol ]
+
+ This command prints on screen a list with the RDC data and some related info.  If no
+ argument is given it will print the RDC data, if 'val' is provided it will print RDC data
+ and the value of calculated RDC (for the best Da and R calculated with eval dar command).
+ If, in turn, 'viol' is selected it will print the RDC data plus the difference between
+ experimental and calculated values. When several models are in memory it will print this
+ info for all the models.
+
+?see rmsd
+?list rmsd
+?show rmsd
+Shows rmsd by residue (v4.0 and up). 
+Syntax: see|list|show rmsd <ave|int|table|range>
+
+ If an argument is given it takes it as the model number to calculate the rmsd to. So, any
+ integer given is taken as the model number to be used.
+ 
+ Other possible args are
+    ave[rage]       -- use average model to suporpose
+    table <range>   -- make a rmsd table over the range <range>
+ 
+ Example:s  see rmsd average
+	    see rmsd 1
+	    see rmsd table 10-20
+	    
+ If no arg is given, average model is taken.
+ 
+
+
+
+?see viol
+?list viol
+?show viol
+Shows residual distance and/or angle constraint violations.
+Syntax: see viol [noe|aco] [sum|ave|cent] [filename]
+
+ This command shows residual distance and/or angle contraints violations.  'see viol' by
+ itself prints out on terminal this info for distances and for angles assuming both kinds
+ are read in. One can selectively pick the wanted info using either 'see viol noe' or 'see
+ viol aco'.
+
+ sum  -- stands for r to the -6 sum
+ ave  -- stands for r to the -6 average
+ cent -- for center averaging 
+
+ If no filename is given the results are printed on terminal. If filename is given all the
+ info is written to the file.
+ 
+ For printing residual violations the command 'set cutupl 1.0' can be handy.  It defines
+ the threshold to print residual violations, see 'help set'.
+
+ Examples: 
+		see viol ave Violaciones  -- Prints residual constraint
+		                             violation info to file
+					     Violaciones
+
+
+
+?set
+Sets different things in the program, like atom properties, rmsd cutoff, ...
+Syntax: set [ prop | rmsd | ener | cutupl | cutaco ]
+
+Examples:  set rmsd  1.50
+           set ener -98.0
+           set prop 
+	   set cutupl 1.0     -- or  set cut_upl
+	   set cutaco 10.0    -- or  set cut_aco 
+
+ This command is used to set different things in the program. The most interesting ones
+ from user point of view should be rmsd and/or energy as these set the RMSD cutoff value
+ to consider an rmsd good or bad. The same comment applies for energy cutoff. If these
+ values are set we can delete for example ALL models with bad values, i.e. the following
+ sequence of commands: > order 0.85 > rmsd best > set rmsd 1.5 > del bad rmsd
+
+ The example above deletes all models with rmsd values greater than 1.5
+
+ 'set prop' is used to set atom properties in the model. Usually this is done at read
+ time.
+
+ 'set thres 1.0' is used to define the threshold for printing residual 
+ distance violations
+
+
+
+
+?set cut_upl
+?set cut_aco
+?set cutaco
+?set cutupl
+Sets the threshold to print residual violations for distances or ACO
+Syntax:  set cutupl 1.0
+Syntax:  set cutaco 10.0
+
+ These commands set the threshold for printing residual violations for distance or angle
+ constraints. By default both of them are zero but this can produce big outputs so one can
+ reduce the size of the output picking the right thresholds for UPL or ACO
+ constraints. Usual choices are 0.2 angstroms for distances and 10.0 degrees for angles.
+ 
+
+
+
+?show
+Show/print different properties stored in memory
+Syntax:  sho[w] [arg1] [arg2]
+
+ Shows (prints on screen) a set of different properties stored in memory for the
+ model/s. Useful sometimes to remember a 'quality' of the model being studied.
+
+ if    arg1 = coords | phi | psi | chi | dih | model
+ then  arg2 = number | *
+
+ arg1:	coords - shows atom coordinates of arg2
+	phi    - shows phi angles of arg2
+	psi    - shows psi angles of arg2
+	chi    - shows chi1 angles of arg2
+	dih    - shows phi, psi, chi angles of arg2
+	model  - shows properties and quality of arg2
+	noe    - shows noe stored in memory
+
+ if    arg1 = good | bad
+ then  arg2 = chiral | omega | Rama | energy | rmsd 
+
+ arg1:	good   - shows good values of arg2
+        bad    - shows bad values of arg2
+
+ Related commands: see, eval, info (somehow related), check  
+
+
+
+
+?show bad
+Shows (prints on screen) a list of models with BAD values of arg3
+Syntax: show bad [rama | energy | rmsd | chiral | sidechain | omega]
+
+ Shows on screen a list of models with *BAD* values of the requested property. The
+ properties shown can be:
+
+        chiral	energy	omega	phi	psi	rmsd	SideChain	
+
+
+
+
+?show noe
+Shows (prints on screen) the list of noe currently stored in memory
+Syntax: show noe <args>
+<args>: record | removed | meaningless
+
+ If removed or meaningless are given as <args> it shows a list of the cleaned noes and the
+ reason why the noes were classified in that class.
+
+
+
+
+?show good
+Shows (prints on screen) a list of models with GOOD values of arg3
+Syntax: show bad <args>
+<args>:  [rama | energy | rmsd | chiral | sidechain | omega]
+
+ Shows on screen a list of models with *GOOD* values of the requested property. The
+ properties shown can be:
+
+        chiral	energy	omega	phi	psi	rmsd	SideChain	
+
+
+
+
+?version
+?dimensions
+Version of the program running
+Syntax:  ver[sion]
+	 dim[ensions]
+
+ Obtaining version and some dimensions of actual program running.  Mainly it gives you
+ some info about current selections for your executable.  You can get something looking
+ like this:
+
+ > MAIN: ===========> CURRENT SETS <==============
+ > MAIN: -- Version Version 2.0  -   Oct, 1994 --
+ > MAIN: -----------------------------------------
+ > MAIN:                                      
+ > MAIN:   Max. Number of models   :      61
+ > MAIN:   Max. number of residues :     100
+ > MAIN:   Max. number of atoms    :    1600
+ > MAIN:   Max. Number of noes     :    3200
+ > MAIN:   Max. Number of JCOUP    :     200
+ > MAIN:                                      
+ > MAIN: =========================================
+
+
+
+
+?dihedral
+Phi
+Syntax:  phi
+	 dih[edral]
+
+ Get a list of the dihedral angles in your molecule. Phi, psi, chi, omega.
+ 
+
+
+ 
+?rmsd
+RMSD's of angles or coordinates (or best superposition)
+Syntax:    rms[d] {<arg1>} {<arg2>}
+
+   arg1 can be: coo[rdinates] or dih[edrals] or bes[t] or sel[ect]
+   arg2 can be: backb[one] hea[vy] all backO backCB ave[rage]
+
+ The Root Mean Square Deviations are calculated for a family of structures.  The user is
+ asked for more info to calculate the root mean square deviations for the selected
+ super-impositions.  The whole family is superimposed onto one member (the user's choice)
+ or onto the mathematical average for the family.  First the whole set is
+ optimal-translated to get close. Then each member in the family is optimal-rotated to
+ superimpose onto the target.  It uses two routines 'eispak' written in fortran.  The code
+ was taken from 'Orient' a really beautiful program written by George Elkins at CABM (NJ)
+ in G.T. Montelione's Lab. Thanks George and Guy!.
+
+ A more recent version may use the EISPAK equivalent LAPACK routines, for example, Linux
+ static version uses this with BLAS library.
+
+ If one is using 'rmsd best' first should run 'order' to get the best ranges for rmsd
+ superposition. The ranges are calculated as the order parameters.  A file called
+ 'rmsd_best.pdbstat' is automatically opened and the values for rmsd for backbone and
+ heavy atoms is calculated and written down.
+
+
+
+
+?rmsd sele[ct]
+RMSD's of slected sets of models/atoms/residues
+Syntax:  rms[d] sele[ct] #
+
+ This command does a root mean square deviation for a set of selected
+ models/atoms/residues as defined by a previous 'select' command.  The # can be any number
+ corresponding to a selected model or the word 'ave[rage]'. In case of 'ave[rage]' the
+ average coordinates are evaluated first and used to optimal rotate and evaluation of
+ rmsd's.
+ 
+ The following sequence of commands for example:
+	       sele * * ca         -- selects all CA atoms
+	       rmsd sele ave       -- evaluates RMSD over average
+
+ evaluates RMSD for CA atoms of all residues onto average coordinates.
+
+
+
+?select
+Select models/residues/atoms
+Syntax:    sel[ect] <model/s>    <residue/s>    <atom/s>
+Examples:  selec   1-1,3-5,7-10   5-25,30-50    backbone  
+           selec       *            1-30        ca
+           sele      1-10           5-50        n,ca,c,o 
+
+ Command to select different sets of atoms/residues/models in a family of structures. Use
+ of wildcard is allowed to select everything in that field. One can put several selections
+ in a comma separated list, i.e n,ca,c,o,s as in example above.
+
+ More examples:
+	           sele * * heavy
+		   sele 1-10  1-4,10-30  c
+
+ It is most useful when selecting different parts of the molecule for superposition and
+ RMSD evaluation. Combined with the command 'rmsd sele ave' or 'rmsd sele 1'
+
+ Previous to the first selection typing 'sele reset' is recommended to clear any old
+ selection. Additive selections can be done issuing several select commands.
+
+
+
+
+?to
+Transforms atom names in _ALL_ structures stored to several formats
+Syntax: to [iupac | xplor | dyana | pdb] 
+
+ This command transforms atom names stored in memory to several formats or
+ conventions. Although PDB seems to have rules to write atom names, almost every program
+ for Molecular Mechanics/Dynamics seems to have different conventions. So for example is
+ 2HB/3HB for DYANA while is HB1/HB2 for CONGEN or HB2/HB1 for X-PLOR and so on.
+
+ Notes:  IUPAC refers to convert 2HB/3HB and so on for gammas, deltas, ....
+  	 PDB   refers to 1HB/2HB and so on for gammas, deltas, ...
+	 DYANA refers to translating to 2HB/3HB and so on and converting
+	       H to HN
+	 XPLOR refers to translating to 1HB/2HB and so on, converting H to HN
+	       and modifying PDB convention, this is HB1 instead of 1HB and
+	       'HG11' instead of '1HG1 '
+  
+ This command can be handy when one likes to use X-PLOR for example reading a file from
+ PDB. Simply using 'to xplor' should be enough to convert almost all atom names to X-PLOR
+ convention (_all_ but the N-terminal oxygens and a few cases).
+
+
+?torsion
+?chi definition
+Gives in a table format the definition for side-chain torsion's (chi) 
+
+       cent.
+  AA   mass    |    *chi1*    |   *chi2*     |   *chi3*     |   *chi4*    |   *chi5*     |
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  PRO	CG   	| N-CA-CB-CG  | CA-CB-CG-CD  |              |             |              |
+  GLY 	CA      |             |              |              |             |              |
+  ALA 	CB      |             |              |              |             |              |
+  VAL 	CG1/CG2 | N-CA-CB-CG1 |              |              |             |              |
+  LEU 	CD1/CD2 | N-CA-CB-CD  | CA-CB-CG-CD1 |              |             |              |
+  ILE 	CD   	| N-CA-CB-CG1 | CA-CB-CG1-CD |              |             |              |
+  MET 	CE   	| N-CA-CB-CG  | CA-CB-CG-SD  | CB-CG-SD-CE  |             |              |
+  PHE 	CH   	| N-CA-CB-CG  | CA-CB-CG-CD1 |              |             |              |
+  TRP 	NE1   	| N-CA-CB-CG  | CA-CB-CG-CD1 |              |             |              |
+  SER 	OG   	| N-CA-CB-OG  |              |              |             |              |
+  THR 	OG1   	| N-CA-CB-OG1 |              |              |             |              |
+  ASN 	OD1/ND2 | N-CA-CB-CG  | CA-CB-CG-OD1 |              |             |              |
+  GLN 	OE1/NE2 | N-CA-CB-CG  | CA-CB-CG-CD  | CB-CG-CD-OE1 |             |              |
+  CYS 	SG   	| N-CA-CB-SG  |              |              |             |              |
+  TYR 	OZ   	| N-CA-CB-CG  | CA-CB-CG-CD1 |              |             |              |
+  ASP 	OD1/OD2 | N-CA-CB-CG  | CA-CB-CG-OD1 |              |             |              |
+  GLU 	OE1/OE2 | N-CA-CB-CG  | CA-CB-CG-CD  | CB-CG-CD-OE1 |             |              |
+  LYS 	NZ   	| N-CA-CB-CG  | CA-CB-CG-CD  | CB-CG-CD-CE  | CG-CD-CE-NZ |              |
+  ARG 	NH1/NH2 | N-CA-CB-CG  | CA-CB-CG-CD  | CB-CG-CD-NE  | CG-CD-NE-CZ | CD-NE-CZ-NH1 | 
+  HIS 	ND1/CD2 | N-CA-CB-CG  | CA-CB-CG-ND1 |              |             |              |
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+?translate
+?detranslate
+Translate/detranslate
+Syntax:   tra[nslate]
+	  det[translate]
+
+ Translate   -> translates coordinates to the center of masses. It is useful
+ 	        when one has only a model in memory
+ Detranslate -> de-translates from center of masses.
+
+ *NONE* of these options are useful right now. They were designed and used during the very
+ *EARLY* stages of code development to check the function of the program. Now they are
+ kept just to try to make them useful in the future.
+
+ *USE THIS AT YOUR OWN RISK* it is *NOT* fully checked/documented (Roberto Tejero, RTT,
+ Valencia, June 1995).
+
+
+
+
+?what
+?which
+Display what model is being worked out
+Syntax:  wha[t]
+         whi[ch]
+
+ Displays one line telling the user how many models are in memory and which one is the
+ model actually being worked out. (or to which one the pointer is pointing).
+
+
+
+?write
+Writes things to file/s
+Syntax: wri[te] 
+
+ Writes coordinates, constraints or sequence information to destination file. It can
+ accept also the keyword exclude that is able to write coordinates excluding those models
+ with values above a certain cutoff.
+ 
+        aco     constraints	coordinates	sequence    rdc    dar 
+        ori     
+
+ Shortcuts:
+ 	To write coordinates:    
+	        write coo pdb [all,select,backbone,heavy,average] FileName
+	will execute the command without asking for more info. The coordinates
+	in PDB format are written for the choice (all,select,backbone,heavy)
+	to the file FileName. In order to write down selected a select command
+	have to be issued in advance.
+
+ Notes: When writing constraints in DYANA format PDBStat tries to write UPL
+        and LOL (both) to the same file when possible or information is
+	accessible, so is up to the user to cut that file and create one for
+	UPL and other for LOL.
+
+
+
+?write aco 
+Syntax: write aco <format> <FileName>
+
+ Writes the angle constraint file (ACO) or dihedral constraint file in general
+ into the specified FileName with selected format.  Format can be any of:
+ cyana, dyana, cns, x-plor, congen, ...
+
+
+?coordinates
+?write coordinates
+Syntax: wri[te] coor[dinates] [exclude [rmsd|energy]]
+
+ Writes the coordinates stored in memory to a file. I exclude appears on the command args
+ a value to be used as a cutoff is requested. All models with value of [rmsd | energy]
+ above the cutoff are excluded.
+
+
+?write constraints
+Syntax:  write constraints <format> <FileName> 
+
+ Writes the constraints (generally noe data) into the specified FileName with the selected
+ format.  Format can be any of: cyana, dyana, cns, x-plor, congen,..
+
+
+?write dar
+Syntax:  write dar [1|2]
+
+ Writes axial (Da) and rhombic (R) components obtained by SVD into a file named DaR#_data,
+ where # is a number 1,2,3,.. corresponding to the alignment media of the data.  The best
+ use of this info is done biy WaterRefCNS script as it takes those values selected on a
+ per-model basis to do the refinment
+
+
+?write rdc
+Syntax: write rdc [cyana|pales|cns|xplor] FileName  [aln. #]
+
+ Writes the RDC data stored in memory into a file with the specified format.  Current
+ formats can be any of: cyana, pales, cns, x-plor.  The last argument is optional and it
+ can be the number of alignment for which we are writing the RDCs (when more than one
+ alignment is present).  Examples: write rdc cns FileName_rdc1.tbl 1 -- writes RDC from
+ aln 1 write rdc cns FileName_rdc2.tbl 2 -- writes RDC from aln 2 write rdc cns
+ FileName_rdcall.tbl -- writes _ALL_ RDC in memory
+
+?write ori
+?write axis
+Syntax: write [ ori | axis ] NameOfProt
+
+ This command writes the ORIENTATION data if found in a file. The final arg, a name for
+ the protein, i.e. wr33, will be used in the creation of files.  PdbStat creates a series
+ of files: Axis_wr33_01.pdb and so on that holds the data for the alignment (orientation)
+ axes.  These files can be used when running water refinment with WatRefCNS to extract the
+ right orientation.  When reading a file if information as OO, OX, OY, OZ is found it is
+ stored and then can be written down to help in refinement.
+ 
+?write seq
+?write sequence 
+Syntax: write seq FileName format
+
+ Write the sequence in different formats. It can write to a file (FileName) or to stdout.
+ Formats can be: CONGEN,CNS,XPLOR,DISMAN,DIANA,DYANA,CYANA, fasta,pir,one,three,full
+
+ Examples:  write seq stdout pir      -- write seq in pir format to stdout
+            write seq Koko.seq fasta  -- write seq in fasta format to Koko.seq
+
+
+?exclude
+?write exclude
+Syntax: wri[te] exc[lude] arg
+
+ Write coordinates to file excluding the items with a value greater than a certain
+ cutoff. The options or args than are accepted are energy and rmsd. One can set the cutoff
+ value to use through the command 'set'.
+
+ Examples: write exclude energy
+           write exclude rmsd
+
+ After this the program asks the user for a value of energy or rmsd to use as cutoff.
+
+
+
+
+?amino
+ For more detailed info type: help [amino] <three_letter_code>
+
+ Prints on screen a rough geometric representation of the amino acids with the atom names
+ used in CONGEN.
+
+ Further args: the names in three letter abbreviation of the amino names. Also
+	
+	aromatic      codes       data		ala
+	cys	      hydrophobic
+
+
+
+
+?amino codes
+?codes
+Amino Acid Codes
+Syntax:  ** Not yet implemented **
+
+ The following table lists the names, single letter and three letter codes of each of the
+ amino acids.
+
+    Alanine         A  ALA         Arginine        R  ARG
+    Asparagine      N  ASN         Aspartic acid   D  ASP
+    Cysteine        C  CYS         Glutamic acid   E  GLU
+    Glutamine       Q  GLN         Glycine         G  GLY
+    Histidine       H  HIS         Isoleucine      I  ILE
+    Leucine         L  LEU         Lysine          K  LYS
+    Methionine      M  MET         Phenylalanine   F  PHE
+    Proline         P  PRO         Serine          S  SER
+    Threonine       T  THR         Tryptophan      W  TRP
+    Tyrosine        Y  TYR         Valine          V  VAL
+	
+
+
+
+?amino data
+?amino formula
+?amino weight
+?data
+?formula
+?weight
+Give the list of aminoacids with code, synonym, formula and molecular
+weight.
+
+    NAME                CODE  SYNO.   FORMULA               MOL. WT.
+ ---------------------------------------------------------------------
+   Alanine              ALA    A     C3 H7 N1 O2             89.09
+   Arginine             ARG    R     C6 H14 N4 O2           174.20
+   Asparagine           ASN    N     C4 H8 N2 O3            132.12
+   Aspartic acid        ASP    D     C4 H7 N1 O4            133.10
+   ASP/ASN ambiguous    ASX    B     C4 H71/2 N11/2 O31/2   132.61
+   Cysteine             CYS    C     C3 H7 N1 O2 S1         121.15
+   Glutamine            GLN    Q     C5 H10 N2 O3           146.15
+   Glutamic acid        GLU    E     C5 H9 N1 O4            147.13
+   GLU/GLN ambiguous    GLX    Z     C5 H91/2 N11/2 O31/2   146.64
+   Glycine              GLY    G     C2 H5 N1 O2             75.07
+   Histidine            HIS    H     C6 H9 N3 O2            155.16
+   Isoleucine           ILE    I     C6 H13 N1 O2           131.17
+   Leucine              LEU    L     C6 H13 N1 O2           131.17
+   Lysine               LYS    K     C6 H14 N2 O2           146.19
+   Methionine           MET    M     C5 H11 N1 O2 S1        149.21
+   Phenylalanine        PHE    F     C9 H11 N1 O2           165.19
+   Proline              PRO    P     C5 H9 N1 O2            115.13
+   Serine               SER    S     C3 H7 N1 O3            105.09
+   Threonine            THR    T     C4 H9 N1 O3            119.12
+   Tryptophan           TRP    W     C11 H12 N2 O2          204.23
+   Tyrosine             TYR    Y     C9 H11 N1 O3           181.19
+   Valine               VAL    V     C5 H11 N1 O2           117.15
+   Undetermined         UNK    U     C5 H6 N1 O3            128.16
+
+
+
+
+?amino hydrophobic
+
+ Shows the hydrophobic aminoacids.  These are the amino acids Ala, Leu, Val, Ile, Pro,
+ Phe, Met and Trp.
+
+   CD1  CD2                           CD
+    \   /                             |
+     \ /             CG1  CG2         CG1  CG2                
+      CG              \   /            \   /
+      |                \ /              \ /
+      CB                CB               CB             CB
+      |                 |                |              |
+  N - CA - C        N - CA - C       N - CA - C     N - CA - C
+
+   (LEU)              (VAL)            (ILE)         (ALA) 
+
+                                                       CE
+                         CZ3----CH2                    |
+         CZ              /        \                    SD
+        /  \            /          \                   |
+       /    \         CE3          CZ2E                CG
+     CE1    CE2         \          /                   | 
+      |      |           \        /                    CB
+      |      |            CD2---CE2                    |
+     CD1    CD2            |     \                 N - CA -C 
+       \    /              |      NE1                 (MET)
+        \  /               |     /
+         CG                CG==CD1            CG
+         |                 |                /    \ 
+         CB                CB              CD     CB
+         |                 |                \    /
+     N - CA - C        N - CA - C            N--CA--C
+
+      (PHE)             (TRP)               (PRO)
+
+
+
+
+?amino tyr
+?amino phe
+?amino trp
+?amino aromatic
+?tyr
+?phe
+?trp
+?aromatic
+
+                                OH        
+                                |	            CZ3----CH2
+            CZ                  CZ                  /        \
+           /  \                /  \                /          \
+          /    \              /    \             CE3          CZ2E
+        CE1    CE2          CE1    CE2             \          /
+         |      |            |      |               \        /
+         |      |            |      |                CD2---CE2
+        CD1    CD2          CD1    CD2               |     \
+          \    /              \    /                 |      NE1
+           \  /                \  /                  |     /
+            CG                  CG                   CG==CD1
+            |                   |                    |
+            CB                  CB                   CB
+            |                   |                    |
+        N - CA - C          N - CA - C           N - CA - C  
+
+          (PHE)               (TYR)                (TRP)
+
+
+
+
+
+?amino val
+?amino ile
+?amino leu
+?val
+?ile
+?leu
+
+            CD1  CD2                                CD
+             \   /                                  |
+              \ /                CG1  CG2           CG1  CG2                
+	       CG                 \   /              \   /
+	       |                   \ /                \ /
+               CB                   CB                 CB
+               |                    |                  |
+           N - CA - C           N - CA - C         N - CA - C
+
+             (LEU)                 (VAL)              (ILE)
+
+
+
+?amino glu
+?amino gln
+?amino asp
+?amino asn
+?glu
+?gln
+?asp
+?asn
+
+                                         OE1  NE2        OE1  OE2		
+     OD1  ND2          OD1  OD2            \ /             \ /
+      \   /             \   /               CD              CD
+       \ /               \ /                |               |
+        CG                CG                CG              CG      
+        |                 |                 |               |    
+        CB                CB                CB              CB
+        |                 |                 |               |
+    N - CA - C        N - CA - C        N - CA - C      N - CA - C
+
+
+      (ASN)              (ASP)             (GLN)           (GLU)
+
+
+
+
+?amino gly
+?amino ala
+?amino cys
+?gly
+?ala
+?cys
+
+                                                       SG
+	                                               |    
+               HA2                  CB                 CB
+               |                    |                  |
+           N - CA - C           N - CA - C         N - CA - C
+               |
+               HA1
+
+             
+              (GLY)                (ALA)              (CYS)
+
+
+
+
+?amino arg
+?amino lys
+?amino met
+?arg
+?lys
+?met
+
+
+           NH1    NH2
+              \  /
+               CZ                   NZ
+               |                    |
+               NE                   CE                 CE
+	       |                    |                  |
+               CD                   CD                 SD
+               |                    |                  |
+               CG                   CG                 CG
+	       |                    |                  |    
+               CB                   CB                 CB
+               |                    |                  |
+           N - CA - C           N - CA - C         N - CA - C
+
+ 
+              (ARG)                (LYS)              (MET)
+
+
+
+
+?amino glu
+?amino lys
+?amino met
+?glu
+?lys
+?met
+
+                                    NZ
+                                    |
+           OE1    OE2               CE                 CE
+              \  /                  |                  |
+               CD                   CD                 SD
+               |                    |                  |
+               CG                   CG                 CG
+	       |                    |                  |    
+               CB                   CB                 CB
+               |                    |                  |
+           N - CA - C           N - CA - C         N - CA - C
+
+ 
+              (GLU)                (LYS)              (MET)
+
+
+
+
+?amino cys
+?amino ser
+?amino thr
+?cys 
+?ser
+?thr
+                                           
+                                            
+               OG                 OG1   CG2            SG
+	       |                    \   /              | 
+               CB                     CB               CB 
+               |                      |                |
+           N - CA - C             N - CA - C       N - CA - C
+  
+             (SER)                  (THR)             (CYS)
+
+
+
+?amino hip
+?amino hid
+?amino hie
+?amino hi*
+?hip
+?hid
+?hie
+?hi*
+
+    |          HD1    HE1         |                 HE1          |          HD1    HE1 
+ HN-N           |     /        HN-N             __  /         HN-N           |     /   
+    |   HB1    ND1--CE1           |   HB1    ND1--CE1            |   HB1    ND1--CE1   
+    |   |     /      ||           |   |     /      |             |   |     /      ||   
+ HA-CA--CB--CG       ||        HA-CA--CB--CG       |          HA-CA--CB--CG       ||   
+    |   |     \\     ||           |   |     \\     |             |   |     \\     ||   
+    |   HB2    CD2--NE2           |   HB2    CD2--NE2            |   HB2    CD2--NE2(+) 
+  O=C           |               O=C           |     \          O=C           |     \   
+    |          HD2                |          HD2    HE2          |          HD2    HE2 
+
+   neutral, proton on ND1        neutral, proton on NE2           protonated
+              (HID)                     (HIE)                         (HIS)
+
+
+
+?amino pro
+?amino his
+?pro
+?his
+
+           NE2 = CE1
+            /     \
+          CD2      ND1
+            \\    /
+               CG                    CG 
+               |                   /    \
+               CB                 CD     CB
+               |                   \    / 
+           N - CA - C               N--CA - C  
+
+             (HIS)                  (PRO)
+
+
+
+
+?amino positive
+
+                    (+)
+           NH1     NH2
+              \  //                 (+)
+               CZ                   NZ       
+               |                    |              
+               NE                   CE                  NE2 = CE1
+	       |                    |                    /     \   (+)
+               CD                   CD                 CD2      ND1 
+               |                    |                    \\    /   
+               CG                   CG                      CG
+	       |                    |                       |
+               CB                   CB                      CB
+               |                    |                       |
+           N - CA - C           N - CA - C              N - CA - C
+ 
+              (ARG)                (LYS)                  (HIS)
+
+
+
+
+?amino negative
+
+                                    (-)
+                (-)         OE1   OE2		
+        OD1    OD2            \\ /      
+          \\   /                CD      
+           \\ /                 |       
+             CG                 CG      
+             |                  |       
+             CB                 CB      
+             |                  |       
+         N - CA - C         N - CA - C  
+
+            (ASP)              (GLU)
+
+
+
+?nucleotides
+
+     NAME             CODE        FORMULA           MOL. WT.     
+   -----------------------------------------------------------
+     Adenosine          A      C10 H14 N5 O7 P1      347.22 
+     Cytidine           C      C9 H14 N3 O8 P1       323.20 
+     Guanosine          G      C10 H14 N5 O8 P1      363.22 
+     Inosine            I      C10 H13 N4 08 P1      348.21
+     Thymidine          T      C10 H15 N2 08 P1      322.21
+     Uridine            U      C9 H13 N2 09 P1       324.18
+ 
+
+
+?log
+?changelog
+
+ Gives a summary of changes between versions to help debugging. 
+ This is the header of the file:
+
+ ~~~~~~~~~~~~~~~
+               This is the ChangeLog file for PDBStat program. 
+                 Started in March 1999 with version 3.9. 
+------------------------------------------------------------------------------
+
+ The idea is to give the buggy/fixed command, a short description for the
+fixing or the reason why the command was broken and the reporter of the bug
+along with the date of report. 
+ ~~~~~~~~~~~~~~~~
+
+
+?log 5.8
+Version 5.8 (2013)
+    o Expansion of the core given by FindCore
+    o FindCore/PdbStat multichain-aware. Now multichain can be worked out properly
+    o Representative (medoid) model determination 
+    o Alignment of sequences/structures ( Smith-Waterman algorithm with BLOSUM ) -- alpha test
+    o NOE completeness calculation (as described in Journal of Biomolecular NMR, 14: 123–132, 1999)
+    o Analysis of restraint violation analysis revisited
+          - now includes RDC, Da, R. Count and classified in NH-H, ...
+          - Dihedrals are counted and classified into PHI, PSI, CHI
+          - new more detailed statistics (average, std. dev., ...)
+    o Reading/Writing and analysis of Rosetta constraints fixed/improved
+    o Reading of chemical shifts list, BMRB format (both v2.1 and v3.1 are covered).
+    o Implemented reading of restraints in Discover/Biosym format
+
+?log 5.6
+Added:
+- detection of ion pairs (salt bridges, n-o bridges, c-c bridges or long
+  range ion pairs) as described in "Relationship between ion pair geometries
+  and electrostatic strengths in proteins". S. Kumar and R. Nissnov, 
+  Biophysical J., 83, 1595-1612 (2002).
+  The criteria for ion pairs is kind of arbitrary though, r<10.0. 
+  Code is module: FindIonPairs.c 
+
+- renumbering of residues in NOEs, RDCs, ACOs to match coordinates. 
+  It works for x-mers in general also. 
+  reset * 30  -- will renumber all residues in model starting at 30
+  noe renu 30 -- will renumber all residues in NOEs (starting at 30)
+  noe restore -- will restore the original residue numbers
+  Same for rdc and aco.
+
+Fixed: 
+- Changed the way cleaning of constraints was done when refering to ambiguous
+  NOE.  It was not properly done!.  Now the search for duplicated is performed
+  carefully when both constraints are ambiguous. 
+
+
+?log 5.3
+In 2010 code was revisited in depth, several new features added, some allocation and
+freeing memory changed in the process. 
+
+- RDC read/write treatment included. 
+- Treatment of dimers included in code. 
+  x  when reading CYANA pdb file any res named PL,LL?,LP is discarded and then a CyanaDimmer 
+     flag is set, also IsMonomer is set to FALSE. So, we are working with a dimer.
+  x  When reading other PDB chaid is checked for changes, if it does so then we
+     have more than one chaid 
+- Several code modules changed
+        Pdbstat.h               - CyanaDimer, CyanaFmt, IsMonomer added
+        Externals.h             -    "          "            
+        PdbstatMenu.c           - split command added, incl. CyanaDimer,                        
+        ReadConstraintsDisDya.c - CyanaDymer treatment
+        ReadCoordsPdb.c         - detection of Cyana dimer and dimers in general
+        WriteCoordinates.c      - write treatment of SEQRES when writing dimer coordinates
+
+
+?log 5.1
+?changelog 5.1
+
+07-29-08  o  Added checking of hydrogens to the StereoFixAll. If there are not
+             hydrogens present nothing is done.
+          o  Added crystal (char crystal) to model structure. So now we can
+             check for model->crystal to see if it has hydrogens or not.
+
+08-08-08  o  Added procheck analysys.  Gives back precentages of favorable,
+             allowed and generous.  It is included in PdbstatRamachandran
+          o  Fixed initializations for InitPDBRecord that were not done before
+             Binchen found the program either crashing or bad-behaving when
+             HETATM were present. Now is fixed.
+          o  made to compile faster with intel 10.1.017
+
+
+?log 5.0
+?changelog 5.0
+
+   Big change in allocating/deallocating memory.  Although the code is getting
+   aged it seems to work with the new improvements.  Due to these changes it is
+   decided to open a totally new branch -- pdbstat 5.0 -- the period of testing
+   started on May 2007 while at CABM with James Aramini being a deeply involved
+   tester (thanks Jim!).  In those days it was also included in PSVS (updated
+   from the version being used that was 4.0).
+
+ (o) Updated copyright notice to 2007.
+
+ (o) D. Snyder & G.T. Montelione FindCore method incorporated into main branch.
+     After several tests seems to work properly. David's code was lighlty modified
+     to fit into PDBStat.  This to compete and substitute order parameter method.
+
+ (o) extensive checking and rewriting of checking/correcting stereonames to
+     follow IUPAC completely.  As a result the new commands to convert coordinates:
+     to iupac, to xplor, etc.  Now do a iupac conversion and then especial atom names
+     (DYANA, XPLOR, CNS) translation is done following naming schemes found in 
+     GenCons.Lib.
+
+ (o) The comand 'to iupac', followed by 'noe to iupac' should find the right
+     violation analysis.
+
+  x  GenCons.Lib updated
+  x  Distances.Lib updated
+  x  Fixed a bug in LYS HZ's names (before they were converted to HZ1, HZ1, HZ3).
+  x  Fixed small bug that made to iupac work wrongly if the residue was the 
+     last in the file (Reported by JMA -- James M. Aramini).
+
+
+?log 4.0
+?changelog 4.0
+ 
+   After a big period of tests (Aneerban) it seems a stable version is
+   born directly from 3.32 we jump up to version 4.0
+
+ - Support for 64-bit and 32-bit machines (Linux)
+
+ - Started checking/revisiting of cleaning of constraints. 
+
+ - Code for check/correct stereoassignments and naming conventions (HB2/3,
+   etc) added. HB2/3, HA2/3 seem to be working.  Code for LEU, ILE, VAL, GLU,
+   ARG, etc not done yet. In other words any swapping realted to heavy atoms
+   CG1/2, OD1/2, etc is not done yet.  The command created for carrying out
+   the correction is 'fix stereo'.  The idea is to create another one called
+   'check stereo' to only check the naming and NOT correct it.
+ 
+ - New way for classification of energies added to improve speed, it uses same
+   algorithm (quick sort or bubble) but the way the structures are handled is
+   new.
+ 
+ - RMSD by residue calculations added.  It can be dumped to screen 'see rmsd'
+   or to a file 'save rmsd FileName'. New routine WriteRMSDbyRes added.
+ 
+ - Command editing has been included using readline and history libraries.
+  
+ - Command variable has been changed to char *Command, in order to facilitate
+   inclusion of command editing
+ 
+ - Prompt changed to default PdbStat>
+ 
+ - Added comand 'load' to facilitate reading coordinates, so now one can read
+   pdb coords as 'load pdb filename'.
+
+
+
+?log 3.32
+?changelog 3.32
+
+ - Changes from version 3.31 to 3.32
+
+ - A procedure to remove duplicated NOE and meaningless NOE has been added. 
+   If requested all duplicated NOEs are deleted and minimum distance kept. 
+   Also, a list of meaningless constraints is removed and reported.
+   Diagnostic: improvement, Roberto Tejero, CABM, April 2003
+
+ - Several bug fixes and improvements, mainly writing constraints in different
+   formats. 
+
+
+
+?log 3.31
+?changelog 3.31
+
+ - Changes from version 3.30 to 3.31
+
+ - Several slight improvements in the process of converting PDBStat into the
+   main analysis tool inside AutoStructure.
+
+ - toIUPAC routine changed to XplorToIUPAC, now it works much better and it is
+   supposed to change names from XPLOR convention to IUPAC convention.
+
+ - hbond all, command added. It produces a table with the possible hydrogen
+   bonds for all members of a family read in. The ouput mimetics the one in
+   MOLMOL, DYANA.
+
+ - Fixed slight bug in reading DYANA hbond constraints and possibly upl
+   constraints. In the fixing process the full routine has been rewritten and
+   made better for any of DISMAN, DIANA, DYANA, CYANA formats.
+
+ - Updated Copyright notice to 1992-2003.
+
+ - Some fix in writing coords command as a single line. Now it should work as
+   for example.
+   		write coo pdb selected File_Name   (previous selection assumed)
+		write coo pdb back File_Name    (only backbone are written)
+   Reported: Aneerban Bhattacharya, Roberto Tejero.
+
+ - Some dynamic memory allocation reduction and fixes.
+
+ - Fix in reading constraints when residue was THR and atom HG1. It was never
+   taken into account giving 99.99 violation, some code discarded the
+   existence of HG1 for THR (as opposed to 1HG).
+   Reported: Deyou Zheng, CABM, 2003.
+             Roberto Tejero, Valencia, December 2002/Jan 2003.
+
+
+
+?log 3.27
+?log 3.28
+?log 3.29
+?log 3.30
+?changelog 3.27
+?changelog 3.28
+?changelog 3.29
+?changelog 3.30
+
+ - Changes from version 3.26 to 3.30
+
+ - Support for dimers (or x-mers in gral) has been added. Phase beta, some
+   test still missing. It has been checked with structures from PDB, 2il8,
+   1pon, 1b08 (trimer).
+
+ - Main changes:
+ 	1. A chain ID is _always_ assigned. If it is not found on the infput
+	   file, A is assigned.
+	2. Writing of constraints _always_ includes segid even if only one
+	   chain is present.
+	3. Xmer logical variable defined, when true (i.e. x-mer) some parts of
+	   the code work accordingly. -- not yet well suppported
+
+ - Fix for a problem when calculating violations related to finding the right
+   atom (if name was in lower case in input file it never got found).
+   Reported: Roberto Tejero, CABM, Nov. 2002.
+
+ - Versions 3.27, 3.28, 3.29 were internal development to include
+   x-mer treatment. Lots of things were broken in those, DO NOT USE any of
+   them.
+
+
+
+
+?log 3.26
+?changelog 3.26
+
+ - Changes from 3.25 to 3.26
+
+ - Makefile modified to take advantage of PGI (Portland) compilers. Now
+   makefile is ready for pgcc and pgf77.
+   Roberto Tejero, CABM, Nov 2002
+
+ - Reading of constraints code break into separate files for easier access and
+   mofification.
+   Roberto Tejero, CABM, Nov 2002
+
+ - Reading of coordinates (in different formats) code break into separate
+   files for easier access modification. 
+   Roberto Tejero, CABM, Nov 2002
+
+ - Some minor cleanups of code and messages, added current date to makever.sh
+   so we have cuurent date of actual compilation displayed on version data.
+
+ - Fix some problem with memory allocation that gave wrong violations. 
+   Reported: Roberto Tejero, CABM 2002
+
+ - Lots of fixes, suggestions by Aneerban Bhattacharya, CABM 2002
+   Thanks a lot, Aneerban!!.
+
+ - Accounting for right number of constraints. It was wrong adding always one
+   more constraint
+   Reported: Annerban Bhattacharya, CABM 2002
+
+ - Some calculations of residual violations give wrong results due to the fact
+   that comment of NOE (in DYANA format) was greater than 50 chars. Now it is
+   fixed as comment can hold up to 300 chars.
+   Reoported: Annerban Bhattacharya, CABM 2002
+
+ - Fixed ND2 atom in ASP when doing homology constraint calculations.
+   Reported: Zeba Wunderlich, CABM 2002. 
+
+ - homa, homol commands added. they are a nickname for homol commmand.
+   Reported: Roberto Tejero, CABM 2002.
+
+
+
+
+?log 3.25
+?changelog 3.25
+
+ - Start to include some code for Residual Dipolar Couplings. This is just
+   an embryo, nothing serious.
+
+ - Inertia principal moments analysis. (RadiusOfGyration module)
+
+ - Radius of Gyration tensor analysis. (RadiusOfGyration module)
+
+ - Search for sum of all dipolar moments. (FindB module)
+
+
+
+?log 3.24
+?changelog 3.24
+ 
+ - Added ECEPP atom types to GenCons.Lib
+ 
+ - Added the capability of writing constraints in ECEPP format. Both distance
+   and DIHEDRAL are written when available. 
+
+ - Added a command, 'homology', that is a wrap of get and change to do
+   homology modeling easier. It can take a long set of args to do all the job
+   in oly one pass.
+ 
+ - Fixed some slight disagreement in read lol dyana after upl dyana. Now it
+   seems to work fine.
+
+ - Changed the way summary of constraint violations and ACO violations are
+   done. Now they are similar to final policy at the lab.
+
+
+
+
+?log 3.23
+?changelog 3.23
+
+ - Changed the definition for calculating violations, now is 
+    a) center  -- the distance is calculated for center of coords.
+    b) sum     -- r to the 6th power summed
+    c) ave     -- r to the 6th power average
+    Previously center average was caluated wrong.
+
+ - Minor cosmetic changes in code
+ - Fixed a bug in reading constraint in xplor format, it failed to read full
+   constraint set when a comment was added at the end of each line
+
+   Diagnostic:  slight bug/improvements
+   Reported: Roberto Tejero, CABM, Dec 2001-Jan 2002
+
+
+
+
+?log 3.19
+?log 3.20
+?log 3.21
+?log 3.22
+?changelog 3.19
+?changelog 3.20
+?changelog 3.21
+?changelog 3.22
+
+ - Changes from 3.19 to 3.22.
+ 
+ - Previous versions, 3.19 and 3.20-21, never saw the light for more than a few 
+   minutes trying to get a more stable version than never before. 
+
+ - There are _A LOT_ of changes in speeding up the code and dealing with
+   memory management. Most of the structure accesses changed to have a pointer
+   to the address rather than calling the structure
+
+ - Code underwent check for memory array boundaries. Seem to be OK. 
+   ElectricFence was used to check memory management.
+ 
+ - simulate hyper data from coordinates and/or from constraints corrected and
+   made better and safer.
+
+ - Reading of JCOUP data in DYANA format done 
+
+ - Summary of Residual Constraint Violation done.
+
+ - Sumamry if Residual ACO Constraint Violation done.
+
+ - Homology related code revisited and rechecked. 
+
+ - Inter-conversion between X-PLOR, CNS, DYANA, CONGEN, DISMAN formats for 
+   constraints done and checked. Also done for ACO files. 
+
+ - Fixed ACO files in different formats taking into account special CNS and
+   X-PLOR way, i.e. equilibrium value and range.
+
+ - GenCons.Lib updated with data about dihedral for reading ACO constraints
+   in several formats. Each line with DIH data includes atom names and name
+   of dihedral as defined in DYANA.
+
+   Diagnostic:  improvements
+   Reported: Roberto Tejero, Valencia, 2001
+
+
+
+
+?log 3.18
+?log Version 3.18
+?changelog  Version 3.18
+
+ - several slight fixes. Improved reading of constraints and residual distance
+   violation analysis.
+
+   Diagnostic:  improvements
+   Reported: Roberto Tejero, Valencia, 2001
+
+
+
+
+
+?log 3.17
+?log Version 3.17
+?changelog  Version 3.17
+
+ - reading of XPLOR constraint file improved. Now it can read basically
+   any type of file (distances, angles, dihedrals, or all of them
+   together). Only one routine is in charge of reading everything.
+
+ - Change log file added to help facility. It can be accessed typing 
+   'help changelog 3.11' for version 3.11 for example.
+   
+ - Included the possibility to handle CHI2 ACO restraints. Multiple CHI2
+   values are restricted to CHI21 though.
+ 
+ - Included the capability to read ACO constraints in X-PLOR format. 
+
+ - Fixed bug in evaluating PSI angle for ACO violation studies. It was
+   a mistake in atom selection.
+   Diagnostic: bug
+   Reported: Roberto Tejero, Dec. 2000, Valencia.
+
+ - Improved calculating dihedral values for ACO CHI1, previously only
+   CG was handled and CHI1 for thr, val, ser, cys was not calculated.
+   Dignostic: improvement/bug.
+   Reported: Roberto Tejero, Dec. 2000, Valencia.
+
+ - Fixed bug in calculating Angle Constraint violations. Now the code is
+   similar to the one found in DYANA and seems to work pretty nice.
+   Diagnostic: bug, *IMPORTANT*
+   Reported: Roberto Tejero, Dec. 2000, Valencia.
+
+
+
+
+
+?log 3.16
+?log Version 3.16
+?changelog  Version 3.16
+
+ - INSTALL script modified, previously changed all files in installation
+   directory to chmod 755, this could make trouble when files there needed
+   suid bit permissions. 
+   Diadnostic: bug.
+   Reported: Daniel Monleon, Dec. 2000, CABM
+
+ - read_constraints fixed for some slight bug when reading xplor format
+   Diagnostic: bug
+   Reported: Roberto Tejero, Dec. 2000, Valencia
+
+ - Selection module fixed. Now it is able to do additive selections and
+   correctly parse tokens on selection command.
+   Diagnostic: bug, 
+   Reported: Roberto Tejero, Dec. 2000, Valencia.
+
+ - Fixed working with proteins starting at residue numbers greater than one.
+   Selections and rmsd calculations. Maybe still is more code to be fixed!!
+   Diagnostic: bug, 
+   Reported: Roberto Tejero, Dec. 2000, Valencia.
+
+ - Fixed building of contact maps from proteins with residue numbers greater
+   than one. The map now is made as a function of starting residue, scales 
+   and drawing depends on it. 
+   Diagnostic: Improvement
+   Reported: Roberto Tejero, Dec. 2000, Valencia.
+
+ - Changes made  December, 2000. Valencia.
+
+ - Version released December, 28, 2000. 
+
+
+
+
+
+?log 3.15
+?log Version 3.15
+?changelog  Version 3.15
+
+ - This version was started to include residual constraint violation analysis
+   inside PDBStat. Several modules have been changed inside the code to cover
+   this new feature. Also several fixes dealing mainly with strings have been
+   added. Prior to that the program behaved somehow randomly. Is is HIGHLY
+   recommended to close (add '\0') all the strings in the different routines.
+   Also -- when passing values of Noe or Cons structures is much better to
+   copy the values to temporal strings and work on those instead.
+   Diagnostic: improvement. 
+   Reported: Guy T. Montelione, Summer 2000, CABM, NJ
+
+ - This residual constraint info is very crude and general right noe. It is
+   meant to be saved in a file and further processed by perl scripts or
+   seomthing else. The project is to have PDBStat doing a nice job giving at
+   the end a nice table almost ready to include in a word processor for
+   publishing.
+   Diagnostic: improvement. 
+   Reported: Guy T. Montelione, Summer 2000, CABM, NJ
+
+ - 'GenCons.Lib' has been updated for some errors in ASN and GLN for XPlor
+   names
+   Diagnostic: bug/improvement. 
+   Reported: Roberto Tejero, Fall 2000, Valencia
+   
+ - Selection of atoms corrected and improved in evaluating different distances
+   in a set of structures.
+   Diagnostic: bug/improvement. 
+   Reported: Roberto Tejero, Fall 2000, Valencia
+
+ - Included reading of NOES and residual constraint violation analysis for
+      1. DYANA, DIANA formats
+      2. CONGEN format
+      3. X-Plor format
+      4. CNS format
+   Diagnostic: improvement. 
+   Reported: Guy Montelione, Summer 2000, CABM, NJ.
+ 
+ - Included reading of ACO files and residual dihedral angle violation
+   analysis for:
+      1. DYANA, DIANA formats
+      2. CONGEN format
+      3. X-Plor and CNS format NOT YET done!
+   Diagnostic: improvement. 
+   Reported: Guy Montelione, Summer 2000, CABM, NJ.
+  
+ - This version is somehow intermediate and saved when parts of the code were
+   working OK. The development continue, though ...
+
+
+
+
+
+?log 3.14
+?log Version 3.14
+?changelog  Version 3.14
+ 
+ - Selection of atoms/model/residues changed. David Snyder at CABM reported
+   something wrong with additive selections. After looking into it it was
+   rewritten and made more reasonable.
+   Diasnostic: bug/improvement
+   Reported: David Snyder, CABM, Sept. 2000.
+
+ - Selection of models treated separatedly. Now SelectModelRanges takes care
+   of that to avoid conflicts with SelectRanges that is meant only for
+   residues.
+
+ - Unitl I get more feedback from David this has to be considered alpha
+   version. We should check carefully how it works. 
+ 
+
+
+
+
+?log 3.13
+?log Version 3.13
+?changelog  Version 3.13
+ 
+ - After all these changes (below) I consider that is time to have a new version
+   at April, 14-15, 2000. Valencia University.
+  
+ - Updated Makefile. 
+
+ - added info about omega in 'see' command. Now the user gets also info
+   about omega in the residues of the model.
+   Diagnostic: improvement
+   Reported: RTT, Valencia, Apr. 2000
+ 
+ - Fixed a bug that produced 'core dumped'. Well, they were TWO bugs. One in
+   util.c in ps_fileinit that closed two times the same file giving some weird
+   errors when reopening the file. Also fixed lifopen routine in the same 
+   module. These 'core dumps' were produced when the user asked for 'rama' 
+   first and then 'relax'. In the same way, a dummy thing was added to 
+   pdbstat_menu.c to avoid a 'crazy' error. For more info see pdbstat_menu.c
+   code.
+   Diaganostic: bug
+   Reported by: RTT, Valencia, Apr. 2000
+
+ - Rearrangement of code in sevel routines.
+   Diagnostic: ??
+   Reported by: RTT, Valencia, Apr. 2000
+ 
+ - 'eval omega' or any residue had the side effect of messing with the
+   digedral values obtained by other commands after that. It was due
+   to routine 'DriverForEvaluate.c' that changed residue numeration. 
+   Now that code is commented and seems to work.
+   Diagnostic: bug
+   Reported by: RTT, Valencia, Apr. 2000
+
+ - 'relax' command failed when residue number of structure begun at a 
+   number different from 1. It was in pdbstat_menu.c that used wrong
+   number picking for the final result. It was changed to PDB[*].orden
+   and seems to work,
+   Diagnostic: bug
+   Reported by: RTT, Valencia, Apr. 2000
+
+ - 'hyper' command. Changed and checked new Karplus equations used in
+   simulating input file for HYPER from coordinates. 
+   Seems to be working. 
+   Diagnostic: improvement to match eqs. with HYPER
+   Reported by: RTT, Valencia, Apr. 2000
+
+ - 'align' command improved to look for sequential identity. 
+   Routine align_sequences.c rewritten.
+   Diagnostic: improvement
+   Reported by: RTT, Valencia, March, 200
+
+
+
+
+?log 3.12
+?log Version 3.12
+?changelog  Version 3.12
+	
+ - 'select * * *'
+   Bug in selection routine. When the user tried '*' in atom names the
+   routine selected nothing.
+   Diagnostic: Bug
+   Reported by: Yuanpeng Huan, CABM, Aug 1999.
+
+ - 'write coords for average'
+   Bug in writing coordinates for average. The subroutine to write
+   the coordinates checked for selected models ending up with NOTHING to do
+   the average so giving an awful core dumped.
+   Diagnostic: Bug
+   Reported by: Yuanpeng Huan, CABM, Jul. 1999.
+
+
+
+
+?log 3.11
+?log Version 3.11
+?changelog  Version 3.11
+	
+ - Selection of atoms by PDB-IUPAC name improved a little. Before one could
+   select n or ca, i.e. single atom names; now giving n,ca,c,o can select
+   all of them. Example: sele 1-10 * n,ca,c,o,s  now selects atoms  n and ca
+   and  c and o and s of any residue in models 1 through 10.
+   Diagnostic: Improvement
+   Reported by: Roberto Tejero, May 1999. 
+
+ - Treatment of average model (average coordinates) rationalized. Before it
+   was a little 'fuzzy' behavior with average model, some parts of the code
+   were working bad and even others no working at all. Now AverageModel is
+   selected as models read plus one and this place is used _EXCLUSIVELY_ to
+   store average coordinates and average model data. This required all the
+   code to be edited and changed from reference_model to AverageModel.
+   Diagnostic: Subtle *BUG*
+   Reported by: Roberto Tejero, end of April 1999.
+
+ - The behavior of pdbstat when an unknown or not valid command is found 
+   has changed.  Now it tells the user to try help command supposing AyudaPATH 
+   is set.
+   Diagnostic: *NOT* important, only to be nicer to the user.
+   Reported by: Roberto Tejero, April 1999.
+ 
+ - Option 'contact' from coordinates failed when sequence numbering started 
+   at a number different from 1. This was due to a 'peculiarity' in routine
+   draw_maps.c. The result was a core dumped. It has been fixed allowing for
+   different numbering of sequences starting at any number.
+   Diagnostic: Subtle *BUG*
+   Reported by: Roberto Tejero and students of AEQMB in Spain, April 1999
+
+ - When executing 'close' command _after_ 'rama' command was executed,
+   PDBStat failed miserably. The problem was in routine libfopen in util.c
+   module that failed to re-initialize filename variable. This caused
+   PDBStat try opening last file name, namely psdefs.ps from 'rama'
+   command, as if it were GenCons.Lib and this gave errors as PDBStat
+   failed to locate library records in psdefs.ps file, logically.
+   Diagnostic: Very subtle *BUG*
+   Reported by: Roberto Tejero, April 1999.
+
+ - Making contact map from constraints was broken. It failed to create
+   a valid PostScript file even if the sequence and everything needed
+   was read and OK. This was due to an error in selecting the number
+   of residues that confused draw_maps.c routine.  
+   Diagnostic: Very subtle *BUG*
+   Reported by: Roberto Tejero, April 1999.
+
+
+
+?log 3.10
+?log Version 3.10
+?changelog  Version 3.10
+
+ - 'read' command revisited and made better.
+   Reported by: Roberto Tejero, April 1999.
+	
+ - 'rama' command slightly changed to print also Residue Names in
+   Ramachandran plot.
+   Reported by: Roberto Tejero, April 1999.
+	
+ - More corrections/improvements to Ayuda_PDBSTAT.hlp help file. Some
+   documentation and help augmented.
+   Reported by: Roberto Tejero, April 1999.
+
+ - Fixed some problem dealing with library files when AyudaPATH was
+   not set in SGI version. While Linux version worked OK, SGI gave core
+   dumped or even the behavior was very bad. It had to do with the
+   fact that if the files were not open properly (AyudaPATH not set)
+   SGI version tried to read the files giving very strange things,
+   the most common of which was core dump. Now a check is done
+   previous to any treatment of the file.  Also -- as a result more checks
+   are done about detecting if AyudaPATH is set or not.
+   Reported by: Roberto Tejero, April 1999.
+
+
+
+	
+?log 3.9
+?log Version 3.9
+?changelog  Version 3.9
+
+ - Installation document changed slightly. Now more information is given
+   to check that PDBStat got properly installed. The document shows
+   several schemes of final installations for PDBStat. Also a stronger
+   point is made to make clear that PDBStat must be started calling
+   pdbstat shell script instead of calling binary executable directly.
+   Reported by: Roberto Tejero, April 1999.
+
+ - Help file, Ayuda_PDBSTAT.hlp, revisited and corrected. Still is far from
+   being fully corrected but some misspellings and language errors have
+   been corrected. Also some commands have been rewritten/augmented
+   Reported by: Roberto Tejero, April 1999.
+
+ - Init command, fixed. A bug gave core dumps before. The bug was in 
+   init routine that took the wrong argument --99 instead of 999--
+   so it tried to initialize model number 99 not present in memory. 
+   Reported by: Daniel Monleon, March 1999.
+
+ - rmsd command, fixed. Previous version took no coordinates from models
+   so calculation of rmsd without best option or something gave 'NaN' 
+   as result. The fix was to properly set SELECTED previous to rmsd
+   Reported by: Daniel Monleon, March 1999.
+
+ - eval dist command. Behaves differently. Previously eval dist was able to
+   evaluate any distance, Dij, starting from atom number j > i, so if 
+   j < i the distance, Dij, got not evaluated. Now this behavior is
+   changed for regular distances and old behavior is kept for certain
+   applications like finding ALL distances lower than a certain cutoff
+   value.
+   Reported by: Roberto Tejero, March 1999.
+
+ - Improvement: If program is not able to find help and library files it 
+   tells so the user --as before-- but now also asks to set properly AyudaPATH 
+   variable.  This is so because maybe people tries to start PDBStat calling 
+   directly the executable instead to calling shell script.
+   ** This should be made a stronger point in documentation: start program
+   _ALWAYS_ as pdbstat instead of calling binary executable directly.
+   Reported by: Daniel Monleon, March 1999.
+
+ - read command, fixed. PDBStat had a bug in reading coordinates in CONGEN
+   and CHARMM formats. The formats best tested now are PDB, CONGEN, CHARMM.  
+   Reported by: Roberto Tejero, March 1999.
+
+ - write sequence, completed. PDBStat was able to read a coordinates file and
+   from that write sequence file in THREE letter code only, formats CONGEN
+   and DISMAN, if the user tried one letter code or full name the result was
+   a blank file (blank lines). Now it is fixed. The fix is in write_sequence
+   routine where the printing was wrong in ONE and FULL cases.
+   Reported by: Daniel Monleon, March 1999.
+
+ - Language corrections and suggestions to improve GettingStarted
+   Reported by: Hunter Moseley, February 1999.
+
+ - Improvement to INSTALL script. H. Moseley suggested the following change 
+                  from   chmod 755 $root -R 
+                  to     chmod -R 755 $root  
+   the first way works pretty good in Linux/Unix but second one (as suggested)
+   is more UNIX-accepted.
+   Reported by: Hunter Moseley, February 1999.
+
+
+
+ 
+?log 3.8
+?changelog 3.8
+?changelog Version 3.8
+
+ -- Starting PDBStat distribution
+
+ This was the initial version delivered for testing prior to distribution of
+ PDBStat. Earlier versions were used in our labs for doing a lot of things
+ but never got distributed nor fully tested. 

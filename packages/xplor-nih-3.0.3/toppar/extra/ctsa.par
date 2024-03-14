@@ -1,0 +1,582 @@
+Remarks ctsa.par
+Remarks Parameters for M8-DOTA-SPy tag.
+Remarks Charles D. Schwieters, Guillermo A. Bermejo - 4-SEP-2018.
+
+
+ bond  C_79   S     $kbon     1.81  ! as CT-S in protein-3.2.par (GAB 29-Aug-2018)
+
+ BOND  C_10 C_9     $kbon {sd=     0.008}      1.531
+ BOND  C_10 H_71    $kbon {sd=     0.008}      1.096
+ BOND  C_10 H_72    $kbon {sd=     0.008}      1.090
+ BOND  C_10 H_73    $kbon {sd=     0.008}      1.097
+ BOND  C_12 C_35    $kbon {sd=     0.008}      1.524
+ BOND  C_12 H_13    $kbon {sd=     0.008}      1.103
+ BOND  C_12 H_14    $kbon {sd=     0.008}      1.100
+ BOND  C_12 N_1     $kbon {sd=     0.008}      1.468
+ BOND  C_15 C_16    $kbon {sd=     0.008}      1.521
+ BOND  C_15 C_18    $kbon {sd=     0.008}      1.539
+ BOND  C_15 H_17    $kbon {sd=     0.008}      1.097
+ BOND  C_15 N_1     $kbon {sd=     0.008}      1.496
+ BOND  C_16 H_1     $kbon {sd=     0.008}      1.095
+ BOND  C_16 H_2     $kbon {sd=     0.008}      1.097
+ BOND  C_16 H_58    $kbon {sd=     0.008}      1.093
+ BOND  C_18 O_19    $kbon {sd=     0.008}      1.287
+ BOND  C_18 O_20    $kbon {sd=     0.008}      1.234
+ BOND  C_2  C_3     $kbon {sd=     0.008}      1.530
+ BOND  C_2  C_5     $kbon {sd=     0.008}      1.524
+ BOND  C_2  H_4     $kbon {sd=     0.008}      1.099
+ BOND  C_2  N_1     $kbon {sd=     0.008}      1.498
+ BOND  C_21 C_22    $kbon {sd=     0.008}      1.520
+ BOND  C_21 C_24    $kbon {sd=     0.008}      1.541
+ BOND  C_21 H_23    $kbon {sd=     0.008}      1.098
+ BOND  C_21 N_8     $kbon {sd=     0.008}      1.497
+ BOND  C_22 H_55    $kbon {sd=     0.008}      1.092
+ BOND  C_22 H_56    $kbon {sd=     0.008}      1.097
+ BOND  C_22 H_57    $kbon {sd=     0.008}      1.096
+ BOND  C_24 O_25    $kbon {sd=     0.008}      1.291
+ BOND  C_24 O_26    $kbon {sd=     0.008}      1.233
+ BOND  C_28 C_29    $kbon {sd=     0.008}      1.531
+ BOND  C_28 C_31    $kbon {sd=     0.008}      1.525
+ BOND  C_28 H_30    $kbon {sd=     0.008}      1.100
+ BOND  C_28 N_27    $kbon {sd=     0.008}      1.502
+ BOND  C_29 H_68    $kbon {sd=     0.008}      1.096
+ BOND  C_29 H_69    $kbon {sd=     0.008}      1.090
+ BOND  C_29 H_70    $kbon {sd=     0.008}      1.097
+ BOND  C_3  H_62    $kbon {sd=     0.008}      1.095
+ BOND  C_3  H_63    $kbon {sd=     0.008}      1.090
+ BOND  C_3  H_64    $kbon {sd=     0.008}      1.098
+ BOND  C_31 H_32    $kbon {sd=     0.008}      1.103
+ BOND  C_31 H_33    $kbon {sd=     0.008}      1.100
+ BOND  C_31 N_34    $kbon {sd=     0.008}      1.468
+ BOND  C_35 C_50    $kbon {sd=     0.008}      1.530
+ BOND  C_35 H_51    $kbon {sd=     0.008}      1.098
+ BOND  C_35 N_34    $kbon {sd=     0.008}      1.500
+ BOND  C_36 C_37    $kbon {sd=     0.008}      1.520
+ BOND  C_36 C_39    $kbon {sd=     0.008}      1.542
+ BOND  C_36 H_38    $kbon {sd=     0.008}      1.099
+ BOND  C_36 N_34    $kbon {sd=     0.008}      1.496
+ BOND  C_37 H_59    $kbon {sd=     0.008}      1.093
+ BOND  C_37 H_60    $kbon {sd=     0.008}      1.097
+ BOND  C_37 H_61    $kbon {sd=     0.008}      1.095
+ BOND  C_39 O_40    $kbon {sd=     0.008}      1.288
+ BOND  C_39 O_49    $kbon {sd=     0.008}      1.234
+ BOND  C_42 C_43    $kbon {sd=     0.008}      1.532
+ BOND  C_42 N_74    $kbon {sd=     0.008}      1.401
+ BOND  C_42 O_41    $kbon {sd=     0.008}      1.258
+ BOND  C_43 C_47    $kbon {sd=     0.008}      1.524
+ BOND  C_43 H_48    $kbon {sd=     0.008}      1.099
+ BOND  C_43 N_27    $kbon {sd=     0.008}      1.494
+ BOND  C_44 C_9     $kbon {sd=     0.008}      1.526
+ BOND  C_44 H_45    $kbon {sd=     0.008}      1.103
+ BOND  C_44 H_46    $kbon {sd=     0.008}      1.099
+ BOND  C_44 N_27    $kbon {sd=     0.008}      1.467
+ BOND  C_47 H_52    $kbon {sd=     0.008}      1.094
+ BOND  C_47 H_53    $kbon {sd=     0.008}      1.095
+ BOND  C_47 H_54    $kbon {sd=     0.008}      1.095
+ BOND  C_5  H_6     $kbon {sd=     0.008}      1.104
+ BOND  C_5  H_7     $kbon {sd=     0.008}      1.100
+ BOND  C_5  N_8     $kbon {sd=     0.008}      1.468
+ BOND  C_50 H_65    $kbon {sd=     0.008}      1.091
+ BOND  C_50 H_66    $kbon {sd=     0.008}      1.097
+ BOND  C_50 H_67    $kbon {sd=     0.008}      1.096
+ BOND  C_76 C_79    $kbon {sd=     0.008}      1.529
+ BOND  C_76 H_77    $kbon {sd=     0.008}      1.083
+ BOND  C_76 H_78    $kbon {sd=     0.008}      1.083
+ BOND  C_76 N_74    $kbon {sd=     0.008}      1.464
+ BOND  C_79 H_80    $kbon {sd=     0.008}      1.083
+ BOND  C_79 H_81    $kbon {sd=     0.008}      1.083
+ BOND  C_9  H_11    $kbon {sd=     0.008}      1.100
+ BOND  C_9  N_8     $kbon {sd=     0.008}      1.497
+ BOND  H_75 N_74    $kbon {sd=     0.008}      1.005
+ BOND  N_1  YB_1    $kbon {sd=     0.008}      2.606
+ BOND  N_27 YB_1    $kbon {sd=     0.008}      2.613
+ BOND  N_34 YB_1    $kbon {sd=     0.008}      2.603
+ BOND  N_8  YB_1    $kbon {sd=     0.008}      2.599
+ BOND  O_19 YB_1    $kbon {sd=     0.008}      2.250
+ BOND  O_25 YB_1    $kbon {sd=     0.008}      2.254
+ BOND  O_40 YB_1    $kbon {sd=     0.008}      2.255
+ BOND  O_41 YB_1    $kbon {sd=     0.008}      2.275
+
+
+
+ angle  H_80 C_79 S       $kang     109.5  ! As HA CT S in protein-3.2.par (GAB 29-Aug-2018)
+ angle  H_81 C_79 S       $kang     109.5  ! As HA CT S in protein-3.2.par 
+ angle  C_76 C_79 S       $kang     109.5  ! As CT CT S in protein-3.2.par
+ angle  C_79 S    S       $kssang   104.2  ! As CT S S in protein-3.2.par
+
+ ANGLe  C_10 C_9  C_44    $kang {sd=     0.331}    106.7561
+ ANGLe  C_10 C_9  H_11    $kang {sd=     0.331}    108.5150
+ ANGLe  C_10 C_9  N_8     $kang {sd=     0.331}    115.8996
+ ANGLe  C_12 C_35 C_50    $kang {sd=     0.331}    106.8425
+ ANGLe  C_12 C_35 H_51    $kang {sd=     0.331}    109.1800
+ ANGLe  C_12 C_35 N_34    $kang {sd=     0.331}    111.1282
+ ANGLe  C_12 N_1  C_15    $kang {sd=     0.331}    112.6568
+ ANGLe  C_12 N_1  C_2     $kang {sd=     0.331}    110.9860
+ ANGLe  C_12 N_1  YB_1    $kang {sd=     0.331}    109.5443
+ ANGLe  C_15 C_16 H_1     $kang {sd=     0.331}    112.2517
+ ANGLe  C_15 C_16 H_2     $kang {sd=     0.331}    112.3054
+ ANGLe  C_15 C_16 H_58    $kang {sd=     0.331}    108.4943
+ ANGLe  C_15 C_18 O_19    $kang {sd=     0.331}    115.4917
+ ANGLe  C_15 C_18 O_20    $kang {sd=     0.331}    118.8045
+ ANGLe  C_15 N_1  C_2     $kang {sd=     0.331}    111.7958
+ ANGLe  C_15 N_1  YB_1    $kang {sd=     0.331}    100.9564
+ ANGLe  C_16 C_15 C_18    $kang {sd=     0.331}    111.8213
+ ANGLe  C_16 C_15 H_17    $kang {sd=     0.331}    108.0003
+ ANGLe  C_16 C_15 N_1     $kang {sd=     0.331}    117.4590
+ ANGLe  C_18 C_15 H_17    $kang {sd=     0.331}    104.3226
+ ANGLe  C_18 C_15 N_1     $kang {sd=     0.331}    109.1369
+ ANGLe  C_18 O_19 YB_1    $kang {sd=     0.331}    122.7652
+ ANGLe  C_2  C_3  H_62    $kang {sd=     0.331}    109.3527
+ ANGLe  C_2  C_3  H_63    $kang {sd=     0.331}    113.2942
+ ANGLe  C_2  C_3  H_64    $kang {sd=     0.331}    111.3520
+ ANGLe  C_2  C_5  H_6     $kang {sd=     0.331}    108.0651
+ ANGLe  C_2  C_5  H_7     $kang {sd=     0.331}    108.0982
+ ANGLe  C_2  C_5  N_8     $kang {sd=     0.331}    115.6320
+ ANGLe  C_2  N_1  YB_1    $kang {sd=     0.331}    110.4725
+ ANGLe  C_21 C_22 H_55    $kang {sd=     0.331}    108.5184
+ ANGLe  C_21 C_22 H_56    $kang {sd=     0.331}    112.2623
+ ANGLe  C_21 C_22 H_57    $kang {sd=     0.331}    112.2193
+ ANGLe  C_21 C_24 O_25    $kang {sd=     0.331}    115.5304
+ ANGLe  C_21 C_24 O_26    $kang {sd=     0.331}    118.5774
+ ANGLe  C_21 N_8  C_5     $kang {sd=     0.331}    112.8392
+ ANGLe  C_21 N_8  C_9     $kang {sd=     0.331}    111.5223
+ ANGLe  C_21 N_8  YB_1    $kang {sd=     0.331}    100.7115
+ ANGLe  C_22 C_21 C_24    $kang {sd=     0.331}    111.7461
+ ANGLe  C_22 C_21 H_23    $kang {sd=     0.331}    107.9958
+ ANGLe  C_22 C_21 N_8     $kang {sd=     0.331}    117.4048
+ ANGLe  C_24 C_21 H_23    $kang {sd=     0.331}    104.3008
+ ANGLe  C_24 C_21 N_8     $kang {sd=     0.331}    109.2936
+ ANGLe  C_24 O_25 YB_1    $kang {sd=     0.331}    122.0239
+ ANGLe  C_28 C_29 H_68    $kang {sd=     0.331}    109.3032
+ ANGLe  C_28 C_29 H_69    $kang {sd=     0.331}    113.5482
+ ANGLe  C_28 C_29 H_70    $kang {sd=     0.331}    111.3198
+ ANGLe  C_28 C_31 H_32    $kang {sd=     0.331}    107.9705
+ ANGLe  C_28 C_31 H_33    $kang {sd=     0.331}    108.1356
+ ANGLe  C_28 C_31 N_34    $kang {sd=     0.331}    115.5972
+ ANGLe  C_28 N_27 C_43    $kang {sd=     0.331}    112.0824
+ ANGLe  C_28 N_27 C_44    $kang {sd=     0.331}    111.1048
+ ANGLe  C_28 N_27 YB_1    $kang {sd=     0.331}    110.5050
+ ANGLe  C_29 C_28 C_31    $kang {sd=     0.331}    106.9265
+ ANGLe  C_29 C_28 H_30    $kang {sd=     0.331}    108.5075
+ ANGLe  C_29 C_28 N_27    $kang {sd=     0.331}    115.8899
+ ANGLe  C_3  C_2  C_5     $kang {sd=     0.331}    106.9098
+ ANGLe  C_3  C_2  H_4     $kang {sd=     0.331}    108.5490
+ ANGLe  C_3  C_2  N_1     $kang {sd=     0.331}    115.8950
+ ANGLe  C_31 C_28 H_30    $kang {sd=     0.331}    109.1309
+ ANGLe  C_31 C_28 N_27    $kang {sd=     0.331}    110.9988
+ ANGLe  C_31 N_34 C_35    $kang {sd=     0.331}    111.0446
+ ANGLe  C_31 N_34 C_36    $kang {sd=     0.331}    112.5707
+ ANGLe  C_31 N_34 YB_1    $kang {sd=     0.331}    109.8049
+ ANGLe  C_35 C_12 H_13    $kang {sd=     0.331}    108.0773
+ ANGLe  C_35 C_12 H_14    $kang {sd=     0.331}    108.1127
+ ANGLe  C_35 C_12 N_1     $kang {sd=     0.331}    115.5363
+ ANGLe  C_35 C_50 H_65    $kang {sd=     0.331}    113.3915
+ ANGLe  C_35 C_50 H_66    $kang {sd=     0.331}    111.5146
+ ANGLe  C_35 C_50 H_67    $kang {sd=     0.331}    109.3053
+ ANGLe  C_35 N_34 C_36    $kang {sd=     0.331}    111.7499
+ ANGLe  C_35 N_34 YB_1    $kang {sd=     0.331}    110.4447
+ ANGLe  C_36 C_37 H_59    $kang {sd=     0.331}    108.5652
+ ANGLe  C_36 C_37 H_60    $kang {sd=     0.331}    112.3680
+ ANGLe  C_36 C_37 H_61    $kang {sd=     0.331}    112.1295
+ ANGLe  C_36 C_39 O_40    $kang {sd=     0.331}    115.5449
+ ANGLe  C_36 C_39 O_49    $kang {sd=     0.331}    118.3172
+ ANGLe  C_36 N_34 YB_1    $kang {sd=     0.331}    100.7869
+ ANGLe  C_37 C_36 C_39    $kang {sd=     0.331}    111.8136
+ ANGLe  C_37 C_36 H_38    $kang {sd=     0.331}    107.7662
+ ANGLe  C_37 C_36 N_34    $kang {sd=     0.331}    117.4903
+ ANGLe  C_39 C_36 H_38    $kang {sd=     0.331}    104.2809
+ ANGLe  C_39 C_36 N_34    $kang {sd=     0.331}    109.4749
+ ANGLe  C_39 O_40 YB_1    $kang {sd=     0.331}    122.2127
+ ANGLe  C_42 C_43 C_47    $kang {sd=     0.331}    112.8605
+ ANGLe  C_42 C_43 H_48    $kang {sd=     0.331}    103.8907
+ ANGLe  C_42 C_43 N_27    $kang {sd=     0.331}    108.3500
+ ANGLe  C_42 N_74 C_76    $kang {sd=     0.331}    119.9017
+ ANGLe  C_42 N_74 H_75    $kang {sd=     0.331}    119.7026
+ ANGLe  C_42 O_41 YB_1    $kang {sd=     0.331}    121.2603
+ ANGLe  C_43 C_42 N_74    $kang {sd=     0.331}    119.7246
+ ANGLe  C_43 C_42 O_41    $kang {sd=     0.331}    117.9872
+ ANGLe  C_43 C_47 H_52    $kang {sd=     0.331}    109.1187
+ ANGLe  C_43 C_47 H_53    $kang {sd=     0.331}    112.0605
+ ANGLe  C_43 C_47 H_54    $kang {sd=     0.331}    112.4032
+ ANGLe  C_43 N_27 C_44    $kang {sd=     0.331}    112.3741
+ ANGLe  C_43 N_27 YB_1    $kang {sd=     0.331}    100.9602
+ ANGLe  C_44 C_9  H_11    $kang {sd=     0.331}    109.2006
+ ANGLe  C_44 C_9  N_8     $kang {sd=     0.331}    111.1713
+ ANGLe  C_44 N_27 YB_1    $kang {sd=     0.331}    109.3642
+ ANGLe  C_47 C_43 H_48    $kang {sd=     0.331}    107.9970
+ ANGLe  C_47 C_43 N_27    $kang {sd=     0.331}    117.6141
+ ANGLe  C_5  C_2  H_4     $kang {sd=     0.331}    109.1850
+ ANGLe  C_5  C_2  N_1     $kang {sd=     0.331}    111.0356
+ ANGLe  C_5  N_8  C_9     $kang {sd=     0.331}    111.0371
+ ANGLe  C_5  N_8  YB_1    $kang {sd=     0.331}    109.6158
+ ANGLe  C_50 C_35 H_51    $kang {sd=     0.331}    108.6723
+ ANGLe  C_50 C_35 N_34    $kang {sd=     0.331}    115.7715
+ ANGLe  C_76 C_79 H_80    $kang {sd=     0.331}    109.8359
+ ANGLe  C_76 C_79 H_81    $kang {sd=     0.331}    109.8411
+ ANGLe  C_76 N_74 H_75    $kang {sd=     0.331}    120.3955
+ ANGLe  C_79 C_76 H_77    $kang {sd=     0.331}    109.8741
+ ANGLe  C_79 C_76 H_78    $kang {sd=     0.331}    109.9670
+ ANGLe  C_79 C_76 N_74    $kang {sd=     0.331}    109.2899
+ ANGLe  C_9  C_10 H_71    $kang {sd=     0.331}    109.4540
+ ANGLe  C_9  C_10 H_72    $kang {sd=     0.331}    113.2186
+ ANGLe  C_9  C_10 H_73    $kang {sd=     0.331}    111.4406
+ ANGLe  C_9  C_44 H_45    $kang {sd=     0.331}    108.1382
+ ANGLe  C_9  C_44 H_46    $kang {sd=     0.331}    108.2544
+ ANGLe  C_9  C_44 N_27    $kang {sd=     0.331}    115.5918
+ ANGLe  C_9  N_8  YB_1    $kang {sd=     0.331}    110.6747
+ ANGLe  H_1  C_16 H_2     $kang {sd=     0.331}    108.8481
+ ANGLe  H_1  C_16 H_58    $kang {sd=     0.331}    107.0183
+ ANGLe  H_11 C_9  N_8     $kang {sd=     0.331}    105.1595
+ ANGLe  H_13 C_12 H_14    $kang {sd=     0.331}    105.3515
+ ANGLe  H_13 C_12 N_1     $kang {sd=     0.331}    111.6380
+ ANGLe  H_14 C_12 N_1     $kang {sd=     0.331}    107.5902
+ ANGLe  H_17 C_15 N_1     $kang {sd=     0.331}    105.0608
+ ANGLe  H_2  C_16 H_58    $kang {sd=     0.331}    107.6859
+ ANGLe  H_23 C_21 N_8     $kang {sd=     0.331}    105.0630
+ ANGLe  H_30 C_28 N_27    $kang {sd=     0.331}    105.2405
+ ANGLe  H_32 C_31 H_33    $kang {sd=     0.331}    105.3798
+ ANGLe  H_32 C_31 N_34    $kang {sd=     0.331}    111.6685
+ ANGLe  H_33 C_31 N_34    $kang {sd=     0.331}    107.5542
+ ANGLe  H_38 C_36 N_34    $kang {sd=     0.331}    104.9376
+ ANGLe  H_4  C_2  N_1     $kang {sd=     0.331}    105.1248
+ ANGLe  H_45 C_44 H_46    $kang {sd=     0.331}    105.3822
+ ANGLe  H_45 C_44 N_27    $kang {sd=     0.331}    111.6148
+ ANGLe  H_46 C_44 N_27    $kang {sd=     0.331}    107.3262
+ ANGLe  H_48 C_43 N_27    $kang {sd=     0.331}    104.9508
+ ANGLe  H_51 C_35 N_34    $kang {sd=     0.331}    105.1136
+ ANGLe  H_52 C_47 H_53    $kang {sd=     0.331}    107.0333
+ ANGLe  H_52 C_47 H_54    $kang {sd=     0.331}    107.2462
+ ANGLe  H_53 C_47 H_54    $kang {sd=     0.331}    108.7279
+ ANGLe  H_55 C_22 H_56    $kang {sd=     0.331}    107.7478
+ ANGLe  H_55 C_22 H_57    $kang {sd=     0.331}    106.9614
+ ANGLe  H_56 C_22 H_57    $kang {sd=     0.331}    108.8975
+ ANGLe  H_59 C_37 H_60    $kang {sd=     0.331}    107.7134
+ ANGLe  H_59 C_37 H_61    $kang {sd=     0.331}    106.9622
+ ANGLe  H_6  C_5  H_7     $kang {sd=     0.331}    105.3432
+ ANGLe  H_6  C_5  N_8     $kang {sd=     0.331}    111.5337
+ ANGLe  H_60 C_37 H_61    $kang {sd=     0.331}    108.8657
+ ANGLe  H_62 C_3  H_63    $kang {sd=     0.331}    107.6743
+ ANGLe  H_62 C_3  H_64    $kang {sd=     0.331}    107.1607
+ ANGLe  H_63 C_3  H_64    $kang {sd=     0.331}    107.7611
+ ANGLe  H_65 C_50 H_66    $kang {sd=     0.331}    107.7385
+ ANGLe  H_65 C_50 H_67    $kang {sd=     0.331}    107.5045
+ ANGLe  H_66 C_50 H_67    $kang {sd=     0.331}    107.1227
+ ANGLe  H_68 C_29 H_69    $kang {sd=     0.331}    107.5462
+ ANGLe  H_68 C_29 H_70    $kang {sd=     0.331}    107.1623
+ ANGLe  H_69 C_29 H_70    $kang {sd=     0.331}    107.6997
+ ANGLe  H_7  C_5  N_8     $kang {sd=     0.331}    107.6277
+ ANGLe  H_71 C_10 H_72    $kang {sd=     0.331}    107.5622
+ ANGLe  H_71 C_10 H_73    $kang {sd=     0.331}    107.1134
+ ANGLe  H_72 C_10 H_73    $kang {sd=     0.331}    107.7991
+ ANGLe  H_77 C_76 H_78    $kang {sd=     0.331}    109.1366
+ ANGLe  H_77 C_76 N_74    $kang {sd=     0.331}    109.3669
+ ANGLe  H_78 C_76 N_74    $kang {sd=     0.331}    109.1895
+ ANGLe  H_80 C_79 H_81    $kang {sd=     0.331}    109.0369
+ ANGLe  N_1  YB_1 N_27    $kang {sd=     0.331}    109.0393
+ ANGLe  N_1  YB_1 N_34    $kang {sd=     0.331}     70.3119
+ ANGLe  N_1  YB_1 N_8     $kang {sd=     0.331}     70.3226
+ ANGLe  N_1  YB_1 O_19    $kang {sd=     0.331}     66.1281
+ ANGLe  N_1  YB_1 O_25    $kang {sd=     0.331}    126.6414
+ ANGLe  N_1  YB_1 O_40    $kang {sd=     0.331}     84.6271
+ ANGLe  N_1  YB_1 O_41    $kang {sd=     0.331}    154.3289
+ ANGLe  N_27 YB_1 N_34    $kang {sd=     0.331}     70.1721
+ ANGLe  N_27 YB_1 N_8     $kang {sd=     0.331}     70.2820
+ ANGLe  N_27 YB_1 O_19    $kang {sd=     0.331}    154.2047
+ ANGLe  N_27 YB_1 O_25    $kang {sd=     0.331}     84.1118
+ ANGLe  N_27 YB_1 O_40    $kang {sd=     0.331}    126.1372
+ ANGLe  N_27 YB_1 O_41    $kang {sd=     0.331}     65.9538
+ ANGLe  N_34 YB_1 N_8     $kang {sd=     0.331}    108.8790
+ ANGLe  N_34 YB_1 O_19    $kang {sd=     0.331}    126.1874
+ ANGLe  N_34 YB_1 O_25    $kang {sd=     0.331}    153.4798
+ ANGLe  N_34 YB_1 O_40    $kang {sd=     0.331}     66.3282
+ ANGLe  N_34 YB_1 O_41    $kang {sd=     0.331}     84.7364
+ ANGLe  N_74 C_42 O_41    $kang {sd=     0.331}    122.2661
+ ANGLe  N_8  YB_1 O_19    $kang {sd=     0.331}     84.6725
+ ANGLe  N_8  YB_1 O_25    $kang {sd=     0.331}     66.3377
+ ANGLe  N_8  YB_1 O_40    $kang {sd=     0.331}    154.1969
+ ANGLe  N_8  YB_1 O_41    $kang {sd=     0.331}    125.8435
+ ANGLe  O_19 C_18 O_20    $kang {sd=     0.331}    125.6849
+ ANGLe  O_19 YB_1 O_25    $kang {sd=     0.331}     80.1310
+ ANGLe  O_19 YB_1 O_40    $kang {sd=     0.331}     79.4477
+ ANGLe  O_19 YB_1 O_41    $kang {sd=     0.331}    129.5475
+ ANGLe  O_25 C_24 O_26    $kang {sd=     0.331}    125.8738
+ ANGLe  O_25 YB_1 O_40    $kang {sd=     0.331}    129.4990
+ ANGLe  O_25 YB_1 O_41    $kang {sd=     0.331}     78.7736
+ ANGLe  O_40 C_39 O_49    $kang {sd=     0.331}    126.1171
+ ANGLe  O_40 YB_1 O_41    $kang {sd=     0.331}     79.7498
+
+
+ IMPRoper  C_76 H_80 H_81 S        $kchi {sd=     0.312}    0    -80.9723 ! CBM chirality from optimization (GAB 29-Aug-2018)
+
+ IMPRoper  C_10 C_9  C_44 N_27     $kchi {sd=     0.312}    0   -175.3391
+ IMPRoper  C_10 C_9  H_71 H_72     $kchi {sd=     0.312}    0    -35.0000
+ IMPRoper  C_12 C_35 C_50 H_65     $kchi {sd=     0.312}    0   -172.5295
+ IMPRoper  C_12 N_1  H_13 H_14     $kchi {sd=     0.312}    0     37.1232
+ IMPRoper  C_12 N_34 C_50 H_51     $kchi {sd=     0.312}    0     67.9172
+ IMPRoper  C_15 C_12 C_2  N_1      $kchi {sd=     0.312}    0    -31.1998
+ IMPRoper  C_15 H_58 H_1  H_2      $kchi {sd=     0.312}    0    -75.8410
+ IMPRoper  C_15 N_1  C_16 H_17     $kchi {sd=     0.312}    0     33.5280
+ IMPRoper  C_16 C_15 C_18 O_19     $kchi {sd=     0.312}    0    159.0107
+ IMPRoper  C_18 C_15 C_16 H_58     $kchi {sd=     0.312}    0     63.9192
+ IMPRoper  C_18 C_15 O_19 O_20     $kchi {sd=     0.312}    0     -0.8160
+ IMPRoper  C_18 H_17 C_16 N_1      $kchi {sd=     0.312}    0    -75.8663
+ IMPRoper  C_2  C_12 C_15 YB_1     $kchi {sd=     0.312}    0     79.9998
+ IMPRoper  C_2  H_6  H_7  N_8      $kchi {sd=     0.312}    0     81.6881
+ IMPRoper  C_2  H_62 H_63 H_64     $kchi {sd=     0.312}    0     75.3445
+ IMPRoper  C_2  N_1  C_15 H_17     $kchi {sd=     0.312}    0   -178.5734
+ IMPRoper  C_2  N_1  C_3  H_4      $kchi {sd=     0.312}    0     33.2709
+ IMPRoper  C_21 C_9  C_5  N_8      $kchi {sd=     0.312}    0     31.2557
+ IMPRoper  C_21 H_55 H_56 H_57     $kchi {sd=     0.312}    0     75.9654
+ IMPRoper  C_21 N_8  C_22 H_23     $kchi {sd=     0.312}    0     33.5527
+ IMPRoper  C_22 C_21 C_24 O_25     $kchi {sd=     0.312}    0    158.5960
+ IMPRoper  C_22 C_21 C_24 O_26     $kchi {sd=     0.312}    0      0.0000
+ IMPRoper  C_22 C_21 H_55 H_56     $kchi {sd=     0.312}    0    -35.0000
+ IMPRoper  C_24 C_21 C_22 H_56     $kchi {sd=     0.312}    0   -177.1793
+ IMPRoper  C_24 C_21 N_8  C_5      $kchi {sd=     0.312}    0   -164.4472
+ IMPRoper  C_24 C_21 O_25 O_26     $kchi {sd=     0.312}    0     -0.8029
+ IMPRoper  C_24 H_23 C_22 N_8      $kchi {sd=     0.312}    0    -75.9715
+ IMPRoper  C_28 C_43 C_44 YB_1     $kchi {sd=     0.312}    0    -80.0519
+ IMPRoper  C_28 H_32 H_33 N_34     $kchi {sd=     0.312}    0     81.6907
+ IMPRoper  C_28 H_68 H_69 H_70     $kchi {sd=     0.312}    0     75.2599
+ IMPRoper  C_28 N_27 C_29 H_30     $kchi {sd=     0.312}    0     33.2135
+ IMPRoper  C_28 N_27 C_43 H_48     $kchi {sd=     0.312}    0   -178.8943
+ IMPRoper  C_29 C_28 C_31 N_34     $kchi {sd=     0.312}    0   -175.4030
+ IMPRoper  C_29 C_28 H_68 H_69     $kchi {sd=     0.312}    0    -35.0000
+ IMPRoper  C_3  C_2  C_5  N_8      $kchi {sd=     0.312}    0   -175.3488
+ IMPRoper  C_3  C_2  H_62 H_63     $kchi {sd=     0.312}    0    -35.0000
+ IMPRoper  C_31 C_28 H_32 H_33     $kchi {sd=     0.312}    0    -36.8290
+ IMPRoper  C_31 C_35 C_36 YB_1     $kchi {sd=     0.312}    0    -78.7129
+ IMPRoper  C_31 H_30 C_29 N_27     $kchi {sd=     0.312}    0    -76.2526
+ IMPRoper  C_35 C_12 N_34 C_50     $kchi {sd=     0.312}    0    -32.4435
+ IMPRoper  C_35 H_14 H_13 N_1      $kchi {sd=     0.312}    0    -81.6332
+ IMPRoper  C_35 H_65 H_66 H_67     $kchi {sd=     0.312}    0     73.7576
+ IMPRoper  C_35 N_34 C_36 H_38     $kchi {sd=     0.312}    0   -178.4811
+ IMPRoper  C_36 C_35 C_31 N_34     $kchi {sd=     0.312}    0     31.2737
+ IMPRoper  C_36 H_59 H_60 H_61     $kchi {sd=     0.312}    0     75.8495
+ IMPRoper  C_36 N_34 C_37 H_38     $kchi {sd=     0.312}    0     33.8070
+ IMPRoper  C_37 C_36 C_39 O_40     $kchi {sd=     0.312}    0    158.5629
+ IMPRoper  C_37 C_36 H_59 H_60     $kchi {sd=     0.312}    0    -35.0000
+ IMPRoper  C_39 C_36 O_40 O_49     $kchi {sd=     0.312}    0     -0.8537
+ IMPRoper  C_39 H_38 C_37 N_34     $kchi {sd=     0.312}    0    -76.0427
+ IMPRoper  C_42 C_43 C_47 H_53     $kchi {sd=     0.312}    0   -177.0814
+ IMPRoper  C_42 O_41 C_43 N_74     $kchi {sd=     0.312}    0      0.9631
+ IMPRoper  C_43 H_52 H_53 H_54     $kchi {sd=     0.312}    0     75.8546
+ IMPRoper  C_43 N_27 C_42 C_47     $kchi {sd=     0.312}    0     27.5941
+ IMPRoper  C_44 C_43 C_28 N_27     $kchi {sd=     0.312}    0     31.2553
+ IMPRoper  C_44 C_9  C_10 H_72     $kchi {sd=     0.312}    0   -172.5371
+ IMPRoper  C_44 C_9  N_27 H_45     $kchi {sd=     0.312}    0    -29.4943
+ IMPRoper  C_44 H_11 C_10 N_8      $kchi {sd=     0.312}    0    -76.3351
+ IMPRoper  C_47 C_43 H_52 H_53     $kchi {sd=     0.312}    0    -35.0000
+ IMPRoper  C_5  C_2  C_3  H_63     $kchi {sd=     0.312}    0   -172.5107
+ IMPRoper  C_5  C_2  H_6  H_7      $kchi {sd=     0.312}    0    -36.8652
+ IMPRoper  C_5  C_9  C_21 YB_1     $kchi {sd=     0.312}    0    -78.4910
+ IMPRoper  C_5  H_4  C_3  N_1      $kchi {sd=     0.312}    0    -76.2719
+ IMPRoper  C_50 C_35 C_12 N_1      $kchi {sd=     0.312}    0   -175.3476
+ IMPRoper  C_50 C_35 H_65 H_66     $kchi {sd=     0.312}    0    -35.0000
+ IMPRoper  C_76 H_75 C_42 N_74     $kchi {sd=     0.312}    0      0.0814
+ IMPRoper  C_76 N_74 H_77 H_78     $kchi {sd=     0.312}    0    -35.0000
+ IMPRoper  C_79 C_76 H_80 H_81     $kchi {sd=     0.312}    0     35.0000
+ IMPRoper  C_79 H_78 H_77 N_74     $kchi {sd=     0.312}    0     78.4946
+ IMPRoper  C_9  H_71 H_72 H_73     $kchi {sd=     0.312}    0     75.3592
+ IMPRoper  C_9  N_27 H_45 H_46     $kchi {sd=     0.312}    0     71.0962
+ IMPRoper  C_9  N_8  C_10 H_11     $kchi {sd=     0.312}    0     33.2795
+ IMPRoper  C_9  N_8  C_21 H_23     $kchi {sd=     0.312}    0    180.0000
+ IMPRoper  H_11 C_9  C_44 H_46     $kchi {sd=     0.312}    0    180.0000
+ IMPRoper  H_13 C_12 C_35 N_34     $kchi {sd=     0.312}    0    180.0000
+ IMPRoper  H_14 C_12 C_35 H_51     $kchi {sd=     0.312}    0    180.0000
+ IMPRoper  H_32 C_31 C_28 N_27     $kchi {sd=     0.312}    0    180.0000
+ IMPRoper  H_4  C_2  C_5  H_7      $kchi {sd=     0.312}    0    180.0000
+ IMPRoper  H_45 C_44 C_9  N_8      $kchi {sd=     0.312}    0    180.0000
+ IMPRoper  H_48 C_47 C_42 N_27     $kchi {sd=     0.312}    0    -63.4609
+ IMPRoper  H_59 C_37 C_36 N_34     $kchi {sd=     0.312}    0   -168.5706
+ IMPRoper  H_6  C_5  C_2  N_1      $kchi {sd=     0.312}    0    180.0000
+ IMPRoper  H_68 C_29 C_28 N_27     $kchi {sd=     0.312}    0   -168.3005
+ IMPRoper  H_75 N_74 C_42 O_41     $kchi {sd=     0.312}    0   -179.7236
+ IMPRoper  N_27 C_43 C_42 O_41     $kchi {sd=     0.312}    0     26.9847
+ IMPRoper  O_19 N_8  N_1  YB_1     $kchi {sd=     0.312}    0     54.8987
+
+ improper  YB_1 N_8  N_27 O_25     $kchi {sd=     0.312}    0     55.187
+ improper  YB_1 N_27 N_34 O_41     $kchi {sd=     0.312}    0     55.195
+ improper  YB_1 N_34 N_1  O_40     $kchi {sd=     0.312}    0     54.96
+ improper  YB_1 N_27 N_8  N_34     $kchi {sd=     0.312}    0     45.229
+ improper  YB_1 N_8  N_1  N_27     $kchi {sd=     0.312}    0     45.379
+ improper  YB_1 N_1  N_34 N_8      $kchi {sd=     0.312}    0     45.274
+ improper  YB_1 N_34 N_27 N_1      $kchi {sd=     0.312}    0     45.202
+
+
+ !                  eps     sigma       eps(1:4) sigma(1:4)
+ NONBonded  N_1     0.1592   $S_N       0.1592   $S_N
+ NONBonded  C_2     0.120    $S_C       0.120    $S_C
+ NONBonded  C_3     0.120    $S_C       0.120    $S_C
+ NONBonded  H_4     0.0045   $S_H       0.0045   $S_H
+ NONBonded  C_5     0.120    $S_C       0.120    $S_C
+ NONBonded  H_6     0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_7     0.0045   $S_H       0.0045   $S_H
+ NONBonded  N_8     0.1592   $S_N       0.1592   $S_N
+ NONBonded  C_9     0.120    $S_C       0.120    $S_C
+ NONBonded  C_10    0.120    $S_C       0.120    $S_C
+ NONBonded  H_11    0.0045   $S_H       0.0045   $S_H
+ NONBonded  C_12    0.120    $S_C       0.120    $S_C
+ NONBonded  H_13    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_14    0.0045   $S_H       0.0045   $S_H
+ NONBonded  C_15    0.120    $S_C       0.120    $S_C
+ NONBonded  C_16    0.120    $S_C       0.120    $S_C
+ NONBonded  H_17    0.0045   $S_H       0.0045   $S_H
+ NONBonded  C_18    0.0903   $S_CO      0.0903   $S_CO  ! carbonyl 
+ NONBonded  O_19    0.2342   $S_O       0.2342   $S_O
+ NONBonded  O_20    0.2342   $S_O       0.2342   $S_O
+ NONBonded  C_21    0.120    $S_C       0.120    $S_C
+ NONBonded  C_22    0.120    $S_C       0.120    $S_C
+ NONBonded  H_23    0.0045   $S_H       0.0045   $S_H
+ NONBonded  C_24    0.0903   $S_CO      0.0903   $S_CO  ! carbonyl 
+ NONBonded  O_25    0.2342   $S_O       0.2342   $S_O
+ NONBonded  O_26    0.2342   $S_O       0.2342   $S_O
+ NONBonded  N_27    0.1592   $S_N       0.1592   $S_N
+ NONBonded  C_28    0.120    $S_C       0.120    $S_C
+ NONBonded  C_29    0.120    $S_C       0.120    $S_C
+ NONBonded  H_30    0.0045   $S_H       0.0045   $S_H
+ NONBonded  C_31    0.120    $S_C       0.120    $S_C
+ NONBonded  H_32    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_33    0.0045   $S_H       0.0045   $S_H
+ NONBonded  N_34    0.1592   $S_N       0.1592   $S_N
+ NONBonded  C_35    0.120    $S_C       0.120    $S_C
+ NONBonded  C_36    0.120    $S_C       0.120    $S_C
+ NONBonded  C_37    0.120    $S_C       0.120    $S_C
+ NONBonded  H_38    0.0045   $S_H       0.0045   $S_H
+ NONBonded  C_39    0.0903   $S_CO      0.0903   $S_CO  ! carbonyl 
+ NONBonded  O_40    0.2342   $S_O       0.2342   $S_O
+ NONBonded  O_41    0.2342   $S_O       0.2342   $S_O 
+ NONBonded  C_42    0.0903   $S_CO      0.0903   $S_CO  ! carbonyl 
+ NONBonded  C_43    0.120    $S_C       0.120    $S_C
+ NONBonded  C_44    0.120    $S_C       0.120    $S_C
+ NONBonded  H_45    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_46    0.0045   $S_H       0.0045   $S_H
+ NONBonded  C_47    0.120    $S_C       0.120    $S_C
+ NONBonded  H_48    0.0045   $S_H       0.0045   $S_H
+ NONBonded  O_49    0.2342   $S_O       0.2342   $S_O
+ NONBonded  C_50    0.120    $S_C       0.120    $S_C
+ NONBonded  H_51    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_52    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_53    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_54    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_55    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_56    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_57    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_58    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_59    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_60    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_61    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_62    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_63    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_64    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_65    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_66    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_67    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_68    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_69    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_70    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_71    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_72    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_73    0.0045   $S_H       0.0045   $S_H
+ NONBonded  N_74    0.1592   $S_N       0.1592   $S_N
+ NONBonded  H_75    0.0498   $S_HH      0.0498   $S_HH   ! polar H
+ NONBonded  C_76    0.120    $S_C       0.120    $S_C
+ NONBonded  H_77    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_78    0.0045   $S_H       0.0045   $S_H
+ NONBonded  C_79    0.120    $S_C       0.120    $S_C
+ NONBonded  H_80    0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_81    0.0045   $S_H       0.0045   $S_H
+ NONBonded  YB_1    0.0100   3.1000      0.0100   3.1000
+ NONBonded  H_1     0.0045   $S_H       0.0045   $S_H
+ NONBonded  H_2     0.0045   $S_H       0.0045   $S_H
+
+
+
+{ *** OLD
+ NONBonded  N_1     0.2384   2.8509      0.2384   2.8509
+ NONBonded  C_2     0.1200   3.7418      0.1000   3.3854
+ NONBonded  C_3     0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_4     0.0498   1.4254      0.0498   1.4254
+ NONBonded  C_5     0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_6     0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_7     0.0498   1.4254      0.0498   1.4254
+ NONBonded  N_8     0.2384   2.8509      0.2384   2.8509
+ NONBonded  C_9     0.1200   3.7418      0.1000   3.3854
+ NONBonded  C_10    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_11    0.0498   1.4254      0.0498   1.4254
+ NONBonded  C_12    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_13    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_14    0.0498   1.4254      0.0498   1.4254
+ NONBonded  C_15    0.1200   3.7418      0.1000   3.3854
+ NONBonded  C_16    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_17    0.0498   1.4254      0.0498   1.4254
+ NONBonded  C_18    0.1200   3.7418      0.1000   3.3854
+ NONBonded  O_19    0.1591   2.8509      0.1591   2.8509
+ NONBonded  O_20    0.1591   2.8509      0.1591   2.8509
+ NONBonded  C_21    0.1200   3.7418      0.1000   3.3854
+ NONBonded  C_22    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_23    0.0498   1.4254      0.0498   1.4254
+ NONBonded  C_24    0.1200   3.7418      0.1000   3.3854
+ NONBonded  O_25    0.1591   2.8509      0.1591   2.8509
+ NONBonded  O_26    0.1591   2.8509      0.1591   2.8509
+ NONBonded  N_27    0.2384   2.8509      0.2384   2.8509
+ NONBonded  C_28    0.1200   3.7418      0.1000   3.3854
+ NONBonded  C_29    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_30    0.0498   1.4254      0.0498   1.4254
+ NONBonded  C_31    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_32    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_33    0.0498   1.4254      0.0498   1.4254
+ NONBonded  N_34    0.2384   2.8509      0.2384   2.8509
+ NONBonded  C_35    0.1200   3.7418      0.1000   3.3854
+ NONBonded  C_36    0.1200   3.7418      0.1000   3.3854
+ NONBonded  C_37    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_38    0.0498   1.4254      0.0498   1.4254
+ NONBonded  C_39    0.1200   3.7418      0.1000   3.3854
+ NONBonded  O_40    0.1591   2.8509      0.1591   2.8509
+ NONBonded  O_41    0.1591   2.8509      0.1591   2.8509
+ NONBonded  C_42    0.1200   3.7418      0.1000   3.3854
+ NONBonded  C_43    0.1200   3.7418      0.1000   3.3854
+ NONBonded  C_44    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_45    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_46    0.0498   1.4254      0.0498   1.4254
+ NONBonded  C_47    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_48    0.0498   1.4254      0.0498   1.4254
+ NONBonded  O_49    0.1591   2.8509      0.1591   2.8509
+ NONBonded  C_50    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_51    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_52    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_53    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_54    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_55    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_56    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_57    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_58    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_59    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_60    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_61    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_62    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_63    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_64    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_65    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_66    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_67    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_68    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_69    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_70    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_71    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_72    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_73    0.0498   1.4254      0.0498   1.4254
+ NONBonded  N_74    0.2384   2.8509      0.2384   2.8509
+ NONBonded  H_75    0.0498   1.4254      0.0498   1.4254
+ NONBonded  C_76    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_77    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_78    0.0498   1.4254      0.0498   1.4254
+ NONBonded  C_79    0.1200   3.7418      0.1000   3.3854
+ NONBonded  H_80    0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_81    0.0498   1.4254      0.0498   1.4254
+ NONBonded  YB_1    0.0100   3.1000      0.0100   3.1000
+ NONBonded  H_1     0.0498   1.4254      0.0498   1.4254
+ NONBonded  H_2     0.0498   1.4254      0.0498   1.4254
+***}
+
+

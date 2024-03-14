@@ -1,0 +1,72 @@
+
+AUTO ANGLe=False DIHEdral=False END
+
+! patch to create Zn (Cys)3 (His)1
+! 1, 2 and 3 should be CYS
+! 4 should be HIS
+
+
+ presidue ZC3H1
+  delete atom 1hg end
+  delete atom 2hg end
+  delete atom 3hg end
+! delete atom 4hd1 end
+  add bond 5ZN+2 1sg
+  add bond 5ZN+2 2sg
+  add bond 5ZN+2 3SG
+  add bond 5ZN+2 4nd1
+  add angle 1SG 5ZN+2 2SG
+  add angle 1SG 5ZN+2 3SG
+  add angle 1SG 5ZN+2 4nd1
+  add angle 2SG 5ZN+2 3SG
+  add angle 2SG 5ZN+2 4nd1
+  add angle 3SG 5ZN+2 4nd1
+ end
+ 
+ presidue ZCH3
+! new for zinc-2
+  delete atom 1hg end
+  delete atom 2hg end
+  delete atom 3hg end
+! delete atom 4hd1 end
+
+  add bond 5ZN+2 1sg
+  add bond 5ZN+2 2sg
+  add bond 5ZN+2 3SG
+  add bond 5ZN+2 4nd1
+
+  add angle 1SG  5ZN+2 2SG
+  add angle 1SG  5ZN+2 3SG
+  add angle 1SG  5ZN+2 4nd1
+  add angle 2SG  5ZN+2 3SG
+  add angle 2SG  5ZN+2 4nd1
+  add angle 3SG  5ZN+2 4nd1
+
+! end zinc-2
+!  add improper +HA1 +HA2 -SG +C  !stereo CA
+  
+ end
+
+ presidue ZC4
+! new for zinc-2
+  delete atom 1hg end
+  delete atom 2hg end
+  delete atom 3hg end
+  delete atom 4hg end
+
+  add bond 5ZN+2 1sg
+  add bond 5ZN+2 2sg
+  add bond 5ZN+2 3SG
+  add bond 5ZN+2 4SG
+
+  add angle 1SG  5ZN+2 2SG
+  add angle 1SG  5ZN+2 3SG
+  add angle 1SG  5ZN+2 4SG
+  add angle 2SG  5ZN+2 3SG
+  add angle 2SG  5ZN+2 4SG
+  add angle 3SG  5ZN+2 4SG
+
+! end zinc-2
+!  add improper +HA1 +HA2 -SG +C  !stereo CA
+  
+ end

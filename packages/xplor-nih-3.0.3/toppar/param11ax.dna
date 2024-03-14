@@ -1,0 +1,331 @@
+set message=off echo=off end
+ REMARKS FILENAME="param11ax.dna"
+ REMARKS  PARAM11.DNA  (from PARMDNA8.INP)
+ REMARKS  ===========
+ REMARKS  nucleic acid parameter file
+ REMARKS  ===========================
+ REMARKS
+ REMARKS  HYDROGEN BONDING PARAMETERS UPDATED
+ REMARKS  TO SAME STATUS AS PARAM6 (IE 4-6 POTENTIAL AND ANTECEDENTS)
+ REMARKS  Nonbonded parameters from PARAM6 (slightly larger atoms)
+ REMARKS  Fits to normal mode spectra of Diethylphosphate, Uracil (and
+ REMARKS  Tetrahydrofuran and Adenine) have been used for some forceconstants./LN
+ REMARKS  NOTE: O-C multiple term dihedrals taken out (now=0.75 3-fold) 5/31/84/LN
+ REMARKS DATE: 7-Jun-94  19:25:28       created by user: xplor
+
+ BOND  BR   CS       300.000 {sd=     0.031}      1.880
+ BOND  C2   C2       201.000 {sd=     0.038}      1.525
+ BOND  C2   C3       201.000 {sd=     0.038}      1.525
+ BOND  C2   CH       500.000 {sd=     0.024}      1.520
+ BOND  C2   OH       500.000 {sd=     0.024}      1.433
+ BOND  C2   OS       500.000 {sd=     0.024}      1.433
+ BOND  C3   CH       201.000 {sd=     0.038}      1.525
+ BOND  C3   CS       500.000 {sd=     0.024}      1.501
+ BOND  CA   CB       500.000 {sd=     0.024}      1.408
+ BOND  CA   CF       500.000 {sd=     0.024}      1.436
+ BOND  CA   N2       500.000 {sd=     0.024}      1.333
+ BOND  CA   NA       500.000 {sd=     0.024}      1.386
+ BOND  CA   NC       500.000 {sd=     0.024}      1.340
+ BOND  CB   CB       500.000 {sd=     0.024}      1.370
+ BOND  CB   CN       500.000 {sd=     0.024}      1.414
+ BOND  CB   NB       500.000 {sd=     0.024}      1.390
+ BOND  CB   NC       500.000 {sd=     0.024}      1.355
+ BOND  CB   NS       500.000 {sd=     0.024}      1.371
+ BOND  CE   NB       500.000 {sd=     0.024}      1.305
+ BOND  CE   NC       500.000 {sd=     0.024}      1.321
+ BOND  CE   NS       500.000 {sd=     0.024}      1.369
+ BOND  CF   CF       500.000 {sd=     0.024}      1.357
+ BOND  CF   CN       386.000 {sd=     0.028}      1.444
+ BOND  CF   CS       500.000 {sd=     0.024}      1.337
+ BOND  CF   NS       500.000 {sd=     0.024}      1.368
+ BOND  CH   CH       500.000 {sd=     0.024}      1.528
+ BOND  CH   NH2E     422.000 {sd=     0.026}      1.490
+ BOND  CH   NS       500.000 {sd=     0.024}      1.490
+ BOND  CH   OH       500.000 {sd=     0.024}      1.429
+ BOND  CH   OS       500.000 {sd=     0.024}      1.432
+ BOND  CN   CS       500.000 {sd=     0.024}      1.446
+ BOND  CN   NA       500.000 {sd=     0.024}      1.389
+ BOND  CN   NC       500.000 {sd=     0.024}      1.362
+ BOND  CN   NS       500.000 {sd=     0.024}      1.377
+ BOND  CN   ON       500.000 {sd=     0.024}      1.230
+ BOND  H2   N2       500.000 {sd=     0.024}      1.010
+ BOND  HN   NA       500.000 {sd=     0.024}      1.010
+ BOND  HN   NS       472.000 {sd=     0.025}      1.010
+ BOND  HO   OH       500.000 {sd=     0.024}      0.960
+ BOND  HO   OS       450.000 {sd=     0.026}      0.960
+ BOND  O2   P        500.000 {sd=     0.024}      1.484
+ BOND  OH   P        237.000 {sd=     0.035}      1.610
+ BOND  OS   P        500.000 {sd=     0.024}      1.602
+
+ ANGLe  BR   CS   CA        70.00 {sd=     3.726}    119.7000
+ ANGLe  BR   CS   CF        70.00 {sd=     3.726}    119.7000
+ ANGLe  C2   CH   CH       500.00 {sd=     1.394}    108.7152
+ ANGLe  C2   CH   NH2E      46.50 {sd=     4.572}    111.0000
+ ANGLe  C2   CH   NS       500.00 {sd=     1.394}    114.0517
+ ANGLe  C2   CH   OH       500.00 {sd=     1.394}    113.5905
+ ANGLe  C2   CH   OS       500.00 {sd=     1.394}    109.9203
+ ANGLe  C2   OH   HO       500.00 {sd=     1.394}    107.2958
+ ANGLe  C2   OS   HO        46.50 {sd=     4.572}    107.3000
+ ANGLe  C2   OS   P        500.00 {sd=     1.394}    118.5858
+ ANGLe  C3   C2   OS       150.50 {sd=     2.541}    111.0000
+ ANGLe  C3   CH   CH        46.50 {sd=     4.572}    111.0000
+ ANGLe  C3   CH   OS        46.50 {sd=     4.572}    111.0000
+ ANGLe  C3   CS   CF       500.00 {sd=     1.394}    123.3626
+ ANGLe  C3   CS   CN       500.00 {sd=     1.394}    115.4780
+ ANGLe  C3   OS   P         47.60 {sd=     4.519}    120.5000
+ ANGLe  CA   CB   CB       500.00 {sd=     1.394}    116.6082
+ ANGLe  CA   CB   NB       500.00 {sd=     1.394}    132.3447
+ ANGLe  CA   CF   CF       500.00 {sd=     1.394}    116.5993
+ ANGLe  CA   N2   H2       500.00 {sd=     1.394}    119.9929
+ ANGLe  CA   NA   CN       500.00 {sd=     1.394}    125.2181
+ ANGLe  CA   NA   HN       500.00 {sd=     1.394}    118.7993
+ ANGLe  CA   NC   CB       500.00 {sd=     1.394}    111.9708
+ ANGLe  CA   NC   CE       500.00 {sd=     1.394}    119.1225
+ ANGLe  CA   NC   CN       500.00 {sd=     1.394}    120.1579
+ ANGLe  CB   CA   N2       500.00 {sd=     1.394}    123.5200
+ ANGLe  CB   CA   NC       500.00 {sd=     1.394}    117.1998
+ ANGLe  CB   CB   CN       500.00 {sd=     1.394}    119.5238
+ ANGLe  CB   CB   NA        70.00 {sd=     3.726}    106.2000
+ ANGLe  CB   CB   NB       500.00 {sd=     1.394}    110.7502
+ ANGLe  CB   CB   NC       500.00 {sd=     1.394}    128.0381
+ ANGLe  CB   CB   NS       500.00 {sd=     1.394}    106.0213
+ ANGLe  CB   CN   NA       500.00 {sd=     1.394}    111.3934
+ ANGLe  CB   CN   ON       500.00 {sd=     1.394}    129.2218
+ ANGLe  CB   NB   CE       500.00 {sd=     1.394}    103.6321
+ ANGLe  CB   NC   CE       500.00 {sd=     1.394}    110.1922
+ ANGLe  CB   NS   CE       500.00 {sd=     1.394}    105.7035
+ ANGLe  CB   NS   CH       500.00 {sd=     1.394}    125.8932
+ ANGLe  CB   NS   HN        35.00 {sd=     5.270}    119.3000
+ ANGLe  CE   NS   CH       500.00 {sd=     1.394}    128.4019
+ ANGLe  CE   NS   HN        35.00 {sd=     5.270}    119.3000
+ ANGLe  CF   CA   N2       500.00 {sd=     1.394}    119.9406
+ ANGLe  CF   CA   NC       500.00 {sd=     1.394}    121.9732
+ ANGLe  CF   CF   CN       150.00 {sd=     2.546}    120.7000
+ ANGLe  CF   CF   NA       116.00 {sd=     2.895}    121.2000
+ ANGLe  CF   CF   NS       500.00 {sd=     1.394}    121.0391
+ ANGLe  CF   CN   NA        62.00 {sd=     3.959}    114.1000
+ ANGLe  CF   CN   ON        86.00 {sd=     3.362}    125.3000
+ ANGLe  CF   CS   CN       500.00 {sd=     1.394}    121.1583
+ ANGLe  CF   NS   CH       500.00 {sd=     1.394}    120.6239
+ ANGLe  CF   NS   CN       500.00 {sd=     1.394}    121.7763
+ ANGLe  CF   NS   HN        35.00 {sd=     5.270}    119.3000
+ ANGLe  CH   C2   CH       500.00 {sd=     1.394}    101.6353
+ ANGLe  CH   C2   OH       500.00 {sd=     1.394}    110.3624
+ ANGLe  CH   C2   OS       500.00 {sd=     1.394}    110.3651
+ ANGLe  CH   CH   CH        46.50 {sd=     4.572}    111.0000
+ ANGLe  CH   CH   NH2E      46.50 {sd=     4.572}    111.0000
+ ANGLe  CH   CH   NS        46.50 {sd=     4.572}    111.0000
+ ANGLe  CH   CH   OH       500.00 {sd=     1.394}    111.9682
+ ANGLe  CH   CH   OS       500.00 {sd=     1.394}    107.7423
+ ANGLe  CH   NS   CN       500.00 {sd=     1.394}    117.5989
+ ANGLe  CH   OH   HO       500.00 {sd=     1.394}    107.2846
+ ANGLe  CH   OS   CH       500.00 {sd=     1.394}    109.7576
+ ANGLe  CH   OS   HO        46.50 {sd=     4.572}    107.3000
+ ANGLe  CH   OS   P        500.00 {sd=     1.394}    118.6407
+ ANGLe  CN   CB   NB       500.00 {sd=     1.394}    130.0203
+ ANGLe  CN   NA   CN       500.00 {sd=     1.394}    126.5909
+ ANGLe  CN   NA   HN       500.00 {sd=     1.394}    116.4639
+ ANGLe  CN   NS   HN        35.00 {sd=     5.270}    119.3000
+ ANGLe  CS   CF   NS       500.00 {sd=     1.394}    121.0245
+ ANGLe  CS   CN   NA       500.00 {sd=     1.394}    113.6714
+ ANGLe  CS   CN   ON       500.00 {sd=     1.394}    125.6469
+ ANGLe  H2   N2   H2       500.00 {sd=     1.394}    120.0143
+ ANGLe  HO   OH   P         46.50 {sd=     4.572}    107.3000
+ ANGLe  N2   CA   NA       500.00 {sd=     1.394}    116.4484
+ ANGLe  N2   CA   NB        70.00 {sd=     3.726}    118.3000
+ ANGLe  N2   CA   NC       500.00 {sd=     1.394}    119.2062
+ ANGLe  NA   CA   NC       500.00 {sd=     1.394}    123.2930
+ ANGLe  NA   CN   NS       500.00 {sd=     1.394}    115.2703
+ ANGLe  NA   CN   ON       500.00 {sd=     1.394}    120.5569
+ ANGLe  NB   CE   NS       500.00 {sd=     1.394}    113.8907
+ ANGLe  NC   CB   NS       500.00 {sd=     1.394}    125.9401
+ ANGLe  NC   CE   NC       500.00 {sd=     1.394}    129.3972
+ ANGLe  NC   CN   NS       500.00 {sd=     1.394}    118.9534
+ ANGLe  NC   CN   ON       500.00 {sd=     1.394}    122.4294
+ ANGLe  NH2E CH   OS        46.50 {sd=     4.572}    111.0000
+ ANGLe  NS   CH   OS       500.00 {sd=     1.394}    108.2343
+ ANGLe  NS   CN   ON       500.00 {sd=     1.394}    120.8688
+ ANGLe  O2   P    O2       500.00 {sd=     1.394}    115.7302
+ ANGLe  O2   P    OH        98.90 {sd=     3.135}    108.2300
+ ANGLe  O2   P    OS       500.00 {sd=     1.394}    109.7486
+ ANGLe  OH   P    OS        48.10 {sd=     4.495}    102.6000
+ ANGLe  OS   P    OS       500.00 {sd=     1.394}    101.1198
+
+ DIHEdral  C2   CH   CH   C2          0.00 {sd=999999.000}    0   -155.6156
+ DIHEdral  C2   CH   OS   CH          0.00 {sd=999999.000}    0      3.5273
+ DIHEdral  C2   OS   P    OS     MULTiple= 2       0.00     0    -86.3533
+                                                   0.00     0    -86.3533
+ DIHEdral  C3   OS   P    OS     MULTiple= 2       0.75     3      0.0000
+                                                   0.75     2      0.0000
+ DIHEdral  CA   CB   CB   CE          0.00 {sd=999999.000}    0    179.8761
+ DIHEdral  CA   CB   CB   NS          0.00 {sd=999999.000}    0    179.7920
+ DIHEdral  CA   CB   NA   CB          2.50 {sd=    19.718}    2    180.0000
+ DIHEdral  CB   CA   N2   H2          0.00 {sd=999999.000}    0     -0.0002
+ DIHEdral  CB   CB   CB   CE          5.00 {sd=    13.943}    2    180.0000
+ DIHEdral  CB   CB   NA   CA          2.50 {sd=    19.718}    2    180.0000
+ DIHEdral  CE   CB   CB   CE          0.00 {sd=999999.000}    0   -179.8707
+ DIHEdral  CE   CB   CB   NA          0.00 {sd=999999.000}    0   -179.8165
+ DIHEdral  CE   CB   CB   NC          0.00 {sd=999999.000}    0    179.9167
+ DIHEdral  CE   CB   CB   NS          5.00 {sd=    13.943}    2    180.0000
+ DIHEdral  CF   CA   N2   H2          0.00 {sd=999999.000}    0      0.0045
+ DIHEdral  CH   C2   CH   CH          0.00 {sd=999999.000}    0     37.0997
+ DIHEdral  CH   C2   CH   OS          0.00 {sd=999999.000}    0    -26.0072
+ DIHEdral  CH   C2   OH   HO          0.00 {sd=999999.000}    0      0.0024
+ DIHEdral  CH   C2   OS   P           0.00 {sd=999999.000}    0   -150.8812
+ DIHEdral  CH   CB   CB   NS          2.50 {sd=    19.718}    2    180.0000
+ DIHEdral  CH   CH   OH   HO          0.00 {sd=999999.000}    0    -59.9969
+ DIHEdral  CH   CH   OS   CH          0.00 {sd=999999.000}    0     20.4842
+ DIHEdral  CH   CH   OS   P           0.00 {sd=999999.000}    0    177.6776
+ DIHEdral  CH   OS   P    OH     MULTiple= 2       0.75     3      0.0000
+                                                   0.75     2      0.0000
+ DIHEdral  CH   OS   P    OS     MULTiple= 2       0.00     0    -46.1343
+                                                   0.00     0    -46.1343
+ DIHEdral  CN   CB   CB   NS          0.00 {sd=999999.000}    0   -179.7403
+ DIHEdral  NA   CB   CB   NB          2.50 {sd=    19.718}    2    180.0000
+ DIHEdral  NA   CB   NA   CA          2.50 {sd=    19.718}    2    180.0000
+ DIHEdral  NB   CB   CB   NC          0.00 {sd=999999.000}    0   -180.1496
+ DIHEdral  NB   CB   NA   CN          2.50 {sd=    19.718}    2    180.0000
+ DIHEdral  NC   CA   N2   H2          0.00 {sd=999999.000}    0      0.0090
+ DIHEdral  OH   C2   CH   CH          0.00 {sd=999999.000}    0     46.7612
+ DIHEdral  OH   C2   CH   OS          0.00 {sd=999999.000}    0    -70.0137
+ DIHEdral  OH   CH   CH   OS          0.00 {sd=999999.000}    0   -157.7999
+ DIHEdral  OS   C2   CH   CH          0.00 {sd=999999.000}    0     46.7506
+ DIHEdral  OS   C2   CH   OS          0.00 {sd=999999.000}    0    -70.0016
+ DIHEdral  OS   CH   CH   OS          0.00 {sd=999999.000}    0   -157.8061
+ DIHEdral  OS   CH   NS   CB          0.00 {sd=999999.000}    0   -154.2367
+ DIHEdral  OS   CH   NS   CN          0.00 {sd=999999.000}    0   -154.2501
+ DIHEdral  X    C2   CH   X           1.50 {sd=    25.456}    3      0.0000
+ DIHEdral  X    C2   OH   X           0.50 {sd=    44.091}    3      0.0000
+ DIHEdral  X    C2   OS   X           0.50 {sd=    44.091}    3      0.0000
+ DIHEdral  X    CA   N2   X           6.00 {sd=    12.728}    2    180.0000
+ DIHEdral  X    CH   CH   X           1.50 {sd=    25.456}    3      0.0000
+ DIHEdral  X    CH   NS   X           0.30 {sd=    56.921}    2      0.0000
+ DIHEdral  X    CH   OH   X           0.50 {sd=    44.091}    3      0.0000
+ DIHEdral  X    CH   OS   X           0.50 {sd=    44.091}    3      0.0000
+ DIHEdral  X    OH   P    X           0.75 {sd=    36.000}    3      0.0000
+ DIHEdral  X    OS   P    X           0.75 {sd=    36.000}    3      0.0000
+
+ IMPRoper  BR   X    X    CS          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  C2   OS   CH   CH        500.00 {sd=     1.394}    0     32.8210
+ IMPRoper  C2   X    X    CH         31.50 {sd=     5.555}    0     35.2600
+ IMPRoper  C3   CN   CF   CS        500.00 {sd=     1.394}    0     -0.2283
+ IMPRoper  C3   X    X    CH         31.50 {sd=     5.555}    0     35.2600
+ IMPRoper  C3   X    X    CS         43.00 {sd=     4.754}    0      0.0000
+ IMPRoper  CA   CB   CB   NC        500.00 {sd=     1.394}    0     -0.0422
+ IMPRoper  CA   CB   NC   N2        500.00 {sd=     1.394}    0     -0.3133
+ IMPRoper  CA   CF   CF   NS        500.00 {sd=     1.394}    0      0.9512
+ IMPRoper  CA   CF   NC   N2        500.00 {sd=     1.394}    0      0.3709
+ IMPRoper  CA   NA   CN   CB        500.00 {sd=     1.394}    0     -0.1486
+ IMPRoper  CA   NA   NC   N2        500.00 {sd=     1.394}    0     -0.2028
+ IMPRoper  CA   NC   CB   CB        500.00 {sd=     1.394}    0      0.1847
+ IMPRoper  CA   NC   CE   NC        500.00 {sd=     1.394}    0      0.2530
+ IMPRoper  CA   NC   CN   NS        500.00 {sd=     1.394}    0      0.2985
+ IMPRoper  CA   X    X    CB          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CA   X    X    N2         43.00 {sd=     4.754}    0      0.0000
+ IMPRoper  CA   X    X    NC          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CA   X    X    NS          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CB   CA   NC   CE        500.00 {sd=     1.394}    0     -0.6743
+ IMPRoper  CB   CB   CA   NC        500.00 {sd=     1.394}    0      0.5734
+ IMPRoper  CB   CB   CN   NA        500.00 {sd=     1.394}    0      0.0291
+ IMPRoper  CB   CB   NB   CE        500.00 {sd=     1.394}    0      0.3257
+ IMPRoper  CB   CB   NC   CE        500.00 {sd=     1.394}    0     -0.3613
+ IMPRoper  CB   CB   NS   CE        500.00 {sd=     1.394}    0     -0.2016
+ IMPRoper  CB   NB   CE   NS        500.00 {sd=     1.394}    0     -0.4716
+ IMPRoper  CB   NC   CA   NA        500.00 {sd=     1.394}    0     -0.2928
+ IMPRoper  CB   NC   CE   NC        500.00 {sd=     1.394}    0      0.2652
+ IMPRoper  CB   NS   CE   NB        500.00 {sd=     1.394}    0      0.4424
+ IMPRoper  CB   X    X    CE          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CB   X    X    CN          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CB   X    X    NA          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CB   X    X    NB          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CB   X    X    NC          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CB   X    X    NS          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CF   CA   NC   CN        500.00 {sd=     1.394}    0      0.1322
+ IMPRoper  CF   CF   CA   NC        500.00 {sd=     1.394}    0     -0.7551
+ IMPRoper  CF   CF   NS   CN        500.00 {sd=     1.394}    0     -0.5639
+ IMPRoper  CF   CS   CN   NA        500.00 {sd=     1.394}    0     -0.4793
+ IMPRoper  CF   NS   CN   NA        500.00 {sd=     1.394}    0     -0.4499
+ IMPRoper  CF   NS   CN   NC        500.00 {sd=     1.394}    0     -0.0969
+ IMPRoper  CF   X    X    CN          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CF   X    X    NA          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CF   X    X    NC          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CH   CB   CE   NS        500.00 {sd=     1.394}    0     -0.2109
+ IMPRoper  CH   CH   C2   OH        500.00 {sd=     1.394}    0     31.5010
+ IMPRoper  CH   CH   C2   OS        500.00 {sd=     1.394}    0     31.5160
+ IMPRoper  CH   CN   CF   NS        500.00 {sd=     1.394}    0     -0.1540
+ IMPRoper  CH   OS   C2   NH2E       31.50 {sd=     5.555}    0     35.2600
+ IMPRoper  CH   OS   C2   NS        500.00 {sd=     1.394}    0     33.6153
+ IMPRoper  CH   OS   CH   NH2E       31.50 {sd=     5.555}    0     35.2600
+ IMPRoper  CH   OS   CH   NS         31.50 {sd=     5.555}    0     35.2600
+ IMPRoper  CH   X    X    NS          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CH   X    X    OH         31.50 {sd=     5.555}    0     35.2600
+ IMPRoper  CH   X    X    OS         31.50 {sd=     5.555}    0     35.2600
+ IMPRoper  CN   CB   CB   NC        500.00 {sd=     1.394}    0     -0.0594
+ IMPRoper  CN   CB   NA   ON        500.00 {sd=     1.394}    0     -0.1284
+ IMPRoper  CN   CS   CF   NS        500.00 {sd=     1.394}    0      0.2271
+ IMPRoper  CN   CS   NA   ON        500.00 {sd=     1.394}    0      0.2821
+ IMPRoper  CN   NA   CA   NC        500.00 {sd=     1.394}    0      0.3084
+ IMPRoper  CN   NA   CN   CS        500.00 {sd=     1.394}    0      0.2902
+ IMPRoper  CN   NA   CN   NS        500.00 {sd=     1.394}    0      0.1542
+ IMPRoper  CN   NA   NS   ON        500.00 {sd=     1.394}    0     -0.2225
+ IMPRoper  CN   NC   NS   ON        500.00 {sd=     1.394}    0     -0.1620
+ IMPRoper  CN   NS   CF   CS        500.00 {sd=     1.394}    0      0.2717
+ IMPRoper  CN   X    X    CS          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CN   X    X    NC          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CN   X    X    NS          4.50 {sd=    14.697}    0      0.0000
+ IMPRoper  CN   X    X    ON        113.30 {sd=     2.929}    0      0.0000
+ IMPRoper  H2   CA   H2   N2        500.00 {sd=     1.394}    0     -0.0021
+ IMPRoper  H2   H2   CA   N2        500.00 {sd=     1.394}    0     -0.0025
+ IMPRoper  H2   X    X    N2         43.00 {sd=     4.754}    0      0.0000
+ IMPRoper  HN   CA   CN   NA        500.00 {sd=     1.394}    0     -0.0113
+ IMPRoper  HN   CN   CN   NA        500.00 {sd=     1.394}    0      0.0065
+ IMPRoper  HN   X    X    NA         43.00 {sd=     4.754}    0      0.0000
+ IMPRoper  HN   X    X    NS         43.00 {sd=     4.754}    0      0.0000
+ IMPRoper  NB   CB   CB   NS        500.00 {sd=     1.394}    0     -0.0729
+ IMPRoper  NB   X    X    NS          4.50 {sd=    14.697}    0      0.0000
+
+ !                  eps     sigma       eps(1:4) sigma(1:4)
+ NONBonded  CN      0.1200   3.7418      0.1000   3.3854
+ NONBonded  CA      0.1200   3.7418      0.1000   3.3854
+ NONBonded  CB      0.1200   3.7418      0.1000   3.3854
+ NONBonded  CS      0.1200   3.7418      0.1000   3.3854
+ NONBonded  CH      0.0486   4.2140      0.1000   3.3854
+ NONBonded  C2      0.1142   3.9823      0.1000   3.3854
+ NONBonded  C3      0.1811   3.8576      0.1000   3.3854
+ NONBonded  CF      0.1200   3.7418      0.1000   3.3854
+ NONBonded  CE      0.1200   3.7418      0.1000   3.3854
+ NONBonded  HN      0.0498   1.4254      0.0498   1.4254
+ NONBonded  H2      0.0498   1.4254      0.0498   1.4254
+ NONBonded  HO      0.0498   1.4254      0.0498   1.4254
+ NONBonded  N2      0.2384   2.8509      0.2384   2.8509
+ NONBonded  NC      0.2384   2.8509      0.2384   2.8509
+ NONBonded  NS      0.2384   2.8509      0.2384   2.8509
+ NONBonded  NA      0.2384   2.8509      0.2384   2.8509
+ NONBonded  NB      0.2384   2.8509      0.2384   2.8509
+ NONBonded  ON      0.1591   2.8509      0.1591   2.8509
+ NONBonded  O2      0.1204   2.8509      0.1204   2.8509
+ NONBonded  OS      0.1204   2.8509      0.1204   2.8509
+ NONBonded  OH      0.1591   2.8509      0.1591   2.8509
+ NONBonded  P       0.5849   3.3854      0.5849   3.3854
+ NONBonded  BR      0.8000   3.5636      0.8000   3.5636
+ NONBonded  SD      0.3515   2.6730      0.3515   2.6730
+
+ NBFIx  HN   NC          0.050        0.100           0.050        0.100
+ NBFIx  HN   ON          0.050        0.100           0.050        0.100
+ NBFIx  HN   O2          0.050        0.100           0.050        0.100
+ NBFIx  HN   OH          0.050        0.100           0.050        0.100
+ NBFIx  H2   NC          0.050        0.100           0.050        0.100
+ NBFIx  H2   ON          0.050        0.100           0.050        0.100
+ NBFIx  H2   O2          0.050        0.100           0.050        0.100
+ NBFIx  H2   OH          0.050        0.100           0.050        0.100
+ NBFIx  HO   NC          0.050        0.100           0.050        0.100
+ NBFIx  HO   ON          0.050        0.100           0.050        0.100
+ NBFIx  HO   O2          0.050        0.100           0.050        0.100
+ NBFIx  HO   OH          0.050        0.100           0.050        0.100
+
+ ! hbond               Emin     Rmin
+ HBONd  N*   O*     -3.5000   2.9000
+ HBONd  N*   N*     -3.0000   3.0000
+ HBONd  O*   O*     -4.2500   2.7500
+ HBONd  O*   N*     -4.0000   2.8500
+set message=on echo=on end

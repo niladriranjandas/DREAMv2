@@ -1,0 +1,16 @@
+#!/bin/sh 
+
+pyXplor=__XPLOR_DIR__/bin/pyXplor
+
+PATH=__XPLOR_DIR__/python/jupyter:$PATH
+export PATH
+
+jupyter=`which jupyter`
+
+if [ -z "$jupyter" ]; then
+    echo "Error: jupyter not found"
+    exit 1
+fi
+
+eval $pyXplor $jupyter $@
+

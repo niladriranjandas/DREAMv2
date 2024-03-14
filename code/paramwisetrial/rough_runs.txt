@@ -1,0 +1,3 @@
+paramwisetrial/genRunScipts_bckend_predictDrive.sh 2o4e 2o4e_param_1d8v,2o4e_param_1oca,2o4e_param_1pbu,2o4e_param_1xxe,2o4e_param_1ygw,2o4e_param_2kok,2o4e_param_2m4k,2o4e_param_5x1x > paramwisetrial/log_all.log.txt
+
+paramwisetrial/genRunScipts_bckend_predictDrive.sh 2kok 2kok_param_1d8v,2kok_param_1oca,2kok_param_1pbu,2kok_param_1xxe,2kok_param_1ygw,2kok_param_2kok,2kok_param_2m4k,2kok_param_5x1x > paramwisetrial/log_all_2kok.log.txt

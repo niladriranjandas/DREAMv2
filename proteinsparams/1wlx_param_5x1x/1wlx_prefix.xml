@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1wlx</protein_name>
+		<seq_file>1wlx.seq</seq_file>
+		<upl_file>1wlx_concat_dist.upl</upl_file>
+		<hbond_file></hbond_file>
+		<ang_file>1wlx_concat_dihed.aco</ang_file>
+		<protein_path>../protein/1wlx</protein_path>
+	</inputs>

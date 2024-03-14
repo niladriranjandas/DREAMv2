@@ -1,0 +1,543 @@
+  2 SER   CHI1    -90.0   210.0
+  2 SER   CHI1     30.0   330.0
+  2 SER   CHI1   -210.0    90.0
+  3 SER   CHI1    -90.0   210.0
+  3 SER   CHI1     30.0   330.0
+  3 SER   CHI1   -210.0    90.0
+  5 SER   CHI1    -90.0   210.0
+  5 SER   CHI1     30.0   330.0
+  5 SER   CHI1   -210.0    90.0
+  6 SER   CHI1    -90.0   210.0
+  6 SER   CHI1     30.0   330.0
+  6 SER   CHI1   -210.0    90.0
+  8 LEU   CHI1    -90.0   210.0
+  8 LEU   CHI1     30.0   330.0
+  8 LEU   CHI1   -210.0    90.0
+  8 LEU   CHI2    -90.0   210.0
+  8 LEU   CHI2     30.0   330.0
+  8 LEU   CHI2   -210.0    90.0
+  9 ARG   CHI1    -90.0   210.0
+  9 ARG   CHI1     30.0   330.0
+  9 ARG   CHI1   -210.0    90.0
+  9 ARG   CHI2    -90.0   210.0
+  9 ARG   CHI2     30.0   330.0
+  9 ARG   CHI2   -210.0    90.0
+  9 ARG   CHI3    -90.0   210.0
+  9 ARG   CHI3     30.0   330.0
+  9 ARG   CHI3   -210.0    90.0
+ 10 ARG   CHI1    -90.0   210.0
+ 10 ARG   CHI1     30.0   330.0
+ 10 ARG   CHI1   -210.0    90.0
+ 10 ARG   CHI2    -90.0   210.0
+ 10 ARG   CHI2     30.0   330.0
+ 10 ARG   CHI2   -210.0    90.0
+ 10 ARG   CHI3    -90.0   210.0
+ 10 ARG   CHI3     30.0   330.0
+ 10 ARG   CHI3   -210.0    90.0
+ 11 GLN   CHI1    -90.0   210.0
+ 11 GLN   CHI1     30.0   330.0
+ 11 GLN   CHI1   -210.0    90.0
+ 11 GLN   CHI2    -90.0   210.0
+ 11 GLN   CHI2     30.0   330.0
+ 11 GLN   CHI2   -210.0    90.0
+ 12 ARG   CHI1    -90.0   210.0
+ 12 ARG   CHI1     30.0   330.0
+ 12 ARG   CHI1   -210.0    90.0
+ 12 ARG   CHI2    -90.0   210.0
+ 12 ARG   CHI2     30.0   330.0
+ 12 ARG   CHI2   -210.0    90.0
+ 12 ARG   CHI3    -90.0   210.0
+ 12 ARG   CHI3     30.0   330.0
+ 12 ARG   CHI3   -210.0    90.0
+ 13 LEU   CHI1    -90.0   210.0
+ 13 LEU   CHI1     30.0   330.0
+ 13 LEU   CHI1   -210.0    90.0
+ 13 LEU   CHI2    -90.0   210.0
+ 13 LEU   CHI2     30.0   330.0
+ 13 LEU   CHI2   -210.0    90.0
+ 15 GLU   CHI1    -90.0   210.0
+ 15 GLU   CHI1     30.0   330.0
+ 15 GLU   CHI1   -210.0    90.0
+ 15 GLU   CHI2    -90.0   210.0
+ 15 GLU   CHI2     30.0   330.0
+ 15 GLU   CHI2   -210.0    90.0
+ 16 LEU   CHI1    -90.0   210.0
+ 16 LEU   CHI1     30.0   330.0
+ 16 LEU   CHI1   -210.0    90.0
+ 16 LEU   CHI2    -90.0   210.0
+ 16 LEU   CHI2     30.0   330.0
+ 16 LEU   CHI2   -210.0    90.0
+ 17 GLN   CHI1    -90.0   210.0
+ 17 GLN   CHI1     30.0   330.0
+ 17 GLN   CHI1   -210.0    90.0
+ 17 GLN   CHI2    -90.0   210.0
+ 17 GLN   CHI2     30.0   330.0
+ 17 GLN   CHI2   -210.0    90.0
+ 19 LYS   CHI1    -90.0   210.0
+ 19 LYS   CHI1     30.0   330.0
+ 19 LYS   CHI1   -210.0    90.0
+ 19 LYS   CHI2    -90.0   210.0
+ 19 LYS   CHI2     30.0   330.0
+ 19 LYS   CHI2   -210.0    90.0
+ 19 LYS   CHI3    -90.0   210.0
+ 19 LYS   CHI3     30.0   330.0
+ 19 LYS   CHI3   -210.0    90.0
+ 19 LYS   CHI4    -90.0   210.0
+ 19 LYS   CHI4     30.0   330.0
+ 19 LYS   CHI4   -210.0    90.0
+ 20 HIS   CHI1    -90.0   210.0
+ 20 HIS   CHI1     30.0   330.0
+ 20 HIS   CHI1   -210.0    90.0
+ 22 ASP   CHI1    -90.0   210.0
+ 22 ASP   CHI1     30.0   330.0
+ 22 ASP   CHI1   -210.0    90.0
+ 25 ASP   CHI1    -90.0   210.0
+ 25 ASP   CHI1     30.0   330.0
+ 25 ASP   CHI1   -210.0    90.0
+ 28 GLN   CHI1    -90.0   210.0
+ 28 GLN   CHI1     30.0   330.0
+ 28 GLN   CHI1   -210.0    90.0
+ 28 GLN   CHI2    -90.0   210.0
+ 28 GLN   CHI2     30.0   330.0
+ 28 GLN   CHI2   -210.0    90.0
+ 29 GLN   CHI1    -90.0   210.0
+ 29 GLN   CHI1     30.0   330.0
+ 29 GLN   CHI1   -210.0    90.0
+ 29 GLN   CHI2    -90.0   210.0
+ 29 GLN   CHI2     30.0   330.0
+ 29 GLN   CHI2   -210.0    90.0
+ 30 GLU   CHI1    -90.0   210.0
+ 30 GLU   CHI1     30.0   330.0
+ 30 GLU   CHI1   -210.0    90.0
+ 30 GLU   CHI2    -90.0   210.0
+ 30 GLU   CHI2     30.0   330.0
+ 30 GLU   CHI2   -210.0    90.0
+ 32 LYS   CHI1    -90.0   210.0
+ 32 LYS   CHI1     30.0   330.0
+ 32 LYS   CHI1   -210.0    90.0
+ 32 LYS   CHI2    -90.0   210.0
+ 32 LYS   CHI2     30.0   330.0
+ 32 LYS   CHI2   -210.0    90.0
+ 32 LYS   CHI3    -90.0   210.0
+ 32 LYS   CHI3     30.0   330.0
+ 32 LYS   CHI3   -210.0    90.0
+ 32 LYS   CHI4    -90.0   210.0
+ 32 LYS   CHI4     30.0   330.0
+ 32 LYS   CHI4   -210.0    90.0
+ 33 HIS   CHI1    -90.0   210.0
+ 33 HIS   CHI1     30.0   330.0
+ 33 HIS   CHI1   -210.0    90.0
+ 34 ARG   CHI1    -90.0   210.0
+ 34 ARG   CHI1     30.0   330.0
+ 34 ARG   CHI1   -210.0    90.0
+ 34 ARG   CHI2    -90.0   210.0
+ 34 ARG   CHI2     30.0   330.0
+ 34 ARG   CHI2   -210.0    90.0
+ 34 ARG   CHI3    -90.0   210.0
+ 34 ARG   CHI3     30.0   330.0
+ 34 ARG   CHI3   -210.0    90.0
+ 35 GLU   CHI1    -90.0   210.0
+ 35 GLU   CHI1     30.0   330.0
+ 35 GLU   CHI1   -210.0    90.0
+ 35 GLU   CHI2    -90.0   210.0
+ 35 GLU   CHI2     30.0   330.0
+ 35 GLU   CHI2   -210.0    90.0
+ 37 GLU   CHI1    -90.0   210.0
+ 37 GLU   CHI1     30.0   330.0
+ 37 GLU   CHI1   -210.0    90.0
+ 37 GLU   CHI2    -90.0   210.0
+ 37 GLU   CHI2     30.0   330.0
+ 37 GLU   CHI2   -210.0    90.0
+ 38 MET   CHI1    -90.0   210.0
+ 38 MET   CHI1     30.0   330.0
+ 38 MET   CHI1   -210.0    90.0
+ 38 MET   CHI2    -90.0   210.0
+ 38 MET   CHI2     30.0   330.0
+ 38 MET   CHI2   -210.0    90.0
+ 39 ARG   CHI1    -90.0   210.0
+ 39 ARG   CHI1     30.0   330.0
+ 39 ARG   CHI1   -210.0    90.0
+ 39 ARG   CHI2    -90.0   210.0
+ 39 ARG   CHI2     30.0   330.0
+ 39 ARG   CHI2   -210.0    90.0
+ 39 ARG   CHI3    -90.0   210.0
+ 39 ARG   CHI3     30.0   330.0
+ 39 ARG   CHI3   -210.0    90.0
+ 40 ASN   CHI1    -90.0   210.0
+ 40 ASN   CHI1     30.0   330.0
+ 40 ASN   CHI1   -210.0    90.0
+ 41 SER   CHI1    -90.0   210.0
+ 41 SER   CHI1     30.0   330.0
+ 41 SER   CHI1   -210.0    90.0
+ 42 ILE   CHI1    -90.0   210.0
+ 42 ILE   CHI1     30.0   330.0
+ 42 ILE   CHI1   -210.0    90.0
+ 42 ILE   CHI21   -90.0   210.0
+ 42 ILE   CHI21    30.0   330.0
+ 42 ILE   CHI21  -210.0    90.0
+ 43 LEU   CHI1    -90.0   210.0
+ 43 LEU   CHI1     30.0   330.0
+ 43 LEU   CHI1   -210.0    90.0
+ 43 LEU   CHI2    -90.0   210.0
+ 43 LEU   CHI2     30.0   330.0
+ 43 LEU   CHI2   -210.0    90.0
+ 45 GLN   CHI1    -90.0   210.0
+ 45 GLN   CHI1     30.0   330.0
+ 45 GLN   CHI1   -210.0    90.0
+ 45 GLN   CHI2    -90.0   210.0
+ 45 GLN   CHI2     30.0   330.0
+ 45 GLN   CHI2   -210.0    90.0
+ 46 VAL   CHI1    -90.0   210.0
+ 46 VAL   CHI1     30.0   330.0
+ 46 VAL   CHI1   -210.0    90.0
+ 47 LEU   CHI1    -90.0   210.0
+ 47 LEU   CHI1     30.0   330.0
+ 47 LEU   CHI1   -210.0    90.0
+ 47 LEU   CHI2    -90.0   210.0
+ 47 LEU   CHI2     30.0   330.0
+ 47 LEU   CHI2   -210.0    90.0
+ 48 ASP   CHI1    -90.0   210.0
+ 48 ASP   CHI1     30.0   330.0
+ 48 ASP   CHI1   -210.0    90.0
+ 49 GLN   CHI1    -90.0   210.0
+ 49 GLN   CHI1     30.0   330.0
+ 49 GLN   CHI1   -210.0    90.0
+ 49 GLN   CHI2    -90.0   210.0
+ 49 GLN   CHI2     30.0   330.0
+ 49 GLN   CHI2   -210.0    90.0
+ 50 SER   CHI1    -90.0   210.0
+ 50 SER   CHI1     30.0   330.0
+ 50 SER   CHI1   -210.0    90.0
+ 52 ARG   CHI1    -90.0   210.0
+ 52 ARG   CHI1     30.0   330.0
+ 52 ARG   CHI1   -210.0    90.0
+ 52 ARG   CHI2    -90.0   210.0
+ 52 ARG   CHI2     30.0   330.0
+ 52 ARG   CHI2   -210.0    90.0
+ 52 ARG   CHI3    -90.0   210.0
+ 52 ARG   CHI3     30.0   330.0
+ 52 ARG   CHI3   -210.0    90.0
+ 54 ARG   CHI1    -90.0   210.0
+ 54 ARG   CHI1     30.0   330.0
+ 54 ARG   CHI1   -210.0    90.0
+ 54 ARG   CHI2    -90.0   210.0
+ 54 ARG   CHI2     30.0   330.0
+ 54 ARG   CHI2   -210.0    90.0
+ 54 ARG   CHI3    -90.0   210.0
+ 54 ARG   CHI3     30.0   330.0
+ 54 ARG   CHI3   -210.0    90.0
+ 55 LEU   CHI1    -90.0   210.0
+ 55 LEU   CHI1     30.0   330.0
+ 55 LEU   CHI1   -210.0    90.0
+ 55 LEU   CHI2    -90.0   210.0
+ 55 LEU   CHI2     30.0   330.0
+ 55 LEU   CHI2   -210.0    90.0
+ 56 SER   CHI1    -90.0   210.0
+ 56 SER   CHI1     30.0   330.0
+ 56 SER   CHI1   -210.0    90.0
+ 57 ASN   CHI1    -90.0   210.0
+ 57 ASN   CHI1     30.0   330.0
+ 57 ASN   CHI1   -210.0    90.0
+ 58 LEU   CHI1    -90.0   210.0
+ 58 LEU   CHI1     30.0   330.0
+ 58 LEU   CHI1   -210.0    90.0
+ 58 LEU   CHI2    -90.0   210.0
+ 58 LEU   CHI2     30.0   330.0
+ 58 LEU   CHI2   -210.0    90.0
+ 60 LEU   CHI1    -90.0   210.0
+ 60 LEU   CHI1     30.0   330.0
+ 60 LEU   CHI1   -210.0    90.0
+ 60 LEU   CHI2    -90.0   210.0
+ 60 LEU   CHI2     30.0   330.0
+ 60 LEU   CHI2   -210.0    90.0
+ 61 VAL   CHI1    -90.0   210.0
+ 61 VAL   CHI1     30.0   330.0
+ 61 VAL   CHI1   -210.0    90.0
+ 62 LYS   CHI1    -90.0   210.0
+ 62 LYS   CHI1     30.0   330.0
+ 62 LYS   CHI1   -210.0    90.0
+ 62 LYS   CHI2    -90.0   210.0
+ 62 LYS   CHI2     30.0   330.0
+ 62 LYS   CHI2   -210.0    90.0
+ 62 LYS   CHI3    -90.0   210.0
+ 62 LYS   CHI3     30.0   330.0
+ 62 LYS   CHI3   -210.0    90.0
+ 62 LYS   CHI4    -90.0   210.0
+ 62 LYS   CHI4     30.0   330.0
+ 62 LYS   CHI4   -210.0    90.0
+ 64 GLU   CHI1    -90.0   210.0
+ 64 GLU   CHI1     30.0   330.0
+ 64 GLU   CHI1   -210.0    90.0
+ 64 GLU   CHI2    -90.0   210.0
+ 64 GLU   CHI2     30.0   330.0
+ 64 GLU   CHI2   -210.0    90.0
+ 65 LYS   CHI1    -90.0   210.0
+ 65 LYS   CHI1     30.0   330.0
+ 65 LYS   CHI1   -210.0    90.0
+ 65 LYS   CHI2    -90.0   210.0
+ 65 LYS   CHI2     30.0   330.0
+ 65 LYS   CHI2   -210.0    90.0
+ 65 LYS   CHI3    -90.0   210.0
+ 65 LYS   CHI3     30.0   330.0
+ 65 LYS   CHI3   -210.0    90.0
+ 65 LYS   CHI4    -90.0   210.0
+ 65 LYS   CHI4     30.0   330.0
+ 65 LYS   CHI4   -210.0    90.0
+ 66 THR   CHI1    -90.0   210.0
+ 66 THR   CHI1     30.0   330.0
+ 66 THR   CHI1   -210.0    90.0
+ 67 LYS   CHI1    -90.0   210.0
+ 67 LYS   CHI1     30.0   330.0
+ 67 LYS   CHI1   -210.0    90.0
+ 67 LYS   CHI2    -90.0   210.0
+ 67 LYS   CHI2     30.0   330.0
+ 67 LYS   CHI2   -210.0    90.0
+ 67 LYS   CHI3    -90.0   210.0
+ 67 LYS   CHI3     30.0   330.0
+ 67 LYS   CHI3   -210.0    90.0
+ 67 LYS   CHI4    -90.0   210.0
+ 67 LYS   CHI4     30.0   330.0
+ 67 LYS   CHI4   -210.0    90.0
+ 69 VAL   CHI1    -90.0   210.0
+ 69 VAL   CHI1     30.0   330.0
+ 69 VAL   CHI1   -210.0    90.0
+ 70 GLU   CHI1    -90.0   210.0
+ 70 GLU   CHI1     30.0   330.0
+ 70 GLU   CHI1   -210.0    90.0
+ 70 GLU   CHI2    -90.0   210.0
+ 70 GLU   CHI2     30.0   330.0
+ 70 GLU   CHI2   -210.0    90.0
+ 71 ASN   CHI1    -90.0   210.0
+ 71 ASN   CHI1     30.0   330.0
+ 71 ASN   CHI1   -210.0    90.0
+ 72 TYR   CHI1    -90.0   210.0
+ 72 TYR   CHI1     30.0   330.0
+ 72 TYR   CHI1   -210.0    90.0
+ 73 LEU   CHI1    -90.0   210.0
+ 73 LEU   CHI1     30.0   330.0
+ 73 LEU   CHI1   -210.0    90.0
+ 73 LEU   CHI2    -90.0   210.0
+ 73 LEU   CHI2     30.0   330.0
+ 73 LEU   CHI2   -210.0    90.0
+ 74 ILE   CHI1    -90.0   210.0
+ 74 ILE   CHI1     30.0   330.0
+ 74 ILE   CHI1   -210.0    90.0
+ 74 ILE   CHI21   -90.0   210.0
+ 74 ILE   CHI21    30.0   330.0
+ 74 ILE   CHI21  -210.0    90.0
+ 75 GLN   CHI1    -90.0   210.0
+ 75 GLN   CHI1     30.0   330.0
+ 75 GLN   CHI1   -210.0    90.0
+ 75 GLN   CHI2    -90.0   210.0
+ 75 GLN   CHI2     30.0   330.0
+ 75 GLN   CHI2   -210.0    90.0
+ 76 MET   CHI1    -90.0   210.0
+ 76 MET   CHI1     30.0   330.0
+ 76 MET   CHI1   -210.0    90.0
+ 76 MET   CHI2    -90.0   210.0
+ 76 MET   CHI2     30.0   330.0
+ 76 MET   CHI2   -210.0    90.0
+ 78 ARG   CHI1    -90.0   210.0
+ 78 ARG   CHI1     30.0   330.0
+ 78 ARG   CHI1   -210.0    90.0
+ 78 ARG   CHI2    -90.0   210.0
+ 78 ARG   CHI2     30.0   330.0
+ 78 ARG   CHI2   -210.0    90.0
+ 78 ARG   CHI3    -90.0   210.0
+ 78 ARG   CHI3     30.0   330.0
+ 78 ARG   CHI3   -210.0    90.0
+ 79 TYR   CHI1    -90.0   210.0
+ 79 TYR   CHI1     30.0   330.0
+ 79 TYR   CHI1   -210.0    90.0
+ 81 GLN   CHI1    -90.0   210.0
+ 81 GLN   CHI1     30.0   330.0
+ 81 GLN   CHI1   -210.0    90.0
+ 81 GLN   CHI2    -90.0   210.0
+ 81 GLN   CHI2     30.0   330.0
+ 81 GLN   CHI2   -210.0    90.0
+ 82 LEU   CHI1    -90.0   210.0
+ 82 LEU   CHI1     30.0   330.0
+ 82 LEU   CHI1   -210.0    90.0
+ 82 LEU   CHI2    -90.0   210.0
+ 82 LEU   CHI2     30.0   330.0
+ 82 LEU   CHI2   -210.0    90.0
+ 83 SER   CHI1    -90.0   210.0
+ 83 SER   CHI1     30.0   330.0
+ 83 SER   CHI1   -210.0    90.0
+ 84 GLU   CHI1    -90.0   210.0
+ 84 GLU   CHI1     30.0   330.0
+ 84 GLU   CHI1   -210.0    90.0
+ 84 GLU   CHI2    -90.0   210.0
+ 84 GLU   CHI2     30.0   330.0
+ 84 GLU   CHI2   -210.0    90.0
+ 85 LYS   CHI1    -90.0   210.0
+ 85 LYS   CHI1     30.0   330.0
+ 85 LYS   CHI1   -210.0    90.0
+ 85 LYS   CHI2    -90.0   210.0
+ 85 LYS   CHI2     30.0   330.0
+ 85 LYS   CHI2   -210.0    90.0
+ 85 LYS   CHI3    -90.0   210.0
+ 85 LYS   CHI3     30.0   330.0
+ 85 LYS   CHI3   -210.0    90.0
+ 85 LYS   CHI4    -90.0   210.0
+ 85 LYS   CHI4     30.0   330.0
+ 85 LYS   CHI4   -210.0    90.0
+ 86 VAL   CHI1    -90.0   210.0
+ 86 VAL   CHI1     30.0   330.0
+ 86 VAL   CHI1   -210.0    90.0
+ 87 SER   CHI1    -90.0   210.0
+ 87 SER   CHI1     30.0   330.0
+ 87 SER   CHI1   -210.0    90.0
+ 88 GLU   CHI1    -90.0   210.0
+ 88 GLU   CHI1     30.0   330.0
+ 88 GLU   CHI1   -210.0    90.0
+ 88 GLU   CHI2    -90.0   210.0
+ 88 GLU   CHI2     30.0   330.0
+ 88 GLU   CHI2   -210.0    90.0
+ 89 GLN   CHI1    -90.0   210.0
+ 89 GLN   CHI1     30.0   330.0
+ 89 GLN   CHI1   -210.0    90.0
+ 89 GLN   CHI2    -90.0   210.0
+ 89 GLN   CHI2     30.0   330.0
+ 89 GLN   CHI2   -210.0    90.0
+ 91 LEU   CHI1    -90.0   210.0
+ 91 LEU   CHI1     30.0   330.0
+ 91 LEU   CHI1   -210.0    90.0
+ 91 LEU   CHI2    -90.0   210.0
+ 91 LEU   CHI2     30.0   330.0
+ 91 LEU   CHI2   -210.0    90.0
+ 92 ILE   CHI1    -90.0   210.0
+ 92 ILE   CHI1     30.0   330.0
+ 92 ILE   CHI1   -210.0    90.0
+ 92 ILE   CHI21   -90.0   210.0
+ 92 ILE   CHI21    30.0   330.0
+ 92 ILE   CHI21  -210.0    90.0
+ 93 GLU   CHI1    -90.0   210.0
+ 93 GLU   CHI1     30.0   330.0
+ 93 GLU   CHI1   -210.0    90.0
+ 93 GLU   CHI2    -90.0   210.0
+ 93 GLU   CHI2     30.0   330.0
+ 93 GLU   CHI2   -210.0    90.0
+ 94 ILE   CHI1    -90.0   210.0
+ 94 ILE   CHI1     30.0   330.0
+ 94 ILE   CHI1   -210.0    90.0
+ 94 ILE   CHI21   -90.0   210.0
+ 94 ILE   CHI21    30.0   330.0
+ 94 ILE   CHI21  -210.0    90.0
+ 95 LEU   CHI1    -90.0   210.0
+ 95 LEU   CHI1     30.0   330.0
+ 95 LEU   CHI1   -210.0    90.0
+ 95 LEU   CHI2    -90.0   210.0
+ 95 LEU   CHI2     30.0   330.0
+ 95 LEU   CHI2   -210.0    90.0
+ 96 LYS   CHI1    -90.0   210.0
+ 96 LYS   CHI1     30.0   330.0
+ 96 LYS   CHI1   -210.0    90.0
+ 96 LYS   CHI2    -90.0   210.0
+ 96 LYS   CHI2     30.0   330.0
+ 96 LYS   CHI2   -210.0    90.0
+ 96 LYS   CHI3    -90.0   210.0
+ 96 LYS   CHI3     30.0   330.0
+ 96 LYS   CHI3   -210.0    90.0
+ 96 LYS   CHI4    -90.0   210.0
+ 96 LYS   CHI4     30.0   330.0
+ 96 LYS   CHI4   -210.0    90.0
+ 97 LYS   CHI1    -90.0   210.0
+ 97 LYS   CHI1     30.0   330.0
+ 97 LYS   CHI1   -210.0    90.0
+ 97 LYS   CHI2    -90.0   210.0
+ 97 LYS   CHI2     30.0   330.0
+ 97 LYS   CHI2   -210.0    90.0
+ 97 LYS   CHI3    -90.0   210.0
+ 97 LYS   CHI3     30.0   330.0
+ 97 LYS   CHI3   -210.0    90.0
+ 97 LYS   CHI4    -90.0   210.0
+ 97 LYS   CHI4     30.0   330.0
+ 97 LYS   CHI4   -210.0    90.0
+ 98 VAL   CHI1    -90.0   210.0
+ 98 VAL   CHI1     30.0   330.0
+ 98 VAL   CHI1   -210.0    90.0
+ 99 SER   CHI1    -90.0   210.0
+ 99 SER   CHI1     30.0   330.0
+ 99 SER   CHI1   -210.0    90.0
+100 GLN   CHI1    -90.0   210.0
+100 GLN   CHI1     30.0   330.0
+100 GLN   CHI1   -210.0    90.0
+100 GLN   CHI2    -90.0   210.0
+100 GLN   CHI2     30.0   330.0
+100 GLN   CHI2   -210.0    90.0
+101 GLN   CHI1    -90.0   210.0
+101 GLN   CHI1     30.0   330.0
+101 GLN   CHI1   -210.0    90.0
+101 GLN   CHI2    -90.0   210.0
+101 GLN   CHI2     30.0   330.0
+101 GLN   CHI2   -210.0    90.0
+102 THR   CHI1    -90.0   210.0
+102 THR   CHI1     30.0   330.0
+102 THR   CHI1   -210.0    90.0
+103 GLU   CHI1    -90.0   210.0
+103 GLU   CHI1     30.0   330.0
+103 GLU   CHI1   -210.0    90.0
+103 GLU   CHI2    -90.0   210.0
+103 GLU   CHI2     30.0   330.0
+103 GLU   CHI2   -210.0    90.0
+104 LYS   CHI1    -90.0   210.0
+104 LYS   CHI1     30.0   330.0
+104 LYS   CHI1   -210.0    90.0
+104 LYS   CHI2    -90.0   210.0
+104 LYS   CHI2     30.0   330.0
+104 LYS   CHI2   -210.0    90.0
+104 LYS   CHI3    -90.0   210.0
+104 LYS   CHI3     30.0   330.0
+104 LYS   CHI3   -210.0    90.0
+104 LYS   CHI4    -90.0   210.0
+104 LYS   CHI4     30.0   330.0
+104 LYS   CHI4   -210.0    90.0
+105 THR   CHI1    -90.0   210.0
+105 THR   CHI1     30.0   330.0
+105 THR   CHI1   -210.0    90.0
+106 THR   CHI1    -90.0   210.0
+106 THR   CHI1     30.0   330.0
+106 THR   CHI1   -210.0    90.0
+107 THR   CHI1    -90.0   210.0
+107 THR   CHI1     30.0   330.0
+107 THR   CHI1   -210.0    90.0
+108 VAL   CHI1    -90.0   210.0
+108 VAL   CHI1     30.0   330.0
+108 VAL   CHI1   -210.0    90.0
+109 LYS   CHI1    -90.0   210.0
+109 LYS   CHI1     30.0   330.0
+109 LYS   CHI1   -210.0    90.0
+109 LYS   CHI2    -90.0   210.0
+109 LYS   CHI2     30.0   330.0
+109 LYS   CHI2   -210.0    90.0
+109 LYS   CHI3    -90.0   210.0
+109 LYS   CHI3     30.0   330.0
+109 LYS   CHI3   -210.0    90.0
+109 LYS   CHI4    -90.0   210.0
+109 LYS   CHI4     30.0   330.0
+109 LYS   CHI4   -210.0    90.0
+110 PHE   CHI1    -90.0   210.0
+110 PHE   CHI1     30.0   330.0
+110 PHE   CHI1   -210.0    90.0
+111 ASN   CHI1    -90.0   210.0
+111 ASN   CHI1     30.0   330.0
+111 ASN   CHI1   -210.0    90.0
+112 ARG   CHI1    -90.0   210.0
+112 ARG   CHI1     30.0   330.0
+112 ARG   CHI1   -210.0    90.0
+112 ARG   CHI2    -90.0   210.0
+112 ARG   CHI2     30.0   330.0
+112 ARG   CHI2   -210.0    90.0
+112 ARG   CHI3    -90.0   210.0
+112 ARG   CHI3     30.0   330.0
+112 ARG   CHI3   -210.0    90.0
+113 SER   CHI1    -90.0   210.0
+113 SER   CHI1     30.0   330.0
+113 SER   CHI1   -210.0    90.0
+116 SER   CHI1    -90.0   210.0
+116 SER   CHI1     30.0   330.0
+116 SER   CHI1   -210.0    90.0
+117 SER   CHI1    -90.0   210.0
+117 SER   CHI1     30.0   330.0
+117 SER   CHI1   -210.0    90.0

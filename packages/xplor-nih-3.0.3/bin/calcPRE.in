@@ -1,0 +1,1018 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+opts,args = xplor.parseArguments(('psf:1',
+                                  'params:1',
+                                  'table:1',
+                                  'crossTable:1',
+                                  'rlxType:1',
+                                  'frequency:1',
+                                  'sqn:1',
+                                  'tauc:1',
+                                  'npc:1',
+                                  'fitTags:0',
+                                  'tagSel:1',
+                                  'genSel:1',
+                                  'genTagSel:1',
+                                  'aveType:1',
+                                  'aveSize:1',
+                                  "singleEns:0",
+                                  'fitTauc:0',
+                                  'noFitTauc:0',
+                                  'energyScale:1',
+                                  'scaleType:1',
+                                  'eefx:0',
+                                  'backboneSel:1',
+                                  'groupedSel:1',
+                                  'tagInteractSel:1',
+                                  'funType:1',
+                                  'highTempTime:1',
+                                  'annealingTime:1',
+                                  'numTagStructures:1',
+                                  'symmetryModule:1',
+                                  'distMultMat:1',
+                                  'plotVsResid:0',
+                                  'plotCorrelation:0',
+                                  'writeStructures:0',
+                                  'pdbTemplate:1',
+                                  'doAnalyze:0',
+                                  'wintitle:1',
+                                  ),
+      cmdline="[option] -psf <file.psf> -table <file.tbl> <file.pdb>",
+                                 description="""
+Given a molecular structure and a PRE restraint table, back-calculate PRE
+values, and optionally plot the observed and calculated values as a function
+of residue number.
+                                 """
+                                 ,
+usageString="""
+
+Currently, this program requires that all tag coordinates be present, and that
+an accompanying PSF be specified.
+
+Options::
+
+ -psf <file.psf>    - name of PSF file.
+ -table <file.tbl>  - name of file with PRE assignment statements. If the
+                      string "generate" is given as the table name, dummy
+                      restraints are generated from the -genTagSel and
+                      -genSel arguments, so that no input table is required,
+                      but the -genTagSel is required.
+
+ -crossTable <file.tbl> - restraints not used in determining tag coordinates
+ 	     		  or tau_c, but whose restraints are back-calculated
+			  using the values determined from the argument of
+			  the -table option.
+ -params <file.par> - name of a parameter file, required for tag optimization
+                      of non-standard systems. This option can be given 
+		      multiple times to load multiple parameter files.
+
+ -aveType <spec>    - type of distance averaging. The argument spec is one of
+                       r-6 : <r^(-6)> averaging
+                       sum : 1/aveSize \sum r^{-6}
+ -aveSize <val>     - Value of aveSize for sum averaging. This can be important
+                      for oligomers.
+
+ -singleEns         - Treat the files specified as an ensemble instead of a set
+                      of individual structures.
+                      
+ -genTagSel         - selection for paramagnetic tag used to generate dummy
+                      restraints if the table is specified as "generate".
+
+ -genSel            - selection used to generate dummy restraints if
+   		      the table is specified as "generate" ["name HN"]
+
+ -funType <spec>    - the spec argument can be one of correlation, harmonic,
+                      square, or onesixth.  [default: harmonic] For
+                      all but correlation, the constant PRE prefactor
+                      components must be accurately specified. These 
+		      include
+
+       -rlxType <spec>    - Type of paramagnetic relaxation mechanism. The
+                            argument spec should be one of 
+                             "r2dd"    : R2 relaxation enhancement by
+                                                 dipolar mechanism 
+                             "r2curie" :         Curie spin relaxation
+                             "r2mix"   :     r2dd + r2curie
+                             "r1dd"    : R1 relaxation enhancement by
+                                                   dipolar mechanism
+                             "r1curie" :           by Curie spin relaxation
+                             "r1mix"   :     r1dd + r1
+       -frequency <val>   - NMR frequency in MHz [800].
+       -npc <num>         - number of paramagnetic centers [1] - for
+                            oligomers. See the prePot docs for more info.
+       -sqn <val>         - electron spin quantum number [0.5].
+       -tauc <val>        - correlation time. This is optimized if
+                            -fitTags or -fitTauc is specified.
+
+ -fitTauc           - If specified, tauc will be chosen to optimize the
+                      PRE energy function.
+ -noFitTauc         - If specified, tauc will be not be optimized. By default,
+ 		      tauc is optimized if -fitTauc or -fitTags are given.
+ -fitTags           - If specified, the sidechain coordinates of the tag
+                      residues are manipulated such that the PRE energy is
+                      optimized. By default, sidechain selection in the
+                      restraint table are updated. This fitting is controlled
+                      through the following flags:
+
+       -tagSel <sel>      - where sel is an atom selection to move during
+                            tag optimization. Use of this term enables
+                            -fitTags.
+       -backboneSel <sel> - sel is an atom selection of atoms which should
+                            not be moved during tag optimization.
+       -tagInteractSel <sel> - sel specifies which atoms interact with the
+                               tag coordinates. By default tag atoms with
+                               the same segid interact with all non-tag atoms.
+                               Tag atoms with different segids do not interact.
+                               ["all"]
+       -groupedSel <sel>  - sel is an atom selection of atoms which should
+                            be moved as a rigid body during tag optimization.
+                            This option can be specified multiple times to
+                            specify multiple regions to be grouped separately.
+       -energyScale <val> - energy scale factor during tag optimization [1].
+       -scaleType <spec>  - where spec is one of const, sigma or obsig. This
+                            value controls the energy scale factor for each
+                            per-restraint contribution [sigma].
+       -eefx              - If specified, uses the EEFx force field during
+                            tag optimization. This requires a custom PSF.
+       -numTagStructures <num> - for each input structure, the number of
+                                 structures calculated during tag
+                                 optimization [10].
+       -highTempTime <val> - length (in ps) of high temperature dynamics
+                             phase [10].
+       -annealingTime <val>- length (in ps) of molecular dynamics at each
+                             temperature during simulated annealing
+                             phase [0.2].
+       -writeStructures   - if specified, write out the structures calculated 
+                            with optimized tag configurations.
+
+ -symmetryModule <m>- name of module to configure a
+                      <m symSimulation>.SymSimulation. It must contain a
+                      function named init which returns a 
+                      <m simulation>.Simulation.
+
+ -distMultMat <mat> - mat is specified as a row-major Python-formatted 2D
+ 	      	      list specifying multipliers for the i,j 1/r^6 distance 
+		      contributions. This allows one to preferentially weight 
+		      a specified contribution, and has been used to simulate
+		      the presence of a dimer/tetramer mixture when only a 
+		      single ensemble member's coordinates are present. The
+                      dimensions of the list are len(sel1)xlen(sel2), so that
+                      when this option is specified, the size of these 
+                      selections must be the same for each restraint.
+
+ -plotVsResid       - if specified, a plot of calculated and observed PRE
+                      values is displayed as a function of residue number.
+
+ -plotCorrelation   - if specified, a plot is made of calculated vs observed PRE
+                      values.
+
+ -pdbTemplate <spec> - name of the output structures files if -writeStructures
+                       is specified. The literal STRUCTURE is replaced by the
+                       structure number associated with the tag computation
+                       calculation, while the literal FILE is replaced by the
+                       input filename [FILE_STRUCTURE.calcPRE].
+                      
+ -doAnalyze         - for each structure, print out analysis of each energy
+                      term.
+
+ -wintitle <string> - string to display in the title bar of the plot window(s).
+
+
+"""
+)
+psf=None
+table=None
+crossTable=None
+rlxType='r2dd' # approx. independent of frequency
+frequency=800
+eSpinQuantumNumber=0.5
+tauc=None
+npc=1
+backboneSel=" or ".join(["name %s" % name for
+                         name in ("C","N","CA","O","HA","HN",)])
+tagInteractSel="all"
+groupedSels=[]
+numTagStructures=10
+eefx=False
+energyScale=None
+scaleType="sigma"
+symmetryModule=None
+distMultMat=None
+plotVsResid=False
+plotCorrelation=False
+paramFiles=[]
+fitTags=False
+fitTauc=None
+aveType='sum'
+tagSel=None
+aveSize=None
+singleEns=False
+genSel="name HN"
+genTagSel=None
+wintitle=None
+funType="harmonic"
+highTempTime=10 # ps
+annealingTime=0.2 # ps
+writeStructures=False
+pdbTemplate="FILE_STRUCTURE.calcPRE"
+printSummary=True
+doAnalyze=False
+addMissingAtoms=False
+qFacTol=1e-4 #for using correlation funType and fitting tau_c
+
+for opt in opts:
+    if opt[0]=='psf':
+        psf = opt[1]
+        pass
+    if opt[0]=='params':
+        paramFiles.append( opt[1] )
+        pass
+    if opt[0]=='table':
+        table = opt[1]
+        pass
+    if opt[0]=='crossTable':
+        crossTable = opt[1]
+        pass
+    if opt[0]=='rlxType':
+        rlxType = opt[1]
+        pass
+    if opt[0]=='frequency':
+        frequency = float(opt[1])
+        pass
+    if opt[0]=='sqn':
+        eSpinQuantumNumber = float(opt[1])
+        pass
+    if opt[0]=='tauc':
+        tauc = float(opt[1])
+        pass
+    if opt[0]=='npc':
+        npc = int(opt[1])
+        pass
+    if opt[0]=='aveType':
+        aveType = opt[1]
+        pass
+    if opt[0]=='aveSize':
+        aveSize = int(opt[1])
+        pass
+    if opt[0]=='genSel':
+        genSel = opt[1]
+        pass
+    if opt[0]=='genTagSel':
+        genTagSel = opt[1]
+        pass
+    if opt[0]=='singleEns':
+        singleEns=True
+        pass
+    if opt[0]=='energyScale':
+        energyScale = float(opt[1])
+        pass
+    if opt[0]=='scaleType':
+        scaleType = opt[1]
+        pass
+    if opt[0]=='funType':
+        funType = opt[1]
+        pass
+    if opt[0]=='highTempTime':
+        highTempTime = float(opt[1])
+        pass
+    if opt[0]=='annealingTime':
+        annealingTime = float(opt[1])
+        pass
+    if opt[0]=='backboneSel':
+        backboneSel = opt[1]
+        pass
+    if opt[0]=='tagInteractSel':
+        tagInteractSel = opt[1]
+        pass
+    if opt[0]=='groupedSel':
+        groupedSels.append( opt[1] )
+        pass
+    if opt[0]=='numTagStructures':
+        numTagStructures = int(opt[1])
+        pass
+    if opt[0]=='eefx':
+        eefx = True
+        pass
+    if opt[0]=='fitTags':
+        fitTags = True
+        pass
+    if opt[0]=='tagSel':
+        tagSel = opt[1]
+        pass
+    if opt[0]=='fitTauc':
+        fitTauc = True
+        pass
+    if opt[0]=='noFitTauc':
+        fitTauc = False
+        pass
+    if opt[0]=='symmetryModule':
+        symmetryModule = opt[1]
+        pass
+    if opt[0]=='distMultMat':
+        from cdsMatrix import CDSMatrix_double as RMat
+        distMultMat=eval("RMat(%s)"%opt[1])
+        pass
+    if opt[0]=='plotVsResid':
+        plotVsResid=True
+        pass
+    if opt[0]=='plotCorrelation':
+        plotCorrelation=True
+        pass
+    if opt[0]=='writeStructures':
+        writeStructures=True
+        pass
+    if opt[0]=='doAnalyze':
+        doAnalyze=True
+        pass
+    if opt[0]=='pdbTemplate':
+        pdbTemplate=opt[1]
+        pass
+    if opt[0]=='wintitle':
+        wintitle=opt[1]
+        pass
+    pass
+
+fitTauc = fitTauc if fitTauc!=None else fitTags
+if energyScale==None:
+   energyScale = 1000 if funType=="correlation" else 1
+   pass
+wintitle = table if wintitle==None else wintitle
+
+#if not psf:
+#    print "please specify a psf with the -psf option"
+#    exit(1)
+#    pass
+
+if not table:
+    print("please specify a restraints table file with the -table option")
+    exit(1)
+    pass
+
+if len(args)==0:
+    print("must specify at least one coordinate file")
+    exit(1)
+    pass
+
+if eefx:
+    from eefxPotTools import initEEFx
+    initEEFx()
+    pass
+
+
+import protocol
+if paramFiles:
+    for file in paramFiles: protocol.initParams(file)
+    pass
+else:
+    protocol.initParams('protein')
+    pass
+
+files=args
+if singleEns:
+    ensSize=len(files)
+    ensembleFiles=files
+    numEnsembles=1
+    from ensembleSimulation import EnsembleSimulation
+    ens=EnsembleSimulation('ensemble',ensSize)
+    ensIndex=ens.member().memberIndex()
+    files=[args[ensIndex]]
+    print('reading ensemble of size', ensSize)
+else:
+    ensSize=1
+    ensIndex=0
+    pass
+
+
+
+if symmetryModule:
+    exec("import %s" %symmetryModule)
+    exec("symSim =  %s.init()" % symmetryModule)
+else:
+    symSim = ens if singleEns else xplor.simulation 
+    pass    
+
+import protocol
+if psf:
+    if ":" in psf:
+        psf = psf.split(':')[ens.member().memberIndex()]
+        pass
+    protocol.initStruct(psf)
+    pdbData=protocol.initCoords(files[0],
+                                deleteUnknownAtoms=(not addMissingAtoms))
+else:
+    protocol.loadPDB(files[0],
+                     deleteUnknownAtoms=(not addMissingAtoms))
+    pass
+
+restraints=""
+if table=="generate":
+    print(genSel)
+    if not genTagSel:
+        raise Exception("The -genTagSel is required to generate pseudo-restraints")
+    for atom in AtomSel(genSel):
+        restraints+='assign (%s) ' % genTagSel
+        restraints+='       (atom "%s" %d %s) 0 1\n' % (atom.segmentName(),
+                                                        atom.residueNum(),
+                                                        atom.atomName())
+        pass
+    print("auto-generated restraints:")
+    print(restraints)
+else:
+    restraints=open(table).read()
+    pass
+
+
+
+
+
+#
+# a PotList contains a list of potential terms. This is used to specify which
+# terms are active during refinement.
+#
+from potList import PotList
+potList = PotList()
+
+# parameters to ramp up during the simulated annealing protocol
+#
+from simulationTools import MultRamp, StaticRamp, InitialParams
+
+rampedParams=[]
+highTempParams=[]
+
+import simulation
+simulation.makeCurrent( symSim)
+
+from prePotTools import create_PREPot
+pre=create_PREPot('pre',
+                  restraints=restraints,
+                  fixTau = not fitTauc,
+                  frequency=frequency,
+                  scaleType=scaleType,
+                  eSpinQuantumNumber=eSpinQuantumNumber,
+                  rlxType=rlxType,
+                  esim=symSim)
+pre.setNpc(npc) # use sum averaging over 3 helices not tagged
+pre.setTcMax(30)
+pre.setTcMin(1e-5)
+pre.setAveType(aveType)
+pre.setFunType( funType )
+if distMultMat:
+        pre.setUseDistMult(True)
+        pre.setDistMult(distMultMat)
+        pass
+
+if crossTable:
+    preCross=create_PREPot('cross',
+                           crossTable,
+                           fixTau = True,
+                           frequency=frequency,
+                           scaleType=scaleType,
+                           eSpinQuantumNumber=eSpinQuantumNumber,
+                           rlxType=rlxType,
+                           esim=symSim)
+    preCross.setNpc(npc) # use sum averaging over 3 helices not tagged
+    preCross.setTcMax(30)
+    preCross.setTcMin(1e-5)
+    preCross.setAveType(aveType)
+    preCross.setFunType( funType )
+    if distMultMat:
+        preCross.setUseDistMult(True)
+        preCross.setDistMult(distMultMat)
+        pass
+    pass
+
+
+centerSel =  pre.restraints()[0].sel1
+if symmetryModule:
+    baseSymSim = symSim
+    while baseSymSim.subSel().simulation().type()=="SymSimulation":
+        from symSimulation import fromSimulation
+        baseSymSim = fromSimulation(baseSymSim.subSel().simulation())
+        pass
+    subSel = baseSymSim.subSel()
+    indices=set()
+    for atom in centerSel:
+        indices.add( subSel[ atom.index()%len(subSel) ].index() )
+        pass
+    numTags=len(indices)
+else:
+    numTags=len(centerSel)
+    pass
+
+
+print('found numTags:', numTags)
+
+pre.setAveSize( numTags if aveSize==None else aveSize )
+if crossTable: preCross.setAveSize( numTags if aveSize==None else aveSize )
+
+potList.append(pre)
+rampedParams.append( MultRamp(.01*energyScale,energyScale,
+                              "pre.setScale( VALUE)") )
+
+
+
+from prePotTools import getTagResidSels
+
+if tagSel: fitTags=True
+if tagSel:
+    #generate a list of selections for individual tag copies
+    from selectTools import getSegsResidues
+    segsResidues = getSegsResidues(tagSel)
+    # assume that tags with different segids do not interact
+    selPairs=[]
+    for segid in list(segsResidues.keys()):
+        resids=[el.resid for el in segsResidues[segid]]
+        sel = " or ".join(["resid %d" %resid for resid in resids])
+        sel = 'segid "%s" and (%s)' % (segid,sel)
+        selPairs.append( (sel,sel) )
+        pass
+else:
+    tags = getTagResidSels(pre)
+    selPairs = [(sel,sel) for sel in tags.sels]
+    from atomSel import intersection
+    tagSel = intersection("not (%s)" % backboneSel, tags.union)
+    pass
+
+
+doCalcStruct = True if fitTags else False
+
+if doCalcStruct or doAnalyze:
+    from atomSel import notSelection
+    from repelPotTools import create_RepelPot,initRepel
+    from atomSel import intersection
+    tagInteract = intersection(notSelection(tagSel),tagInteractSel)
+    repel = create_RepelPot('repel',
+                            selPairs=selPairs + [(tagSel,
+                                                  notSelection(tagSel))])
+    
+    potList.append(repel)
+    rampedParams.append( StaticRamp("initRepel(repel,use14=True)") )
+    rampedParams.append( MultRamp(.004,4,  "repel.setScale( VALUE)") )
+    # nonbonded interaction only between CA atoms
+    #highTempParams.append( StaticRamp("""initRepel(repel,
+    #                                               use14=True,
+    #                                               scale=0.004,
+    #                                               repel=1.2,
+    #                                               moveTol=45,
+    #                                               interactingAtoms='name CA'
+    #                                               )""") )
+    
+    
+    simulation.makeCurrent( xplor.simulation)
+    
+    
+    from xplorPot import XplorPot
+    potList.append( XplorPot("BOND") )
+    potList.append( XplorPot("ANGL") )
+    potList['ANGL'].setThreshold( 5 )
+    rampedParams.append( MultRamp(0.4,1,"potList['ANGL'].setScale(VALUE)") )
+    potList.append( XplorPot("IMPR") )
+    potList['IMPR'].setThreshold( 5 )
+    rampedParams.append( MultRamp(0.1,1,"potList['IMPR'].setScale(VALUE)") )
+      
+
+    
+    # Give atoms uniform weights, except for the anisotropy axis
+    #
+    protocol.massSetup()
+    
+    
+    # IVM setup
+    #   the IVM is used for performing dynamics and minimization in torsion-angle
+    #   space, and in Cartesian space.
+    #
+    from ivm import IVM
+    dyn = IVM()
+    
+    if symmetryModule:
+        baseSymSim = symSim
+        while baseSymSim.subSel().simulation().type()=="SymSimulation":
+            from symSimulation import fromSimulation
+            print(symSim.name())
+            baseSymSim = fromSimulation(baseSymSim.subSel().simulation())
+            print(symSim.name())
+            pass
+        subSel = baseSymSim.subSel()
+        indices=[]
+        #FIX!
+        for atom in tagResidueSel:
+            indices.append( subSel[ atom.index()%len(subSel) ].index() )
+            pass
+        tagResidueSel=AtomSel(indices)
+        pass
+    
+    
+    from atomSel import union
+    fixedSel=backboneSel
+    
+    from atomSel import union
+    dyn.fix( fixedSel )
+
+    #generate a list of selections for individual tag copies
+    from selectTools import getSegsResidues
+    segsResidues = getSegsResidues(tagSel)
+
+    for groupedSel in groupedSels:
+        for segid,resids in list(segsResidues.items()):
+            for resid in resids:
+                dyn.group('segid "%s" and resid %d and (%s)' % (segid,resid[0],
+                                                                groupedSel))
+                pass
+            pass
+        pass
+    
+    protocol.torsionTopology(dyn)
+    
+    # minc used for final cartesian minimization
+    #
+    minc = IVM()
+    protocol.initMinimize(minc)
+    
+    minc.fix( fixedSel )
+    
+    protocol.cartesianTopology(minc)
+    
+    
+    
+    # object which performs simulated annealing
+    #
+    from simulationTools import AnnealIVM
+    init_t  = 3000.     # Need high temp and slow annealing to converge
+    cool = AnnealIVM(initTemp =init_t,
+                     finalTemp=25,
+                     tempStep =50,
+                     ivm=dyn,
+                     rampedParams = rampedParams)
+    pass
+
+calcdVals0=[]
+
+def calcOneStructure(loopInfo):
+    """ this function calculates a single structure, performs analysis on the
+    structure, and then writes out a pdb file, with remarks.
+    """
+
+    from monteCarlo import randomizeTorsions
+    randomizeTorsions(dyn,range=10)
+
+    # initialize parameters for high temp dynamics.
+    InitialParams( rampedParams )
+    # high-temp dynamics setup - only need to specify parameters which
+    #   differfrom initial values in rampedParams
+    InitialParams( highTempParams )
+
+    # initial minimization
+    protocol.initMinimize(dyn,
+                          potList=potList,
+                          numSteps=100,
+                          printInterval=100)
+    dyn.run()
+
+    # high temp dynamics
+    #
+    protocol.initDynamics(dyn,
+                          potList=potList, # potential terms to use
+                          bathTemp=init_t,
+                          initVelocities=1,
+                          finalTime=highTempTime, # stops at this or 5000 steps
+                          numSteps=5000,   # whichever comes first
+                          printInterval=100)
+
+    dyn.setETolerance( init_t/100 )  #used to det. stepsize. default: t/1000 
+    dyn.run()
+
+    # initialize parameters for cooling loop
+    InitialParams( rampedParams )
+
+
+    # initialize integrator for simulated annealing
+    #
+    protocol.initDynamics(dyn,
+                          potList=potList,
+                          numSteps=1000, #at each temp: the first of 1000 steps or
+                          finalTime=annealingTime , # or annealingTime
+                          printInterval=100)
+
+    # perform simulated annealing
+    #
+    cool.run()
+              
+              
+    # final torsion angle minimization
+    #
+    protocol.initMinimize(dyn,
+                          printInterval=50)
+    dyn.run()
+
+    # final all- atom minimization
+    #
+    protocol.initMinimize(minc,
+                          potList=potList,
+                          dEPred=10)
+    minc.run()
+
+    if funType=="correlation":
+        import prePotTools
+        prePotTools.fitRho0(pre)
+        if crossTable: preCross.setRho0( pre.rho0() )
+        pass
+    if symmetryModule:
+        protocol.writePDB(loopInfo.filename()+".full",
+                          selection=AtomSel("all",symSim))
+        pass
+    calcdVals0.append( [r.gamma() for r in pre.restraints()] )
+
+    if fitTauc:
+        import prePotTools
+        prePotTools.fitTauc(pre)
+        pass
+    if crossTable: preCross.setTauc( pre.tauc() )
+    pass
+
+
+
+calcdVals=[]
+qFactors=[]
+correlations=[]
+for file in files:
+    #re-initializes clock pseudo atom coords
+    protocol.initCoords(file,selection=AtomSel("all",xplor.simulation))
+    print('processing %s...' % file)
+
+    if tauc != None: pre.setTauc(tauc)
+
+    if doCalcStruct:
+        from simulationTools import StructureLoop, FinalParams
+        sl=StructureLoop(numStructures=numTagStructures if fitTags else 1,
+                         structLoopAction=calcOneStructure,
+                         doWriteStructures=writeStructures,
+                         storeCoordinates=not writeStructures,
+                         averagePotList=potList,
+                         averageCrossTerms=[preCross] if crossTable else [],
+                         averageSortPots=potList,
+                         averageTopNum=1, #report only on best structure
+                         averageContext=FinalParams(rampedParams),
+                         genViolationStats=True,
+                         pdbTemplate=pdbTemplate.replace('FILE',file),
+                         averageFitSel=None,
+                         averageCompSel=None     )
+        sl.run()
+
+
+        comm = xplor.p_comm
+        calcdVals0 = sum( comm.collect( calcdVals0 ), [] )
+
+        if xplor.p_comm.procNum==0:
+            if sl.structLoopAction:
+                bestStructure = sl.structInfo[0].filename
+                if sl.storeCoordinates:
+                    symSim.setAtomPosArr( sl.structInfo[0].atomPosArr )
+                else:
+                    protocol.initCoords(bestStructure)
+                    pass
+            else:
+                bestStructure = file
+                pass
+            
+            rho0=None
+            if funType=="correlation":
+                import prePotTools
+                prePotTools.fitRho0(pre)
+                rho0=pre.rho0();
+                if crossTable: preCross.setRho0( rho0 )
+                pass
+            if fitTauc:
+                import prePotTools
+                qFac0=pre.qFactor()
+                pre.setRho0(1)
+                prePotTools.fitTauc(pre)
+                qFac1=pre.qFactor()
+                if funType=="correlation" and abs(qFac1-qFac0)>qFacTol:
+                    print("Warning: tau_c calculation did not converge: ", end=' ')
+                    print("Q-factors: %.3f, %.3f" % (qFac0,qFac1))
+                    pass
+                pass
+            if crossTable: preCross.setTauc( pre.tauc() )
+                
+            calcdVals.append( [r.calcd() for r in pre.restraints()] )
+            qFactors.append( pre.qFactor() )
+            correlations.append( pre.correlation() )
+            # do analysis on lowest energy structures to check for convergence
+            
+            from simulationTools import analyze
+            print(analyze(pre, [preCross] if crossTable else []))
+            pass
+        pass
+    else:
+        if funType=="correlation":
+            import prePotTools
+            prePotTools.fitRho0(pre)
+            if crossTable: preCross.setRho0( pre.rho0() )
+            pass
+        rho0=None
+        if fitTauc:
+            import prePotTools
+            qFac0=pre.qFactor()
+            pre.setRho0(1)
+            prePotTools.fitTauc(pre)
+            qFac1=pre.qFactor()
+            if funType=="correlation" and abs(qFac1-qFac0)>qFacTol:
+                print("Warning: tau_c calculation did not converge: ", end=' ')
+                print("Q-factors: %.3f, %.3f" % (qFac0,qFac1))
+            pass
+        if len(files)==1:
+            bestStructure = file
+            calcdVals0.append( [r.gamma() for r in pre.restraints()] )
+            from simulationTools import analyze
+            print(analyze(pre, [preCross] if crossTable else []))
+        else:
+            calcdVals.append( [r.gamma() for r in pre.restraints()] )
+            qFactors.append( pre.qFactor() )
+            correlations.append( pre.correlation() )
+            pass
+        pass
+    if doAnalyze:
+        from simulationTools import FinalParams, analyze
+        FinalParams(rampedParams)
+        print('analyzing', file)
+        print(analyze(potList))
+        pass
+
+    pass
+
+import sys
+if xplor.p_comm.procNum!=0: sys.exit(0)
+
+# in this case, spread shows deviation in the tag calculation
+if len(files)==1: calcdVals = calcdVals0
+
+calcdVals = list(map(list, list(zip(*calcdVals)))) #transpose
+
+from restraintStats import aveDev
+resids = [r.sel2[0].residueNum() for r in pre.restraints()]
+obs      = [r.obs() for r in pre.restraints()]
+err      = [r.err() for r in pre.restraints()]
+calcdAve = [aveDev(r)[0] for r in calcdVals]
+calcdDev = [aveDev(r)[1] for r in calcdVals]
+
+if printSummary:
+    print("resid  observed err calculated deviation")
+    for resid,o,e,calcdAve,calcdDev in zip(resids,obs,err,calcdAve,calcdDev):
+        print("%4d %6.2g %6.2g %8g %8g " % (resid,o,e,calcdAve,calcdDev))
+        pass
+    pass
+
+
+
+
+if plotVsResid:
+    import pylab
+    fig=pylab.figure()#facecolor='w',figsize=(8, 8))
+    fig.canvas.set_window_title(wintitle)
+
+    x0 = 0.15
+    x1 = 0.38
+    x2 = 0.54
+    x3 = 0.65
+    y = 0.91
+    dy=0.03
+
+
+    ave = [aveDev(r)[0] for r in calcdVals]
+    dev = [aveDev(r)[1] for r in calcdVals]
+    pylab.errorbar(resids,ave,yerr=dev,fmt="ro")
+
+    pylab.xlabel('Residue Number')
+    pylab.ylabel('PRE')
+
+    if table!="generate":
+        if len(files)==1:
+            text = "".join(bestStructure)
+            pylab.figtext(x0,y,text)
+            text = "Q-factor: %4.1f%%" % (pre.qFactor()*100,)
+            text += "   Correlation: %5.3f" % pre.correlation()
+            pylab.figtext(0.5,y,text)
+        else:
+            ave,dev = aveDev(qFactors)
+            text = "Q-factor: %4.1f +/- %3.1f%%" % (ave*100,
+                                                   dev*100)
+            pylab.figtext(0.4,y,text)
+            y -= 0.08
+            ave,dev = aveDev(correlations)
+            text = "Correlation: %5.3f +/- %4.3f" % (ave,dev)
+            pylab.figtext(0.4,y,text)
+            pass
+        
+    
+    #    if len(subSelSet)>1:
+    #        pylab.figtext(x1,y,"R-factor",ha='center')
+    #        pylab.figtext(x2,y,r"$\chi^2$",ha='center')
+    #        pylab.figtext(x3,y,"Corr.",ha='center')
+    #        pass
+    
+    
+        pylab.errorbar(resids,obs,yerr=err,
+                       fmt="ko-")
+    
+        
+        
+
+#    pylab.title(
+#        'RMSD=%.3f   Corr. Coeff=%.3f' % (rms,corr))
+    if  ensIndex==0:
+        pylab.ion()
+        pylab.show()
+        pass
+
+    pass
+
+
+if plotCorrelation:
+    if table=="generate":
+        raise Exception("correlation plot invalid with auto-generated restraints")
+    import pylab
+    fig=pylab.figure(facecolor='w',figsize=(6, 6))
+    fig.canvas.set_window_title(wintitle)
+
+    x0 = 0.15
+    x1 = 0.38
+    x2 = 0.54
+    x3 = 0.65
+    y = 0.91
+    dy=0.03
+
+
+    if len(files)==1:
+        text = "".join(bestStructure)
+        pylab.figtext(x0,y,text)
+        text = "Q-factor: %4.1f%%" % (pre.qFactor()*100,)
+        text += "   Correlation: %5.3f" % pre.correlation()
+        pylab.figtext(0.5,y,text)
+    else:
+        ave,dev = aveDev(qFactors)
+        text = "Q-factor: %4.1f +/- %3.1f%%" % (ave*100,
+                                               dev*100)
+        pylab.figtext(0.4,y,text)
+        y -= 0.08
+        ave,dev = aveDev(correlations)
+        text = "Correlation: %5.3f +/- %4.3f" % (ave,dev)
+        pylab.figtext(0.4,y,text)
+        pass
+    
+
+#    if len(subSelSet)>1:
+#        pylab.figtext(x1,y,"R-factor",ha='center')
+#        pylab.figtext(x2,y,r"$\chi^2$",ha='center')
+#        pylab.figtext(x3,y,"Corr.",ha='center')
+#        pass
+
+    y-= dy
+    
+
+    ave = [aveDev(r)[0] for r in calcdVals]
+    dev = [aveDev(r)[1] for r in calcdVals]
+    pylab.errorbar(obs,ave,xerr=err,yerr=dev,
+                   fmt="o")
+
+    cross=0.
+    obs2=0.
+    for i in range(len(obs)):
+        cross += ave[i]*obs[i]
+        obs2 += obs[i]**2
+        pass
+    aveCalcd= sum(ave) / len(ave)
+    aveObs = sum(obs) / len(obs)
+    slope = (cross - len(obs)*aveCalcd*aveObs) / \
+            (obs2 - len(obs)*aveObs**2)
+    intercept = (aveCalcd - slope*aveObs)
+
+    minObs=min(obs)
+    maxObs=max(obs)
+    
+    minCalcd = min(ave)
+    maxCalcd = max(ave)
+
+    minimum = min(minObs, minCalcd)
+    maximum = max(maxObs, maxCalcd)
+
+    pylab.plot([minimum, maximum],[minimum, maximum], "k-")
+    pylab.plot([minObs, maxObs],
+               [slope*minObs+intercept,slope*maxObs+intercept],"y--",
+               )
+
+        
+        
+    pylab.xlabel('Observed PRE')
+    pylab.ylabel('Calculated PRE')
+
+#    pylab.title(
+#        'RMSD=%.3f   Corr. Coeff=%.3f' % (rms,corr))
+    if  ensIndex==0: pylab.show()
+
+    pass
+
+
+if plotCorrelation or plotVsResid:
+    pylab.ioff()
+    pylab.show()
+    pass

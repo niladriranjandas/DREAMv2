@@ -1,0 +1,4 @@
+class gamma_delta_chi_epsilon
+force $knuc
+class prevEpsilon_prevZeta_alpha_beta
+force 0.0 !$knuc

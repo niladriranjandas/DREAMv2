@@ -1,0 +1,27 @@
+#!/bin/sh
+
+type="MIT-MAGIC-COOKIE"
+
+if [ $# -ne 1 ]; then
+	echo "usage: $0 <display>"
+	exit 1
+fi
+
+display=$1
+
+ok=0
+cookie=`xauth list $display 2> /dev/null | grep $type | tail -1 | \
+	sed 's/.*[ \t]\([^ \t][^ \t]*\)$/\1/' `
+
+if [ "$cookie" = "" ]; then
+	cookie=`xauth -f $HOME/.Xauthority list $display 2> /dev/null | \
+		grep $type | tail -1 | sed 's/.*[ \t]\([^ \t][^ \t]*\)$/\1/' `
+fi
+
+if [ "$cookie" = "" ]; then
+	echo "$0: could not find cookie for display $display"
+	exit 1
+fi
+
+echo $cookie
+exit 0

@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1r4k</protein_name>
+		<seq_file>1r4k.seq</seq_file>
+		<upl_file>1r4k_concat_dist.upl</upl_file>
+		<hbond_file></hbond_file>
+		<ang_file></ang_file>
+		<protein_path>../protein/1r4k</protein_path>
+	</inputs>

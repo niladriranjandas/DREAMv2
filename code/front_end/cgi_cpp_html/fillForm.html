@@ -1,0 +1,101 @@
+<html>
+<head><title>Test CGIcc form</title></head>
+<body bgcolor="#cccccc" text="#000000">
+      <form enctype="multipart/form-data" action="/cgi-bin/fillForm" method="post">
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border:none;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-yw4l{vertical-align:middle}
+</style>
+
+<br>
+<font size="5"><b>Inputs:<b></font><br>
+<table class="tg">
+  <tr>
+    <th class="tg-yw4l">Protein Name:</th>
+    <th class="tg-yw4l"><input type="text" name="protein_name" ></th>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Sequence File:</td>
+    <td class="tg-yw4l"><p>File: <input type="file" name="seq_file" /></p></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l" rowspan="2">Upl File:</td>
+    <td class="tg-yw4l"><p>File: <input type="file" name="upl_file1" /></p></td>    
+    <td class="tg-yw4l"><p>File: <input type="file" name="upl_file2" /></p></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l"><p>File: <input type="file" name="upl_file3" /></p></td></td>
+    <td class="tg-yw4l"><p>File: <input type="file" name="upl_file4" /></p></td></td>
+  </tr>
+
+  <tr>
+    <td class="tg-yw4l">H-bond file:</td>
+    <td class="tg-yw4l"><p>File: <input type="file" name="h_bond_file" /></p></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Angular bound file:</td>
+    <td class="tg-yw4l"><p>File: <input type="file" name="aco_file" /></p></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Protein Path:</td>
+    <td class="tg-yw4l"><input type="text" name="protein_path" ></td></td>
+  </tr>
+
+</table>
+
+<br><br>
+<font size="5"><b>Parameters:</b></font><br>
+<table class="tg">
+  <tr>
+    <th class="tg-031e">Hydrogen omission</th>
+    <th class="tg-yw4l"><input type="text" readonly="readonly" name="h_ommission" value=1 STYLE="color: #FFFFFF; background-color: #72A4D2;" ></td></th>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Augment bounds:</td>
+    <td class="tg-yw4l"><input type="text" name="aug_bounds" ></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l" rowspan="2">Break Graph:</td>
+    <td class="tg-yw4l">&eta;<sub>lo</sub></td>
+    <td class="tg-yw4l"><input type="text" name="eta_lo" ></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">&eta;<sub>hi</sub></td>
+    <td class="tg-yw4l"><input type="text" readonly="readonly" name="eta_hi" value=1 STYLE="color: #FFFFFF; background-color: #72A4D2;"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Include neighbours:</td>
+    <td class="tg-yw4l"><input type="text" name="incl_neigh" ></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l" rowspan="4">Multi Expand:</td>
+    <td class="tg-yw4l">k_2</td>
+    <td class="tg-yw4l"><input type="text" readonly="readonly" name="k_2" value=3 STYLE="color: #FFFFFF; background-color: #72A4D2;"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Size cutoff</td>
+    <td class="tg-yw4l"><input type="text" readonly="readonly" name="size_cutoff" value=0.1 STYLE="color: #FFFFFF; background-color: #72A4D2;"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Group min</td>
+    <td class="tg-yw4l"><input type="text" readonly="readonly" name="grp_min" value=250 STYLE="color: #FFFFFF; background-color: #72A4D2;"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Increament min</td>
+    <td class="tg-yw4l"><input type="text" readonly="readonly" name="incr_min" value=2 STYLE="color: #FFFFFF; background-color: #72A4D2;"></td></td>
+  </tr>
+  <tr>
+    <td class="tg-yw4l">Group Expand</td>
+    <td class="tg-yw4l"><input type="text" name="grp_expand" ></td></td>
+  </tr>
+
+</table>
+
+<p>
+    <input type="submit" value="Submit"/>  
+</form>
+</body>
+</html>

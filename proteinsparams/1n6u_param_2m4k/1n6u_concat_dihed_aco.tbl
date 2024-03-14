@@ -1,0 +1,540 @@
+ ASSIGN  ( resid 5    and name C   ) ( resid 6    and name N   )
+         ( resid 6    and name CA  ) ( resid 6    and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 6    and name C   ) ( resid 7    and name N   )
+         ( resid 7    and name CA  ) ( resid 7    and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 7    and name C   ) ( resid 8    and name N   )
+         ( resid 8    and name CA  ) ( resid 8    and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 12   and name C   ) ( resid 13   and name N   )
+         ( resid 13   and name CA  ) ( resid 13   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 13   and name C   ) ( resid 14   and name N   )
+         ( resid 14   and name CA  ) ( resid 14   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 14   and name C   ) ( resid 15   and name N   )
+         ( resid 15   and name CA  ) ( resid 15   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 15   and name C   ) ( resid 16   and name N   )
+         ( resid 16   and name CA  ) ( resid 16   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 16   and name C   ) ( resid 17   and name N   )
+         ( resid 17   and name CA  ) ( resid 17   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 21   and name C   ) ( resid 22   and name N   )
+         ( resid 22   and name CA  ) ( resid 22   and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 22   and name C   ) ( resid 23   and name N   )
+         ( resid 23   and name CA  ) ( resid 23   and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 23   and name C   ) ( resid 24   and name N   )
+         ( resid 24   and name CA  ) ( resid 24   and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 24   and name C   ) ( resid 25   and name N   )
+         ( resid 25   and name CA  ) ( resid 25   and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 25   and name C   ) ( resid 26   and name N   )
+         ( resid 26   and name CA  ) ( resid 26   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 26   and name C   ) ( resid 27   and name N   )
+         ( resid 27   and name CA  ) ( resid 27   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 27   and name C   ) ( resid 28   and name N   )
+         ( resid 28   and name CA  ) ( resid 28   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 33   and name C   ) ( resid 34   and name N   )
+         ( resid 34   and name CA  ) ( resid 34   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 34   and name C   ) ( resid 35   and name N   )
+         ( resid 35   and name CA  ) ( resid 35   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 36   and name C   ) ( resid 37   and name N   )
+         ( resid 37   and name CA  ) ( resid 37   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 37   and name C   ) ( resid 38   and name N   )
+         ( resid 38   and name CA  ) ( resid 38   and name C   )  1.00 -65.00 25.00 2
+
+ ASSIGN  ( resid 38   and name C   ) ( resid 39   and name N   )
+         ( resid 39   and name CA  ) ( resid 39   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 39   and name C   ) ( resid 40   and name N   )
+         ( resid 40   and name CA  ) ( resid 40   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 41   and name C   ) ( resid 42   and name N   )
+         ( resid 42   and name CA  ) ( resid 42   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 43   and name C   ) ( resid 44   and name N   )
+         ( resid 44   and name CA  ) ( resid 44   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 44   and name C   ) ( resid 45   and name N   )
+         ( resid 45   and name CA  ) ( resid 45   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 45   and name C   ) ( resid 46   and name N   )
+         ( resid 46   and name CA  ) ( resid 46   and name C   )  1.00 -65.00 25.00 2
+
+ ASSIGN  ( resid 47   and name C   ) ( resid 48   and name N   )
+         ( resid 48   and name CA  ) ( resid 48   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 51   and name C   ) ( resid 52   and name N   )
+         ( resid 52   and name CA  ) ( resid 52   and name C   )  1.00 -65.00 25.00 2
+
+ ASSIGN  ( resid 52   and name C   ) ( resid 53   and name N   )
+         ( resid 53   and name CA  ) ( resid 53   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 60   and name C   ) ( resid 61   and name N   )
+         ( resid 61   and name CA  ) ( resid 61   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 61   and name C   ) ( resid 62   and name N   )
+         ( resid 62   and name CA  ) ( resid 62   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 63   and name C   ) ( resid 64   and name N   )
+         ( resid 64   and name CA  ) ( resid 64   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 65   and name C   ) ( resid 66   and name N   )
+         ( resid 66   and name CA  ) ( resid 66   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 66   and name C   ) ( resid 67   and name N   )
+         ( resid 67   and name CA  ) ( resid 67   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 67   and name C   ) ( resid 68   and name N   )
+         ( resid 68   and name CA  ) ( resid 68   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 76   and name C   ) ( resid 77   and name N   )
+         ( resid 77   and name CA  ) ( resid 77   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 79   and name C   ) ( resid 80   and name N   )
+         ( resid 80   and name CA  ) ( resid 80   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 80   and name C   ) ( resid 81   and name N   )
+         ( resid 81   and name CA  ) ( resid 81   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 81   and name C   ) ( resid 82   and name N   )
+         ( resid 82   and name CA  ) ( resid 82   and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 83   and name C   ) ( resid 84   and name N   )
+         ( resid 84   and name CA  ) ( resid 84   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 86   and name C   ) ( resid 87   and name N   )
+         ( resid 87   and name CA  ) ( resid 87   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 89   and name C   ) ( resid 90   and name N   )
+         ( resid 90   and name CA  ) ( resid 90   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 94   and name C   ) ( resid 95   and name N   )
+         ( resid 95   and name CA  ) ( resid 95   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 96   and name C   ) ( resid 97   and name N   )
+         ( resid 97   and name CA  ) ( resid 97   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 98   and name C   ) ( resid 99   and name N   )
+         ( resid 99   and name CA  ) ( resid 99   and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 99   and name C   ) ( resid 100  and name N   )
+         ( resid 100  and name CA  ) ( resid 100  and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 100  and name C   ) ( resid 101  and name N   )
+         ( resid 101  and name CA  ) ( resid 101  and name C   )  1.00 -65.00 25.00 2
+
+ ASSIGN  ( resid 101  and name C   ) ( resid 102  and name N   )
+         ( resid 102  and name CA  ) ( resid 102  and name C   )  1.00 -65.00 25.00 2
+
+ ASSIGN  ( resid 105  and name C   ) ( resid 106  and name N   )
+         ( resid 106  and name CA  ) ( resid 106  and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 110  and name C   ) ( resid 111  and name N   )
+         ( resid 111  and name CA  ) ( resid 111  and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 112  and name C   ) ( resid 113  and name N   )
+         ( resid 113  and name CA  ) ( resid 113  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 113  and name C   ) ( resid 114  and name N   )
+         ( resid 114  and name CA  ) ( resid 114  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 114  and name C   ) ( resid 115  and name N   )
+         ( resid 115  and name CA  ) ( resid 115  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 116  and name C   ) ( resid 117  and name N   )
+         ( resid 117  and name CA  ) ( resid 117  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 120  and name C   ) ( resid 121  and name N   )
+         ( resid 121  and name CA  ) ( resid 121  and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 121  and name C   ) ( resid 122  and name N   )
+         ( resid 122  and name CA  ) ( resid 122  and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 122  and name C   ) ( resid 123  and name N   )
+         ( resid 123  and name CA  ) ( resid 123  and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 124  and name C   ) ( resid 125  and name N   )
+         ( resid 125  and name CA  ) ( resid 125  and name C   )  1.00 -120.00 20.00 2
+
+ ASSIGN  ( resid 126  and name C   ) ( resid 127  and name N   )
+         ( resid 127  and name CA  ) ( resid 127  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 131  and name C   ) ( resid 132  and name N   )
+         ( resid 132  and name CA  ) ( resid 132  and name C   )  1.00 -65.00 25.00 2
+
+ ASSIGN  ( resid 132  and name C   ) ( resid 133  and name N   )
+         ( resid 133  and name CA  ) ( resid 133  and name C   )  1.00 -65.00 25.00 2
+
+ ASSIGN  ( resid 136  and name C   ) ( resid 137  and name N   )
+         ( resid 137  and name CA  ) ( resid 137  and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 139  and name C   ) ( resid 140  and name N   )
+         ( resid 140  and name CA  ) ( resid 140  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 141  and name C   ) ( resid 142  and name N   )
+         ( resid 142  and name CA  ) ( resid 142  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 144  and name C   ) ( resid 145  and name N   )
+         ( resid 145  and name CA  ) ( resid 145  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 145  and name C   ) ( resid 146  and name N   )
+         ( resid 146  and name CA  ) ( resid 146  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 146  and name C   ) ( resid 147  and name N   )
+         ( resid 147  and name CA  ) ( resid 147  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 149  and name C   ) ( resid 150  and name N   )
+         ( resid 150  and name CA  ) ( resid 150  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 150  and name C   ) ( resid 151  and name N   )
+         ( resid 151  and name CA  ) ( resid 151  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 152  and name C   ) ( resid 153  and name N   )
+         ( resid 153  and name CA  ) ( resid 153  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 153  and name C   ) ( resid 154  and name N   )
+         ( resid 154  and name CA  ) ( resid 154  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 154  and name C   ) ( resid 155  and name N   )
+         ( resid 155  and name CA  ) ( resid 155  and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 158  and name C   ) ( resid 159  and name N   )
+         ( resid 159  and name CA  ) ( resid 159  and name C   )  1.00 -65.00 25.00 2
+
+ ASSIGN  ( resid 164  and name C   ) ( resid 165  and name N   )
+         ( resid 165  and name CA  ) ( resid 165  and name C   )  1.00 -65.00 25.00 2
+
+ ASSIGN  ( resid 166  and name C   ) ( resid 167  and name N   )
+         ( resid 167  and name CA  ) ( resid 167  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 167  and name C   ) ( resid 168  and name N   )
+         ( resid 168  and name CA  ) ( resid 168  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 168  and name C   ) ( resid 169  and name N   )
+         ( resid 169  and name CA  ) ( resid 169  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 169  and name C   ) ( resid 170  and name N   )
+         ( resid 170  and name CA  ) ( resid 170  and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 176  and name C   ) ( resid 177  and name N   )
+         ( resid 177  and name CA  ) ( resid 177  and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 178  and name C   ) ( resid 179  and name N   )
+         ( resid 179  and name CA  ) ( resid 179  and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 179  and name C   ) ( resid 180  and name N   )
+         ( resid 180  and name CA  ) ( resid 180  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 180  and name C   ) ( resid 181  and name N   )
+         ( resid 181  and name CA  ) ( resid 181  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 182  and name C   ) ( resid 183  and name N   )
+         ( resid 183  and name CA  ) ( resid 183  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 184  and name C   ) ( resid 185  and name N   )
+         ( resid 185  and name CA  ) ( resid 185  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 185  and name C   ) ( resid 186  and name N   )
+         ( resid 186  and name CA  ) ( resid 186  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 191  and name C   ) ( resid 192  and name N   )
+         ( resid 192  and name CA  ) ( resid 192  and name C   )  1.00 -65.00 25.00 2
+
+ ASSIGN  ( resid 193  and name C   ) ( resid 194  and name N   )
+         ( resid 194  and name CA  ) ( resid 194  and name C   )  1.00 -120.00 50.00 2
+
+ ASSIGN  ( resid 198  and name C   ) ( resid 199  and name N   )
+         ( resid 199  and name CA  ) ( resid 199  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 200  and name C   ) ( resid 201  and name N   )
+         ( resid 201  and name CA  ) ( resid 201  and name C   )  1.00 -120.00 30.00 2
+
+ ASSIGN  ( resid 15   and name N   ) ( resid 15   and name CA  )
+         ( resid 15   and name C   ) ( resid 16   and name N   )  1.00 125.00 15.00 2
+
+ ASSIGN  ( resid 15   and name C   ) ( resid 16   and name N   )
+         ( resid 16   and name CA  ) ( resid 16   and name C   )  1.00 -120.00 15.00 2
+
+ ASSIGN  ( resid 18   and name C   ) ( resid 19   and name N   )
+         ( resid 19   and name CA  ) ( resid 19   and name C   )  1.00 -100.00 30.00 2
+
+ ASSIGN  ( resid 19   and name N   ) ( resid 19   and name CA  )
+         ( resid 19   and name C   ) ( resid 20   and name N   )  1.00 120.00 30.00 2
+
+ ASSIGN  ( resid 20   and name C   ) ( resid 21   and name N   )
+         ( resid 21   and name CA  ) ( resid 21   and name C   )  1.00  60.00 20.00 2
+
+ ASSIGN  ( resid 21   and name N   ) ( resid 21   and name CA  )
+         ( resid 21   and name C   ) ( resid 22   and name N   )  1.00  60.00 20.00 2
+
+ ASSIGN  ( resid 28   and name C   ) ( resid 29   and name N   )
+         ( resid 29   and name CA  ) ( resid 29   and name C   )  1.00 -100.00 25.00 2
+
+ ASSIGN  ( resid 29   and name N   ) ( resid 29   and name CA  )
+         ( resid 29   and name C   ) ( resid 30   and name N   )  1.00 130.00 20.00 2
+
+ ASSIGN  ( resid 29   and name C   ) ( resid 30   and name N   )
+         ( resid 30   and name CA  ) ( resid 30   and name C   )  1.00 -80.00 20.00 2
+
+ ASSIGN  ( resid 30   and name N   ) ( resid 30   and name CA  )
+         ( resid 30   and name C   ) ( resid 31   and name N   )  1.00 150.00 20.00 2
+
+ ASSIGN  ( resid 30   and name C   ) ( resid 31   and name N   )
+         ( resid 31   and name CA  ) ( resid 31   and name C   )  1.00 -90.00 40.00 2
+
+ ASSIGN  ( resid 31   and name C   ) ( resid 32   and name N   )
+         ( resid 32   and name CA  ) ( resid 32   and name C   )  1.00 -90.00 30.00 2
+
+ ASSIGN  ( resid 32   and name C   ) ( resid 33   and name N   )
+         ( resid 33   and name CA  ) ( resid 33   and name C   )  1.00 -80.00 30.00 2
+
+ ASSIGN  ( resid 33   and name C   ) ( resid 34   and name N   )
+         ( resid 34   and name CA  ) ( resid 34   and name C   )  1.00 -100.00 30.00 2
+
+ ASSIGN  ( resid 34   and name N   ) ( resid 34   and name CA  )
+         ( resid 34   and name C   ) ( resid 35   and name N   )  1.00 120.00 30.00 2
+
+ ASSIGN  ( resid 34   and name C   ) ( resid 35   and name N   )
+         ( resid 35   and name CA  ) ( resid 35   and name C   )  1.00 -110.00 30.00 2
+
+ ASSIGN  ( resid 35   and name N   ) ( resid 35   and name CA  )
+         ( resid 35   and name C   ) ( resid 36   and name N   )  1.00 120.00 30.00 2
+
+ ASSIGN  ( resid 46   and name C   ) ( resid 47   and name N   )
+         ( resid 47   and name CA  ) ( resid 47   and name C   )  1.00 -85.00 20.00 2
+
+ ASSIGN  ( resid 47   and name N   ) ( resid 47   and name CA  )
+         ( resid 47   and name C   ) ( resid 48   and name N   )  1.00 -10.00 20.00 2
+
+ ASSIGN  ( resid 58   and name C   ) ( resid 59   and name N   )
+         ( resid 59   and name CA  ) ( resid 59   and name C   )  1.00 -110.00 30.00 2
+
+ ASSIGN  ( resid 59   and name N   ) ( resid 59   and name CA  )
+         ( resid 59   and name C   ) ( resid 60   and name N   )  1.00 150.00 30.00 2
+
+ ASSIGN  ( resid 59   and name C   ) ( resid 60   and name N   )
+         ( resid 60   and name CA  ) ( resid 60   and name C   )  1.00 -20.00 30.00 2
+
+ ASSIGN  ( resid 60   and name N   ) ( resid 60   and name CA  )
+         ( resid 60   and name C   ) ( resid 61   and name N   )  1.00 100.00 20.00 2
+
+ ASSIGN  ( resid 63   and name C   ) ( resid 64   and name N   )
+         ( resid 64   and name CA  ) ( resid 64   and name C   )  1.00 -90.00 25.00 2
+
+ ASSIGN  ( resid 64   and name C   ) ( resid 65   and name N   )
+         ( resid 65   and name CA  ) ( resid 65   and name C   )  1.00 -95.00 25.00 2
+
+ ASSIGN  ( resid 68   and name C   ) ( resid 69   and name N   )
+         ( resid 69   and name CA  ) ( resid 69   and name C   )  1.00 -65.00 20.00 2
+
+ ASSIGN  ( resid 69   and name N   ) ( resid 69   and name CA  )
+         ( resid 69   and name C   ) ( resid 70   and name N   )  1.00 -40.00 20.00 2
+
+ ASSIGN  ( resid 69   and name C   ) ( resid 70   and name N   )
+         ( resid 70   and name CA  ) ( resid 70   and name C   )  1.00 -85.00 30.00 2
+
+ ASSIGN  ( resid 70   and name N   ) ( resid 70   and name CA  )
+         ( resid 70   and name C   ) ( resid 71   and name N   )  1.00 -15.00 30.00 2
+
+ ASSIGN  ( resid 70   and name C   ) ( resid 71   and name N   )
+         ( resid 71   and name CA  ) ( resid 71   and name C   )  1.00 -90.00 20.00 2
+
+ ASSIGN  ( resid 71   and name N   ) ( resid 71   and name CA  )
+         ( resid 71   and name C   ) ( resid 72   and name N   )  1.00 -20.00 30.00 2
+
+ ASSIGN  ( resid 85   and name C   ) ( resid 86   and name N   )
+         ( resid 86   and name CA  ) ( resid 86   and name C   )  1.00 -110.00 30.00 2
+
+ ASSIGN  ( resid 86   and name N   ) ( resid 86   and name CA  )
+         ( resid 86   and name C   ) ( resid 87   and name N   )  1.00 150.00 30.00 2
+
+ ASSIGN  ( resid 86   and name C   ) ( resid 87   and name N   )
+         ( resid 87   and name CA  ) ( resid 87   and name C   )  1.00 -110.00 30.00 2
+
+ ASSIGN  ( resid 87   and name N   ) ( resid 87   and name CA  )
+         ( resid 87   and name C   ) ( resid 88   and name N   )  1.00 130.00 30.00 2
+
+ ASSIGN  ( resid 88   and name C   ) ( resid 89   and name N   )
+         ( resid 89   and name CA  ) ( resid 89   and name C   )  1.00 -100.00 20.00 2
+
+ ASSIGN  ( resid 89   and name N   ) ( resid 89   and name CA  )
+         ( resid 89   and name C   ) ( resid 90   and name N   )  1.00   0.00 20.00 2
+
+ ASSIGN  ( resid 89   and name C   ) ( resid 90   and name N   )
+         ( resid 90   and name CA  ) ( resid 90   and name C   )  1.00 -80.00 30.00 2
+
+ ASSIGN  ( resid 90   and name N   ) ( resid 90   and name CA  )
+         ( resid 90   and name C   ) ( resid 91   and name N   )  1.00 120.00 30.00 2
+
+ ASSIGN  ( resid 90   and name C   ) ( resid 91   and name N   )
+         ( resid 91   and name CA  ) ( resid 91   and name C   )  1.00 -80.00 30.00 2
+
+ ASSIGN  ( resid 91   and name N   ) ( resid 91   and name CA  )
+         ( resid 91   and name C   ) ( resid 92   and name N   )  1.00 130.00 20.00 2
+
+ ASSIGN  ( resid 91   and name C   ) ( resid 92   and name N   )
+         ( resid 92   and name CA  ) ( resid 92   and name C   )  1.00 -90.00 20.00 2
+
+ ASSIGN  ( resid 92   and name N   ) ( resid 92   and name CA  )
+         ( resid 92   and name C   ) ( resid 93   and name N   )  1.00 -40.00 20.00 2
+
+ ASSIGN  ( resid 99   and name N   ) ( resid 99   and name CA  )
+         ( resid 99   and name C   ) ( resid 100  and name N   )  1.00 140.00 25.00 2
+
+ ASSIGN  ( resid 99   and name C   ) ( resid 100  and name N   )
+         ( resid 100  and name CA  ) ( resid 100  and name C   )  1.00 -85.00 15.00 2
+
+ ASSIGN  ( resid 103  and name N   ) ( resid 103  and name CA  )
+         ( resid 103  and name C   ) ( resid 104  and name N   )  1.00 -20.00 20.00 2
+
+ ASSIGN  ( resid 103  and name C   ) ( resid 104  and name N   )
+         ( resid 104  and name CA  ) ( resid 104  and name C   )  1.00 -100.00 30.00 2
+
+ ASSIGN  ( resid 104  and name N   ) ( resid 104  and name CA  )
+         ( resid 104  and name C   ) ( resid 105  and name N   )  1.00 -10.00 40.00 2
+
+ ASSIGN  ( resid 105  and name C   ) ( resid 106  and name N   )
+         ( resid 106  and name CA  ) ( resid 106  and name C   )  1.00 -100.00 20.00 2
+
+ ASSIGN  ( resid 106  and name N   ) ( resid 106  and name CA  )
+         ( resid 106  and name C   ) ( resid 107  and name N   )  1.00 135.00 40.00 2
+
+ ASSIGN  ( resid 106  and name C   ) ( resid 107  and name N   )
+         ( resid 107  and name CA  ) ( resid 107  and name C   )  1.00 -100.00 20.00 2
+
+ ASSIGN  ( resid 107  and name N   ) ( resid 107  and name CA  )
+         ( resid 107  and name C   ) ( resid 108  and name N   )  1.00 130.00 25.00 2
+
+ ASSIGN  ( resid 117  and name C   ) ( resid 118  and name N   )
+         ( resid 118  and name CA  ) ( resid 118  and name C   )  1.00 -60.00 20.00 2
+
+ ASSIGN  ( resid 118  and name N   ) ( resid 118  and name CA  )
+         ( resid 118  and name C   ) ( resid 119  and name N   )  1.00 -40.00 20.00 2
+
+ ASSIGN  ( resid 118  and name C   ) ( resid 119  and name N   )
+         ( resid 119  and name CA  ) ( resid 119  and name C   )  1.00 -100.00 20.00 2
+
+ ASSIGN  ( resid 119  and name N   ) ( resid 119  and name CA  )
+         ( resid 119  and name C   ) ( resid 120  and name N   )  1.00 -10.00 20.00 2
+
+ ASSIGN  ( resid 123  and name N   ) ( resid 123  and name CA  )
+         ( resid 123  and name C   ) ( resid 124  and name N   )  1.00 125.00 15.00 2
+
+ ASSIGN  ( resid 125  and name N   ) ( resid 125  and name CA  )
+         ( resid 125  and name C   ) ( resid 126  and name N   )  1.00 130.00 15.00 2
+
+ ASSIGN  ( resid 128  and name C   ) ( resid 129  and name N   )
+         ( resid 129  and name CA  ) ( resid 129  and name C   )  1.00 -90.00 20.00 2
+
+ ASSIGN  ( resid 129  and name C   ) ( resid 130  and name N   )
+         ( resid 130  and name CA  ) ( resid 130  and name C   )  1.00 -110.00 30.00 2
+
+ ASSIGN  ( resid 130  and name N   ) ( resid 130  and name CA  )
+         ( resid 130  and name C   ) ( resid 131  and name N   )  1.00 140.00 30.00 2
+
+ ASSIGN  ( resid 130  and name C   ) ( resid 131  and name N   )
+         ( resid 131  and name CA  ) ( resid 131  and name C   )  1.00 -90.00 25.00 2
+
+ ASSIGN  ( resid 131  and name N   ) ( resid 131  and name CA  )
+         ( resid 131  and name C   ) ( resid 132  and name N   )  1.00 130.00 30.00 2
+
+ ASSIGN  ( resid 132  and name N   ) ( resid 132  and name CA  )
+         ( resid 132  and name C   ) ( resid 133  and name N   )  1.00 -28.00 11.00 2
+
+ ASSIGN  ( resid 133  and name N   ) ( resid 133  and name CA  )
+         ( resid 133  and name C   ) ( resid 134  and name N   )  1.00 -24.00 13.00 2
+
+ ASSIGN  ( resid 134  and name C   ) ( resid 135  and name N   )
+         ( resid 135  and name CA  ) ( resid 135  and name C   )  1.00 -77.00 25.00 2
+
+ ASSIGN  ( resid 135  and name N   ) ( resid 135  and name CA  )
+         ( resid 135  and name C   ) ( resid 136  and name N   )  1.00 140.00 21.00 2
+
+ ASSIGN  ( resid 135  and name C   ) ( resid 136  and name N   )
+         ( resid 136  and name CA  ) ( resid 136  and name C   )  1.00 -84.00 20.00 2
+
+ ASSIGN  ( resid 137  and name N   ) ( resid 137  and name CA  )
+         ( resid 137  and name C   ) ( resid 138  and name N   )  1.00 148.00 21.00 2
+
+ ASSIGN  ( resid 140  and name C   ) ( resid 141  and name N   )
+         ( resid 141  and name CA  ) ( resid 141  and name C   )  1.00 -110.00 20.00 2
+
+ ASSIGN  ( resid 146  and name C   ) ( resid 147  and name N   )
+         ( resid 147  and name CA  ) ( resid 147  and name C   )  1.00 -95.00 30.00 2
+
+ ASSIGN  ( resid 147  and name N   ) ( resid 147  and name CA  )
+         ( resid 147  and name C   ) ( resid 148  and name N   )  1.00 135.00 25.00 2
+
+ ASSIGN  ( resid 156  and name C   ) ( resid 157  and name N   )
+         ( resid 157  and name CA  ) ( resid 157  and name C   )  1.00 -90.00 30.00 2
+
+ ASSIGN  ( resid 157  and name N   ) ( resid 157  and name CA  )
+         ( resid 157  and name C   ) ( resid 158  and name N   )  1.00 130.00 30.00 2
+
+ ASSIGN  ( resid 161  and name C   ) ( resid 162  and name N   )
+         ( resid 162  and name CA  ) ( resid 162  and name C   )  1.00 -80.00 20.00 2
+
+ ASSIGN  ( resid 162  and name C   ) ( resid 163  and name N   )
+         ( resid 163  and name CA  ) ( resid 163  and name C   )  1.00 -100.00 30.00 2
+
+ ASSIGN  ( resid 163  and name N   ) ( resid 163  and name CA  )
+         ( resid 163  and name C   ) ( resid 164  and name N   )  1.00   0.00 30.00 2
+
+ ASSIGN  ( resid 172  and name C   ) ( resid 173  and name N   )
+         ( resid 173  and name CA  ) ( resid 173  and name C   )  1.00 -90.00 40.00 2
+
+ ASSIGN  ( resid 173  and name N   ) ( resid 173  and name CA  )
+         ( resid 173  and name C   ) ( resid 174  and name N   )  1.00 140.00 20.00 2
+
+ ASSIGN  ( resid 173  and name C   ) ( resid 174  and name N   )
+         ( resid 174  and name CA  ) ( resid 174  and name C   )  1.00 -110.00 30.00 2
+
+ ASSIGN  ( resid 174  and name N   ) ( resid 174  and name CA  )
+         ( resid 174  and name C   ) ( resid 175  and name N   )  1.00 110.00 40.00 2
+
+ ASSIGN  ( resid 177  and name C   ) ( resid 178  and name N   )
+         ( resid 178  and name CA  ) ( resid 178  and name C   )  1.00 -100.00 30.00 2
+
+ ASSIGN  ( resid 178  and name N   ) ( resid 178  and name CA  )
+         ( resid 178  and name C   ) ( resid 179  and name N   )  1.00 130.00 20.00 2
+
+ ASSIGN  ( resid 184  and name N   ) ( resid 184  and name CA  )
+         ( resid 184  and name C   ) ( resid 185  and name N   )  1.00 150.00 15.00 2
+
+ ASSIGN  ( resid 192  and name C   ) ( resid 193  and name N   )
+         ( resid 193  and name CA  ) ( resid 193  and name C   )  1.00 -115.00 25.00 2
+
+ ASSIGN  ( resid 194  and name C   ) ( resid 195  and name N   )
+         ( resid 195  and name CA  ) ( resid 195  and name C   )  1.00 -110.00 40.00 2
+
+ ASSIGN  ( resid 200  and name C   ) ( resid 201  and name N   )
+         ( resid 201  and name CA  ) ( resid 201  and name C   )  1.00 -85.00 25.00 2
+
+ ASSIGN  ( resid 201  and name N   ) ( resid 201  and name CA  )
+         ( resid 201  and name C   ) ( resid 202  and name N   )  1.00 130.00 30.00 2
+
+ ASSIGN  ( resid 201  and name C   ) ( resid 202  and name N   )
+         ( resid 202  and name CA  ) ( resid 202  and name C   )  1.00 -100.00 25.00 2
+
+ ASSIGN  ( resid 202  and name N   ) ( resid 202  and name CA  )
+         ( resid 202  and name C   ) ( resid 203  and name N   )  1.00 150.00 20.00 2
+
+ ASSIGN  ( resid 202  and name C   ) ( resid 202  and name N   )
+         ( resid 203  and name CA  ) ( resid 203  and name C   )  1.00 -80.00 25.00 2
+
+ ASSIGN  ( resid 203  and name N   ) ( resid 203  and name CA  )
+         ( resid 203  and name C   ) ( resid 204  and name N   )  1.00 130.00 25.00 2
+

@@ -1,0 +1,797 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+# calculate Da and Rh from an ensemble of structures, given observed
+# RDCs
+#
+
+(optList, args) = xplor.parseArguments(["psf:1",
+                                        "useDistance:0",
+                                        "maxDa:1",
+                                        "fitallExps:0",
+                                        "ensemble:0",
+                                        "showRDCs:0",
+                                        "normType:1",
+                                        "correctSign:0",
+                                        "fitSel:1",
+                                        "rdcWeights:1",
+                                             'svdTol:1',
+                                        "crossValidate:1", 
+                                        "subSel:1",
+                                        "crossSel:1",
+                                        "genNames:2",
+                                        "getTags:0", 
+                                        "aveType:1", 
+                                        "noUseErrs:0", 
+                                        "plot:0", 
+                                        "plotLabels:0",],
+                                        cmdline=
+                       "[options] <rdc.tbl | file.nef> <pdb file1> [<pdb file2> ...]",
+                      description=
+"""Calculate alignment tensor using SVD given RDC (or PCS) values and one 
+or more molecular structures. Can optionally create plot of observed
+vs. calculated RDCs.
+""",
+                      usageString="""
+
+ where rdc.tbl is one or more space- or colon-separated files containing
+ XPLOR-SANI-style assignment statements, and pdb file1, ... are one or more PDB
+ coordinate files.  Instead of an XPLOR-style restraint table, a NEF restraint 
+ file can be specified, and if it includes more than one saveframe with RDC
+ restraints, a single saveframe name should be specified separated from the
+ file name by a colon.
+
+ By default, the output is the optimal alignment tensor's
+ Da and rhombicity, the RDC fit root mean square deviation and R-factors,
+ defined by Eqs. 5 and 3 of Clore+Garrett, JACS 121, 9008 (1999).
+
+ options::
+
+   -psf <psf filename(s)>   - One or more PSF filenames.  If more than one
+                              filename is specified, they must be either
+                              space-separated and enclosed in quotes, or
+                              colon-separated.
+                              If this option is omitted, the PSF information
+                              is auto-generated.
+                              
+   -showRDCs                - Print out back-calculated RDC values for the
+                              final structure on the command-line.
+                              
+   -normType <normType>     - RDC normalization.  One of NH, CH or none
+                              [default value: NH].
+                              
+   -correctSign             - Use the proper sign for the 15N gyromagnetic
+   			      ratio. By default the sign is taken to be 
+			      positive.  Please see Xplor-NIH documentation
+			      for the rdcPotTools module.
+			      
+   -useDistance             - Include 1/rAB^3 distance dependence in RDC
+                              calculation.  By default this is only enabled
+                              if a non-bonded RDC type is detected.
+                              
+   -maxDa <value>           - Set the maximum absolute value of Da
+                              [default: 50].
+                              
+   -fitSel <atom selection> - Atom selection used to fit structures before
+                              alignment tensor calculation.
+                              
+   -fitallExps              - Use all input RDCs (including cross-validated 
+                              ones) to calculate the alignment tensor [default:
+                              non-cross-validated RDCs].
+                              
+   -genNames <sel1> <sel2>  - two atom names used to generate assignment
+   	   	  	      table to be used to back-calculate RDCs. The
+			      generated table will not include RDCs from the
+			      input rdc.tbl, and the observed RDCs will be
+			      set to 0. These RDCs are not used in determining
+			      the alignment table.   	   	  	      
+   	   	  	      
+   -ensemble                - Treat the input structures as a true solution-
+                              phase ensemble of structures which are not fit
+                              together.
+                              
+   -rdcWeights <weights>    - Colon- or space-separated list of weights used
+                              to weight RDC experiments relative to each
+                              other [defaults to 1 for each].
+                              
+   -svdTol <value>          - discard singular values less than value times the
+                              average of the singular values.
+
+   -crossValidate <files>   - Colon- or space-separated list of files with
+                              XPLOR SANI-style assignment statements of
+                              measured RDC values which are not used for
+                              fitting, but for which backcalculated RDCs
+                              are printed with the calculated tensor.  A
+                              NEF restraint file can also be specified,
+                              separated by a colom from the saveframe
+                              containing RDC restraints, if there is more
+                              than one.
+                              
+   -subSel <atom selection> - Specify a subset of RDC/CSA restraints used to 
+   	   	 	      perform SVD.  The atoms chosen are the
+			      intersection of this atom selection and the
+			      strings specified in the ASSIgnment statements.
+			      
+   -crossSel <atom selection> 
+                            - Specify a subset of cross-validated RDC/CSA 
+			      restraints used for analysis. The atoms chosen 
+			      are the strings specified in the ASSIgnment 
+			      statements. This defaults to the value specified
+                              by the -subSel option, if not specified.
+			      
+   -getTags                 - Return RDC values, along with coordinate data.
+
+   -aveType <type>          - Specify the type of averaging when an atom
+   	    		      selection specifies more than one atom.  The
+			      choices are: sum, average, and pairwise.  The
+			      default value is pairwise.
+
+   -noUseErrs               - Do not weight the terms with 1/err in the SVD 
+   			      calculation.
+
+   -plot                    - Produce a plot of calculated vs. observed
+                              couplings.  Error bars indicate input experimental
+			      errors and the spread between calculated
+			      structures' RDCs.  If a point in the plot is
+                              clicked, the first atom selection will be
+                              printed so that outliers might be identified.
+
+   -plotLabels              - At each point on the correlation plot, place a
+                              label corresponding to the residue number of
+                              the first atom selection.
+"""
+)
+
+
+#
+# selection used to fit structures before tensor calculation
+#
+rdcWeights=None
+fitSel="name CA or name N or name C or name O"
+fitallExps=False
+ensembleMode=False
+printRDCs=False
+normType='NH'
+psf=None
+useDistance=False
+maxDa=50
+crossTabs=[]   #cross-validation file names
+subSel="all"
+crossSel=None
+genNames=None
+getTagsSet=False
+plot=False
+plotLabels=False
+eSize=1
+eIndex=0
+svdTol=0.01
+aveType="pairwise"
+useErrs=True
+from rdcPotTools import correctGyromagneticSigns
+
+for opt in optList:
+    if opt[0]=="psf":
+        psf=opt[1]
+        if ":" in opt[1]:
+            psf = opt[1].split(':')
+        else:
+            psf = opt[1].split()
+        pass
+    if opt[0]=="useDistance":
+        useDistance=True
+        pass
+    if opt[0]=="ensemble":
+        ensembleMode=True
+        fitSel=""
+        pass
+    if opt[0]=="fitallExps":
+        fitallExps=True
+        pass
+    if opt[0]=="showRDCs":
+        printRDCs=True
+        pass
+    if opt[0]=="maxDa":
+        maxDa=float(opt[1])
+        pass
+    if opt[0]=="normType":
+        normType=opt[1]
+        pass
+    if opt[0]=="correctSign":
+        correctGyromagneticSigns()
+        pass
+    if opt[0]=="aveType":
+        aveType=opt[1]
+        pass
+    if opt[0]=="fitSel":
+        fitSel=opt[1]
+        pass
+    if opt[0]=='rdcWeights':
+        if ':' in opt[1]:
+            rdcWeights = opt[1].split(':')
+        else:
+            rdcWeights = opt[1].split()
+            pass
+        rdcWeights = [float(s) for s in rdcWeights]
+        pass
+    if opt[0]=='svdTol':
+        svdTol=float(opt[1])
+        pass
+    if opt[0]=='crossValidate':
+        if ':' in opt[1]:
+            crossTabs = opt[1].split(':')
+        else:
+            crossTabs = opt[1].split()
+            pass
+        pass
+    if opt[0]=='subSel':
+        subSel=opt[1]
+        pass
+    if opt[0]=='crossSel':
+        crossSel=opt[1]
+        pass
+    if opt[0]=='genNames':
+        genNames=opt[1:]
+        pass
+    if opt[0]=='getTags':
+        getTagsSet=True
+        pass
+    if opt[0]=='noUseErrs':
+        useErrs=False
+        pass
+    if opt[0]=='plot':
+        plot=True
+        pass
+    if opt[0]=='plotLabels':
+        plotLabels=True
+        pass
+    pass
+
+
+if len(args)<2:
+    print("Requires at least 2 arguments")
+    import sys
+    sys.exit(1)
+    pass
+
+if ':' in args[0]:
+    tables = args[0].split(':')
+else:
+    tables = args[0].split()
+    pass
+coordFiles = args[1:]
+
+if crossSel and not crossTabs: crossTabs = tables
+if not crossSel: crossSel = subSel
+
+if not rdcWeights:
+    rdcWeights=[1]*len(tables)
+    pass
+
+if len(rdcWeights)!=len(tables):
+    raise Exception("there must be one weight per file")
+
+import protocol
+
+if not psf:
+    from psfGen import pdbToPSF
+    pdbToPSF(coordFiles[0])
+else:
+    protocol.initStruct(psf)
+    pass
+
+if ensembleMode==True:
+    eSize = len(coordFiles)
+    from ensembleSimulation import EnsembleSimulation
+    ens=EnsembleSimulation('ensemble',eSize)
+    eIndex = ens.member().memberIndex()
+    coordFiles = [coordFiles[eIndex]]
+    coordArray=None
+else:
+    coordArray=[]
+    pass
+
+from varTensorTools import create_VarTensor, calcTensor
+from rdcPotTools import create_RDCPot, scale_toNH, scale_toCH
+from simulationTools import analyze
+
+medium = create_VarTensor('medium')
+
+if maxDa:
+    medium.setDaMax(maxDa)
+    pass
+
+
+from atomSelAction import Fit
+fitCoords=None
+for file in coordFiles:
+    protocol.initCoords(file,selection="not pseudo",erase=True)
+
+    if not fitCoords:
+        fitCoords = xplor.simulation.atomPosArr()
+    else:
+        if fitSel and fitSel!="none":
+            AtomSel("all").apply(Fit(fitCoords,fitSel))
+            pass
+        pass
+
+    if coordArray!=None:
+        coordArray.append( xplor.simulation.atomPosArr() )
+
+    pass
+
+from potList import PotList
+rdcs=PotList()
+isNEF= True if tables[0][-4:].lower()==".nef" else False
+if isNEF:
+    from iupacNaming import toIUPAC
+    toIUPAC()
+    
+    dataString=open(tables[0]).read()
+    import cif
+    cifData = cif.Cif()
+    cifData.parse(dataString)
+
+    if len(tables)>1:
+        blockName=tables[1]
+    else:
+        rdcAttrName = 'nef_rdc_restraint_list'
+        keys = list(cifData.keys())
+        rdcBlocks = [cifData[key] for key in keys
+                  if 'nef_rdc_restraint' in cifData[key]]
+        if len( rdcBlocks ) > 1:
+            print("NEF file has more than one RDC restraint list.")
+            print("Please choose a block:")
+            for block in rdcBlocks:
+                print("  %s" % block.nef_rdc_restraint_list.sf_framecode[0])
+                pass
+            exit()
+        blockName =rdcBlocks[0].sf_framecode
+        pass
+
+
+    from rdcPotTools import readNEF
+    readNEF(rdcs,cifData[blockName],oTensor=medium,
+            subSel=subSel)
+
+else: # not NEF
+
+    cnt=0
+    for table in tables:
+        rdc = create_RDCPot(table,oTensor=medium)
+        rdc.setAllowBadRestraints(True)
+        rdc.addRestraints(open(table).read(),
+                          selectionFilter=subSel)
+        if normType=='NH':
+            scale_toNH( rdc )
+        elif normType=='CH':
+            scale_toCH( rdc )
+        elif normType!='none':
+            raise Exception('normType must be one of: NH, CH or none')
+        if useDistance:
+            rdc.setUseDistance(True)
+            pass
+    #    if subSel!="all":
+    #        from atomSel import AtomSel
+    #        subSel=AtomSel(subSel)
+    #        restraints = rdc.restraints()
+    #        n=len(restraints)
+    #        while n>0:
+    #            n -= 1
+    #            keep=True
+    #            r=restraints[n]
+    #            for p in r.selPairs():
+    #                for atom in p.a:
+    #                    if not atom in subSel:
+    #                        keep=False
+    #                        break
+    #                    pass
+    #                pass
+    #                for atom in p.b:
+    #                    if not atom in subSel:
+    #                        keep=False
+    #                        break
+    #                    pass
+    #                pass
+    #            if not keep: rdc.removeRestraint(n)
+    #        pass
+        
+            
+        rdc.setScale( rdcWeights[cnt] )
+        rdcs.append(rdc)
+        cnt += 1
+        pass
+    pass
+
+[rdc.setShowAllRestraints( True ) for rdc in rdcs]
+try:
+    [rdc.setAveType(aveType) for rdc in rdcs]
+except SystemError:
+    print('Invalid averaging.')
+    print('Please try specifying -aveType average or -aveType sum.')
+    pass
+
+crossTerms=PotList("cross")
+if len(crossTabs)>0:
+    crossNEF= True if crossTabs[0][-4:].lower()==".nef" else False
+    if crossNEF!=isNEF:
+        raise Exception("cannot mix NEF and non-NEF restraint files")
+    if isNEF:
+        dataString=open(crossTabs[0]).read()
+        import cif
+        cifData = cif.Cif()
+        cifData.parse(dataString)
+
+        if len(crossTabs)>1:
+            blockName=crossTabs[1]
+        else:
+            rdcAttrName = 'nef_rdc_restraint_list'
+            keys = list(cifData.keys())
+            rdcBlocks = [cifData[key] for key in keys
+                         if 'nef_rdc_restraint' in cifData[key]]
+            if len( rdcBlocks ) > 1:
+                print("NEF file has more than one RDC restraint list.")
+                print("Please choose a block:")
+                for block in rdcBlocks:
+                    print("  %s" % block.nef_rdc_restraint_list.sf_framecode[0])
+                    pass
+                exit()
+                blockName =rdcBlocks[0].sf_framecode
+                pass
+            pass
+
+        
+        
+        from rdcPotTools import readNEF
+        readNEF(crossTerms,cifData[blockName],oTensor=medium,
+                subSel=crossSel)
+        for term in crossTerms:
+            term.resetInstanceName("c_"+term.instanceName())
+            pass
+        pass
+    else: #not NEF
+        cnt=0
+        for table in crossTabs:
+            rdc = create_RDCPot("c_"+table,oTensor=medium,file=table,
+                                subSel=crossSel)
+            rdc.setAveType(aveType)
+            if normType=='NH':
+                scale_toNH( rdc )
+            elif normType=='CH':
+                scale_toCH( rdc )
+            elif normType!='none':
+                raise Exception('normType must be one of: NH, CH or none')
+            if useDistance:
+                rdc.setUseDistance(True)
+                pass
+            rdc.setScale( 1 )
+            crossTerms.append(rdc)
+            cnt += 1
+            pass
+        pass
+    pass
+
+
+if genNames:
+    genRestraints=""
+    from selectTools import getSegsResidues
+    segs = getSegsResidues()
+    rdcVal=0.
+    errVal =0.1
+    for seg,residsNames in list(segs.items()):
+        for resid, resname in residsNames:
+            selStr0 = 'ATOM "%s" %d %s' % (seg,resid,genNames[0])
+            selStr1 = 'ATOM "%s" %d %s' % (seg,resid,genNames[1])
+            a0=AtomSel(selStr0)
+            a1=AtomSel(selStr1)
+            if len(a0)==0 or len(a1)==0:
+                continue
+            inTable=False
+            from atomSel import intersection
+            for rdc in rdcs:
+                for restraint in rdc.restraints():
+                    for selPair in restraint.selPairs():
+                        if ((intersection(a0,selPair.a) and
+                             intersection(a1,selPair.b)    ) or
+                            (intersection(a1,selPair.a) and
+                             intersection(a0,selPair.b)    )  ):
+                            inTable=True
+                            break
+                        pass
+                    pass
+                pass
+            if inTable:
+                continue
+            genRestraints += "assign () () () ()\n (%s) (%s) %f %f \n" % (
+                selStr0,selStr1,rdcVal,errVal)
+            pass
+        pass
+    rdc = create_RDCPot("generated",oTensor=medium,restraints=genRestraints,
+                        subSel=crossSel)
+    rdc.setAveType(aveType)
+    if normType=='NH':
+        scale_toNH( rdc )
+    elif normType=='CH':
+        scale_toCH( rdc )
+    elif normType!='none':
+        raise Exception('normType must be one of: NH, CH or none')
+    if useDistance:
+        rdc.setUseDistance(True)
+        pass
+    rdc.setScale( 1 )
+    crossTerms.append(rdc)
+    pass
+    
+            
+[rdc.setShowAllRestraints( True ) for rdc in crossTerms]
+
+if fitallExps:
+    tensor = calcTensor(medium, coords=coordArray, expts=[rdcs,crossTerms],
+                        useErr=useErrs,
+                        svdTolerance=svdTol)
+else:
+    tensor = calcTensor(medium, coords=coordArray, expts=rdcs, useErr=useErrs,
+                        svdTolerance=svdTol)
+
+
+
+from vec3 import Vec3
+#copy tensor atom positions
+from atomSel import AtomSel
+aniAtoms = AtomSel("resname ANI and resid %d" % medium.oAtom().residueNum())
+aniPosAtoms = [(Vec3(a.pos()),a) for a in aniAtoms]
+
+#print analyze(medium)
+
+from rdcPotTools import Rfactor, Rfactor_infinite, chi2
+print("Da: %7.2f    Rh: %7.3f" % (medium.Da() , medium.Rh()))
+print("Fit:                              ", end=' ')
+print("table        RMSD    R-factor  R-inf   Chi^2", end=' ')
+if crossSel!="all" or subSel!="all":
+    print("  Selection")
+else:
+    print()
+
+y0=0.95
+y=y0
+if plot and eIndex==0:
+    from pylab import *
+    if eSize>1:
+        text(0.05,y, 'Ne = %d' % eSize,transform=axes().transAxes)
+        pass
+    y-= 0.05
+    xlabel('Observed')
+    ylabel('Calculated')
+    pass
+
+
+def summarizeAndPlot(rdcs,color,subSel="all"):
+    global y
+    numRestraints=int(sum( [rdc.numRestraints() for rdc in rdcs] ))
+    if numRestraints<1:
+       return
+    from cdsVector import CDSVector_double
+    import cdsVector
+    calcd=CDSVector_double(numRestraints,0.)
+    calcdErr=CDSVector_double(numRestraints,0.)
+    for cnt in range(len(coordFiles)):
+        if coordArray:
+            xplor.simulation.setAtomPosArr(coordArray[cnt])
+        #reset tensor atom positions
+        for (pos,atom) in aniPosAtoms:
+            atom.setPos(pos)
+            pass
+        rdcs.calcEnergy()
+        cnt1=0
+        for rdc in rdcs:
+            print("  %-20s " % coordFiles[cnt], end=' ')
+            print("%20s: %7.3f   %6.2f   %6.2f  %5.2f" % (rdc.instanceName(),
+                                                          rdc.rms(),
+                                                          Rfactor(rdc),
+                                                          Rfactor_infinite(rdc,subSel),
+                                                          chi2(rdc,subSel)), end=' ')
+            if subSel!='all': 
+                print("(%s)" % subSel)
+            else:
+                print()
+            for r in rdc.restraints():
+                calcd[cnt1] += r.calcd()
+                calcdErr[cnt1] += r.calcd()**2
+                cnt1 += 1
+                pass
+            pass
+        if len(rdcs)>1:
+            from rdcPotTools import composite_Rfactor_infinite as total_Rfactor
+            from rdcPotTools import composite_chi2
+            print("                 ", end=' ')
+            print("                 composite:                    %6.2f  %5.2f" % (
+                total_Rfactor(rdcs), composite_chi2(rdcs)))
+            pass
+        pass
+    
+    if plot and eIndex==0:
+        from math import sqrt
+    
+    
+        calcd /= len(coordFiles)
+        calcdErr = cdsVector.sqrt(calcdErr/len(coordFiles) -calcd**2)
+            
+        obs=[]
+        obsErr=[]
+        aveR=0.
+        aveRinf=0.
+        aveRMSD=0.
+        labels=[]
+        for rdc in rdcs:
+            aveR += rdc.numRestraints() * Rfactor(rdc)
+            aveRinf += rdc.numRestraints() * Rfactor_infinite(rdc)
+            aveRMSD += rdc.numRestraints() * rdc.rms()
+            for r in rdc.restraints():
+                if plotLabels:
+                    labels.append( (r.obs(), r.calcd(),
+                                    r.selPairs()[0].a[0].residueNum()) )
+                    pass
+                obs.append( r.obs() )
+                obsErr.append( r.plusErr() )
+                pass
+            pass
+        aveR /= len(obs)
+        aveRinf /= len(obs)
+        aveRMSD /= len(obs)
+        #plot(calcdN, obsN,"ro")
+        def picker(line,event):
+            #print str(event)
+            #print str(obj)
+            #thisline = event.artist
+            #name = thisline.name
+            #print name
+            xdata = line.get_xdata()
+            ydata = line.get_ydata()
+            xdata = event.xdata
+            ydata = event.ydata
+            closest=(1e30,None)
+            for rdc in rdcs:
+                for r in rdc.restraints():
+                    dist = abs( (xdata-r.obs())**2 +
+                                (ydata-r.calcd())**2 )
+                    #print 'dist',dist
+                    if closest[0]>dist:
+                        closest = (dist,r)
+                        pass
+                    pass
+                pass
+            dist,r=closest
+            if dist<1.5:
+                import matplotlib.transforms as mtransforms
+                from matplotlib.patches import FancyBboxPatch
+                # Bbox object around which the fancy box will be drawn.
+                bb = mtransforms.Bbox([[0.3, 0.4], [0.7, 0.6]])
+
+                p_fancy = FancyBboxPatch((bb.xmin, bb.ymin),
+                             abs(bb.width), abs(bb.height),
+                             boxstyle="round,pad=0.1",
+                             fc=(1., .8, 1.),
+                             ec=(1., 0.5, 1.))
+
+                # draws control points for the fancy box.
+                #l = p_fancy.get_path().vertices
+                #ax.plot(l[:,0], l[:,1], ".")
+
+                text(r.obs(),r.calcd(),
+                     r.selPairs()[0].a.string(),
+#                     r.selPairs()[0].a[0].residueNum(),
+                     horizontalalignment='center',
+                     bbox=dict(facecolor='yellow', alpha=0.5))
+                #add_patch(bb)
+                #draw_bbox(ax, bb)
+                #y=y0
+                #summarizeAndPlot(rdcs,"blue")
+                #summarizeAndPlot(crossTerms,"red")
+                draw()
+                pass
+            #print dist,r.name()
+                       
+            #print xdata,ydata
+            maxd = 0.05
+            print(event.xdata, event.ydata)
+            return True, dict(ind=True, pickx=xdata, picky=ydata)
+            #d = np.sqrt((xdata-mouseevent.xdata)**2. + (ydata-mouseevent.ydata)**2.)
+
+            #ind = np.nonzero(np.less_equal(d, maxd))
+            #if len(ind):
+            #    pickx = np.take(xdata, ind)
+            #    picky = np.take(ydata, ind)
+            #    props = dict(ind=ind, pickx=pickx, picky=picky)
+            #    return True, props
+            #else:
+            return False, dict()  
+        
+        errorbar(obs, calcd,xerr=obsErr,yerr=calcdErr,fmt="o",color=color,
+                 picker=picker)
+        for x,y,resid in labels:
+            text(x,y,resid)
+        
+        aveCalcd = sum(calcd) / len(calcd)
+        aveObs   = sum(obs) / len(obs)
+    
+        cross=0.
+        obs2=0.
+        for i in range(len(obs)):
+            cross += calcd[i]*obs[i]
+            obs2 += obs[i]**2
+            pass
+        slope = (cross - len(obs)*aveCalcd*aveObs) / \
+                (obs2 - len(obs)*aveObs**2)
+        intercept = (aveCalcd - slope*aveObs)
+    
+                    
+        aveCalcd2 = sum([(c-aveCalcd)**2 for c in calcd])
+        aveObs2  = sum( [(o-aveObs)**2 for o in obs] )
+        cross=0.
+        for i in range(len(obs)):
+            cross += (calcd[i]-aveCalcd) * (obs[i]-aveObs)
+            pass
+    
+        corr = cross / sqrt(aveCalcd2*aveObs2)
+
+        minObs=min(obs)
+        maxObs=max(obs)
+
+        minCalcd = min(calcd)
+        maxCalcd = max(calcd)
+
+        minimum = min(minObs, minCalcd)
+        maximum = max(maxObs, maxCalcd)
+
+        plot([minimum, maximum],[minimum, maximum], "k-")
+        plot([minimum, maximum],
+             [slope*minObs+intercept,slope*maxObs+intercept],"--",
+             color=color)
+
+        gca().set_aspect('equal', adjustable='box')  # square plot
+        
+        text(0.05,y,
+             '$R$=%.2f   $R_\infty$=%.2f   RMSD=%.2f   corr=%.3f' %
+              (aveR,aveRinf,aveRMSD,corr),
+             transform=axes().transAxes,color=color)
+        y-= 0.05
+
+    
+        pass
+        
+    return
+
+summarizeAndPlot(rdcs,"blue",subSel)
+summarizeAndPlot(crossTerms,"red",crossSel)
+
+if plot and eIndex==0:
+    show()
+    pass
+
+
+
+#print tensor
+    
+if printRDCs:
+    print(analyze(rdcs,crossTerms))
+    pass
+
+if getTagsSet:
+    
+    m=medium
+    print("Da: %7.2f" % (m.Da()))
+    print("Rh: %7.3f" % (m.Rh()))
+    
+    x=m.xAtom().pos() - m.oAtom().pos()
+    y=m.yAtom().pos() - m.oAtom().pos()
+    z=m.zAtom().pos() - m.oAtom().pos()
+    
+    print("Orientation_xx: %7.2f" % (x[0]))
+    print("Orientation_xy: %7.2f" % (x[1]))
+    print("Orientation_xz: %7.2f" % (x[2]))
+    print("Orientation_yx: %7.2f" % (y[0]))
+    print("Orientation_yy: %7.2f" % (y[1]))
+    print("Orientation_yz: %7.2f" % (y[2]))
+    print("Orientation_zx: %7.2f" % (z[0]))
+    print("Orientation_zy: %7.2f" % (z[1]))
+    print("Orientation_zz: %7.2f" % (z[2]))
+    pass
+

@@ -1,0 +1,399 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+(optList, args) = xplor.parseArguments(["seq:1","psf:1","pdb:1",
+					"segid:1","startResid:1",
+                                        "error:1",
+                                        "binsize:1",
+                                        "histfilename:1",
+                                        "normtype:1",
+                                        "verbose",],
+					cmdline=
+     "[options] <structure info> <dipolar coupling tables>",
+                                       description="""
+Calculate an estimate of alignment tensor Da and rhombicity from input RDC 
+values (no structures) using the assumption of isotropically distributed 
+bond vectors and a maximum likelihood approach. The rdc tables use default 
+Xplor-NIH format.""",
+                                       usageString="""
+
+This script uses the maximum likelihood approach of Warren and Moore, J. Magn.
+Res. 149, 271 (2001).
+
+One of -psf, -seq or -pdb must be specified. However, note that structural
+information is not used in the fit. The file is used to gather information of
+bond vector type.
+
+At exit, the powder pattern corresponding to the calculated Da and rhombicity
+and a crude histogram of input coupling values is output in a separate file.
+The file has three columns corresponding to
+coupling value    histogram count   powder pattern intensity.
+
+
+options::
+
+  -pdb <pdb file>       - specify pdb file                    |
+  -psf <psf file>       - specify psf file                    |  one required
+  -seq <seq file>       - specify file containing a sequence. |
+
+  -segid <segid>        - specify the segid. Only useful if the sequence is
+  	 		  input using -seq
+  -startResid <resid>   - specify the first residue number of a sequence. 
+  	      		  Only useful if the sequence is input using -seq			  
+
+  -error <error spec>   - specify the experimental error [default value: 1]
+                          A Gaussian with this width is convoluted with
+                          the powder pattern in the maximum likelihood
+                          calculation.
+                          If multiple rdc tables are specified, differing
+                          error values can be supplied for each table by
+                          specifying multiple numbers separated by a colon.
+                          e.g. -error 1:5:3
+  -normtype  <spec>     - specify how to handle normalization of different
+                          experiments. spec can be none, NH, CH, or none
+                          [default: NH]
+  -binsize <num>        - specify the bin size used for the histogram. This
+                          does not affect the calculation of Da, Rh.
+  -histfilename <file>  - specify the filename for the output histogram
+                          [default: histogram.out].                          
+  -verbose              - print values of most likely Da, Rh as they are
+                          calculated.
+  -help-script          - print this message.
+
+ 
+""")
+
+
+tables = args
+
+import psfGen, protocol
+psfGenerated=False
+noise=1 #hertz
+minmaxmodeTol=5 # hertz
+noiseArr=None
+verbose=0
+binWidth=3 #ppm
+buffer=5   # hertz - size of region on either side of the powder pattern
+histfilename="histogram.out"
+norm="NH"
+segid=""
+startResid=1
+seq=None
+for opt in optList:
+    name=opt[0]
+    if len(opt)>1: val=opt[1]
+    if name=='seq':
+        seq=val
+        pass
+    if name=='pdb':
+        psfGen.pdbToPSF(val)
+        psfGenerated=True
+        pass
+    if name=='psf':
+        protocol.initStruct(val)
+        psfGenerated=True
+        pass
+    if name=='segid':
+        segid=val
+        pass
+    if name=='startResid':
+        startResid=int(val)
+        pass
+    if name=='error':
+        if ':' in val:
+            noiseArr = [float(x) for x in val.split(":")]
+        else:
+            noiseArr = [float(x) for x in val.split()]
+            pass
+        pass
+    if name=='normtype':
+        norm=val
+        pass
+    if name=='binsize':
+        bidWidth=float(val)
+        pass
+    if name=='histfilename':
+        histfilename=val
+        pass
+    if name=='verbose':
+        verbose=1
+        pass
+    pass
+
+
+if seq:
+    psfGen.seqToPSF(seq,segName=segid,startResid=startResid)
+    psfGenerated=True
+    pass
+
+if not noiseArr:
+    noiseArr = [noise]*len(tables)
+    pass
+
+if len(noiseArr) != len(tables):
+    raise Exception("number of entries for -error must match number of tables")
+
+if not psfGenerated:
+    print("add structure information using the -seq, -psf or -pdb options")
+    raise Exception("no psf information supplied")
+    
+
+from csaPot import convPowderPattern
+
+def getPSpline(Da,Rh,noise):
+    #extrema
+    D11 = 2*Da             
+    D33 = -Da*(1+1.5*Rh)   
+
+    Dmax = max(D11,D33) + 5*noise
+    Dmin = min(D11,D33) - 5*noise
+
+
+    from spline import FloatSpline 
+    splineP=FloatSpline(convPowderPattern(max(Dmax,abs(Dmin)),
+                                          Da,Rh,noise))
+    return (splineP,Dmin,Dmax)
+        
+
+
+def convP(c,Da,Rh,noise):
+    """
+    csa power intensity convoluted with a Gaussian of width noise.
+    """
+    
+    global savedSpline
+    (Da_save,Rh_save,Dmin,Dmax,splineP) = savedSpline[noise]
+     
+    if Da!=Da_save or Rh!=Rh_save:
+        (splineP,Dmin,Dmax)=getPSpline(Da,Rh,noise)
+        savedSpline[noise] = (Da,Rh,Dmin,Dmax,splineP)
+        pass
+        
+    if c>Dmax or c<Dmin: return 0.
+    return splineP(c)
+
+
+    
+
+    
+
+    
+
+
+
+def targetFunc(Da,Rh):
+    """
+    log of likelihood function
+    """
+    # compute P(C;Da,Rh) on a grid
+    # fourier transform to time domain
+    # multiply by Gaussian exp( -(pi t /noise)^2 )
+    # inverse fourier transform
+    # use spline for the result
+    sum=0
+    from math import log
+    oldNoise=-1
+    for (couplings,noise) in couplingSets:
+        if noise!=oldNoise:
+            (splineP,Dmin,Dmax)=getPSpline(Da,Rh,noise)
+            oldNoise=noise
+            pass
+        for c in couplings:
+            sum += log(max(splineP(c),1e-30))
+            pass
+        pass
+
+    return sum
+        
+
+from varTensorTools import create_VarTensor
+alignTensor = create_VarTensor("align")
+
+from rdcPotTools import create_RDCPot, scale_toNH, scale_toCH
+rdcs=[]
+couplingSets=[]
+minObs=100
+maxObs=-100
+savedSpline={}
+totCouplings=0
+for i in range(len(tables)):
+    table = tables[i]
+#    print table
+    rdc = create_RDCPot(table,table,alignTensor)
+    if norm=="none":
+        pass
+    elif norm=="NH":
+        scale_toNH(rdc)
+    elif norm=="CH":
+        scale_toCH(rdc)
+    else:
+        raise Exception("norm %s not supported" % norm)
+    
+    rdcs.append(rdc)
+
+    couplings=[]
+    for r in rdc.restraints():
+        c = r.obs() / rdc.gyroA()
+        couplings.append( c )
+        maxObs = max(maxObs,c)
+        minObs = min(minObs,c)
+        pass
+
+    couplingSets.append((couplings,noiseArr[i]))
+    totCouplings += len(couplings)
+
+    #                            Da    Rh   minDa maxDa spline
+    savedSpline[noiseArr[i]] = (-1000,-1000,100, -100,  None)
+
+    pass
+
+#Da=10.
+#Rh=0.4
+#c=-20
+#Da_save = Da
+#Rh_save = Rh
+#computeConvP(10*noise+2*Da)
+#while c<abs(2*Da):
+#    print c,convP(c,Da,Rh)
+#    c += 0.1
+#    pass
+#
+
+print('number of observed dipolar couplings:', totCouplings)
+
+#determine max, min coupling value
+
+# grid search Da, Rh for values which maximize target function
+
+deltaDa=.1
+deltaRh=0.01
+maxLike=-1e30
+maxDa=0
+maxRh=0
+Da=min(minObs,-maxObs)-buffer
+while Da<max(maxObs,-minObs)+buffer:
+    Rh=0
+    while Rh<0.67:
+        like = targetFunc(Da,Rh)
+        if like>maxLike:
+            if verbose:
+                print("Da: ",Da,"  Rh: ",Rh, end=' ')
+                print("  score: ",like)
+            maxLikeDa = Da
+            maxLikeRh =Rh
+            maxLike = like
+            pass
+        Rh += deltaRh
+        pass
+    Da += deltaDa
+    pass
+
+
+## gradient search: not used
+#def J(x):
+#    print x,
+#    y = -targetFunc(x[0],abs(x[1]))
+#    print y
+#    return y
+#
+#def dJ(x):
+#    """
+#    """
+#
+#    eps=1e-7
+#    ret=[]
+#    J0=J(x)
+#    x0=list(x)
+#    for i in range(len(x)):
+#        x[i] += eps
+#        ret.append( (J(x)-J0)/eps )
+#        x = list(x0)
+#        pass
+##    print 'grad', ret
+#
+#    return ret
+#
+#
+#
+#import minimize
+#ret = minimize.bfgs([maxDa,maxRh],J,dJ,stepsize0=0.01,verbose=1)
+#(maxDa,maxRh) = ret[0]
+
+print("Da:", maxLikeDa, "   Rh:", maxLikeRh)
+
+Da=maxLikeDa
+Rh=maxLikeRh
+
+cMin=-2*abs(Da)-buffer
+cMax=-cMin
+cDeltaPlot=0.1
+numBins = int((cMax-cMin) / binWidth)
+counts=[0]*(numBins+1)
+
+def whichBin(c):
+    bin = (c-cMin) / binWidth
+    return int(bin)
+
+
+#generate histogram of restraint data
+for (couplings,noise) in couplingSets:
+    for c in couplings:
+        try:
+            counts[ whichBin(c) ] += 1
+        except IndexError:
+            print("histogram: dipolar coupling value out of range")
+            pass
+        pass
+    pass
+
+plotData=[]
+
+c=cMin
+while c<cMax:
+    plotData.append( (c, counts[ whichBin(c) ]) )
+    c += cDeltaPlot
+    pass
+    
+minNoise = min([cSet[1] for cSet in couplingSets])
+plotData =  [(c_h[0],c_h[1],convP(c_h[0],Da,Rh,minNoise)) for c_h in plotData]
+
+try:
+    maxCount=max(counts)
+except:
+    pass
+try:
+    maxPowder=max([c_h_p[2] for c_h_p in plotData])
+except:
+    maxPowder=1
+    pass
+
+histfile=open(histfilename,"w")
+modeObs=-cMin
+for (c,h,p) in plotData:
+    if h==maxCount: modeObs=c-0.5*binWidth
+    print(c,h,p*maxCount/maxPowder, file=histfile)
+    pass
+
+print("histogram and powder pattern spectrum written to", histfilename)
+
+modePowder = -Da*(1-1.5*Rh)
+if (Da>0):
+    minPowder = -Da*(1+1.5*Rh)
+    maxPowder = 2*Da
+else:
+    minPowder = 2*Da
+    maxPowder = -Da*(1+1.5*Rh)
+    pass
+
+if abs(minObs-minPowder)>minmaxmodeTol:
+    print("WARNING: large difference in lower bound found")
+    print("  observed: %7.3f  calculated: %7.3f" % (minObs,minPowder))
+    pass
+if abs(maxObs-maxPowder)>minmaxmodeTol:
+    print("WARNING: large difference in upper bound found")
+    print("  observed: %7.3f  calculated: %7.3f" % (maxObs,maxPowder))
+    pass
+if abs(modeObs-modePowder)>minmaxmodeTol:
+    print("WARNING: large difference in mode (maximum of distribution)")
+    print("  observed: %7.3f  calculated: %7.3f" % (modeObs,modePowder))
+    pass
+

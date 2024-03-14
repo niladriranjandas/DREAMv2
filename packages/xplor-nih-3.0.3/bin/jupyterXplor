@@ -1,0 +1,16 @@
+#!/bin/sh 
+
+pyXplor=/data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/pyXplor
+
+PATH=/data2/nmr/our_algo/packages/xplor-nih-3.0.3/python/jupyter:$PATH
+export PATH
+
+jupyter=`which jupyter`
+
+if [ -z "$jupyter" ]; then
+    echo "Error: jupyter not found"
+    exit 1
+fi
+
+eval $pyXplor $jupyter $@
+

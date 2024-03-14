@@ -1,0 +1,4 @@
+117 MET  QB    121 VAL  QG1     1.80
+117 MET  QB    121 VAL  QG2     1.80
+117 MET  QB     99 ILE  QG2     1.80
+117 MET  QB     99 ILE  QD1     1.80

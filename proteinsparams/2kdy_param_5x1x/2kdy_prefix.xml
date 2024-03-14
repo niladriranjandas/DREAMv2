@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>2kdy</protein_name>
+		<seq_file>2kdy.seq</seq_file>
+		<upl_file>2kdy_concat_dist.upl</upl_file>
+		<hbond_file>2kdy_concat_hBond.upl</hbond_file>
+		<ang_file></ang_file>
+		<protein_path>../protein/2kdy</protein_path>
+	</inputs>

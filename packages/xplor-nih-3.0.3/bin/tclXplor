@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# shell to run Xplor-NIH tcl scripts as command interpreters
+#
+#  make sure this command is in your path, then begin
+#  your TCL script (script.tcl) with the line
+#!/usr/bin/env tclXplor
+#  and make it executable:
+# chmod +x script.tcl
+#  you can then run your script directly:
+# ./script.tcl
+#
+# Note, however, that the command-line arguments will be off by one:
+#   the first argument will always be -tcl
+#
+
+exec /data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/xplor -tcl $*

@@ -1,0 +1,173 @@
+  8 ASP   PHI     -90.0   -10.0
+  9 ILE   PHI     -90.0   -10.0
+ 10 THR   PHI     -90.0   -10.0
+ 11 LEU   PHI     -90.0   -10.0
+ 12 GLN   PHI     -90.0   -10.0
+ 13 GLU   PHI     -90.0   -10.0
+ 14 ILE   PHI     -90.0   -10.0
+ 15 ILE   PHI     -90.0   -10.0
+ 16 LYS   PHI     -90.0   -10.0
+ 17 THR   PHI     -90.0   -10.0
+ 18 LEU   PHI     -90.0   -10.0
+ 19 ASN   PHI     -90.0   -10.0
+ 20 SER   PHI     -90.0   -10.0
+ 21 LEU   PHI     -90.0   -10.0
+ 22 THR   PHI     -90.0   -10.0
+ 23 GLU   PHI     -90.0   -10.0
+ 24 GLN   PHI    -175.0   -75.0
+ 26 THR   PHI    -175.0   -75.0
+ 27 LEU   PHI     -90.0   -10.0
+ 28 CYS   PHI     -90.0   -10.0
+ 29 THR   PHI     -90.0   -10.0
+ 33 VAL   PHI    -175.0   -75.0
+ 37 PHE   PHI    -175.0   -75.0
+ 39 ALA   PHI    -165.0   -85.0
+ 43 THR   PHI    -165.0   -85.0
+ 44 THR   PHI    -165.0   -85.0
+ 46 LYS   PHI     -90.0   -10.0
+ 47 GLU   PHI     -90.0   -10.0
+ 48 THR   PHI     -90.0   -10.0
+ 49 PHE   PHI     -90.0   -10.0
+ 50 CYS   PHI     -90.0   -10.0
+ 51 ARG   PHI     -90.0   -10.0
+ 52 ALA   PHI     -90.0   -10.0
+ 53 ALA   PHI     -90.0   -10.0
+ 54 THR   PHI     -90.0   -10.0
+ 55 VAL   PHI     -90.0   -10.0
+ 56 LEU   PHI     -90.0   -10.0
+ 57 ARG   PHI     -90.0   -10.0
+ 58 GLN   PHI     -90.0   -10.0
+ 59 PHE   PHI     -90.0   -10.0
+ 60 TYR   PHI     -90.0   -10.0
+ 61 SER   PHI     -90.0   -10.0
+ 62 HIS   PHI     -90.0   -10.0
+ 63 HIS   PHI     -90.0   -10.0
+ 64 GLU   PHI     -90.0   -10.0
+ 66 ASP   PHI    -175.0   -75.0
+ 67 THR   PHI     -90.0   -10.0
+ 68 ARG   PHI     -90.0   -10.0
+ 69 CYS   PHI     -90.0   -10.0
+ 70 LEU   PHI     -90.0   -10.0
+ 72 ALA   PHI    -175.0   -75.0
+ 73 THR   PHI    -175.0   -75.0
+ 74 ALA   PHI     -90.0   -10.0
+ 75 GLN   PHI     -90.0   -10.0
+ 76 GLN   PHI     -90.0   -10.0
+ 77 PHE   PHI     -90.0   -10.0
+ 78 HIS   PHI     -90.0   -10.0
+ 79 ARG   PHI     -90.0   -10.0
+ 80 HIS   PHI     -90.0   -10.0
+ 81 LYS   PHI     -90.0   -10.0
+ 82 GLN   PHI     -90.0   -10.0
+ 83 LEU   PHI     -90.0   -10.0
+ 84 ILE   PHI     -90.0   -10.0
+ 85 ARG   PHI     -90.0   -10.0
+ 86 PHE   PHI     -90.0   -10.0
+ 87 LEU   PHI     -90.0   -10.0
+ 88 LYS   PHI     -90.0   -10.0
+ 89 ARG   PHI     -90.0   -10.0
+ 90 LEU   PHI     -90.0   -10.0
+ 91 ASP   PHI     -90.0   -10.0
+ 92 ARG   PHI     -90.0   -10.0
+ 93 ASN   PHI     -90.0   -10.0
+ 94 LEU   PHI     -90.0   -10.0
+ 95 TRP   PHI     -90.0   -10.0
+ 96 GLY   PHI     -90.0   -10.0
+ 97 LEU   PHI     -90.0   -10.0
+ 98 ALA   PHI     -90.0   -10.0
+100 LEU   PHI    -165.0   -85.0
+102 SER   PHI     -90.0   -10.0
+103 CYS   PHI    -165.0   -85.0
+104 PRO   PHI     -90.0   -10.0
+108 ALA   PHI    -175.0   -75.0
+111 SER   PHI    -175.0   -75.0
+113 LEU   PHI     -90.0   -10.0
+114 GLU   PHI     -90.0   -10.0
+115 ASN   PHI     -90.0   -10.0
+116 PHE   PHI     -90.0   -10.0
+117 LEU   PHI     -90.0   -10.0
+118 GLU   PHI     -90.0   -10.0
+119 ARG   PHI     -90.0   -10.0
+120 LEU   PHI     -90.0   -10.0
+121 LYS   PHI     -90.0   -10.0
+122 THR   PHI     -90.0   -10.0
+123 ILE   PHI     -90.0   -10.0
+124 MET   PHI     -90.0   -10.0
+125 ARG   PHI     -90.0   -10.0
+126 GLU   PHI     -90.0   -10.0
+127 LYS   PHI     -90.0   -10.0
+128 TYR   PHI     -90.0   -10.0
+129 SER   PHI     -90.0   -10.0
+133 SER   PHI    -175.0   -75.0
+  9 ILE   PSI    -110.0    10.0
+ 10 THR   PSI    -110.0    10.0
+ 11 LEU   PSI    -110.0    10.0
+ 12 GLN   PSI    -110.0    10.0
+ 13 GLU   PSI    -110.0    10.0
+ 14 ILE   PSI    -110.0    10.0
+ 15 ILE   PSI    -110.0    10.0
+ 16 LYS   PSI    -110.0    10.0
+ 17 THR   PSI    -110.0    10.0
+ 18 LEU   PSI    -110.0    10.0
+ 19 ASN   PSI    -110.0    10.0
+ 20 SER   PSI    -110.0    10.0
+ 21 LEU   PSI    -110.0    10.0
+ 27 LEU   PSI    -110.0    10.0
+ 28 CYS   PSI    -110.0    10.0
+ 29 THR   PSI    -110.0    10.0
+ 46 LYS   PSI    -110.0    10.0
+ 47 GLU   PSI    -110.0    10.0
+ 48 THR   PSI    -110.0    10.0
+ 49 PHE   PSI    -110.0    10.0
+ 50 CYS   PSI    -110.0    10.0
+ 51 ARG   PSI    -110.0    10.0
+ 52 ALA   PSI    -110.0    10.0
+ 53 ALA   PSI    -110.0    10.0
+ 54 THR   PSI    -110.0    10.0
+ 55 VAL   PSI    -110.0    10.0
+ 56 LEU   PSI    -110.0    10.0
+ 57 ARG   PSI    -110.0    10.0
+ 58 GLN   PSI    -110.0    10.0
+ 59 PHE   PSI    -110.0    10.0
+ 60 TYR   PSI    -110.0    10.0
+ 61 SER   PSI    -110.0    10.0
+ 62 HIS   PSI    -110.0    10.0
+ 74 ALA   PSI    -110.0    10.0
+ 75 GLN   PSI    -110.0    10.0
+ 76 GLN   PSI    -110.0    10.0
+ 77 PHE   PSI    -110.0    10.0
+ 78 HIS   PSI    -110.0    10.0
+ 79 ARG   PSI    -110.0    10.0
+ 80 HIS   PSI    -110.0    10.0
+ 81 LYS   PSI    -110.0    10.0
+ 82 GLN   PSI    -110.0    10.0
+ 83 LEU   PSI    -110.0    10.0
+ 84 ILE   PSI    -110.0    10.0
+ 85 ARG   PSI    -110.0    10.0
+ 86 PHE   PSI    -110.0    10.0
+ 87 LEU   PSI    -110.0    10.0
+ 88 LYS   PSI    -110.0    10.0
+ 89 ARG   PSI    -110.0    10.0
+ 90 LEU   PSI    -110.0    10.0
+ 91 ASP   PSI    -110.0    10.0
+ 92 ARG   PSI    -110.0    10.0
+ 93 ASN   PSI    -110.0    10.0
+ 94 LEU   PSI    -110.0    10.0
+ 95 TRP   PSI    -110.0    10.0
+ 96 GLY   PSI    -110.0    10.0
+ 97 LEU   PSI    -110.0    10.0
+113 LEU   PSI    -110.0    10.0
+114 GLU   PSI    -110.0    10.0
+115 ASN   PSI    -110.0    10.0
+116 PHE   PSI    -110.0    10.0
+117 LEU   PSI    -110.0    10.0
+118 GLU   PSI    -110.0    10.0
+119 ARG   PSI    -110.0    10.0
+120 LEU   PSI    -110.0    10.0
+121 LYS   PSI    -110.0    10.0
+122 THR   PSI    -110.0    10.0
+123 ILE   PSI    -110.0    10.0
+124 MET   PSI    -110.0    10.0
+125 ARG   PSI    -110.0    10.0
+126 GLU   PSI    -110.0    10.0
+127 LYS   PSI    -110.0    10.0

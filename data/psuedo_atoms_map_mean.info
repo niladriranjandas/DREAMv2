@@ -1,0 +1,163 @@
+RESIDUE ALA
+1
+QB
+1   9   10  11
+
+RESIDUE ARG
+5
+QB
+1   8   9
+QG
+2   12  13
+QD
+3   16  17
+QH1
+4   23  24
+QH2
+5   27  28
+
+RESIDUE ASN
+2
+QB
+1   8   9
+QD2
+2   14  15
+
+RESIDUE	ASP
+1
+QB
+1   8   9
+
+RESIDUE CYS
+1
+QB
+1   8   9
+
+RESIDUE CYSS
+1
+QB
+1   8   9
+
+RESIDUE	GLU
+2
+QB
+1   8   9
+QG
+2   12  13
+
+RESIDUE	GLN
+3
+QB
+1   8   9
+QG
+2   12  13
+QE2
+3   18  19
+
+RESIDUE GLY
+1
+QA
+1	6   7
+
+RESIDUE	HIS
+1
+QB
+1   8   9
+
+RESIDUE ILE
+3
+QG1
+1   15  16  
+QG2
+2   11  12  13
+QD1
+3   20  21  22
+
+RESIDUE LEU
+4
+QB
+1   8   9
+QD1
+2   16  17  18
+QD2
+3   20  21  22
+QQD
+4   15  19
+
+RESIDUE LYS
+5
+QB
+1   8   9
+QG
+2   12  13
+QD
+3   16  17
+QE
+4   20  21
+QZ
+5   24  25  26   
+
+RESIDUE	MET
+3
+QB
+1   8   9
+QG
+2   12  13
+QE
+3   18  19  20
+
+RESIDUE PHE
+4
+QB
+1   8   9
+QD
+2   16  24
+QE
+3   18  22
+QR
+4   14  15  17  19  21  23
+
+RESIDUE PRO
+3
+QB
+1   8   9
+QG
+2   12  13
+QD
+3   15  16
+
+RESIDUE SER
+1
+QB
+1   8   9
+
+RESIDUE THR
+1
+QG2
+1   13  14  15
+
+RESIDUE TRP
+1
+QB
+1   8   9
+
+
+RESIDUE TYR
+4
+QB
+1   8   9
+QD
+2   16  23
+QE
+3   18  21
+QR
+4   14  15  17  19  20  22
+
+RESIDUE VAL
+3
+QG1
+1   12  13  14
+QG2
+2   16  17  18    
+QQG
+3   11  15

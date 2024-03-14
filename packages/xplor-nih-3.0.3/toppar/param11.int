@@ -1,0 +1,60 @@
+remarks  param11.INT
+remarks  ===========
+remarks  parameters for protein - nucleotide interactions
+remarks
+
+set echo=false end
+
+bond  OS   CH2E   292.0000    1.4300 ! Infer., ATB
+bond  OS   CH1E   292.0000    1.4300 ! Infer., ATB
+
+angle  P    OS   CH1E    46.5000  120.5000 ! infer., ATB
+angle  P    OS   CH2E    46.5000  120.5000 ! infer., ATB
+angle  CH3E CH1E OS      46.5000  111.0000 ! infer., ATB
+angle  OS   CH2E CH1E    70.0000  112.0000 ! infer., ATB
+
+dihedral  X    CH1E OS   X        0.5000    3    0.0000  ! infer., ATB
+dihedral  X    CH2E OS   X        0.5000    3    0.0000  ! infer., ATB
+
+
+
+ {* hbond protein -DNA/RNA crossterms *}
+ {* ================================= *}
+
+!                   Emin      Rmin
+!                (Kcal/mol)   (A)
+hbond  N*   O*      -3.5       2.9
+hbond  N*   N*      -3.0       3.0
+hbond  O*   O*      -4.25      2.75
+hbond  O*   N*      -4.00      2.85
+
+
+nbfix HO   NP      0.05       0.1      0.05       0.1
+nbfix HO   NR      0.05       0.1      0.05       0.1
+nbfix HO   O       0.05       0.1      0.05       0.1
+nbfix HO   OC      0.05       0.1      0.05       0.1
+nbfix HO   OH1     0.05       0.1      0.05       0.1
+
+nbfix HN   NP      0.05       0.1      0.05       0.1
+nbfix HN   NR      0.05       0.1      0.05       0.1
+nbfix HN   O       0.05       0.1      0.05       0.1
+nbfix HN   OC      0.05       0.1      0.05       0.1
+nbfix HN   OH1     0.05       0.1      0.05       0.1
+
+nbfix H2   NP      0.05       0.1      0.05       0.1
+nbfix H2   NR      0.05       0.1      0.05       0.1
+nbfix H2   O       0.05       0.1      0.05       0.1
+nbfix H2   OC      0.05       0.1      0.05       0.1
+nbfix H2   OH1     0.05       0.1      0.05       0.1
+
+nbfix H    ON      0.05       0.1      0.05       0.1
+nbfix H    OH      0.05       0.1      0.05       0.1
+nbfix H    O2      0.05       0.1      0.05       0.1
+nbfix H    NC      0.05       0.1      0.05       0.1
+
+nbfix HC   ON      0.05       0.1      0.05       0.1
+nbfix HC   OH      0.05       0.1      0.05       0.1
+nbfix HC   O2      0.05       0.1      0.05       0.1
+nbfix HC   NC      0.05       0.1      0.05       0.1
+
+set echo=true end

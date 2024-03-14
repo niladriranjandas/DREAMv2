@@ -1,0 +1,709 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+#
+import sys
+from functools import reduce
+#
+
+plotLog=[True] if 'plotLog' in sys.argv[0] else [False]
+
+
+(opts,files) = xplor.parseArguments(['xmax:1',
+                                     'xmin:1',
+                                     'ymax:1',
+                                     'ymin:1',
+                                     'xlabel:1',
+                                     'ylabel:1',
+                                     'xticks:1',
+                                     'yticks:1',
+                                     'xminor:1',
+                                     'yminor:1',
+                                     'markersize:1',
+                                     'fontsize:1',
+                                     'figsize:2',
+                                     'label:1',
+                                     'outFile:1',
+                                     'vline:1',
+                                     'hline:1',
+                                     'line:1',
+                                     'suffix:1',
+                                     'normalizeIndex:1',
+                                     'normalizeX:1',
+                                     'numRows:1',
+                                     'curRow:1',
+                                     'rect:1',
+                                     'plotType:1',
+                                     'linewidth:1',
+                                     'noyticklabel:0',
+                                     'wintitle:1',
+                                     'sep:1',
+                                     'asTime:1',
+                                     'legend:0',
+                                     'legendLabels:1',
+                                     'legendLocation:1',
+                                     ],
+                                    cmdline="[option] file1[suff] ...",
+                                    description="""
+Create a two dimensional plot from X-Y data.
+                                    """,
+                                    usageString=r'''
+
+suff is an optional colon-separated list of column numbers and style
+strings. There can be one, two or three (offset 1) column numbers,
+corresponding to y-only, x,y, or x,y,dy data, respectively. An optional
+double colon (::) can be followed by row number.
+
+Using the filename stdin causes input to be read from stdin.
+ 
+
+option is zero or more of::
+
+ -xmax <val>   - plot bounds
+ -xmin  <val>
+ -ymax <val>   - plot bounds
+ -ymin  <val>
+ -xlabel <text> - axis labels
+ -ylabel <text>
+ -label  <x:y:text>  - place extra label on plot
+ -outFile <filename> - name of output file.
+ -normalizeIndex <val> - how to normalize the curves to each other
+                         (default - no normalization)
+ -normalizeX <val>     - value of x-axis at which to normalize y-axis values
+                         (default - no normalization)
+ -suffix <suffix>      - specify default suffix for all files
+ -vline <val>          - draw vertical line at val
+ -hline <val>          - draw horizontal line at val
+ -line <x1:y1:x2:y2>   - draw a line
+ -xticks <vals>        - colon-separated xtick values
+ -yticks <vals>        - colon-separated ytick values
+ -xminor <vals>        - colon-separated minor xtick values
+ -yminor <vals>        - colon-separated minor ytick values
+
+ -numRows <val>        - number of rows of subplots
+ -curRow  <val>        - current row for option specification -
+                          rows are numbered from 0, and from bottom to top
+ -rect left:bot:width:height
+                       - specify the size of the current subplot
+                         (default: 0.15:0.15:0.8:0.8)
+ -plotType <type>      - type of plot for current row (linear, log, loglog, xlog)
+ -linewidth <val>      - set linewidth
+ -markersize           - scale for symbol size of scatter points.
+ -fontsize             - text size
+ -figsize <x> <y>      - size of figure
+ -wintitle <text>      - window title (for interactive display)
+ -sep                  - column separator character (defaults to whitespace)
+ -legend               - generate a legend
+ -legendLabels         - Lables to use for legend, in the order of the
+                         file arguments.
+ -legendLocation       - legend placement. String, such as "upper left"
+                        
+'''
+)
+
+asTime=None
+fontSize=14
+labelFontMult=1.3 # size of x/y labels is this factor * fontSize
+maxx=None
+minx=None
+normalizeIndex=-1
+normalizeX=None
+xlabel=None
+outFilename=None
+suffix="1:2:3:-o"
+labels=[]
+showyticklabels=[True]
+numRows=1
+curRow=0
+maxy=[None  ]
+miny=[None  ]
+vlines=[]
+hlines=[]
+plotlines=[]
+ylabel=[None]
+xticks=[None]
+yticks=[None]
+xminor=[None]
+yminor=[None]
+figsize=None
+markersize=[None]
+linewidth=[None]
+rects=[(0.15,0.15,0.8,0.8)]
+wintitle=None
+sep=None
+plotLegend=[False]
+legendLabels=[None]
+legendLocations=["upper right"]
+artists=[[]]
+counter=[0]
+
+import sys
+for opt in opts:
+    if opt[0]=='xmax':
+        maxx=float(opt[1])
+        pass
+    if opt[0]=='xmin':
+        minx=float(opt[1])
+        pass
+    if opt[0]=='normalizeIndex':
+        normalizeIndex=int(opt[1])
+        pass
+    if opt[0]=='normalizeX':
+        normalizeX=float(opt[1])
+        pass
+    if opt[0]=='xlabel':
+        xlabel=opt[1]
+        pass
+    if opt[0]=='label':
+        labels.append(opt[1])
+        pass
+    if opt[0]=='outFile':
+        outFilename=opt[1]
+        pass
+    if opt[0]=='asTime':
+        if opt[1]=='x':
+            asTime=0
+        elif opt[1]=='y':
+            asTime=1
+        else:
+            raise Exception("invalid value for asTime")
+        pass
+    if opt[0]=='suffix':
+        suffix=opt[1]
+        pass
+    if opt[0]=='numRows':
+        numRows=int(opt[1])
+        maxy=[None  ]*numRows
+        miny=[None  ]*numRows
+        ylabel=[None]*numRows
+        xticks=[None]*numRows
+        yticks=[None]*numRows
+        xminor=[None]*numRows
+        yminor=[None]*numRows
+        plotLegend=[False]*numRows
+        legendLabels=[None]*numRows
+        legendLocations=[legendLocations[0]]*numRows
+        artists=[[]]*numRows
+        counter=[0]*numRows
+        markersize=[None]*numRows
+        linewidth=[None]*numRows
+        plotLog=[plotLog[0]]*numRows
+        showyticklabels=[showyticklabels[0]]*numRows
+        rects=[]
+        width=0.8
+        height=0.8/numRows
+        left=0.15
+        for row in range(numRows):
+            bot= 0.15+ row *height
+            rects.append( (left,bot,width,height) )
+            pass
+        pass
+    if opt[0]=='curRow':
+        curRow=int(opt[1])
+        pass
+
+    if opt[0]=='plotType':
+        if not opt[1] in ('linear','log','loglog','xlog'):
+            print('invalid argument for -plotType option:',opt[1])
+            sys.exit(1)
+            pass
+        plotLog[curRow]=False if opt[1]=='linear' else opt[1]
+        pass
+    if opt[0]=='rect':
+        seperator=":" if ":" in opt[1] else " "
+        rects[curRow] = [float(x) for x in opt[1].split(seperator)]
+        if len(rects[curRow])!=4:
+            print("bad rect specification:", opt[1])
+            print("should be: left:bot:width:height")
+            print(sys.exit(1))
+            pass
+        pass
+    if opt[0]=='ymax':
+        maxy[curRow] = float(opt[1])
+        pass
+    if opt[0]=='ymin':
+        miny[curRow] =float(opt[1])
+        pass
+    if opt[0]=='ylabel':
+        ylabel[curRow] =opt[1]
+        pass
+    if opt[0]=='xticks':
+        seperator=':' if ':' in opt[1] else ' '
+        xticks[curRow] =[float(x) for x in opt[1].split(seperator)]
+        pass
+    if opt[0]=='xminor':
+        seperator=':' if ':' in opt[1] else ' '
+        xminor[curRow] =[float(x) for x in opt[1].split(seperator)]
+        pass
+    if opt[0]=='yticks':
+        seperator=':' if ':' in opt[1] else ' '
+        yticks[curRow] =[float(x) for x in opt[1].split(seperator)]
+        pass
+    if opt[0]=='yminor':
+        xminor[curRow] =int(opt[1])
+        pass
+    if opt[0]=='markersize':
+        markersize[curRow] = float(opt[1])
+        pass
+    if opt[0]=='fontsize':
+        fontSize = int(opt[1])
+        pass
+    if opt[0]=='figsize':
+        figsize = (float(opt[1]), float(opt[2]))
+        pass
+    if opt[0]=='linewidth':
+        linewidth[curRow] = float(opt[1])
+        pass
+    if opt[0]=='vline':
+        vlines.append(opt[1])
+        pass
+    if opt[0]=='hline':
+        hlines.append(opt[1])
+        pass
+    if opt[0]=='line':
+        plotlines.append(opt[1])
+        pass
+    if opt[0]=='noyticklabel':
+        showyticklabels[curRow]=False
+        pass
+    if opt[0]=='wintitle':
+        wintitle=opt[1]
+        pass
+    if opt[0]=='sep':
+        sep=opt[1]
+        pass
+    if opt[0]=='legend':
+        plotLegend[curRow]=True
+        pass
+    if opt[0]=='legendLabels':
+        seperator=':' if ':' in opt[1] else ' '
+        legendLabels[curRow]=opt[1].split(seperator)
+        pass
+    if opt[0]=='legendLocation':
+        legendLocations[curRow]=opt[1]
+        pass
+    pass
+
+
+from pylab import figure, arange, randn, exp, xlim, ylim, show
+import pylab
+if figsize:
+    pylab.rcParams['figure.figsize'] = figsize
+    pass
+pylab.rcParams['legend.numpoints'] = 1
+pylab.rcParams['axes.linewidth'] = 2
+pylab.rcParams['lines.linewidth'] = 1
+pylab.rcParams['font.size'] = fontSize
+pylab.rcParams['xtick.major.size'] =8      # major tick size in points
+pylab.rcParams['ytick.minor.size'] =6      # minor tick size in points
+pylab.rcParams['figure.subplot.bottom'] = 0.13
+defMarkersize = pylab.rcParams['lines.markersize']
+defLinewidth = pylab.rcParams['lines.linewidth']
+
+#pylab.rcParams(xtick.major.pad = 4      # distance to major tick label in points
+#xtick.minor.pad      : 4      # distance to the minor tick label in points
+#xtick.color          : k      # color of the tick labels
+#xtick.labelsize      : medium # fontsize of the tick labels
+#x
+
+t = arange(0.1, 4, 0.1)    ##???
+s = exp(-t)
+e = 0.1*abs(randn(len(s)))
+f = 0.1*abs(randn(len(s)))
+g = 2*e
+h = 2*f
+
+import sys
+
+ymin=[1e30]*numRows
+ymax=[-1e30]*numRows
+xmin=1e30
+xmax=-1e30
+emax=0
+
+
+fig=figure(facecolor='w')
+if wintitle!=None:
+    fig.canvas.set_window_title(wintitle)
+    pass
+pylab.subplots_adjust(hspace=0.001)
+ax=[]
+
+import matplotlib
+#scientific notation for axis values < 10^-5 or > 10^5.
+matplotlib.rcParams['axes.formatter.limits'] = [-5,5]
+
+for row in range(numRows):
+    plotGeom=numRows*100 + 10 + numRows-row
+    kwargs={}
+    if row>0:
+        kwargs['sharex']=ax[0]
+        pass
+    if plotLog[row] and plotLog[row]!='xlog':
+        kwargs['yscale']='log'
+    else:
+        kwargs['yscale']='linear'
+        pass
+    if plotLog[row]=="loglog" or plotLog[row]=="xlog":
+        kwargs['xscale']='log'
+    else:
+        kwargs['xscale']='linear'
+        pass
+    
+#    ax.append( fig.add_subplot(plotGeom, **kwargs) )
+    ax.append( fig.add_axes(rects[row], **kwargs) )
+
+    if asTime!=None:
+        # matplotlib date format object
+        matplotlib.pyplot.xticks(rotation=30)
+        from matplotlib import dates
+        hfmt = dates.DateFormatter('%m/%d %H')
+#        hfmt = dates.DateFormatter('%m/%d/%Y')
+        #ax[-1].xaxis.set_major_locator(dates.WeekdayLocator(dates.MONDAY))
+        ax[-1].xaxis.set_major_formatter(hfmt)
+        pass
+
+#    ax[-1].ticklabel_format(style='sci', scilimits=(1e-5,1e5), axis='both') 
+    pass
+
+def is_atol(s):
+    try:
+        int(s)
+    except ValueError:
+        return False
+    return True
+
+class RetType:
+    pass
+
+def splitArgColsStyle(arg,
+                      defaultCols=(0,1,2),
+                      defaultStyle="-o",
+                      defaultRow=0):
+    """
+    split off colon-separated column numbers and style strings
+    from preceeding filename (arg) or other argument.
+
+    style is 1st non-integer element.
+
+    A double : (::) delimits a row number from other args/options.
+    """
+    ret=RetType
+    ret.cols=tuple(defaultCols)
+    ret.arg=arg
+    ret.style=str(defaultStyle)
+    ret.row=defaultRow
+    ret.kwargs={}
+    if ret.arg.find(":")>=0:
+        suff=ret.arg[ret.arg.find(":")+1:]
+        ret.arg=ret.arg.split(":")[0]
+        if suff.find("::")>=0:
+            (suff,row)=suff.split("::")
+            ret.row=int(row)
+            pass
+        colstry = [int(s)-1 for s in list(filter(is_atol, suff.split(':')))]
+        if colstry: ret.cols = colstry
+        rest = [s for s in suff.split(':') if not is_atol(s)]
+        if len(rest):
+            ret.style = rest[0]
+            pass
+        if len(rest)>1:
+            for pair in rest[1:]:
+                (name,val)=pair.split('=')
+                ret.kwargs[name]=float(val)
+                pass
+            pass
+#        print ret.arg, ret.cols,ret.style,ret.row
+#        print ret.options
+        pass
+    
+    return ret
+
+defVals=splitArgColsStyle("0:"+suffix)
+dcols,dstyle,drow = (defVals.cols,defVals.style,defVals.row)
+
+from glob import glob
+stdinlines=None
+for file in files:
+
+    getArgs = splitArgColsStyle(file,dcols,dstyle,drow)
+#    import sys; sys.exit(0)
+    (gfilename,cols,style,row) = (getArgs.arg,getArgs.cols,
+                                  getArgs.style,getArgs.row)
+
+    if gfilename=='stdin':
+        gfiles=[gfilename]
+    else:
+        gfiles=glob(gfilename)
+        pass
+
+    for file in gfiles:
+
+        if file=="stdin":
+            if not stdinlines:
+                stdinlines=sys.stdin.readlines()
+                pass
+            lines=list(stdinlines)
+        else:
+            lines=open(file).readlines()
+            pass
+    
+        xarray=None
+        yarray=[]
+        exarray=None
+        earray=None
+        cnt=1
+        for line in lines:
+            if line.startswith("#"):
+                continue
+            cnt+=1
+            data=[]
+            try:
+                for col in cols:
+                    if col==-1:
+                        data.append( cnt)
+                    else:
+                        try:
+                            data.append( float(line.split(sep)[col]) )
+                        except:
+                            #                        print 'problem with datum >%s<' % line.split(sep)[col]
+                            raise
+                        pass
+                    pass
+
+                if asTime!=None:
+                    import datetime
+                    d=data[asTime]
+                    # convert epoch to matplotlib float format
+                    #s = float(d)/1000
+                    #ms = d-1000*s  # not needed?
+                    #dts = datetime.datetime.fromtimestamp( s)
+                    #fds = dates.date2num(dts) # converted
+                    data[asTime] = dates.epoch2num(d)
+                    #print d, dates.num2date(data[asTime],
+                    #                        tz=datetime.tzinfo("EST5EDT"))
+                    #print fds
+                    
+                    pass
+    
+                if len(cols)==1:
+                    yarray.append(data[0])
+                elif len(cols)>=2:
+                    if xarray==None:xarray=[]
+                    xarray.append(data[0])
+                    yarray.append(data[1])
+                    pass
+                if len(cols)>2:
+                    if earray==None:earray=[]
+                    earray.append(data[2])
+                    pass
+                if len(cols)>3:
+                    if exarray==None:exarray=[]
+                    exarray.append(data[3])
+                    pass
+            except IndexError:
+                continue
+    
+            pass
+
+        if not len(yarray):
+            continue
+    
+        norm=1
+        if normalizeIndex!=-1:
+            norm=1./yarray[normalizeIndex]
+            pass
+
+        if normalizeX != None:
+            from spline import FloatSpline
+            spline = FloatSpline(xarray,yarray)
+            norm = 1. / spline(normalizeX)
+            pass
+    
+        yarray=[v*norm for v in yarray]
+        if earray: earray=[v*norm for v in earray]
+        if exarray:
+            exarray,earray = earray,exarray
+            exarray=[v*norm for v in exarray]
+            pass
+        
+            
+    
+    
+        ymin[row]=min(ymin[row],
+                      reduce(lambda x,y: min(x,y), yarray))
+        ymax[row]=max(ymax[row],
+                      reduce(lambda x,y: max(x,y), yarray))
+        xmin=min(xmin,
+                 reduce(lambda x,y: min(x,y), xarray))
+        xmax=max(xmax,
+                 reduce(lambda x,y: max(x,y), xarray))
+    
+        markerSize=markersize[row] * defMarkersize \
+                    if markersize[row] else defMarkersize
+    
+        lineWidth=linewidth[row] * defLinewidth \
+                    if linewidth[row] else defLinewidth
+    
+        #zorder controls order of drawing.
+        # larger values are drawn last and appear on top
+        # the errorbar line is drawn with a zorder of 2 regardless of
+        # specification (in version 0.99.0).
+    
+        from re import search, sub
+        m=search(r'[0-9]+',style)
+        style= sub(r'[0-9]+','',style)
+        if m and m.group()!='':
+            lineWidth*=int(m.group())
+            pass
+
+        legendLabel=gfilename
+        if legendLabels[row] and legendLabels[row][ counter[row] ]:
+            legendLabel = legendLabels[row][ counter[row] ]
+        counter[row] += 1
+        
+    
+        if asTime!=None:
+            p=ax[row].plot_date(xarray, yarray,
+                                fmt=style,
+                                linewidth=lineWidth,
+                                markersize=markerSize,
+                                label=legendLabel,
+                                **getArgs.kwargs)#,capsize=5)
+            fig.autofmt_xdate()
+        elif exarray and earray:
+            p=ax[row].errorbar(xarray, yarray, xerr=exarray, yerr=earray,
+                               fmt=style,
+                               linewidth=lineWidth,
+                               markersize=markerSize,
+                               label=legendLabel,
+                               ecolor='grey',**getArgs.kwargs)#,capsize=5)
+        elif earray:
+            p=ax[row].errorbar(xarray, yarray, yerr=earray, fmt=style,
+                               linewidth=lineWidth,
+                               markersize=markerSize,
+                               label=legendLabel,
+                               ecolor='grey',**getArgs.kwargs)#,capsize=5)
+        else:
+            p=ax[row].errorbar(xarray, yarray, fmt=style,
+                           linewidth=lineWidth,
+                           markersize=markerSize,
+                           label=legendLabel,
+                           **getArgs.kwargs)
+            pass
+        artists[row].append(p)
+        pass
+    pass
+
+if xlabel!=None: ax[0].set_xlabel(xlabel,size=fontSize*labelFontMult)
+
+
+if minx==None: minx= xmin
+if maxx==None: maxx= xmax
+for row in range(numRows):
+    if miny[row]==None: miny[row]= ymin[row]-2*emax
+    if maxy[row]==None: maxy[row]= ymax[row]+2*emax
+    if ylabel[row]!=None: ax[row].set_ylabel(ylabel[row],
+                                             size=fontSize*labelFontMult)
+    pass
+
+for vline in vlines:
+    getArgs=splitArgColsStyle(vline,
+                              defaultStyle="-",
+                              defaultRow=drow)
+    val,style,row = (getArgs.arg,getArgs.style,getArgs.row)
+    ax[row].plot([val,val],[miny,maxy],style)
+    pass
+for hline in hlines:
+    getArgs=splitArgColsStyle(hline,
+                              defaultStyle="-",
+                              defaultRow=drow)
+    val,style,row = (getArgs.arg,getArgs.style,getArgs.row)
+    ax[row].plot([minx,maxx],[val,val],style)
+    pass
+
+for line in plotlines:
+    x1,y1,x2 = [float(val) for val in line.split(':')[:3]]
+    rest = ':'.join( line.split(':')[3:] )
+    getArgs=splitArgColsStyle(rest,
+                              defaultStyle="-",
+                              defaultRow=drow)
+    print(line)
+    print(getArgs.arg,getArgs.style,getArgs.row)
+    y2,style,row = (getArgs.arg,getArgs.style,getArgs.row)
+    print([x1,y1],[x2,y2])
+    ax[row].plot([x1,x2],[y1,y2],style)
+    pass
+
+for label in labels:
+    row=drow
+    if label.find("::")>=0:
+        (label,row)=label.split("::")
+        row=int(row)
+        pass
+    (x,y) = label.split(':')[:2]
+    posText = label.find(":",len(" ".join(label.split(":")[0:2])))+1
+    text = label[posText:]
+    x=float(x)
+    y=float(y)
+    ax[row].text(x,y,text,
+                 horizontalalignment='center')
+    
+for row in range(numRows):
+    if plotLegend[row]:
+        if legendLabels[row]:
+#            ax[row].legend()
+            ax[row].legend(artists[row],legendLabels[row],
+                           loc=legendLocations[row])
+        else:
+            ax[row].legend()
+            pass
+        pass
+    pass
+        
+for row in range(numRows):
+    ax[row].set_ylim(miny[row],maxy[row])
+    ax[row].set_xlim(minx,maxx)
+    pass
+
+from matplotlib.ticker import MultipleLocator, FixedLocator
+
+xticklabels = []
+yticklabels = []
+for row in range(1,numRows):
+    xticklabels.append( ax[row].get_xticklabels() )
+    pylab.setp(xticklabels, visible=False)
+    yticklabels.append( ax[row].get_yticklabels() )
+    pylab.setp(yticklabels, visible=showyticklabels[row])
+    pass
+
+for row in range(numRows):
+    if xticks[row]!=None:
+#        ax[row].set_xticks(xticks[row])
+        ax[row].xaxis.set_major_locator(FixedLocator( xticks[row] ))
+#        ax.xaxis.set_minor_locator(MultipleLocator(xminor[row]))
+        pass
+    if xminor[row]!=None:
+        ax[row].xaxis.set_minor_locator(FixedLocator( xminor[row] ))
+#        ax[row].xaxis.set_minor_locator(MultipleLocator( xminor[row]))
+#        ax[row].set_xticks([150,250,350],True)
+#        ax[row].set_ticks_position('both')
+#        ax.xaxis.set_minor_locator(MultipleLocator(xminor[row]))
+        pass
+    if yticks[row]!=None:
+        ax[row].set_yticks(yticks[row])
+#        ax.yaxis.set_minor_locator(MultipleLocator(yminor[row]))
+        pass
+    if yminor[row]!=None:
+        ax[row].yaxis.set_minor_locator(FixedLocator( yminor[row] ))
+    pass
+        
+
+
+
+if outFilename:
+    pylab.savefig(outFilename)
+else:
+    show()
+    pass
+
+

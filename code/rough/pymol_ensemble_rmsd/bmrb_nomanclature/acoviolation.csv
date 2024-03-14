@@ -1,0 +1,20 @@
+    
+pymol -cq runAcoViol.py -- /home/niladri/Downloads/softwares/Errat 1pbu_cluster_0001,1pbu_cluster_0002,1pbu_cluster_0003,1pbu_cluster_0004,1pbu_cluster_0005  
+
+pymol -cq runAcoViol.py -- /home/niladri/Downloads/softwares/Errat 1xxe_cluster_0001,1xxe_cluster_0002,1xxe_cluster_0003,1xxe_cluster_0004,1xxe_cluster_0005 /home/niladri/Documents/Disco_etc_all_in_1/our_algo/archive/1xxe/1xxe.aco > 1xxe_acoviol.txt
+
+pymol -cq runAcoViol.py -- /home/niladri/Downloads/softwares/Errat 2kok_cluster_0001,2kok_cluster_0002,2kok_cluster_0003,2kok_cluster_0004,2kok_cluster_0005,2kok_cluster_0006,2kok_cluster_0007,2kok_cluster_0008 /home/niladri/Documents/Disco_etc_all_in_1/our_algo/archive/2kok/2kok.dihed.1.aco > 2kok_acoviol.txt
+
+pymol -cq runAcoViol.py -- /home/niladri/Downloads/softwares/Errat 2l7b_cluster_0001,2l7b_cluster_0002,2l7b_cluster_0003,2l7b_cluster_0004,2l7b_cluster_0005,2l7b_cluster_0006,2l7b_cluster_0007,2l7b_cluster_0008,2l7b_cluster_0009,2l7b_cluster_0010 /home/niladri/Documents/Disco_etc_all_in_1/our_algo/archive/2l7b/2l7b.aco > 2l7b_acoviol.txt
+
+pymol -cq runAcoViol.py -- /home/niladri/Downloads/softwares/Errat 2la3_cluster_0001,2la3_cluster_0002,2la3_cluster_0003,2la3_cluster_0004,2la3_cluster_0005,2la3_cluster_0006,2la3_cluster_0007 /home/niladri/Documents/Disco_etc_all_in_1/our_algo/archive/2la3/2la3.dihed.1.aco >2la3_acoviol.txt
+
+pymol -cq runAcoViol.py -- /home/niladri/Downloads/softwares/Errat 2lfc_cluster_0001,2lfc_cluster_0002,2lfc_cluster_0003,2lfc_cluster_0004,2lfc_cluster_0005,2lfc_cluster_0006 /home/niladri/Documents/Disco_etc_all_in_1/our_algo/archive/2lfc/2lfc.dihed.1.aco >2lfc_acoviol.txt
+
+pymol -cq runAcoViol.py -- /home/niladri/Downloads/softwares/Errat 2m4k_cluster_0001,2m4k_cluster_0002,2m4k_cluster_0003,2m4k_cluster_0004,2m4k_cluster_0005,2m4k_cluster_0006,2m4k_cluster_0007 /home/niladri/Documents/Disco_etc_all_in_1/our_algo/archive/2m4k/2m4k.dihed.1.aco >2m4k_acoviol.txt
+
+pymol -cq runAcoViol.py -- /home/niladri/Downloads/softwares/Errat 2mc2_cluster_0001,2mc2_cluster_0002,2mc2_cluster_0003,2mc2_cluster_0004,2mc2_cluster_0005,2mc2_cluster_0006 /home/niladri/Documents/Disco_etc_all_in_1/our_algo/archive/2mc2/2mc2.dihed.1.aco >2mc2_acoviol.txt
+
+pymol -cq runAcoViol.py -- /home/niladri/Downloads/softwares/Errat 5x1x_cluster_0001,5x1x_cluster_0002,5x1x_cluster_0003,5x1x_cluster_0004,5x1x_cluster_0005,5x1x_cluster_0006,5x1x_cluster_0007,5x1x_cluster_0008,5x1x_cluster_0009 /home/niladri/Documents/Disco_etc_all_in_1/our_algo/archive/5x1x/5x1x.dihed.1.aco >5x1x_acoviol.txt
+
+

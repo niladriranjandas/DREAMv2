@@ -1,0 +1,479 @@
+!
+! xplor-nih nucleic acid parameter file, version 1.1
+!
+! This file is intended to work with the topology file nucleic-1.1.top
+!
+! This is a re-named and fixed copy of the file parnah1er1_mod_new.inp
+!
+! We've created this new filename in order to eliminate confusion 
+! between the various parameter/topology combinations that ship
+! with xplor-nih.  It has version numbers, and will be updated 
+! along with the rest of the xplor-nih package.  
+!
+! chemical types have been named such that mixed protein/nucleic acid
+! refinements are possible.
+!
+! If you find errors, PLEASE let us know.  
+!
+
+remark  NUCLEIC ACID PARAMETER FILE CREATION RUN
+remark  >>>NO WARRANTY EXPRESSED OR IMPLIED<<<
+remark
+remark  ALL HYDROGEN NUCLEIC ACID PARAMETER FILE.
+remark  DERIVED FROM PARMDNA8. LN and MP 1984
+remark  H-bond wells made 0.5 kcal deeper to improve basepair energies 8/20/84/ln
+remark  H stretch & bend constants from URACIL normal mode fit.
+remark  Magnesium (fudge) and spermine included.
+remark  all references to water removed, ATB, 3-JAN-85
+remark  ALL IMPROPERS force constants increased to 500 to
+remark  ensure perfect planes and chirality: GMC 1987
+remark  DIHEDRAL force constants that keep purin rings parallel 
+remark  increased to 500 (MN 7-NOV-86)
+remark  includes parameters for purine GMC 1987
+remark  included impropers for chirality  from parallhdg.dna (CDS 2005/11/03)
+set echo=false mess=off end
+
+eval ($nuc_prev_echo=$prev_echo)
+eval ($nuc_prev_mess=$prev_messages)
+
+evaluate ($kbon = 1000)  ! kcal / mol-A^2
+evaluate ($kang =  500)  ! kcal / mol-rad^2
+evaluate ($kchi =  500)  ! kcal / mol-rad^2
+evaluate ($kmtyl = 500)
+evaluate ($kmene = 500)
+evaluate ($kback = 500)
+evaluate ($kssbon = 500)
+evaluate ($kx.sang = 500) 
+evaluate ($kimpr =  500)  ! kcal / mol-rad^2
+evaluate ($kpla  =  500)  ! kcal / mol-rad^2
+evaluate ($kdih =    1)  ! kcal / mol-rad^2
+
+
+bond XH    XNA    $kbon    1.0100 ! URA
+bond XH    XNS     $kbon    1.0100 ! INFERENCE 
+bond XH    XNH3    $kbon    1.04   ! -"- AND DISTANCE FROM PARAM7
+bond XH    XOH2    $kbon       0.96
+bond XH2   XN2     $kbon    1.0100 ! Infer.
+bond XHO   XOH     $kbon    0.9600 ! PARAM7 (IR stretch 3400 cm-1)
+bond XHO   XOS     $kbon    0.9600
+bond XH    XCE     $kbon       1.09! CH R0 from RKR K from DEP opt.
+bond XH    XCF     $kbon       1.09
+bond XH    XC2     $kbon       1.09
+bond XH    XC3     $kbon       1.09
+bond YH    YC2     $kbon       1.09
+bond XH    XCH     $kbon       1.09
+bond XP    XO2     $kbon    1.4800 ! DEP
+bond XP    XOS     $kbon    1.6100 ! DEP
+bond XP    XOH     $kbon    1.6100 ! Infer.
+bond XOS   XC2     $kbon    1.4300 ! DEP
+bond XOS   XCH     $kbon    1.4300 ! Infer.
+bond XO    XC     $kbon    1.2290 ! URA
+bond XOH   XC2     $kbon    1.4300
+bond XOH   XCH     $kbon    1.4300
+bond XC2   XCH     $kbon    1.5250
+bond YC2   XCH     $kbon    1.5250
+bond XC2   XC2     $kbon    1.5250
+bond XCH   XCH     $kbon    1.5250
+bond XC3   XCH     $kbon    1.5250
+bond XC3   XC2     $kbon    1.5250 ! DEP
+bond XCB   XCB     $kbon    1.3700 ! similar to CF=CF
+bond XCA   XCB    $kbon    1.4040 ! Infer. from URA
+bond XCE   XCB     $kbon    1.4040 ! Infer. from URA
+bond XC    XCB     $kbon    1.4190
+bond XCF   XC      $kbon    1.4440 ! URA
+bond XCF   XCA     $kbon    1.4330
+bond XCF   XCF     $kbon    1.3500 ! URA
+bond XC    XCS     $kbon    1.4440
+bond XCS   XC3     $kbon    1.5250
+bond XCS   XCF     $kbon    1.3430
+bond XNS   XCH     $kbon    1.4750
+bond XNS   XCB     $kbon    1.3740
+bond XNS   XCE     $kbon    1.3710
+bond XNS   XC      $kbon    1.3830
+bond XNS   XCF     $kbon    1.3650
+bond XNC   XCB     $kbon    1.3540
+bond XNC   XCE     $kbon    1.3240
+bond XNC   XCA     $kbon    1.3390
+bond XNC   XC      $kbon    1.3580
+bond XN2   XCA     $kbon    1.3330
+bond XNB   XCB     $kbon    1.3910
+bond XNB   XCE     $kbon    1.3040
+bond XNA   XCA     $kbon    1.3810
+bond XNA   XC      $kbon    1.3880
+bond XNH2E XCH     $kbon    1.49  !         FROM PARAM3
+bond XBR   XCS     $kbon    1.880
+
+angle XH    XCE   XNC      $kang     115.45    !CDS 2007/12/03 see next comment
+angle XH    XCE   XCB      $kang     120.0
+angle XH    XCA   XNC      $kang     120.0
+angle XH    XCE   XNS      $kang     123.05    !CDS 2007/12/03 updated to be 
+angle XH    XCE   XNB      $kang     123.05    !  consistant w/ planar base
+angle XH    XCF   XCA      $kang     120.0
+angle XH    XCF   XCF      $kang     120.0
+angle XH    XCF   XNS      $kang     120.0
+angle XH    XCF   XCS      $kang     120.0
+angle XH    XCF   XC       $kang     120.0
+angle XH    XC3   XCS      $kang     109.47
+angle XH    XC3   XCH      $kang     109.47
+angle XH    XC3   XOS      $kang     109.47    ! FOR DMP
+angle XH    XC3   XH       $kang     109.47
+angle XH    XCH   XH       $kang     109.47
+angle XH    XCH   XC3      $kang     109.47
+angle XH    XCH   XCH      $kang     109.47
+angle XH    XCH   XC2      $kang     109.47
+angle XH    XCH   XOS      $kang     109.47
+angle XH    XCH   XOH      $kang     109.47
+angle XH    XCH   XNS      $kang     109.47
+angle XH    XCH   XNH2E    $kang     109.47
+angle XH    XC2   XCH      $kang     109.47
+angle XH    XC2   XC2      $kang     109.47
+angle XH    XC2   XC3      $kang     109.47
+angle XH    XC2   XOS      $kang     109.47
+angle XH    XC2   XOH      $kang     109.47
+angle XH    XC2   XH       $kang     109.47
+angle XP    XOS   XC2      $kang  120.5000   ! DEP
+angle XP    XOS   XC3      $kang  120.5000   ! Guess (inferred from P-OS-C2) /LN
+angle XCH   XOS   XCH      $kang  109.7000
+angle XP    XOS   XCH      $kang  120.5000
+angle XHO   XOS   XCH      $kang  107.3000
+angle XHO   XOS   XC2      $kang  107.3000
+angle XHO   XOH   XCH      $kang  107.3000
+angle XHO   XOH   XC2      $kang  107.3000
+angle XHO   XOH   XP       $kang  107.3000
+angle XOS   XP    XOS      $kang  102.6000  ! DEP
+angle XOH   XP    XOS      $kang  102.6000
+angle XOS   XP    XO2      $kang  108.2300  ! DEP
+angle XOH   XP    XO2      $kang  108.2300
+angle XO2   XP    XO2      $kang  119.9000  ! DEP
+angle XC    XNA   XH       $kang  116.5000  ! URA
+angle XC    XNA   XC       $kang  126.4000  ! URA
+angle XCA   XNA   XH       $kang  119.3000  ! Infer.
+angle XCA   XNA   XC       $kang  125.2000  ! Infer.
+angle XCB   XNB   XCE      $kang  103.8000
+angle XCB   XNC   XCE      $kang  111.0000
+angle XCA   XNC   XCE      $kang  118.6000
+angle XCE   XNC   XCE      $kang 118.6000
+angle XC    XNC   XCA      $kang 120.5000
+angle XCA   XNC   XCB      $kang  112.2000
+angle XCA   XN2   XH2      $kang  120.0000
+angle XH2   XN2   XH2      $kang  120.0000
+angle XCH   XNS   XCB      $kang  125.8000
+angle XCH   XNS   XCE      $kang  128.8000
+angle XCB   XNS   XCE      $kang  105.4000  ! Infer.
+angle XC    XNS   XCH      $kang  117.6000
+angle XCF   XNS   XCH      $kang  121.2000
+angle XC    XNS   XCF      $kang  121.6000  ! Infer.
+angle XC    XNS   XH       $kang  119.3000
+angle XCB   XNS   XH       $kang  119.3000
+angle XCE   XNS   XH       $kang  119.3000
+angle XCF   XNS   XH       $kang  119.3000
+angle XH    XNH3  XH       $kang     109.5    ! FROM PARAM7
+angle XH    XNH3  XC2      $kang     109.5    
+angle XC2   XNH3  XC2      $kang     109.5    
+angle XNS   XC    XO       $kang  120.9000
+angle XNA   XC    XO       $kang  120.6000
+angle XCB   XC    XO       $kang  128.8000
+angle XNC   XC    XO       $kang  122.5000
+angle XCF   XC    XO       $kang  125.3000
+angle XCS   XC    XO       $kang  125.3000
+angle XCF   XC    XNA      $kang  114.1000
+angle XCS   XC    XNA      $kang  114.1000
+angle XNS   XC    XNA      $kang  115.4000
+angle XCB   XC    XNA      $kang  111.3000
+angle XNS   XC    XNC      $kang  118.6000
+angle XN2   XCA   XNB      $kang  118.3000
+angle XN2   XCA   XNC      $kang  119.8000
+angle XCB   XCA   XNC      $kang  117.3000
+angle XCB   XCE   XNC      $kang  117.3000
+angle XCB   XCA   XN2      $kang  123.5000
+angle XCF   XCA   XNC      $kang  121.5000
+angle XN2   XCA   XCF      $kang  120.1000
+angle XNC   XCA   XNA      $kang  123.3000
+angle XN2   XCA   XNA      $kang  116.0000
+angle XCB   XCB   XNS      $kang  106.2000
+angle XNC   XCB   XNS      $kang  126.0000
+angle XNC   XCB   XCB     $kang  127.7000
+angle XCA   XCB   XNB     $kang  132.4000
+angle XCE   XCB   XNB     $kang  132.4000
+angle XCA   XCB   XCB     $kang  117.3000
+angle XCE   XCB   XCB     $kang  117.3000
+angle XCB   XCB   XNB     $kang  110.4000
+angle XC    XCB   XNB     $kang  130.0000
+angle XC    XCB   XCB     $kang  119.2000
+angle XNC   XCE   XNC      $kang  129.1000
+angle XNB   XCE   XNS      $kang  113.9000
+angle XNS   XCF   XCF     $kang 121.2000
+angle XNA   XCF   XCF     $kang  121.2000  ! URA
+angle XCA   XCF   XCF     $kang  117.0000  ! DEP infer.
+angle XCS   XCF   XNS     $kang  121.2000
+angle XC    XCF   XCF     $kang  120.7000
+angle XC2   XCH   XOS      $kang  110.0
+angle XC2   XCH   XOH      $kang  111.0000
+angle XCH   XCH   XOH      $kang  111.0000
+angle XC2   XCH   XCH      $kang  114.7000
+angle XCH   XCH   XCH      $kang  102.9500
+angle XCH   XCH   XOS      $kang  108.1000
+angle XC3   XCH   XOS      $kang  111.0000
+angle XOS   XCH   XNS      $kang  107.8000
+angle XC2   XCH   XNS      $kang  114.2000
+angle XCH   XCH   XNS      $kang  114.2000
+angle XC2   XCH   XNH2E    $kang  111.0000!    GUESSED BY INFERENCE
+angle XCH   XCH   XNH2E    $kang  111.0000!    GUESSED BY INFERENCE
+angle XOS   XCH   XNH2E    $kang  111.0000!    GUESSED BY INFERENCE
+angle XC3   XCH   XCH      $kang  111.0000!    ADDED WITHOUT CHECKING
+angle XOS   XC2   XC3      $kang  111.0000  ! DEP
+angle XOS   XC2   XCH      $kang  112.0000
+angle XOH   XC2   XCH      $kang  112.0000
+angle XCH   XC2   XCH      $kang  102.700
+angle XC2   XC2   XNH3     $kang     109.5    ! FROM PARAM7
+angle XC2   XC2   XC2      $kang     110.0    ! FROM PARAM7
+angle XC2   XC2   XC3      $kang     112.0
+angle XC    XCS   XC3      $kang  119.7000
+angle XC    XCS   XCF      $kang  120.7000
+angle XC3   XCS   XCF      $kang  119.7000
+angle XBR   XCS   XCF      $kang  119.7000
+angle XBR   XCS   XCA      $kang  119.7000
+angle XCH XCH YC2 $kang 103.2
+angle XCH YC2 XCH $kang 102.7
+angle XOS XCH YC2 $kang 108.35
+angle XNS XCH YC2 $kang 114.2
+angle XH    XCH   YC2      $kang     109.47
+angle YH    YC2   YH       $kang     109.47
+angle YH    YC2   XCH      $kang     109.47
+angle YC2   XCH   XOH      $kang  111.0000
+
+
+
+
+dihedral X    XC2   XCH   X        $kdih    3    0.0000
+dihedral X    YC2   XCH   X        $kdih    3    0.0000
+dihedral X    XC2   XC2   X        $kdih    3    0.0000   ! PARAM7
+dihedral X    XCH   XCH   X        $kdih    3    0.0000
+dihedral X    XCH   XOS   X        $kdih    3    0.0000
+dihedral X    XCH   XOH   X        $kdih    3    0.0000
+dihedral X    XC2   XOH   X        $kdih    3    0.0000
+dihedral X    XC2   XOS   X        $kdih    3    0.0000
+dihedral X    XOS   XP    X        $kdih    3    0.0000
+dihedral X    XOH   XP    X        $kdih    3    0.0000
+dihedral X    XCH   XNS   X        $kdih    2    0.0000
+dihedral X    XC2   XNH3  X        $kdih       3    0.0   !SPERMINE,E/BOND 3 BONDS
+
+!dihedral X    XCA   XN2   X        $kdih    2  180.0000
+!dihedral X    XNS   XCE   X        $kdih       2  180.0   
+!dihedral X    XNS   XCF   X        $kdih       2  180.0
+!dihedral X    XNC   XCE   X        $kdih       2  180.0
+!dihedral X    XCF   XCF   X        $kdih       2  180.0
+dihedral X    XCS   XC3   X        $kdih       3    0.0  ! METHYL E/3 PER BOND
+dihedral X    XOS   XC3   X        $kdih       3    0.0  ! METHYL E/3 PER BOND
+
+! "WILMA OLSON SUGAR MODEL":
+dihedral XOH   XCH   XCH   XCH       $kdih    2    0.0000 ! ONLY AS GAUCHE 
+dihedral XC3   XCH   XCH   XOS       $kdih      2    0.0    ! FOR C5' WHICH IS A C3 IN MODEL
+dihedral XOS   XCH   XCH   XOS       $kdih    2    0.0000 !
+dihedral XOS   XCH   XCH   XOS       $kdih    3    0.0000 !
+dihedral XOS   XCH   XCH   XCH       $kdih    2    0.0000 !
+dihedral XOS   XCH   XCH   XCH       $kdih    3    0.0000
+dihedral XOH   XCH   XCH   XOS       $kdih    2    0.0000 !
+dihedral XOH   XCH   XCH   XOS       $kdih    3    0.0000 !
+dihedral XOS   XCH   XC2   XCH       $kdih    2    0.0000 ! 
+dihedral XOS   XCH   XC2   XCH       $kdih    3    0.0000 ! DECR from 1.4
+dihedral XOS   XCH   YC2   XCH       $kdih    2    0.0000 !
+dihedral XOS   XCH   YC2   XCH       $kdih    3    0.0000 ! DECR from 1.4
+dihedral XOS   XCH   XCH   XC2       $kdih    2    0.0000 ! DECR FROM 0.5
+dihedral XOS   XCH   XCH   XC2       $kdih    3    0.0000 ! decr from 1.4
+dihedral XOS   XCH   XCH   YC2       $kdih    2    0.0000 ! DECR FROM 0.5
+dihedral XOS   XCH   XCH   YC2       $kdih    3    0.0000 ! decr from 1.4
+
+!
+! OUT OF THE SUGAR
+dihedral XOS   XP    XOS   XC2       $kdih    3    0.0000
+dihedral XOS   XP    XOS   XC2       $kdih    2    0.0000 
+dihedral XOS   XP    XOS   XC3       $kdih    3    0.0000 ! Added by inference
+dihedral XOS   XP    XOS   XC3       $kdih    2    0.0000 ! Added by inference
+dihedral XOS   XP    XOS   XCH       $kdih    3    0.0000
+dihedral XOS   XP    XOS   XCH       $kdih    2    0.0000 
+! Keeping purine rings parallel (from PARAM6):
+
+improper XCE   XCB   XCB   XNC     $kimpr       0   180.00
+improper XCE   XCB   XCB   XCE     $kimpr       0   180.00
+improper XCE   XCB   XCB   XCA     $kimpr       0   180.00
+improper XCE   XCB   XCB   XNA     $kimpr       0   180.00
+improper XNC   XCB   XCB   XNB     $kimpr       0   180.00
+improper XCA   XCB   XCB   XNS     $kimpr       0   180.00
+improper XCE   XCB   XCB   XNS     $kimpr       0   180.00
+improper XC    XCB   XCB   XNS     $kimpr       0   180.00
+
+improper XH    X    X    XCE      $kimpr 0    0.0000 !added for h's in 
+improper XH    X    X    XCF      $kimpr 0    0.0000 !base planes (GMC)
+improper XC2   X    X    XCH      $kimpr 0    35.2600
+improper XC3   X    X    XCH      $kimpr 0    35.2600 ! ADDED WITHOUT CHECKING
+improper XOH   X    X    XCH      $kimpr 0    35.2600
+improper XOS   X    X    XCH      $kimpr 0    35.2600
+improper XCH   XOS   YC2   XNS      $kimpr 0    35.2600
+improper XCH   XOS   XC2   XNS      $kimpr 0    35.2600
+improper XCH   XOS   XCH   XNS      $kimpr 0    35.2600
+improper XCH   XOS   XC2   XNH2E    $kimpr 0    35.2600
+improper XCH   XOS   XCH   XNH2E    $kimpr 0    35.2600
+improper XH    X    X    XNA      $kimpr 0     0.0000  ! URA
+improper XH    X    X    XNS      $kimpr 0     0.0000  ! INFERENCE
+improper XH2   X    X    XN2      $kimpr 0     0.0000
+improper XC    X    X    XCB      $kimpr 0     0.0000  ! PLANAR IMPROPERS FROM URA FIT
+improper XC    X    X    XCS      $kimpr 0     0.0000  !  (OR INFERRED FROM IT)
+improper XC    X    X    XCF      $kimpr 0     0.0000
+improper XC    X    X    XO       $kimpr 0    0.0000  ! URA
+improper XC    X    X    XNC      $kimpr 0     0.0000
+improper XC    X    X    XNS      $kimpr 0     0.0000
+improper XCA   X    X    XCB      $kimpr 0     0.0000
+improper XCA   X    X    XNC      $kimpr 0     0.0000
+improper XCE   X    X    XNC      $kimpr 0     0.0000
+improper XCA   X    X    XN2      $kimpr 0    0.0000
+improper XCA   X    X    XNS      $kimpr 0     0.0000
+improper XCB   X    X    XCE      $kimpr 0     0.0000
+improper XCB   X    X    XNA      $kimpr 0     0.0000
+improper XCB   X    X    XNB      $kimpr 0     0.0000
+improper XCB   X    X    XNC      $kimpr 0     0.0000
+improper XCB   X    X    XNS      $kimpr 0     0.0000
+improper XCF   X    X    XNC      $kimpr 0     0.0000
+improper XCF   X    X    XNA      $kimpr 0     0.0000
+improper XCH   X    X    XNS      $kimpr 0    0.0000 !increased from 40
+improper XC3   X    X    XCS      $kimpr 0    0.0000 !to 80 for planarity
+improper XNB   X    X    XNS      $kimpr 0     0.0000
+improper XBR   X    X    XCS      $kimpr 0     0.0000
+
+improper X    XCA   XN2   X        $kimpr      2  180.0000
+improper X    XNS   XCE   X        $kimpr      2  180.0   
+improper X    XNS   XCF   X        $kimpr      2  180.0
+improper X    XNC   XCE   X        $kimpr      2  180.0
+improper X    XCF   XCF   X        $kimpr      2  180.0
+
+improper X    XCA   XH2   XH2      $kimpr      0    0.0  ! JJK 3/10/04 for holding iminos coplanar
+
+
+! NEW IMPROPERS ADDED IN ORDER TO DEFINE THE CHIRALITY AT C1'
+! C2' C3' AND C4'.
+! added by Zeena Johar, 2004/09/22
+
+!improper XH   XCH   XCH   XOH      $kimpr      0  63.4030
+!improper XH   XCH   XCH   XOS      $kimpr      0  65.0000
+!improper XH   XC2   XCH   XOS      $kimpr      0  65.0000
+!improper XH   XOS   XH    XCH      $kimpr      0  70.6690
+!improper XH   XCH   XOS   XNS      $kimpr      0 -65.1610
+
+! chiral centers in the sugar ring
+improper XH    XCH   XOS   XNS      $kimpr   0 -65.0000  !c1'
+improper XH    XC2   XOS   XNS      $kimpr   0 -65.0000 !added(dna),ATB
+improper XH    YC2   XOS   XNS      $kimpr   0 -65.0000 !added(dna),ATB
+improper XH    XCH   XCH   XOH      $kimpr   0  65.0000  !c2' for RNA
+improper XH    XCH   XCH   XOS      $kimpr   0  65.0000  !c3'
+improper XH    XCH   XC2   XOH      $kimpr   0  65.0000 !added(dna),ATB
+improper XH    XCH   YC2   XOH      $kimpr   0  65.0000 !added(dna),ATB
+improper XH    XCH   XC2   XOS      $kimpr   0  65.0000 !added(dna),ATB
+improper XH    XCH   YC2   XOS      $kimpr   0  65.0000 !added(dna),ATB
+improper XH    XC2   XCH   XOS      $kimpr   0  65.0000  !c4'
+
+{* chiral improper included for H5'/H5'' and H2'/H2'' def., according to *}
+{* Wijmenga, Mooren and Hilbers in NMR of nucl. acids, (Ed. Roberts) *}
+improper XH    XOS   XH    XCH      $kimpr   0  71.27    ! chirality around C5'.  Value from bond/angle mini struct
+improper XH    XOH   XH    XCH      $kimpr   0  73       ! CDS - changed from 65 - this is used at the 5-terminus
+improper YH    XCH   XCH   YH       $kimpr   0  -60.27   ! chirality around DNA C2'.  Val from bond/angle mini struct
+
+
+! 
+! Added methyl chirality for thy to avoid "umbrella" methyls
+! Setup of atom selections and parameter value taken from 
+! parallhdg_procheck.pro's alanine.
+!
+! JJK 3/9/04
+!
+improper XH    XH    XCS   XH       $kimpr  0  -66.514
+
+! Taken from Rossky Karplus and Rahman BIOPOLY (1979)
+! 0.05 ADDED TO RADII TO IMPROVE ON NUCL.ACID STACKING/LN
+!
+!                  eps     sigma       eps(1:4) sigma(1:4)
+! the radius is sigma*2^(-5/6)
+
+
+
+NONBonded  XBR      0.8000   3.5636      0.8000   3.5636
+NONBonded  XC2      0.0900   3.2970      0.0900   3.2970
+NONBonded  YC2      0.0900   3.2970      0.0900   3.2970
+
+NONBonded  XCH      0.0900   3.2970      0.0900   3.2970
+NONBonded  XH       0.0045   2.6160      0.0045   2.6160
+NONBonded  YH       0.0045   2.6160      0.0045   2.6160
+NONBonded  XH2      0.0045   1.6040      0.0045   1.6040
+!
+! give it the same as th Hn from RKR
+NONBonded  XHO      0.0045   1.6040      0.0045   1.6040 
+NONBonded  XMG      0.2000   2.8509      0.2000   2.8509   ! G U E S S
+!
+! THIS STILL IS AN EXTENDED ATOM
+NONBonded  XNH2E    0.1600   3.0291      0.1600   3.0291
+NONBonded  XNH3     0.1600   2.8591      0.1600   2.8591
+NONBonded  XNS      0.1600   2.8591      0.1600   2.8591
+NONBonded  XO2      0.2304   2.7290      0.2304   2.7290
+NONBonded  XOH      0.2304   2.5508      0.2304   2.5508
+NONBonded  XOS      0.2304   2.7290      0.2304   2.7290
+NONBonded  XP       0.5849   3.3854      0.5849   3.3854
+NONBonded  XSD      0.3515   2.6727      0.3515   2.6727   ! G U E S S
+
+
+!BASES
+NONBonded  XCA      0.0900   3.2970      0.0900   3.2970
+NONBonded  XCB      0.0900   3.2970      0.0900   3.2970
+NONBonded  XCE      0.0900   3.2970      0.0900   3.2970
+NONBonded  XCF      0.0900   3.2970      0.0900   3.2970
+NONBonded  XCS      0.0900   3.2970      0.0900   3.2970
+NONBonded  XC3      0.0900   3.2970      0.0900   3.2970
+NONBonded  XN2      0.1600   2.8591      0.1600   2.8591
+NONBonded  XNA      0.1600   2.8591      0.1600   2.8591
+NONBonded  XC       0.0900   3.2970      0.0900   3.2970
+NONBonded  XO       0.2304   2.7290      0.2304   2.7290
+NONBonded  XNC      0.1600   2.8591      0.1600   2.8591
+NONBonded  XNB      0.1600   2.8591      0.1600   2.8591
+
+
+
+! NOTE: the NBFIXES include aliphatic hydrogens !!!!!!!!! check !!!
+! the following NBFIXes are for DNA-DNA hydrogen bonding 
+! terms
+!                                         ------1-4------
+!                   A           B           A          B
+!           [Kcal/(mol A^12)] [Kcal/(mol A^6)]
+!
+nbfix  XHO   XO       0.05       0.1      0.05       0.1
+nbfix  XHO   XO2      0.05       0.1      0.05       0.1
+nbfix  XHO   XOS      0.05       0.1      0.05       0.1
+nbfix  XHO   XOH      0.05       0.1      0.05       0.1
+nbfix  XHO   XNB      0.05       0.1      0.05       0.1
+nbfix  XHO   XNC      0.05       0.1      0.05       0.1
+
+nbfix  XH    XO       0.05       0.1      0.05       0.1
+nbfix  XH    XO2      0.05       0.1      0.05       0.1
+nbfix  XH    XOS      0.05       0.1      0.05       0.1
+nbfix  XH    XOH      0.05       0.1      0.05       0.1
+nbfix  XH    XNB      0.05       0.1      0.05       0.1
+nbfix  XH    XNC      0.05       0.1      0.05       0.1
+
+nbfix  XH2   XO       0.05       0.1      0.05       0.1
+nbfix  XH2   XO2      0.05       0.1      0.05       0.1
+nbfix  XH2   XOS      0.05       0.1      0.05       0.1
+nbfix  XH2   XOH      0.05       0.1      0.05       0.1
+nbfix  XH2   XNB      0.05       0.1      0.05       0.1
+nbfix  XH2   XNC      0.05       0.1      0.05       0.1
+
+
+
+AEXP=4 REXP=6 HAEX=4 AAEX=2
+! "all" possible combinations of HB-pairs in nucleic acids:
+!  WELL DEPTHS DEEPENED BY 0.5 KCAL TO IMPROVE BASEPAIR ENERGIES /LN
+!  AND DISTANCES INCREASED BY 0.05
+hbond XN*  XN*      -3.5       3.05
+hbond XN*  XO*      -4.0       2.95
+hbond XO*  XO*      -4.75      2.80
+hbond XO*  XN*      -4.50      2.90
+
+@TOPPAR:edta.par
+
+set echo=$nuc_prev_echo mess=$nuc_prev_mess end

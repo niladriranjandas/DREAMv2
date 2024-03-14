@@ -1,0 +1,120 @@
+
+REMARK X-PLOR script to convert X-PLOR methylene hydrogen names to the
+REMARK the naming convention adopted by DIANA
+REMARK Author: Michael Nilges, EMBL
+REMARK version 2, 18. 4. 1996
+
+{****
+methylene:
+a: gly
+b: ser cys asn gln glu asp tyr phe trp his arg lys pro met leu
+g: gln glu arg lys pro met
+g1: ile
+d: pro lys
+e: lys
+****}
+
+
+{* alpha *}
+vector ident (store1) (resn gly and name ha%)
+vector do (name =  AAA) (store1 and name ha1)
+vector do (name =  HA1) (store1 and name ha2)
+vector do (name =  HA2) (store1 and name AAA)
+
+{* beta *}
+vector ident (store1)
+((resn ser or resn cys or resn asn or resn gln or resn glu or resn asp 
+   or resn tyr or resn phe or resn trp or resn his or resn arg or  
+resn lys
+   or resn pro or resn met or resn leu)
+and name hb%)
+vector do (name =  HB3) (store1 and name hb1)
+
+{* gamma *}
+vector ident (store1)
+((resn gln or resn glu or resn arg or resn lys or resn pro or resn met)
+and name hg%)
+vector do (name =  HG3) (store1 and name hg1)
+
+{* gamma1 *}
+vector ident (store1) (resn ile and name hg1%)
+vector do (name = HG13) (store1 and name hg11)
+
+{* delta *}
+vector ident (store1) ((resn arg or resn pro or resn lys) and name hd%)
+vector do (name =  HD3) (store1 and name hd1)
+
+{* epsilon *}
+vector ident (store1) (resn lys and name he%)
+vector do (name =  HE3) (store1 and name he1)
+
+
+{****
+methyl:
+b: ala
+g1: val
+g2: val ile
+d1: leu ile
+d2: leu
+e: met
+z: lys
+****}
+
+{* beta *}
+vector ident (store1) (resn ala and name hb%)
+vector do (name =  BBB) (store1 and name hb2)
+vector do (name =  HB2) (store1 and name hb1)
+vector do (name =  HB1) (store1 and name BBB)
+
+{* gamma1 *}
+vector ident (store1) (resn val and name hg1%)
+vector do (name = GGGG) (store1 and name hg11)
+vector do (name = HG11) (store1 and name hg12)
+vector do (name = HG12) (store1 and name GGGG)
+
+{* gamma2 *}
+vector ident (store1) ((resn ile or resn val) and name hg2%)
+vector do (name = GGGG) (store1 and name hg21)
+vector do (name = HG21) (store1 and name hg22)
+vector do (name = HG22) (store1 and name GGGG)
+
+{* delta1 *}
+vector ident (store1) ((resn ile or resn leu) and name hd1%)
+vector do (name = DDDD) (store1 and name hd11)
+vector do (name = HD11) (store1 and name hd12)
+vector do (name = HD12) (store1 and name DDDD)
+
+{* delta2 *}
+vector ident (store1) ((resn leu) and name hd2%)
+vector do (name = DDDD) (store1 and name hd21)
+vector do (name = HD21) (store1 and name hd22)
+vector do (name = HD22) (store1 and name DDDD)
+
+{* epsilon *}
+vector ident (store1) ((resn met) and name he%)
+vector do (name =  EEE) (store1 and name he1)
+vector do (name =  HE1) (store1 and name he2)
+vector do (name =  HE2) (store1 and name EEE)
+
+{* zeta *}
+vector ident (store1) ((resn zeta) and name hz%)
+vector do (name =  ZZZ) (store1 and name hz1)
+vector do (name =  HZ1) (store1 and name hz2)
+vector do (name =  HZ2) (store1 and name ZZZ)
+
+
+{****
+arg nh2's
+****}
+
+vector ident (store1) ((resn arg) and name hh1%)
+vector do (name = HHHH) (store1 and name hh11)
+vector do (name = HH11) (store1 and name hh12)
+vector do (name = HH12) (store1 and name HHHH)
+
+vector ident (store1) ((resn arg) and name hh2%)
+vector do (name = HHHH) (store1 and name hh21)
+vector do (name = HH21) (store1 and name hh22)
+vector do (name = HH22) (store1 and name HHHH)
+
+

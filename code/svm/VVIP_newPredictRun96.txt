@@ -1,0 +1,707 @@
+load 96.mat
+
+zz_c1_rbf_chosenx = fitcsvm(chosen_x_rbf,y,'KernelFunction','rbf','BoxConstraint',Inf,'ClassNames',[0,1], 'OptimizeHyperparameters','auto', 'HyperparameterOptimizationOptions',struct('AcquisitionFunctionName','expected-improvement-plus','ShowPlots',true));
+	
+	
+zz_c1_poly_chosenx = fitcsvm(chosen_x_rbf,y,'KernelFunction','polynomial','BoxConstraint',Inf,'ClassNames',[0,1], 'OptimizeHyperparameters','auto', 'HyperparameterOptimizationOptions',struct('AcquisitionFunctionName','expected-improvement-plus','ShowPlots',true));
+
+
+zz_c1_linear_chosenx = fitcsvm(chosen_x_linear,y,'KernelFunction','linear','BoxConstraint',Inf,'ClassNames',[0,1], 'OptimizeHyperparameters','auto', 'HyperparameterOptimizationOptions',struct('AcquisitionFunctionName','expected-improvement-plus','ShowPlots',true));
+
+save('run_new_96predictmodel.mat')
+
+
+##########################################################
+rbf kernel:
+
+|=====================================================================================================|
+| Iter | Eval   | Objective   | Objective   | BestSoFar   | BestSoFar   | BoxConstraint|  KernelScale |
+|      | result |             | runtime     | (observed)  | (estim.)    |              |              |
+|=====================================================================================================|
+|    1 | Best   |       0.462 |      1.3717 |       0.462 |       0.462 |    0.0076966 |      0.27937 |
+|    2 | Accept |       0.462 |     0.29607 |       0.462 |       0.462 |    0.0039833 |       287.52 |
+|    3 | Best   |     0.38599 |     0.27968 |     0.38599 |       0.386 |       172.71 |       0.1038 |
+|    4 | Accept |     0.38897 |     0.22617 |     0.38599 |     0.38599 |      0.68164 |    0.0010754 |
+|    5 | Accept |     0.38897 |     0.28364 |     0.38599 |       0.386 |       9.0521 |     0.010838 |
+|    6 | Best   |     0.34128 |     0.72949 |     0.34128 |      0.3413 |        998.2 |       195.52 |
+|    7 | Accept |     0.38748 |     0.14771 |     0.34128 |     0.34129 |       999.62 |      0.49229 |
+|    8 | Accept |     0.34873 |     0.14554 |     0.34128 |      0.3413 |       190.41 |       962.51 |
+|    9 | Accept |     0.34724 |     0.15371 |     0.34128 |     0.34132 |       968.95 |       959.06 |
+|   10 | Best   |     0.33234 |     0.42948 |     0.33234 |     0.33239 |       265.84 |       100.52 |
+|   11 | Best   |      0.2772 |     0.32024 |      0.2772 |     0.29427 |       74.144 |       32.293 |
+|   12 | Best   |     0.27571 |     0.27399 |     0.27571 |     0.27571 |       26.266 |       22.606 |
+|   13 | Best   |     0.26379 |     0.38025 |     0.26379 |     0.26384 |       45.532 |       10.916 |
+|   14 | Accept |     0.31148 |     0.25745 |     0.26379 |     0.28492 |       36.449 |       5.4385 |
+|   15 | Accept |     0.29061 |     0.24788 |     0.26379 |     0.28302 |       23.813 |        35.94 |
+|   16 | Accept |       0.462 |     0.12138 |     0.26379 |     0.28375 |    0.0010253 |    0.0010016 |
+|   17 | Accept |     0.27422 |     0.25507 |     0.26379 |     0.27983 |       35.165 |        28.04 |
+|   18 | Accept |     0.38897 |     0.19439 |     0.26379 |     0.27948 |       994.27 |    0.0010221 |
+|   19 | Accept |       0.462 |    0.096455 |     0.26379 |     0.26574 |      0.33414 |       997.56 |
+|   20 | Best   |     0.25037 |      1.2041 |     0.25037 |     0.25064 |       216.92 |       14.154 |
+|=====================================================================================================|
+| Iter | Eval   | Objective   | Objective   | BestSoFar   | BestSoFar   | BoxConstraint|  KernelScale |
+|      | result |             | runtime     | (observed)  | (estim.)    |              |              |
+|=====================================================================================================|
+|   21 | Best   |     0.23547 |      2.9149 |     0.23547 |     0.23794 |        877.3 |       13.808 |
+|   22 | Best   |     0.23249 |      2.8471 |     0.23249 |     0.23472 |       968.31 |       14.424 |
+|   23 | Accept |     0.24441 |      3.1089 |     0.23249 |     0.23708 |       994.97 |       17.307 |
+|   24 | Accept |      0.2459 |      2.6738 |     0.23249 |     0.23889 |       970.54 |       11.075 |
+|   25 | Accept |     0.23994 |      2.9841 |     0.23249 |     0.23905 |       995.68 |       15.178 |
+|   26 | Accept |       0.462 |     0.14694 |     0.23249 |     0.23914 |    0.0010035 |       6.5966 |
+|   27 | Accept |     0.24143 |      2.5639 |     0.23249 |     0.23938 |       982.74 |       16.122 |
+|   28 | Accept |       0.462 |      0.1604 |     0.23249 |     0.23941 |    0.0010187 |       0.0177 |
+|   29 | Accept |     0.38897 |     0.18617 |     0.23249 |     0.23943 |       999.33 |      0.01095 |
+|   30 | Accept |       0.462 |     0.14358 |     0.23249 |     0.23948 |    0.0010044 |       44.409 |
+
+__________________________________________________________
+Optimization completed.
+MaxObjectiveEvaluations of 30 reached.
+Total function evaluations: 30
+Total elapsed time: 194.7803 seconds.
+Total objective function evaluation time: 25.1442
+
+Best observed feasible point:
+    BoxConstraint    KernelScale
+    _____________    ___________
+
+       968.31          14.424   
+
+Observed objective function value = 0.23249
+Estimated objective function value = 0.23948
+Function evaluation time = 2.8471
+
+Best estimated feasible point (according to models):
+    BoxConstraint    KernelScale
+    _____________    ___________
+
+       968.31          14.424   
+
+Estimated objective function value = 0.23948
+Estimated function evaluation time = 2.8696
+
+###########################################################################################################
+polykernel:
+
+|=====================================================================================================|
+| Iter | Eval   | Objective   | Objective   | BestSoFar   | BestSoFar   | BoxConstraint|  KernelScale |
+|      | result |             | runtime     | (observed)  | (estim.)    |              |              |
+|=====================================================================================================|
+|    1 | Best   |     0.35171 |     0.12581 |     0.35171 |     0.35171 |       11.615 |       394.18 |
+|    2 | Accept |     0.43097 |      46.409 |     0.35171 |     0.35694 |    0.0055086 |      0.44832 |
+|    3 | Error  |         NaN |    0.089375 |     0.35171 |     0.35694 |       325.77 |    0.0032145 |
+|    4 | Accept |     0.43097 |      46.827 |     0.35171 |     0.35172 |       5.2621 |      0.30622 |
+|    5 | Accept |     0.43097 |      46.336 |     0.35171 |     0.35172 |       1.1136 |      0.50065 |
+|    6 | Best   |     0.34277 |     0.12209 |     0.34277 |     0.34278 |       40.831 |       999.06 |
+|    7 | Accept |     0.34277 |     0.11299 |     0.34277 |     0.34277 |       37.435 |       999.12 |
+|    8 | Accept |       0.462 |     0.12246 |     0.34277 |     0.34273 |      0.40421 |       999.22 |
+|    9 | Best   |     0.33383 |     0.43035 |     0.33383 |     0.33384 |       48.658 |       154.58 |
+|   10 | Best   |     0.23547 |      8.9916 |     0.23547 |     0.23549 |       289.81 |       80.799 |
+|   11 | Accept |     0.60507 |      40.198 |     0.23547 |      0.2355 |       690.86 |       3.1115 |
+|   12 | Best   |     0.21759 |      35.362 |     0.21759 |      0.2176 |       958.34 |       54.282 |
+|   13 | Accept |     0.21759 |      26.686 |     0.21759 |     0.21759 |       958.03 |        75.18 |
+|   14 | Accept |     0.23398 |      20.112 |     0.21759 |     0.21754 |        8.972 |       35.082 |
+|   15 | Accept |     0.36364 |     0.29676 |     0.21759 |     0.21754 |    0.0082117 |       30.862 |
+|   16 | Accept |     0.22504 |      30.813 |     0.21759 |     0.21754 |       100.97 |       43.893 |
+|   17 | Error  |         NaN |    0.082241 |     0.21759 |     0.21754 |    0.0010586 |     0.014987 |
+|   18 | Accept |     0.24143 |      39.384 |     0.21759 |     0.21751 |       147.88 |        26.84 |
+|   19 | Accept |     0.43097 |      38.111 |     0.21759 |     0.21752 |    0.0012692 |     0.058909 |
+|   20 | Error  |         NaN |    0.061867 |     0.21759 |     0.21752 |       914.55 |     0.032724 |
+|=====================================================================================================|
+| Iter | Eval   | Objective   | Objective   | BestSoFar   | BestSoFar   | BoxConstraint|  KernelScale |
+|      | result |             | runtime     | (observed)  | (estim.)    |              |              |
+|=====================================================================================================|
+|   21 | Error  |         NaN |    0.072817 |     0.21759 |     0.21752 |    0.0010481 |    0.0010165 |
+|   22 | Accept |     0.22206 |      29.337 |     0.21759 |     0.21874 |       919.02 |       66.212 |
+|   23 | Accept |     0.33383 |      0.4244 |     0.21759 |     0.21868 |       929.11 |       500.68 |
+|   24 | Accept |     0.22951 |      37.901 |     0.21759 |     0.21828 |       943.78 |        43.99 |
+|   25 | Accept |     0.21908 |      32.351 |     0.21759 |     0.21838 |       977.66 |       63.777 |
+|   26 | Accept |     0.21908 |      28.494 |     0.21759 |     0.21853 |       934.95 |       67.578 |
+|   27 | Accept |     0.21908 |      32.187 |     0.21759 |     0.21867 |        920.3 |       63.083 |
+|   28 | Accept |     0.22802 |      35.268 |     0.21759 |     0.21865 |       3.4171 |       20.486 |
+|   29 | Accept |     0.24143 |      38.498 |     0.21759 |     0.21862 |     0.048111 |       7.9712 |
+|   30 | Accept |     0.44262 |      37.769 |     0.21759 |     0.21878 |    0.0010309 |       4.7029 |
+
+__________________________________________________________
+Optimization completed.
+MaxObjectiveEvaluations of 30 reached.
+Total function evaluations: 30
+Total elapsed time: 757.3611 seconds.
+Total objective function evaluation time: 652.9748
+
+Best observed feasible point:
+    BoxConstraint    KernelScale
+    _____________    ___________
+
+       958.34          54.282   
+
+Observed objective function value = 0.21759
+Estimated objective function value = 0.21878
+Function evaluation time = 35.3616
+
+Best estimated feasible point (according to models):
+    BoxConstraint    KernelScale
+    _____________    ___________
+
+       919.02          66.212   
+
+Estimated objective function value = 0.21878
+Estimated function evaluation time = 29.802
+##########################################################################################################
+
+linear kernel:
+|=====================================================================================================|
+| Iter | Eval   | Objective   | Objective   | BestSoFar   | BestSoFar   | BoxConstraint|  KernelScale |
+|      | result |             | runtime     | (observed)  | (estim.)    |              |              |
+|=====================================================================================================|
+|    1 | Best   |     0.56632 |      39.984 |     0.56632 |     0.56632 |    0.0042825 |    0.0068779 |
+|    2 | Best   |     0.53651 |      45.551 |     0.53651 |     0.53843 |       4.7024 |    0.0015175 |
+|    3 | Best   |     0.31893 |     0.13143 |     0.31893 |     0.31895 |     0.015606 |       67.752 |
+|    4 | Best   |     0.27571 |     0.13131 |     0.27571 |     0.27573 |       296.52 |       650.09 |
+|    5 | Accept |       0.462 |     0.11273 |     0.27571 |     0.38149 |      0.18774 |       994.78 |
+|    6 | Best   |     0.25633 |      2.4281 |     0.25633 |     0.25634 |       665.34 |       79.997 |
+|    7 | Accept |     0.26826 |     0.53273 |     0.25633 |     0.25633 |       6.2735 |       16.572 |
+|    8 | Accept |     0.28614 |     0.12506 |     0.25633 |     0.25633 |    0.0057243 |       5.4753 |
+|    9 | Best   |     0.24888 |      39.792 |     0.24888 |     0.24891 |        966.3 |        5.345 |
+|   10 | Best   |     0.22355 |      35.586 |     0.22355 |     0.23222 |       985.19 |       14.865 |
+|   11 | Accept |     0.22504 |      34.001 |     0.22355 |      0.2239 |       968.47 |       18.638 |
+|   12 | Accept |     0.22653 |       28.75 |     0.22355 |     0.22377 |       333.74 |       13.979 |
+|   13 | Best   |     0.22206 |      35.798 |     0.22206 |     0.22296 |       970.75 |       14.475 |
+|   14 | Accept |     0.22504 |       36.53 |     0.22206 |     0.22353 |       974.97 |       13.201 |
+|   15 | Accept |     0.23249 |      20.392 |     0.22206 |     0.22351 |       1.7252 |       1.4304 |
+|   16 | Accept |     0.23249 |      10.893 |     0.22206 |     0.22356 |        5.465 |        3.173 |
+|   17 | Accept |     0.26528 |      1.2109 |     0.22206 |     0.22356 |      0.41538 |       2.6458 |
+|   18 | Accept |     0.24292 |       39.24 |     0.22206 |     0.22358 |       15.808 |       0.8543 |
+|   19 | Accept |     0.22653 |      32.905 |     0.22206 |      0.2236 |       8.4451 |        1.762 |
+|   20 | Accept |     0.22355 |      30.493 |     0.22206 |     0.22362 |       44.264 |       4.8839 |
+|=====================================================================================================|
+| Iter | Eval   | Objective   | Objective   | BestSoFar   | BestSoFar   | BoxConstraint|  KernelScale |
+|      | result |             | runtime     | (observed)  | (estim.)    |              |              |
+|=====================================================================================================|
+|   21 | Accept |     0.22802 |       23.67 |     0.22206 |      0.2236 |       73.902 |       7.1755 |
+|   22 | Accept |     0.22504 |      30.951 |     0.22206 |     0.22361 |       27.805 |       3.3301 |
+|   23 | Accept |     0.27571 |      0.1361 |     0.22206 |     0.22359 |    0.0010297 |      0.69718 |
+|   24 | Accept |     0.22355 |      28.532 |     0.22206 |     0.22359 |      0.32195 |      0.41802 |
+|   25 | Accept |     0.22802 |      34.434 |     0.22206 |     0.22359 |      0.85379 |      0.53659 |
+|   26 | Accept |     0.23398 |      11.731 |     0.22206 |      0.2236 |      0.10237 |      0.49378 |
+|   27 | Accept |     0.22504 |       35.98 |     0.22206 |     0.22361 |      0.30956 |      0.25621 |
+|   28 | Best   |     0.22057 |      34.548 |     0.22057 |      0.2217 |       0.3651 |      0.33395 |
+|   29 | Accept |     0.22206 |      35.544 |     0.22057 |     0.22168 |      0.51071 |      0.33946 |
+|   30 | Accept |      0.3994 |      37.719 |     0.22057 |      0.2217 |       980.41 |     0.041998 |
+
+__________________________________________________________
+Optimization completed.
+MaxObjectiveEvaluations of 30 reached.
+Total function evaluations: 30
+Total elapsed time: 781.5279 seconds.
+Total objective function evaluation time: 707.8313
+
+Best observed feasible point:
+    BoxConstraint    KernelScale
+    _____________    ___________
+
+       0.3651          0.33395  
+
+Observed objective function value = 0.22057
+Estimated objective function value = 0.2217
+Function evaluation time = 34.5482
+
+Best estimated feasible point (according to models):
+    BoxConstraint    KernelScale
+    _____________    ___________
+
+       0.3651          0.33395  
+
+Estimated objective function value = 0.2217
+Estimated function evaluation time = 34.0369
+
+#####################################################################################################
+#####################################################################################################
+#####################################################################################################
+#####################################################################################################
+#####################################################################################################
+
+
+testing:
+
+pred153 = load('predictmodel153.mat');
+
+test_x = [pred153.param.L;pred153.param.EGlob;pred153.param.CClosed;pred153.param.ELocClosed;pred153.param.COpen;pred153.param.ELocOpen;pred153.param.Circuit_rank;pred153.param.Dia;pred153.param.Mean_path_length;pred153.param.mean_deg;pred153.param.var_deg;pred153.param.avg_deg;pred153.param.mean_fragsize;pred153.param.var_fragsize;pred153.param.avg_fragsize;pred153.param.Maximalcliques]';
+
+test_y_ = [pred153.param.label]';
+cutoff  = 0.31
+test_y  = double(test_y_ <= cutoff);
+
+test_chosen_x_linear = test_x(:,ftRank_linear_indexed(1:stop_index));
+test_chosen_x_rbf    = test_x(:,ftRank_rbf_indexed(1:stop_index));
+
+###################################################################################
+#unseen data
+
+for i=1:10
+	test_accuracy_rbf = testPredictModel(test_chosen_x_rbf, test_y, zz_c1_rbf_chosenx, 'random', 35, 'itter', 100000); 
+	mean(test_accuracy_rbf)    
+end
+
+    0.2109
+    0.2114
+    0.2108
+    0.2108
+    0.2108
+    0.2108
+    0.2111
+    0.2110
+    0.2114
+    0.2116
+
+for i=1:10
+	test_accuracy_poly = testPredictModel(test_chosen_x_rbf, test_y, zz_c1_poly_chosenx, 'random', 35, 'itter', 100000); 
+	mean(test_accuracy_poly)    
+end
+
+    0.2386
+    0.2383
+    0.2387
+    0.2384
+    0.2384
+    0.2386
+    0.2381
+    0.2385
+    0.2382
+    0.2384
+
+>> 
+for i=1:10
+	test_accuracy_linear = testPredictModel(test_chosen_x_linear, test_y, zz_c1_linear_chosenx, 'random', 35, 'itter', 100000); 
+	mean(test_accuracy_linear)    
+end
+
+    0.2493
+    0.2492
+    0.2489
+    0.2489
+    0.2488
+    0.2488
+    0.2487
+    0.2490
+    0.2488
+
+###################################################################################################
+#################################################################################################
+# testing success rate for training data
+pred96 = load('predictmodel96.mat');
+
+test_x = [pred96.param.L;pred96.param.EGlob;pred96.param.CClosed;pred96.param.ELocClosed;pred96.param.COpen;pred96.param.ELocOpen;pred96.param.Circuit_rank;pred96.param.Dia;pred96.param.Mean_path_length;pred96.param.mean_deg;pred96.param.var_deg;pred96.param.avg_deg;pred96.param.mean_fragsize;pred96.param.var_fragsize;pred96.param.avg_fragsize;pred96.param.Maximalcliques]';
+
+test_y_ = [pred96.param.label]';
+cutoff  = 0.31
+test_y  = double(test_y_ <= cutoff);
+
+test_chosen_x_linear = test_x(:,ftRank_linear_indexed(1:stop_index));
+test_chosen_x_rbf    = test_x(:,ftRank_rbf_indexed(1:stop_index));
+
+%%
+
+for i=1:5
+	test_accuracy_rbf = testPredictModel(test_chosen_x_rbf, test_y, c1_rbf_chosenx, 'random', 35, 'itter', 1000); 
+	mean(test_accuracy_rbf)    
+end
+
+    0.0882
+    0.0893
+    0.0905
+    0.0866
+    0.0905
+    
+for i=1:5
+	test_accuracy_rbf = testPredictModel(test_chosen_x_rbf, test_y, zz_c1_poly_chosenx, 'random', 35, 'itter', 1000); 
+	mean(test_accuracy_rbf)    
+end    
+
+    0.2383
+    0.2404
+    0.2366
+    0.2373
+    0.2437
+
+for i=1:5
+	test_accuracy_rbf = testPredictModel(test_chosen_x_linear, test_y, zz_c1_linear_chosenx, 'random', 35, 'itter', 1000); 
+	mean(test_accuracy_rbf)    
+end    
+
+    0.2473
+    0.2444
+    0.2434
+    0.2424
+    0.2443
+
+#####################################################################################################
+#####################################################################################################
+# testing with confusion matrix 
+load('run_new_96predictmodel.mat')
+
+pred153 = load('predictmodel153.mat');
+
+test_x = [pred153.param.L;pred153.param.EGlob;pred153.param.CClosed;pred153.param.ELocClosed;pred153.param.COpen;pred153.param.ELocOpen;pred153.param.Circuit_rank;pred153.param.Dia;pred153.param.Mean_path_length;pred153.param.mean_deg;pred153.param.var_deg;pred153.param.avg_deg;pred153.param.mean_fragsize;pred153.param.var_fragsize;pred153.param.avg_fragsize;pred153.param.Maximalcliques]';
+
+test_y_ = [pred153.param.label]';
+cutoff  = 0.31
+test_y  = double(test_y_ <= cutoff);
+
+test_chosen_x_linear = test_x(:,ftRank_linear_indexed(1:stop_index));
+test_chosen_x_rbf    = test_x(:,ftRank_rbf_indexed(1:stop_index));
+
+
+[accuracy_rbf, confuse_rbf] = testPredictModel_v2(test_chosen_x_rbf, test_y, zz_c1_rbf_chosenx, 'random', 35, 'itter', 10)
+accuracy_rbf =
+
+    0.1714    0.1714    0.2000    0.2857    0.1429    0.2286    0.1714    0.0857    0.2286    0.2286
+
+
+confuse_rbf(:,:,1) =
+
+    0.8095    0.1905
+    0.1429    0.8571
+
+
+confuse_rbf(:,:,2) =
+
+    0.7000    0.3000
+         0    1.0000
+
+
+confuse_rbf(:,:,3) =
+
+    0.6667    0.3333
+    0.0588    0.9412
+
+
+confuse_rbf(:,:,4) =
+
+    0.5263    0.4737
+    0.0625    0.9375
+
+
+confuse_rbf(:,:,5) =
+
+    0.6875    0.3125
+         0    1.0000
+
+
+confuse_rbf(:,:,6) =
+
+    0.7143    0.2857
+    0.1429    0.8571
+
+
+confuse_rbf(:,:,7) =
+
+    0.7500    0.2500
+    0.0667    0.9333
+
+
+confuse_rbf(:,:,8) =
+
+    0.8947    0.1053
+    0.0625    0.9375
+
+
+confuse_rbf(:,:,9) =
+
+    0.6957    0.3043
+    0.0833    0.9167
+
+
+confuse_rbf(:,:,10) =
+
+    0.6500    0.3500
+    0.0667    0.9333
+
+>> 
+
+
+[accuracy_poly, confuse_poly] = testPredictModel_v2(test_chosen_x_rbf, test_y, zz_c1_poly_chosenx, 'random', 35, 'itter', 10) 
+accuracy_poly =
+
+    0.2000    0.2857    0.2000    0.2286    0.3429    0.2571    0.3143    0.0857    0.2571    0.2857
+
+
+confuse_poly(:,:,1) =
+
+    0.7059    0.2941
+    0.1111    0.8889
+
+
+confuse_poly(:,:,2) =
+
+    0.6667    0.3333
+    0.2143    0.7857
+
+
+confuse_poly(:,:,3) =
+
+    0.8500    0.1500
+    0.2667    0.7333
+
+
+confuse_poly(:,:,4) =
+
+    0.6875    0.3125
+    0.1579    0.8421
+
+
+confuse_poly(:,:,5) =
+
+    0.4118    0.5882
+    0.1111    0.8889
+
+
+confuse_poly(:,:,6) =
+
+    0.7222    0.2778
+    0.2353    0.7647
+
+
+confuse_poly(:,:,7) =
+
+    0.5294    0.4706
+    0.1667    0.8333
+
+
+confuse_poly(:,:,8) =
+
+    0.9000    0.1000
+    0.0667    0.9333
+
+
+confuse_poly(:,:,9) =
+
+    0.6250    0.3750
+    0.1579    0.8421
+
+
+confuse_poly(:,:,10) =
+
+    0.6000    0.4000
+    0.1333    0.8667
+
+>> 
+
+[accuracy_linear, confuse_linear] = testPredictModel_v2(test_chosen_x_linear, test_y, zz_c1_linear_chosenx, 'random', 35, 'itter', 10) 
+
+#################################################################################################
+#################################################################################################
+######### confussion matrix training data
+
+pred96 = load('predictmodel96.mat');
+
+test_x = [pred96.param.L;pred96.param.EGlob;pred96.param.CClosed;pred96.param.ELocClosed;pred96.param.COpen;pred96.param.ELocOpen;pred96.param.Circuit_rank;pred96.param.Dia;pred96.param.Mean_path_length;pred96.param.mean_deg;pred96.param.var_deg;pred96.param.avg_deg;pred96.param.mean_fragsize;pred96.param.var_fragsize;pred96.param.avg_fragsize;pred96.param.Maximalcliques]';
+
+test_y_ = [pred96.param.label]';
+cutoff  = 0.31
+test_y  = double(test_y_ <= cutoff);
+
+test_chosen_x_linear = test_x(:,ftRank_linear_indexed(1:stop_index));
+test_chosen_x_rbf    = test_x(:,ftRank_rbf_indexed(1:stop_index));
+
+
+[accuracy_rbf, confuse_rbf] = testPredictModel_v2(test_chosen_x_rbf, test_y, c1_rbf_chosenx, 'random', 35, 'itter', 10)
+accuracy_rbf =
+
+    0.0857    0.0857    0.1714    0.0857    0.2000    0.0286    0.1143    0.1143    0.0857    0.1143
+
+
+confuse_rbf(:,:,1) =
+
+    0.8421    0.1579
+         0    1.0000
+
+
+confuse_rbf(:,:,2) =
+
+    0.8235    0.1765
+         0    1.0000
+
+
+confuse_rbf(:,:,3) =
+
+    0.7000    0.3000
+         0    1.0000
+
+
+confuse_rbf(:,:,4) =
+
+    0.8333    0.1667
+         0    1.0000
+
+
+confuse_rbf(:,:,5) =
+
+    0.6316    0.3684
+         0    1.0000
+
+
+confuse_rbf(:,:,6) =
+
+    0.9333    0.0667
+         0    1.0000
+
+
+confuse_rbf(:,:,7) =
+
+    0.7895    0.2105
+         0    1.0000
+
+
+confuse_rbf(:,:,8) =
+
+    0.7895    0.2105
+         0    1.0000
+
+
+confuse_rbf(:,:,9) =
+
+    0.8125    0.1875
+         0    1.0000
+
+
+confuse_rbf(:,:,10) =
+
+    0.8261    0.1739
+         0    1.0000
+
+>> 
+
+[accuracy_poly, confuse_poly] = testPredictModel_v2(test_chosen_x_rbf, test_y, zz_c1_poly_chosenx, 'random', 35, 'itter', 10) 
+accuracy_poly =
+
+    0.3143    0.3714    0.2857    0.1143    0.2000    0.2286    0.1429    0.2571    0.2857    0.0857
+
+
+confuse_poly(:,:,1) =
+
+    0.5789    0.4211
+    0.1875    0.8125
+
+
+confuse_poly(:,:,2) =
+
+    0.5000    0.5000
+    0.2000    0.8000
+
+
+confuse_poly(:,:,3) =
+
+    0.5882    0.4118
+    0.1667    0.8333
+
+
+confuse_poly(:,:,4) =
+
+    0.8261    0.1739
+         0    1.0000
+
+
+confuse_poly(:,:,5) =
+
+    0.7000    0.3000
+    0.0667    0.9333
+
+
+confuse_poly(:,:,6) =
+
+    0.6190    0.3810
+         0    1.0000
+
+
+confuse_poly(:,:,7) =
+
+    0.8000    0.2000
+    0.1000    0.9000
+
+
+confuse_poly(:,:,8) =
+
+    0.6667    0.3333
+    0.1429    0.8571
+
+
+confuse_poly(:,:,9) =
+
+    0.7273    0.2727
+    0.3077    0.6923
+
+
+confuse_poly(:,:,10) =
+
+    0.8462    0.1538
+    0.0455    0.9545
+
+>> 
+
+
+[accuracy_linear, confuse_linear] = testPredictModel_v2(test_chosen_x_linear, test_y, c1_linear_chosenx, 'random', 35, 'itter', 10) 
+accuracy_linear =
+
+    0.3143    0.4000    0.2857    0.2857    0.3143    0.4000    0.3714    0.3143    0.2000    0.1714
+
+
+confuse_linear(:,:,1) =
+
+    0.7143    0.2857
+    0.3571    0.6429
+
+
+confuse_linear(:,:,2) =
+
+    0.5909    0.4091
+    0.3846    0.6154
+
+
+confuse_linear(:,:,3) =
+
+    0.7222    0.2778
+    0.2941    0.7059
+
+
+confuse_linear(:,:,4) =
+
+    0.7273    0.2727
+    0.3077    0.6923
+
+
+confuse_linear(:,:,5) =
+
+    0.8235    0.1765
+    0.4444    0.5556
+
+
+confuse_linear(:,:,6) =
+
+    0.6471    0.3529
+    0.4444    0.5556
+
+
+confuse_linear(:,:,7) =
+
+    0.6087    0.3913
+    0.3333    0.6667
+
+
+confuse_linear(:,:,8) =
+
+    0.6500    0.3500
+    0.2667    0.7333
+
+
+confuse_linear(:,:,9) =
+
+    0.7857    0.2143
+    0.1905    0.8095
+
+
+confuse_linear(:,:,10) =
+
+    0.7826    0.2174
+    0.0833    0.9167
+
+>> 

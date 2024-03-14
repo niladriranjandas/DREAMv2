@@ -1,0 +1,23 @@
+#paramwisetrial/genRunScipts_bckend_predictDrive.sh 1bbn 1bbn_param_1d8v,1bbn_param_1oca,1bbn_param_1pbu,1bbn_param_1xxe,1bbn_param_1ygw,1bbn_param_2kok,1bbn_param_2m4k,1bbn_param_5x1x > paramwisetrial/1bbn_log_all.log.txt
+
+#paramwisetrial/genRunScipts_bckend_predictDrive.sh 1bhu 1bhu_param_1d8v,1bhu_param_1oca,1bhu_param_1pbu,1bhu_param_1xxe,1bhu_param_1ygw,1bhu_param_2kok,1bhu_param_2m4k,1bhu_param_5x1x > paramwisetrial/1bhu_log_all.log.txt
+
+#paramwisetrial/genRunScipts_bckend_predictDrive.sh 1h3z 1h3z_param_1d8v,1h3z_param_1oca,1h3z_param_1pbu,1h3z_param_1xxe,1h3z_param_1ygw,1h3z_param_2kok,1h3z_param_2m4k,1h3z_param_5x1x > paramwisetrial/1h3z_log_all.log.txt
+
+#paramwisetrial/genRunScipts_bckend_predictDrive.sh 1ich 1ich_param_1d8v,1ich_param_1oca,1ich_param_1pbu,1ich_param_1xxe,1ich_param_1ygw,1ich_param_2kok,1ich_param_2m4k,1ich_param_5x1x > paramwisetrial/1ich_log_all.log.txt
+
+#paramwisetrial/genRunScipts_bckend_predictDrive.sh 2kk1 2kk1_param_1d8v,2kk1_param_1oca,2kk1_param_1pbu,2kk1_param_1xxe,2kk1_param_1ygw,2kk1_param_2kok,2kk1_param_2m4k,2kk1_param_5x1x > paramwisetrial/2kk1_log_all.log.txt
+
+#paramwisetrial/genRunScipts_bckend_predictDrive.sh 2xfm 2xfm_param_1d8v,2xfm_param_1oca,2xfm_param_1pbu,2xfm_param_1xxe,2xfm_param_1ygw,2xfm_param_2kok,2xfm_param_2m4k,2xfm_param_5x1x > paramwisetrial/2xfm_log_all.log.txt
+
+paramwisetrial/genRunScipts_bckend_predictDrive.sh 1oca 1oca_param_1d8v,1oca_param_1oca,1oca_param_1pbu,1oca_param_1xxe,1oca_param_1ygw,1oca_param_2kok,1oca_param_2m4k,1oca_param_5x1x > paramwisetrial/1oca_log_all.log.txt
+
+paramwisetrial/genRunScipts_bckend_predictDrive.sh 2m4k 2m4k_param_1d8v,2m4k_param_1oca,2m4k_param_1pbu,2m4k_param_1xxe,2m4k_param_1ygw,2m4k_param_2kok,2m4k_param_2m4k,2m4k_param_5x1x > paramwisetrial/2m4k_log_all.log.txt
+
+
+
+
+
+
+
+

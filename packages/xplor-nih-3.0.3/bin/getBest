@@ -1,0 +1,287 @@
+#!/bin/sh
+
+wildcard=""
+viols=0
+suffix=""
+num=-1
+index=1
+indices=""
+member=0
+symlinkSuffix=".best"
+makeSymlinks=0
+outputRST=false #doesn't do anything yet
+
+help_cmdline () {
+    name=`echo $0 | sed 's/.*\///'`
+    echo "Usage: $name [option] <file|directory>"
+}
+help_description () {
+    echo "  Print out the filenames of the lowest energy structures listed in"
+    echo "  an Xplor-NIH .stats file. By default, all .stats files in the current"
+    echo "  directory are consulted. It can also be used to create symbolic"
+    echo "  links to these files."
+    echo ""
+}
+help_usage () {
+    echo " A directory can be specified if it contains only a single .stats file"
+    echo " options::"
+    echo
+    echo "  -help  - this usage message."
+    echo "  -num   - the number of filenames to print (not greater than the"
+    echo "           number of filenames present in the .stats file)."
+    echo "  -index - start listing with the index'th filename (zero offset)."
+    echo "  -indices <list> - list of space or colon delimited index numbers."
+    echo "  -viols - list correspoding .viols filenames."
+    echo "  -prefix <pref> - the name of each file returned is prepended with"
+    echo "                   the specified string. This prefix cannot contain"
+    echo "                   the pipe character \`\`|''"
+    echo "  -suffix <suff> - the specified string is appended to each returned"
+    echo "                   file name."
+    echo "  -nl      Separate file names with a newline instead of a space."
+    echo
+    echo "  -symlinks - create symbolic links to the selected files."
+    echo "              This is intended to generate filenames which"
+    echo "              can be used for subsequent calculations."
+    echo "              Each symlink name will be that of the corresponding"
+    echo "              coordinate file but with a suffix appended."
+    echo "              The default suffix is ``.best'' and an alternative"
+    echo "              can be specified using the -symlinkSuffix option."
+    echo "              For Ensemble calculations one should always specify"
+    echo "              -all when using this option."
+    echo "  -symlinkSuffix <suff> - change suffix for symlinks - see above."
+    echo 
+    echo "  The remaining options can be used to list filenames associated"
+    echo "    with EnsembleSimulation calculations."
+    echo 
+    echo "  -all   - print filenames for all ensemble members. By default,"
+    echo "           only the first (member 0) structure filename is printed"
+    echo "  -mem <num> - list only the filename corresponding to the specific"
+    echo "               member."
+    echo "  -members <list> - space or colon delimited list of ensemble "
+    echo "                    members to report."
+    echo "  -wildcard <spec> - glob specification of ensemble members to "
+    echo "                     report."
+    echo "  -everything - list files of all ensemble members and any other"
+    echo "                files which correspond to the listed ensemble"
+    echo "  -quoted     - quote the wildcard (glob) such that the wildcard"
+    echo "                pattern is printed and not the filenames which match."
+    echo 
+}
+
+nl=0
+while [ -n "$1" ]; do
+ opt=$1
+ shift
+ case "$opt" in
+    -help|-h|--help|-*help-script)
+	 echo "getBest"
+	 echo "-------\n"
+        help_description
+        help_cmdline
+        help_usage
+	exit 0
+    ;;
+    -*help-cmdline)
+        help_cmdline
+	exit 0
+    ;;
+    -*help-description)
+        help_description
+	exit 0
+    ;;
+    -*help-usage)
+        help_usage
+	exit 0
+    ;;
+    -num)
+        num=$1
+	shift
+    ;;
+    -index)
+        index=`expr $1 + 1`
+	shift
+    ;;
+    -indices)
+        indices=`echo $1 | sed 's/:/ /g'`
+	shift
+    ;;
+    -all)
+        #works for ensembles up to size 10
+	wildcard='[0-9]*'
+    ;;
+    -everything)
+	wildcard='*'
+    ;;
+    -wildcard)
+	wildcard=$1
+	shift
+    ;;
+    -quoted)
+	set -o noglob
+    ;;
+    -mem)
+	member=$1
+	shift
+    ;;
+    -members)
+	members=`echo $1 | sed 's/:/ /g'`
+	shift
+    ;;
+    -viols)
+	viols=1
+    ;;
+    -prefix)
+	prefix=$1
+	shift
+    ;;
+    -suffix)
+	suffix=$1
+	shift
+    ;;
+     -nl)
+	 nl=1
+	 ;;
+     -symlinks)
+	 makeSymlinks=1
+	 ;;
+     -symlinkSuffix)
+	 symlinkSuffix=$1
+	 shift
+	 ;;
+     -output-rst)
+	 outputRST=true
+	 ;;
+     -*)
+	 echo "invalid option: $opt"
+	 help_usage
+	 exit 1
+    ;;
+    *)
+	statsFiles="$statsFiles $opt"
+    ;;
+ esac
+done
+
+[ "$statsFiles" = "" ] && statsFiles="."
+
+#if [ "$symlinkSuffix" != "" -a "$suffix" != "" ]; then
+#    symlinkSuffix=$suffix
+#    suffix=
+#fi
+
+inSpec=$statsFiles
+statsFiles=""
+for spec in $inSpec; do
+    if [ -d $spec ]; then
+	statsFiles="$statsFiles ${spec}/*.stats"
+    else
+	statsFiles="$statsFiles ${spec}"
+    fi
+done
+
+if [ "$indices" = "" ]; then
+    indices=$index
+else
+    num=1
+    o=$indices
+    indices=""
+    for index in $o; do
+	indices="${indices} `expr $index + 1`"
+    done
+fi
+
+for statsFile in $statsFiles; do
+
+    totNum=`grep "Results for the top" $statsFile | \
+    	sed 's/.*Results for the top \(.*\) (of .*) structures/\1/' `
+    
+    [ $num -lt 0 ] && num=$totNum
+    
+    
+    zeroFiles=
+    for index in $indices; do
+	files=`grep -A $totNum Filename: $statsFile | tail -$totNum | \
+          tail -n +$index | \
+          head -$num | cut -d ' ' -f 1 | sed 's|.*/||'`
+	zeroFiles="${zeroFiles} $files"
+    done
+    
+    dir=
+    if [ "`echo $statsFile | grep /`" != "" ]; then 
+        dir=`echo $statsFile | sed 's/\(.*\)\/[^/].*/\1/' | sed 's!//*$!!'`
+    fi
+
+    lenDir=${#dir}
+    
+    if [ $lenDir -ne 0 ]; then
+        lenDir=`expr $lenDir + 1`
+        start=`echo $zeroFiles | cut -c -$lenDir`
+
+        if [ "$dir/" != "$start" ]; then
+    	zeroFiles=`echo $zeroFiles | sed 's!^!'$dir'\/!g'`
+    	zeroFiles=`echo $zeroFiles | sed 's! ! '$dir'\/!g'`
+        fi
+    fi
+    
+    if [ "$wildcard" != "" ]; then
+    	files=`echo $zeroFiles | sed 's/_0\./_'$wildcard'./g'`
+    #	files=`eval "ls $files"`
+    else
+	if [ "$members" != "" ]; then
+	    files=""
+	    for zeroFile in $zeroFiles; do
+		for member in $members; do
+		    files="$files `echo $zeroFile | sed 's/_0\./_'$member'./'`"
+		done
+	    done
+	else 
+    	    files=`echo $zeroFiles | sed 's/_0\./_'$member'./g'`
+            #	files=$zeroFiles
+	fi
+    fi
+    
+    if [ $viols -eq 1 ]; then
+        files=`echo $files | sed 's/ /.viols /g'`
+        files=`echo $files | sed 's/$/.viols/g'`
+    fi
+    
+    if [ "$suffix" != "" ]; then
+        files=`echo $files | sed 's/ /'$suffix' /g'`
+        files=`echo $files | sed 's/$/'$suffix'/g'`
+    fi
+
+    if [ "$prefix" != "" ]; then
+	ofiles=$files
+	files=
+	for file in $ofiles; do
+	    if echo $file | grep -q / ; then
+		file=`echo $file | sed 's|.*/|&'$prefix'|'`
+	    else
+		file=$prefix$file
+	    fi
+	    files="$files $file"
+	done
+    fi
+
+
+    if [ $makeSymlinks -eq 0 ]; then
+	if [ $nl -eq 1 ]; then
+	    echo $files | sed 's/ /\n/g'
+	else
+	    echo $files
+	fi 
+
+    else
+
+	for file in $files; do
+	    #strip off all path info: the symlink will be created in
+	    # the current directory
+	    link=`echo $file | sed 's!.*/!!'`
+	    ln -s $file ${link}$symlinkSuffix
+	done
+    fi
+   
+done    
+
+
+

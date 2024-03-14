@@ -1,0 +1,3963 @@
+template_fragment ALA = {
+
+   template_attr attr = { ALA , 0.00 ,AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT3,-0.27},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { HB3,HA,0.09},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { CB, HB3, SINGLE},
+     { O, C, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3551 ,126.4900 ,180.0000 ,115.4200 ,0.9996},
+     { -C ,N ,CA ,C ,1.3551 ,126.4900 ,180.0000 ,114.4400 ,1.5390},
+     { N ,CA ,C ,+N ,1.4592 ,114.4400 ,180.0000 ,116.8400 ,1.3558},
+     { +N ,CA ,*C ,O ,1.3558 ,116.8400 ,180.0000 ,122.5200 ,1.2297},
+     { CA ,C ,+N ,+CA ,1.5390 ,116.8400 ,180.0000 ,126.7700 ,1.4613},
+     { N ,C ,*CA ,CB ,1.4592 ,114.4400 ,123.2300 ,111.0900 ,1.5461},
+     { N ,C ,*CA ,HA ,1.4592 ,114.4400 ,-120.4500 ,106.3900 ,1.0840},
+     { C ,CA ,CB ,HB1 ,1.5390 ,111.0900 ,177.2500 ,109.6000 ,1.1109},
+     { HB1 ,CA ,*CB ,HB2 ,1.1109 ,109.6000 ,119.1300 ,111.0500 ,1.1119},
+     { HB1 ,CA ,*CB ,HB3 ,1.1109 ,109.6000 ,-119.5800 ,111.6100 ,1.1114}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2,
+       HB3
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment ARG = {
+
+   template_attr attr = { ARG , 1.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.18},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CT2,-0.18},
+     { HG1,HA,0.09},
+     { HG2,HA,0.09},
+     { CD,CT2,0.20},
+     { HD1,HA,0.09},
+     { HD2,HA,0.09},
+     { NE,NC2,-0.70},
+     { HE,HC,0.44},
+     { CZ,C,0.64},
+     { NH1,NC2,-0.80},
+     { HH11,HC,0.46},
+     { HH12,HC,0.46},
+     { NH2,NC2,-0.80},
+     { HH21,HC,0.46},
+     { HH22,HC,0.46},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { CD, CG, SINGLE},
+     { NE, CD, SINGLE},
+     { CZ, NE, SINGLE},
+     { NH2, CZ, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { CG, HG1, SINGLE},
+     { CG, HG2, SINGLE},
+     { CD, HD1, SINGLE},
+     { CD, HD2, SINGLE},
+     { NE, HE, SINGLE},
+     { NH1, HH11, SINGLE},
+     { NH1, HH12, SINGLE},
+     { NH2, HH21, SINGLE},
+     { NH2, HH22, SINGLE},
+     { O, C, DOUBLE},
+     { CZ, NH1, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O},
+     { CZ, NH1, NH2, NE}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HE, NE},
+     { HH11, NH1},
+     { HH12, NH1},
+     { HH21, NH2},
+     { HH22, NH2}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3496 ,122.4500 ,180.0000 ,116.6700 ,0.9973},
+     { -C ,N ,CA ,C ,1.3496 ,122.4500 ,180.0000 ,109.8600 ,1.5227},
+     { N ,CA ,C ,+N ,1.4544 ,109.8600 ,180.0000 ,117.1200 ,1.3511},
+     { +N ,CA ,*C ,O ,1.3511 ,117.1200 ,180.0000 ,121.4000 ,1.2271},
+     { CA ,C ,+N ,+CA ,1.5227 ,117.1200 ,180.0000 ,124.6700 ,1.4565},
+     { N ,C ,*CA ,CB ,1.4544 ,109.8600 ,123.6400 ,112.2600 ,1.5552},
+     { N ,C ,*CA ,HA ,1.4544 ,109.8600 ,-117.9300 ,106.6100 ,1.0836},
+     { N ,CA ,CB ,CG ,1.4544 ,110.7000 ,180.0000 ,115.9500 ,1.5475},
+     { CG ,CA ,*CB ,HB1 ,1.5475 ,115.9500 ,120.0500 ,106.4000 ,1.1163},
+     { CG ,CA ,*CB ,HB2 ,1.5475 ,115.9500 ,-125.8100 ,109.5500 ,1.1124},
+     { CA ,CB ,CG ,CD ,1.5552 ,115.9500 ,180.0000 ,114.0100 ,1.5384},
+     { CD ,CB ,*CG ,HG1 ,1.5384 ,114.0100 ,125.2000 ,108.5500 ,1.1121},
+     { CD ,CB ,*CG ,HG2 ,1.5384 ,114.0100 ,-120.3000 ,108.9600 ,1.1143},
+     { CB ,CG ,CD ,NE ,1.5475 ,114.0100 ,180.0000 ,107.0900 ,1.5034},
+     { NE ,CG ,*CD ,HD1 ,1.5034 ,107.0900 ,120.6900 ,109.4100 ,1.1143},
+     { NE ,CG ,*CD ,HD2 ,1.5034 ,107.0900 ,-119.0400 ,111.5200 ,1.1150},
+     { CG ,CD ,NE ,CZ ,1.5384 ,107.0900 ,180.0000 ,123.0500 ,1.3401},
+     { CZ ,CD ,*NE ,HE ,1.3401 ,123.0500 ,180.0000 ,113.1400 ,1.0065},
+     { CD ,NE ,CZ ,NH1 ,1.5034 ,123.0500 ,180.0000 ,118.0600 ,1.3311},
+     { NE ,CZ ,NH1 ,HH11 ,1.3401 ,118.0600 ,-178.2800 ,120.6100 ,0.9903},
+     { HH11 ,CZ ,*NH1 ,HH12 ,0.9903 ,120.6100 ,171.1900 ,116.2900 ,1.0023},
+     { NH1 ,NE ,*CZ ,NH2 ,1.3311 ,118.0600 ,178.6400 ,122.1400 ,1.3292},
+     { NE ,CZ ,NH2 ,HH21 ,1.3401 ,122.1400 ,-174.1400 ,119.9100 ,0.9899},
+     { HH21 ,CZ ,*NH2 ,HH22 ,0.9899 ,119.9100 ,166.1600 ,116.8800 ,0.9914}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2
+     },
+     { 
+       CG,
+       HG1,
+       HG2
+     },
+     { 
+       CD,
+       HD1,
+       HD2,
+       NE,
+       HE,
+       CZ,
+       NH1,
+       HH11,
+       HH12,
+       NH2,
+       HH21,
+       HH22
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment ASN = {
+
+   template_attr attr = { ASN , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.18},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CC,0.55},
+     { OD1,O,-0.55},
+     { ND2,NH2,-0.62},
+     { HD21,H,0.32},
+     { HD22,H,0.30},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { ND2, CG, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { ND2, HD21, SINGLE},
+     { ND2, HD22, SINGLE},
+     { C, O, DOUBLE},
+     { CG, OD1, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O},
+     { CG, ND2, CB, OD1},
+     { CG, CB, ND2, OD1},
+     { ND2, CG, HD21, HD22},
+     { ND2, CG, HD22, HD21}
+   };
+
+   tacce_list imph = { 
+     { OD1, CG},
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HD21, ND2},
+     { HD22, ND2}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3480 ,124.0500 ,180.0000 ,114.4900 ,0.9992},
+     { -C ,N ,CA ,C ,1.3480 ,124.0500 ,180.0000 ,105.2300 ,1.5245},
+     { N ,CA ,C ,+N ,1.4510 ,105.2300 ,180.0000 ,117.3800 ,1.3467},
+     { +N ,CA ,*C ,O ,1.3467 ,117.3800 ,180.0000 ,120.3200 ,1.2282},
+     { CA ,C ,+N ,+CA ,1.5245 ,117.3800 ,180.0000 ,124.8800 ,1.4528},
+     { N ,C ,*CA ,CB ,1.4510 ,105.2300 ,121.1800 ,113.0400 ,1.5627},
+     { N ,C ,*CA ,HA ,1.4510 ,105.2300 ,-115.5200 ,107.6300 ,1.0848},
+     { N ,CA ,CB ,CG ,1.4510 ,110.9100 ,180.0000 ,114.3000 ,1.5319},
+     { CG ,CA ,*CB ,HB1 ,1.5319 ,114.3000 ,119.1700 ,107.8200 ,1.1120},
+     { CG ,CA ,*CB ,HB2 ,1.5319 ,114.3000 ,-123.7400 ,110.3400 ,1.1091},
+     { CA ,CB ,CG ,OD1 ,1.5627 ,114.3000 ,180.0000 ,122.5600 ,1.2323},
+     { OD1 ,CB ,*CG ,ND2 ,1.2323 ,122.5600 ,-179.1900 ,116.1500 ,1.3521},
+     { CB ,CG ,ND2 ,HD21 ,1.5319 ,116.1500 ,-179.2600 ,117.3500 ,0.9963},
+     { HD21 ,CG ,*ND2 ,HD22 ,0.9963 ,117.3500 ,178.0200 ,120.0500 ,0.9951}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2
+     },
+     { 
+       CG,
+       OD1
+     },
+     { 
+       ND2,
+       HD21,
+       HD22
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment ASP = {
+
+   template_attr attr = { ASP , -1.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.28},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CC,0.62},
+     { OD1,OC,-0.76},
+     { OD2,OC,-0.76},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { OD2, CG, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { O, C, DOUBLE},
+     { CG, OD1, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O},
+     { CG, CB, OD2, OD1}
+   };
+
+   tacce_list imph = { 
+     { OD1, CG},
+     { OD2, CG},
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3465 ,125.3100 ,180.0000 ,112.9400 ,0.9966},
+     { -C ,N ,CA ,C ,1.3465 ,125.3100 ,180.0000 ,105.6300 ,1.5315},
+     { N ,CA ,C ,+N ,1.4490 ,105.6300 ,180.0000 ,117.0600 ,1.3478},
+     { +N ,CA ,*C ,O ,1.3478 ,117.0600 ,180.0000 ,120.7100 ,1.2330},
+     { CA ,C ,+N ,+CA ,1.5315 ,117.0600 ,180.0000 ,125.3900 ,1.4484},
+     { N ,C ,*CA ,CB ,1.4490 ,105.6300 ,122.3300 ,114.1000 ,1.5619},
+     { N ,C ,*CA ,HA ,1.4490 ,105.6300 ,-116.4000 ,106.7700 ,1.0841},
+     { N ,CA ,CB ,CG ,1.4490 ,111.1000 ,180.0000 ,112.6000 ,1.5218},
+     { CG ,CA ,*CB ,HB1 ,1.5218 ,112.6000 ,119.2200 ,109.2300 ,1.1086},
+     { CG ,CA ,*CB ,HB2 ,1.5218 ,112.6000 ,-121.6100 ,110.6400 ,1.1080},
+     { CA ,CB ,CG ,OD1 ,1.5619 ,112.6000 ,180.0000 ,117.9900 ,1.2565},
+     { OD1 ,CB ,*CG ,OD2 ,1.2565 ,117.9900 ,-170.2300 ,117.7000 ,1.2541}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2,
+       CG,
+       OD1,
+       OD2
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_patch ACE = {
+
+   template_attr attr = { ACE , 0.00 ,  AMINOACID };
+
+   tatom_list atom = { 
+     { CAY,CT3,-0.27},
+     { HY1,HA,0.09},
+     { HY2,HA,0.09},
+     { HY3,HA,0.09},
+     { CY,C,0.51},
+     { OY,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CY, CAY, SINGLE},
+     { CY, N, SINGLE},
+     { CAY, HY1, SINGLE},
+     { CAY, HY2, SINGLE},
+     { CAY, HY3, SINGLE},
+     { OY, CY, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { CY, CAY, N, OY},
+     { N, CY, CA, HN}
+   };
+
+   tacce_list imph = { 
+     { OY, CY}
+   };
+
+   tic_list imph = { 
+     { CY ,N ,CA ,C ,0.0000 ,0.0000 ,-60.0000 ,0.0000 ,0.0000},
+     { CY ,CA ,*N ,HN ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000},
+     { CAY ,CY ,N ,CA ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000},
+     { N ,CAY ,*CY ,OY ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000},
+     { OY ,CY ,CAY ,HY1 ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000},
+     { OY ,CY ,CAY ,HY2 ,0.0000 ,0.0000 ,60.0000 ,0.0000 ,0.0000},
+     { OY ,CY ,CAY ,HY3 ,0.0000 ,0.0000 ,-60.0000 ,0.0000 ,0.0000}
+   };
+
+   tgroup_list imph = { 
+     { 
+       CAY,
+       HY1,
+       HY2,
+       HY3
+     },
+     { 
+       CY,
+       OY
+     }
+   };
+
+};
+
+
+
+template_patch CTER = {
+
+   template_attr attr = { CTER , -1.00, AMINOACID};
+
+   tatom_list atom = { 
+     { C,CC,0.34},
+     { OT1,OC,-0.67},
+     { OT2,OC,-0.67}
+   };
+
+   tbond_list bond = { 
+     { C, OT2, SINGLE},
+     { C, OT1, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { C, CA, OT2, OT1}
+   };
+
+   tacce_list imph = { 
+     { OT1, C},
+     { OT2, C}
+   };
+
+   tic_list imph = { 
+     { N ,CA ,C ,OT2 ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000},
+     { OT2 ,CA ,*C ,OT1 ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000}
+   };
+
+   tgroup_list imph = { 
+     { 
+       C,
+       OT1,
+       OT2
+     }
+   };
+
+   delete atom = { O};
+
+};
+
+template_patch CT2 = {
+
+   template_attr attr = { CT2 , 0.00 ,  AMINOACID };
+
+   tatom_list atom = { 
+     { C,CC,0.55},
+     { O,O,-0.55},
+     { NT,NH2,-0.62},
+     { HT1,H,0.32},
+     { HT2,H,0.30}
+   };
+
+   tbond_list bond = { 
+     { C, NT, SINGLE},
+     { NT, HT1,SINGLE},
+     { NT, HT2,SINGLE}
+   };
+
+   tdihe_list dihe = { 
+     { CA, C, NT, HT2}
+   };
+
+   timph_list imph = { 
+     { C, NT, CA, O},
+     { C, CA, NT, O},
+     { NT, C, HT1, HT2},
+     { NT, C, HT2, HT1}
+   };
+
+   tdono_list imph = { 
+     { HT1, NT},
+     { HT2, NT}
+   };
+
+   tic_list imph = { 
+     { N ,CA ,C ,O ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000},
+     { NT ,CA ,*C ,O ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000},
+     { CA ,C ,NT ,HT1 ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000},
+     { HT1 ,C ,*NT ,HT2 ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000}
+   };
+
+   tgroup_list imph = { 
+     { 
+       C,
+       O
+     },
+     { 
+       NT,
+       HT1,
+       HT2
+     }
+   };
+
+};
+
+template_fragment CYS = {
+
+   template_attr attr = { CYS , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.11},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { SG,S,-0.23},
+     { HG1,HS,0.16},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { SG, CB, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { SG, HG1, SINGLE},
+     { O, C, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HG1, SG}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3479 ,123.9300 ,180.0000 ,114.7700 ,0.9982},
+     { -C ,N ,CA ,C ,1.3479 ,123.9300 ,180.0000 ,105.8900 ,1.5202},
+     { N ,CA ,C ,+N ,1.4533 ,105.8900 ,180.0000 ,118.3000 ,1.3498},
+     { +N ,CA ,*C ,O ,1.3498 ,118.3000 ,180.0000 ,120.5900 ,1.2306},
+     { CA ,C ,+N ,+CA ,1.5202 ,118.3000 ,180.0000 ,124.5000 ,1.4548},
+     { N ,C ,*CA ,CB ,1.4533 ,105.8900 ,121.7900 ,111.9800 ,1.5584},
+     { N ,C ,*CA ,HA ,1.4533 ,105.8900 ,-116.3400 ,107.7100 ,1.0837},
+     { N ,CA ,CB ,SG ,1.4533 ,111.5600 ,180.0000 ,113.8700 ,1.8359},
+     { SG ,CA ,*CB ,HB1 ,1.8359 ,113.8700 ,119.9100 ,107.2400 ,1.1134},
+     { SG ,CA ,*CB ,HB2 ,1.8359 ,113.8700 ,-125.3200 ,109.8200 ,1.1124},
+     { CA ,CB ,SG ,HG1 ,1.5584 ,113.8700 ,176.9600 ,97.1500 ,1.3341}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2,
+       SG,
+       HG1
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_patch DISU = {
+
+   template_attr attr = { DISU , -0.36, AMINOACID};
+
+   tatom_list atom = { 
+     { 1CB,CT2,-0.10},
+     { 1SG,SM,-0.08},
+     { 2SG,SM,-0.08},
+     { 2CB,CT2,-0.10}
+   };
+
+   tbond_list bond = { 
+     { 1SG, 2SG, BRIDGE}
+   };
+
+   tdihe_list dihe = { 
+     { 1HB1, 1CB, 1SG, 2SG},
+     { 1HB2, 1CB, 1SG, 2SG},
+     { 2HB1, 2CB, 2SG, 1SG},
+     { 2HB2, 2CB, 2SG, 1SG},
+     { 1CA, 1CB, 1SG, 2SG},
+     { 1SG, 2SG, 2CB, 2CA},
+     { 1CB, 1SG, 2SG, 2CB}
+   };
+
+   tic_list imph = { 
+     { 1CA ,1CB ,1SG ,2SG ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000},
+     { 1CB ,1SG ,2SG ,2CB ,0.0000 ,0.0000 ,90.0000 ,0.0000 ,0.0000},
+     { 1SG ,2SG ,2CB ,2CA ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000}
+   };
+
+   tgroup_list imph = { 
+     { 
+       1CB,
+       1SG
+     },
+     { 
+       2SG,
+       2CB
+     }
+   };
+
+   delete atom = { 1HG1,2HG1};
+
+};
+
+
+template_fragment GLN = {
+
+   template_attr attr = { GLN , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.18},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CT2,-0.18},
+     { HG1,HA,0.09},
+     { HG2,HA,0.09},
+     { CD,CC,0.55},
+     { OE1,O,-0.55},
+     { NE2,NH2,-0.62},
+     { HE21,H,0.32},
+     { HE22,H,0.30},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { CD, CG, SINGLE},
+     { NE2, CD, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { CG, HG1, SINGLE},
+     { CG, HG2, SINGLE},
+     { NE2, HE21, SINGLE},
+     { NE2, HE22, SINGLE},
+     { O, C, SINGLE},
+     { CD, OE1, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O},
+     { CD, NE2, CG, OE1},
+     { CD, CG, NE2, OE1},
+     { NE2, CD, HE21, HE22},
+     { NE2, CD, HE22, HE21}
+   };
+
+   tacce_list imph = { 
+     { OE1, CD},
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HE21, NE2},
+     { HE22, NE2}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3477 ,123.9300 ,180.0000 ,114.4500 ,0.9984},
+     { -C ,N ,CA ,C ,1.3477 ,123.9300 ,180.0000 ,106.5700 ,1.5180},
+     { N ,CA ,C ,+N ,1.4506 ,106.5700 ,180.0000 ,117.7200 ,1.3463},
+     { +N ,CA ,*C ,O ,1.3463 ,117.7200 ,180.0000 ,120.5900 ,1.2291},
+     { CA ,C ,+N ,+CA ,1.5180 ,117.7200 ,180.0000 ,124.3500 ,1.4461},
+     { N ,C ,*CA ,CB ,1.4506 ,106.5700 ,121.9100 ,111.6800 ,1.5538},
+     { N ,C ,*CA ,HA ,1.4506 ,106.5700 ,-116.8200 ,107.5300 ,1.0832},
+     { N ,CA ,CB ,CG ,1.4506 ,111.4400 ,180.0000 ,115.5200 ,1.5534},
+     { CG ,CA ,*CB ,HB1 ,1.5534 ,115.5200 ,120.9300 ,106.8000 ,1.1147},
+     { CG ,CA ,*CB ,HB2 ,1.5534 ,115.5200 ,-124.5800 ,109.3400 ,1.1140},
+     { CA ,CB ,CG ,CD ,1.5538 ,115.5200 ,180.0000 ,112.5000 ,1.5320},
+     { CD ,CB ,*CG ,HG1 ,1.5320 ,112.5000 ,118.6900 ,110.4100 ,1.1112},
+     { CD ,CB ,*CG ,HG2 ,1.5320 ,112.5000 ,-121.9100 ,110.7400 ,1.1094},
+     { CB ,CG ,CD ,OE1 ,1.5534 ,112.5000 ,180.0000 ,121.5200 ,1.2294},
+     { OE1 ,CG ,*CD ,NE2 ,1.2294 ,121.5200 ,179.5700 ,116.8400 ,1.3530},
+     { CG ,CD ,NE2 ,HE21 ,1.5320 ,116.8400 ,-179.7200 ,116.8600 ,0.9959},
+     { HE21 ,CD ,*NE2 ,HE22 ,0.9959 ,116.8600 ,-178.9100 ,119.8300 ,0.9943}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2
+     },
+     { 
+       CG,
+       HG1,
+       HG2
+     },
+     { 
+       CD,
+       OE1
+     },
+     { 
+       NE2,
+       HE21,
+       HE22
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment GLU = {
+
+   template_attr attr = { GLU , -1.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.18},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CT2,-0.28},
+     { HG1,HA,0.09},
+     { HG2,HA,0.09},
+     { CD,CC,0.62},
+     { OE1,OC,-0.76},
+     { OE2,OC,-0.76},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { CD, CG, SINGLE},
+     { OE2, CD, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { CG, HG1, SINGLE},
+     { CG, HG2, SINGLE},
+     { O, C, DOUBLE},
+     { CD, OE1, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O},
+     { CD, CG, OE2, OE1}
+   };
+
+   tacce_list imph = { 
+     { OE1, CD},
+     { OE2, CD},
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3471 ,124.4500 ,180.0000 ,113.9900 ,0.9961},
+     { -C ,N ,CA ,C ,1.3471 ,124.4500 ,180.0000 ,107.2700 ,1.5216},
+     { N ,CA ,C ,+N ,1.4512 ,107.2700 ,180.0000 ,117.2500 ,1.3501},
+     { +N ,CA ,*C ,O ,1.3501 ,117.2500 ,180.0000 ,121.0700 ,1.2306},
+     { CA ,C ,+N ,+CA ,1.5216 ,117.2500 ,180.0000 ,124.3000 ,1.4530},
+     { N ,C ,*CA ,CB ,1.4512 ,107.2700 ,121.9000 ,111.7100 ,1.5516},
+     { N ,C ,*CA ,HA ,1.4512 ,107.2700 ,-118.0600 ,107.2600 ,1.0828},
+     { N ,CA ,CB ,CG ,1.4512 ,111.0400 ,180.0000 ,115.6900 ,1.5557},
+     { CG ,CA ,*CB ,HB1 ,1.5557 ,115.6900 ,121.2200 ,108.1600 ,1.1145},
+     { CG ,CA ,*CB ,HB2 ,1.5557 ,115.6900 ,-123.6500 ,109.8100 ,1.1131},
+     { CA ,CB ,CG ,CD ,1.5516 ,115.6900 ,180.0000 ,115.7300 ,1.5307},
+     { CD ,CB ,*CG ,HG1 ,1.5307 ,115.7300 ,117.3800 ,109.5000 ,1.1053},
+     { CD ,CB ,*CG ,HG2 ,1.5307 ,115.7300 ,-121.9600 ,111.0000 ,1.1081},
+     { CB ,CG ,CD ,OE1 ,1.5557 ,115.7300 ,180.0000 ,114.9900 ,1.2590},
+     { OE1 ,CG ,*CD ,OE2 ,1.2590 ,114.9900 ,-179.1000 ,120.0800 ,1.2532}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2
+     },
+     { 
+       CG,
+       HG1,
+       HG2,
+       CD,
+       OE1,
+       OE2
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+
+template_fragment GLY = {
+
+   template_attr attr = { GLY , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT2,-0.02},
+     { HA1,HB,0.09},
+     { HA2,HB,0.09},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA1, SINGLE},
+     { CA, HA2, SINGLE},
+     { O, C, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3475 ,122.8200 ,180.0000 ,115.6200 ,0.9992},
+     { -C ,N ,CA ,C ,1.3475 ,122.8200 ,180.0000 ,108.9400 ,1.4971},
+     { N ,CA ,C ,+N ,1.4553 ,108.9400 ,180.0000 ,117.6000 ,1.3479},
+     { +N ,CA ,*C ,O ,1.3479 ,117.6000 ,180.0000 ,120.8500 ,1.2289},
+     { CA ,C ,+N ,+CA ,1.4971 ,117.6000 ,180.0000 ,124.0800 ,1.4560},
+     { N ,C ,*CA ,HA1 ,1.4553 ,108.9400 ,117.8600 ,108.0300 ,1.0814},
+     { N ,C ,*CA ,HA2 ,1.4553 ,108.9400 ,-118.1200 ,107.9500 ,1.0817}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA1,
+       HA2
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { GLYP, CTER};
+
+};
+
+template_patch GLYP = {
+
+   template_attr attr = { GLYP , 1.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH3,-0.30},
+     { HT1,HC,0.33},
+     { HT2,HC,0.33},
+     { HT3,HC,0.33},
+     { CA,CT2,0.13},
+     { HA1,HB,0.09},
+     { HA2,HB,0.09}
+   };
+
+   tbond_list bond = { 
+     { HT1, N, SINGLE},
+     { HT2, N, SINGLE},
+     { HT3, N, SINGLE}
+   };
+
+   tdono_list imph = { 
+     { HT1, N},
+     { HT2, N},
+     { HT3, N}
+   };
+
+   tic_list imph = { 
+     { HT1 ,N ,CA ,C ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000},
+     { HT2 ,CA ,*N ,HT1 ,0.0000 ,0.0000 ,120.0000 ,0.0000 ,0.0000},
+     { HT3 ,CA ,*N ,HT2 ,0.0000 ,0.0000 ,120.0000 ,0.0000 ,0.0000}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HT1,
+       HT2,
+       HT3,
+       CA,
+       HA1,
+       HA2
+     }
+   };
+
+   delete atom = { HN};
+
+};
+
+template_fragment HIS = {
+
+   template_attr attr = { HIS , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.09},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { ND1,NR1,-0.36},
+     { HD1,H,0.32},
+     { CG,CPH1,-0.05},
+     { CE1,CPH2,0.25},
+     { HE1,HR1,0.13},
+     { NE2,NR2,-0.70},
+     { CD2,CPH1,0.22},
+     { HD2,HR3,0.10},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { ND1, CG, SINGLE},
+     { CE1, ND1, SINGLE},
+     { NE2, CD2, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { ND1, HD1, SINGLE},
+     { CD2, HD2, SINGLE},
+     { CE1, HE1, SINGLE},
+     { O, C, DOUBLE},
+     { CG, CD2, DOUBLE},
+     { CE1, NE2, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { ND1, CG, CE1, HD1},
+     { CD2, CG, NE2, HD2},
+     { CE1, ND1, NE2, HE1},
+     { ND1, CE1, CG, HD1},
+     { CD2, NE2, CG, HD2},
+     { CE1, NE2, ND1, HE1},
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { NE2},
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HD1, ND1}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3475 ,123.2700 ,180.0000 ,115.2100 ,0.9988},
+     { -C ,N ,CA ,C ,1.3475 ,123.2700 ,180.0000 ,107.7000 ,1.5166},
+     { N ,CA ,C ,+N ,1.4521 ,107.7000 ,180.0000 ,117.5700 ,1.3509},
+     { +N ,CA ,*C ,O ,1.3509 ,117.5700 ,180.0000 ,120.2400 ,1.2273},
+     { CA ,C ,+N ,+CA ,1.5166 ,117.5700 ,180.0000 ,123.7200 ,1.4545},
+     { N ,C ,*CA ,CB ,1.4521 ,107.7000 ,122.4600 ,109.9900 ,1.5519},
+     { N ,C ,*CA ,HA ,1.4521 ,107.7000 ,-117.4900 ,107.3700 ,1.0830},
+     { N ,CA ,CB ,CG ,1.4521 ,112.1200 ,180.0000 ,114.0500 ,1.5041},
+     { CG ,CA ,*CB ,HB1 ,1.5041 ,114.0500 ,121.1700 ,109.0100 ,1.1118},
+     { CG ,CA ,*CB ,HB2 ,1.5041 ,114.0500 ,-122.3600 ,109.5300 ,1.1121},
+     { CA ,CB ,CG ,ND1 ,1.5519 ,114.0500 ,90.0000 ,124.1000 ,1.3783},
+     { ND1 ,CB ,*CG ,CD2 ,1.3783 ,124.1000 ,-171.2900 ,129.6000 ,1.3597},
+     { CB ,CG ,ND1 ,CE1 ,1.5041 ,124.1000 ,-173.2100 ,107.0300 ,1.3549},
+     { CB ,CG ,CD2 ,NE2 ,1.5041 ,129.6000 ,171.9900 ,110.0300 ,1.3817},
+     { NE2 ,ND1 ,*CE1 ,HE1 ,1.3166 ,111.6300 ,-179.6300 ,123.8900 ,1.0932},
+     { CE1 ,CG ,*ND1 ,HD1 ,1.3549 ,107.0300 ,-174.6500 ,126.2600 ,1.0005},
+     { NE2 ,CG ,*CD2 ,HD2 ,1.3817 ,110.0300 ,-177.8500 ,129.6300 ,1.0834}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2,
+       ND1,
+       HD1,
+       CG
+     },
+     { 
+       CE1,
+       HE1,
+       NE2,
+       CD2,
+       HD2
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment HSE = {
+
+   template_attr attr = { HSE , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.08},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { ND1,NR2,-0.70},
+     { CG,CPH1,0.22},
+     { CE1,CPH2,0.25},
+     { HE1,HR1,0.13},
+     { NE2,NR1,-0.36},
+     { HE2,H,0.32},
+     { CD2,CPH1,-0.05},
+     { HD2,HR3,0.09},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { ND1, CG, SINGLE},
+     { NE2, CD2, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { NE2, CE1, SINGLE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { NE2, HE2, SINGLE},
+     { CD2, HD2, SINGLE},
+     { CE1, HE1, SINGLE},
+     { O, C, DOUBLE},
+     { CD2, CG, DOUBLE},
+     { CE1, ND1, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { NE2, CD2, CE1, HE2},
+     { CD2, CG, NE2, HD2},
+     { CE1, ND1, NE2, HE1},
+     { NE2, CE1, CD2, HE2},
+     { CD2, NE2, CG, HD2},
+     { CE1, NE2, ND1, HE1},
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { ND1},
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HE2, NE2}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3472 ,124.1600 ,180.0000 ,114.3600 ,0.9991},
+     { -C ,N ,CA ,C ,1.3472 ,124.1600 ,180.0000 ,106.4300 ,1.5166},
+     { N ,CA ,C ,+N ,1.4532 ,106.4300 ,180.0000 ,116.9700 ,1.3446},
+     { +N ,CA ,*C ,O ,1.3446 ,116.9700 ,180.0000 ,120.6800 ,1.2290},
+     { CA ,C ,+N ,+CA ,1.5166 ,116.9700 ,180.0000 ,124.9500 ,1.4505},
+     { N ,C ,*CA ,CB ,1.4532 ,106.4300 ,123.5200 ,111.6700 ,1.5578},
+     { N ,C ,*CA ,HA ,1.4532 ,106.4300 ,-116.4900 ,107.0800 ,1.0833},
+     { N ,CA ,CB ,CG ,1.4532 ,112.8200 ,180.0000 ,116.9400 ,1.5109},
+     { CG ,CA ,*CB ,HB1 ,1.5109 ,116.9400 ,119.8000 ,107.9100 ,1.1114},
+     { CG ,CA ,*CB ,HB2 ,1.5109 ,116.9400 ,-124.0400 ,109.5000 ,1.1101},
+     { CA ,CB ,CG ,ND1 ,1.5578 ,116.9400 ,90.0000 ,120.1700 ,1.3859},
+     { ND1 ,CB ,*CG ,CD2 ,1.3859 ,120.1700 ,-178.2600 ,129.7100 ,1.3596},
+     { CB ,CG ,ND1 ,CE1 ,1.5109 ,120.1700 ,-179.2000 ,105.2000 ,1.3170},
+     { CB ,CG ,CD2 ,NE2 ,1.5109 ,129.7100 ,178.6600 ,105.8000 ,1.3782},
+     { NE2 ,ND1 ,*CE1 ,HE1 ,1.3539 ,111.7600 ,179.6900 ,124.5800 ,1.0929},
+     { CE1 ,CD2 ,*NE2 ,HE2 ,1.3539 ,107.1500 ,-178.6900 ,125.8600 ,0.9996},
+     { NE2 ,CG ,*CD2 ,HD2 ,1.3782 ,105.8000 ,-179.3500 ,129.8900 ,1.0809}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2,
+       ND1,
+       CG,
+       CE1,
+       HE1
+     },
+     { 
+       NE2,
+       HE2,
+       CD2,
+       HD2
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment HSP = {
+
+   template_attr attr = { HSP , 1.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.05},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CD2,CPH1,0.19},
+     { HD2,HR1,0.13},
+     { CG,CPH1,0.19},
+     { NE2,NR3,-0.51},
+     { HE2,H,0.44},
+     { ND1,NR3,-0.51},
+     { HD1,H,0.44},
+     { CE1,CPH2,0.32},
+     { HE1,HR2,0.18},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { ND1, CG, SINGLE},
+     { CE1, ND1, SINGLE},
+     { NE2, CD2, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { ND1, HD1, SINGLE},
+     { NE2, HE2, SINGLE},
+     { CD2, HD2, SINGLE},
+     { CE1, HE1, SINGLE},
+     { O, C, DOUBLE},
+     { CD2, CG, DOUBLE},
+     { NE2, CE1, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { ND1, CG, CE1, HD1},
+     { ND1, CE1, CG, HD1},
+     { NE2, CD2, CE1, HE2},
+     { NE2, CE1, CD2, HE2},
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HD1, ND1},
+     { HE2, NE2}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3489 ,123.9300 ,180.0000 ,118.8000 ,1.0041},
+     { -C ,N ,CA ,C ,1.3489 ,123.9300 ,180.0000 ,112.0300 ,1.5225},
+     { N ,CA ,C ,+N ,1.4548 ,112.0300 ,180.0000 ,116.4900 ,1.3464},
+     { +N ,CA ,*C ,O ,1.3464 ,116.4900 ,180.0000 ,121.2000 ,1.2284},
+     { CA ,C ,+N ,+CA ,1.5225 ,116.4900 ,180.0000 ,124.2400 ,1.4521},
+     { N ,C ,*CA ,CB ,1.4548 ,112.0300 ,125.1300 ,109.3800 ,1.5533},
+     { N ,C ,*CA ,HA ,1.4548 ,112.0300 ,-119.2000 ,106.7200 ,1.0832},
+     { N ,CA ,CB ,CG ,1.4548 ,112.2500 ,180.0000 ,114.1800 ,1.5168},
+     { CG ,CA ,*CB ,HB1 ,1.5168 ,114.1800 ,122.5000 ,108.9900 ,1.1116},
+     { CG ,CA ,*CB ,HB2 ,1.5168 ,114.1800 ,-121.5100 ,108.9700 ,1.1132},
+     { CA ,CB ,CG ,ND1 ,1.5533 ,114.1800 ,90.0000 ,122.9400 ,1.3718},
+     { ND1 ,CB ,*CG ,CD2 ,1.3718 ,122.9400 ,-165.2600 ,128.9300 ,1.3549},
+     { CB ,CG ,ND1 ,CE1 ,1.5168 ,122.9400 ,-167.6200 ,108.9000 ,1.3262},
+     { CB ,CG ,CD2 ,NE2 ,1.5168 ,128.9300 ,167.1300 ,106.9300 ,1.3727},
+     { NE2 ,ND1 ,*CE1 ,HE1 ,1.3256 ,108.5000 ,178.3900 ,125.7600 ,1.0799},
+     { CE1 ,CD2 ,*NE2 ,HE2 ,1.3256 ,108.8200 ,-172.9400 ,125.5200 ,1.0020},
+     { CE1 ,CG ,*ND1 ,HD1 ,1.3262 ,108.9000 ,171.4900 ,126.0900 ,1.0018},
+     { NE2 ,CG ,*CD2 ,HD2 ,1.3727 ,106.9300 ,-174.4900 ,128.4100 ,1.0867}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2,
+       CD2,
+       HD2,
+       CG
+     },
+     { 
+       NE2,
+       HE2,
+       ND1,
+       HD1,
+       CE1,
+       HE1
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment ILE = {
+
+   template_attr attr = { ILE , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT1,-0.09},
+     { HB,HA,0.09},
+     { CG2,CT3,-0.27},
+     { HG21,HA,0.09},
+     { HG22,HA,0.09},
+     { HG23,HA,0.09},
+     { CG1,CT2,-0.18},
+     { HG11,HA,0.09},
+     { HG12,HA,0.09},
+     { CD,CT3,-0.27},
+     { HD1,HA,0.09},
+     { HD2,HA,0.09},
+     { HD3,HA,0.09},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG1, CB, SINGLE},
+     { CG2, CB, SINGLE},
+     { CD, CG1, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB, SINGLE},
+     { CG1, HG11, SINGLE},
+     { CG1, HG12, SINGLE},
+     { CG2, HG21, SINGLE},
+     { CG2, HG22, SINGLE},
+     { CG2, HG23, SINGLE},
+     { CD, HD1, SINGLE},
+     { CD, HD2, SINGLE},
+     { CD, HD3, SINGLE},
+     { O, C, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3470 ,124.1600 ,180.0000 ,114.1900 ,0.9978},
+     { -C ,N ,CA ,C ,1.3470 ,124.1600 ,180.0000 ,106.3500 ,1.5190},
+     { N ,CA ,C ,+N ,1.4542 ,106.3500 ,180.0000 ,117.9700 ,1.3465},
+     { +N ,CA ,*C ,O ,1.3465 ,117.9700 ,180.0000 ,120.5900 ,1.2300},
+     { CA ,C ,+N ,+CA ,1.5190 ,117.9700 ,180.0000 ,124.2100 ,1.4467},
+     { N ,C ,*CA ,CB ,1.4542 ,106.3500 ,124.2200 ,112.9300 ,1.5681},
+     { N ,C ,*CA ,HA ,1.4542 ,106.3500 ,-115.6300 ,106.8100 ,1.0826},
+     { N ,CA ,CB ,CG1 ,1.4542 ,112.7900 ,180.0000 ,113.6300 ,1.5498},
+     { CG1 ,CA ,*CB ,HB ,1.5498 ,113.6300 ,114.5500 ,104.4800 ,1.1195},
+     { CG1 ,CA ,*CB ,CG2 ,1.5498 ,113.6300 ,-130.0400 ,113.9300 ,1.5452},
+     { CA ,CB ,CG2 ,HG21 ,1.5681 ,113.9300 ,-171.3000 ,110.6100 ,1.1100},
+     { HG21 ,CB ,*CG2 ,HG22 ,1.1100 ,110.6100 ,119.3500 ,110.9000 ,1.1102},
+     { HG21 ,CB ,*CG2 ,HG23 ,1.1100 ,110.6100 ,-120.0900 ,110.9700 ,1.1105},
+     { CA ,CB ,CG1 ,CD ,1.5681 ,113.6300 ,180.0000 ,114.0900 ,1.5381},
+     { CD ,CB ,*CG1 ,HG11 ,1.5381 ,114.0900 ,122.3600 ,109.7800 ,1.1130},
+     { CD ,CB ,*CG1 ,HG12 ,1.5381 ,114.0900 ,-120.5900 ,108.8900 ,1.1141},
+     { CB ,CG1 ,CD ,HD1 ,1.5498 ,114.0900 ,-176.7800 ,110.3100 ,1.1115},
+     { HD1 ,CG1 ,*CD ,HD2 ,1.1115 ,110.3100 ,119.7500 ,110.6500 ,1.1113},
+     { HD1 ,CG1 ,*CD ,HD3 ,1.1115 ,110.3100 ,-119.7000 ,111.0200 ,1.1103}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB
+     },
+     { 
+       CG2,
+       HG21,
+       HG22,
+       HG23
+     },
+     { 
+       CG1,
+       HG11,
+       HG12
+     },
+     { 
+       CD,
+       HD1,
+       HD2,
+       HD3
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment LEU = {
+
+   template_attr attr = { LEU , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.18},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CT1,-0.09},
+     { HG,HA,0.09},
+     { CD1,CT3,-0.27},
+     { HD11,HA,0.09},
+     { HD12,HA,0.09},
+     { HD13,HA,0.09},
+     { CD2,CT3,-0.27},
+     { HD21,HA,0.09},
+     { HD22,HA,0.09},
+     { HD23,HA,0.09},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { CD1, CG, SINGLE},
+     { CD2, CG, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { CG, HG, SINGLE},
+     { CD1, HD11, SINGLE},
+     { CD1, HD12, SINGLE},
+     { CD1, HD13, SINGLE},
+     { CD2, HD21, SINGLE},
+     { CD2, HD22, SINGLE},
+     { CD2, HD23, SINGLE},
+     { O, C, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3474 ,124.3100 ,180.0000 ,114.2600 ,0.9979},
+     { -C ,N ,CA ,C ,1.3474 ,124.3100 ,180.0000 ,106.0500 ,1.5184},
+     { N ,CA ,C ,+N ,1.4508 ,106.0500 ,180.0000 ,117.9300 ,1.3463},
+     { +N ,CA ,*C ,O ,1.3463 ,117.9300 ,180.0000 ,120.5600 ,1.2299},
+     { CA ,C ,+N ,+CA ,1.5184 ,117.9300 ,180.0000 ,124.2600 ,1.4467},
+     { N ,C ,*CA ,CB ,1.4508 ,106.0500 ,121.5200 ,112.1200 ,1.5543},
+     { N ,C ,*CA ,HA ,1.4508 ,106.0500 ,-116.5000 ,107.5700 ,1.0824},
+     { N ,CA ,CB ,CG ,1.4508 ,111.1900 ,180.0000 ,117.4600 ,1.5472},
+     { CG ,CA ,*CB ,HB1 ,1.5472 ,117.4600 ,120.9800 ,107.1700 ,1.1145},
+     { CG ,CA ,*CB ,HB2 ,1.5472 ,117.4600 ,-124.6700 ,108.9800 ,1.1126},
+     { CA ,CB ,CG ,CD1 ,1.5543 ,117.4600 ,180.0000 ,110.4800 ,1.5361},
+     { CD1 ,CB ,*CG ,CD2 ,1.5361 ,110.4800 ,120.0000 ,112.5700 ,1.5360},
+     { CD1 ,CD2 ,*CG ,HG ,1.5361 ,110.2600 ,120.0000 ,108.0200 ,1.1168},
+     { CB ,CG ,CD1 ,HD11 ,1.5472 ,110.4800 ,177.3300 ,110.5400 ,1.1111},
+     { HD11 ,CG ,*CD1 ,HD12 ,1.1111 ,110.5400 ,119.9600 ,110.6200 ,1.1112},
+     { HD11 ,CG ,*CD1 ,HD13 ,1.1111 ,110.5400 ,-119.8500 ,110.6900 ,1.1108},
+     { CB ,CG ,CD2 ,HD21 ,1.5472 ,112.5700 ,178.9600 ,110.3200 ,1.1116},
+     { HD21 ,CG ,*CD2 ,HD22 ,1.1116 ,110.3200 ,119.7100 ,111.6900 ,1.1086},
+     { HD21 ,CG ,*CD2 ,HD23 ,1.1116 ,110.3200 ,-119.6100 ,110.4900 ,1.1115}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2
+     },
+     { 
+       CG,
+       HG
+     },
+     { 
+       CD1,
+       HD11,
+       HD12,
+       HD13
+     },
+     { 
+       CD2,
+       HD21,
+       HD22,
+       HD23
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+
+template_fragment LYS = {
+
+   template_attr attr = { LYS , 1.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.18},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CT2,-0.18},
+     { HG1,HA,0.09},
+     { HG2,HA,0.09},
+     { CD,CT2,-0.18},
+     { HD1,HA,0.09},
+     { HD2,HA,0.09},
+     { CE,CT2,0.21},
+     { HE1,HA,0.05},
+     { HE2,HA,0.05},
+     { NZ,NH3,-0.30},
+     { HZ1,HC,0.33},
+     { HZ2,HC,0.33},
+     { HZ3,HC,0.33},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { CD, CG, SINGLE},
+     { CE, CD, SINGLE},
+     { NZ, CE, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { CG, HG1, SINGLE},
+     { CG, HG2, SINGLE},
+     { CD, HD1, SINGLE},
+     { CD, HD2, SINGLE},
+     { CE, HE1, SINGLE},
+     { CE, HE2, SINGLE},
+     { O, C, DOUBLE},
+     { NZ, HZ1, SINGLE},
+     { NZ, HZ2, SINGLE},
+     { NZ, HZ3, SINGLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HZ1, NZ},
+     { HZ2, NZ},
+     { HZ3, NZ}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3482 ,123.5700 ,180.0000 ,115.1100 ,0.9988},
+     { -C ,N ,CA ,C ,1.3482 ,123.5700 ,180.0000 ,107.2900 ,1.5187},
+     { N ,CA ,C ,+N ,1.4504 ,107.2900 ,180.0000 ,117.2700 ,1.3478},
+     { +N ,CA ,*C ,O ,1.3478 ,117.2700 ,180.0000 ,120.7900 ,1.2277},
+     { CA ,C ,+N ,+CA ,1.5187 ,117.2700 ,180.0000 ,124.9100 ,1.4487},
+     { N ,C ,*CA ,CB ,1.4504 ,107.2900 ,122.2300 ,111.3600 ,1.5568},
+     { N ,C ,*CA ,HA ,1.4504 ,107.2900 ,-116.8800 ,107.3600 ,1.0833},
+     { N ,CA ,CB ,CG ,1.4504 ,111.4700 ,180.0000 ,115.7600 ,1.5435},
+     { CG ,CA ,*CB ,HB1 ,1.5435 ,115.7600 ,120.9000 ,107.1100 ,1.1146},
+     { CG ,CA ,*CB ,HB2 ,1.5435 ,115.7600 ,-124.4800 ,108.9900 ,1.1131},
+     { CA ,CB ,CG ,CD ,1.5568 ,115.7600 ,180.0000 ,113.2800 ,1.5397},
+     { CD ,CB ,*CG ,HG1 ,1.5397 ,113.2800 ,120.7400 ,109.1000 ,1.1138},
+     { CD ,CB ,*CG ,HG2 ,1.5397 ,113.2800 ,-122.3400 ,108.9900 ,1.1143},
+     { CB ,CG ,CD ,CE ,1.5435 ,113.2800 ,180.0000 ,112.3300 ,1.5350},
+     { CE ,CG ,*CD ,HD1 ,1.5350 ,112.3300 ,122.2500 ,108.4100 ,1.1141},
+     { CE ,CG ,*CD ,HD2 ,1.5350 ,112.3300 ,-121.5900 ,108.1300 ,1.1146},
+     { CG ,CD ,CE ,NZ ,1.5397 ,112.3300 ,180.0000 ,110.4600 ,1.4604},
+     { NZ ,CD ,*CE ,HE1 ,1.4604 ,110.4600 ,119.9100 ,110.5100 ,1.1128},
+     { NZ ,CD ,*CE ,HE2 ,1.4604 ,110.4600 ,-120.0200 ,110.5700 ,1.1123},
+     { CD ,CE ,NZ ,HZ1 ,1.5350 ,110.4600 ,179.9200 ,110.0200 ,1.0404},
+     { HZ1 ,CE ,*NZ ,HZ2 ,1.0404 ,110.0200 ,120.2700 ,109.5000 ,1.0402},
+     { HZ1 ,CE ,*NZ ,HZ3 ,1.0404 ,110.0200 ,-120.1300 ,109.4000 ,1.0401}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2
+     },
+     { 
+       CG,
+       HG1,
+       HG2
+     },
+     { 
+       CD,
+       HD1,
+       HD2
+     },
+     { 
+       CE,
+       HE1,
+       HE2,
+       NZ,
+       HZ1,
+       HZ2,
+       HZ3
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment MET = {
+
+   template_attr attr = { MET , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.18},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CT2,-0.14},
+     { HG1,HA,0.09},
+     { HG2,HA,0.09},
+     { SD,S,-0.09},
+     { CE,CT3,-0.22},
+     { HE1,HA,0.09},
+     { HE2,HA,0.09},
+     { HE3,HA,0.09},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { SD, CG, SINGLE},
+     { CE, SD, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { CG, HG1, SINGLE},
+     { CG, HG2, SINGLE},
+     { CE, HE1, SINGLE},
+     { CE, HE2, SINGLE},
+     { CE, HE3, SINGLE},
+     { O, C, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3478 ,124.2100 ,180.0000 ,114.3900 ,0.9978},
+     { -C ,N ,CA ,C ,1.3478 ,124.2100 ,180.0000 ,106.3100 ,1.5195},
+     { N ,CA ,C ,+N ,1.4510 ,106.3100 ,180.0000 ,117.7400 ,1.3471},
+     { +N ,CA ,*C ,O ,1.3471 ,117.7400 ,180.0000 ,120.6400 ,1.2288},
+     { CA ,C ,+N ,+CA ,1.5195 ,117.7400 ,180.0000 ,124.5200 ,1.4471},
+     { N ,C ,*CA ,CB ,1.4510 ,106.3100 ,121.6200 ,111.8800 ,1.5546},
+     { N ,C ,*CA ,HA ,1.4510 ,106.3100 ,-116.9800 ,107.5700 ,1.0832},
+     { N ,CA ,CB ,CG ,1.4510 ,111.2500 ,180.0000 ,115.9200 ,1.5460},
+     { CG ,CA ,*CB ,HB1 ,1.5460 ,115.9200 ,120.5600 ,106.9000 ,1.1153},
+     { CG ,CA ,*CB ,HB2 ,1.5460 ,115.9200 ,-124.8000 ,109.3800 ,1.1129},
+     { CA ,CB ,CG ,SD ,1.5546 ,115.9200 ,180.0000 ,110.2800 ,1.8219},
+     { SD ,CB ,*CG ,HG1 ,1.8219 ,110.2800 ,120.5000 ,110.3400 ,1.1106},
+     { SD ,CB ,*CG ,HG2 ,1.8219 ,110.2800 ,-121.1600 ,109.6400 ,1.1119},
+     { CB ,CG ,SD ,CE ,1.5460 ,110.2800 ,180.0000 ,98.9400 ,1.8206},
+     { CG ,SD ,CE ,HE1 ,1.8219 ,98.9400 ,-179.4200 ,110.9100 ,1.1111},
+     { HE1 ,SD ,*CE ,HE2 ,1.1111 ,110.9100 ,119.9500 ,111.0300 ,1.1115},
+     { HE1 ,SD ,*CE ,HE3 ,1.1111 ,110.9100 ,-119.9500 ,111.0900 ,1.1112}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2
+     },
+     { 
+       CG,
+       HG1,
+       HG2,
+       SD,
+       CE,
+       HE1,
+       HE2,
+       HE3
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_patch NTER = {
+
+   template_attr attr = { NTER , 1.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH3,-0.30},
+     { HT1,HC,0.33},
+     { HT2,HC,0.33},
+     { HT3,HC,0.33},
+     { CA,CT1,0.21},
+     { HA,HB,0.10}
+   };
+
+   tbond_list bond = { 
+     { HT1, N, SINGLE},
+     { HT2, N, SINGLE},
+     { HT3, N, SINGLE}
+   };
+
+   tdono_list imph = { 
+     { HT1, N},
+     { HT2, N},
+     { HT3, N}
+   };
+
+   tic_list imph = { 
+     { HT1 ,N ,CA ,C ,0.0000 ,0.0000 ,180.0000 ,0.0000 ,0.0000},
+     { HT2 ,CA ,*N ,HT1 ,0.0000 ,0.0000 ,120.0000 ,0.0000 ,0.0000},
+     { HT3 ,CA ,*N ,HT2 ,0.0000 ,0.0000 ,120.0000 ,0.0000 ,0.0000}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HT1,
+       HT2,
+       HT3,
+       CA,
+       HA
+     }
+   };
+
+   delete atom = { HN};
+
+};
+
+template_fragment O2 = {
+
+   template_attr attr = { O2 , 0.00, SOLVENT};
+
+   tatom_list atom = { 
+     { O1,OM,0.021},
+     { O2,OM,-0.021}
+   };
+
+   tbond_list bond = { 
+     { O1, O2, TRIPLE}
+   };
+
+   tgroup_list imph = { 
+     { 
+       O1,
+       O2
+     }
+   };
+
+   def_patch patch =  { NONE, NONE};
+
+};
+
+template_fragment PHE = {
+
+   template_attr attr = { PHE , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.18},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CA,0.00},
+     { CD1,CA,-0.115},
+     { HD1,HP,0.115},
+     { CE1,CA,-0.115},
+     { HE1,HP,0.115},
+     { CZ,CA,-0.115},
+     { HZ,HP,0.115},
+     { CD2,CA,-0.115},
+     { HD2,HP,0.115},
+     { CE2,CA,-0.115},
+     { HE2,HP,0.115},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { CD2, CG, AROMATIC},
+     { CE1, CD1, AROMATIC},
+     { CZ, CE2, AROMATIC},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { CD1, HD1, SINGLE},
+     { CD2, HD2, SINGLE},
+     { CE1, HE1, SINGLE},
+     { O, C, DOUBLE},
+     { CD1, CG, AROMATIC},
+     { CZ, CE1, AROMATIC},
+     { CE2, CD2, AROMATIC},
+     { CE2, HE2, SINGLE},
+     { CZ, HZ, SINGLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3476 ,123.8900 ,180.0000 ,114.4700 ,0.9987},
+     { -C ,N ,CA ,C ,1.3476 ,123.8900 ,180.0000 ,106.3800 ,1.5229},
+     { N ,CA ,C ,+N ,1.4504 ,106.3800 ,180.0000 ,117.6500 ,1.3483},
+     { +N ,CA ,*C ,O ,1.3483 ,117.6500 ,180.0000 ,120.4900 ,1.2287},
+     { CA ,C ,+N ,+CA ,1.5229 ,117.6500 ,180.0000 ,124.1000 ,1.4523},
+     { N ,C ,*CA ,CB ,1.4504 ,106.3800 ,122.4900 ,112.4500 ,1.5594},
+     { N ,C ,*CA ,HA ,1.4504 ,106.3800 ,-115.6300 ,107.0500 ,1.0832},
+     { N ,CA ,CB ,CG ,1.4504 ,111.6300 ,180.0000 ,112.7600 ,1.5109},
+     { CG ,CA ,*CB ,HB1 ,1.5109 ,112.7600 ,118.2700 ,109.1000 ,1.1119},
+     { CG ,CA ,*CB ,HB2 ,1.5109 ,112.7600 ,-123.8300 ,111.1100 ,1.1113},
+     { CA ,CB ,CG ,CD1 ,1.5594 ,112.7600 ,90.0000 ,120.3200 ,1.4059},
+     { CD1 ,CB ,*CG ,CD2 ,1.4059 ,120.3200 ,-177.9600 ,120.7600 ,1.4062},
+     { CB ,CG ,CD1 ,CE1 ,1.5109 ,120.3200 ,-177.3700 ,120.6300 ,1.4006},
+     { CE1 ,CG ,*CD1 ,HD1 ,1.4006 ,120.6300 ,179.7000 ,119.6500 ,1.0814},
+     { CB ,CG ,CD2 ,CE2 ,1.5109 ,120.7600 ,177.2000 ,120.6200 ,1.4002},
+     { CE2 ,CG ,*CD2 ,HD2 ,1.4002 ,120.6200 ,-178.6900 ,119.9900 ,1.0811},
+     { CG ,CD1 ,CE1 ,CZ ,1.4059 ,120.6300 ,-0.1200 ,119.9300 ,1.4004},
+     { CZ ,CD1 ,*CE1 ,HE1 ,1.4004 ,119.9300 ,-179.6900 ,120.0100 ,1.0808},
+     { CZ ,CD2 ,*CE2 ,HE2 ,1.4000 ,119.9600 ,-179.9300 ,119.8700 ,1.0811},
+     { CE1 ,CE2 ,*CZ ,HZ ,1.4004 ,119.9800 ,179.5100 ,119.9700 ,1.0807}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2
+     },
+     { 
+       CG
+     },
+     { 
+       CD1,
+       HD1
+     },
+     { 
+       CE1,
+       HE1
+     },
+     { 
+       CZ,
+       HZ
+     },
+     { 
+       CD2,
+       HD2
+     },
+     { 
+       CE2,
+       HE2
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+
+
+template_fragment PRO = {
+
+   template_attr attr = { PRO , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,N,-0.29},
+     { CD,CP3,0.00},
+     { HD1,HA,0.09},
+     { HD2,HA,0.09},
+     { CA,CP1,0.02},
+     { HA,HB,0.09},
+     { CB,CP2,-0.18},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CP2,-0.18},
+     { HG1,HA,0.09},
+     { HG2,HA,0.09},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { N, CA, SINGLE},
+     { CA, CB, SINGLE},
+     { CB, CG, SINGLE},
+     { CG, CD, SINGLE},
+     { N, CD, SINGLE},
+     { HA, CA, SINGLE},
+     { HG1, CG, SINGLE},
+     { HG2, CG, SINGLE},
+     { HD1, CD, SINGLE},
+     { HD2, CD, SINGLE},
+     { HB1, CB, SINGLE},
+     { HB2, CB, SINGLE},
+     { O, C, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, CD},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,CD ,1.3366 ,122.9400 ,178.5100 ,112.7500 ,1.4624},
+     { -C ,N ,CA ,C ,1.3366 ,122.9400 ,-76.1200 ,110.8600 ,1.5399},
+     { N ,CA ,C ,+N ,1.4585 ,110.8600 ,180.0000 ,114.7500 ,1.3569},
+     { +N ,CA ,*C ,O ,1.3569 ,114.7500 ,177.1500 ,120.4600 ,1.2316},
+     { CA ,C ,+N ,+CA ,1.5399 ,116.1200 ,180.0000 ,124.8900 ,1.4517},
+     { N ,C ,*CA ,CB ,1.4585 ,110.8600 ,113.7400 ,111.7400 ,1.5399},
+     { N ,C ,*CA ,HA ,1.4585 ,110.8600 ,-122.4000 ,109.0900 ,1.0837},
+     { N ,CA ,CB ,CG ,1.4585 ,102.5600 ,31.6100 ,104.3900 ,1.5322},
+     { CA ,CB ,CG ,CD ,1.5399 ,104.3900 ,-34.5900 ,103.2100 ,1.5317},
+     { N ,CA ,CB ,HB1 ,1.4585 ,102.5600 ,-84.9400 ,109.0200 ,1.1131},
+     { N ,CA ,CB ,HB2 ,1.4585 ,102.5600 ,153.9300 ,112.7400 ,1.1088},
+     { CA ,CB ,CG ,HG1 ,1.5399 ,104.3900 ,-156.7200 ,112.9500 ,1.1077},
+     { CA ,CB ,CG ,HG2 ,1.5399 ,104.3900 ,81.2600 ,109.2200 ,1.1143},
+     { CB ,CG ,CD ,HD1 ,1.5322 ,103.2100 ,-93.5500 ,110.0300 ,1.1137},
+     { CB ,CG ,CD ,HD2 ,1.5322 ,103.2100 ,144.5200 ,110.0000 ,1.1144}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       CD,
+       HD1,
+       HD2,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2
+     },
+     { 
+       CG,
+       HG1,
+       HG2
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { PROP, CTER};
+
+};
+
+template_patch PROP = {
+
+   template_attr attr = { PROP , 1.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NP,-0.07},
+     { HN1,HC,0.24},
+     { HN2,HC,0.24},
+     { CD,CP3,0.16},
+     { HD1,HA,0.09},
+     { HD2,HA,0.09},
+     { CA,CP1,0.16},
+     { HA,HB,0.09}
+   };
+
+   tbond_list bond = { 
+     { HN1, N, SINGLE},
+     { HN2, N, SINGLE}
+   };
+
+   tic_list imph = { 
+     { HN1 ,CA ,*N ,CD ,0.0000 ,0.0000 ,120.0000 ,0.0000 ,0.0000},
+     { HN2 ,CA ,*N ,HN1 ,0.0000 ,0.0000 ,120.0000 ,0.0000 ,0.0000}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN1,
+       HN2,
+       CD,
+       HD1,
+       HD2,
+       CA,
+       HA
+     }
+   };
+
+};
+
+template_fragment SER = {
+
+   template_attr attr = { SER , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,0.05},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { OG,OH1,-0.66},
+     { HG1,H,0.43},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { OG, CB, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { OG, HG1, SINGLE},
+     { O, C, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { OG},
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HG1, OG}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3474 ,124.3700 ,180.0000 ,114.1800 ,0.9999},
+     { -C ,N ,CA ,C ,1.3474 ,124.3700 ,180.0000 ,105.8100 ,1.5166},
+     { N ,CA ,C ,+N ,1.4579 ,105.8100 ,180.0000 ,117.7200 ,1.3448},
+     { +N ,CA ,*C ,O ,1.3448 ,117.7200 ,180.0000 ,120.2500 ,1.2290},
+     { CA ,C ,+N ,+CA ,1.5166 ,117.7200 ,180.0000 ,124.6300 ,1.4529},
+     { N ,C ,*CA ,CB ,1.4579 ,105.8100 ,124.7500 ,111.4000 ,1.5585},
+     { N ,C ,*CA ,HA ,1.4579 ,105.8100 ,-115.5600 ,107.3000 ,1.0821},
+     { N ,CA ,CB ,OG ,1.4579 ,114.2800 ,180.0000 ,112.4500 ,1.4341},
+     { OG ,CA ,*CB ,HB1 ,1.4341 ,112.4500 ,119.3200 ,108.1000 ,1.1140},
+     { OG ,CA ,*CB ,HB2 ,1.4341 ,112.4500 ,-123.8600 ,110.3800 ,1.1136},
+     { CA ,CB ,OG ,HG1 ,1.5585 ,112.4500 ,165.9600 ,107.0800 ,0.9655}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2,
+       OG,
+       HG1
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment THR = {
+
+   template_attr attr = { THR , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT1,0.14},
+     { HB,HA,0.09},
+     { OG1,OH1,-0.66},
+     { HG1,H,0.43},
+     { CG2,CT3,-0.27},
+     { HG21,HA,0.09},
+     { HG22,HA,0.09},
+     { HG23,HA,0.09},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { OG1, CB, SINGLE},
+     { CG2, CB, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB, SINGLE},
+     { OG1, HG1, SINGLE},
+     { CG2, HG21, SINGLE},
+     { CG2, HG22, SINGLE},
+     { CG2, HG23, SINGLE},
+     { O, C, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { OG1},
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HG1, OG1}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3471 ,124.1200 ,180.0000 ,114.2600 ,0.9995},
+     { -C ,N ,CA ,C ,1.3471 ,124.1200 ,180.0000 ,106.0900 ,1.5162},
+     { N ,CA ,C ,+N ,1.4607 ,106.0900 ,180.0000 ,117.6900 ,1.3449},
+     { +N ,CA ,*C ,O ,1.3449 ,117.6900 ,180.0000 ,120.3000 ,1.2294},
+     { CA ,C ,+N ,+CA ,1.5162 ,117.6900 ,180.0000 ,124.6600 ,1.4525},
+     { N ,C ,*CA ,CB ,1.4607 ,106.0900 ,126.4600 ,112.7400 ,1.5693},
+     { N ,C ,*CA ,HA ,1.4607 ,106.0900 ,-114.9200 ,106.5300 ,1.0817},
+     { N ,CA ,CB ,OG1 ,1.4607 ,114.8100 ,180.0000 ,112.1600 ,1.4252},
+     { OG1 ,CA ,*CB ,HB ,1.4252 ,112.1600 ,116.3900 ,106.1100 ,1.1174},
+     { OG1 ,CA ,*CB ,CG2 ,1.4252 ,112.1600 ,-124.1300 ,115.9100 ,1.5324},
+     { CA ,CB ,OG1 ,HG1 ,1.5693 ,112.1600 ,-179.2800 ,105.4500 ,0.9633},
+     { CA ,CB ,CG2 ,HG21 ,1.5693 ,115.9100 ,-173.6500 ,110.8500 ,1.1104},
+     { HG21 ,CB ,*CG2 ,HG22 ,1.1104 ,110.8500 ,119.5100 ,110.4100 ,1.1109},
+     { HG21 ,CB ,*CG2 ,HG23 ,1.1104 ,110.8500 ,-120.3900 ,111.1100 ,1.1113}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB,
+       OG1,
+       HG1
+     },
+     { 
+       CG2,
+       HG21,
+       HG22,
+       HG23
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment TIP3 = {
+
+   template_attr attr = { TIP3 , 0.000, SOLVENT};
+
+   tatom_list atom = { 
+     { OH2,OT,-0.834},
+     { H1,HT,0.417},
+     { H2,HT,0.417}
+   };
+
+   tbond_list bond = { 
+     { OH2, H1, SINGLE},
+     { OH2, H2, SINGLE},
+     { H1, H2, SINGLE}
+   };
+
+   tacce_list imph = { 
+     { OH2}
+   };
+
+   tgroup_list imph = { 
+     { 
+       OH2,
+       H1,
+       H2
+     }
+   };
+
+   def_patch patch =  { NONE, NONE};
+
+};
+
+
+template_fragment TRP = {
+
+   template_attr attr = { TRP , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.18},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CY,-0.03},
+     { CD1,CA,0.035},
+     { HD1,HP,0.115},
+     { NE1,NY,-0.61},
+     { HE1,H,0.38},
+     { CE2,CPT,0.13},
+     { CD2,CPT,-0.02},
+     { CE3,CA,-0.115},
+     { HE3,HP,0.115},
+     { CZ3,CA,-0.115},
+     { HZ3,HP,0.115},
+     { CZ2,CA,-0.115},
+     { HZ2,HP,0.115},
+     { CH2,CA,-0.115},
+     { HH2,HP,0.115},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { CD2, CG, SINGLE},
+     { NE1, CD1, SINGLE},
+     { CZ2, CE2, AROMATIC},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CZ3, CH2, AROMATIC},
+     { CD2, CE3, AROMATIC},
+     { NE1, CE2, SINGLE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { CD1, HD1, SINGLE},
+     { NE1, HE1, SINGLE},
+     { CE3, HE3, SINGLE},
+     { CZ2, HZ2, SINGLE},
+     { CZ3, HZ3, SINGLE},
+     { CH2, HH2, SINGLE},
+     { O, C, DOUBLE},
+     { CD1, CG, DOUBLE},
+     { CE2, CD2, AROMATIC},
+     { CZ3, CE3, AROMATIC},
+     { CH2, CZ2, AROMATIC}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HE1, NE1}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3482 ,123.5100 ,180.0000 ,115.0200 ,0.9972},
+     { -C ,N ,CA ,C ,1.3482 ,123.5100 ,180.0000 ,107.6900 ,1.5202},
+     { N ,CA ,C ,+N ,1.4507 ,107.6900 ,180.0000 ,117.5700 ,1.3505},
+     { +N ,CA ,*C ,O ,1.3505 ,117.5700 ,180.0000 ,121.0800 ,1.2304},
+     { CA ,C ,+N ,+CA ,1.5202 ,117.5700 ,180.0000 ,124.8800 ,1.4526},
+     { N ,C ,*CA ,CB ,1.4507 ,107.6900 ,122.6800 ,111.2300 ,1.5560},
+     { N ,C ,*CA ,HA ,1.4507 ,107.6900 ,-117.0200 ,106.9200 ,1.0835},
+     { N ,CA ,CB ,CG ,1.4507 ,111.6800 ,180.0000 ,115.1400 ,1.5233},
+     { CG ,CA ,*CB ,HB1 ,1.5233 ,115.1400 ,119.1700 ,107.8400 ,1.1127},
+     { CG ,CA ,*CB ,HB2 ,1.5233 ,115.1400 ,-124.7300 ,109.8700 ,1.1118},
+     { CA ,CB ,CG ,CD2 ,1.5560 ,115.1400 ,90.0000 ,123.9500 ,1.4407},
+     { CD2 ,CB ,*CG ,CD1 ,1.4407 ,123.9500 ,-172.8100 ,129.1800 ,1.3679},
+     { CD1 ,CG ,CD2 ,CE2 ,1.3679 ,106.5700 ,-0.0800 ,106.6500 ,1.4126},
+     { CG ,CD2 ,CE2 ,NE1 ,1.4407 ,106.6500 ,0.1400 ,107.8700 ,1.3746},
+     { CE2 ,CG ,*CD2 ,CE3 ,1.4126 ,106.6500 ,179.2100 ,132.5400 ,1.4011},
+     { CE2 ,CD2 ,CE3 ,CZ3 ,1.4126 ,120.8000 ,-0.2000 ,118.1600 ,1.4017},
+     { CD2 ,CE3 ,CZ3 ,CH2 ,1.4011 ,118.1600 ,0.1000 ,120.9700 ,1.4019},
+     { CE3 ,CZ3 ,CH2 ,CZ2 ,1.4017 ,120.9700 ,0.0100 ,120.8700 ,1.4030},
+     { CZ3 ,CD2 ,*CE3 ,HE3 ,1.4017 ,118.1600 ,-179.6200 ,121.8400 ,1.0815},
+     { CH2 ,CE3 ,*CZ3 ,HZ3 ,1.4019 ,120.9700 ,-179.8200 ,119.4500 ,1.0811},
+     { CZ2 ,CZ3 ,*CH2 ,HH2 ,1.4030 ,120.8700 ,-179.9200 ,119.5700 ,1.0811},
+     { CE2 ,CH2 ,*CZ2 ,HZ2 ,1.3939 ,118.4200 ,179.8700 ,120.0800 ,1.0790},
+     { CD1 ,CE2 ,*NE1 ,HE1 ,1.3752 ,108.8100 ,177.7800 ,124.6800 ,0.9767},
+     { CG ,NE1 ,*CD1 ,HD1 ,1.3679 ,110.1000 ,178.1000 ,125.4300 ,1.0820}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2
+     },
+     { 
+       CG,
+       CD1,
+       HD1,
+       NE1,
+       HE1,
+       CE2,
+       CD2
+     },
+     { 
+       CE3,
+       HE3
+     },
+     { 
+       CZ3,
+       HZ3
+     },
+     { 
+       CZ2,
+       HZ2
+     },
+     { 
+       CH2,
+       HH2
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment TYR = {
+
+   template_attr attr = { TYR , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT2,-0.18},
+     { HB1,HA,0.09},
+     { HB2,HA,0.09},
+     { CG,CA,0.00},
+     { CD1,CA,-0.115},
+     { HD1,HP,0.115},
+     { CE1,CA,-0.115},
+     { HE1,HP,0.115},
+     { CZ,CA,0.11},
+     { OH,OH1,-0.54},
+     { HH,H,0.43},
+     { CD2,CA,-0.115},
+     { HD2,HP,0.115},
+     { CE2,CA,-0.115},
+     { HE2,HP,0.115},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG, CB, SINGLE},
+     { CD2, CG, AROMATIC},
+     { CE1, CD1, AROMATIC},
+     { CZ, CE2, AROMATIC},
+     { OH, CZ, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB1, SINGLE},
+     { CB, HB2, SINGLE},
+     { CD1, HD1, SINGLE},
+     { CD2, HD2, SINGLE},
+     { CE1, HE1, SINGLE},
+     { CE2, HE2, SINGLE},
+     { OH, HH, SINGLE},
+     { O, C, DOUBLE},
+     { CD1, CG, AROMATIC},
+     { CE1, CZ, AROMATIC},
+     { CE2, CD2, AROMATIC}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { OH},
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N},
+     { HH, OH}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3476 ,123.8100 ,180.0000 ,114.5400 ,0.9986},
+     { -C ,N ,CA ,C ,1.3476 ,123.8100 ,180.0000 ,106.5200 ,1.5232},
+     { N ,CA ,C ,+N ,1.4501 ,106.5200 ,180.0000 ,117.3300 ,1.3484},
+     { +N ,CA ,*C ,O ,1.3484 ,117.3300 ,180.0000 ,120.6700 ,1.2287},
+     { CA ,C ,+N ,+CA ,1.5232 ,117.3300 ,180.0000 ,124.3100 ,1.4513},
+     { N ,C ,*CA ,CB ,1.4501 ,106.5200 ,122.2700 ,112.3400 ,1.5606},
+     { N ,C ,*CA ,HA ,1.4501 ,106.5200 ,-116.0400 ,107.1500 ,1.0833},
+     { N ,CA ,CB ,CG ,1.4501 ,111.4300 ,180.0000 ,112.9400 ,1.5113},
+     { CG ,CA ,*CB ,HB1 ,1.5113 ,112.9400 ,118.8900 ,109.1200 ,1.1119},
+     { CG ,CA ,*CB ,HB2 ,1.5113 ,112.9400 ,-123.3600 ,110.7000 ,1.1115},
+     { CA ,CB ,CG ,CD1 ,1.5606 ,112.9400 ,90.0000 ,120.4900 ,1.4064},
+     { CD1 ,CB ,*CG ,CD2 ,1.4064 ,120.4900 ,-176.4600 ,120.4600 ,1.4068},
+     { CB ,CG ,CD1 ,CE1 ,1.5113 ,120.4900 ,-175.4900 ,120.4000 ,1.4026},
+     { CE1 ,CG ,*CD1 ,HD1 ,1.4026 ,120.4000 ,178.9400 ,119.8000 ,1.0814},
+     { CB ,CG ,CD2 ,CE2 ,1.5113 ,120.4600 ,175.3200 ,120.5600 ,1.4022},
+     { CE2 ,CG ,*CD2 ,HD2 ,1.4022 ,120.5600 ,-177.5700 ,119.9800 ,1.0813},
+     { CG ,CD1 ,CE1 ,CZ ,1.4064 ,120.4000 ,-0.1900 ,120.0900 ,1.3978},
+     { CZ ,CD1 ,*CE1 ,HE1 ,1.3978 ,120.0900 ,179.6400 ,120.5800 ,1.0799},
+     { CZ ,CD2 ,*CE2 ,HE2 ,1.3979 ,119.9200 ,-178.6900 ,119.7600 ,1.0798},
+     { CE1 ,CE2 ,*CZ ,OH ,1.3978 ,120.0500 ,-178.9800 ,120.2500 ,1.4063},
+     { CE1 ,CZ ,OH ,HH ,1.3978 ,119.6800 ,175.4500 ,107.4700 ,0.9594}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB1,
+       HB2
+     },
+     { 
+       CG
+     },
+     { 
+       CD1,
+       HD1
+     },
+     { 
+       CE1,
+       HE1
+     },
+     { 
+       CZ,
+       OH,
+       HH
+     },
+     { 
+       CD2,
+       HD2
+     },
+     { 
+       CE2,
+       HE2
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment VAL = {
+
+   template_attr attr = { VAL , 0.00, AMINOACID};
+
+   tatom_list atom = { 
+     { N,NH1,-0.47},
+     { HN,H,0.31},
+     { CA,CT1,0.07},
+     { HA,HB,0.09},
+     { CB,CT1,-0.09},
+     { HB,HA,0.09},
+     { CG1,CT3,-0.27},
+     { HG11,HA,0.09},
+     { HG12,HA,0.09},
+     { HG13,HA,0.09},
+     { CG2,CT3,-0.27},
+     { HG21,HA,0.09},
+     { HG22,HA,0.09},
+     { HG23,HA,0.09},
+     { C,C,0.51},
+     { O,O,-0.51}
+   };
+
+   tbond_list bond = { 
+     { CB, CA, SINGLE},
+     { CG1, CB, SINGLE},
+     { CG2, CB, SINGLE},
+     { N, HN, SINGLE},
+     { N, CA, SINGLE},
+     { C, CA, SINGLE},
+     { C, +N, AMIDE},
+     { CA, HA, SINGLE},
+     { CB, HB, SINGLE},
+     { CG1, HG11, SINGLE},
+     { CG1, HG12, SINGLE},
+     { CG1, HG13, SINGLE},
+     { CG2, HG21, SINGLE},
+     { CG2, HG22, SINGLE},
+     { CG2, HG23, SINGLE},
+     { O, C, DOUBLE}
+   };
+
+   timph_list imph = { 
+     { N, -C, CA, HN},
+     { C, CA, +N, O}
+   };
+
+   tacce_list imph = { 
+     { O, C}
+   };
+
+   tdono_list imph = { 
+     { HN, N}
+   };
+
+   tic_list imph = { 
+     { -C ,CA ,*N ,HN ,1.3482 ,124.5700 ,180.0000 ,114.4100 ,0.9966},
+     { -C ,N ,CA ,C ,1.3482 ,124.5700 ,180.0000 ,105.5400 ,1.5180},
+     { N ,CA ,C ,+N ,1.4570 ,105.5400 ,180.0000 ,117.8300 ,1.3471},
+     { +N ,CA ,*C ,O ,1.3471 ,117.8300 ,180.0000 ,120.7000 ,1.2297},
+     { CA ,C ,+N ,+CA ,1.5180 ,117.8300 ,180.0000 ,124.0800 ,1.4471},
+     { N ,C ,*CA ,CB ,1.4570 ,105.5400 ,122.9500 ,111.2300 ,1.5660},
+     { N ,C ,*CA ,HA ,1.4570 ,105.5400 ,-117.2400 ,107.4600 ,1.0828},
+     { N ,CA ,CB ,CG1 ,1.4570 ,113.0500 ,180.0000 ,113.9700 ,1.5441},
+     { CG1 ,CA ,*CB ,CG2 ,1.5441 ,113.9700 ,123.9900 ,112.1700 ,1.5414},
+     { CG1 ,CA ,*CB ,HB ,1.5441 ,113.9700 ,-119.1700 ,107.5700 ,1.1178},
+     { CA ,CB ,CG1 ,HG11 ,1.5660 ,113.9700 ,177.8300 ,110.3000 ,1.1114},
+     { HG11 ,CB ,*CG1 ,HG12 ,1.1114 ,110.3000 ,119.2500 ,111.6700 ,1.1097},
+     { HG11 ,CB ,*CG1 ,HG13 ,1.1114 ,110.3000 ,-119.4900 ,110.7000 ,1.1110},
+     { CA ,CB ,CG2 ,HG21 ,1.5660 ,112.1700 ,-177.7800 ,110.7100 ,1.1108},
+     { HG21 ,CB ,*CG2 ,HG22 ,1.1108 ,110.7100 ,120.0800 ,110.5600 ,1.1115},
+     { HG21 ,CB ,*CG2 ,HG23 ,1.1108 ,110.7100 ,-119.5500 ,111.2300 ,1.1098}
+   };
+
+   tgroup_list imph = { 
+     { 
+       N,
+       HN,
+       CA,
+       HA
+     },
+     { 
+       CB,
+       HB
+     },
+     { 
+       CG1,
+       HG11,
+       HG12,
+       HG13
+     },
+     { 
+       CG2,
+       HG21,
+       HG22,
+       HG23
+     },
+     { 
+       C,
+       O
+     }
+   };
+
+   def_patch patch =  { NTER, CTER};
+
+};
+
+template_fragment ZN2 = {
+
+   template_attr attr = { ZN2 , 2.00, SOLVENT};
+
+   tatom_list atom = { 
+     { ZN,ZN,2.00}
+   };
+
+   tbond_list bond = { 
+   };
+
+   tgroup_list imph = { 
+     { 
+       ZN
+     }
+   };
+
+   def_patch patch =  { NONE, NONE};
+
+};
+
+atom_type_list charmm22_atom = {
+    {H,1.00800,H},
+    {HC,1.00800,H},
+    {HA,1.00800,H},
+    {HT,1.00800,H},
+    {HP,1.00800,H},
+    {HB,1.00800,H},
+    {HR1,1.00800,H},
+    {HR2,1.00800,H},
+    {HR3,1.00800,H},
+    {HS,1.00800,H},
+    {HE1,1.00800,H},
+    {HE2,1.00800,H},
+    {C,12.01100,C, no },
+    {CA,12.01100,C, no },
+    {CT1,12.01100,C, no },
+    {CT2,12.01100,C, no },
+    {CT3,12.01100,C, no },
+    {CPH1,12.01100,C, no },
+    {CPH2,12.01100,C, no },
+    {CPT,12.01100,C, no },
+    {CY,12.01100,C, no },
+    {CP1,12.01100,C, no },
+    {CP2,12.01100,C, no },
+    {CP3,12.01100,C, no },
+    {CC,12.01100,C, no },
+    {CD,12.01100,C, no },
+    {CPA,12.01100,C, no },
+    {CPB,12.01100,C, no },
+    {CPM,12.01100,C, no },
+    {CM,12.01100,C, no },
+    {CS,12.01100,C, no },
+    {CE1,12.01100,C, yes },
+    {CE2,12.01100,C, yes },
+    {N,14.00700,N, no },
+    {NR1,14.00700,N, no },
+    {NR2,14.00700,N, no },
+    {NR3,14.00700,N, no },
+    {NH1,14.00700,N, no },
+    {NH2,14.00700,N, no },
+    {NH3,14.00700,N, no },
+    {NC2,14.00700,N, no },
+    {NY,14.00700,N, no },
+    {NP,14.00700,N, no },
+    {NPH,14.00700,N, no },
+    {O,15.99900,O, no },
+    {OB,15.99900,O, no },
+    {OC,15.99900,O, no },
+    {OH1,15.99900,O, no },
+    {OS,15.99940,O, no },
+    {OT,15.99940,O, no },
+    {OM,15.99900,O, no },
+    {S,32.06000,S, no },
+    {SM,32.06000,S, no },
+    {SS,32.06000,S, no },
+    {HE,4.00260,H},
+    {NE,20.17970,N, yes },
+    {CAL,40.08000,C, no },
+    {ZN,65.37000,NONE, no },
+    {FE,55.84700,F, yes },
+    {DUM,0.00000,NONE, no }
+};
+
+bond_type_list charmm22_bond = {
+ { C,C,600.000,1.3350},
+ { CA,CA,305.000,1.3750},
+ { CE1,CE1,440.000,1.3400},
+ { CE1,CE2,500.000,1.3420},
+ { CE1,CT2,365.000,1.5020},
+ { CE1,CT3,383.000,1.5040},
+ { CE2,CE2,510.000,1.3300},
+ { CP1,C,250.000,1.4900},
+ { CP1,CC,250.000,1.4900},
+ { CP1,CD,200.000,1.4900},
+ { CP2,CP1,222.500,1.5270},
+ { CP2,CP2,222.500,1.5370},
+ { CP3,CP2,222.500,1.5370},
+ { CPB,C,450.000,1.3800},
+ { CPB,CPA,299.800,1.4432},
+ { CPB,CPB,340.700,1.3464},
+ { CPH1,CPH1,410.000,1.3600},
+ { CPM,CPA,360.000,1.3716},
+ { CPT,CA,305.000,1.3680},
+ { CPT,CPT,360.000,1.4000},
+ { CT1,C,250.000,1.4900},
+ { CT1,CC,200.000,1.5220},
+ { CT1,CD,200.000,1.5220},
+ { CT1,CT1,222.500,1.5000},
+ { CT2,C,250.000,1.4900},
+ { CT2,CA,230.000,1.4900},
+ { CT2,CC,200.000,1.5220},
+ { CT2,CD,200.000,1.5220},
+ { CT2,CPB,230.000,1.4900},
+ { CT2,CPH1,229.630,1.5000},
+ { CT2,CT1,222.500,1.5380},
+ { CT2,CT2,222.500,1.5300},
+ { CT3,C,250.000,1.4900},
+ { CT3,CA,230.000,1.4900},
+ { CT3,CC,200.000,1.5220},
+ { CT3,CD,200.000,1.5220},
+ { CT3,CPB,230.000,1.4900},
+ { CT3,CPH1,229.630,1.5000},
+ { CT3,CS,190.000,1.5310},
+ { CT3,CT1,222.500,1.5380},
+ { CT3,CT2,222.500,1.5280},
+ { CT3,CT3,222.500,1.5300},
+ { CY,CA,350.000,1.3650},
+ { CY,CPT,350.000,1.4400},
+ { CY,CT2,230.000,1.5100},
+ { FE,CM,258.000,1.9000},
+ { FE,CPM,0.000,3.3814},
+ { H,CD,330.000,1.1100},
+ { HA,C,330.000,1.1000},
+ { HA,CA,340.000,1.0830},
+ { HA,CC,317.130,1.1000},
+ { HA,CP2,309.000,1.1110},
+ { HA,CP3,309.000,1.1110},
+ { HA,CPM,367.600,1.0900},
+ { HA,CS,300.000,1.1110},
+ { HA,CT1,309.000,1.1110},
+ { HA,CT2,309.000,1.1110},
+ { HA,CT3,322.000,1.1110},
+ { HA,CY,330.000,1.0800},
+ { HE1,CE1,360.500,1.1000},
+ { HE2,CE2,365.000,1.1000},
+ { HB,CP1,330.000,1.0800},
+ { HB,CT1,330.000,1.0800},
+ { HB,CT2,330.000,1.0800},
+ { HB,CT3,330.000,1.0800},
+ { HP,CA,340.000,1.0800},
+ { HP,CY,350.000,1.0800},
+ { HR1,CPH1,375.000,1.0830},
+ { HR1,CPH2,340.000,1.0900},
+ { HR2,CPH2,333.000,1.0700},
+ { HR3,CPH1,365.000,1.0830},
+ { HT,HT,0.000,1.5139},
+ { N,C,260.000,1.3000},
+ { N,CP1,320.000,1.4340},
+ { N,CP3,320.000,1.4550},
+ { NC2,C,463.000,1.3650},
+ { NC2,CT2,261.000,1.4900},
+ { NC2,CT3,261.000,1.4900},
+ { NC2,HC,455.000,1.0000},
+ { NH1,C,370.000,1.3450},
+ { NH1,CT1,320.000,1.4300},
+ { NH1,CT2,320.000,1.4300},
+ { NH1,CT3,320.000,1.4300},
+ { NH1,H,440.000,0.9970},
+ { NH1,HC,405.000,0.9800},
+ { NH2,CC,430.000,1.3600},
+ { NH2,CT2,240.000,1.4550},
+ { NH2,CT3,240.000,1.4550},
+ { NH2,H,480.000,1.0000},
+ { NH2,HC,460.000,1.0000},
+ { NH3,CT1,200.000,1.4800},
+ { NH3,CT2,200.000,1.4800},
+ { NH3,CT3,200.000,1.4800},
+ { NH3,HC,403.000,1.0400},
+ { NP,CP1,320.000,1.4850},
+ { NP,CP3,320.000,1.5020},
+ { NP,HC,460.000,1.0060},
+ { NPH,CPA,377.200,1.3757},
+ { NPH,FE,270.200,1.9580},
+ { NR1,CPH1,400.000,1.3800},
+ { NR1,CPH2,400.000,1.3600},
+ { NR1,H,466.000,1.0000},
+ { NR2,CPH1,400.000,1.3800},
+ { NR2,CPH2,400.000,1.3200},
+ { NR2,FE,65.000,2.2000},
+ { NR3,CPH1,380.000,1.3700},
+ { NR3,CPH2,380.000,1.3200},
+ { NR3,H,453.000,1.0000},
+ { NY,CA,270.000,1.3700},
+ { NY,CPT,270.000,1.3750},
+ { NY,H,465.000,0.9760},
+ { O,C,620.000,1.2300},
+ { O,CC,650.000,1.2300},
+ { OB,CC,750.000,1.2200},
+ { OB,CD,750.000,1.2200},
+ { OC,CA,525.000,1.2600},
+ { OC,CC,525.000,1.2600},
+ { OC,CT2,450.000,1.3300},
+ { OC,CT3,450.000,1.3300},
+ { OH1,CA,334.300,1.4110},
+ { OH1,CD,230.000,1.4000},
+ { OH1,CT1,428.000,1.4200},
+ { OH1,CT2,428.000,1.4200},
+ { OH1,CT3,428.000,1.4200},
+ { OH1,H,545.000,0.9600},
+ { OM,CM,1115.000,1.1280},
+ { OM,FE,250.000,1.8000},
+ { OM,OM,600.000,1.2300},
+ { OS,CD,150.000,1.3340},
+ { OS,CT3,340.000,1.4300},
+ { OT,HT,450.000,0.9572},
+ { S,CT2,198.000,1.8180},
+ { S,CT3,240.000,1.8160},
+ { S,HS,275.000,1.3250},
+ { SM,CT2,214.000,1.8160},
+ { SM,CT3,214.000,1.8160},
+ { SM,SM,173.000,2.0290},
+ { SS,CS,205.000,1.8360}
+};
+
+angle_type_list charmm22_angle = {
+ { CA,CA,CA,40.000,120.00,35.00,2.41620},
+ { CE1,CE1,CT3,48.00,123.50},
+ { CE1,CT2,CT3,32.00,112.20},
+ { CE2,CE1,CT2,48.00,126.00},
+ { CE2,CE1,CT3,47.00,125.20},
+ { CP1,N,C,60.000,117.0000},
+ { CP2,CP1,C,52.000,112.3000},
+ { CP2,CP1,CC,52.000,112.3000},
+ { CP2,CP1,CD,50.000,112.3000},
+ { CP2,CP2,CP1,70.000,108.5000},
+ { CP3,CP2,CP2,70.000,108.5000},
+ { CP3,N,C,60.000,117.0000},
+ { CP3,N,CP1,100.000,114.2000},
+ { CP3,NP,CP1,100.000,111.0000},
+ { CPA,CPB,C,70.000,126.7400},
+ { CPA,CPM,CPA,94.200,125.1200},
+ { CPA,NPH,CPA,139.300,103.9000},
+ { CPB,C,C,70.000,121.5000},
+ { CPB,CPB,C,70.000,126.7500},
+ { CPB,CPB,CPA,30.800,106.5100},
+ { CPH2,NR1,CPH1,130.000,107.5000},
+ { CPH2,NR2,CPH1,130.000,104.0000},
+ { CPH2,NR3,CPH1,145.000,108.0000},
+ { CPM,CPA,CPB,61.600,124.0700},
+ { CPT,CA,CA,60.000,118.0000},
+ { CPT,CPT,CA,60.000,122.0000},
+ { CPT,CY,CA,120.000,107.40,25.00,2.26100},
+ { CPT,NY,CA,110.000,108.0000},
+ { CT1,CT1,C,52.000,108.0000},
+ { CT1,CT1,CC,52.000,108.0000},
+ { CT1,CT1,CT1,53.350,111.00,8.00,2.56100},
+ { CT1,CT2,CA,51.800,107.5000},
+ { CT1,CT2,CC,52.000,108.0000},
+ { CT1,CT2,CD,52.000,108.0000},
+ { CT1,CT2,CPH1,58.350,113.0000},
+ { CT1,CT2,CT1,58.350,113.50,11.16,2.56100},
+ { CT1,NH1,C,50.000,120.0000},
+ { CT2,CA,CA,45.800,122.3000},
+ { CT2,CPB,CPA,65.000,126.7400},
+ { CT2,CPB,CPB,65.000,126.7500},
+ { CT2,CPH1,CPH1,45.800,130.0000},
+ { CT2,CT1,C,52.000,108.0000},
+ { CT2,CT1,CC,52.000,108.0000},
+ { CT2,CT1,CD,52.000,108.0000},
+ { CT2,CT1,CT1,53.350,111.00,8.00,2.56100},
+ { CT2,CT2,C,52.000,108.0000},
+ { CT2,CT2,CC,52.000,108.0000},
+ { CT2,CT2,CD,52.000,108.0000},
+ { CT2,CT2,CPB,70.000,113.0000},
+ { CT2,CT2,CT1,58.350,113.50,11.16,2.56100},
+ { CT2,CT2,CT2,58.350,113.60,11.16,2.56100},
+ { CT2,CT3,CT1,58.350,113.50,11.16,2.56100},
+ { CT2,CY,CA,45.800,129.4000},
+ { CT2,CY,CPT,45.800,124.0000},
+ { CT2,NC2,C,62.300,120.0000},
+ { CT2,NH1,C,50.000,120.0000},
+ { CT2,OS,CD,40.000,109.60,30.00,2.26510},
+ { CT3,CA,CA,45.800,122.3000},
+ { CT3,CPB,CPA,65.000,126.7400},
+ { CT3,CPB,CPB,65.000,126.7500},
+ { CT3,CPH1,CPH1,45.800,130.0000},
+ { CT3,CT1,C,52.000,108.0000},
+ { CT3,CT1,CC,52.000,108.0000},
+ { CT3,CT1,CT1,53.350,108.50,8.00,2.56100},
+ { CT3,CT1,CT2,53.350,114.00,8.00,2.56100},
+ { CT3,CT1,CT3,53.350,114.00,8.00,2.56100},
+ { CT3,CT2,CA,51.800,107.5000},
+ { CT3,CT2,CPH1,58.350,113.0000},
+ { CT3,CT2,CT1,58.350,113.50,11.16,2.56100},
+ { CT3,CT2,CT2,58.000,115.00,8.00,2.56100},
+ { CT3,CT2,CT3,53.350,114.00,8.00,2.56100},
+ { CT3,NC2,C,62.300,120.0000},
+ { CT3,NH1,C,50.000,120.0000},
+ { CT3,OS,CD,40.000,109.60,30.00,2.26510},
+ { CT3,S,CT2,34.000,95.0000},
+ { CY,CPT,CA,160.000,130.6000},
+ { CY,CPT,CPT,110.000,107.4000},
+ { CY,CT2,CT1,58.350,114.0000},
+ { CY,CT2,CT3,58.350,114.0000},
+ { FE,NPH,CPA,96.150,128.0500},
+ { FE,NR2,CPH1,30.000,133.0000},
+ { FE,NR2,CPH2,30.000,123.0000},
+ { H,NH1,C,34.000,123.0000},
+ { H,NH1,CT1,35.000,117.0000},
+ { H,NH1,CT2,35.000,117.0000},
+ { H,NH1,CT3,35.000,117.0000},
+ { H,NH2,CC,50.000,120.0000},
+ { H,NH2,H,23.000,120.0000},
+ { H,NR1,CPH1,30.000,125.50,20.00,2.15000},
+ { H,NR1,CPH2,30.000,127.00,20.00,2.14000},
+ { H,NR3,CPH1,25.000,126.00,15.00,2.13000},
+ { H,NR3,CPH2,25.000,126.00,15.00,2.09000},
+ { H,NY,CA,28.000,126.0000},
+ { H,NY,CPT,28.000,126.0000},
+ { H,OH1,CA,65.000,108.0000},
+ { H,OH1,CD,55.000,115.0000},
+ { H,OH1,CT1,57.500,106.0000},
+ { H,OH1,CT2,57.500,106.0000},
+ { H,OH1,CT3,57.500,106.0000},
+ { HA,C,C,50.000,120.5000},
+ { HA,C,CPB,50.000,120.0000},
+ { HA,C,HA,50.000,118.0000},
+ { HA,CA,CA,29.000,120.00,25.00,2.15250},
+ { HA,CA,CPT,41.000,122.0000},
+ { HA,CA,CY,32.000,125.00,25.00,2.17300},
+ { HA,CP2,CP1,33.430,110.10,22.53,2.17900},
+ { HA,CP2,CP2,26.500,110.10,22.53,2.17900},
+ { HA,CP2,CP3,26.500,110.10,22.53,2.17900},
+ { HA,CP2,HA,35.500,109.00,5.40,1.80200},
+ { HA,CP3,CP2,26.500,110.10,22.53,2.17900},
+ { HA,CP3,HA,35.500,109.00,5.40,1.80200},
+ { HA,CPM,CPA,12.700,117.4400},
+ { HA,CPM,FE,0.000,180.0000},
+ { HA,CS,CT3,34.600,110.10,22.53,2.17900},
+ { HA,CS,HA,35.500,108.40,14.00,1.77500},
+ { HA,CT1,C,33.000,109.50,30.00,2.16300},
+ { HA,CT1,CD,33.000,109.50,30.00,2.16300},
+ { HA,CT1,CT1,34.500,110.10,22.53,2.17900},
+ { HA,CT1,CT2,34.500,110.10,22.53,2.17900},
+ { HA,CT1,CT3,34.500,110.10,22.53,2.17900},
+ { HA,CT1,HA,35.500,109.00,5.40,1.80200},
+ { HA,CT2,C,33.000,109.50,30.00,2.16300},
+ { HA,CT2,CA,49.300,107.5000},
+ { HA,CT2,CC,33.000,109.50,30.00,2.16300},
+ { HA,CT2,CD,33.000,109.50,30.00,2.16300},
+ { HA,CT2,CE1,45.00,111.50},
+ { HA,CT2,CPB,50.000,109.5000},
+ { HA,CT2,CPH1,33.430,109.5000},
+ { HA,CT2,CT1,33.430,110.10,22.53,2.17900},
+ { HA,CT2,CT2,26.500,110.10,22.53,2.17900},
+ { HA,CT2,CT3,34.600,110.10,22.53,2.17900},
+ { HA,CT2,CY,33.430,109.5000},
+ { HA,CT2,HA,35.500,109.00,5.40,1.80200},
+ { HA,CT3,C,33.000,109.50,30.00,2.16300},
+ { HA,CT3,CA,49.300,107.5000},
+ { HA,CT3,CC,33.000,109.50,30.00,2.16300},
+ { HA,CT3,CD,33.000,109.50,30.00,2.16300},
+ { HA,CT3,CE1,42.00,111.50},
+ { HA,CT3,CPB,50.000,109.5000},
+ { HA,CT3,CPH1,33.430,109.5000},
+ { HA,CT3,CS,34.600,110.10,22.53,2.17900},
+ { HA,CT3,CT1,33.430,110.10,22.53,2.17900},
+ { HA,CT3,CT2,34.600,110.10,22.53,2.17900},
+ { HA,CT3,CT3,37.500,110.10,22.53,2.17900},
+ { HA,CT3,HA,35.500,108.40,5.40,1.80200},
+ { HA,CY,CA,20.000,126.40,25.00,2.18600},
+ { HA,CY,CPT,32.000,126.40,25.00,2.25500},
+ { HE1,CE1,CE1,52.00,119.50},
+ { HE1,CE1,CE2,42.00,118.00},
+ { HE1,CE1,CT2,40.00,116.00},
+ { HE1,CE1,CT3,22.00,117.00},
+ { HE2,CE2,CE1,45.00,120.50},
+ { HE2,CE2,CE2,55.50,120.50},
+ { HE2,CE2,HE2,19.00,119.00},
+ { HB,CP1,C,50.000,112.0000},
+ { HB,CP1,CC,50.000,112.0000},
+ { HB,CP1,CD,50.000,112.0000},
+ { HB,CP1,CP2,35.000,118.0000},
+ { HB,CT1,C,50.000,109.5000},
+ { HB,CT1,CC,50.000,109.5000},
+ { HB,CT1,CD,50.000,109.5000},
+ { HB,CT1,CT1,35.000,111.0000},
+ { HB,CT1,CT2,35.000,111.0000},
+ { HB,CT1,CT3,35.000,111.0000},
+ { HB,CT2,C,50.000,109.5000},
+ { HB,CT2,CC,50.000,109.5000},
+ { HB,CT2,CD,50.000,109.5000},
+ { HB,CT2,HB,36.000,115.0000},
+ { HB,CT3,C,50.000,109.5000},
+ { HC,NC2,C,49.000,120.0000},
+ { HC,NC2,CT2,40.400,120.0000},
+ { HC,NC2,CT3,40.400,120.0000},
+ { HC,NC2,HC,25.000,120.0000},
+ { HC,NH2,CT2,50.000,111.0000},
+ { HC,NH2,CT3,50.000,111.0000},
+ { HC,NH2,HC,39.000,106.5000},
+ { HC,NH3,CT1,30.000,109.50,20.00,2.07400},
+ { HC,NH3,CT2,30.000,109.50,20.00,2.07400},
+ { HC,NH3,CT3,30.000,109.50,20.00,2.07400},
+ { HC,NH3,HC,44.000,109.5000},
+ { HC,NP,CP1,33.000,109.50,4.00,2.05600},
+ { HC,NP,CP3,33.000,109.50,4.00,2.05600},
+ { HC,NP,HC,51.000,107.5000},
+ { HP,CA,CA,30.000,120.00,22.00,2.15250},
+ { HP,CA,CPT,30.000,122.00,22.00,2.14600},
+ { HP,CA,CY,32.000,125.00,25.00,2.17300},
+ { HP,CY,CA,32.000,126.40,25.00,2.18600},
+ { HP,CY,CPT,32.000,126.40,25.00,2.25500},
+ { HR1,CPH1,CPH1,22.000,130.00,15.00,2.21500},
+ { HR3,CPH1,CPH1,25.000,130.00,20.00,2.20000},
+ { HS,S,CT2,38.800,95.0000},
+ { HS,S,CT3,43.000,95.0000},
+ { HT,OT,HT,55.000,104.5200},
+ { N,C,CP1,20.000,112.5000},
+ { N,C,CT1,20.000,112.5000},
+ { N,C,CT2,20.000,112.5000},
+ { N,C,CT3,20.000,112.5000},
+ { N,CP1,C,50.000,108.2000},
+ { N,CP1,CC,50.000,108.2000},
+ { N,CP1,CD,50.000,108.2000},
+ { N,CP1,CP2,70.000,110.8000},
+ { N,CP1,HB,48.000,112.0000},
+ { N,CP3,CP2,70.000,110.5000},
+ { N,CP3,HA,48.000,108.0000},
+ { NC2,C,NC2,52.000,120.00,90.00,2.36420},
+ { NC2,CT2,CT2,67.700,107.5000},
+ { NC2,CT2,HA,51.500,107.5000},
+ { NC2,CT3,HA,51.500,107.5000},
+ { NH1,C,CP1,80.000,116.5000},
+ { NH1,C,CT1,80.000,116.5000},
+ { NH1,C,CT2,80.000,116.5000},
+ { NH1,C,CT3,80.000,116.5000},
+ { NH1,CT1,C,50.000,107.0000},
+ { NH1,CT1,CC,50.000,107.0000},
+ { NH1,CT1,CD,50.000,107.0000},
+ { NH1,CT1,CT1,70.000,113.5000},
+ { NH1,CT1,CT2,70.000,113.5000},
+ { NH1,CT1,CT3,70.000,113.5000},
+ { NH1,CT1,HB,48.000,108.0000},
+ { NH1,CT2,C,50.000,107.0000},
+ { NH1,CT2,CC,50.000,107.0000},
+ { NH1,CT2,CD,50.000,107.0000},
+ { NH1,CT2,CT2,70.000,113.5000},
+ { NH1,CT2,HA,51.500,109.5000},
+ { NH1,CT2,HB,48.000,108.0000},
+ { NH1,CT3,HA,51.500,109.5000},
+ { NH2,CC,CP1,80.000,112.5000},
+ { NH2,CC,CT1,50.000,116.50,50.00,2.45000},
+ { NH2,CC,CT2,50.000,116.50,50.00,2.45000},
+ { NH2,CC,CT3,50.000,116.50,50.00,2.45000},
+ { NH2,CC,HA,44.000,111.00,50.00,1.98000},
+ { NH2,CT2,HB,38.000,109.50,50.00,2.14000},
+ { NH2,CT2,CD,52.000,108.0000},
+ { NH2,CT3,HA,38.000,109.50,50.00,2.14000},
+ { NH3,CT1,C,43.700,110.0000},
+ { NH3,CT1,CC,43.700,110.0000},
+ { NH3,CT1,CT1,67.700,110.0000},
+ { NH3,CT1,CT2,67.700,110.0000},
+ { NH3,CT1,CT3,67.700,110.0000},
+ { NH3,CT1,HB,51.500,107.5000},
+ { NH3,CT2,C,43.700,110.0000},
+ { NH3,CT2,CC,43.700,110.0000},
+ { NH3,CT2,CD,43.700,110.0000},
+ { NH3,CT2,CT2,67.700,110.0000},
+ { NH3,CT2,HA,45.000,107.50,35.00,2.10100},
+ { NH3,CT2,HB,51.500,107.5000},
+ { NH3,CT3,HA,45.000,107.50,35.00,2.10100},
+ { NP,CP1,C,50.000,106.0000},
+ { NP,CP1,CC,50.000,106.0000},
+ { NP,CP1,CD,50.000,106.0000},
+ { NP,CP1,CP2,70.000,108.5000},
+ { NP,CP1,HB,51.500,107.5000},
+ { NP,CP3,CP2,70.000,108.5000},
+ { NP,CP3,HA,51.500,109.1500},
+ { NPH,CPA,CPB,122.000,111.5400},
+ { NPH,CPA,CPM,88.000,124.3900},
+ { NPH,FE,CM,50.000,90.0000},
+ { NPH,FE,CPM,0.000,45.0000},
+ { NPH,FE,NPH,14.390,90.0000},
+ { NR1,CPH1,CPH1,130.000,106.0000},
+ { NR1,CPH1,CT2,45.800,124.0000},
+ { NR1,CPH1,CT3,45.800,124.0000},
+ { NR1,CPH1,HR3,25.000,124.00,20.00,2.14000},
+ { NR1,CPH2,HR1,25.000,122.50,20.00,2.14000},
+ { NR2,CPH1,CPH1,130.000,110.0000},
+ { NR2,CPH1,CT2,45.800,120.0000},
+ { NR2,CPH1,HR3,25.000,120.00,20.00,2.14000},
+ { NR2,CPH2,HR1,25.000,125.00,20.00,2.12000},
+ { NR2,CPH2,NR1,130.000,112.5000},
+ { NR2,FE,CM,50.000,180.0000},
+ { NR2,FE,NPH,50.000,90.0000},
+ { NR3,CPH1,CPH1,145.000,108.0000},
+ { NR3,CPH1,CT2,45.800,122.0000},
+ { NR3,CPH1,HR1,22.000,122.00,15.00,2.18000},
+ { NR3,CPH2,HR2,32.000,126.00,25.00,2.14000},
+ { NR3,CPH2,NR3,145.000,108.0000},
+ { NY,CA,CY,120.000,110.00,25.00,2.24000},
+ { NY,CA,HA,32.000,125.00,25.00,2.17700},
+ { NY,CA,HP,32.000,125.00,25.00,2.17700},
+ { NY,CPT,CA,160.000,130.6000},
+ { NY,CPT,CPT,110.000,107.4000},
+ { O,C,CP1,80.000,118.0000},
+ { O,C,CT1,80.000,121.0000},
+ { O,C,CT2,80.000,121.0000},
+ { O,C,CT3,80.000,121.0000},
+ { O,C,H,50.000,121.7000},
+ { O,C,N,80.000,122.5000},
+ { O,C,NH1,80.000,122.5000},
+ { O,CC,CP1,80.000,118.0000},
+ { O,CC,CT1,15.000,121.00,50.00,2.44000},
+ { O,CC,CT2,15.000,121.00,50.00,2.44000},
+ { O,CC,CT3,15.000,121.00,50.00,2.44000},
+ { O,CC,HA,44.000,122.0000},
+ { O,CC,NH2,75.000,122.50,50.00,2.37000},
+ { OB,CD,CP1,70.000,125.00,20.00,2.44200},
+ { OB,CD,CT1,70.000,125.00,20.00,2.44200},
+ { OB,CD,CT2,70.000,125.00,20.00,2.44200},
+ { OB,CD,CT3,70.000,125.00,20.00,2.44200},
+ { OC,CA,CA,40.000,120.0000},
+ { OC,CC,CP1,40.000,118.00,50.00,2.38800},
+ { OC,CC,CT1,40.000,118.00,50.00,2.38800},
+ { OC,CC,CT2,40.000,118.00,50.00,2.38800},
+ { OC,CC,CT3,40.000,118.00,50.00,2.38800},
+ { OC,CC,OC,100.000,124.00,70.00,2.22500},
+ { OC,CT2,CT3,65.000,122.0000},
+ { OC,CT2,HA,65.000,118.3000},
+ { OC,CT3,HA,65.000,118.3000},
+ { OH1,CA,CA,45.200,120.0000},
+ { OH1,CD,CT2,55.000,110.5000},
+ { OH1,CD,CT3,55.000,110.5000},
+ { OH1,CD,OB,50.000,123.00,210.00,2.26200},
+ { OH1,CT1,CT1,75.700,110.1000},
+ { OH1,CT1,CT3,75.700,110.1000},
+ { OH1,CT1,HA,45.900,108.8900},
+ { OH1,CT2,CT1,75.700,110.1000},
+ { OH1,CT2,CT2,75.700,110.1000},
+ { OH1,CT2,CT3,75.700,110.1000},
+ { OH1,CT2,HA,45.900,108.8900},
+ { OH1,CT3,HA,45.900,108.8900},
+ { OM,CM,FE,35.000,180.0000},
+ { OM,FE,NPH,5.000,90.0000},
+ { OM,OM,FE,0.000,180.0000},
+ { OS,CD,CP1,55.000,109.00,20.00,2.32600},
+ { OS,CD,CT1,55.000,109.00,20.00,2.32600},
+ { OS,CD,CT2,55.000,109.00,20.00,2.32600},
+ { OS,CD,CT3,55.000,109.00,20.00,2.32600},
+ { OS,CD,OB,90.000,125.90,160.00,2.25760},
+ { OS,CT2,HA,60.000,109.5000},
+ { OS,CT3,HA,60.000,109.5000},
+ { S,CT2,CT1,58.000,112.5000},
+ { S,CT2,CT2,58.000,114.5000},
+ { S,CT2,CT3,58.000,114.5000},
+ { S,CT2,HA,46.100,111.3000},
+ { S,CT3,HA,46.100,111.3000},
+ { SM,CT2,CT1,58.000,112.5000},
+ { SM,CT2,HA,38.000,111.0000},
+ { SM,CT3,HA,38.000,111.0000},
+ { SM,SM,CT2,72.500,103.3000},
+ { SM,SM,CT3,72.500,103.3000},
+ { SS,CS,CT3,55.000,118.0000},
+ { SS,CS,HA,40.000,112.3000}
+};
+
+dihe_type_list charmm22_dihe = {
+ { C,CT1,NH1,C,0.2000,1,180.00},
+ { C,CT2,NH1,C,0.2000,1,180.00},
+ { C,N,CP1,C,0.8000,3,0.00},
+ { CA,CA,CA,CA,3.1000,2,180.00},
+ { CA,CPT,CPT,CA,3.1000,2,180.00},
+ { CA,CT2,CT1,C,0.0400,3,0.00},
+ { CA,CY,CPT,CA,3.0000,2,180.00},
+ { CA,NY,CPT,CA,3.0000,2,180.00},
+ { CC,CP1,N,C,0.8000,3,0.00},
+ { CC,CT1,CT2,CA,0.0400,3,0.00},
+ { CC,CT1,NH1,C,0.2000,1,180.00},
+ { CC,CT2,NH1,C,0.2000,1,180.00},
+ { CD,CP1,N,C,0.0000,1,180.00},
+ { CD,CT1,NH1,C,0.2000,1,180.00},
+ { CD,CT2,NH1,C,0.2000,1,180.00},
+ { CE1,CE1,CT3,HA,0.0300,3,0.00},
+ { CE2,CE1,CT2,CT3,0.5000,3,0.00},
+ { CE2,CE1,CT2,HA,0.1200,3,0.00},
+ { CE2,CE1,CT3,HA,0.0500,3,180.00},
+ { CP1,C,N,CP1,2.7500,2,180.00},
+ { CP1,C,N,CP1,0.3000,4,0.00},
+ { CP2,CP1,N,C,0.8000,3,0.00},
+ { CP2,CP3,N,C,0.0000,3,180.00},
+ { CP2,CP3,N,CP1,0.1000,3,0.00},
+ { CP2,CP3,NP,CP1,0.0800,3,0.00},
+ { CP3,N,C,CP1,2.7500,2,180.00},
+ { CP3,N,C,CP1,0.3000,4,0.00},
+ { CP3,N,CP1,C,0.1000,3,0.00},
+ { CP3,N,CP1,CC,0.1000,3,0.00},
+ { CP3,N,CP1,CP2,0.1000,3,0.00},
+ { CP3,NP,CP1,C,0.0800,3,0.00},
+ { CP3,NP,CP1,CC,0.0800,3,0.00},
+ { CP3,NP,CP1,CD,0.0800,3,0.00},
+ { CP3,NP,CP1,CP2,0.0800,3,0.00},
+ { CPH2,NR1,CPH1,CPH1,14.0000,2,180.00},
+ { CPH2,NR2,CPH1,CPH1,14.0000,2,180.00},
+ { CPH2,NR3,CPH1,CPH1,12.0000,2,180.00},
+ { CPT,CA,CA,CA,3.1000,2,180.00},
+ { CPT,CPT,CA,CA,3.1000,2,180.00},
+ { CPT,CPT,CY,CA,4.0000,2,180.00},
+ { CPT,CPT,NY,CA,5.0000,2,180.00},
+ { CT1,C,N,CP1,2.7500,2,180.00},
+ { CT1,C,N,CP1,0.3000,4,0.00},
+ { CT1,C,N,CP3,2.7500,2,180.00},
+ { CT1,C,N,CP3,0.3000,4,0.00},
+ { CT1,C,NH1,CT1,1.6000,1,0.00},
+ { CT1,C,NH1,CT1,2.5000,2,180.00},
+ { CT1,CT1,NH1,C,1.8000,1,0.00},
+ { CT1,CT2,CA,CA,0.2300,2,180.00},
+ { CT1,CT2,CPH1,CPH1,0.2000,1,0.00},
+ { CT1,CT2,CPH1,CPH1,0.2700,2,0.00},
+ { CT1,CT2,CPH1,CPH1,0.0000,3,0.00},
+ { CT1,CT2,CY,CA,0.2300,2,180.00},
+ { CT1,CT2,CY,CPT,0.2300,2,180.00},
+ { CT1,NH1,C,CP1,1.6000,1,0.00},
+ { CT1,NH1,C,CP1,2.5000,2,180.00},
+ { CT2,C,N,CP1,2.7500,2,180.00},
+ { CT2,C,N,CP1,0.3000,4,0.00},
+ { CT2,C,N,CP3,2.7500,2,180.00},
+ { CT2,C,N,CP3,0.3000,4,0.00},
+ { CT2,C,NH1,CT1,1.6000,1,0.00},
+ { CT2,C,NH1,CT1,2.5000,2,180.00},
+ { CT2,C,NH1,CT2,1.6000,1,0.00},
+ { CT2,C,NH1,CT2,2.5000,2,180.00},
+ { CT2,C,NH1,CT3,1.6000,1,0.00},
+ { CT2,C,NH1,CT3,2.5000,2,180.00},
+ { CT2,CA,CA,CA,3.1000,2,180.00},
+ { CT2,CPH1,NR1,CPH2,3.0000,2,180.00},
+ { CT2,CPH1,NR2,CPH2,3.0000,2,180.00},
+ { CT2,CPH1,NR3,CPH2,2.5000,2,180.00},
+ { CT2,CT1,NH1,C,1.8000,1,0.00},
+ { CT2,CT2,CPH1,CPH1,0.4000,1,0.00},
+ { CT2,CT2,CT2,CT2,0.1500,1,0.00},
+ { CT2,CT2,NH1,C,1.8000,1,0.00},
+ { CT2,CY,CPT,CA,3.0000,2,180.00},
+ { CT2,CY,CPT,CPT,3.0000,2,180.00},
+ { CT2,NH1,C,CP1,1.6000,1,0.00},
+ { CT2,NH1,C,CP1,2.5000,2,180.00},
+ { CT2,NH1,C,CT1,1.6000,1,0.00},
+ { CT2,NH1,C,CT1,2.5000,2,180.00},
+ { CT2,SM,SM,CT2,1.0000,1,0.00},
+ { CT2,SM,SM,CT2,4.1000,2,0.00},
+ { CT2,SM,SM,CT2,0.9000,3,0.00},
+ { CT3,C,N,CP1,2.7500,2,180.00},
+ { CT3,C,N,CP1,0.3000,4,0.00},
+ { CT3,C,N,CP3,2.7500,2,180.00},
+ { CT3,C,N,CP3,0.3000,4,0.00},
+ { CT3,C,NH1,CT1,1.6000,1,0.00},
+ { CT3,C,NH1,CT1,2.5000,2,180.00},
+ { CT3,C,NH1,CT2,1.6000,1,0.00},
+ { CT3,C,NH1,CT2,2.5000,2,180.00},
+ { CT3,C,NH1,CT3,1.6000,1,0.00},
+ { CT3,C,NH1,CT3,2.5000,2,180.00},
+ { CT3,CA,CA,CA,3.1000,2,180.00},
+ { CT3,CE1,CE2,HE2,5.2000,2,180.00},
+ { CT3,CPH1,NR1,CPH2,3.0000,2,180.00},
+ { CT3,CT1,NH1,C,1.8000,1,0.00},
+ { CT3,CT2,CA,CA,0.2300,2,180.00},
+ { CT3,CT2,CPH1,CPH1,0.2000,1,0.00},
+ { CT3,CT2,CPH1,CPH1,0.2700,2,0.00},
+ { CT3,CT2,CPH1,CPH1,0.0000,3,0.00},
+ { CT3,CT2,CT2,CT2,0.1500,1,0.00},
+ { CT3,CT2,CT2,CT3,0.1500,1,0.00},
+ { CT3,CT2,CY,CA,0.2300,2,180.00},
+ { CT3,CT2,CY,CPT,0.2300,2,180.00},
+ { CT3,CT2,S,CT3,0.2400,1,180.00},
+ { CT3,CT2,S,CT3,0.3700,3,0.00},
+ { CT3,NH1,C,CP1,1.6000,1,0.00},
+ { CT3,NH1,C,CP1,2.5000,2,180.00},
+ { CT3,NH1,C,CT1,1.6000,1,0.00},
+ { CT3,NH1,C,CT1,2.5000,2,180.00},
+ { CT3,S,CT2,CT2,0.2400,1,180.00},
+ { CT3,S,CT2,CT2,0.3700,3,0.00},
+ { CT3,SM,SM,CT3,1.0000,1,0.00},
+ { CT3,SM,SM,CT3,4.1000,2,0.00},
+ { CT3,SM,SM,CT3,0.9000,3,0.00},
+ { CY,CA,NY,CPT,5.0000,2,180.00},
+ { CY,CPT,CA,CA,3.0000,2,180.00},
+ { CY,CPT,CPT,CA,10.0000,2,180.00},
+ { H,NH1,C,CP1,2.5000,2,180.00},
+ { H,NH1,C,CT1,2.5000,2,180.00},
+ { H,NH1,C,CT2,2.5000,2,180.00},
+ { H,NH1,C,CT3,2.5000,2,180.00},
+ { H,NH1,CT1,C,0.0000,1,0.00},
+ { H,NH1,CT1,CC,0.0000,1,0.00},
+ { H,NH1,CT1,CD,0.0000,1,0.00},
+ { H,NH1,CT1,CT1,0.0000,1,0.00},
+ { H,NH1,CT1,CT2,0.0000,1,0.00},
+ { H,NH1,CT1,CT3,0.0000,1,0.00},
+ { H,NH1,CT2,C,0.0000,1,0.00},
+ { H,NH1,CT2,CC,0.0000,1,0.00},
+ { H,NH1,CT2,CD,0.0000,1,0.00},
+ { H,NH1,CT2,CT2,0.0000,1,0.00},
+ { H,NH1,CT2,CT3,0.0000,1,0.00},
+ { H,NH2,CC,CT1,1.4000,2,180.00},
+ { H,NH2,CC,CT2,1.4000,2,180.00},
+ { H,NH2,CC,CT3,1.4000,2,180.00},
+ { H,NH2,CC,CP1,2.5000,2,180.00},
+ { H,NR1,CPH1,CPH1,1.0000,2,180.00},
+ { H,NR1,CPH1,CT2,1.0000,2,180.00},
+ { H,NR1,CPH1,CT3,1.0000,2,180.00},
+ { H,NR3,CPH1,CPH1,1.4000,2,180.00},
+ { H,NR3,CPH1,CT2,3.0000,2,180.00},
+ { H,NR3,CPH1,CT3,3.0000,2,180.00},
+ { H,NY,CA,CY,0.8000,2,180.00},
+ { H,NY,CPT,CA,0.8000,2,180.00},
+ { H,NY,CPT,CPT,0.8000,2,180.00},
+ { H,OH1,CA,CA,0.9900,2,180.00},
+ { H,OH1,CT1,CT1,1.3300,1,0.00},
+ { H,OH1,CT1,CT1,0.1800,2,0.00},
+ { H,OH1,CT1,CT1,0.3200,3,0.00},
+ { H,OH1,CT1,CT3,1.3300,1,0.00},
+ { H,OH1,CT1,CT3,0.1800,2,0.00},
+ { H,OH1,CT1,CT3,0.3200,3,0.00},
+ { H,OH1,CT2,CT1,1.3000,1,0.00},
+ { H,OH1,CT2,CT1,0.3000,2,0.00},
+ { H,OH1,CT2,CT1,0.4200,3,0.00},
+ { H,OH1,CT2,CT2,1.3000,1,0.00},
+ { H,OH1,CT2,CT2,0.3000,2,0.00},
+ { H,OH1,CT2,CT2,0.4200,3,0.00},
+ { H,OH1,CT2,CT3,1.3000,1,0.00},
+ { H,OH1,CT2,CT3,0.3000,2,0.00},
+ { H,OH1,CT2,CT3,0.4200,3,0.00},
+ { HA,CA,CA,CA,3.5000,2,180.00},
+ { HA,CA,CA,CPT,3.5000,2,180.00},
+ { HA,CA,CA,HA,2.5000,2,180.00},
+ { HA,CA,CPT,CPT,3.0000,2,180.00},
+ { HA,CA,CPT,CY,4.0000,2,180.00},
+ { HA,CA,CY,CPT,1.2000,2,180.00},
+ { HA,CA,CY,CT2,1.2000,2,180.00},
+ { HA,CA,NY,CPT,3.0000,2,180.00},
+ { HA,CA,NY,H,1.0000,2,180.00},
+ { HA,CC,NH2,H,1.4000,2,180.00},
+ { HA,CP3,N,C,0.0000,3,180.00},
+ { HA,CP3,N,CP1,0.1000,3,0.00},
+ { HA,CP3,NP,CP1,0.0800,3,0.00},
+ { HA,CT1,CT2,CA,0.0400,3,0.00},
+ { HA,CT2,CPH1,CPH1,0.0000,3,0.00},
+ { HA,CT2,CY,CA,0.2500,2,180.00},
+ { HA,CT2,CY,CPT,0.2500,2,180.00},
+ { HA,CT2,NH1,C,0.0000,3,0.00},
+ { HA,CT2,NH1,H,0.0000,3,0.00},
+ { HA,CT2,S,CT3,0.2800,3,0.00},
+ { HA,CT3,CPH1,CPH1,0.0000,3,0.00},
+ { HA,CT3,CS,HA,0.1600,3,0.00},
+ { HA,CT3,CT2,CA,0.0400,3,0.00},
+ { HA,CT3,NH1,C,0.0000,3,0.00},
+ { HA,CT3,NH1,H,0.0000,3,0.00},
+ { HA,CT3,S,CT2,0.2800,3,0.00},
+ { HA,CY,CA,CPT,1.2000,2,180.00},
+ { HA,CY,CA,HA,1.2000,2,180.00},
+ { HA,CY,CPT,CA,3.0000,2,180.00},
+ { HA,CY,CPT,CPT,3.0000,2,180.00},
+ { HE1,CE1,CE2,HE2,5.2000,2,180.00},
+ { HE1,CE1,CT2,HA,0.8700,3,0.00},
+ { HE1,CE1,CT2,CT3,0.1200,3,0.00},
+ { HE1,CE1,CT3,HA,0.3400,3,0.00},
+ { HE2,CE2,CE1,CT2,5.2000,2,180.00},
+ { HB,CP1,N,C,0.8000,3,0.00},
+ { HB,CP1,N,CP3,0.1000,3,0.00},
+ { HB,CP1,NP,CP3,0.0800,3,0.00},
+ { HB,CT1,NH1,C,0.0000,1,0.00},
+ { HB,CT1,NH1,H,0.0000,1,0.00},
+ { HB,CT2,NH1,C,0.0000,1,0.00},
+ { HB,CT2,NH1,H,0.0000,1,0.00},
+ { HB,CT3,NH1,C,0.0000,1,0.00},
+ { HB,CT3,NH1,H,0.0000,1,0.00},
+ { HC,NH2,CT2,HB,0.1100,3,0.00},
+ { HC,NH2,CT2,CD,0.1100,3,0.00},
+ { HC,NP,CP1,C,0.0800,3,0.00},
+ { HC,NP,CP1,CC,0.0800,3,0.00},
+ { HC,NP,CP1,CD,0.0800,3,0.00},
+ { HC,NP,CP1,CP2,0.0800,3,0.00},
+ { HC,NP,CP1,HB,0.0800,3,0.00},
+ { HC,NP,CP3,CP2,0.0800,3,0.00},
+ { HC,NP,CP3,HA,0.0800,3,0.00},
+ { HP,CA,CA,CA,4.2000,2,180.00},
+ { HP,CA,CA,CPT,3.0000,2,180.00},
+ { HP,CA,CA,CT2,4.2000,2,180.00},
+ { HP,CA,CA,CT3,4.2000,2,180.00},
+ { HP,CA,CA,HP,2.4000,2,180.00},
+ { HP,CA,CPT,CPT,3.0000,2,180.00},
+ { HP,CA,CPT,CY,3.0000,2,180.00},
+ { HP,CA,CY,CPT,2.0000,2,180.00},
+ { HP,CA,CY,CT2,1.2000,2,180.00},
+ { HP,CA,NY,CPT,2.0000,2,180.00},
+ { HP,CA,NY,H,0.4000,2,180.00},
+ { HP,CY,CA,HP,1.0000,2,180.00},
+ { HP,CY,CPT,CA,2.8000,2,180.00},
+ { HP,CY,CPT,CPT,2.8000,2,180.00},
+ { HR1,CPH1,CPH1,CT2,1.0000,2,180.00},
+ { HR1,CPH1,CPH1,CT3,1.0000,2,180.00},
+ { HR1,CPH1,CPH1,HR1,1.0000,2,180.00},
+ { HR1,CPH1,NR3,CPH2,2.5000,2,180.00},
+ { HR1,CPH1,NR3,H,3.0000,2,180.00},
+ { HR1,CPH2,NR1,CPH1,3.0000,2,180.00},
+ { HR1,CPH2,NR1,H,1.0000,2,180.00},
+ { HR1,CPH2,NR2,CPH1,3.0000,2,180.00},
+ { HR2,CPH2,NR3,CPH1,3.0000,2,180.00},
+ { HR2,CPH2,NR3,H,0.0000,2,180.00},
+ { HR3,CPH1,CPH1,CT2,2.0000,2,180.00},
+ { HR3,CPH1,CPH1,CT3,2.0000,2,180.00},
+ { HR3,CPH1,CPH1,HR3,2.0000,2,180.00},
+ { HR3,CPH1,NR1,CPH2,3.0000,2,180.00},
+ { HR3,CPH1,NR1,H,1.0000,2,180.00},
+ { HR3,CPH1,NR2,CPH2,3.0000,2,180.00},
+ { HS,S,CT2,CT1,0.2400,1,0.00},
+ { HS,S,CT2,CT1,0.1500,2,0.00},
+ { HS,S,CT2,CT1,0.2700,3,0.00},
+ { HS,S,CT2,CT3,0.2400,1,0.00},
+ { HS,S,CT2,CT3,0.1500,2,0.00},
+ { HS,S,CT2,CT3,0.2700,3,0.00},
+ { HS,S,CT2,HA,0.2000,3,0.00},
+ { HS,S,CT3,HA,0.2000,3,0.00},
+ { N,C,CP1,CP2,0.4000,1,0.00},
+ { N,C,CP1,CP2,0.6000,2,0.00},
+ { N,C,CP1,HB,0.4000,1,180.00},
+ { N,C,CP1,HB,0.6000,2,0.00},
+ { N,C,CP1,N,0.3000,1,0.00},
+ { N,C,CP1,N,-0.3000,4,0.00},
+ { N,C,CT1,CT1,0.0000,1,0.00},
+ { N,C,CT1,CT2,0.0000,1,0.00},
+ { N,C,CT1,CT3,0.0000,1,0.00},
+ { N,C,CT1,HB,0.0000,1,0.00},
+ { N,C,CT2,HB,0.0000,1,0.00},
+ { N,C,CT3,HA,0.0000,1,0.00},
+ { N,CT1,CT2,CA,0.0400,3,0.00},
+ { NH1,C,CP1,CP2,0.4000,1,0.00},
+ { NH1,C,CP1,CP2,0.6000,2,0.00},
+ { NH1,C,CP1,HB,0.4000,1,180.00},
+ { NH1,C,CP1,HB,0.6000,2,0.00},
+ { NH1,C,CP1,N,0.3000,1,0.00},
+ { NH1,C,CP1,N,-0.3000,4,0.00},
+ { NH1,C,CT1,CT1,0.0000,1,0.00},
+ { NH1,C,CT1,CT2,0.0000,1,0.00},
+ { NH1,C,CT1,CT3,0.0000,1,0.00},
+ { NH1,C,CT1,HB,0.0000,1,0.00},
+ { NH1,C,CT1,NH1,0.6000,1,0.00},
+ { NH1,C,CT2,CT2,0.0000,1,0.00},
+ { NH1,C,CT2,HA,0.0000,3,0.00},
+ { NH1,C,CT2,HB,0.0000,1,0.00},
+ { NH1,C,CT2,NH1,0.6000,1,0.00},
+ { NH1,C,CT3,HA,0.0000,3,0.00},
+ { NH1,CT1,C,N,0.4000,1,0.00},
+ { NH1,CT2,C,N,0.4000,1,0.00},
+ { NH2,CC,CP1,CP2,0.4000,1,0.00},
+ { NH2,CC,CP1,CP2,0.6000,2,0.00},
+ { NH2,CC,CP1,HB,0.4000,1,180.00},
+ { NH2,CC,CP1,HB,0.6000,2,0.00},
+ { NH2,CC,CP1,N,0.3000,1,0.00},
+ { NH2,CC,CP1,N,-0.3000,4,0.00},
+ { NH2,CC,CT2,HA,0.0000,3,180.00},
+ { NH3,CT1,C,N,0.4000,1,0.00},
+ { NH3,CT1,C,NH1,0.6000,1,0.00},
+ { NH3,CT1,CC,NH2,0.4000,1,0.00},
+ { NH3,CT2,C,N,0.4000,1,0.00},
+ { NH3,CT2,C,NH1,0.4000,1,0.00},
+ { NH3,CT2,CC,NH2,0.4000,1,0.00},
+ { NP,CP1,C,N,0.3000,1,0.00},
+ { NP,CP1,C,NH1,0.3000,1,0.00},
+ { NP,CP1,CC,NH2,0.3000,1,0.00},
+ { NR1,CPH1,CPH1,CT2,3.0000,2,180.00},
+ { NR1,CPH1,CPH1,CT3,3.0000,2,180.00},
+ { NR1,CPH1,CPH1,HR3,3.0000,2,180.00},
+ { NR1,CPH1,CT2,CT1,0.1900,3,0.00},
+ { NR1,CPH1,CT2,CT2,0.1900,3,0.00},
+ { NR1,CPH1,CT2,CT3,0.1900,3,0.00},
+ { NR1,CPH1,CT2,HA,0.1900,3,0.00},
+ { NR1,CPH1,CT3,HA,0.1900,3,0.00},
+ { NR1,CPH2,NR2,CPH1,14.0000,2,180.00},
+ { NR2,CPH1,CPH1,CT2,3.0000,2,180.00},
+ { NR2,CPH1,CPH1,CT3,3.0000,2,180.00},
+ { NR2,CPH1,CPH1,HR3,3.0000,2,180.00},
+ { NR2,CPH1,CPH1,NR1,14.0000,2,180.00},
+ { NR2,CPH1,CT2,CT1,0.1900,3,0.00},
+ { NR2,CPH1,CT2,CT2,0.1900,3,0.00},
+ { NR2,CPH1,CT2,CT3,0.1900,3,0.00},
+ { NR2,CPH1,CT2,HA,0.1900,3,0.00},
+ { NR2,CPH1,CT3,HA,0.1900,3,0.00},
+ { NR2,CPH2,NR1,CPH1,14.0000,2,180.00},
+ { NR2,CPH2,NR1,H,1.0000,2,180.00},
+ { NR3,CPH1,CPH1,CT2,2.5000,2,180.00},
+ { NR3,CPH1,CPH1,CT3,2.5000,2,180.00},
+ { NR3,CPH1,CPH1,HR1,2.5000,2,180.00},
+ { NR3,CPH1,CPH1,NR3,12.0000,2,180.00},
+ { NR3,CPH1,CT2,CT1,0.1900,3,0.00},
+ { NR3,CPH1,CT2,CT2,0.1900,3,0.00},
+ { NR3,CPH1,CT2,CT3,0.1900,3,0.00},
+ { NR3,CPH1,CT2,HA,0.1900,3,0.00},
+ { NR3,CPH1,CT3,HA,0.1900,3,0.00},
+ { NR3,CPH2,NR3,CPH1,12.0000,2,180.00},
+ { NR3,CPH2,NR3,H,1.4000,2,180.00},
+ { NY,CA,CY,CPT,4.0000,2,180.00},
+ { NY,CA,CY,CT2,3.5000,2,180.00},
+ { NY,CA,CY,HA,3.5000,2,180.00},
+ { NY,CA,CY,HP,3.5000,2,180.00},
+ { NY,CPT,CA,CA,2.8000,2,180.00},
+ { NY,CPT,CA,HA,4.0000,2,180.00},
+ { NY,CPT,CA,HP,3.0000,2,180.00},
+ { NY,CPT,CPT,CA,10.0000,2,180.00},
+ { NY,CPT,CPT,CY,5.0000,2,180.00},
+ { O,C,CP1,CP2,0.4000,1,180.00},
+ { O,C,CP1,CP2,0.6000,2,0.00},
+ { O,C,CP1,HB,0.4000,1,0.00},
+ { O,C,CP1,HB,0.6000,2,0.00},
+ { O,C,CP1,N,-0.3000,4,0.00},
+ { O,C,CT1,CT1,1.4000,1,0.00},
+ { O,C,CT1,CT2,1.4000,1,0.00},
+ { O,C,CT1,CT3,1.4000,1,0.00},
+ { O,C,CT1,HB,0.0000,1,0.00},
+ { O,C,CT1,NH1,0.0000,1,0.00},
+ { O,C,CT1,NH3,0.0000,1,0.00},
+ { O,C,CT2,CT2,1.4000,1,0.00},
+ { O,C,CT2,HA,0.0000,3,180.00},
+ { O,C,CT2,HB,0.0000,1,0.00},
+ { O,C,CT2,NH1,0.0000,1,0.00},
+ { O,C,CT2,NH3,0.0000,1,0.00},
+ { O,C,CT3,HA,0.0000,3,180.00},
+ { O,C,N,CP1,2.7500,2,180.00},
+ { O,C,N,CP1,0.3000,4,0.00},
+ { O,C,N,CP3,2.7500,2,180.00},
+ { O,C,N,CP3,0.3000,4,0.00},
+ { O,C,NH1,CT1,2.5000,2,180.00},
+ { O,C,NH1,CT2,2.5000,2,180.00},
+ { O,C,NH1,CT3,2.5000,2,180.00},
+ { O,C,NH1,H,2.5000,2,180.00},
+ { O,CC,CP1,CP2,0.4000,1,180.00},
+ { O,CC,CP1,CP2,0.6000,2,0.00},
+ { O,CC,CP1,HB,0.4000,1,0.00},
+ { O,CC,CP1,HB,0.6000,2,0.00},
+ { O,CC,CP1,N,-0.3000,4,0.00},
+ { O,CC,CT2,HA,0.0000,3,180.00},
+ { O,CC,NH2,H,1.4000,2,180.00},
+ { OB,CD,OS,CT2,0.9650,1,180.00},
+ { OB,CD,OS,CT2,3.8500,2,180.00},
+ { OB,CD,OS,CT3,0.9650,1,180.00},
+ { OB,CD,OS,CT3,3.8500,2,180.00},
+ { OC,CA,CA,CA,3.1000,2,180.00},
+ { OC,CA,CA,HP,4.2000,2,180.00},
+ { OC,CC,CP1,CP2,0.1600,3,0.00},
+ { OC,CC,CP1,HB,0.1600,3,0.00},
+ { OC,CC,CP1,N,0.1600,3,0.00},
+ { OC,CC,CP1,NP,0.1600,3,0.00},
+ { OC,CC,CT1,NH3,3.2000,2,180.00},
+ { OC,CC,CT2,NH3,3.2000,2,180.00},
+ { OH1,CA,CA,CA,3.1000,2,180.00},
+ { OH1,CA,CA,HP,4.2000,2,180.00},
+ { S,CT2,CT2,HA,0.0100,3,0.00},
+ { SM,CT2,CT2,HA,0.0100,3,0.00},
+ { SM,SM,CT2,CT1,0.3100,3,0.00},
+ { SM,SM,CT2,CT2,0.3100,3,0.00},
+ { SM,SM,CT2,HA,0.1580,3,0.00},
+ { SM,SM,CT3,HA,0.1580,3,0.00},
+ { SS,CS,CT3,HA,0.1500,3,0.00},
+ { X,C,C,X,4.0000,2,180.00},
+ { X,C,NC2,X,2.2500,2,180.00},
+ { X,CD,OH1,X,2.0500,2,180.00},
+ { X,CD,OS,X,2.0500,2,180.00},
+ { X,CE1,CE1,X,5.2000,2,180.00},
+ { X,CE2,CE2,X,4.9000,2,180.00},
+ { X,CP1,C,X,0.0000,6,180.00},
+ { X,CP1,CC,X,0.0000,6,180.00},
+ { X,CP1,CD,X,0.0000,6,180.00},
+ { X,CP1,CP2,X,0.1400,3,0.00},
+ { X,CP2,CP2,X,0.1600,3,0.00},
+ { X,CP3,CP2,X,0.1400,3,0.00},
+ { X,CPA,CPB,X,0.0000,2,0.00},
+ { X,CPA,CPM,X,0.0000,2,0.00},
+ { X,CPB,C,X,3.0000,2,180.00},
+ { X,CPB,CPB,X,0.0000,2,0.00},
+ { X,CPB,CT2,X,0.0000,6,0.00},
+ { X,CPB,CT3,X,0.0000,6,0.00},
+ { X,CPT,CPT,X,0.0000,2,180.00},
+ { X,CT1,CC,X,0.0500,6,180.00},
+ { X,CT1,CD,X,0.0000,6,180.00},
+ { X,CT1,CT1,X,0.2000,3,0.00},
+ { X,CT1,CT2,X,0.2000,3,0.00},
+ { X,CT1,CT3,X,0.2000,3,0.00},
+ { X,CT1,NH3,X,0.1000,3,0.00},
+ { X,CT1,OH1,X,0.1400,3,0.00},
+ { X,CT1,OS,X,-0.1000,3,0.00},
+ { X,CT2,CA,X,0.0000,6,0.00},
+ { X,CT2,CC,X,0.0500,6,180.00},
+ { X,CT2,CD,X,0.0000,6,180.00},
+ { X,CT2,CT2,X,0.1950,3,0.00},
+ { X,CT2,CT3,X,0.1600,3,0.00},
+ { X,CT2,NC2,X,0.0000,6,180.00},
+ { X,CT2,NH3,X,0.1000,3,0.00},
+ { X,CT2,OH1,X,0.1400,3,0.00},
+ { X,CT2,OS,X,-0.1000,3,0.00},
+ { X,CT3,CA,X,0.0000,6,0.00},
+ { X,CT3,CC,X,0.0500,6,180.00},
+ { X,CT3,CD,X,0.0000,6,180.00},
+ { X,CT3,CT3,X,0.1550,3,0.00},
+ { X,CT3,NC2,X,0.0000,6,180.00},
+ { X,CT3,NH2,X,0.1100,3,0.00},
+ { X,CT3,NH3,X,0.0900,3,0.00},
+ { X,CT3,OH1,X,0.1400,3,0.00},
+ { X,CT3,OS,X,-0.1000,3,0.00},
+ { X,FE,CM,X,0.0500,4,0.00},
+ { X,FE,NPH,X,0.0000,2,0.00},
+ { X,FE,OM,X,0.0000,4,0.00},
+ { X,NPH,CPA,X,0.0000,2,0.00}
+};
+imph_type_list charmm22_imph = {
+ { CPB,CPA,NPH,CPA,20.8000,0,0.0000},
+ { CPB,X,X,C,90.0000,0,0.0000},
+ { CT2,X,X,CPB,90.0000,0,0.0000},
+ { CT3,X,X,CPB,90.0000,0,0.0000},
+ { HA,C,C,HA,20.0000,0,0.0000},
+ { HA,CPA,CPA,CPM,29.4000,0,0.0000},
+ { HA,CPB,C,C,20.0000,0,0.0000},
+ { HA,HA,C,C,20.0000,0,180.0000},
+ { HE2,HE2,CE2,CE2,3.0,0,0.00},
+ { HR1,NR1,NR2,CPH2,0.5000,0,0.0000},
+ { HR1,NR2,NR1,CPH2,0.5000,0,0.0000},
+ { HR3,CPH1,NR1,CPH1,0.5000,0,0.0000},
+ { HR3,CPH1,NR2,CPH1,0.5000,0,0.0000},
+ { HR3,CPH1,NR3,CPH1,1.0000,0,0.0000},
+ { HR3,NR1,CPH1,CPH1,0.5000,0,0.0000},
+ { HR3,NR2,CPH1,CPH1,0.5000,0,0.0000},
+ { N,C,CP1,CP3,0.0000,0,0.0000},
+ { NC2,X,X,C,40.0000,0,0.0000},
+ { NH1,X,X,H,20.0000,0,0.0000},
+ { NH2,X,X,H,4.0000,0,0.0000},
+ { NPH,CPA,CPA,FE,137.4000,0,0.0000},
+ { NPH,CPA,CPB,CPB,40.6000,0,0.0000},
+ { NPH,CPA,CPM,CPA,18.3000,0,0.0000},
+ { NPH,CPM,CPB,CPA,32.7000,0,0.0000},
+ { NR1,CPH1,CPH2,H,0.4500,0,0.0000},
+ { NR1,CPH2,CPH1,H,0.4500,0,0.0000},
+ { NR3,CPH1,CPH2,H,1.2000,0,0.0000},
+ { NR3,CPH2,CPH1,H,1.2000,0,0.0000},
+ { NY,CA,CY,CPT,100.0000,0,0.0000},
+ { O,CP1,NH2,CC,45.0000,0,0.0000},
+ { O,CT1,NH2,CC,45.0000,0,0.0000},
+ { O,CT2,NH2,CC,45.0000,0,0.0000},
+ { O,CT3,NH2,CC,45.0000,0,0.0000},
+ { O,HA,NH2,CC,45.0000,0,0.0000},
+ { O,N,CT2,CC,120.0000,0,0.0000},
+ { O,NH2,CP1,CC,45.0000,0,0.0000},
+ { O,NH2,CT1,CC,45.0000,0,0.0000},
+ { O,NH2,CT2,CC,45.0000,0,0.0000},
+ { O,NH2,CT3,CC,45.0000,0,0.0000},
+ { O,NH2,HA,CC,45.0000,0,0.0000},
+ { O,X,X,C,120.0000,0,0.0000},
+ { OB,X,X,CD,100.0000,0,0.0000},
+ { OC,X,X,CC,96.0000,0,0.0000},
+ { CC,X,X,CT1,96.0000,0,0.0000},
+ { CC,X,X,CT2,96.0000,0,0.0000},
+ { CC,X,X,CT3,96.0000,0,0.0000}
+};
+
+nbond_type_list charmm22_nbond = {
+  { C, -0.110000, 2.000000, -0.110000, 2.000000},
+  { CA, -0.070000, 1.992400, -0.070000, 1.992400},
+  { CAL, -0.120000, 1.710000, -0.120000, 1.710000},
+  { CC, -0.070000, 2.000000, -0.070000, 2.000000},
+  { CD, -0.070000, 2.000000, -0.070000, 2.000000},
+  { CE1, -0.068000, 2.090000, -0.068000, 2.090000},
+  { CE2, -0.064000, 2.080000, -0.064000, 2.080000},
+  { CM, -0.110000, 2.100000, -0.110000, 2.100000},
+  { CP1, -0.020000, 2.275000, -0.010000, 1.900000},
+  { CP2, -0.055000, 2.175000, -0.010000, 1.900000},
+  { CP3, -0.055000, 2.175000, -0.010000, 1.900000},
+  { CPA, -0.090000, 1.800000, -0.090000, 1.800000},
+  { CPB, -0.090000, 1.800000, -0.090000, 1.800000},
+  { CPH1, -0.050000, 1.800000, -0.050000, 1.800000},
+  { CPH2, -0.050000, 1.800000, -0.050000, 1.800000},
+  { CPM, -0.090000, 1.800000, -0.090000, 1.800000},
+  { CPT, -0.090000, 1.800000, -0.090000, 1.900000},
+  { CS, -0.110000, 2.200000, -0.110000, 2.200000},
+  { CT1, -0.020000, 2.275000, -0.010000, 1.900000},
+  { CT2, -0.055000, 2.175000, -0.010000, 1.900000},
+  { CT3, -0.080000, 2.060000, -0.010000, 1.900000},
+  { CY, -0.070000, 1.992400, -0.070000, 1.992400},
+  { DUM, -0.000000, 0.000000, -0.000000, 0.000000},
+  { FE, 0.000000, 0.650000, 0.000000, 0.650000},
+  { H, -0.046000, 0.224500, -0.046000, 0.224500},
+  { HA, -0.022000, 1.320000, -0.022000, 1.320000},
+  { HB, -0.022000, 1.320000, -0.022000, 1.320000},
+  { HC, -0.046000, 0.224500, -0.046000, 0.224500},
+  { HE, -0.021270, 1.4800, -0.021270, 1.4800},
+  { HE1, -0.031000, 1.250000, -0.031000, 1.250000},
+  { HE2, -0.026000, 1.260000, -0.026000, 1.260000},
+  { HP, -0.030000, 1.358200, -0.030000, 1.358200},
+  { HR1, -0.046000, 0.900000, -0.046000, 0.900000},
+  { HR2, -0.046000, 0.700000, -0.046000, 0.700000},
+  { HR3, -0.007800, 1.468000, -0.007800, 1.468000},
+  { HS, -0.100000, 0.450000, -0.100000, 0.450000},
+  { HT, -0.046000, 0.224500, -0.046000, 0.224500},
+  { N, -0.200000, 1.850000, -0.000100, 1.850000},
+  { NC2, -0.200000, 1.850000, -0.200000, 1.850000},
+  { NE, -0.086000, 1.5300, -0.086000, 1.5300},
+  { NH1, -0.200000, 1.850000, -0.200000, 1.550000},
+  { NH2, -0.200000, 1.850000, -0.200000, 1.850000},
+  { NH3, -0.200000, 1.850000, -0.200000, 1.850000},
+  { NP, -0.200000, 1.850000, -0.200000, 1.850000},
+  { NPH, -0.200000, 1.850000, -0.200000, 1.850000},
+  { NR1, -0.200000, 1.850000, -0.200000, 1.850000},
+  { NR2, -0.200000, 1.850000, -0.200000, 1.850000},
+  { NR3, -0.200000, 1.850000, -0.200000, 1.850000},
+  { NY, -0.200000, 1.850000, -0.200000, 1.850000},
+  { O, -0.120000, 1.700000, -0.120000, 1.400000},
+  { OB, -0.120000, 1.700000, -0.120000, 1.400000},
+  { OC, -0.120000, 1.700000, -0.120000, 1.700000},
+  { OH1, -0.152100, 1.770000, -0.152100, 1.770000},
+  { OM, -0.120000, 1.700000, -0.120000, 1.700000},
+  { OS, -0.152100, 1.770000, -0.152100, 1.770000},
+  { OT, -0.152100, 1.768200, -0.152100, 1.768200},
+  { S, -0.450000, 2.000000, -0.450000, 2.000000},
+  { SM, -0.380000, 1.975000, -0.380000, 1.975000},
+  { SS, -0.470000, 2.200000, -0.470000, 2.200000},
+  { ZN, -0.250000, 1.090000, -0.250000, 1.090000}
+};

@@ -1,0 +1,51 @@
+REMARKS  file: TOPPAR/parameter.elements
+REMARKS  Nonbonded parameters for some elements.  
+REMARKS  Reference: program QUANTA, Molecular Simulations Inc. 
+
+set echo=false end
+
+
+ !                  eps     sigma       eps(1:4) sigma(1:4)
+ !                  (kcal/mol) (A)
+ !                  ---------------------------------------
+ NONBonded  AR         .0100 3.350       .0100 3.350 { ? EMIN=18 ?}
+ NONBonded  B          .0100 2.085       .0100 2.085
+ NONBonded  HE         .0100 2.495       .0100 2.495 { ? EMIN=2 ?}
+ NONBonded  KR         .0100 3.599       .0100 3.599 { ? EMIN=36 ?}
+ NONBonded  RN         .0100 4.009       .0100 4.009 { ? EMIN=86 ?}
+ NONBonded  SE         .0430 3.510       .0430 3.510
+ NONBonded  AT         .3200 3.884       .3200 3.884
+ NONBonded  BR         .3200 3.884       .3200 3.884
+ NONBonded  CL         .2600 3.671       .2600 3.671
+ NONBonded  XE         .0100 3.849       .0100 3.849 { ? EMIN=54 ?}
+ NONBonded  F          .1000 3.029       .1500 2.76
+ NONBonded  I          .8000 3.635       .8000 3.635
+ NONBonded  AL         .2500 4.740       .2500 4.740
+ NONBonded  AS         .0600 3.564       .0600 3.564
+ NONBonded  BA         .1600 3.385       .1600 3.385
+ NONBonded  BE         .0030 1.960       .0030 1.960
+ NONBonded  CA         .0600 3.107       .0600 3.107
+ NONBonded  CS         .0045 5.183       .0045 5.183
+ NONBonded  CU         .0600 2.459       .0600 2.459
+ NONBonded  FE         .0200 2.610       .0200 2.610
+ NONBonded  GE         .0450 3.029       .0450 3.029
+ NONBonded  K          .0100 4.187       .0100 4.187
+ NONBonded  LI         .0070 2.202       .0070 2.202
+ NONBonded  MG         .0450 2.564       .0450 2.564
+ NONBonded  MN         .7000 2.851       .7000 2.851
+ NONBonded  NA         .0260 2.940       .0260 2.940
+ NONBonded  NI         .0500 1.782       .0500 1.782
+ NONBonded  PD         .0100 2.388       .0100 2.388
+ NONBonded  PT         .0100 2.370       .0100 2.370
+ NONBonded  RB         .0065 4.741       .0065 4.741
+ NONBonded  RH         .0250 2.797       .0250 2.797
+ NONBonded  RU         .0250 2.940       .0250 2.940
+ NONBonded  SI         .3100 4.455       .2000 3.92 
+ NONBonded  SN         .0450 3.385       .0450 3.385
+ NONBonded  SR         .1719 3.523       .1719 3.523
+ NONBonded  YB         .0600 3.127       .0600 3.127
+ NONBonded  ZN         .2500 1.942       .2500 1.942
+ NONBonded  ZR         .0100 3.617       .0100 3.617
+
+
+set echo=true end

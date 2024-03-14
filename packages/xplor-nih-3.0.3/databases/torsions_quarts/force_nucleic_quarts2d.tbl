@@ -1,0 +1,73 @@
+! 
+! force_quarts2d.tbl
+! 
+! 
+
+set message off echo off end
+
+class alpha_beta
+force 0.0
+class alpha_chi
+force 0.0
+class alpha_delta
+force 0.0
+class alpha_epsilon
+force 0.0
+class alpha_epsilon0
+force 0.0
+class alpha_gamma
+force 0.0
+class alpha_zeta
+force 0.0
+class alpha_zeta0
+force 0.0
+class beta_chi
+force 0.0
+class beta_delta
+force 0.0
+class beta_epsilon
+force 0.0
+class beta_epsilon0
+force 0.0
+class beta_gamma
+force 0.0
+class beta_zeta
+force 0.0
+class beta_zeta0
+force 0.0
+class gamma_chi
+force 0.0
+class gamma_delta
+force 0.0
+class gamma_epsilon
+force 0.0
+class gamma_epsilon0
+force 0.0 !0.0
+class gamma_zeta
+force 0.0
+class gamma_zeta0
+force 0.0
+class delta_chi
+force 0.0
+class delta_epsilon
+force 0.0
+class delta_epsilon0
+force 0.0 !0.0
+class delta_zeta
+force 0.0
+class delta_zeta0
+force 0.0 !0.0
+class epsilon_chi
+force 0.0
+class epsilon_epsilon0
+force 0.0 !0.0
+class epsilon_zeta
+force 0.0
+class epsilon_zeta0
+force 0.0 !0.0
+class zeta_chi
+force 0.0
+class zeta_epsilon0
+force 0.0 !0.0
+class zeta_zeta0
+force 0.0 !0.0

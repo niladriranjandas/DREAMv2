@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1jwe</protein_name>
+		<seq_file>1jwe.seq</seq_file>
+		<upl_file>1jwe_concat_dist.upl</upl_file>
+		<hbond_file></hbond_file>
+		<ang_file>1jwe_concat_dihed.aco</ang_file>
+		<protein_path>../protein/1jwe</protein_path>
+	</inputs>

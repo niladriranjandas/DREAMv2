@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1x67</protein_name>
+		<seq_file>1x67.seq</seq_file>
+		<upl_file>1x67_concat_dist.upl</upl_file>
+		<hbond_file></hbond_file>
+		<ang_file>1x67_concat_dihed.aco</ang_file>
+		<protein_path>../protein/1x67</protein_path>
+	</inputs>

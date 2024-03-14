@@ -1,0 +1,1899 @@
+ REMARKS Charmm topology for nucleic acids v22 b6
+ REMARKS FILENAME="topallh22x.nuc"
+ 
+ SET ECHO=FALSE END 
+
+ { \\\\\\\ All-Hydrogen Nucleic Acid Topology File ////////
+   \\\\\\\\\\\\\\\\\\ Developmental ///////////////////////
+   Alexander D. MacKerell Jr. and Joanna Wiorkiewicz-Kuczera
+               Version 6.0, January 1993
+      All comments to ADM jr.  bitnet: alex,tammy.harvard.edu
+             telephone: 410-706-7442
+  These files are a beta release; additional parameter development
+  and testing may lead to alteration of the contents.}
+ 
+ AUTOGENERATE ANGLES=TRUE  DIHEDRALS=TRUE  END
+ 
+ MASS HT     1.0080 ! TIPS3P WATER HYDROGEN 
+ MASS HN1    1.0080 ! Nucleic acid amine proton 
+ MASS HN2    1.0080 ! Nucleic acid ring nitrogen proton 
+ MASS HN3    1.0080 ! Nucleic acid aromatic carbon proton 
+ MASS HN4    1.0080 ! Nucleic acid phosphate hydroxyl proton 
+ MASS HN5    1.0080 ! Nucleic acid ribose hydroxyl proton 
+ MASS HN6    1.0080 ! Nucleic acid ribose aliphatic proton 
+ MASS HN7    1.0080 ! Nucleic acid proton (equivalent to protein HA) 
+ MASS CN1   12.0110 ! Nucleic acid carbonyl carbon 
+ MASS CN2   12.0110 ! Nucleic acid aromatic carbon to amide 
+ MASS CN3   12.0110 ! Nucleic acid aromatic carbon 
+ MASS CN4   12.0110 ! Nucleic acid purine C8 and ADE C2 
+ MASS CN5   12.0110 ! Nucleic acid purine C4 and C5 
+ MASS CN6   12.0110 ! Nucleic acid sp3 ribose ring carbon 
+ MASS CN6B  12.0110 ! Nucleic acid sp3 ribose ring carbon, C1' 
+ MASS CN6C  12.0110 ! Nucleic acid sp3 deoxyribose ring carbon, C2' 
+ MASS CN7   12.0110 ! Nucleic acid carbon (equivalent to protein CT1) 
+ MASS CN8   12.0110 ! Nucleic acid carbon (equivalent to protein CT2) 
+ MASS CN9   12.0110 ! Nucleic acid carbon (equivalent to protein CT3) 
+ MASS NN1   14.0070 ! Nucleic acid amide nitrogen 
+ MASS NN2   14.0070 ! Nucleic acid protonated ring nitrogen 
+ MASS NN2U  14.0070 ! Nucleic acid protonated ring nitrogen, ura N3 
+ MASS NN2G  14.0070 ! Nucleic acid protonated ring nitrogen, gua N1 
+ MASS NN3   14.0070 ! Nucleic acid unprotonated ring nitrogen 
+ MASS NN4   14.0070 ! Nucleic acid purine N7 
+ MASS NN5   14.0070 ! Nucleic acid sp2 amine nitrogen 
+ MASS NN3A  14.0070 ! Nucleic acid unprotonated ring nitrogen, ade N1 and N3 
+ MASS OT    15.9994 ! TIPS3P WATER OXYGEN 
+ MASS ON1   15.9994 ! Nucleic acid carbonyl oxygen 
+ MASS ON1C  15.9994 ! Nucleic acid carbonyl oxygen, cyt O2 
+ MASS ON2   15.9994 ! Nucleic acid phosphate ester oxygen 
+ MASS ON3   15.9994 ! Nucleic acid =O in phosphate 
+ MASS ON4   15.9994 ! Nucleic acid phosphate hydroxyl oxygen 
+ MASS ON5   15.9994 ! Nucleic acid ribose hydroxyl oxygen 
+ MASS ON6   15.9994 ! Nucleic acid ribose ring oxygen 
+ MASS P     30.9740 ! phosphorus 
+ MASS SOD   22.9898 ! Sodium Ion 
+ MASS MG    24.3050 ! Magnesium Ion 
+ !-----------------------------------------------------------
+ 
+ RESIDUE GUA   
+ 
+ GROUP  
+       ATOM  P     TYPE=P    CHARGE=    1.5000  END !               O6 
+       ATOM  O1P   TYPE=ON3  CHARGE=    -.8000  END !               || 
+       ATOM  O2P   TYPE=ON3  CHARGE=    -.8000  END !               C6 
+       ATOM  O5'   TYPE=ON2  CHARGE=    -.5500  END !              /  \ 
+					            !          H1-N1   C5--N7\\ 
+       ATOM  C5'   TYPE=CN8  CHARGE=    -.0800  END !             |    ||     C8-H8 
+       ATOM  H5'   TYPE=HN7  CHARGE=     .0900  END !             C2   C4--N9/ 
+       ATOM  H5''  TYPE=HN7  CHARGE=     .0900  END !            / \\ /      \ 
+ GROUP 						    !      H21-N2   N3        \ 
+       ATOM  C4'   TYPE=CN6  CHARGE=     .1100  END !          |               \ 
+       ATOM  H4'   TYPE=HN6  CHARGE=     .0900  END !         H22               \ 
+       ATOM  O4'   TYPE=ON6  CHARGE=    -.4000  END !                            \ 
+       ATOM  C1'   TYPE=CN6B CHARGE=     .1100  END !        O1P    H5' H4'  O4'  \ 
+       ATOM  H1'   TYPE=HN6  CHARGE=     .0900  END !         |      |    \ /   \  \ 
+ GROUP						    !        -P-O5'-C5'---C4'    C1' 
+       ATOM  N9    TYPE=NN2  CHARGE=    -.1400  END !         |      |     \     / \ 
+       ATOM  C4    TYPE=CN5  CHARGE=     .1400  END !        O2P    H5''   C3'--C2' H1' 
+ GROUP						    !                     / \   / \ 
+       ATOM  N3    TYPE=NN3A CHARGE=    -.6600  END !                  O3' H3' O2' H2'' 
+       ATOM  C2    TYPE=CN2  CHARGE=     .7600  END !                   |       | 
+       ATOM  N1    TYPE=NN2G CHARGE=    -.3800  END !                          H2' 
+       ATOM  H1    TYPE=HN2  CHARGE=     .2800  END ! 
+ GROUP  
+       ATOM  N2    TYPE=NN1  CHARGE=    -.6400  END  
+       ATOM  H21   TYPE=HN1  CHARGE=     .3100  END  
+       ATOM  H22   TYPE=HN1  CHARGE=     .3300  END  
+ GROUP  
+       ATOM  C6    TYPE=CN1  CHARGE=     .5500  END  
+       ATOM  O6    TYPE=ON1  CHARGE=    -.4700  END  
+       ATOM  C5    TYPE=CN5  CHARGE=    -.0800  END  
+ GROUP  
+       ATOM  N7    TYPE=NN4  CHARGE=    -.6900  END  
+       ATOM  C8    TYPE=CN4  CHARGE=     .4100  END  
+       ATOM  H8    TYPE=HN3  CHARGE=     .2800  END  
+ GROUP  
+       ATOM  C2'   TYPE=CN6  CHARGE=     .1400  END  
+       ATOM  H2''  TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O2'   TYPE=ON5  CHARGE=    -.6600  END  
+       ATOM  H2'   TYPE=HN5  CHARGE=     .4300  END  
+ GROUP  
+       ATOM  C3'   TYPE=CN6  CHARGE=     .0100  END  
+       ATOM  H3'   TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O3'   TYPE=ON2  CHARGE=    -.5500  END  
+ !END GROUP
+ 
+      BOND  P     O1P    
+      BOND  P     O2P    
+      BOND  P     O5'    
+      BOND  O5'   C5'    
+      BOND  C5'   C4'    
+      BOND  C4'   O4'    
+      BOND  C4'   C3'    
+      BOND  O4'   C1'    
+      BOND  C1'   N9     
+      BOND  C1'   C2'    
+      BOND  N9    C4     
+      BOND  N9    C8     
+      BOND  C4    N3     
+      BOND  C4    C5     
+      BOND  N3    C2     
+      BOND  C2    N2     
+      BOND  C2    N1     
+      BOND  N2    H21    
+      BOND  N2    H22    
+      BOND  N1    H1     
+      BOND  N1    C6     
+      BOND  C6    O6     
+      BOND  C6    C5     
+      BOND  C5    N7     
+      BOND  N7    C8     
+      BOND  C2'   C3'    
+      BOND  C3'   O3'    
+      BOND  C2'   O2'    
+      BOND  O2'   H2'    
+      BOND  C1'   H1'    
+      BOND  C2'   H2''   
+      BOND  C3'   H3'    
+      BOND  C4'   H4'    
+      BOND  C5'   H5'    
+      BOND  C5'   H5''   
+      BOND  C8    H8
+
+      IMPROPER  N2    N3    N1    C2     
+      IMPROPER  H1    C2    C6    N1     
+      IMPROPER  O6    N1    C5    C6     
+      IMPROPER  H8    N7    N9    C8     
+      IMPROPER  H22   H21   C2    N2     
+ 
+      DONOR  H21   N2     
+      DONOR  H22   N2     
+      DONOR  H1    N1     
+      DONOR  H2'   O2'    
+ 
+      ACCEPTOR  O6    C6     
+      ACCEPTOR  N3    NONE   
+      ACCEPTOR  N7    NONE   
+      ACCEPTOR  O1P   P      
+      ACCEPTOR  O2P   P      
+      ACCEPTOR  O2'   NONE   
+      ACCEPTOR  O3'   NONE   
+      ACCEPTOR  O4'   NONE   
+      ACCEPTOR  O5'   NONE   
+ 
+      IC  P     O5'    C5'   C4'      1.5996  119.00 -151.39  110.04 1.5160  
+      IC  O5'   C5'    C4'   C3'      1.4401  108.83 -179.85  116.10   1.5284  
+      IC  C5'   C4'    C3'   O3'      1.5160  116.10   76.70  115.12   1.4212  
+      IC  O4'   C3'    *C4'  C5'      1.4572  104.06 -120.04  116.10   1.5160  
+      IC  C2'   C4'    *C3'  O3'      1.5284  100.16 -124.08  115.12   1.4212  
+      IC  C4'   C3'    C2'   C1'      1.5284  100.16   39.58  102.04   1.5251  
+      IC  C3'   C2'    C1'   N9       1.5284  101.97  144.39  113.71   1.4896  
+      IC  O4'   C1'    N9    C4       1.5251  113.71  -96.00  125.59   1.3783  
+      IC  C1'   C4     *N9   C8       1.4896  125.59 -179.99  106.00   1.3740  
+      IC  C4    N9     C8    N7       1.3770  106.00     .00  113.50   1.3040  
+      IC  C8    N9     C4    C5       1.3740  106.00     .00  105.60   1.3770  
+      IC  N9    C5     *C4   N3       1.3770  105.60  180.00  128.40   1.3550  
+      IC  C5    C4     N3    C2       1.3770  128.40     .00  111.80   1.3270  
+      IC  C4    N3     C2    N1       1.3550  111.80     .00  124.00   1.3750  
+      IC  N1    N3     *C2   N2       1.3750  124.00  180.00  119.70   1.3410  
+      IC  N3    C2     N2    H21      1.3270  119.70  180.00  127.00   1.0100  
+      IC  H21   C2     *N2   H22      1.0100  127.00 -180.00  116.50   1.0100  
+      IC  N3    C2     N1    C6       1.3270  124.00     .00  124.90   1.3930  
+      IC  C6    C2     *N1   H1       1.3930  124.90  180.00  117.40   1.0300  
+      IC  C5    N1     *C6   O6       1.4150  111.70  180.00  120.00   1.2390  
+      IC  N9    N7     *C8   H8        .0000     .00  180.00     .00    .0000  
+      IC  C1'   C3'    *C2'  O2'      1.5284  102.04 -114.67  110.81   1.4212  
+      IC  H2'   O2'    C2'   C3'       .9600  114.97  148.63  111.92   1.5284  
+      IC  O4'   C2'    *C1'  H1'       .0000     .00 -115.00     .00    .0000  
+      IC  C1'   C3'    *C2'  H2''      .0000     .00  115.00     .00    .0000  
+      IC  C2'   C4'    *C3'  H3'       .0000     .00  115.00     .00    .0000  
+      IC  C3'   O4'    *C4'  H4'       .0000     .00 -115.00     .00    .0000  
+      IC  C4'   O5'    *C5'  H5'       .0000     .00 -115.00     .00    .0000  
+      IC  C4'   O5'    *C5'  H5''      .0000     .00  115.00     .00    .0000  
+ 
+ 
+ END {GUA }
+ !-----------------------------------------------------------
+ 
+ RESIDUE ADE  ! 
+ 
+ GROUP  
+       ATOM  P     TYPE=P    CHARGE=    1.5000  END !             H61  H62 
+       ATOM  O1P   TYPE=ON3  CHARGE=    -.8000  END !               \  / 
+       ATOM  O2P   TYPE=ON3  CHARGE=    -.8000  END !                N6 
+       ATOM  O5'   TYPE=ON2  CHARGE=    -.5500  END !                | 
+					            !                C6 
+       ATOM  C5'   TYPE=CN8  CHARGE=    -.0800  END !              //  \ 
+       ATOM  H5'   TYPE=HN7  CHARGE=     .0900  END !              N1   C5--N7\\ 
+       ATOM  H5''  TYPE=HN7  CHARGE=     .0900  END !              |    ||     C8-H8 
+ GROUP						    !              C2   C4--N9/ 
+       ATOM  C4'   TYPE=CN6  CHARGE=     .1100  END !             / \\ /     \ 
+       ATOM  H4'   TYPE=HN6  CHARGE=     .0900  END !           H2   N3       \ 
+       ATOM  O4'   TYPE=ON6  CHARGE=    -.4000  END !                          \ 
+       ATOM  C1'   TYPE=CN6B CHARGE=     .1100  END !                           \ 
+       ATOM  H1'   TYPE=HN6  CHARGE=     .0900  END !                            \ 
+ GROUP						    !        O1P    H5' H4'  O4'  \ 
+       ATOM  C5    TYPE=CN5  CHARGE=     .2300  END !         |      |    \ /   \  \ 
+       ATOM  N7    TYPE=NN4  CHARGE=    -.6300  END !        -P-O5'-C5'---C4'    C1' 
+       ATOM  C8    TYPE=CN4  CHARGE=     .3800  END !         |      |     \     / \ 
+       ATOM  H8    TYPE=HN3  CHARGE=     .1800  END !        O2P    H5''   C3'--C2' H1' 
+       ATOM  N9    TYPE=NN2  CHARGE=    -.1600  END !                     / \   / \ 
+ GROUP						    !                  O3' H3' O2' H2'' 
+       ATOM  N1    TYPE=NN3A CHARGE=    -.7400  END !                   |       | 
+       ATOM  C2    TYPE=CN4  CHARGE=     .5300  END !                          H2' 
+       ATOM  H2    TYPE=HN3  CHARGE=     .1600  END ! 
+       ATOM  N3    TYPE=NN3A CHARGE=    -.6900  END  
+       ATOM  C4    TYPE=CN5  CHARGE=     .3100  END  
+       ATOM  C6    TYPE=CN2  CHARGE=     .4300  END  
+ GROUP  
+       ATOM  N6    TYPE=NN1  CHARGE=    -.8000  END  
+       ATOM  H61   TYPE=HN1  CHARGE=     .4000  END  
+       ATOM  H62   TYPE=HN1  CHARGE=     .4000  END  
+ GROUP  
+       ATOM  C2'   TYPE=CN6  CHARGE=     .1400  END  
+       ATOM  H2''  TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O2'   TYPE=ON5  CHARGE=    -.6600  END  
+       ATOM  H2'   TYPE=HN5  CHARGE=     .4300  END  
+ GROUP  
+       ATOM  C3'   TYPE=CN6  CHARGE=     .0100  END  
+       ATOM  H3'   TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O3'   TYPE=ON2  CHARGE=    -.5500  END  
+ !END GROUP
+ 
+      BOND  P     O1P    
+      BOND  P     O2P    
+      BOND  P     O5'    
+      BOND  O5'   C5'    
+      BOND  C5'   C4'    
+      BOND  C4'   O4'    
+      BOND  C4'   C3'    
+      BOND  O4'   C1'    
+      BOND  C1'   N9     
+      BOND  C1'   C2'    
+      BOND  N9    C4     
+      BOND  N9    C8     
+      BOND  C4    N3     
+      BOND  C4    C5     
+      BOND  N3    C2     
+      BOND  C2    N1     
+      BOND  N1    C6     
+      BOND  C6    N6     
+      BOND  N6    H61    
+      BOND  N6    H62    
+      BOND  C6    C5     
+      BOND  C5    N7     
+      BOND  N7    C8     
+      BOND  C2'   C3'    
+      BOND  C2'   O2'    
+      BOND  O2'   H2'    
+      BOND  C3'   O3'    
+      BOND  C1'   H1'    
+      BOND  C2'   H2''   
+      BOND  C3'   H3'    
+      BOND  C4'   H4'    
+      BOND  C5'   H5'    
+      BOND  C5'   H5''   
+      BOND  C8    H8     
+      BOND  C2    H2
+
+      IMPROPER  H62   C6    H61   N6     
+      IMPROPER  N6    N1    C5    C6     
+      IMPROPER  H2    N1    N3    C2     
+      IMPROPER  H8    N7    N9    C8     
+ 
+      DONOR  H61   N6     
+      DONOR  H62   N6     
+      DONOR  H2'   O2'    
+ 
+      ACCEPTOR  N3    NONE   
+      ACCEPTOR  N7    NONE   
+      ACCEPTOR  N1    NONE   
+      ACCEPTOR  O1P   P      
+      ACCEPTOR  O2P   P      
+      ACCEPTOR  O2'   NONE   
+      ACCEPTOR  O3'   NONE   
+      ACCEPTOR  O4'   NONE   
+      ACCEPTOR  O5'   NONE   
+ 
+      IC  P     O5'    C5'   C4'      1.5996  119.00 -151.39  110.04 1.5160  
+      IC  O5'   C5'    C4'   C3'      1.4401  108.83 -179.85  116.10   1.5284  
+      IC  C5'   C4'    C3'   O3'      1.5160  116.10   76.70  115.12   1.4212  
+      IC  O4'   C3'    *C4'  C5'      1.4572  104.06 -120.04  116.10   1.5160  
+      IC  C2'   C4'    *C3'  O3'      1.5284  100.16 -124.08  115.12   1.4212  
+      IC  C4'   C3'    C2'   C1'      1.5284  100.16   39.58  102.04   1.5251  
+      IC  C3'   C2'    C1'   N9       1.5284  101.97  144.39  113.71   1.4896  
+      IC  O4'   C1'    N9    C4       1.5251  113.71  -96.00  125.97   1.3703  
+      IC  C1'   C4     *N9   C8       1.4896  125.97 -179.94  106.00   1.3670  
+      IC  C4    N9     C8    N7       1.3760  106.00     .00  113.60   1.3120  
+      IC  C8    N9     C4    C5       1.3670  106.00     .00  105.60   1.3820  
+      IC  C8    N7     C5    C6        .0000     .00  180.00     .00    .0000  
+      IC  N7    C5     C6    N1        .0000     .00  180.00     .00    .0000  
+      IC  C5    C6     N1    C2        .0000     .00     .00     .00    .0000  
+      IC  N9    C5     *C4   N3       1.3760  105.60 -180.00  126.90   1.3420  
+      IC  C5    N1     *C6   N6       1.4090  117.60 -180.00  121.20   1.3370  
+      IC  N1    C6     N6    H61      1.3370  121.20     .00  119.00   1.0100  
+      IC  H61   C6     *N6   H62      1.0100  119.00  180.00  119.00   1.0100  
+      IC  C5    N1     *C6   N6       1.4090  117.60 -180.00  119.00   1.3370  
+      IC  N1    C6     N6    H61      1.3370  119.00     .00  119.00   1.0100  
+      IC  H61   C6     *N6   H62      1.0100  119.00  180.00  121.00   1.0100  
+      IC  N9    N7     *C8   H8        .0000     .00  180.00     .00    .0000  
+      IC  N1    N3     *C2   H2        .0000     .00  180.00     .00    .0000  
+      IC  C1'   C3'    *C2'  O2'      1.5284  102.04 -114.67  110.81   1.4212  
+      IC  H2'   O2'    C2'   C3'       .9600  114.97  148.63  111.92   1.5284  
+      IC  O4'   C2'    *C1'  H1'       .0000     .00 -115.00     .00    .0000  
+      IC  C1'   C3'    *C2'  H2''      .0000     .00  115.00     .00    .0000  
+      IC  C2'   C4'    *C3'  H3'       .0000     .00  115.00     .00    .0000  
+      IC  C3'   O4'    *C4'  H4'       .0000     .00 -115.00     .00    .0000  
+      IC  C4'   O5'    *C5'  H5'       .0000     .00 -115.00     .00    .0000  
+      IC  C4'   O5'    *C5'  H5''      .0000     .00  115.00     .00    .0000  
+ 
+ 
+ END {ADE }
+ !-----------------------------------------------------------
+ 
+ RESIDUE CYT   
+ 
+ GROUP  
+       ATOM  P     TYPE=P    CHARGE=    1.5000  END ! 
+       ATOM  O1P   TYPE=ON3  CHARGE=    -.8000  END ! 
+       ATOM  O2P   TYPE=ON3  CHARGE=    -.8000  END !                      H42  H41 
+       ATOM  O5'   TYPE=ON2  CHARGE=    -.5500  END !                        \  / 
+					            !                         N4 
+       ATOM  C5'   TYPE=CN8  CHARGE=    -.0800  END !                         | 
+       ATOM  H5'   TYPE=HN7  CHARGE=     .0900  END !                         C4 
+       ATOM  H5''  TYPE=HN7  CHARGE=     .0900  END !                        /  \\ 
+ GROUP						    !                    H5-C5   N3 
+       ATOM  C4'   TYPE=CN6  CHARGE=     .1100  END !                       ||   | 
+       ATOM  H4'   TYPE=HN6  CHARGE=     .0900  END !                    H6-C6   C2 
+       ATOM  O4'   TYPE=ON6  CHARGE=    -.4000  END !                        \  / \\ 
+       ATOM  C1'   TYPE=CN6B CHARGE=     .1100  END !                         N1   O2 
+       ATOM  H1'   TYPE=HN6  CHARGE=     .0900  END !                          \ 
+ GROUP						    !                           \ 
+       ATOM  N1    TYPE=NN2  CHARGE=    -.1600  END !                            \ 
+       ATOM  C6    TYPE=CN3  CHARGE=     .1100  END !        O1P    H5' H4'  O4'  \ 
+       ATOM  H6    TYPE=HN3  CHARGE=     .0500  END !         |      |    \ /   \  \ 
+ GROUP						    !        -P-O5'-C5'---C4'    C1' 
+       ATOM  C2    TYPE=CN1  CHARGE=     .5300  END !         |      |     \     / \ 
+       ATOM  O2    TYPE=ON1C CHARGE=    -.4800  END !        O2P    H5''   C3'--C2' H1' 
+       ATOM  N3    TYPE=NN3  CHARGE=    -.6700  END !                     / \   / \ 
+       ATOM  C4    TYPE=CN2  CHARGE=     .6200  END !                  O3' H3' O2' H2'' 
+ GROUP						    !                   |       | 
+       ATOM  N4    TYPE=NN1  CHARGE=    -.5800  END !                          H2' 
+       ATOM  H41   TYPE=HN1  CHARGE=     .3100  END ! 
+       ATOM  H42   TYPE=HN1  CHARGE=     .2700  END  
+ GROUP  
+       ATOM  C5    TYPE=CN3  CHARGE=    -.1000  END  
+       ATOM  H5    TYPE=HN3  CHARGE=     .1000  END  
+ GROUP  
+       ATOM  C2'   TYPE=CN6  CHARGE=     .1400  END  
+       ATOM  H2''  TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O2'   TYPE=ON5  CHARGE=    -.6600  END  
+       ATOM  H2'   TYPE=HN5  CHARGE=     .4300  END  
+ GROUP  
+       ATOM  C3'   TYPE=CN6  CHARGE=     .0100  END  
+       ATOM  H3'   TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O3'   TYPE=ON2  CHARGE=    -.5500  END  
+ !END GROUP
+ 
+      BOND  P     O1P    
+      BOND  P     O2P    
+      BOND  P     O5'    
+      BOND  O5'   C5'    
+      BOND  C5'   C4'    
+      BOND  C4'   O4'    
+      BOND  C4'   C3'    
+      BOND  O4'   C1'    
+      BOND  C1'   N1     
+      BOND  C1'   C2'    
+      BOND  N1    C2     
+      BOND  N1    C6     
+      BOND  C2    O2     
+      BOND  C2    N3     
+      BOND  N3    C4     
+      BOND  C4    N4     
+      BOND  N4    H41    
+      BOND  N4    H42    
+      BOND  C4    C5     
+      BOND  C5    C6     
+      BOND  C2'   C3'    
+      BOND  C3'   O3'    
+      BOND  C2'   O2'    
+      BOND  O2'   H2'    
+      BOND  C1'   H1'    
+      BOND  C2'   H2''   
+      BOND  C3'   H3'    
+      BOND  C4'   H4'    
+      BOND  C5'   H5'    
+      BOND  C5'   H5''   
+      BOND  C5    H5     
+      BOND  C6    H6
+
+      IMPROPER  O2    N1    N3    C2     
+      IMPROPER  N4    N3    C5    C4     
+      IMPROPER  H5    C4    C6    C5     
+      IMPROPER  H6    C5    N1    C6     
+      IMPROPER  H42   C4    H41   N4     
+ 
+      DONOR  H42   N4     
+      DONOR  H2'   O2'    
+      DONOR  H41   N4     
+ 
+      ACCEPTOR  O2    C2     
+      ACCEPTOR  N3    NONE   
+      ACCEPTOR  O1P   P      
+      ACCEPTOR  O2P   P      
+      ACCEPTOR  O2'   NONE   
+      ACCEPTOR  O3'   NONE   
+      ACCEPTOR  O4'   NONE   
+      ACCEPTOR  O5'   NONE   
+ 
+      IC  P     O5'    C5'   C4'      1.5996  119.00 -151.39  110.04 1.5160  
+      IC  O5'   C5'    C4'   C3'      1.4401  108.83 -179.85  116.10   1.5284  
+      IC  C5'   C4'    C3'   O3'      1.5160  116.10   76.70  115.12   1.4212  
+      IC  O4'   C3'    *C4'  C5'      1.4572  104.06 -120.04  116.10   1.5160  
+      IC  C2'   C4'    *C3'  O3'      1.5284  100.16 -124.08  115.12   1.4212  
+      IC  C4'   C3'    C2'   C1'      1.5284  100.16   39.58  102.04   1.5251  
+      IC  C3'   C2'    C1'   N1       1.5284  101.97  144.39  113.71   1.4896  
+      IC  O4'   C1'    N1    C2       1.5251  113.71  -96.00  117.79   1.3990  
+      IC  C1'   C2     *N1   C6       1.4896  117.79 -180.00  120.60   1.3640  
+      IC  C2    N1     C6    C5       1.3990  120.60     .00  121.00   1.3370  
+      IC  C6    N1     C2    N3       1.3640  120.60     .00  118.90   1.3560  
+      IC  N1    N3     *C2   O2       1.3990  118.90  180.00  121.90   1.2370  
+      IC  N1    C2     N3    C4       1.3990  118.90     .00  120.00   1.3340  
+      IC  C5    N3     *C4   N4       1.4260  121.80  180.00  118.90   1.3370  
+      IC  N3    C4     N4    H41      1.3370  117.90     .00  118.90   1.0100  
+      IC  H41   C4     *N4   H42      1.0100  118.90  180.00  120.70   1.0100  
+      IC  C6    C4     *C5   H5        .0000     .00  180.00     .00    .0000  
+      IC  N1    C5     *C6   H6        .0000     .00  180.00     .00    .0000  
+      IC  C1'   C3'    *C2'  O2'      1.5284  102.04 -114.67  110.81   1.4212  
+      IC  H2'   O2'    C2'   C3'       .9600  114.97  148.63  111.92   1.5284  
+      IC  O4'   C2'    *C1'  H1'       .0000     .00 -115.00     .00    .0000  
+      IC  C1'   C3'    *C2'  H2''      .0000     .00  115.00     .00    .0000  
+      IC  C2'   C4'    *C3'  H3'       .0000     .00  115.00     .00    .0000  
+      IC  C3'   O4'    *C4'  H4'       .0000     .00 -115.00     .00    .0000  
+      IC  C4'   O5'    *C5'  H5'       .0000     .00 -115.00     .00    .0000  
+      IC  C4'   O5'    *C5'  H5''      .0000     .00  115.00     .00    .0000  
+ 
+ 
+ END {CYT }
+ !-----------------------------------------------------------
+ 
+ RESIDUE THY  ! 
+ 
+ GROUP  
+       ATOM  P     TYPE=P    CHARGE=    1.5000  END !                  H51    O4 
+       ATOM  O1P   TYPE=ON3  CHARGE=    -.8000  END !                   |     || 
+       ATOM  O2P   TYPE=ON3  CHARGE=    -.8000  END !               H52-C5M   C4    H3 
+       ATOM  O5'   TYPE=ON2  CHARGE=    -.5500  END !                   |  \ /  \  / 
+  					            !                  H53  C5   N3 
+       ATOM  C5'   TYPE=CN8  CHARGE=    -.0800  END !                       ||   | 
+       ATOM  H5'   TYPE=HN7  CHARGE=     .0900  END !                    H6-C6   C2 
+       ATOM  H5''  TYPE=HN7  CHARGE=     .0900  END !                        \  / \\ 
+ GROUP						    !                         N1   O2 
+       ATOM  C4'   TYPE=CN6  CHARGE=     .1100  END !                          \ 
+       ATOM  H4'   TYPE=HN6  CHARGE=     .0900  END !                           \ 
+       ATOM  O4'   TYPE=ON6  CHARGE=    -.4000  END !                            \ 
+       ATOM  C1'   TYPE=CN6B CHARGE=     .1100  END !        O1P    H5' H4'  O4'  \ 
+       ATOM  H1'   TYPE=HN6  CHARGE=     .0900  END !         |      |    \ /   \  \ 
+ GROUP						    !        -P-O5'-C5'---C4'    C1' 
+       ATOM  N1    TYPE=NN2  CHARGE=    -.3000  END !         |      |     \     / \ 
+       ATOM  C6    TYPE=CN3  CHARGE=     .1700  END !        O2P    H5''   C3'--C2' H1' 
+       ATOM  H6    TYPE=HN3  CHARGE=     .1300  END !                     / \   / \ 
+ GROUP						    !                   O3' H3' O2' H2'' 
+       ATOM  C2    TYPE=CN1  CHARGE=     .5700  END !                    |       | 
+       ATOM  O2    TYPE=ON1  CHARGE=    -.4700  END !                           H2' 
+       ATOM  N3    TYPE=NN2U CHARGE=    -.4600  END ! 
+       ATOM  H3    TYPE=HN2  CHARGE=     .3600  END  
+ GROUP  
+       ATOM  C4    TYPE=CN1  CHARGE=     .5400  END  
+       ATOM  O4    TYPE=ON1  CHARGE=    -.4900  END  
+       ATOM  C5    TYPE=CN3  CHARGE=    -.1500  END  
+       ATOM  C5M   TYPE=CN9  CHARGE=    -.1100  END  
+       ATOM  H51   TYPE=HN7  CHARGE=     .0700  END  
+       ATOM  H52   TYPE=HN7  CHARGE=     .0700  END  
+       ATOM  H53   TYPE=HN7  CHARGE=     .0700  END  
+ GROUP  
+       ATOM  C2'   TYPE=CN6  CHARGE=     .1400  END  
+       ATOM  H2''  TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O2'   TYPE=ON5  CHARGE=    -.6600  END  
+       ATOM  H2'   TYPE=HN5  CHARGE=     .4300  END  
+ GROUP  
+       ATOM  C3'   TYPE=CN6  CHARGE=     .0100  END  
+       ATOM  H3'   TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O3'   TYPE=ON2  CHARGE=    -.5500  END  
+ !END GROUP
+ 
+      BOND  P     O1P    
+      BOND  P     O2P    
+      BOND  P     O5'    
+      BOND  O5'   C5'    
+      BOND  C5'   C4'    
+      BOND  C4'   O4'    
+      BOND  C4'   C3'    
+      BOND  O4'   C1'    
+      BOND  C1'   N1     
+      BOND  C1'   C2'    
+      BOND  N1    C2     
+      BOND  N1    C6     
+      BOND  C2    O2     
+      BOND  C2    N3     
+      BOND  N3    H3     
+      BOND  N3    C4     
+      BOND  C4    O4     
+      BOND  C4    C5     
+      BOND  C5    C5M    
+      BOND  C5    C6     
+      BOND  C2'   C3'    
+      BOND  C3'   O3'    
+      BOND  C2'   O2'    
+      BOND  O2'   H2'    
+      BOND  C1'   H1'    
+      BOND  C2'   H2''   
+      BOND  C3'   H3'    
+      BOND  C4'   H4'    
+      BOND  C5'   H5'    
+      BOND  C5'   H5''   
+      BOND  C6    H6     
+      BOND  C5M   H51    
+      BOND  C5M   H52    
+      BOND  C5M   H53
+ 
+      IMPROPER  O2    N1    N3    C2     
+      IMPROPER  H3    C2    C4    N3     
+      IMPROPER  O4    N3    C5    C4     
+      IMPROPER  H6    N1    C5    C6     
+      IMPROPER  C5M   C4    C6    C5     
+ 
+      DONOR  H3    N3     
+      DONOR  H2'   O2'    
+ 
+      ACCEPTOR  O2    C2     
+      ACCEPTOR  O4    C4     
+      ACCEPTOR  O1P   P      
+      ACCEPTOR  O2P   P      
+      ACCEPTOR  O2'   NONE   
+      ACCEPTOR  O3'   NONE   
+      ACCEPTOR  O4'   NONE   
+      ACCEPTOR  O5'   NONE   
+ 
+      IC  P     O5'    C5'   C4'      1.5996  119.00 -151.39  110.04 1.5160  
+      IC  O5'   C5'    C4'   C3'      1.4401  108.83 -179.85  116.10   1.5284  
+      IC  C5'   C4'    C3'   O3'      1.5160  116.10   76.70  115.12   1.4212  
+      IC  O4'   C3'    *C4'  C5'      1.4572  104.06 -120.04  116.10   1.5160  
+      IC  C2'   C4'    *C3'  O3'      1.5284  100.16 -124.08  115.12   1.4212  
+      IC  C4'   C3'    C2'   C1'      1.5284  100.16   39.58  102.04   1.5251  
+      IC  C3'   C2'    C1'   N1       1.5284  101.97  144.39  113.71   1.4896  
+      IC  O4'   C1'    N1    C2       1.5251  113.71  -96.00  117.06   1.3746  
+      IC  C1'   C2     *N1   C6       1.4896  117.06 -179.96  122.08   1.3704  
+      IC  C2    N1     C6    C5       1.3746  122.08    -.02  121.23   1.3432  
+      IC  C6    N1     C2    N3       1.3704  122.08     .06  115.38   1.3813  
+      IC  N1    N3     *C2   O2       1.3746  115.38 -179.95  121.70   1.2191  
+      IC  N1    C2     N3    C4       1.3746  115.38    -.07  126.46   1.3795  
+      IC  C5    N3     *C4   O4       1.4439  114.07  179.98  120.59   1.2327  
+      IC  C2    C4     *N3   H3       1.3813  126.46  180.00  116.77   1.0900  
+      IC  C4    C6     *C5   C5M      1.4439  120.78 -179.94  121.63   1.5000  
+      IC  N1    C5     *C6   H6        .0000     .00  180.00     .00    .0000  
+      IC  C6    C5     C5M   H51       .0000     .00     .00     .00    .0000  
+      IC  C5    H51    *C5M  H52       .0000     .00  115.00     .00    .0000  
+      IC  H51   H52    *C5M  H53       .0000     .00 -115.00     .00    .0000  
+      IC  C1'   C3'    *C2'  O2'      1.5284  102.04 -114.67  110.81   1.4212  
+      IC  H2'   O2'    C2'   C3'       .9600  114.97  148.63  111.92   1.5284  
+      IC  O4'   C2'    *C1'  H1'       .0000     .00 -115.00     .00    .0000  
+      IC  C1'   C3'    *C2'  H2''      .0000     .00  115.00     .00    .0000  
+      IC  C2'   C4'    *C3'  H3'       .0000     .00  115.00     .00    .0000  
+      IC  C3'   O4'    *C4'  H4'       .0000     .00 -115.00     .00    .0000  
+      IC  C4'   O5'    *C5'  H5'       .0000     .00 -115.00     .00    .0000  
+      IC  C4'   O5'    *C5'  H5''      .0000     .00  115.00     .00    .0000  
+ 
+ 
+ END {THY }
+ !-----------------------------------------------------------
+ 
+ RESIDUE URA  ! 
+ 
+ GROUP  
+       ATOM  P     TYPE=P    CHARGE=    1.5000  END !                         O4 
+       ATOM  O1P   TYPE=ON3  CHARGE=    -.8000  END !                         || 
+       ATOM  O2P   TYPE=ON3  CHARGE=    -.8000  END !                         C4    H3 
+       ATOM  O5'   TYPE=ON2  CHARGE=    -.5500  END !                        /  \  / 
+					            !                    H5-C5   N3 
+       ATOM  C5'   TYPE=CN8  CHARGE=    -.0800  END !                       ||   | 
+       ATOM  H5'   TYPE=HN7  CHARGE=     .0900  END !                    H6-C6   C2 
+       ATOM  H5''  TYPE=HN7  CHARGE=     .0900  END !                        \  / \\ 
+ GROUP						    !                         N1   O2 
+       ATOM  C4'   TYPE=CN6  CHARGE=     .1100  END !                          \ 
+       ATOM  H4'   TYPE=HN6  CHARGE=     .0900  END !                           \ 
+       ATOM  O4'   TYPE=ON6  CHARGE=    -.4000  END !                            \ 
+       ATOM  C1'   TYPE=CN6B CHARGE=     .1100  END !        O1P    H5' H4'  O4'  \ 
+       ATOM  H1'   TYPE=HN6  CHARGE=     .0900  END !         |      |    \ /   \  \ 
+ GROUP						    !        -P-O5'-C5'---C4'    C1' 
+       ATOM  N1    TYPE=NN2  CHARGE=    -.3000  END !         |      |     \     / \ 
+       ATOM  C6    TYPE=CN3  CHARGE=     .1700  END !        O2P    H5''   C3'--C2' H1' 
+       ATOM  H6    TYPE=HN3  CHARGE=     .1300  END !                     / \   / \ 
+ GROUP						    !                   O3' H3' O2' H2'' 
+       ATOM  C2    TYPE=CN1  CHARGE=     .5700  END !                    |       | 
+       ATOM  O2    TYPE=ON1  CHARGE=    -.4700  END !                           H2' 
+       ATOM  N3    TYPE=NN2U CHARGE=    -.4600  END ! 
+       ATOM  H3    TYPE=HN2  CHARGE=     .3600  END  
+ GROUP  
+       ATOM  C4    TYPE=CN1  CHARGE=     .5400  END  
+       ATOM  O4    TYPE=ON1  CHARGE=    -.4900  END  
+       ATOM  C5    TYPE=CN3  CHARGE=    -.1500  END  
+       ATOM  H5    TYPE=HN3  CHARGE=     .1000  END  
+ GROUP  
+       ATOM  C2'   TYPE=CN6  CHARGE=     .1400  END  
+       ATOM  H2''  TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O2'   TYPE=ON5  CHARGE=    -.6600  END  
+       ATOM  H2'   TYPE=HN5  CHARGE=     .4300  END  
+ GROUP  
+       ATOM  C3'   TYPE=CN6  CHARGE=     .0100  END  
+       ATOM  H3'   TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O3'   TYPE=ON2  CHARGE=    -.5500  END  
+ !END GROUP
+ 
+      BOND  P     O1P    
+      BOND  P     O2P    
+      BOND  P     O5'    
+      BOND  O5'   C5'    
+      BOND  C5'   C4'    
+      BOND  C4'   O4'    
+      BOND  C4'   C3'    
+      BOND  O4'   C1'    
+      BOND  C1'   N1     
+      BOND  C1'   C2'    
+      BOND  N1    C2     
+      BOND  N1    C6     
+      BOND  C2    O2     
+      BOND  C2    N3     
+      BOND  N3    H3     
+      BOND  N3    C4     
+      BOND  C4    O4     
+      BOND  C4    C5     
+      BOND  C5    C6     
+      BOND  C2'   C3'    
+      BOND  C3'   O3'    
+      BOND  C2'   O2'    
+      BOND  O2'   H2'    
+      BOND  C1'   H1'    
+      BOND  C2'   H2''   
+      BOND  C3'   H3'    
+      BOND  C4'   H4'    
+      BOND  C5'   H5'    
+      BOND  C5'   H5''   
+      BOND  C5    H5     
+      BOND  C6    H6
+
+      IMPROPER  O2    N1    N3    C2     
+      IMPROPER  H3    C2    C4    N3     
+      IMPROPER  H5    C4    C6    C5     
+      IMPROPER  O4    N3    C5    C4     
+      IMPROPER  H6    N1    C5    C6     
+ 
+      DONOR  H3    N3     
+      DONOR  H2'   O2'    
+ 
+      ACCEPTOR  O2    C2     
+      ACCEPTOR  O4    C4     
+      ACCEPTOR  O1P   P      
+      ACCEPTOR  O2P   P      
+      ACCEPTOR  O2'   NONE   
+      ACCEPTOR  O3'   NONE   
+      ACCEPTOR  O4'   NONE   
+      ACCEPTOR  O5'   NONE   
+ 
+      IC  P     O5'    C5'   C4'      1.5996  119.00 -151.39  110.04 1.5160  
+      IC  O5'   C5'    C4'   C3'      1.4401  108.83 -179.85  116.10   1.5284  
+      IC  C5'   C4'    C3'   O3'      1.5160  116.10   76.70  115.12   1.4212  
+      IC  O4'   C3'    *C4'  C5'      1.4572  104.06 -120.04  116.10   1.5160  
+      IC  C2'   C4'    *C3'  O3'      1.5284  100.16 -124.08  115.12   1.4212  
+      IC  C4'   C3'    C2'   C1'      1.5284  100.16   39.58  102.04   1.5251  
+      IC  C3'   C2'    C1'   N1       1.5284  101.97  144.39  113.71   1.4896  
+      IC  O4'   C1'    N1    C2       1.5251  113.71  -96.00  117.06   1.3746  
+      IC  C1'   C2     *N1   C6       1.4896  117.06 -180.00  121.30   1.3790  
+      IC  C2    N1     C6    C5       1.3790  121.30     .00  122.80   1.3380  
+      IC  C6    N1     C2    N3       1.3800  121.30     .00  114.80   1.3730  
+      IC  N1    N3     *C2   O2       1.3790  114.80 -180.00  122.00   1.2180  
+      IC  N1    C2     N3    C4       1.3790  114.80     .00  127.00   1.3830  
+      IC  C5    N3     *C4   O4       1.4400  114.70  180.00  119.80   1.2270  
+      IC  C2    C4     *N3   H3       1.3730  127.00  180.00  116.50   1.0300  
+      IC  C6    C4     *C5   H5        .0000     .00  180.00     .00    .0000  
+      IC  N1    C5     *C6   H6        .0000     .00  180.00     .00    .0000  
+      IC  C1'   C3'    *C2'  O2'      1.5284  102.04 -114.67  110.81   1.4212  
+      IC  H2'   O2'    C2'   C3'       .9600  114.97  148.63  111.92   1.5284  
+      IC  O4'   C2'    *C1'  H1'       .0000     .00 -115.00     .00    .0000  
+      IC  C1'   C3'    *C2'  H2''      .0000     .00  115.00     .00    .0000  
+      IC  C2'   C4'    *C3'  H3'       .0000     .00  115.00     .00    .0000  
+      IC  C3'   O4'    *C4'  H4'       .0000     .00 -115.00     .00    .0000  
+      IC  C4'   O5'    *C5'  H5'       .0000     .00 -115.00     .00    .0000  
+      IC  C4'   O5'    *C5'  H5''      .0000     .00  115.00     .00    .0000  
+ 
+ 
+ END {URA }
+ !-----------------------------------------------------------
+ 
+ RESIDUE DMPA ! Dimethylphosphate 
+ 
+ GROUP						    ! 
+       ATOM  P1    TYPE=P    CHARGE=    1.5000  END ! 
+       ATOM  O3    TYPE=ON3  CHARGE=    -.8000  END ! 
+       ATOM  O4    TYPE=ON3  CHARGE=    -.8000  END !           H11 
+       ATOM  O1    TYPE=ON2  CHARGE=    -.5500  END !            | 
+       ATOM  O2    TYPE=ON2  CHARGE=    -.5500  END !       H13- C1-H12 
+					            !             \ 
+       ATOM  C1    TYPE=CN9  CHARGE=    -.1700  END !         O3   O1 
+       ATOM  H11   TYPE=HN7  CHARGE=     .0900  END !          \\ / 
+       ATOM  H12   TYPE=HN7  CHARGE=     .0900  END !      (-)   P1 
+       ATOM  H13   TYPE=HN7  CHARGE=     .0900  END !          // \ 
+  					            !         O4   O2 
+       ATOM  C2    TYPE=CN9  CHARGE=    -.1700  END !             / 
+       ATOM  H21   TYPE=HN7  CHARGE=     .0900  END !        H23-C2-H22 
+       ATOM  H22   TYPE=HN7  CHARGE=     .0900  END !            | 
+       ATOM  H23   TYPE=HN7  CHARGE=     .0900  END !           H21 
+      ! 
+ !END GROUP
+ 
+      BOND  P1    O1     
+      BOND  P1    O2     
+      BOND  P1    O3     
+      BOND  P1    O4     
+      BOND  O1    C1     
+      BOND  O2    C2     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    H13    
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    H23
+
+
+      DIHEdral  O1   P1   O2   C2 ! multiple dihedral
+      DIHEdral  O1   P1   O2   C2 ! multiple dihedral
+      DIHEdral  O2   P1   O1   C1 ! multiple dihedral
+      DIHEdral  O2   P1   O1   C1 ! multiple dihedral
+ 
+      IC  O3    P1     O1    C1       1.4723  107.31     .00  117.79   1.4356  
+      IC  O4    P1     O2    C2       1.4722     .00     .00  117.79   1.4357  
+      IC  O1    P1     O2    C2       1.6343     .00   73.80  117.79   1.4357  
+      IC  O2    P1     O1    C1       1.6344     .00   73.70  117.79   1.4356  
+      IC  H11   C1     O1    P1       1.0827  107.80  174.80  117.79   1.6343  
+      IC  H12   C1     O1    P1       1.0800  110.40   54.10  117.79   1.6343  
+      IC  H13   C1     O1    P1       1.0848  110.70  294.30  117.79   1.6343  
+      IC  H21   C2     O2    P1       1.0827  107.90  174.70  117.79   1.6344  
+      IC  H22   C2     O2    P1       1.0800  110.40   54.10  117.79   1.6344  
+      IC  H23   C2     O2    P1       1.0848  110.70  294.20  117.79   1.6344  
+ 
+ 
+ END {DMPA}
+ !-----------------------------------------------------------
+ 
+ RESIDUE MP_0 ! Methylphosphate, neutral 
+ 
+ GROUP
+       ! atom order for molvib 
+       ATOM  C1    TYPE=CN9  CHARGE=    -.1700  END ! 
+       ATOM  O1    TYPE=ON2  CHARGE=    -.5600  END !                 H11 
+       ATOM  P1    TYPE=P    CHARGE=    1.5000  END !                  | 
+       ATOM  O2    TYPE=ON4  CHARGE=    -.6300  END !            H13--C1--H12 
+       ATOM  O3    TYPE=ON4  CHARGE=    -.6300  END !                  | 
+       ATOM  O4    TYPE=ON3  CHARGE=    -.6400  END !                 O1 
+       ATOM  H11   TYPE=HN7  CHARGE=     .0900  END !                  | 
+       ATOM  H12   TYPE=HN7  CHARGE=     .0900  END !             O4==P1--O3 
+       ATOM  H13   TYPE=HN7  CHARGE=     .0900  END !                  |    \ 
+       ATOM  H2    TYPE=HN4  CHARGE=     .4300  END !                 O2     H3 
+       ATOM  H3    TYPE=HN4  CHARGE=     .4300  END !                   \ 
+					            !                    H2 
+ !END GROUP
+ 
+      BOND  P1    O1     
+      BOND  P1    O2     
+      BOND  P1    O3     
+      BOND  P1    O4     
+      BOND  O1    C1     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    H13    
+      BOND  O2    H2     
+      BOND  O3    H3
+
+      DIHEdral C1  O1   P1   O2 ! multiple dihedral
+      DIHEdral C1  O1   P1   O2 ! multiple dihedral
+ 
+      IC  O3    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  O4    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  O2    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  H11   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H12   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H13   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H2    O2     P1    O1        .0000     .00  180.00     .00    .0000  
+      IC  H3    O3     P1    O1        .0000     .00  180.00     .00    .0000
+      ! dummies to analyze cetain angles 
+      IC  O3    P1     O4    O1        .0000     .00     .00     .00    .0000  
+ 
+ 
+ END {MP_0}
+ !-----------------------------------------------------------
+ 
+ RESIDUE MP_1 ! Methylphosphate, anionic 
+ 
+ GROUP
+       ! atom order for molvib 
+       ATOM  C1    TYPE=CN9  CHARGE=    -.1700  END ! 
+       ATOM  O1    TYPE=ON2  CHARGE=    -.6200  END !                 H11 
+       ATOM  P1    TYPE=P    CHARGE=    1.5000  END !                  | 
+       ATOM  O2    TYPE=ON4  CHARGE=    -.6800  END !            H13--C1--H12 
+       ATOM  O3    TYPE=ON3  CHARGE=    -.8200  END !                  | 
+       ATOM  O4    TYPE=ON3  CHARGE=    -.8200  END !                 O1 
+       ATOM  H11   TYPE=HN7  CHARGE=     .0900  END !                  | 
+       ATOM  H12   TYPE=HN7  CHARGE=     .0900  END !             O4==P1==O3 (-) 
+       ATOM  H13   TYPE=HN7  CHARGE=     .0900  END !                  | 
+       ATOM  H2    TYPE=HN4  CHARGE=     .3400  END !                 O2 
+					            !                   \ 
+					            !                    H2 
+ !END GROUP
+ 
+      BOND  P1    O1     
+      BOND  P1    O2     
+      BOND  P1    O3     
+      BOND  P1    O4     
+      BOND  O1    C1     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    H13    
+      BOND  O2    H2
+
+      DIHEdral C1  O1   P1   O2 ! multiple dihedral
+      DIHEdral C1  O1   P1   O2 ! multiple dihedral
+ 
+      IC  O3    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  O4    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  O2    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  H11   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H12   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H13   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H2    O2     P1    O1        .0000     .00     .00     .00    .0000
+      ! dummies to analyze cetain angles 
+      IC  O3    P1     O4    O1        .0000     .00     .00     .00    .0000  
+ 
+ 
+ END {MP_1}
+ !-----------------------------------------------------------
+ 
+ RESIDUE MP_2 ! Methylphosphate, dianionic 
+ 
+ GROUP						    ! 
+       ATOM  P1    TYPE=P    CHARGE=    1.1000  END ! 
+       ATOM  O1    TYPE=ON2  CHARGE=    -.4000  END !                 H11 
+       ATOM  O2    TYPE=ON3  CHARGE=    -.9000  END !                  | 
+       ATOM  O3    TYPE=ON3  CHARGE=    -.9000  END !            H13--C1--H12 
+       ATOM  O4    TYPE=ON3  CHARGE=    -.9000  END !                  | 
+ GROUP						    !                 O1 
+       ATOM  C1    TYPE=CN9  CHARGE=    -.2700  END !                  | 
+       ATOM  H11   TYPE=HN7  CHARGE=     .0900  END !        (-)  O4==P1==O3  (-) 
+       ATOM  H12   TYPE=HN7  CHARGE=     .0900  END !                 || 
+       ATOM  H13   TYPE=HN7  CHARGE=     .0900  END !                 O2 
+      ! 
+ !END GROUP
+ 
+      BOND  P1    O1     
+      BOND  P1    O2     
+      BOND  P1    O3     
+      BOND  P1    O4     
+      BOND  O1    C1     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    H13
+
+      DIHEdral C1  O1   P1   O2 ! multiple dihedral
+      DIHEdral C1  O1   P1   O2 ! multiple dihedral
+ 
+      IC  O3    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  O4    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  O2    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  H11   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H12   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H13   C1     O1    P1        .0000     .00     .00     .00    .0000
+      ! dummies to analyze cetain angles 
+      IC  O3    P1     O4    O1        .0000     .00     .00     .00    .0000  
+ 
+ 
+ END {MP_2}
+ !-----------------------------------------------------------
+ 
+ RESIDUE TIP3 ! TIPS3P WATER MODEL 
+      	      ! GENERATE USING NOANGLE NODIHEDRAL 
+ 
+ GROUP  
+       ATOM  OH2   TYPE=OT   CHARGE=    -.8340  END  
+       ATOM  H1    TYPE=HT   CHARGE=     .4170  END  
+       ATOM  H2    TYPE=HT   CHARGE=     .4170  END  
+ !END GROUP
+ 
+      BOND  OH2   H1     
+      BOND  OH2   H2     
+ 
+      ANGLE  H1    OH2   H2    ! REQUIRED 
+ 
+      ACCEPTOR  OH2   NONE   
+ 
+ 
+ END {TIP3}
+ !-----------------------------------------------------------
+ 
+ RESIDUE SOD  ! Sodium Ion 
+ 
+ GROUP  
+       ATOM  SOD   TYPE=SOD  CHARGE=    1.0000  END  
+ !END GROUP
+ 
+ 
+ END {SOD }
+ !-----------------------------------------------------------
+ 
+ RESIDUE MG   ! Magnesium Ion 
+ 
+ GROUP  
+       ATOM  MG    TYPE=MG   CHARGE=    2.0000  END  
+ !END GROUP
+ 
+ 
+ END {MG  }
+ !-----------------------------------------------------------
+ 
+ PRESIDUE DEO1 ! Patch to make DEOXYribose in PYRIMIDINES 
+ 
+ GROUP  
+      DELE ATOM  O2'      END ! necessary due to auto-generate dihedrals 
+      			      ! and N1 versus N9 atom in glycosidac link 
+  			      ! use in patch statement 
+ GROUP  
+      MODI ATOM  C2'   TYPE=CN6C CHARGE=    -.1800  END  
+      MODI ATOM  H2'   TYPE=HN6  CHARGE=     .0900  END  
+      MODI ATOM  H2''  TYPE=HN6  CHARGE=     .0900  END  
+ !END GROUP
+ 
+ ADD  BOND  C2'   H2'     
+
+ ADD  ANGLE C1'   C2'   H2'    
+ ADD  ANGLE C3'   C2'   H2'
+ ADD  ANGLE H2'   C2'   H2''   
+ 
+ ADD  DIHEDRAL  H2'   C2'   C1'   O4'    
+ ADD  DIHEDRAL  H2'   C2'   C1'   N1     
+ ADD  DIHEDRAL  H2'   C2'   C1'   H1'    
+ ADD  DIHEDRAL  H2'   C2'   C3'   C4'    
+ ADD  DIHEDRAL  H2'   C2'   C3'   O3'    
+ ADD  DIHEDRAL  H2'   C2'   C3'   H3'    
+ 
+ ADD  IC  C1'   C3'    *C2'   H2'      .0000     .00 -115.00     .00    .0000  
+ 
+ 
+ END {DEO1}
+ !-----------------------------------------------------------
+ 
+ PRESIDUE DEO2 ! Patch to make DEOXYribose in PURINES 
+ 
+ GROUP  
+      DELE ATOM  O2'      END ! necessary due to auto-generate dihedrals 
+			      ! and N1 versus N9 atom in glycosidac link 
+			      ! use in patch statement 
+ GROUP  
+      MODI ATOM  C2'   TYPE=CN6C CHARGE=    -.1800  END  
+      MODI ATOM  H2'   TYPE=HN6  CHARGE=     .0900  END  
+      MODI ATOM  H2''  TYPE=HN6  CHARGE=     .0900  END  
+ !END GROUP
+ 
+ ADD  BOND  C2'   H2'    
+
+ ADD  ANGLE C1'  C2'   H2'    
+ ADD  ANGLE C3'  C2'   H2'
+ ADD  ANGLE H2'  C2'   H2''   
+ 
+ ADD  DIHEDRAL  H2'   C2'   C1'   O4'    
+ ADD  DIHEDRAL  H2'   C2'   C1'   N9     
+ ADD  DIHEDRAL  H2'   C2'   C1'   H1'    
+ ADD  DIHEDRAL  H2'   C2'   C3'   C4'    
+ ADD  DIHEDRAL  H2'   C2'   C3'   O3'    
+ ADD  DIHEDRAL  H2'   C2'   C3'   H3'    
+ 
+ ADD  IC  C1'   C3'    *C2'  H2'       .0000     .00 -115.00     .00    .0000  
+ 
+ 
+ END {DEO2}
+ !-----------------------------------------------------------
+ 
+ PRESIDUE PYRC ! Patch to generate CYTOSINE (pyrimidine) 
+	       ! use in patch statement 
+
+ ! DELETE PHOSPHATE AND RIBOSE ATOMS 
+ GROUP  
+      DELE ATOM  P        END  
+      DELE ATOM  O1P      END  
+      DELE ATOM  O2P      END  
+      DELE ATOM  O5'      END  
+      DELE ATOM  C5'      END  
+      DELE ATOM  H5'      END  
+      DELE ATOM  H5''     END  
+      DELE ATOM  C4'      END  
+      DELE ATOM  H4'      END  
+      DELE ATOM  O4'      END  
+      DELE ATOM  C1'      END  
+      DELE ATOM  H1'      END  
+      DELE ATOM  C2'      END  
+      DELE ATOM  H2''     END  
+      DELE ATOM  O2'      END  
+      DELE ATOM  H2'      END  
+      DELE ATOM  C3'      END  
+      DELE ATOM  O3'      END  
+      DELE ATOM  H3'      END  
+ GROUP  
+      MODI ATOM  N1    TYPE=NN2  CHARGE=    -.5700  END  
+      ADD  ATOM  H1    TYPE=HN2  CHARGE=     .4100  END  
+      MODI ATOM  C6    TYPE=CN3  CHARGE=     .1100  END  
+      MODI ATOM  H6    TYPE=HN3  CHARGE=     .0500  END  
+ !END GROUP
+ 
+ ADD  BOND  N1  H1     
+
+ ADD  ANGLE H1  N1  C2
+ ADD  ANGLE H1  N1  C6
+  
+ ADD  DIHEDRAL  H1  N1  C2  O2
+ ADD  DIHEDRAL  H1  N1  C2  N3
+ ADD  DIHEDRAL  H1  N1  C6  C5
+ ADD  DIHEDRAL  H1  N1  C6  H6
+
+ ADD  IMPROPER  H1    C6    C2    N1     
+ 
+ ADD  IC  C5    C6     N1    H1        .0000     .00  180.00     .00    .0000  
+ 
+ 
+ END {PYRC}
+ !-----------------------------------------------------------
+ 
+ PRESIDUE PYRU ! Patch to generate URACIL or THYMINE (pyrimidine) 
+	       ! use in patch statement 
+
+ ! DELETE PHOSPHATE AND RIBOSE ATOMS 
+ GROUP  
+      DELE ATOM  P        END  
+      DELE ATOM  O1P      END  
+      DELE ATOM  O2P      END  
+      DELE ATOM  O5'      END  
+      DELE ATOM  C5'      END  
+      DELE ATOM  H5'      END  
+      DELE ATOM  H5''     END  
+      DELE ATOM  C4'      END  
+      DELE ATOM  H4'      END  
+      DELE ATOM  O4'      END  
+      DELE ATOM  C1'      END  
+      DELE ATOM  H1'      END  
+      DELE ATOM  C2'      END  
+      DELE ATOM  H2''     END  
+      DELE ATOM  O2'      END  
+      DELE ATOM  H2'      END  
+      DELE ATOM  C3'      END  
+      DELE ATOM  O3'      END  
+      DELE ATOM  H3'      END  
+ GROUP  
+      MODI ATOM  N1    TYPE=NN2  CHARGE=    -.7600  END  
+      ADD  ATOM  H1    TYPE=HN2  CHARGE=     .4600  END  
+      MODI ATOM  C6    TYPE=CN3  CHARGE=     .1700  END  
+      MODI ATOM  H6    TYPE=HN3  CHARGE=     .1300  END  
+ !END GROUP
+ 
+ ADD  BOND  N1    H1     
+
+ ADD  DIHEDRAL  H1  N1  C2  O2
+ ADD  DIHEDRAL  H1  N1  C2  N3
+ ADD  DIHEDRAL  H1  N1  C6  C5
+ ADD  DIHEDRAL  H1  N1  C6  H6
+ 
+ ADD  IMPROPER  H1    C6    C2    N1     
+ 
+ ADD  IC  C5    C6     N1    H1        .0000     .00  180.00     .00    .0000  
+ 
+ 
+ END {PYRU}
+ !-----------------------------------------------------------
+ 
+ PRESIDUE PURG ! Patch to generate GUANINE (purine) 
+	       ! use in patch statement 
+
+ ! DELETE PHOSPHATE AND RIBOSE ATOMS 
+ GROUP  
+      DELE ATOM  P        END  
+      DELE ATOM  O1P      END  
+      DELE ATOM  O2P      END  
+      DELE ATOM  O5'      END  
+      DELE ATOM  C5'      END  
+      DELE ATOM  H5'      END  
+      DELE ATOM  H5''     END  
+      DELE ATOM  C4'      END  
+      DELE ATOM  H4'      END  
+      DELE ATOM  O4'      END  
+      DELE ATOM  C1'      END  
+      DELE ATOM  H1'      END  
+      DELE ATOM  C2'      END  
+      DELE ATOM  H2''     END  
+      DELE ATOM  O2'      END  
+      DELE ATOM  H2'      END  
+      DELE ATOM  C3'      END  
+      DELE ATOM  O3'      END  
+      DELE ATOM  H3'      END  
+ GROUP  
+      MODI ATOM  N9    TYPE=NN2  CHARGE=    -.5500  END  
+      MODI ATOM  C4    TYPE=CN5  CHARGE=     .1400  END  
+      ADD  ATOM  H9    TYPE=HN2  CHARGE=     .4100  END  
+ !END GROUP
+ 
+ ADD  BOND  N9    H9     
+ 
+ ADD  DIHEDRAL  H9  N9  C4  C5
+ ADD  DIHEDRAL  H9  N9  C4  N3
+ ADD  DIHEDRAL  H9  N9  C8  N7
+ ADD  DIHEDRAL  H9  N9  C8  H8
+
+ ADD  IMPROPER  H9    C8    C4    N9     
+ 
+ ADD  IC  C5    C4     N9    H9        .0000     .00  180.00     .00    .0000  
+ 
+ 
+ END {PURG}
+ !-----------------------------------------------------------
+ 
+ PRESIDUE PURA ! Patch to generate ADENINE (purine) 
+	       ! use in patch statement 
+
+ ! DELETE PHOSPHATE AND RIBOSE ATOMS 
+ GROUP  
+      DELE ATOM  P        END  
+      DELE ATOM  O1P      END  
+      DELE ATOM  O2P      END  
+      DELE ATOM  O5'      END  
+      DELE ATOM  C5'      END  
+      DELE ATOM  H5'      END  
+      DELE ATOM  H5''     END  
+      DELE ATOM  C4'      END  
+      DELE ATOM  H4'      END  
+      DELE ATOM  O4'      END  
+      DELE ATOM  C1'      END  
+      DELE ATOM  H1'      END  
+      DELE ATOM  C2'      END  
+      DELE ATOM  H2''     END  
+      DELE ATOM  O2'      END  
+      DELE ATOM  H2'      END  
+      DELE ATOM  C3'      END  
+      DELE ATOM  O3'      END  
+      DELE ATOM  H3'      END  
+ GROUP  
+      MODI ATOM  C5    TYPE=CN5  CHARGE=     .2300  END  
+      MODI ATOM  N7    TYPE=NN4  CHARGE=    -.6300  END  
+      MODI ATOM  C8    TYPE=CN4  CHARGE=     .3800  END  
+      MODI ATOM  H8    TYPE=HN3  CHARGE=     .1800  END  
+      MODI ATOM  N9    TYPE=NN2  CHARGE=    -.5500  END  
+      ADD  ATOM  H9    TYPE=HN2  CHARGE=     .3900  END  
+ !END GROUP
+ 
+ ADD  BOND  N9    H9     
+ 
+ ADD  DIHEDRAL  H9  N9  C4  C5
+ ADD  DIHEDRAL  H9  N9  C4  N3
+ ADD  DIHEDRAL  H9  N9  C8  N7
+ ADD  DIHEDRAL  H9  N9  C8  H8
+
+ ADD  IMPROPER  H9    C8    C4    N9     
+ 
+ ADD  IC  C5    C4     N9    H9        .0000     .00  180.00     .00    .0000  
+ 
+ 
+ END {PURA}
+ !-----------------------------------------------------------
+ 
+ PRESIDUE 5TER ! 5'-terminal HYDROXYL patch, from MeOH 
+	       ! use in generate statement 
+ 
+ GROUP  
+      ADD  ATOM  +H5T   TYPE=HN5  CHARGE=     .4300  END !	--H5T 
+      MODI ATOM  +O5'   TYPE=ON5  CHARGE=    -.6600  END  
+      MODI ATOM  +C5'   TYPE=CN8  CHARGE=     .0500  END  
+      MODI ATOM  +H5'   TYPE=HN7  CHARGE=     .0900  END  
+      MODI ATOM  +H5''  TYPE=HN7  CHARGE=     .0900  END 
+      DELE ATOM  +P        END  
+      DELE ATOM  +O1P      END  
+      DELE ATOM  +O2P      END  
+ !END GROUP
+ 
+ ADD  BOND  +H5T   +O5'    
+ 
+ ADD ANGLe +H5T   +O5'  +C5'
+
+ ADD DIHEdral +H5T   +O5'  +C5'  +C4'
+ ADD DIHEdral +H5T   +O5'  +C5'  +H5'
+ ADD DIHEdral +H5T   +O5'  +C5'  +H5''
+
+ ADD  DONOR  +H5T   +O5'    
+ 
+ ADD  IC  +H5T   +O5'   +C5'  +C4'       .0000     .00  180.00     .00    .0000  
+ 
+ 
+ END {5TER}
+ !-----------------------------------------------------------
+ 
+ PRESIDUE 5MET ! 5'-ribose METHYL patch 
+	       ! use in generate statement 
+ 
+ GROUP  
+      MODI ATOM  +C5'   TYPE=CN9  CHARGE=    -.2700  END !	--H53'
+      MODI ATOM  +H5'   TYPE=HN7  CHARGE=     .0900  END  
+      MODI ATOM  +H5''  TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  +H53'  TYPE=HN7  CHARGE=     .0900  END ! Can't use ''' and avoid conflict with THY 
+      ! 
+      DELE ATOM  +O5'      END  
+      DELE ATOM  +P        END  
+      DELE ATOM  +O1P      END  
+      DELE ATOM  +O2P      END ! 
+ !END GROUP
+ 
+ ADD  BOND  +C5'   +H53'   
+ 
+ ADD ANGLe +H53'   +C5'  +C4'
+ ADD ANGLe +H53'   +C5'  +H5'
+ ADD ANGLe +H53'   +C5'  +H5''
+
+ ADD DIHEdral +H53'   +C5'  +C4'  +C3'
+ ADD DIHEdral +H53'   +C5'  +C4'  +O4'
+ ADD DIHEdral +H53'   +C5'  +C4'  +H4'
+ 
+ END {5MET}
+ !-----------------------------------------------------------
+ 
+ PRESIDUE 5PHO ! 5'terminal PHOSPHATE patch 
+	       ! use in generate statement 
+ 
+ GROUP  
+      MODI ATOM  +C5'   TYPE=CN8  CHARGE=    -.0800  END !	O5T--H5T
+      MODI ATOM  +H5'   TYPE=HN7  CHARGE=     .0900  END !      |
+      MODI ATOM  +H5''  TYPE=HN7  CHARGE=     .0900  END  
+      MODI ATOM  +P     TYPE=P    CHARGE=    1.5000  END  
+      MODI ATOM  +O1P   TYPE=ON3  CHARGE=    -.8200  END  
+      MODI ATOM  +O2P   TYPE=ON3  CHARGE=    -.8200  END  
+      MODI ATOM  +O5'   TYPE=ON2  CHARGE=    -.6200  END  
+      ADD  ATOM  +O5T   TYPE=ON4  CHARGE=    -.6800  END  
+      ADD  ATOM  +H5T   TYPE=HN4  CHARGE=     .3400  END  
+ !END GROUP
+ 
+ ADD  BOND  +O5T   +P      
+ ADD  BOND  +H5T   +O5T
+
+ ADD  ANGLe +H5T  +O5T +P
+ ADD  ANGLe +O5T  +P   +O5'
+ ADD  ANGLe +O5T  +P   +O1P
+ ADD  ANGLe +O5T  +P   +O2P
+
+ ADD  DIHEdral +O5'  +P   +O5T   +H5T
+ ADD  DIHEdral +O1P  +P   +O5T   +H5T
+ ADD  DIHEdral +O2P  +P   +O5T   +H5T
+ ADD  DIHEdral +C5'  +O5'  +P    +O5T
+
+ ADD  DONOR  +H5T   +O5T    
+ 
+ ADD  IC  +C4'   +C5'    +O5'   +P         .0000     .00  180.00     .00    .0000  
+ ADD  IC  +C5'   +O5'    +P     +O5T       .0000     .00  -39.52     .00    .0000  
+ ADD  IC  +O5T   +O5'    *+P    +O1P       .0000     .00 -115.82     .00    .0000  
+ ADD  IC  +O5T   +O5'    *+P    +O2P       .0000     .00  115.90     .00    .0000  
+ ADD  IC  +H5T   +O5T    +P     +O5'       .0000     .00  180.00     .00    .0000  
+ 
+ 
+ END {5PHO}
+ !-----------------------------------------------------------
+ 
+ PRESIDUE 3TER ! 3'terminal HYDROXYL patch, from MeOH 
+	       ! use in generate statement 
+ 
+ GROUP  
+      MODI ATOM  -C3'   TYPE=CN6  CHARGE=     .1400  END  !	--H3T
+      MODI ATOM  -H3'   TYPE=HN6  CHARGE=     .0900  END  
+      MODI ATOM  -O3'   TYPE=ON5  CHARGE=    -.6600  END  
+      ADD  ATOM  -H3T   TYPE=HN5  CHARGE=     .4300  END  
+ !END GROUP
+ 
+ ADD  BOND  -O3'   -H3T    
+ 
+ ADD  ANGLe -C3'  -O3'  -H3T
+
+ ADD  DIHEdral -C4'  -C3'  -O3'  -H3T
+ ADD  DIHEdral -C2'  -C3'  -O3'  -H3T
+ ADD  DIHEdral -H3'  -C3'  -O3'  -H3T
+
+ ADD  DONOR  -H3T   -O3'    
+ 
+ ADD  IC  -H3T   -O3'    -C3'   -C4'       .9600  114.97  148.63  111.92   1.5284  
+ 
+ 
+ END {3TER}
+ !-----------------------------------------------------------
+ 
+ PRESIDUE 3PHO ! 3'terminal PHOSPHATE patch 
+	       ! use in generate statement 
+ 
+ GROUP  
+      MODI ATOM  -C3'   TYPE=CN6  CHARGE=     .0100  END !	 O3T--H3T
+      MODI ATOM  -H3'   TYPE=HN6  CHARGE=     .0900  END !     	 |
+      ADD  ATOM  -P3    TYPE=P    CHARGE=    1.5000  END ! O1P3--P3--O2P3
+      ADD  ATOM  -O1P3  TYPE=ON3  CHARGE=    -.8200  END !       |
+      ADD  ATOM  -O2P3  TYPE=ON3  CHARGE=    -.8200  END 
+      MODI ATOM  -O3'   TYPE=ON2  CHARGE=    -.6200  END  
+      ADD  ATOM  -O3T   TYPE=ON4  CHARGE=    -.6800  END  
+      ADD  ATOM  -H3T   TYPE=HN4  CHARGE=     .3400  END  
+ !END GROUP
+ 
+ ADD  BOND  -O3'   -P3     
+ ADD  BOND  -P3    -O1P3   
+ ADD  BOND  -P3    -O2P3   
+ ADD  BOND  -P3    -O3T    
+ ADD  BOND  -O3T   -H3T
+
+ ADD  ANGLE -C3'  -O3' -P3
+ ADD  ANGLE -O3'  -P3  -O3T
+ ADD  ANGLE -O3'  -P3  -O1P3
+ ADD  ANGLE -O3'  -P3  -O2P3
+ ADD  ANGLE -O1P3 -P3  -O2P3
+ ADD  ANGLE -P3   -O3T -H3T
+ ADD  ANGLE -O3T  -P3  -O2P3
+ ADD  ANGLE -O3T  -P3  -O1P3
+
+ ADD  DIHE -O3'  -P3    -O3T  -H3T 
+ ADD  DIHE -C3'  -O3'   -P3   -O1P3
+ ADD  DIHE -C3'  -O3'   -P3   -O2P3
+ ADD  DIHE -C3'  -O3'   -P3   -O3T ! multiple dihedral
+ ADD  DIHE -C3'  -O3'   -P3   -O3T ! multiple dihedral
+ ADD  DIHE -C4'  -C3'   -O3'  -P3   
+ ADD  DIHE -C2'  -C3'   -O3'  -P3   
+ ADD  DIHE -H3'  -C3'   -O3'  -P3   
+
+ ADD  DONOR  -H3T   -O3T    
+ 
+ ADD  ACCEPTOR  -O3T   NONE   
+ ADD  ACCEPTOR  -O1P2  NONE   
+ ADD  ACCEPTOR  -O1P3  NONE   
+ 
+ ADD  IC  -C4'   -C3'    -O3'   -P3        .0000     .00  180.00     .00    .0000  
+ ADD  IC  -C3'   -O3'    -P3    -O3T       .0000     .00  -39.52     .00    .0000  
+ ADD  IC  -O3T   -O3'    *-P3   -O1P3      .0000     .00 -115.82     .00    .0000  
+ ADD  IC  -O3T   -O3'    *-P3   -O2P3      .0000     .00  115.90     .00    .0000  
+ ADD  IC  -H3T   -O3T    -P3    -O3'       .0000     .00  180.00     .00    .0000  
+ 
+ 
+ END {3PHO}
+ !-----------------------------------------------------------
+ 
+ PRESIDUE 9MG  ! 9-Methyl guanine patch 
+	       ! use in patch statement 
+
+ ! DELETE PHOSPHATE AND RIBOSE ATOMS 
+ GROUP  
+      DELE ATOM  P        END !		     H92 
+      DELE ATOM  O1P      END !		      | 
+      DELE ATOM  O2P      END !	 	 H91--C9--H93
+      DELE ATOM  O5'      END !		      |
+      DELE ATOM  C5'      END 
+      DELE ATOM  H5'      END  
+      DELE ATOM  H5''     END  
+      DELE ATOM  C4'      END  
+      DELE ATOM  H4'      END  
+      DELE ATOM  O4'      END  
+      DELE ATOM  C1'      END  
+      DELE ATOM  H1'      END  
+      DELE ATOM  C2'      END  
+      DELE ATOM  H2''     END  
+      DELE ATOM  O2'      END  
+      DELE ATOM  H2'      END  
+      DELE ATOM  C3'      END  
+      DELE ATOM  O3'      END  
+      DELE ATOM  H3'      END  
+ GROUP  
+      ADD  ATOM  C9    TYPE=CN9  CHARGE=    -.2700  END  
+      ADD  ATOM  H91   TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  H92   TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  H93   TYPE=HN7  CHARGE=     .0900  END  
+ !END GROUP
+ 
+ ADD  BOND  N9    C9     
+ ADD  BOND  C9    H91    
+ ADD  BOND  C9    H92    
+ ADD  BOND  C9    H93    
+
+ ADD  ANGLE N9    C9   H91
+ ADD  ANGLE N9    C9   H92
+ ADD  ANGLE N9    C9   H93
+ ADD  ANGLE H91   C9   H92
+ ADD  ANGLE H91   C9   H93
+ ADD  ANGLE H92   C9   H93
+
+ ADD  DIHE  C9    N9   C8    N7
+ ADD  DIHE  C9    N9   C8    H8
+ ADD  DIHE  C9    N9   C4    N3
+ ADD  DIHE  C9    N9   C4    C5
+ ADD  DIHE  H91   C9   N9    C8
+ ADD  DIHE  H92   C9   N9    C8
+ ADD  DIHE  H93   C9   N9    C8
+ ADD  DIHE  H91   C9   N9    C4
+ ADD  DIHE  H92   C9   N9    C4
+ ADD  DIHE  H93   C9   N9    C4
+
+ ADD  IC  C8    C4     *N9   C9        .0000     .00  180.00     .00    .0000  
+ ADD  IC  C8    N9     C9    H91       .0000     .00  180.00     .00    .0000  
+ ADD  IC  N9    H91    *C9   H92       .0000     .00 -115.00     .00    .0000  
+ ADD  IC  H91   H92    *C9   H93       .0000     .00  115.00     .00    .0000  
+ 
+ 
+ END {9MG }
+ !-----------------------------------------------------------
+ 
+ PRESIDUE 9EG  ! 9-Ethyl guanine patch 
+	       ! use in patch statement 
+
+ ! DELETE PHOSPHATE AND RIBOSE ATOMS 
+ GROUP  
+      DELE ATOM  P        END !		H9B2
+      DELE ATOM  O1P      END !		 |
+      DELE ATOM  O2P      END !	  H9B1--C9B--H9B3
+      DELE ATOM  O5'      END !		 |
+      DELE ATOM  C5'      END !	   H91--C9--H92
+      DELE ATOM  H5'      END !		 |
+      DELE ATOM  H5''     END  
+      DELE ATOM  C4'      END  
+      DELE ATOM  H4'      END  
+      DELE ATOM  O4'      END  
+      DELE ATOM  C1'      END  
+      DELE ATOM  H1'      END  
+      DELE ATOM  C2'      END  
+      DELE ATOM  H2''     END  
+      DELE ATOM  O2'      END  
+      DELE ATOM  H2'      END  
+      DELE ATOM  C3'      END  
+      DELE ATOM  O3'      END  
+      DELE ATOM  H3'      END  
+ GROUP  
+      ADD  ATOM  C9    TYPE=CN8  CHARGE=    -.1800  END  
+      ADD  ATOM  H91   TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  H92   TYPE=HN7  CHARGE=     .0900  END  
+ GROUP  
+      ADD  ATOM  C9B   TYPE=CN9  CHARGE=    -.2700  END  
+      ADD  ATOM  H9B1  TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  H9B2  TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  H9B3  TYPE=HN7  CHARGE=     .0900  END  
+ !END GROUP
+ 
+ ADD  BOND  N9    C9     
+ ADD  BOND  C9    H91    
+ ADD  BOND  C9    H92    
+ ADD  BOND  C9    H93    
+ ADD  BOND  C9    C9B    
+ ADD  BOND  C9B   H9B1   
+ ADD  BOND  C9B   H9B2   
+ ADD  BOND  C9B   H9B3   
+
+ ADD  ANGLE N9    C9   H91
+ ADD  ANGLE N9    C9   H92
+ ADD  ANGLE N9    C9   C9B
+ ADD  ANGLE H91   C9   H92
+ ADD  ANGLE C9    C9B  H91B
+ ADD  ANGLE C9    C9B  H92B
+ ADD  ANGLE C9    C9B  H93B
+ ADD  ANGLE H91B  C9B  H92B
+ ADD  ANGLE H91B  C9B  H93B
+ ADD  ANGLE H92B  C9B  H93B
+
+ ADD  DIHE  C9     N9    C8    N7
+ ADD  DIHE  C9     N9    C8    H8
+ ADD  DIHE  C9     N9    C4    N3
+ ADD  DIHE  C9     N9    C4    C5
+ ADD  DIHE  H91    C9    N9    C8
+ ADD  DIHE  H92    C9    N9    C8
+ ADD  DIHE  H91    C9    N9    C4
+ ADD  DIHE  H92    C9    N9    C4
+ ADD  DIHE  C9B    C9    N9    C8
+ ADD  DIHE  C9B    C9    N9    C4
+ ADD  DIHE  H91B   C9B   C9    N9
+ ADD  DIHE  H92B   C9B   C9    N9
+ ADD  DIHE  H93B   C9B   C9    N9
+ ADD  DIHE  H91B   C9B   C9    H91
+ ADD  DIHE  H92B   C9B   C9    H91
+ ADD  DIHE  H93B   C9B   C9    H91
+ ADD  DIHE  H91B   C9B   C9    H92
+ ADD  DIHE  H92B   C9B   C9    H92
+ ADD  DIHE  H93B   C9B   C9    H92
+
+ ADD  IC  C8    C4     *N9   C9        .0000     .00  180.00     .00    .0000  
+ ADD  IC  C8    N9     C9    C9B       .0000     .00     .00     .00    .0000  
+ ADD  IC  N9    C9B    *C9   H91       .0000     .00 -115.00     .00    .0000  
+ ADD  IC  C9B   H91    *C9   H92       .0000     .00  115.00     .00    .0000  
+ ADD  IC  N9    C9     C9B   H9B1      .0000     .00  180.00     .00    .0000  
+ ADD  IC  C9    H9B1   *C9B  H9B2      .0000     .00 -115.00     .00    .0000  
+ ADD  IC  H9B1  H9B2   *C9B  H9B3      .0000     .00  115.00     .00    .0000  
+ 
+ 
+ END {9EG }
+ !-----------------------------------------------------------
+ 
+ PRESIDUE 9MA  ! 9-Methyl adenine patch 
+	       ! use in patch statement 
+
+ ! DELETE PHOSPHATE AND RIBOSE ATOMS 
+ GROUP  
+      DELE ATOM  P        END !		H92
+      DELE ATOM  O1P      END !		 |
+      DELE ATOM  O2P      END !	   H91--C9--H93
+      DELE ATOM  O5'      END !		 | 
+      DELE ATOM  C5'      END  
+      DELE ATOM  H5'      END  
+      DELE ATOM  H5''     END  
+      DELE ATOM  C4'      END  
+      DELE ATOM  H4'      END  
+      DELE ATOM  O4'      END  
+      DELE ATOM  C1'      END  
+      DELE ATOM  H1'      END  
+      DELE ATOM  C2'      END  
+      DELE ATOM  H2''     END  
+      DELE ATOM  O2'      END  
+      DELE ATOM  H2'      END  
+      DELE ATOM  C3'      END  
+      DELE ATOM  O3'      END  
+      DELE ATOM  H3'      END  
+ GROUP  
+      ADD  ATOM  C9    TYPE=CN9  CHARGE=    -.2700  END  
+      ADD  ATOM  H91   TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  H92   TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  H93   TYPE=HN7  CHARGE=     .0900  END  
+ !END GROUP
+ 
+ ADD  BOND  N9    C9     
+ ADD  BOND  C9    H91    
+ ADD  BOND  C9    H92    
+ ADD  BOND  C9    H93    
+
+ ADD  ANGLE N9    C9   H91
+ ADD  ANGLE N9    C9   H92
+ ADD  ANGLE N9    C9   H93
+ ADD  ANGLE H91   C9   H92
+ ADD  ANGLE H91   C9   H93
+ ADD  ANGLE H92   C9   H93
+
+ ADD  DIHE  C9    N9   C8    N7
+ ADD  DIHE  C9    N9   C8    H8
+ ADD  DIHE  C9    N9   C4    N3
+ ADD  DIHE  C9    N9   C4    C5
+ ADD  DIHE  H91   C9   N9    C8
+ ADD  DIHE  H92   C9   N9    C8
+ ADD  DIHE  H93   C9   N9    C8
+ ADD  DIHE  H91   C9   N9    C4
+ ADD  DIHE  H92   C9   N9    C4
+ ADD  DIHE  H93   C9   N9    C4
+ 
+ ADD  IC  C8    C4     *N9   C9        .0000     .00  180.00     .00    .0000  
+ ADD  IC  C4    N9     C9    H91       .0000     .00  180.00     .00    .0000  
+ ADD  IC  N9    H91    *C9   H92       .0000     .00 -115.00     .00    .0000  
+ ADD  IC  H91   H92    *C9   H93       .0000     .00  115.00     .00    .0000  
+ 
+ 
+ END {9MA }
+ !-----------------------------------------------------------
+ 
+ PRESIDUE 1MC  ! 1-Methyl Cytosine patch 
+	       ! use in patch statement 
+
+ ! DELETE PHOSPHATE AND RIBOSE ATOMS 
+ GROUP  
+      DELE ATOM  P        END !		H12
+      DELE ATOM  O1P      END !		 |
+      DELE ATOM  O2P      END !	   H11--C1--H13
+      DELE ATOM  O5'      END !		 |
+      DELE ATOM  C5'      END  
+      DELE ATOM  H5'      END  
+      DELE ATOM  H5''     END  
+      DELE ATOM  C4'      END  
+      DELE ATOM  H4'      END  
+      DELE ATOM  O4'      END  
+      DELE ATOM  C1'      END  
+      DELE ATOM  H1'      END  
+      DELE ATOM  C2'      END  
+      DELE ATOM  H2''     END  
+      DELE ATOM  O2'      END  
+      DELE ATOM  H2'      END  
+      DELE ATOM  C3'      END  
+      DELE ATOM  O3'      END  
+      DELE ATOM  H3'      END  
+ GROUP  
+      ADD  ATOM  C1    TYPE=CN9  CHARGE=    -.2700  END  
+      ADD  ATOM  H11   TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  H12   TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  H13   TYPE=HN7  CHARGE=     .0900  END  
+ !END GROUP
+ 
+ ADD  BOND  N1    C1     
+ ADD  BOND  C1    H11    
+ ADD  BOND  C1    H12    
+ ADD  BOND  C1    H13    
+
+ ADD  ANGLE N1    C1   H11
+ ADD  ANGLE N1    C1   H12
+ ADD  ANGLE N1    C1   H13
+ ADD  ANGLE H11   C1   H12
+ ADD  ANGLE H11   C1   H13
+ ADD  ANGLE H12   C1   H13
+
+ ADD  DIHE  C1    N1   C2    O2
+ ADD  DIHE  C1    N1   C2    N3
+ ADD  DIHE  C1    N1   C6    C5
+ ADD  DIHE  C1    N1   C6    H6
+ ADD  DIHE  H11   C1   N1    C2
+ ADD  DIHE  H12   C1   N1    C2
+ ADD  DIHE  H13   C1   N1    C2
+ ADD  DIHE  H11   C1   N1    C6
+ ADD  DIHE  H12   C1   N1    C6
+ ADD  DIHE  H13   C1   N1    C6
+
+ ADD  IC  C6    C2     *N1   C1        .0000     .00  180.00     .00    .0000  
+ ADD  IC  C2    N1     C1    H11       .0000     .00  180.00     .00    .0000  
+ ADD  IC  N1    H11    *C1   H12       .0000     .00 -115.00     .00    .0000  
+ ADD  IC  H11   H12    *C1   H13       .0000     .00  115.00     .00    .0000  
+ 
+ 
+ END {1MC }
+ !-----------------------------------------------------------
+ 
+ PRESIDUE 1MT  ! 1-Methyl Thymine patch 
+ 	       ! use in patch statement 
+
+ ! DELETE PHOSPHATE AND RIBOSE ATOMS 
+ GROUP  
+      DELE ATOM  P        END !		H12
+      DELE ATOM  O1P      END !		 |
+      DELE ATOM  O2P      END !	   H11--C1--H13
+      DELE ATOM  O5'      END !		 |
+      DELE ATOM  C5'      END  
+      DELE ATOM  H5'      END  
+      DELE ATOM  H5''     END  
+      DELE ATOM  C4'      END  
+      DELE ATOM  H4'      END  
+      DELE ATOM  O4'      END  
+      DELE ATOM  C1'      END  
+      DELE ATOM  H1'      END  
+      DELE ATOM  C2'      END  
+      DELE ATOM  H2''     END  
+      DELE ATOM  O2'      END  
+      DELE ATOM  H2'      END  
+      DELE ATOM  C3'      END  
+      DELE ATOM  O3'      END  
+      DELE ATOM  H3'      END  
+ GROUP  
+      ADD  ATOM  C1    TYPE=CN9  CHARGE=    -.2700  END  
+      ADD  ATOM  H11   TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  H12   TYPE=HN7  CHARGE=     .0900  END  
+      ADD  ATOM  H13   TYPE=HN7  CHARGE=     .0900  END  
+ !END GROUP
+ 
+ ADD  BOND  N1    C1     
+ ADD  BOND  C1    H11    
+ ADD  BOND  C1    H12    
+ ADD  BOND  C1    H13    
+
+ ADD  ANGLE N1    C1   H11
+ ADD  ANGLE N1    C1   H12
+ ADD  ANGLE N1    C1   H13
+ ADD  ANGLE H11   C1   H12
+ ADD  ANGLE H11   C1   H13
+ ADD  ANGLE H12   C1   H13
+
+ ADD  DIHE  C1    N1   C2    O2
+ ADD  DIHE  C1    N1   C2    N3
+ ADD  DIHE  C1    N1   C6    C5
+ ADD  DIHE  C1    N1   C6    H6
+ ADD  DIHE  H11   C1   N1    C2
+ ADD  DIHE  H12   C1   N1    C2
+ ADD  DIHE  H13   C1   N1    C2
+ ADD  DIHE  H11   C1   N1    C6
+ ADD  DIHE  H12   C1   N1    C6
+ ADD  DIHE  H13   C1   N1    C6
+ 
+ ADD  IC  C6    C2     *N1   C1        .0000     .00  180.00     .00    .0000  
+ ADD  IC  C2    N1     C1    H11       .0000     .00  180.00     .00    .0000  
+ ADD  IC  N1    H11    *C1   H12       .0000     .00 -115.00     .00    .0000  
+ ADD  IC  H11   H12    *C1   H13       .0000     .00  115.00     .00    .0000  
+ 
+ 
+ END {1MT }
+ !-----------------------------------------------------------
+ 
+ RESIDUE RIBT ! RIBOSE, Wilma Olsen's dihedral model 
+	      ! which has a 1'amino and a 5'methyl group (as in her paper) 
+ 
+ GROUP  
+       ATOM  C5'   TYPE=CN9  CHARGE=    -.2700  END !        H51         HN1  HN2 
+       ATOM  H51   TYPE=HN7  CHARGE=     .0900  END !         |            \  / 
+       ATOM  H52   TYPE=HN7  CHARGE=     .0900  END !   H52- C5'     O4'    N1 
+       ATOM  H53   TYPE=HN7  CHARGE=     .0900  END !       /   \   /   \   / 
+ GROUP						    !    H53     C4'     C1' 
+       ATOM  N1    TYPE=NN5  CHARGE=    -.2000  END !           / |       | \ 
+       ATOM  HN1   TYPE=HN1  CHARGE=     .1000  END !        H4' C3'-----C2' H1' 
+       ATOM  HN2   TYPE=HN1  CHARGE=     .1000  END !           /  \    /  \ 
+ GROUP						    !         O3' H3'  H2''O2' 
+       ATOM  C2'   TYPE=CN6  CHARGE=     .1400  END !          |            | 
+       ATOM  H2''  TYPE=HN6  CHARGE=     .0900  END !         H3T          H2' 
+       ATOM  O2'   TYPE=ON5  CHARGE=    -.6600  END ! 
+       ATOM  H2'   TYPE=HN5  CHARGE=     .4300  END  
+ GROUP  
+       ATOM  C3'   TYPE=CN6  CHARGE=     .1400  END  
+       ATOM  H3'   TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O3'   TYPE=ON5  CHARGE=    -.6600  END  
+       ATOM  H3T   TYPE=HN5  CHARGE=     .4300  END  
+ GROUP  
+       ATOM  C1'   TYPE=CN6B CHARGE=     .1100  END  
+       ATOM  H1'   TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  C4'   TYPE=CN6  CHARGE=     .1100  END  
+       ATOM  H4'   TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O4'   TYPE=ON6  CHARGE=    -.4000  END  
+ !END GROUP
+ 
+      BOND  C1'   O4'    
+      BOND  C1'   H1'    
+      BOND  C1'   N1     
+      BOND  N1    HN1    
+      BOND  N1    HN2    
+      BOND  C1'   C2'    
+      BOND  C2'   H2''   
+      BOND  C2'   O2'    
+      BOND  O2'   H2'    
+      BOND  C2'   C3'    
+      BOND  C3'   H3'    
+      BOND  C3'   O3'    
+      BOND  O3'   H3T    
+      BOND  C3'   C4'    
+      BOND  C4'   O4'    
+      BOND  C4'   H4'    
+      BOND  C4'   C5'    
+      BOND  C5'   H51    
+      BOND  C5'   H52    
+      BOND  C5'   H53
+
+      ! ribose model compound C2'endo minimum
+ 
+      IC  C4'   O4'    C1'   C2'      1.4525  109.84     .01  106.85   1.5501  
+      IC  O4'   C1'    C2'   C3'      1.4284  106.85   23.59  102.37   1.5478  
+      IC  C1'   C2'    C3'   C4'      1.5501  102.37  -36.26  100.54   1.5386  
+      IC  C2'   C3'    C4'   O4'      1.5478  100.54   37.42  105.04   1.4525  
+      IC  C3'   C4'    O4'   C1'      1.5386  105.04  -24.05  109.84   1.4284  
+      IC  N1    C1'    C2'   C3'      1.4718  115.03  142.01  102.37   1.5478  
+      IC  H1'   C1'    C2'   C3'      1.1015  109.14  -92.19  102.37   1.5478  
+      IC  C5'   C4'    O4'   C1'      1.5235  108.26  102.92  109.84   1.4284  
+      IC  H4'   C4'    O4'   C1'      1.1015  107.70 -140.23  109.84   1.4284  
+      IC  O2'   C2'    C3'   C4'      1.4293  111.84 -157.09  100.54   1.5386  
+      IC  H2'   O2'    C2'   C3'       .9681  103.92   14.18  111.84   1.5478  
+      IC  H2''  C2'    C3'   C4'      1.1014  109.54   80.48  100.54   1.5386  
+      IC  O3'   C3'    C4'   O4'      1.4352  111.98  -83.02  105.04   1.4525  
+      IC  H3T   O3'    C3'   C4'       .9650  105.47   38.18  111.98   1.5386  
+      IC  H3'   C3'    C4'   O4'      1.1007  110.59  153.45  105.04   1.4525  
+      IC  HN1   N1     C1'   C2'      1.0098  111.38   68.43  115.03   1.5501  
+      IC  HN2   N1     C1'   C2'      1.0096  111.07 -173.22  115.03   1.5501  
+      IC  H51   C5'    C4'   O4'      1.1110  111.00  -59.60  108.26   1.4525  
+      IC  H52   C5'    C4'   O4'      1.1107  110.76  179.64  108.26   1.4525  
+      IC  H53   C5'    C4'   O4'      1.1119  110.14   59.84  108.26   1.4525  
+ 
+ 
+ END {RIBT}
+ !-----------------------------------------------------------
+ 
+ RESIDUE DEOT ! DEOXYRIBOSE, Wilma Olsen's dihedral model 
+	      ! 1' amino and 5' methyl group 
+ 
+ GROUP  
+       ATOM  C5'   TYPE=CN9  CHARGE=    -.2700  END !        H51         HN1  HN2 
+       ATOM  H51   TYPE=HN7  CHARGE=     .0900  END !         |            \  / 
+       ATOM  H52   TYPE=HN7  CHARGE=     .0900  END !   H52- C5'     O4'    N1 
+       ATOM  H53   TYPE=HN7  CHARGE=     .0900  END !       /   \   /   \   / 
+ GROUP						    !    H53     C4'     C1' 
+       ATOM  N1    TYPE=NN5  CHARGE=    -.2000  END !           / |       | \ 
+       ATOM  HN1   TYPE=HN1  CHARGE=     .1000  END !        H4' C3'-----C2' H1' 
+       ATOM  HN2   TYPE=HN1  CHARGE=     .1000  END !           /  \    /  \ 
+ GROUP						    !         O3' H3'  H2' H2'' 
+       ATOM  C2'   TYPE=CN6C CHARGE=    -.1800  END !          | 
+       ATOM  H2'   TYPE=HN6  CHARGE=     .0900  END !         H3T 
+       ATOM  H2''  TYPE=HN6  CHARGE=     .0900  END ! 
+ GROUP  
+       ATOM  C3'   TYPE=CN6  CHARGE=     .1400  END  
+       ATOM  H3'   TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O3'   TYPE=ON5  CHARGE=    -.6600  END  
+       ATOM  H3T   TYPE=HN5  CHARGE=     .4300  END  
+ GROUP  
+       ATOM  C1'   TYPE=CN6B CHARGE=     .1100  END  
+       ATOM  H1'   TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  C4'   TYPE=CN6  CHARGE=     .1100  END  
+       ATOM  H4'   TYPE=HN6  CHARGE=     .0900  END  
+       ATOM  O4'   TYPE=ON6  CHARGE=    -.4000  END  
+ !END GROUP
+ 
+      BOND  C1'   O4'    
+      BOND  C1'   H1'    
+      BOND  C1'   N1     
+      BOND  N1    HN1    
+      BOND  N1    HN2    
+      BOND  C1'   C2'    
+      BOND  C2'   H2'    
+      BOND  C2'   H2''   
+      BOND  C2'   C3'    
+      BOND  C3'   H3'    
+      BOND  C3'   O3'    
+      BOND  O3'   H3T    
+      BOND  C3'   C4'    
+      BOND  C4'   O4'    
+      BOND  C4'   H4'    
+      BOND  C4'   C5'    
+      BOND  C5'   H51    
+      BOND  C5'   H52    
+      BOND  C5'   H53
+
+      ! deoxyribose model compound C2'endo minimum 
+ 
+      IC  C4'   O4'    C1'   C2'      1.4556  110.31  -14.32  105.78   1.5315  
+      IC  O4'   C1'    C2'   C3'      1.4200  105.78   32.55  102.71   1.5248  
+      IC  C1'   C2'    C3'   C4'      1.5315  102.71  -36.74  101.19   1.5432  
+      IC  C2'   C3'    C4'   O4'      1.5248  101.19   29.12  105.88   1.4556  
+      IC  C3'   C4'    O4'   C1'      1.5432  105.88   -9.56  110.31   1.4200  
+      IC  N1    C1'    C2'   C3'      1.4659  114.38  150.08  102.71   1.5248  
+      IC  HN1   N1     C1'   C2'      1.0091  111.57   51.56  114.38   1.5315  
+      IC  HN2   N1     C1'   C2'      1.0093  110.86  -66.78  114.38   1.5315  
+      IC  H1'   C1'    C2'   C3'      1.1024  109.82  -83.66  102.71   1.5248  
+      IC  C5'   C4'    O4'   C1'      1.5227  107.90  116.96  110.31   1.4200  
+      IC  H51   C5'    C4'   O4'      1.1110  110.65  -60.61  107.90   1.4556  
+      IC  H52   C5'    C4'   O4'      1.1106  110.69  178.86  107.90   1.4556  
+      IC  H53   C5'    C4'   O4'      1.1117  110.22   58.93  107.90   1.4556  
+      IC  H4'   C4'    O4'   C1'      1.1012  107.70 -126.13  110.31   1.4200  
+      IC  H2'   C2'    C3'   C4'      1.0992  111.36 -156.17  101.19   1.5432  
+      IC  H2''  C2'    C3'   C4'      1.0994  109.88   81.56  101.19   1.5432  
+      IC  O3'   C3'    C4'   O4'      1.4238  112.68  -88.97  105.88   1.4556  
+      IC  H3T   O3'    C3'   C4'       .9616  105.23   49.32  112.68   1.5432  
+      IC  H3'   C3'    C4'   O4'      1.1016  110.76  146.70  105.88   1.4556  
+ 
+ 
+ END {DEOT}
+! ====================================================================== 
+
+ PRESidue NUC         ! patch for nucleic acid backbone
+                      ! should be used as "LINK NUC  HEAD - *  TAIL + *  END"
+                      ! i.e. it links the previous RNA residue (-) with
+                      ! the current one (+)
+  GROUp
+   	MODIFY ATOM -O3' END   !
+  	MODIFY ATOM +P   END   !
+  	MODIFY ATOM +O1P END   ! this should correctly define the electrostatic
+   	MODIFY ATOM +O2P END   ! group boundary
+   	MODIFY ATOM +O5' END   !
+
+  ADD BOND -O3' +P
+
+  ADD ANGLE -C3' -O3' +P
+  ADD ANGLE -O3' +P  +O1P
+  ADD ANGLE -O3' +P  +O2P
+  ADD ANGLE -O3' +P  +O5'
+  
+  ADD DIHEdral -C4' -C3' -O3'  +P
+  ADD DIHEdral -C2' -C3' -O3'  +P
+  ADD DIHEdral -H3' -C3' -O3'  +P
+  ADD DIHEdral -C3' -O3' +P   +O5' !\ double
+  ADD DIHEdral -C3' -O3' +P   +O5' !/ dihedral
+  ADD DIHEdral -C3' -O3' +P   +O1P
+  ADD DIHEdral -C3' -O3' +P   +O2P
+  ADD DIHEdral -O3' +P  +O5'  +C5' !\ double
+  ADD DIHEdral -O3' +P  +O5'  +C5' !/ dihedral
+
+  ADD IC  -C4' -C3'  -O3' +P     .0000     .00  160.00     .00  .0000
+  ADD IC  -C3' -O3'  +P   +O5'   .0000     .00 -100.00     .00  .0000
+  ADD IC  -O3'  +P   +O5' +C5'   .0000     .00  -40.00     .00  .0000
+  ADD IC  -O3' +O5' *+P   +O1P   .0000     .00 -115.00     .00  .0000
+  ADD IC  -O3' +O5' *+P   +O2P   .0000     .00 -115.00     .00  .0000
+  ADD IC  +P   +O5'  +C5' +C4'  1.5996  119.00 -151.39  110.04 1.5160
+
+
+ END {NUC}
+ 
+ SET ECHO=TRUE END 

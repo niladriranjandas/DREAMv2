@@ -1,0 +1,93 @@
+#!/usr/bin/env /data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/pyXplor
+
+import sys
+dele =0
+
+(opts,pdbfile)=xplor.parseArguments(["delUnknown:0",
+                                     "disulfide_bond:2",
+				     "selection:1",
+                                     "topology:2",
+                                     "outfile:1"],
+                                    cmdline="<pdbFile>",
+                                    description="""
+Generates a psf file from the given pdb file. 
+The psf file is written to a filename derived the input filename.""",
+                                    usageString="""
+options are::
+
+      -disulfide_bond sel1 sel2 - specify residues with disulfide bonds.
+      -selection <sel>          - specify a subselection of the full PSF
+      		 		  to convert. Defaults to all atoms.
+      -topology type file       - specify alternate topology file for
+                                  the specified seqeunce type. Type is either
+                                  protein or nucleic, while file can be path,
+                                  or an entry in the toppar directory.
+      -outfile name   - name of generated psf file. The default is to use
+                        the input filename with a ``.psf'' suffix.
+      -delUnknown     - to delete the unknown atoms from
+                        the PDB file before the psf file is been written.
+                        The option is off if not specified.
+         
+    this is a work in progress. Please report problems to
+    xplor-nih@nmr.cit.nih.gov
+"""
+                                    )
+
+disulfide_bonds=[]
+import protocol
+outfile=None
+selection="all"
+for op in opts:
+   if(op[0]=='delUnknown'):
+      dele=1
+   if(op[0]=='outfile'):
+      outfile=op[1]
+   if(op[0]=='selection'):
+      selection=op[1]
+   if(op[0]=='disulfide_bond'):
+      disulfide_bonds.append( (op[1],op[2]) )
+      pass
+   if(op[0]=='topology'):
+      protocol.topology[op[1]] = op[2]
+      pass
+   pass
+infile=pdbfile[0]
+
+if not open(infile):
+    print("file not found or not readable: %s" % infile)
+    sys.exit(1)
+    pass
+
+if not outfile:
+    try:
+        if len(infile.split('.')) == 1:
+            outfile=infile
+        else:
+            outfile='.'.join(infile.split('.')[:-1])
+            pass
+        pass
+    except:
+        outfile=infile
+        pass
+    outfile += '.psf'
+    pass
+
+
+
+from psfGen import pdbToPSF, addDisulfideBond
+pdbToPSF(open(infile).read())
+for a,b in disulfide_bonds:
+      addDisulfideBond(a,b)
+      pass
+
+
+if (dele==1):
+    import protocol
+    protocol.initCoords(files=infile)
+    xplor.simulation.deleteAtoms("not known")
+    pass
+
+xplor.simulation.deleteAtoms("not (%s)" % selection)
+
+psfFilename=outfile
+xplor.command("write psf output=%s end" % psfFilename)

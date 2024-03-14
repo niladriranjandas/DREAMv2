@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1w0b</protein_name>
+		<seq_file>1w0b.seq</seq_file>
+		<upl_file>1w0b_concat_dist.upl</upl_file>
+		<hbond_file>1w0b_concat_hBond.upl</hbond_file>
+		<ang_file>1w0b_concat_dihed.aco</ang_file>
+		<protein_path>../protein/1w0b</protein_path>
+	</inputs>

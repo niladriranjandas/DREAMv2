@@ -1,0 +1,15 @@
+ 27 SER  H      28 GLU  H       1.80
+ 25 SER  H      26 PHE  H       1.80
+ 23 HIS  H      24 LEU  H       1.80
+ 26 PHE  H      26 PHE  HA      1.80
+103 SER  H     104 ALA  H       1.80
+105 SER  H     106 THR  H       1.80
+ 82 THR  H      83 ALA  H       1.80
+ 46 GLY  H      47 ILE  H       1.80
+ 47 ILE  H      47 ILE  HA      1.80
+ 45 ASN  H      44 LYS  HA      1.80
+101 GLN  H     101 GLN  HA      1.80
+ 21 VAL  H      20 PRO  HB2     1.80
+ 21 VAL  H      20 PRO  HB3     1.80
+ 36 VAL  HB     37 SER  H       1.80
+ 16 ASP  H      17 VAL  H       1.80

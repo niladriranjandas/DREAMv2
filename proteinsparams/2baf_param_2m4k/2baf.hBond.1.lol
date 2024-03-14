@@ -1,0 +1,14 @@
+ 67 GLU  O      59 VAL  H       1.50
+ 67 GLU  O      59 VAL  N       2.40
+ 57 LYS  O      69 THR  H       1.50
+ 57 LYS  O      69 THR  N       2.40
+ 69 THR  O      57 LYS  H       1.50
+ 69 THR  O      57 LYS  N       2.40
+ 53 LYS  O      73 VAL  H       1.50
+ 53 LYS  O      73 VAL  N       2.40
+ 73 VAL  O      53 LYS  H       1.50
+ 73 VAL  O      53 LYS  N       2.40
+ 55 ILE  O      71 GLU  H       1.50
+ 55 ILE  O      71 GLU  N       2.40
+ 59 VAL  O      67 GLU  H       1.50
+ 59 VAL  O      67 GLU  N       2.40

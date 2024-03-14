@@ -1,0 +1,385 @@
+remarks   HEME GROUP, LIGANDS AND HISTIDINE FOR X-PLOR
+remarks   (The histidine is asymmmetric, as in AMBER. The toph19(x).pro
+remarks   histidine should be removed before using this)
+remarks   =====================================
+remarks   John Kuriyan 19/may/1986
+SET ECHO=FALSE END
+     
+AUTOGENERATE  ANGLES=TRUE  END      {* but see the two omitted angles below *}
+{*============================         ==================================== *}
+MASS     H      1.00800 ! hydrogen which can h-bond to neutral atom
+MASS     HC     1.00800 !   -    "     -               charged atom
+MASS     HA     1.00800 ! aliphatic hydrogen
+MASS     HT     1.00800 ! TIPS3P WATER HYDROGEN
+MASS     LP     0.0     ! ST2 LONE PAIR
+MASS    CT    12.01100 ! aliphatic carbon
+MASS    C     12.01100 ! carbonyl carbon
+MASS    CH1E  13.01900 ! extended atom carbon w/ one hydrogen
+MASS    CH2E  14.02700 !   -    "    -           two
+MASS    CH3E  15.03500 !   -    "    -           three
+MASS    CR1E  13.01900 !   -    "    -        in aromatic ring w/ one H
+MASS    CM    12.01100 ! carbon in carbonmonoxide
+MASS    N     14.00670 ! peptide nitrogen with no hydrogens attached
+MASS    NR    14.00670 ! nitrogen in aromatic ring with no hydrogens
+MASS    NP    14.00670 ! pyrole nitrogen
+MASS    NH1   14.00670 ! peptide nitrogen bound to one hydrogen
+MASS    NH2   14.00670 !  -       "        -       two -"-
+MASS    NH3   14.00670 ! nitrogen bound to three hydrogens
+MASS    NC2   14.00670 ! charged guanidinuim nitrogen bound to two hydrogens
+MASS    O     15.99940 ! carbonyl oxygen
+MASS    OC    15.99940 ! carboxy oxygen
+MASS    OH1   15.99940 ! hydroxy oxygen
+MASS    OH2   15.99940 ! ST2 water oxygen
+MASS    OM    15.99940 ! oxygen in carbonmonoxide
+MASS    OT    15.99940 ! TIPS3P WATER OXYGEN
+MASS    OS    15.99940 ! ester oxygen
+MASS    S     32.06000 ! sulphur
+MASS    SH1E  33.06800 ! extended atom sulphur with one hydrogen
+MASS    CP    13.019   ! (AMBER)imidazole carbon for assymm. histidine CE1
+MASS    CF    13.019   ! IMIDAZOLE CARBON FOR ASSYM. HISTIDINE CE2
+MASS    NB    14.0067  ! IMIDAZOLE NITROGEN NE2
+MASS    CC    12.011   ! IMIDAZOLE CARBON  CG
+MASS    NA    14.0067  ! IMIDAZOLE PROTONATED NITROGEN
+MASS    FE    55.84700 ! iroN
+MASS    CPA   12.01100 ! HEME SP2 CARBON
+MASS    CPB   12.01100 ! HEME SP2 CARBON
+MASS    CPM   13.01900 ! HEME MESO CARBON, EXTENDED
+     
+     
+RESI HIS     { SINGLY PROTONATED HISTIDINE}
+{Rings charges from Del Bene and Cohen}
+{JACS 100:5285 (1978) Imidazole sto-3g calc.}
+{This HIS residue has AMBER atom types; the parameters}
+{make the ring asymmetrical.}
+GROU
+ATOM N    TYPE NH1    CHARGE -0.35    END
+ATOM H    TYPE H      CHARGE  0.25      END
+ATOM CA   TYPE CH1E   CHARGE  0.10      END
+GROU
+ATOM CB   TYPE CH2E   CHARGE  0.00      END
+GROUP
+ATOM CG   TYPE CC     CHARGE  0.10      END
+ATOM ND1  TYPE NA     CHARGE -0.40      END
+ATOM HD1  TYPE H      CHARGE  0.30      END
+GROU
+ATOM CD2  TYPE CF     CHARGE  0.10      END
+ATOM NE2  TYPE NB     CHARGE -0.40      END
+ATOM CE1  TYPE CP     CHARGE  0.30      END
+GROU
+ATOM C    TYPE C      CHARGE  0.55      END
+ATOM O    TYPE O      CHARGE -0.55      END
+     
+BOND N    CA        BOND CA   C         BOND C    O         BOND N    H
+BOND CA   CB        BOND CB   CG        BOND CG   ND1       BOND CG   CD2
+BOND ND1  HD1       BOND ND1  CE1       BOND CD2  NE2       BOND CE1  NE2
+     
+DIHE N    CA   CB   CG        DIHE CA   CB   CG   ND1
+     
+IMPR CA   N    C    CB        IMPR CG   ND1  CD2  CB
+IMPR ND1  CG   CE1  HD1       IMPR CG   ND1  CE1  NE2
+IMPR ND1  CE1  NE2  CD2       IMPR CE1  NE2  CD2  CG
+IMPR NE2  CD2  CG   ND1       IMPR CD2  CG   ND1  CE1
+     
+DONOr H    N
+DONOr HD1  ND1
+ACCEptor O C
+     
+IC   -C   CA   *N   H      0.0000    0.00  180.00    0.00   0.0000
+IC   -C   N    CA   C      0.0000    0.00  180.00    0.00   0.0000
+IC   N    CA   C    +N     0.0000    0.00  180.00    0.00   0.0000
+IC   +N   CA   *C   O      0.0000    0.00  180.00    0.00   0.0000
+IC   CA   C    +N   +CA    0.0000    0.00  180.00    0.00   0.0000
+IC   N    C    *CA  CB     0.0000    0.00  120.00    0.00   0.0000
+IC   N    CA   CB   CG     0.0000    0.00  180.00    0.00   0.0000
+IC   CA   CB   CG   CD2    0.0000    0.00   90.00    0.00   0.0000
+IC   CD2  CB   *CG  ND1    0.0000    0.00  180.00    0.00   0.0000
+IC   CD2  CG   ND1  CE1    0.0000    0.00    0.00    0.00   0.0000
+IC   ND1  CG   CD2  NE2    0.0000    0.00    0.00    0.00   0.0000
+IC   CE1  CG   *ND1 HD1    0.0000    0.00  180.00    0.00   0.0000
+     
+END {HISTIDINE}
+     
+remark  THE HEME GROUP WHICH FOLLOWS IS FOR THE LIGANDED FE(II) STATE
+remark  WITH PERFECT D4H SYMMETRY. THE ATOM TYPES USED ARE FOR
+remark  19MAY86 AND THE STRUCTURAL PARAMETERS ARE TAKEN FROM
+remark  KITAGAWA, ABE AND OGOSHI J.C.P. 69, (1978) PAGES 4526-4534
+remark  JOHN KURIYAN 26-OCT-1985/19-MAY-86/19-JULY-86
+remark
+RESI HEME
+GROU
+ATOM FE   TYPE FE      CHARGE 0.24  END
+ATOM NA   TYPE NP     CHARGE -0.18  END
+ATOM NB   TYPE NP     CHARGE -0.18  END
+ATOM NC   TYPE NP     CHARGE -0.18  END
+ATOM ND   TYPE NP     CHARGE -0.18  END
+GROU
+ATOM C1A  TYPE CPA     CHARGE 0.03  END
+ATOM CHA  TYPE CPM     CHARGE 0.04  END
+ATOM HA   TYPE HA      CHARGE 0.0  END
+ATOM C4D  TYPE CPA     CHARGE 0.02  END
+GROU
+ATOM C1B  TYPE CPA     CHARGE 0.03  END
+ATOM CHB  TYPE CPM     CHARGE 0.04  END
+ATOM HB   TYPE HA      CHARGE 0.0  END
+ATOM C4A  TYPE CPA     CHARGE 0.02  END
+GROU
+ATOM C1C  TYPE CPA     CHARGE 0.03  END
+ATOM CHC  TYPE CPM     CHARGE 0.04  END
+ATOM HC   TYPE HA      CHARGE 0.0  END
+ATOM C4B  TYPE CPA     CHARGE 0.02  END
+GROU
+ATOM C1D  TYPE CPA     CHARGE 0.03  END
+ATOM CHD  TYPE CPM     CHARGE 0.04  END
+ATOM HD   TYPE HA      CHARGE 0.0  END
+ATOM C4C  TYPE CPA     CHARGE 0.02  END
+GROU
+ATOM C2A  TYPE CPB    CHARGE -0.02  END
+ATOM CAA  TYPE CH2E    CHARGE 0.04  END
+GROU
+ATOM C3A  TYPE CPB     CHARGE 0.02  END
+ATOM CMA  TYPE CH3E   CHARGE -0.04  END
+GROU
+ATOM CBA  TYPE CH2E   CHARGE -0.10  END
+ATOM CGA  TYPE C       CHARGE 0.30  END
+ATOM O1A  TYPE OC     CHARGE -0.50  END
+ATOM O2A  TYPE OC     CHARGE -0.50  END
+GROU
+ATOM C2B  TYPE CPB     CHARGE 0.02  END
+ATOM CMB  TYPE CH3E   CHARGE -0.04  END
+GROU
+ATOM C3B  TYPE CPB    CHARGE -0.05  END
+ATOM CAB  TYPE CR1E    CHARGE 0.03  END
+ATOM CBB  TYPE CH2E   CHARGE -0.10  END
+GROU
+ATOM C2C  TYPE CPB     CHARGE 0.02  END
+ATOM CMC  TYPE CH3E   CHARGE -0.04  END
+GROU
+ATOM C3C  TYPE CPB    CHARGE -0.05  END
+ATOM CAC  TYPE CR1E    CHARGE 0.03  END
+ATOM CBC  TYPE CH2E   CHARGE -0.10  END
+GROU
+ATOM C2D  TYPE CPB     CHARGE 0.02  END
+ATOM CMD  TYPE CH3E   CHARGE -0.04  END
+GROU
+ATOM C3D  TYPE CPB    CHARGE -0.02  END
+ATOM CAD  TYPE CH2E    CHARGE 0.04  END
+GROU
+ATOM CBD  TYPE CH2E   CHARGE -0.10  END
+ATOM CGD  TYPE C       CHARGE 0.30  END
+ATOM O1D  TYPE OC     CHARGE -0.50  END
+ATOM O2D  TYPE OC     CHARGE -0.50  END
+     
+BOND FE   NA        BOND FE   NB        BOND FE   NC
+BOND FE   ND        BOND NA   C1A       BOND C1A  C2A
+BOND C2A  C3A       BOND C3A  C4A       BOND NA   C4A
+BOND C2A  CAA       BOND CAA  CBA       BOND CBA  CGA
+BOND CGA  O1A       BOND CGA  O2A       BOND C3A  CMA
+BOND CHB  C4A       BOND CHB  C1B       BOND NB   C1B
+BOND C1B  C2B       BOND C2B  C3B       BOND C3B  C4B
+BOND NB   C4B       BOND C2B  CMB       BOND C3B  CAB
+BOND CAB  CBB       BOND CHC  C4B       BOND CHC  C1C
+BOND NC   C1C       BOND C1C  C2C       BOND C2C  C3C
+BOND C3C  C4C       BOND NC   C4C       BOND C2C  CMC
+BOND C3C  CAC       BOND CAC  CBC       BOND CHD  C4C
+BOND CHD  C1D       BOND ND   C1D       BOND C1D  C2D
+BOND C2D  C3D       BOND C3D  C4D       BOND ND   C4D
+BOND C2D  CMD       BOND C3D  CAD       BOND CAD  CBD
+BOND CBD  CGD       BOND CGD  O1D       BOND CGD  O2D
+BOND CHA  C4D       BOND CHA  C1A       BOND CHA  HA
+BOND CHB  HB        BOND CHC  HC        BOND CHD  HD
+{}
+ OMIT ANGLE NA FE NC
+ OMIT ANGLE NB FE ND
+{}
+DIHE C1A  C2A  CAA  CBA       DIHE C2A  CAA  CBA  CGA
+DIHE CAA  CBA  CGA  O1A       DIHE C2B  C3B  CAB  CBB
+DIHE C2C  C3C  CAC  CBC       DIHE C2D  C3D  CAD  CBD
+DIHE C3D  CAD  CBD  CGD       DIHE CAD  CBD  CGD  O1D
+{}
+IMPR C2A  C1A  C3A  CAA       IMPR C3A  C2A  C4A  CMA
+IMPR C2B  C1B  C3B  CMB       IMPR C3B  C2B  C4B  CAB
+IMPR C2C  C1C  C3C  CMC       IMPR C3C  C2C  C4C  CAC
+IMPR C2D  C1D  C3D  CMD       IMPR C3D  C2D  C4D  CAD
+IMPR CBA  O1A  O2A  CGA       IMPR CBD  O1D  O2D  CGD
+{}
+{}
+{ IMPROPER TORSIONS SELECTED TO MATCH LI AND SPIRO'S TORSIONS AND     }
+{ OUT OF PLANE BENDING COORDINATES. ALL DIHEDRALS REMOVED TO MAINTAIN }
+{ QUADRATIC POTENTIAL }
+{}
+IMPR     C4A  NA   C1A  C2A       IMPR     C1A  NA   C4A  C3A
+IMPR     C4B  NB   C1B  C2B       IMPR     C1B  NB   C4B  C3B
+IMPR     C4C  NC   C1C  C2C       IMPR     C1C  NC   C4C  C3C
+IMPR     C4D  ND   C1D  C2D       IMPR     C1D  ND   C4D  C3D
+{}
+IMPR     NA   C1A  C2A  C3A       IMPR     NA   C4A  C3A  C2A
+IMPR     NB   C1B  C2B  C3B       IMPR     NB   C4B  C3B  C2B
+IMPR     NC   C1C  C2C  C3C       IMPR     NC   C4C  C3C  C2C
+IMPR     ND   C1D  C2D  C3D       IMPR     ND   C4D  C3D  C2D
+{}
+IMPR     NA   C1A  CHA  C4D       IMPR     NA   C4A  CHB  C1B
+IMPR     NB   C1B  CHB  C4A       IMPR     NB   C4B  CHC  C1C
+IMPR     NC   C1C  CHC  C4B       IMPR     NC   C4C  CHD  C1D
+IMPR     ND   C1D  CHD  C4C       IMPR     ND   C4D  CHA  C1A
+{}
+IMPR     CHA  C1A  C4D  HA
+IMPR     CHB  C1B  C4A  HB
+IMPR     CHC  C1C  C4B  HC
+IMPR     CHD  C1D  C4C  HD
+{}
+{}
+IMPR     C1A  C2A  CHA  NA        IMPR     C4A  C3A  CHB  NA
+IMPR     C1B  C2B  CHB  NB        IMPR     C4B  C3B  CHC  NB
+IMPR     C1C  C2C  CHC  NC        IMPR     C4C  C3C  CHD  NC
+IMPR     C1D  C2D  CHD  ND        IMPR     C4D  C3D  CHA  ND
+{}
+IMPR     NA   C1A  C4A  FE
+IMPR     NB   C1B  C4B  FE
+IMPR     NC   C1C  C4C  FE
+IMPR     ND   C1D  C4D  FE
+{}
+ ACCEptor NA  " "            ACCEptor O1A CGA
+ ACCEptor O2A CGA            ACCEptor NB " "
+ ACCEptor NC  " "            ACCEptor ND " "
+ ACCEptor O1D CGD            ACCEptor O2D CGD
+     
+IC   FE   NA    C4A  CHB    0.0000    0.00    0.00    0.00   0.0000
+IC   NA   C4A   CHB  C1B    0.0000    0.00    0.00    0.00   0.0000
+IC   NA   CHB  *C4A  C3A    0.0000    0.00  180.00    0.00   0.0000
+IC   C4A  CHB   C1B  NB     0.0000    0.00    0.00    0.00   0.0000
+IC   CHB  NB   *C1B  C2B    0.0000    0.00  180.00    0.00   0.0000
+IC   FE   C1B  *NB   C4B    0.0000    0.00  180.00    0.00   0.0000
+IC   FE   NB    C4B  CHC    0.0000    0.00    0.00    0.00   0.0000
+IC   CHC  NB   *C4B  C3B    0.0000    0.00  180.00    0.00   0.0000
+IC   C3B  C1B  *C2B  CMB    0.0000    0.00  180.00    0.00   0.0000
+IC   C4B  C2B  *C3B  CAB    0.0000    0.00  180.00    0.00   0.0000
+IC   C2B  C3B   CAB  CBB 0.0 0.00 -45.00 0.00 0.0 ! PREVENTS VINYL COLLISION
+IC   NB   C4B   CHC  C1C    0.0000    0.00    0.00    0.00   0.0000
+IC   C4B  CHC   C1C  NC     0.0000    0.00    0.00    0.00   0.0000
+IC   CHC  NC   *C1C  C2C    0.0000    0.00  180.00    0.00   0.0000
+IC   FE   C1C  *NC   C4C    0.0000    0.00  180.00    0.00   0.0000
+IC   FE   NC    C4C  CHD    0.0000    0.00    0.00    0.00   0.0000
+IC   CHD  NC   *C4C  C3C    0.0000    0.00  180.00    0.00   0.0000
+IC   CHC  C1C   C2C  CMC    0.0000    0.00    0.00    0.00   0.0000
+IC   C4C  C2C  *C3C  CAC    0.0000    0.00  180.00    0.00   0.0000
+IC   C2C  C3C   CAC  CBC 0.0 0.00  -45.0 0.00 0.0 ! PREVENTS VINYL COLLISION
+IC   NC   C4C   CHD  C1D    0.0000    0.00    0.00    0.00   0.0000
+IC   C4C  CHD   C1D  ND     0.0000    0.00    0.00    0.00   0.0000
+IC   FE   C1D  *ND   C4D    0.0000    0.00  180.00    0.00   0.0000
+IC   CHD  ND   *C1D  C2D    0.0000    0.00  180.00    0.00   0.0000
+IC   FE   ND    C4D  CHA    0.0000    0.00    0.00    0.00   0.0000
+IC   CHA  ND   *C4D  C3D    0.0000    0.00  180.00    0.00   0.0000
+IC   C4D  C2D  *C3D  CAD    0.0000    0.00  180.00    0.00   0.0000
+IC   C3D  C1D  *C2D  CMD    0.0000    0.00  180.00    0.00   0.0000
+IC   C2D  C3D   CAD  CBD    0.0000    0.00 -120.00    0.00   0.0000
+IC   C3D  CAD   CBD  CGD    0.0000    0.00  180.00    0.00   0.0000
+IC   CAD  CBD   CGD  O1D    0.0000    0.00    0.00    0.00   0.0000
+IC   CAD  CBD   CGD  O2D    0.0000    0.00  180.00    0.00   0.0000
+IC   ND   C4D   CHA  C1A    0.0000    0.00    0.00    0.00   0.0000
+IC   CHA  NA   *C1A  C2A    0.0000    0.00  180.00    0.00   0.0000
+IC   C4A  C2A  *C3A  CMA    0.0000    0.00  180.00    0.00   0.0000
+IC   C3A  C1A  *C2A  CAA    0.0000    0.00  180.00    0.00   0.0000
+IC   C1A  C2A   CAA  CBA    0.0000    0.00  120.00    0.00   0.0000
+IC   C2A  CAA   CBA  CGA    0.0000    0.00  180.00    0.00   0.0000
+IC   CAA  CBA   CGA  O1A    0.0000    0.00    0.00    0.00   0.0000
+IC   CAA  CBA   CGA  O2A    0.0000    0.00  180.00    0.00   0.0000
+IC   C4D  C1A  *CHA  HA     0.0       0.0   180.0     0.0    0.0
+IC   C4A  C1B  *CHB  HB     0.0       0.0   180.0     0.0    0.0
+IC   C4B  C1C  *CHC  HC     0.0       0.0   180.0     0.0    0.0
+IC   C4C  C1D  *CHD  HD     0.0       0.0   180.0     0.0    0.0
+IC   C4D  CHA   C1A  NA     0.0000    0.00    0.00    0.00   0.0000
+IC   C1D  ND    FE   NC     0.0000    0.00    0.00    0.00   0.0000
+IC   C4A  NA    FE   NB     0.0000    0.00    0.00    0.00   0.0000
+IC   C4C  NC    FE   ND     0.0000    0.00    0.00    0.00   0.0000
+IC   C1B  NB    FE   NA     0.0000    0.00    0.00    0.00   0.0000
+IC   FE   C1A  *NA   C4A    0.0000    0.00  180.00    0.00   0.0000
+IC   C3C  C1C  *C2C  CMC    0.0000    0.00  180.00    0.00   0.0000
+IC   CBA  O1A  *O2A  CGA    0.0000    0.00  180.00    0.00   0.0000
+IC CBD  O1D  *O2D  CGD      0.0000    0.00  180.00    0.00   0.0000
+IC NA   NB   *NC   ND       0.0000    0.00  180.00    0.00   0.0000
+IC NB   NC   *ND   NA       0.0000    0.00  180.00    0.00   0.0000
+IC NC   ND   *NA   NB       0.0000    0.00  180.00    0.00   0.0000
+IC ND   NA   *NB   NC       0.0       0.0   180.0     0.0    0.0
+IC NA   ND   *FE   NB       0.0       0.0   180.0     0.0    0.0
+IC ND   NC   *FE   NA       0.0       0.0   180.0     0.0    0.0
+IC NC   NB   *FE   ND       0.0       0.0   180.0     0.0    0.0
+IC NB   NA   *FE   NC       0.0       0.0   180.0     0.0    0.0
+     
+END {HEME}
+RESIDUE CO
+GROUP
+ATOM C    TYPE=CM     CHARGE= 0.021 END
+ATOM O    TYPE=OM     CHARGE= -0.021 END
+BOND C    O
+END {CO}
+     
+AUTOGENERATE ANGLES = FALSE END
+     
+{ RESIDUE FEOX IS THE IRON-OXYGEN-IRON LINKAGE IN }
+{ MYOHEMERYTHRIN }
+     
+RESIDUE FEOX
+     
+GROUP
+ATOM FE1 TYPE=FE CHARGE = 0.0 END
+ATOM FE2 TYPE=FE CHARGE = 0.0 END
+ATOM OFE TYPE=O  CHARGE = 0.0 END
+BOND FE1 OFE
+BOND OFE FE2
+     
+END {FEOX}
+     
+{ THE AZIDE RESIDUE WHICH FOLLOWS IS A LIGAND FOR THE IRON MOEITY }
+{ IN MYOHEMYRYTHRIN }
+     
+RESIDUE AZID
+     
+GROUP
+ATOM N1 TYPE=N CHARGE = 0.0 END
+ATOM N2 TYPE=N CHARGE = 0.0 END
+ATOM N3 TYPE=N CHARGE = 0.0 END
+     
+BOND N1 N2   BOND N2 N3
+     
+ANGLE N1 N2 N3
+     
+END { AZIDE }
+     
+PRESidue PHEM  ! Patch for HEME. Patch residues must be 1-HIS, and 2-HEME.
+  BOND 1NE2 2FE
+  ANGLe 1CD2  1NE2  2FE
+  ANGLe 1CE1  1NE2  2FE
+  ANGLe 1NE2  2FE  2NA
+  ANGLe 1NE2  2FE  2NB
+  ANGLe 1NE2  2FE   2NC
+  ANGLe 1NE2  2FE   2ND
+END {* PHEM *}
+     
+!-------------------------------------------------------------------------
+     
+PRESidue PLO2 ! Patch residue for Heme ligand.  Residues must be
+! 1-O2 , 2-HEME , and 3-HIS
+! O1 of the oxygen is bonded to the iron.
+  BOND 1O1  2FE
+  !ANGLe 1O1  2FE  3NE2
+  ANGLe 1O2  1O1  2FE
+  ANGLe 1O1  2FE  2NA
+  ANGLe 1O1  2FE  2NB
+  ANGLe 1O1  2FE  2NC
+  ANGLe 1O1  2FE 2ND
+  DIHEdral 1O2  1O1  2FE  2NA
+END {* PLO2 *}
+     
+!-------------------------------------------------------------------
+     
+PRESidue PLIG ! Patch residue for Heme ligand. Residues must be,
+!                           1-CO , 2-HEME , and 3-HIS
+ BOND 1C  2FE
+ ANGL 1C  2FE  3NE2
+ ANGLe 1O  1C  2FE
+ ANGLe 1C  2FE  2NA
+ ANGLe 1C  2FE  2NB
+ ANGLe 1C  2FE  2NC
+ ANGle 1C  2FE 2ND
+END {* PLIG *}
+SET ECHO=TRUE END

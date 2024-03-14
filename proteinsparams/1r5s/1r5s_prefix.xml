@@ -1,0 +1,9 @@
+<set_up>
+	<input>
+		<protein_name>1r5s</protein_name
+		<seq_file>1r5s.seq</seq_file>
+		<upl_file>1r5s_concat_dist.upl</upl_file>
+		<hbond_file>1r5s_concat_hBond.upl</hbond_file>
+		<ang_file>1r5s_concat_dihed.aco</ang_file>
+		<protein_path>../protein/1r5s</protein_path>
+	</input>

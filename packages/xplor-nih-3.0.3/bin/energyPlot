@@ -1,0 +1,206 @@
+#!/usr/bin/env /data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/pyXplor
+
+(opts,args) = xplor.parseArguments(('noLegend:0',
+                                    'points:0',
+                                    'vsTime:0',
+                                    'printOut:0',
+                                    'reset:1',
+                                    'ymax:1', 
+                                    'maxCount:1'),
+                                   cmdline="[options]",
+                                   description="""
+Read an Xplor-NIH output file from stdin and plot or print energies printed 
+during dynamics and minimization.
+
+Example: energyPlot < script.out
+
+	 	                   """,	
+                                   usageString="""
+
+where options are one or more of::
+
+ -noLegend    - do not display the legend in the output plot.
+ -points      - do not print lines between energy values.
+ -vsTime      - plot the energies as a function of time, instead of by output
+                count.
+ -printOut    - print a text representation of the energies, instead of a plot.
+ -reset <string> - if the specified string is seen within a line the output
+                   count is reset to zero.
+ -maxCount <val> - the maximum count to print.
+ -ymax <val>     - maximum y-value plotted.
+
+                                   """
+                                    )
+
+plotLegend=True
+plotVs='cnt'
+style="-"
+ymax=None
+noMinimize=False
+infilename=None
+reset=None
+maxCount=None
+printOut=False
+for opt in opts:
+    if opt[0]=='noLegend':
+        plotLegend=False
+        pass
+    elif opt[0]=='vsTime':
+        plotVs='time'
+        noMinimize=True
+        pass
+    elif opt[0]=='ymax':
+        ymax=float(opt[1])
+        pass
+    elif opt[0]=='points':
+        style='*'
+        pass
+    elif opt[0]=='reset':
+        reset=opt[1]
+        pass
+    elif opt[0]=='maxCount':
+        maxCount=int(opt[1])
+        pass
+    elif opt[0]=='printOut':
+        printOut=True
+        pass
+    elif opt[0]=='help-script':
+        print(usage)
+        sys.exit(0)
+        pass
+    pass
+
+included=args
+
+if len(included)==1:
+    plotLegend=False
+    pass
+
+if infilename==None:
+    from sys import stdin
+else:
+    stdin = file(infilename)
+    pass
+
+cnt=0
+energyMode=False
+from parseTools import readFloat
+vals={}
+names=set()
+names.add('delta_t')
+startTime=0
+for line in stdin.readlines():
+    if maxCount!=None and cnt>maxCount:
+        break
+    if line.startswith("*--- Dynamics") or line.startswith(" -- PC6 "):
+        if cnt not in vals: vals[cnt]={}
+        buf=str(line)
+        while "---" in buf:
+            buf=buf.replace("---","--")
+            pass
+        fields=buf.split("--")
+        step=int(fields[2].split('=')[1])
+        time,dummy=readFloat(fields[3].split('=')[1])
+        delta_t,dummy=readFloat(fields[4].split('=')[1])
+        vals[cnt]['step'] = step
+        try:
+            if step==0 and cnt>0:
+                startTime = vals[cnt-1]['time'] + vals[cnt-1]['delta_t']
+                pass
+            vals[cnt]['time'] = time+startTime
+            vals[cnt]['delta_t'] = delta_t
+            energyMode=True
+        except KeyError:
+            pass
+        pass
+    elif not noMinimize and (line.startswith("*-- POWELL") or
+                             line.startswith(" --------------- cycle=") ):
+        if cnt not in vals: vals[cnt]={}
+        buf=str(line)
+        while "---" in buf:
+            buf=buf.replace("---","--")
+            pass
+        fields=buf.split("--")
+        step=int(fields[2].split('=')[1])
+        energyMode=True
+        pass
+
+    if reset and reset in line:
+        cnt=0
+        pass
+    
+    if (line.startswith("*--------------") or
+        line.startswith(" ------------------------------")):
+        cnt += 1
+        energyMode=False
+        pass
+    if energyMode and (line.startswith("|") or
+                       line.startswith(" |") ):
+        buf=str(line[1:][:-1]).strip()
+        if buf.startswith('|'): buf = buf[1:]
+        while buf:
+            pos=buf.find("=")
+            if pos<0:
+                break
+            name=buf[:pos].strip()
+            val,buf=readFloat(buf[pos+1:])
+            names.add(name)
+            vals[cnt][name] = val
+            pass
+        pass
+    
+        
+    pass
+indices=sorted(vals.keys())
+#for name in names:
+#    for index in indices:
+#        print index,name,vals[cnt][name]
+#        pass
+#    pass
+
+excluded=['temperature','E(kin)+E(poten)','E(kin)','E(poten)','grad']
+
+
+import pylab
+import matplotlib
+fig=pylab.figure()
+ax = fig.add_axes((0.1,0.1,0.86,0.85))
+
+legendLabels=[]
+curves=[]
+ymin=1e30
+for name in names:
+    if included:
+        if not name in included:
+            continue
+        pass
+    elif name in excluded:
+        continue
+    y=[]
+    x=[]
+    for index in indices:
+        if name in list(vals[index].keys()):
+            y.append(vals[index][name])
+            x.append(index)
+            if printOut:
+                print(name, x[-1], y[-1])
+            pass
+        pass
+    if plotVs=='time':
+        x=[vals[index]['time'] for index in x]
+        pass
+    legendLabels.append(name)
+    ymin = min(ymin,min(y))
+    curves.append( ax.plot(x,y,style,label=name) )
+    pass
+
+if ymax!=None:
+    ax.set_ylim(ymax=ymax,ymin=ymin)
+    pass
+if plotLegend:
+    ax.legend(legendLabels)
+    pass
+
+if not printOut:
+    pylab.show()
+    pass

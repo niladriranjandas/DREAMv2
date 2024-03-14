@@ -1,0 +1,350 @@
+remarks  TOPH11.TRN    T-RNA patch file
+remarks  T R N A PATCHES ADDED 5/19/83 
+
+{* DNA/RNA default masses *}
+MASS   HN     1.00800! corresp. to H
+MASS   H2     1.00800! hydrogen in -NH2
+MASS   HO     1.00800! hydroxy hydrogen
+MASS   CN    12.01100! corresp. to C
+MASS   CH    13.01900! corresp. to CH1E
+MASS   C2    14.02700! corresp. to CH2E
+MASS   CA    12.01100! carbon in ring bound to two or three nitrogens
+MASS   CB    12.01100! carbon in ring ("bridge" e.g. in GUA)
+MASS   CE    13.01900! extended atom carbon in (5) ring with one H
+MASS   CF    13.01900! extended atom carbon in (6) ring with one H
+MASS   C3    15.03500! corresp. to CH3E
+MASS   CS    12.01100! carbon in ring >C-C in THY
+MASS   N2    14.00670! nitrogen in -NH2
+MASS   NA    14.00670! corresp. to NH1
+MASS   NB    14.00670! corresp. to NR in (5) ring
+MASS   NC    14.00670! corresp. to NR
+MASS   NS    14.00670! nitrogen in ring >N-
+MASS   ON    15.99940! corresp. to O
+MASS   O2    15.99940! O in phosphate
+MASS   OS    15.99940! ester -P-O-C-
+MASS   OH    15.99940! corresp. to OH1
+MASS   P     30.97400! phosphorus
+MASS   SD    22.98980! sodium ion
+MASS   BR    79.90400! bromium
+
+
+! All the modified nucleotides in tRNA are implemented
+! as patches .
+! ------------ work in progress ----------------------
+!                   /LN
+!
+! No additional atomtypes seem to be necessary
+!
+!!!!  ****>>>>CHARGES NEED CHECKING (and atomtypes too)
+!             GROUP SUBDIVISIONS ARE STILL MISSING  
+!
+!-----------------------------------------------------------
+!
+
+PRESIdue DHU       ! Make Dihydro-U out of U
+ !       ===
+ MODIFY ATOM  C5 TYPE=C2 CHARGE=0.00 END ! Change these two Cs to C2 adds
+ MODIFY ATOM  C6 TYPE=C2 CHARGE=0.00 END ! the H's
+ !
+ DELEte IMPRoper   N1    C2    N3    C4  ! The ring is no longer aromatic
+ DELEte IMPRoper   C2    N3    C4    C5
+ DELEte IMPRoper   N3    C4    C5    C6
+ DELEte IMPRoper   C4    C5    C6    N1
+ DELEte IMPRoper   C5    C6    N1    C2
+ DELEte IMPRoper   C6    N1    C2    N3
+ ADD DIHEdral   N1    C2    N3    C4       ! So we use plain dihedrals instead 
+ ADD DIHEdral   C2    N3    C4    C5
+ ADD DIHEdral   N3    C4    C5    C6
+ ADD DIHEdral   C4    C5    C6    N1
+ ADD DIHEdral   C5    C6    N1    C2
+ ADD DIHEdral   C6    N1    C2    N3
+END {DHU}
+
+!-----------------------------------------------------------
+
+PRESIdue 7MG    ! 7-Methyl guanosine ****>>> NOTE: Is charged at pH 7
+!        ===      chemistry unclear (CANTOR&SCHIMMEL have charged O)
+
+!DELE ATOM   H1  END! ????
+!GROUP
+! MODIFY ATOM  C6  TYPE=CN   CHARGE=0.30  END
+! MODIFY ATOM  O6  TYPE=ON   CHARGE=-0.40 END
+! MODIFY ATOM  N1  TYPE=NC   CHARGE=-0.20 END
+ GROUP 
+  MODIFY ATOM  C5  TYPE=CB   CHARGE=0.15  END  ! all these charges are
+  ADD    ATOM  C7  TYPE=C3   CHARGE=0.15  END  ! guesswork
+  MODIFY ATOM  N7  TYPE=NB   CHARGE=-0.15 END ! Type?   
+  MODIFY ATOM  C8  TYPE=CE   CHARGE=0.25  END
+ !
+ ADD BOND  N7    C7
+ ADD ANGLE  C5    N7    C7
+ ADD ANGLE  C8    N7    C7
+ ADD IMPROPER  C7    C5    C8    N7
+ ADD IC  C5    C8   *N7   C7    1.378   000.00 -180.00  000.00  0.000
+END {7MG}
+
+!--------------------------------------------------------------
+
+PRESIdue 2M2G      ! N2-Dimethyl guanosine       
+ !       ====
+ DELEte ATOM   H21  END
+ DELEte ATOM   H22  END
+ !
+ GROUP
+  ATOM  N2  TYPE=N2   CHARGE=-0.42    END
+  ATOM  C2B TYPE=C3   CHARGE=0.21     END ! Just replace the Hs with methyls
+  ATOM  C2A TYPE=C3   CHARGE=0.21     END
+ !
+ ADD BOND  N2    C2B
+ ADD BOND  N2    C2A
+ ADD ANGLE  C2    N2    C2B
+ ADD ANGLE  C2    N2    C2A
+ ADD ANGLE  C2B   N2    C2A  
+ ADD DIHEdral  N3    C2    N2    C2B
+ ADD IMPRoper  C2A   C2B   C2    N2
+ ADD IC  N3    C2    N2    C2B    1.3310  120.68  179.25  127.00  0.00  
+ ADD IC  C2B   C2   *N2   C2A    0.00    127.00 -178.12  116.53  0.00
+END {2M2G}
+
+!--------------------------------------------------------------
+
+PRESidue M2G          ! N2-Methyl guanosine       
+ !       ===
+  DELEte ATOM  H22  END
+ GROUP
+  MODIFY ATOM  N2  TYPE=N2  CHARGE=-0.42  END
+  MODIFY ATOM  H21 TYPE=H2  CHARGE=0.21   END
+  ADD    ATOM  C2A TYPE=C3  CHARGE=0.21   END !Just replace the H with a methyl
+ !
+ ADD BOND  N2    C2A
+ ADD ANGLE  C2    N2    C2A
+ ADD ANGLE  H21   N2    C2A  
+ ADD IMPROPER  C2A   H21   C2    N2
+ ADD IC  H21   C2   *N2   C2A    0.00    127.00 -178.12  116.53  0.00
+END {M2G}
+
+!--------------------------------------------------------------
+
+PRESidue 2'OM          ! 2'O-Methyl, to be applied to any nucleotide     
+ !       ====
+  DELEte ATOM H2'  END
+ GROUP
+  MODIFY ATOM C2'  TYPE=CH   CHARGE=0.15    END
+  MODIFY ATOM O2'  TYPE=OS   CHARGE=-0.30   END
+  ADD    ATOM C2A  TYPE=C3   CHARGE=0.15    END
+ !
+ ADD BOND O2'  C2A
+ ADD ANGLE C2'  O2'  C2A
+ ADD DIHEdral C3'  C2'  O2'  C2A
+ ADD IC C2A  O2'  C2'  C3'    1.45    114.97  148.63  11.92  1.5284
+END {2'OM}
+
+!---------------------------------------------------------------
+
+PRESidue PSI      ! Pseudouridine; U with ribose at C5, not N1
+ !       ===
+ DELEte BOND C1'  N1
+ DELEte ANGLe O4'  C1'  N1
+ DELEte ANGLe N1   C1'  C2'
+ DELEte ANGLe C1'  N1   C2
+ DELEte ANGLe C1'  N1   C6
+ DELEte DIHEdral O4'  C1'  N1   C2
+ DELEte DIHEdral N1   C2'  O4'  C1'
+ DELEte IMPRoper C1'  C2   C6   N1
+ DELEte IC   C1'  C2   *N1  C6
+ DELEte IC   C3'  C2'  C1'  N1
+  !
+  MODIFY  ATOM C5   TYPE=CS CHARGE=0.00  END ! Just make this another kind of C
+ GROUP
+  MODIFY ATOM C6   TYPE=CF CHARGE=0.20  END
+  MODIFY ATOM N1   TYPE=NA CHARGE=-0.30 END
+  ADD    ATOM H11  TYPE=HN CHARGE=0.10  END
+ !
+ ADD BOND C1'  C5
+ ADD BOND N1   H11 
+ ADD ANGLE O4'  C1'  C5
+ ADD ANGLE C5  C1'  C2'
+ ADD ANGLE C1'  C5   C4        
+ ADD ANGLE C1'  C5   C6
+ ADD ANGLE C2  N1   H11
+ ADD ANGLE C6   N1   H11
+ ADD DIHEral O4'  C1'  C5   C6
+ ADD IMPRoper C5   C2'  O4'  C1'
+ ADD IMPRoper C1'  C6   C4   C5
+ ADD IMPRoper H11  C2   C6   N1
+ !
+ ADD IC C4   C5   C6   N1    0.0000  000.00  000.00  000.00  0.000
+ ADD IC C3'  C2'  C1'  C5    1.5284  101.97  144.39  113.71  1.500
+ ADD IC C2'  C1'  C5   C6    1.5215  113.71  144.99  121.63  1.36
+ ADD IC C1'  C6   *C5  C4    1.5000  121.60  180.00  121.60  1.44
+ ADD IC H11  C2   *N1  C6    1.0900  117.06  180.00  122.08  1.37
+ ! 
+END {PSI}
+
+!---------------------------------------------------------------
+
+PRESidue 5MC       ! 5-Methyl cytosine
+ !       ===
+ !Inference from THY(=5MU):
+ GROUP
+  MODIFY ATOM C5  TYPE=CS   CHARGE=0.00   END
+  ADD    ATOM C5A TYPE=C3   CHARGE=0.00   END
+ !
+ ADD BOND C5   C5A
+ ADD ANGLE C4   C5   C5A
+ ADD ANGLE C5A  C5   C6
+ ADD IMPROPER C5A  C4   C6   C5
+ ADD IC C4   C6   *C5  C5A   1.4439  120.78 -179.94  121.63  1.5000
+END {5MC}
+
+!---------------------------------------------------------------
+
+PRESidue 1MA       ! 1-Methyl adenine; (chemistry unclear)
+ !       ===
+ DELEte ACCE N1 " " 
+ !
+ GROUP
+  MODIFY ATOM N1  TYPE=NA  CHARGE=-0.25   END
+  ADD    ATOM C1  TYPE=C3  CHARGE=0.10    END
+  MODIFY ATOM C6  TYPE=CH  CHARGE=0.15    END ! Probably a CH
+ ADD BOND N1   C1
+ ADD ANGLE C6   N1   C1
+ ADD ANGLE C2   N1   C1
+ ADD IMPROPER C1   C2   C6   N1
+ ADD IC C6   C2   *N1  C1   1.4021  125.24  180.00  117.40  1.49
+END {1MA}
+
+!--------------------------------------------------------------   
+
+PRESidue WYE      ! Y-base (wyebutosine) as a patch to GUA
+ !       ===      ! Atom numbers according to TRNAMIT.BHV
+ DELEte ACCE N3  END
+ DELEte ATOM H1  END
+ DELEte ATOM H21 END
+ DELEte ATOM H22 END
+ !
+ GROUP
+  ADD    ATOM C3  TYPE=C3   CHARGE=0.10   END
+  MODIFY ATOM N3  TYPE=NA   CHARGE=-0.20  END
+  MODIFY ATOM C2  TYPE=CB   CHARGE=0.35   END
+ GROUP
+  MODIFY ATOM N2  TYPE=NB   CHARGE=-0.25  END
+ GROUP
+  ADD ATOM C11 TYPE=CA  CHARGE=0.10    END
+  ADD ATOM C10 TYPE=C3  CHARGE=0.10    END
+  ADD ATOM C12 TYPE=CA  CHARGE=0.05    END
+  MODIFY ATOM N1  TYPE=NA  CHARGE=-0.25   END
+ GROUP
+  ADD ATOM C13 TYPE=C2  CHARGE=0.00   END
+  ADD ATOM C14 TYPE=C2  CHARGE=0.00   END
+  ADD ATOM C15 TYPE=CH  CHARGE=0.00   END
+ GROUP
+  ADD ATOM C16 TYPE=CN  CHARGE=0.30   END ! ?
+  ADD ATOM O18 TYPE=OS  CHARGE=-0.20  END
+  ADD ATOM C19 TYPE=C3  CHARGE=0.10   END
+  ADD ATOM O17 TYPE=ON  CHARGE=-0.20  END
+ GROUP
+  ADD ATOM N20 TYPE=NA  CHARGE=-0.26  END
+  ADD ATOM H20 TYPE=HN  CHARGE=0.26   END
+ GROUP
+  ADD ATOM C21 TYPE=CN  CHARGE=0.30   END
+  ADD ATOM O23 TYPE=ON  CHARGE=-0.20  END
+  ADD ATOM O22 TYPE=OS  CHARGE=-0.20  END
+  ADD ATOM C24 TYPE=C3  CHARGE= 0.10  END
+
+ ADD BOND N1   C12       ADD BOND C12  C11          ADD BOND C11  C10
+ ADD BOND C11  N2        ADD BOND N3   C3           ADD BOND N20  H20
+ ADD BOND C12  C13       ADD BOND C13  C14          ADD BOND C14  C15
+ ADD BOND C15  C16       ADD BOND C16  O17          ADD BOND C16  O18
+ ADD BOND O18  C19       ADD BOND C15  N20          ADD BOND N20  C21
+ ADD BOND C21  O23       ADD BOND C21  O22          ADD BOND O22  C24
+
+ ADD ANGLE C6   N1   C12               ADD ANGLE C12  N1   C2
+ ADD ANGLE C2   N3   C3                ADD ANGLE C4   N3   C3
+ ADD ANGLE C2   N2   C11               ADD ANGLE N2   C11  C10
+ ADD ANGLE N2   C11  C12               ADD ANGLE C10  C11  C12
+ ADD ANGLE N1   C12  C13               ADD ANGLE C11  C12  C13
+ ADD ANGLE C12  C13  C14               ADD ANGLE C13  C14  C15
+ ADD ANGLE C14  C15  N20               ADD ANGLE C14  C15  C16
+ ADD ANGLE C15  C16  O17               ADD ANGLE C15  C16  O18
+ ADD ANGLE C15  N20  H20               ADD ANGLE C15  N20  C21
+ ADD ANGLE C16  O18  C19               ADD ANGLE H20  N20  C21
+ ADD ANGLE N20  C21  O23               ADD ANGLE N20  C21  O22
+ ADD ANGLE O23  C21  O22               ADD ANGLE C21  O22  C24
+ 
+ ! Special dihedrals to keep extra ring parallel. Cf Trp in PARAM7
+ ADD DIHEdral C11  C2   N1   C5        ADD DIHEdral C11  N1   C2   C4
+ ADD DIHEdral N3   C2   N1   C12       ADD DIHEdral C6   N1   C2   N2
+
+ ! The protuberance
+ ADD DIHEdral N1   C12  C13  C14       ADD DIHEdral C12  C13  C14  C15  
+ ADD DIHEdral C13  C14  C15  C16
+ ADD DIHEdral C14  C15  C16  O18       ADD DIHEdral C15  C16  O18  C19
+ ADD DIHEdral C15  N20  C21  O22       ADD DIHEdral C14  C15  N20  C21
+ ADD DIHEdral C15  N20  C21  O22       ADD DIHEdral N20  C21  O22  C24
+ ADD IMPRoper C14  C16  N20  C15       ADD IMPRoper H20  C15  C21  N20
+ ADD IMPRoper O17  C15  O18  C16       ADD IMPRoper O23  O22  N20  C21
+
+ ADD IMPRoper C3   C4   C2   N3        ! The methyl at N3
+
+ ADD IMPRoper C12  N1   C2   N2   ! The extra ring     
+ ADD IMPRoper C11  C12  N1   C2        ADD IMPRoper N2   C11  C12  N1
+ ADD IMPRoper C2   N2   C11  C12       ADD IMPRoper C11  N2   C2   N1
+ ADD IMPRoper C10  N2   C12  C11       ADD IMPRoper C13  N1   C11  C12
+! Start of protuberance
+
+ ADD DONOr H20  N20
+ ADD ACCEptor O17  C16
+ ADD ACCEptor O23  C21
+
+! IC-table is to be filled from parameters and/or crystal coordinates
+! The torsion angles are mostly guesswork so use      ---  "  --- 
+
+ ADD IC C2   C4   *N3  C3     0.0000  000.00  180.00  000.00  0.0000
+ ADD IC C12  N2   *C11 C10    0.0000  000.00  180.00  000.00  0.0000
+ ADD IC C6   C2   *N1  C12    0.0000  000.00  180.00  000.00  0.0000
+ ADD IC C2   N1   C12  C11    0.0000  000.00    0.00  000.00  0.0000
+ ADD IC C6   N1   C12  C13    0.0000  000.00    0.00  000.00  0.0000
+ ADD IC N1   C12  C13  C14    0.0000  000.00  180.00  000.00  0.0000
+ ADD IC C12  C13  C14  C15    0.0000  000.00  180.00  000.00  0.0000
+ ADD IC C13  C14  C15  C16    0.0000  000.00   60.00  000.00  0.0000
+ ADD IC C13  C14  C15  N20    0.0000  000.00  -60.00  000.00  0.0000
+ ADD IC C14  C15  C16  O18    0.0000  000.00  180.00  000.00  0.0000
+ ADD IC C15  C16  O18  C19    0.0000  000.00  180.00  000.00  0.0000
+ ADD IC O18  C15  *C16 O17    0.0000  000.00  180.00  000.00  0.0000
+ ADD IC C14  C15  N20  C21    0.0000  000.00    0.00  000.00  0.0000
+ ADD IC C15  N20  C21  O22    0.0000  000.00    0.00  000.00  0.0000
+ ADD IC N20  C21  O22  C24    0.0000  000.00  180.00  000.00  0.0000
+ ADD IC C21  C15  *N20 H20    0.0000  000.00  180.00  000.00  0.0000
+ ADD IC O22  N20  *C21 O23    0.0000  000.00  180.00  000.00  0.0000
+
+END {WYE}
+
+!--------------------------------------------------------------
+
+PRESidue 2AMP  ! 2-AMP patch to ADE. Move NH2 from C6 to C2
+ !       ====
+  DELEte ATOM N6  END
+  DELEte ATOM H61 END
+  DELEte ATOM H62 END
+  !
+  MODIFY ATOM C2  TYPE=CA  CHARGE=0.28   END
+  MODIFY ATOM C6  TYPE=CE  CHARGE=0.26   END
+ GROUP
+  ADD ATOM N2   TYPE=N2   CHARGE=-0.42   END
+  ADD ATOM H21  TYPE=H2   CHARGE=0.21    END
+  ADD ATOM H22  TYPE=H2   CHARGE=0.21    END
+
+ ADD BOND C2   N2           ADD BOND N2   H20        ADD BOND N2   H22
+ ADD ANGLE N1   C2   N2              ADD ANGLE N3   C2   N2 
+ ADD ANGLE C2   N2   H21             ADD ANGLE C2   N2   H22
+ ADD ANGLE H21  N2   H22
+ ADD DIHEdral N1   C2   N2   H21
+ ADD IMPRoper H22  C2   H21  N2      ADD IMPRoper N2   N3   N1   C2
+ ADD DONOr H21  N2                   ADD DONOr H22  N2
+ ADD IC N1   N3   *C2  N2     0.0000  000.00  180.00  000.00  0.0000
+ ADD IC N3   C2   N2   H21    0.0000  000.00  180.00  000.00  0.0000
+ ADD IC H21  C2   *N2  H22    0.0000  000.00  180.00  000.00  0.0000
+END {2AMP}
+
+

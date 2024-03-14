@@ -1,0 +1,807 @@
+ REMARKS FILENAME="protein-eefx2.par"
+ REMARKS    EEFx2 force field for simulated annealing with eefxPot implicit solvation.
+ REMARKS    AUTHORS: Ye Tian, Charles Schwieters, Francesca Marassi (2016)
+
+ SET ECHO=FALSE END
+
+ eval ($protein_par_vers="eef-2.0")
+
+
+!---------------------------------------------------------------------
+! Parameter file for Xplor-NIH EEFx2 force field used with potential
+! eefxPot for implicit solvation.
+!	[Tian et al. (2014) J Magn Reson 243: 54]
+!	[Tian et al. (2015) Biophys J  109: 574]
+!	[Tian, Schwieters, Opella, Marassi September 2016]
+!
+! This parameter file works in conjunction with the topology
+! file "protein-eefx2.top" and with the solvation parameters 
+! "EEFx parameters for CHARMM22" found in the Xplor-NIH 
+! python module "eefxpotTools.py".
+!
+!	
+! Parameters are taken primarily from CHARMM22.
+! 	[Brooks et al. (2009) J Comput Chem 30: 1545]
+! Some parameters are taken  from Xplor-NIH PARALLHDG (version 5.3).
+!	[Linge et al. (2003) Proteins Proteins 50: 496]
+! Retinal parameters are taken primarily from CHARMM36.
+! 	[Brooks et al. (2009) J Comput Chem 30: 1545]
+!	[Best et al. (2012) J Chem Theory Comput 8: 3257]
+!	[MacKerell et al. (2004) J Am Chem Soc 126: 698]
+!	[MacKerell et al. (1998) J Phys Chem B 102: 3586]
+!
+!
+! Atom types, chemical groups, partial atomic charges, atomic
+! masses, Van der Waals radii, bond lengths and bond angles
+! are from CHARMM22.
+!
+! Improper dihedrals have CHARMM22 values but are defined
+! as in Xplor-NIH PARALLHDG5.3. They are used to maintain
+! trans-/cis-peptide bonds, tetrahedral center chirality, 
+!  and planarity of peptide bonds and aromatic rings.
+!
+! Proper dihedrals treated with Xplor-NIH torsionDB statistical potential.
+!
+! Some Pro, His, Trp parameters (angle, bond, impr) are
+! taken from PARALLHDG5.3.
+!
+! Partial atomic charges for ionic residues (Arg, Lys, Asp, Glu,
+! and termini) are from CHARMM22 EEF.
+! 	[Lazaridis (2003) Proteins 52:176]
+!	[Lazaridis & Karplus (1999) Proteins 35:13]
+!
+! Energy force constants of bonds, angles, planarity, and
+! chirality are adjusted for experimentally-restrained 
+! simulated annealing calculations.
+! Force constants were converted from CHARMM22 values:
+!	1000 kcal mol-1 Å-2 for bonds
+! 	 500 kcal mol-1 rad-2 for angles.
+! 	 500 kcal mol-1 rad-2 for dihedrals.
+!---------------------------------------------------------------------
+
+
+!=====================================================================
+!=====================================================================
+! Protein parameters
+!=====================================================================
+
+! BONDS (CHARMM22 values).
+ BOND	C	N	1000  {sd=0.001}   1.300
+ BOND	C	NH1	1000  {sd=0.001}   1.345
+ BOND	C	O	1000  {sd=0.001}   1.230
+ BOND	CA	CA	1000  {sd=0.001}   1.375
+ BOND	CA	HP	1000  {sd=0.001}   1.080
+ BOND	CA	NY	1000  {sd=0.001}   1.370
+ BOND	CA	OH1	1000  {sd=0.001}   1.411
+ BOND	CC	NH2	1000  {sd=0.001}   1.360
+ BOND	CC	O	1000  {sd=0.001}   1.230
+ BOND	CC	OC	1000  {sd=0.001}   1.260
+ BOND	CP1	C	1000  {sd=0.001}   1.490
+ BOND	CP1	CC	1000  {sd=0.001}   1.490
+ BOND	CP1	CP2	1000  {sd=0.001}   1.527
+ BOND	CP1	HB	1000  {sd=0.001}   1.080
+ BOND	CP1	NP	1000  {sd=0.001}   1.485
+ BOND	CP2	CP2	1000  {sd=0.001}   1.537
+ BOND	CP2	CP3	1000  {sd=0.001}   1.537
+ BOND	CP2	HA	1000  {sd=0.001}   1.111
+ BOND	CP3	HA	1000  {sd=0.001}   1.111
+ BOND	CP3	N	1000  {sd=0.001}   1.455
+ BOND	CP3	NP	1000  {sd=0.001}   1.502
+ BOND	CPH1	CPH1	1000  {sd=0.001}   1.360
+ BOND	CPH1	HR1	1000  {sd=0.001}   1.083
+ BOND	CPH2	HR2	1000  {sd=0.001}   1.070
+ BOND	CPT	CA	1000  {sd=0.001}   1.368
+ BOND	CPT	CPT	1000  {sd=0.001}   1.400
+ BOND	CT1	C	1000  {sd=0.001}   1.490
+ BOND	CT1	CC	1000  {sd=0.001}   1.522
+ BOND	CT1	CT1	1000  {sd=0.001}   1.500
+ BOND	CT1	CT2	1000  {sd=0.001}   1.538
+ BOND	CT1	CT3	1000  {sd=0.001}   1.538
+ BOND	CT1	HA	1000  {sd=0.001}   1.111
+ BOND	CT1	HB	1000  {sd=0.001}   1.080
+ BOND	CT1	NH3	1000  {sd=0.001}   1.480
+ BOND	CT1	OH1	1000  {sd=0.001}   1.420
+ BOND	CT2	C	1000  {sd=0.001}   1.490
+ BOND	CT2	CA	1000  {sd=0.001}   1.490
+ BOND	CT2	CC	1000  {sd=0.001}   1.522
+ BOND	CT2	CPH1	1000  {sd=0.001}   1.500
+ BOND	CT2	CT2	1000  {sd=0.001}   1.530
+ BOND	CT2	CT3	1000  {sd=0.001}   1.528
+ BOND	CT2	CY	1000  {sd=0.001}   1.510
+ BOND	CT2	HA	1000  {sd=0.001}   1.111
+ BOND	CT2	HB	1000  {sd=0.001}   1.080
+ BOND	CT2	NC2	1000  {sd=0.001}   1.490
+ BOND	CT2	NH3	1000  {sd=0.001}   1.480
+ BOND	CT2	OH1	1000  {sd=0.001}   1.420
+ BOND	CT2	S	1000  {sd=0.001}   1.818
+ BOND	CT3	HA	1000  {sd=0.001}   1.111
+ BOND	CY	CA	1000  {sd=0.001}   1.365
+ BOND	CY	CPT	1000  {sd=0.001}   1.440
+ BOND	HR1	CPH2	1000  {sd=0.001}   1.090
+ BOND	HR3	CPH1	1000  {sd=0.001}   1.083
+ BOND	N	CP1	1000  {sd=0.001}   1.434
+ BOND	NC2	C	1000  {sd=0.001}   1.365
+ BOND	NC2	HC	1000  {sd=0.001}   1.000
+ BOND	NH1	CT1	1000  {sd=0.001}   1.430
+ BOND	NH1	CT2	1000  {sd=0.001}   1.430
+ BOND	NH1	H	1000  {sd=0.001}   0.997
+ BOND	NH2	H	1000  {sd=0.001}   1.000
+ BOND	NH3	HC	1000  {sd=0.001}   1.040
+ BOND	NP	HC	1000  {sd=0.001}   1.006
+ BOND	NR1	CPH1	1000  {sd=0.001}   1.380
+ BOND	NR1	CPH2	1000  {sd=0.001}   1.360
+ BOND	NR1	H	1000  {sd=0.001}   1.000
+ BOND	NR2	CPH1	1000  {sd=0.001}   1.380
+ BOND	NR2	CPH2	1000  {sd=0.001}   1.320
+ BOND	NR3	CPH1	1000  {sd=0.001}   1.370
+ BOND	NR3	CPH2	1000  {sd=0.001}   1.320
+ BOND	NR3	H	1000  {sd=0.001}   1.000
+ BOND	NY	CPT	1000  {sd=0.001}   1.375
+ BOND	NY	H	1000  {sd=0.001}   0.976
+ BOND	OH1	H	1000  {sd=0.001}   0.960
+ BOND	S	CT3	1000  {sd=0.001}   1.816
+ BOND	S	HS	1000  {sd=0.001}   1.325
+
+
+! ANGLES (CHARMM22 values except for SOME PRO, HIS and TRP).
+!ANGLe	C	CP1	CP2	500  {sd=0.031}   112.3000  ! PRO, charmm22
+ ANGLe	C	CP1	CP2	500  {sd=0.031}   110.1094  ! PRO, parallhdg
+!ANGLe	C	CP1	HB	500  {sd=0.031}   111.0000
+ ANGLe	C	CP1	HB	500  {sd=0.031}   108.9914
+!ANGLe	C	CP1	N	500  {sd=0.031}   107.2000  ! PRO, charmm22
+ ANGLe	C	CP1	N	500  {sd=0.031}   111.9082  ! PRO, parallhdg		
+!ANGLe	C	CP1	NP	500  {sd=0.031}   106.0000  ! PRO, charmm22
+ ANGLe	C	CP1	NP	500  {sd=0.031}   111.1703  ! PRO, parallhdg
+ ANGLe	C	CT1	CT1	500  {sd=0.031}   108.0000
+ ANGLe	C	CT1	CT2	500  {sd=0.031}   108.0000
+ ANGLe	C	CT1	CT3	500  {sd=0.031}   108.0000
+ ANGLe	C	CT1	HB	500  {sd=0.031}   109.5000
+ ANGLe	C	CT1	NH1	500  {sd=0.031}   107.0000
+ ANGLe	C	CT1	NH3	500  {sd=0.031}   110.0000
+ ANGLe	C	CT2	HB	500  {sd=0.031}   109.5000
+ ANGLe	C	CT2	NH1	500  {sd=0.031}   107.0000
+ ANGLe	C	CT2	NH3	500  {sd=0.031}   110.0000
+!ANGLe	C	N	CP1	500  {sd=0.031}   117.0000  ! PRO, charmm22
+ ANGLe	C	N	CP1	500  {sd=0.031}   122.7632  ! PRO, parallhdg
+!ANGLe	C	N	CP3	500  {sd=0.031}   117.0000  ! PRO, charmm22
+ ANGLe	C	N	CP3	500  {sd=0.031}   125.1134  ! PRO, parallhdg
+ ANGLe	C	NC2	CT2	500  {sd=0.031}   120.0000
+ ANGLe	C	NC2	HC	500  {sd=0.031}   120.0000
+ ANGLe	C	NH1	CT1	500  {sd=0.031}   120.0000
+ ANGLe	C	NH1	CT2	500  {sd=0.031}   120.0000
+ ANGLe	C	NH1	H	500  {sd=0.031}   123.0000
+ ANGLe	CA	CA	CA	500  {sd=0.031}   120.0000
+ ANGLe	CA	CA	CPT	500  {sd=0.031}   118.0000
+ ANGLe	CA	CA	CT2	500  {sd=0.031}   122.3000
+ ANGLe	CA	CA	HP	500  {sd=0.031}   120.0000
+ ANGLe	CA	CPT	CPT	500  {sd=0.031}   122.0000
+!ANGLe	CA	CPT	CY	500  {sd=0.031}   130.6000  ! TRP, charmm22
+ ANGLe	CA	CPT	CY	500  {sd=0.031}   133.9320  ! TRP, parallhdg		
+!ANGLe	CA	CPT	NY	500  {sd=0.031}   130.6000  ! TRP, charmm22
+ ANGLe	CA	CPT	NY	500  {sd=0.031}   130.1860  ! TRP, parallhdg		
+!ANGLe	CA	CT2	CT1	500  {sd=0.031}   107.5000  ! PHE CA-CB-CG, charmm22
+ ANGLe	CA	CT2	CT1	500  {sd=0.031}   113.8748  ! Phe CA-CB-CG, parallhdg	
+ ANGLe	CA	CT2	HA	500  {sd=0.031}   107.5000
+ ANGLe	CA	CY	CT2	500  {sd=0.031}   129.4000
+!ANGLe	CC	CP1	CP2	500  {sd=0.031}   112.3000  ! PRO, charmm22
+ ANGLe	CC	CP1	CP2	500  {sd=0.031}   110.1094  ! PRO, parallhdg
+!ANGLe	CC	CP1	HB	500  {sd=0.031}   112.0000  ! PRO, charmm22
+ ANGLe	CC	CP1	HB	500  {sd=0.031}   108.9914  ! PRO, parallhdg
+!ANGLe	CC	CP1	N	500  {sd=0.031}   108.2000  ! PRO, charmm22
+ ANGLe	CC	CP1	N	500  {sd=0.031}   111.9082  ! PRO, parallhdg
+ ANGLe	CC	CT1	CT1	500  {sd=0.031}   108.0000
+ ANGLe	CC	CT1	CT2	500  {sd=0.031}   108.0000
+ ANGLe	CC	CT1	CT3	500  {sd=0.031}   108.0000
+ ANGLe	CC	CT1	HB	500  {sd=0.031}   109.5000
+ ANGLe	CC	CT1	NH1	500  {sd=0.031}   107.0000
+!ANGLe	CC	CT2	CT1	500  {sd=0.031}   108.0000  ! PRO, charmm22
+ ANGLe	CC	CT2	CT1	500  {sd=0.031}   112.5947  ! PRO, parallhdg		
+ ANGLe	CC	CT2	CT2	500  {sd=0.031}   108.0000
+ ANGLe	CC	CT2	HA	500  {sd=0.031}   109.5000
+ ANGLe	CC	CT2	HB	500  {sd=0.031}   109.5000
+ ANGLe	CC	CT2	NH1	500  {sd=0.031}   107.0000
+!ANGLe	CP1	C	N	500  {sd=0.031}   111.5000  ! PRO, charmm22
+ ANGLe	CP1	C	N	500  {sd=0.031}   116.9940  ! PRO, parallhdg
+ ANGLe	CP1	C	NH1	500  {sd=0.031}   116.5000
+!ANGLe	CP1	C	O	500  {sd=0.031}   118.0000  ! PRO, charmm22
+ ANGLe	CP1	C	O	500  {sd=0.031}   120.8258  ! PRO, parallhdg
+ ANGLe	CP1	CC	OC	500  {sd=0.031}   118.0000
+ ANGLe	CP1	CP2	HA	500  {sd=0.031}   110.1000
+ ANGLe	CP1	NP	CP3	500  {sd=0.031}   111.0000
+ ANGLe	CP1	NP	HC	500  {sd=0.031}   109.5000
+!ANGLe	CP2	CP1	HB	500  {sd=0.031}   115.0000  ! PRO, charmm22
+ ANGLe	CP2	CP1	HB	500  {sd=0.031}   109.2487  ! PRO, parallhdg
+!ANGLe	CP2	CP1	N	500  {sd=0.031}   107.8000  ! PRO, charmm22
+ ANGLe	CP2	CP1	N	500  {sd=0.031}   103.0552  ! PRO, parallhdg		
+!ANGLe	CP2	CP1	NP	500  {sd=0.031}   108.5000  ! N-term, charmm22
+ ANGLe	CP2	CP1	NP	500  {sd=0.031}   110.4763  ! N-term, from 108.4924 (14-Mar-00)
+!ANGLe	CP2	CP2	CP1	500  {sd=0.031}   108.5000  ! PRO, charmm22
+ ANGLe	CP2	CP2	CP1	500  {sd=0.031}   104.3952  ! PRO, parallhdg		
+ ANGLe	CP2	CP3	HA	500  {sd=0.031}   110.1000
+!ANGLe	CP2	CP3	NP	500  {sd=0.031}   108.5000  ! PRO, charmm22
+ ANGLe	CP2	CP3	NP	500  {sd=0.031}   103.6880  ! PRO, parallhdg
+!ANGLe	CP3	CP2	CP2	500  {sd=0.031}   107.5000  ! PRO, charmm22
+ ANGLe	CP3	CP2	CP2	500  {sd=0.031}   106.1000  ! PRO, parallhdg		
+!ANGLe	CP3	CP2	HA	500  {sd=0.031}   110.1000  ! PRO, charmm22
+ ANGLe	CP3	CP2	HA	500  {sd=0.031}   110.3818  ! PRO, parallhdg		
+!ANGLe	CP3	N	CP1	500  {sd=0.031}   114.2000  ! PRO, charmm22
+ ANGLe	CP3	N	CP1	500  {sd=0.031}   112.1234  ! PRO, parallhdg		
+!ANGLe	CP3	NP	HC	500  {sd=0.031}   109.5000  ! PRO, charmm22
+ ANGLe	CP3	NP	HC	500  {sd=0.031}   123.8148  ! PRO, parallhdg
+!ANGLe	CPH1	CPH1	CT2	500  {sd=0.031}   130.0000  ! HIS, charmm22
+ ANGLe	CPH1	CPH1	CT2	500  {sd=0.031}   129.6325  ! HIS, parallhdg		
+ ANGLe	CPH1	CPH1	NR3	500  {sd=0.031}   108.0000
+!ANGLe	CPH1	CT2	CT1	500  {sd=0.031}   113.0000  ! HIS, charmm22
+ ANGLe	CPH1	CT2	CT1	500  {sd=0.031}   113.7931  ! HIS, parallhdg		
+!ANGLe	CPH1	CT2	HA	500  {sd=0.031}   109.5000  ! HIS, charmm22
+ ANGLe	CPH1	CT2	HA	500  {sd=0.031}   108.1195  ! HIS, parallhdg		
+ ANGLe	CPH2	NR1	CPH1	500  {sd=0.031}   107.5000
+ ANGLe	CPH2	NR2	CPH1	500  {sd=0.031}   104.0000
+ ANGLe	CPH2	NR3	CPH1	500  {sd=0.031}   108.0000
+!ANGLe	CPH2	NR3	H	500  {sd=0.031}   126.0000  ! HIS, charmm22
+ ANGLe	CPH2	NR3	H	500  {sd=0.031}   126.0322  ! HIS, parallhdg		
+!ANGLe	CPT	CPT	CY	500  {sd=0.031}   107.4000  ! TRP, charmm22
+ ANGLe	CPT	CPT	CY	500  {sd=0.031}   107.2333  ! TRP, parallhdg		
+!ANGLe	CPT	CPT	NY	500  {sd=0.031}   107.4000  ! TRP, charmm22
+ ANGLe	CPT	CPT	NY	500  {sd=0.031}   107.4081  ! TRP, parallhdg		
+!ANGLe	CPT	CY	CA	500  {sd=0.031}   107.4000  ! TRP, charmm22
+ ANGLe	CPT	CY	CA	500  {sd=0.031}   106.2641  ! TRP, parallhdg		
+!ANGLe	CPT	CY	CT2	500  {sd=0.031}   124.0000  ! TRP, charmm22
+ ANGLe	CPT	CY	CT2	500  {sd=0.031}   126.8167  ! TRP, parallhdg		
+!ANGLe	CPT	NY	CA	500  {sd=0.031}   108.0000  ! TRP, charmm22
+ ANGLe	CPT	NY	CA	500  {sd=0.031}   108.9983  ! TRP, parallhdg		
+!ANGLe	CPT	NY	H	500  {sd=0.031}   126.0000  ! TRP, charmm22
+ ANGLe	CPT	NY	H	500  {sd=0.031}   125.9221  ! TRP, parallhdg		
+ ANGLe	CT1	C	N	500  {sd=0.031}   114.0000
+ ANGLe	CT1	C	NH1	500  {sd=0.031}   116.5000
+ ANGLe	CT1	CC	OC	500  {sd=0.031}   118.0000
+ ANGLe	CT1	CT1	HA	500  {sd=0.031}   110.1000
+ ANGLe	CT1	CT1	HB	500  {sd=0.031}   111.0000
+ ANGLe	CT1	CT1	NH1	500  {sd=0.031}   113.5000
+ ANGLe	CT1	CT1	NH3	500  {sd=0.031}   110.0000
+ ANGLe	CT1	CT2	CT1	500  {sd=0.031}   113.5000
+ ANGLe	CT1	NH1	H	500  {sd=0.031}   117.0000
+ ANGLe	CT1	NH3	HC	500  {sd=0.031}   109.5000
+ ANGLe	CT2	C	N	500  {sd=0.031}   112.5000
+ ANGLe	CT2	C	NH1	500  {sd=0.031}   116.5000
+ ANGLe	CT2	CT1	CT1	500  {sd=0.031}   111.0000
+ ANGLe	CT2	CT1	HA	500  {sd=0.031}   109.1000
+ ANGLe	CT2	CT1	HB	500  {sd=0.031}   111.0000
+ ANGLe	CT2	CT1	NH1	500  {sd=0.031}   113.5000
+ ANGLe	CT2	CT1	NH3	500  {sd=0.031}   110.0000
+ ANGLe	CT2	CT2	CT1	500  {sd=0.031}   113.5000
+ ANGLe	CT2	CT2	CT2	500  {sd=0.031}   113.6000
+ ANGLe	CT2	CT2	HA	500  {sd=0.031}   110.1000
+ ANGLe	CT2	NH1	H	500  {sd=0.031}   117.0000
+ ANGLe	CT3	CT1	CT1	500  {sd=0.031}   108.5000
+ ANGLe	CT3	CT1	CT2	500  {sd=0.031}   113.0000
+ ANGLe	CT3	CT1	CT3	500  {sd=0.031}   113.0000
+ ANGLe	CT3	CT1	HA	500  {sd=0.031}   109.1000
+ ANGLe	CT3	CT1	HB	500  {sd=0.031}   111.0000
+ ANGLe	CT3	CT1	NH1	500  {sd=0.031}   113.5000
+ ANGLe	CT3	CT1	NH3	500  {sd=0.031}   110.0000
+ ANGLe	CT3	CT1	OH1	500  {sd=0.031}   110.1000
+ ANGLe	CT3	CT2	CT1	500  {sd=0.031}   113.5000
+ ANGLe	CT3	CT2	HA	500  {sd=0.031}   110.1000
+ ANGLe	CT3	S	CT2	500  {sd=0.031}    95.0000
+ ANGLe	CY	CT2	CT1	500  {sd=0.031}   114.0000
+ ANGLe	CY	CT2	HA	500  {sd=0.031}   109.5000
+ ANGLe	H	NH2	CC	500  {sd=0.031}   120.0000
+ ANGLe	H	NH2	H	500  {sd=0.031}   120.0000
+ ANGLe	H	NR1	CPH1	500  {sd=0.031}   125.5000
+ ANGLe	H	NR1	CPH2	500  {sd=0.031}   127.0000
+ ANGLe	H	NR3	CPH1	500  {sd=0.031}   126.0000
+ ANGLe	H	NY	CA	500  {sd=0.031}   126.0000
+ ANGLe	H	OH1	CA	500  {sd=0.031}   108.0000
+ ANGLe	H	OH1	CT1	500  {sd=0.031}   106.0000
+ ANGLe	H	OH1	CT2	500  {sd=0.031}   106.0000
+ ANGLe	HA	CP2	CP2	500  {sd=0.031}   110.1000
+ ANGLe	HA	CP2	HA	500  {sd=0.031}   109.0000
+ ANGLe	HA	CP3	HA	500  {sd=0.031}   109.0000
+ ANGLe	HA	CP3	NP	500  {sd=0.031}   109.1500
+ ANGLe	HA	CT2	CT1	500  {sd=0.031}   110.1000
+ ANGLe	HA	CT2	HA	500  {sd=0.031}   109.0000
+ ANGLe	HA	CT3	CT1	500  {sd=0.031}   110.1000
+ ANGLe	HA	CT3	CT2	500  {sd=0.031}   110.1000
+ ANGLe	HA	CT3	HA	500  {sd=0.031}   108.4000
+ ANGLe	HA	CT3	S	500  {sd=0.031}   111.3000
+ ANGLe	HB	CP1	N	500  {sd=0.031}   111.0000
+ ANGLe	HB	CP1	NP	500  {sd=0.031}   107.5000
+ ANGLe	HB	CT1	NH1	500  {sd=0.031}   108.0000
+ ANGLe	HB	CT1	NH3	500  {sd=0.031}   107.5000
+ ANGLe	HB	CT2	HB	500  {sd=0.031}   115.0000
+ ANGLe	HB	CT2	NH1	500  {sd=0.031}   108.0000
+ ANGLe	HB	CT2	NH3	500  {sd=0.031}   107.5000
+ ANGLe	HC	NC2	CT2	500  {sd=0.031}   120.0000
+ ANGLe	HC	NC2	HC	500  {sd=0.031}   120.0000
+ ANGLe	HC	NH3	CT2	500  {sd=0.031}   109.5000
+ ANGLe	HC	NH3	HC	500  {sd=0.031}   109.5000
+ ANGLe	HC	NP	HC	500  {sd=0.031}   107.5000
+ ANGLe	HP	CA	CPT	500  {sd=0.031}   122.0000
+ ANGLe	HP	CA	CY	500  {sd=0.031}   125.0000
+!ANGLe	HR1	CPH1	CPH1	500  {sd=0.031}   130.0000  ! HIS, charmm22
+ ANGLe	HR1	CPH1	CPH1	500  {sd=0.031}   126.2616  ! HIS, parallhdg
+ ANGLe	HR2	CPH2	NR3	500  {sd=0.031}   126.0000
+ ANGLe	HR3	CPH1	CPH1	500  {sd=0.031}   130.0000
+ ANGLe	HS	S	CT2	500  {sd=0.031}    95.0000
+ ANGLe	N	C	O	500  {sd=0.031}   122.5000
+!ANGLe	N	CP3	CP2	500  {sd=0.031}   108.5000  ! PRO, charmm22
+ ANGLe	N	CP3	CP2	500  {sd=0.031}   103.2695  ! PRO, parallhdg
+!ANGLe	N	CP3	HA	500  {sd=0.031}   108.0000  ! PRO, charmm22
+ ANGLe	N	CP3	HA	500  {sd=0.031}   110.8278  ! PRO, parallhdg
+ ANGLe	NC2	C	NC2	500  {sd=0.031}   120.0000
+ ANGLe	NC2	CT2	CT2	500  {sd=0.031}   107.5000
+ ANGLe	NC2	CT2	HA	500  {sd=0.031}   107.5000
+ ANGLe	NH1	C	O	500  {sd=0.031}   122.5000
+ ANGLe	NH2	CC	CT2	500  {sd=0.031}   116.5000
+ ANGLe	NH2	CC	O	500  {sd=0.031}   122.5000
+ ANGLe	NH3	CT2	CT2	500  {sd=0.031}   110.0000
+ ANGLe	NH3	CT2	HA	500  {sd=0.031}   107.5000
+ ANGLe	NR1	CPH1	CPH1	500  {sd=0.031}   106.0000
+ ANGLe	NR1	CPH1	HR3	500  {sd=0.031}   124.0000
+ ANGLe	NR1	CPH2	HR1	500  {sd=0.031}   122.5000
+ ANGLe	NR2	CPH1	CPH1	500  {sd=0.031}   110.0000
+ ANGLe	NR2	CPH1	CT2	500  {sd=0.031}   120.0000
+ ANGLe	NR2	CPH2	HR1	500  {sd=0.031}   125.0000
+ ANGLe	NR2	CPH2	NR1	500  {sd=0.031}   112.5000
+!ANGLe	NR3	CPH1	CT2	500  {sd=0.031}   122.0000  ! HIS, charmm22
+ ANGLe	NR3	CPH1	CT2	500  {sd=0.031}   123.4237  ! HIS, parallhdg
+!ANGLe	NR3	CPH1	HR1	500  {sd=0.031}   122.0000  ! HIS, charmm22
+ ANGLe	NR3	CPH1	HR1	500  {sd=0.031}   125.1878  ! HIS, parallhdg
+!ANGLe	NR3	CPH2	NR3	500  {sd=0.031}   108.0000  ! HIS, charmm22
+ ANGLe	NR3	CPH2	NR3	500  {sd=0.031}   111.3061  ! HIS, parallhdg
+ ANGLe	NY	CA	CY	500  {sd=0.031}   110.0000
+ ANGLe	NY	CA	HP	500  {sd=0.031}   125.0000
+ ANGLe	O	C	CT1	500  {sd=0.031}   121.0000
+ ANGLe	O	C	CT2	500  {sd=0.031}   121.0000
+ ANGLe	O	CC	CT2	500  {sd=0.031}   121.0000
+ ANGLe	OC	CC	CT2	500  {sd=0.031}   118.0000
+ ANGLe	OC	CC	OC	500  {sd=0.031}   124.0000
+ ANGLe	OH1	CA	CA	500  {sd=0.031}   120.0000
+ ANGLe	OH1	CT1	CT1	500  {sd=0.031}   110.1000
+ ANGLe	OH1	CT1	HA	500  {sd=0.031}   108.8900
+ ANGLe	OH1	CT2	CT1	500  {sd=0.031}   110.1000
+ ANGLe	OH1	CT2	HA	500  {sd=0.031}   108.8900
+ ANGLe	S	CT2	CT1	500  {sd=0.031}   112.5000
+ ANGLe	S	CT2	CT2	500  {sd=0.031}   114.5000
+ ANGLe	S	CT2	HA	500  {sd=0.031}   111.3000	
+
+
+! IMPROPERS (CHARMM22 values with parallhdg definitions).
+! For dihedrals and impropers the following convention was adopted:
+! All dihedral terms maintaining planarity (esp. omega) were converted to impropers. 
+! The only remaining dihedral terms are around rotatable bonds. 
+ IMPRoper	C	CP1	N	O	500  {sd=0.031}   0      0.0000  ! aaa-PRO
+ IMPRoper	C	CP1	NH1	O	500  {sd=0.031}   0      0.0000		
+ IMPRoper	C	CT1	N	O	500  {sd=0.031}   0      0.0000  ! aaa-PRO
+ IMPRoper	C	CT1	NH1	O	500  {sd=0.031}   0      0.0000		
+ IMPRoper	C	CT2	N	O	500  {sd=0.031}   0      0.0000  ! GLY-PRO
+ IMPRoper	C	CT2	NH1	O	500  {sd=0.031}   0      0.0000  ! GLY-aaa
+ IMPRoper	C	NC2	HC	NC2	500  {sd=0.031}   0     -0.0121		
+ IMPRoper	C	NC2	NC2	NC2	500  {sd=0.031}   0     -0.0088		
+ IMPRoper	C	NH3	HB	HB	500  {sd=0.031}   0     70.6479		
+ IMPRoper	CA	CA	CA	CA	500  {sd=0.031}   0      0.0135		
+ IMPRoper	CA	CA	CA	CPT	500  {sd=0.031}   0      0.0275		
+ IMPRoper	CA	CA	CPT	CPT	500  {sd=0.031}   0     -0.0109		
+ IMPRoper	CA	CPT	CPT	CA	500  {sd=0.031}   0      0.0072		
+ IMPRoper	CA	CY	CPT	CA	500  {sd=0.031}   0    179.9645		
+ IMPRoper	CA	NY	CPT	CA	500  {sd=0.031}   0   -179.9685		
+ IMPRoper	CC	CP1	OC	OC	500  {sd=0.031}   0      0.0210		
+ IMPRoper	CC	CT1	OC	OC	500  {sd=0.031}   0      0.0210		
+ IMPRoper	CC	CT2	O	NH2	500  {sd=0.031}   0      0.0124		
+ IMPRoper	CC	CT2	OC	OC	500  {sd=0.031}   0     -0.0137		
+ IMPRoper	CP1	C	N	CP1	500  {sd=0.031}   0    179.9873		
+ IMPRoper	CP1	C	NH1	CT1	500  {sd=0.031}   0    180.0000		
+ IMPRoper	CP1	C	NH1	CT2	500  {sd=0.031}   0    180.0000		
+ IMPRoper	CP2	C	NP	HA	500  {sd=0.031}   0     66.3265		
+ IMPRoper	CP2	C	NP	HB	500  {sd=0.031}   0     66.3265		
+ IMPRoper	CP2	CC	N	HB	500  {sd=0.031}   0     67.7957		
+ IMPRoper	CP3	CP1	HC	HC	500  {sd=0.031}   0    -70.7727		
+ IMPRoper	CPH1	CPH1	NR2	CPH2	500  {sd=0.031}   0      0.0000		
+ IMPRoper	CPH1	CPH1	NR3	CPH2	500  {sd=0.031}   0      0.0557		
+ IMPRoper	CPH1	CT2	NR2	CPH1	500  {sd=0.031}   0      0.0000  ! HIS	
+ IMPRoper	CPH1	CT2	NR3	CPH1	500  {sd=0.031}   0     -0.0386		
+ IMPRoper	CPH1	NR1	CPH1	HR3	500  {sd=0.031}   0      0.0000		
+ IMPRoper	CPH1	NR2	CPH2	NR1	500  {sd=0.031}   0      0.0000		
+ IMPRoper	CPH1	NR3	CPH1	HR1	500  {sd=0.031}   0     -0.0096		
+ IMPRoper	CPH2	NR1	CPH1	CPH1	500  {sd=0.031}   0      0.0000		
+ IMPRoper	CPH2	NR2	NR1	HR1	500  {sd=0.031}   0      0.0000		
+ IMPRoper	CPH2	NR3	NR3	HR2	500  {sd=0.031}   0      0.0429		
+ IMPRoper	CT1	C	N	CP1	500  {sd=0.031}   0    180.0000		
+ IMPRoper	CT1	C	NH1	CT1	500  {sd=0.031}   0    180.0000		
+ IMPRoper	CT1	C	NH1	CT2	500  {sd=0.031}   0   -180.0018		
+ IMPRoper	CT1	C	NH3	HB	500  {sd=0.031}   0     66.3265		
+ IMPRoper	CT2	C	N	CP1	500  {sd=0.031}   0    180.0000		
+ IMPRoper	CT2	C	NH1	CT1	500  {sd=0.031}   0   -179.9916		
+ IMPRoper	CT2	C	NH1	CT2	500  {sd=0.031}   0    180.0000		
+ IMPRoper	CT2	C	NH3	HB	500  {sd=0.031}   0     66.3265		
+ IMPRoper	CT2	CA	CA	CA	500  {sd=0.031}   0   -179.9903		
+ IMPRoper	CT2	CC	NH2	H	500  {sd=0.031}   0      0.0000		
+ IMPRoper	CT2	CY	CPT	CPT	500  {sd=0.031}   0    179.9679		
+ IMPRoper	CY	CPT	CA	CA	500  {sd=0.031}   0   -179.9506		
+ IMPRoper	CY	CPT	CPT	CA	500  {sd=0.031}   0    179.9618		
+ IMPRoper	H	NY	CPT	CPT	500  {sd=0.031}   0    179.9788		
+ IMPRoper	HA	CT1	CT3	CT2	500  {sd=0.031}   0    -65.2137		
+ IMPRoper	HA	CT1	CT3	CT3	500  {sd=0.031}   0    -65.0462		
+ IMPRoper	HA	CT1	OH1	CT3	500  {sd=0.031}   0     66.1521		
+ IMPRoper	HA	CT2	CT3	CT3	500  {sd=0.031}   0    -65.1424		
+ IMPRoper	HA	HA	CP1	CP2	500  {sd=0.031}   0    -71.9385		
+ IMPRoper	HA	HA	CP2	CP3	500  {sd=0.031}   0    -71.8986		
+ IMPRoper	HA	HA	CP2	N	500  {sd=0.031}   0    -72.1561		
+ IMPRoper	HA	HA	CP2	NP	500  {sd=0.031}   0    -71.9018		
+ IMPRoper	HA	HA	CT1	CA	500  {sd=0.031}   0    -70.0662		
+ IMPRoper	HA	HA	CT1	CC	500  {sd=0.031}   0    -70.4072		
+ IMPRoper	HA	HA	CT1	CPH1	500  {sd=0.031}   0    -69.9815		
+ IMPRoper	HA	HA	CT1	CT1	500  {sd=0.031}   0    -69.6639		
+ IMPRoper	HA	HA	CT1	CT2	500  {sd=0.031}   0    -70.0781		
+ IMPRoper	HA	HA	CT1	CT3	500  {sd=0.031}   0    -70.1069		
+ IMPRoper	HA	HA	CT1	CY	500  {sd=0.031}   0    -70.0142		
+ IMPRoper	HA	HA	CT1	HA	500  {sd=0.031}   0    -66.5692		
+ IMPRoper	HA	HA	CT1	OH1	500  {sd=0.031}   0    -69.8494		
+ IMPRoper	HA	HA	CT1	S	500  {sd=0.031}   0    -72.0234		
+ IMPRoper	HA	HA	CT2	CC	500  {sd=0.031}   0    -70.4459		
+ IMPRoper	HA	HA	CT2	CT2	500  {sd=0.031}   0    -70.7825		
+ IMPRoper	HA	HA	CT2	HA	500  {sd=0.031}   0    -66.5934		
+ IMPRoper	HA	HA	CT2	NC2	500  {sd=0.031}   0    -70.1253		
+ IMPRoper	HA	HA	CT2	NH3	500  {sd=0.031}   0    -70.4126		
+ IMPRoper	HA	HA	CT2	S	500  {sd=0.031}   0    -72.4655		
+ IMPRoper	HA	HA	S	HA	500  {sd=0.031}   0    -65.1411		
+ IMPRoper	HB	HB	NH1	C	500  {sd=0.031}   0    -70.8745		
+ IMPRoper	HB	HB	NH1	CC	500  {sd=0.031}   0    -70.8745		
+ IMPRoper	HB	N	C	CP2	500  {sd=0.031}   0     67.7957		
+ IMPRoper	HB	NH1	C	CT1	500  {sd=0.031}   0     66.2535		
+ IMPRoper	HB	C	NH1	CT1	500  {sd=0.031}   0     66.2535		
+ IMPRoper	HB	NH1	C	CT2	500  {sd=0.031}   0     66.1640		
+ IMPRoper	HB	C	NH1	CT2	500  {sd=0.031}   0     66.1640		
+ IMPRoper	HB	NH1	C	CT3	500  {sd=0.031}   0     65.9907		
+ IMPRoper	HB	C	NH1	CT3	500  {sd=0.031}   0     65.9907		
+ IMPRoper	HB	NH1	CC	CT1	500  {sd=0.031}   0     66.2535		
+ IMPRoper	HB	NH1	CC	CT2	500  {sd=0.031}   0     66.1640		
+ IMPRoper	HB	NH1	CC	CT3	500  {sd=0.031}   0     65.9907		
+ IMPRoper	HB	NH3	C	CT3	500  {sd=0.031}   0     65.9907		
+ IMPRoper	HC	CT1	HC	HC	500  {sd=0.031}   0    -66.4262		
+ IMPRoper	HC	HC	CT2	HC	500  {sd=0.031}   0    -66.4262		
+ IMPRoper	HP	CA	CA	CA	500  {sd=0.031}   0   -179.9985		
+ IMPRoper	HP	CA	NY	CPT	500  {sd=0.031}   0   -179.9528		
+ IMPRoper	N	C	CP1	CP3	500  {sd=0.031}   0      0.0000  ! aaa-PRO
+ IMPRoper	NC2	C	HC	HC	500  {sd=0.031}   0     -0.0094		
+ IMPRoper	NC2	C	NC2	HC	500  {sd=0.031}   0      0.0000		
+ IMPRoper	NC2	CT2	C	HC	500  {sd=0.031}   0      0.0051		
+ IMPRoper	NH1	C	CT1	H	500  {sd=0.031}   0      0.0000	
+ IMPRoper	NH1	C	CT2	H	500  {sd=0.031}   0      0.0000  ! aaa-GLY
+ IMPRoper	NH2	CC	H	H	500  {sd=0.031}   0      0.0032		
+ IMPRoper	NR1	CPH1	CPH1	NR2	500  {sd=0.031}   0      0.0000		
+ IMPRoper	NR1	CPH1	CPH2	H	500  {sd=0.031}   0      0.0000		
+ IMPRoper	NR1	CPH2	CPH1	H	500  {sd=0.031}   0      0.0000		
+ IMPRoper	NR2	CPH2	NR1	CPH1	500  {sd=0.031}   0      0.0000		
+ IMPRoper	NR3	CPH1	CPH1	NR3	500  {sd=0.031}   0     -0.0249		
+ IMPRoper	NR3	CPH2	CPH1	H	500  {sd=0.031}   0      0.0263		
+ IMPRoper	NR3	CPH2	NR3	CPH1	500  {sd=0.031}   0      0.0490		
+ IMPRoper	NY	CPT	CA	CA	500  {sd=0.031}   0    179.9546		
+ IMPRoper	NY	CPT	CPT	CA	500  {sd=0.031}   0   -179.9720		
+ IMPRoper	OH1	CA	CA	CA	500  {sd=0.031}   0   -179.9788
+
+
+! NONBONDED (CHARMM22 values).
+!--NONBONDED--------EPS------SIGMA---EPS(1:4)--SIGMA(1:4)
+ NONBonded  C       0.1100   3.5636   0.1100   3.5636   !ALLOW PEP POL ARO	! NMA pure solvent, adm jr., 3/3/93 
+ NONBonded  CA      0.0700   3.5501   0.0700   3.5501   !ALLOW ARO ! benzene (JES) 
+ NONBonded  CAL     0.1200   3.0469   0.1200   3.0469   !ALLOW ION ! optimized before july 89, and need polarization term (BP) 
+ NONBonded  CC      0.0700   3.5636   0.0700   3.5636   !ALLOW PEP POL ARO ! adm jr. 3/3/92, acetic acid heat of solvation 
+ NONBonded  CD      0.0700   3.5636   0.0700   3.5636   !ALLOW POL ! adm jr. 3/19/92, acetate a.i. and dH of solvation 
+ NONBonded  CM      0.1100   3.7418   0.1100   3.7418   !ALLOW HEM ! Heme (6-liganded): CO ligand carbon (KK 05/13/91) 
+ NONBonded  CP1     0.0200   4.0536   0.0100   3.3854   !ALLOW ALI ! alkane update, adm jr., 3/2/92 
+ NONBonded  CP2     0.0550   3.8754   0.0100   3.3854   !ALLOW ALI ! alkane update, adm jr., 3/2/92 
+ NONBonded  CP3     0.0550   3.8754   0.0100   3.3854   !ALLOW ALI ! alkane update, adm jr., 3/2/92 
+ NONBonded  CPA     0.0900   3.2072   0.0900   3.2072   !ALLOW HEM ! Heme (6-liganded): porphyrin macrocycle (KK 05/13/91) 
+ NONBonded  CPB     0.0900   3.2072   0.0900   3.2072   !ALLOW HEM ! Heme (6-liganded): porphyrin macrocycle (KK 05/13/91) 
+ NONBonded  CPH1    0.0500   3.2072   0.0500   3.2072   !ALLOW ARO ! adm jr., 10/23/91, imidazole solvation and sublimation 
+ NONBonded  CPH2    0.0500   3.2072   0.0500   3.2072   !ALLOW ARO ! adm jr., 10/23/91, imidazole solvation and sublimation 
+ NONBonded  CPM     0.0900   3.2072   0.0900   3.2072   !ALLOW HEM ! Heme (6-liganded): porphyrin macrocycle (KK 05/13/91) 
+ NONBonded  CPT     0.0900   3.2072   0.0900   3.3854   !ALLOW ARO ! benzene (JES) 
+ NONBonded  CS      0.1100   3.9200   0.1100   3.9200   !ALLOW SUL ! methylthiolate to water and F.E. of solvation, adm jr. 6/1/92 
+ NONBonded  CT1     0.0200   4.0536   0.0100   3.3854   !ALLOW ALI ! isobutane pure solvent properties, adm jr, 2/3/92 
+ NONBonded  CT2     0.0550   3.8754   0.0100   3.3854   !ALLOW ALI ! propane pure solvent properties, adm jr, 2/3/92 
+ NONBonded  CT3     0.0800   3.6705   0.0100   3.3854   !ALLOW ALI ! methane/ethane a.i. and ethane pure solvent, adm jr, 2/3/92 
+ NONBonded  CY      0.0700   3.5501   0.0700   3.5501   !ALLOW ARO ! TRP, JWK 08/29/89 
+ NONBonded  FE      0.0001   1.1582   0.0001   1.1582   !ALLOW HEM ! Heme (6-liganded): Iron atom (KK 05/13/91) 
+ NONBonded  H       0.0460   0.4000   0.0460   0.4000   !ALLOW PEP POL SUL ARO ALC ! same as TIP3P hydrogen, adm jr., 7/20/89 
+ NONBonded  HA      0.0220   2.3520   0.0220   2.3520   !ALLOW PEP ALI POL SUL ARO PRO ALC  ! methane/ethane a.i. and ethane pure solvent, adm jr, 2/3/92 
+ NONBonded  HB      0.0220   2.3520   0.0220   2.3520   !ALLOW PEP ALI POL SUL ARO PRO ALC  ! methane/ethane a.i. and ethane pure solvent, adm jr, 2/3/92 
+ NONBonded  HC      0.0460   0.4000   0.0460   0.4000   !ALLOW POL ! new, small polar Hydrogen, see also adm jr. JG 8/27/89 
+ NONBonded  HP      0.0300   2.4200   0.0300   2.4200   !ALLOW ARO ! JES 8/25/89 values from Jorgensen fit to hydration energy 
+ NONBonded  HR1     0.0460   1.6036   0.0460   1.6036   !ALLOW ARO ! adm jr., 6/27/90, his 
+ NONBonded  HR2     0.0460   1.2473   0.0460   1.2473   !ALLOW ARO ! adm jr., 6/27/90, his 
+ NONBonded  HR3     0.0078   2.6157   0.0078   2.6157   !ALLOW ARO ! adm jr., 3/24/92, maintain old aliphatic H VDW params 
+ NONBonded  HS      0.1000   0.8018   0.1000   0.8018   !ALLOW SUL ! methanethiol pure solvent, adm jr., 6/22/92 
+ NONBonded  HT      0.0460   0.4000   0.0460   0.4000   !ALLOW WAT !TIP3P HYDROGEN PARAMETERS, adm jr., NBFIX obsolete 
+ NONBonded  N       0.2000   3.2963   0.0001   3.2963   !ALLOW PRO ! 6-31g* AcProNH2, ProNH2, 6-31g*//3-21g AcProNHCH3 RLD 4/23/93 
+ NONBonded  NC2     0.2000   3.2963   0.2000   3.2963   !ALLOW POL ! JG 8/27/89; note: NH1 in ARG was changed to NC2. 
+ NONBonded  NH1     0.2000   3.2963   0.2000   2.7618   !ALLOW PEP POL ARO  ! This 1,4 vdW allows the C5 dipeptide minimum to exist.(LK) 
+ NONBonded  NH2     0.2000   3.2963   0.2000   3.2963   !ALLOW POL ! adm jr. 
+ NONBonded  NH3     0.2000   3.2963   0.2000   3.2963   !ALLOW POL ! adm jr. 
+ NONBonded  NP      0.2000   3.2963   0.2000   3.2963   !ALLOW PRO ! N-terminal proline; from 6-31g* +ProNH2  RLD 9/28/90 
+ NONBonded  NPH     0.2000   3.2963   0.2000   3.2963   !ALLOW HEM ! Heme (6-liganded): porphyrin macrocycle (KK 05/13/91) 
+ NONBonded  NR1     0.2000   3.2963   0.2000   3.2963   !ALLOW ARO ! His, adm jr., 9/4/89 
+ NONBonded  NR2     0.2000   3.2963   0.2000   3.2963   !ALLOW ARO ! His, adm jr., 9/4/89 
+ NONBonded  NR3     0.2000   3.2963   0.2000   3.2963   !ALLOW ARO ! His, adm jr., 9/4/89 
+ NONBonded  NY      0.2000   3.2963   0.2000   3.2963   !ALLOW ARO ! trp, JWK 
+ NONBonded  O       0.1200   3.0291   0.1200   2.4945   !ALLOW PEP POL ! This 1,4 vdW allows the C5 dipeptide minimum to exist.(LK) 
+ NONBonded  OB      0.1200   3.0291   0.1200   2.4945   !ALLOW PEP POL ARO ! adm jr., 10/17/90, acetic acid carbonyl O 
+ NONBonded  OC      0.1200   3.0291   0.1200   3.0291   !ALLOW POL ION ! JG 8/27/89 
+ NONBonded  OH1     0.1521   3.1538   0.1521   3.1538   !ALLOW ALC ARO ! adm jr. 8/14/90, MeOH nonbond and solvent (same as TIP3P) 
+ NONBonded  OM      0.1200   3.0291   0.1200   3.0291   !ALLOW HEM ! Heme (6-liganded): CO ligand oxygen (KK 05/13/91) 
+ NONBonded  OS      0.1521   3.1538   0.1521   3.1538   !ALLOW ALC ARO ! adm jr. 9/17/90, avoid O* wildcard 
+ NONBonded  OT      0.1521   3.1506   0.1521   3.1506   !ALLOW WAT !TIP3P OXYGEN PARAMETERS, adm jr., NBFIX obsolete 
+ NONBonded  S       0.4500   3.5636   0.4500   3.5636   !ALLOW SUL ION ! adm jr., 3/3/92, methanethiol/ethylmethylsulfide pure solvent 
+ NONBonded  SM      0.3800   3.5190   0.3800   3.5190   !ALLOW SUL ION ! adm jr., 3/3/92, dimethyldisulphide pure solvent 
+ NONBonded  SS      0.4700   3.9200   0.4700   3.9200   !ALLOW SUL ! methylthiolate to water and F.E. of solvation, adm jr. 6/1/92 
+ NONBonded  ZN      0.2500   1.9422   0.2500   1.9422   !ALLOW ION ! RHS March 18, 1990 
+ NONBonded  SOD     0.1000   2.7297   0.1000   2.7297   !FROM BENOIT ROUX 
+ NONBonded  CLA     0.1500   4.2763   0.1500   4.2763   !chloride 
+
+
+! HYDROGEN BONDS (CHARMM22 values).
+!--------------------EMIN-----RMIN
+ HBOND  N*+* N%      0.0000   3.0000  
+ HBOND  O*   N*+*    0.0000   2.9000  
+ HBOND  OH*  N%      0.0000   2.8500  
+ HBOND  OH*  O*      0.0000   2.7500  
+ HBOND  S    N%      0.0000   3.0000   !ALLOW SUL ION 
+ HBOND  S    O*      0.0000   2.9000   !ALLOW SUL ION 
+
+
+!=====================================================================
+!=====================================================================
+! Residue CYSP (nitroxide spin label MTSL) 
+! from: XPLOR-NIH protein.par
+! 	CDS 2008/02/09
+! 	originally by John Battiste (9-Aug-1999)
+!=====================================================================
+ BOND  CT2  CS1     1000.000 {sd=0.001}      1.490
+ BOND  CS1  CSN1    1000.000 {sd=0.001}      1.511
+ BOND  CSN1 C3S8    1000.000 {sd=0.001}      1.526
+ BOND  C3S8 HA      1000.000 {sd=0.001}      1.080
+ BOND  CSN1 C3S9    1000.000 {sd=0.001}      1.521
+ BOND  C3S9 HA      1000.000 {sd=0.001}      1.080
+ BOND  CSN1 NO      1000.000 {sd=0.001}      1.486
+ BOND  NO   ON      1000.000 {sd=0.001}      1.267
+ BOND  NO   CSN2    1000.000 {sd=0.001}      1.477
+ BOND  CSN2 C3S6    1000.000 {sd=0.001}      1.529
+ BOND  C3S6 HA      1000.000 {sd=0.001}      1.080
+ BOND  CSN2 C3S7    1000.000 {sd=0.001}      1.517
+ BOND  C3S7 HA      1000.000 {sd=0.001}      1.080
+ BOND  CSN2 CS2     1000.000 {sd=0.001}      1.487
+ BOND  CS2  HA      1000.000 {sd=0.001}      1.080
+ BOND  CS2  CS1     1000.000 {sd=0.001}      1.319
+ BOND  S    S       1000.000 {sd=0.001}      2.02
+
+!--- following ANGLEs uncertain from paper describing crystal structure
+ ANGLE  CS1  CSN1 C3S9     500.00 {sd=0.031}    109.7000
+ ANGLE  C3S8 CSN1 NO       500.00 {sd=0.031}    115.3000
+ ANGLE  HA   C3S8 HA       500.00 {sd=0.031}    109.4074
+ ANGLE  HA   C3S9 HA       500.00 {sd=0.031}    109.4074
+ ANGLE  HA   C3S6 HA       500.00 {sd=0.031}    109.4074
+ ANGLE  HA   C3S7 HA       500.00 {sd=0.031}    109.4074
+ ANGLE  C3S6 CSN2 NO       500.00 {sd=0.031}    112.4000
+ ANGLE  CS2  CSN2 C3S7     500.00 {sd=0.031}    110.1000
+
+!--- remainder of angles of spin label from crystal structure
+ ANGLE  CS1  CT2   S        500.00 {sd=0.031}    114.3551
+
+!--- uses CH1E CT S value
+ ANGLE  CS1  CT2   HA       500.00 {sd=0.031}    108.1831
+
+!--- uses C5W CT HA value
+ ANGLE  CSN1 CS1  CT2      500.00 {sd=0.031}    122.4000
+ ANGLE  CS2  CS1  CT2      500.00 {sd=0.031}    125.1000
+ ANGLE  CSN1 CS1  CS2      500.00 {sd=0.031}    112.5000
+ ANGLE  CS1  CSN1 C3S8     500.00 {sd=0.031}    115.3000
+ ANGLE  CS1  CSN1 NO       500.00 {sd=0.031}     99.2000
+ ANGLE  CSN1 C3S8 HA       500.00 {sd=0.031}    109.4726
+ ANGLE  CSN1 C3S9 HA       500.00 {sd=0.031}    109.4726
+
+!--- uses CH1E CH3E HA value
+ ANGLE  C3S8 CSN1 C3S9     500.00 {sd=0.031}    111.2000
+ ANGLE  C3S9 CSN1 NO       500.00 {sd=0.031}    109.7000
+ ANGLE  CSN1 NO   ON       500.00 {sd=0.031}    122.2000
+ ANGLE  CSN1 NO   CSN2     500.00 {sd=0.031}    114.8000
+ ANGLE  ON   NO   CSN2     500.00 {sd=0.031}    123.0000
+ ANGLE  NO   CSN2 C3S7     500.00 {sd=0.031}    110.1000
+ ANGLE  NO   CSN2 CS2      500.00 {sd=0.031}     99.7000
+ ANGLE  CSN2 C3S6 HA       500.00 {sd=0.031}    109.4726
+ ANGLE  CSN2 C3S7 HA       500.00 {sd=0.031}    109.4726
+
+!--- uses CH1E CH3E HA value
+ ANGLE  C3S6 CSN2 C3S7     500.00 {sd=0.031}    110.7000
+ ANGLE  C3S6 CSN2 CS2      500.00 {sd=0.031}    112.4000
+ ANGLE  CSN2 CS2  HA       500.00 {sd=0.031}    123.1000
+ ANGLE  CS1  CS2  HA       500.00 {sd=0.031}    123.1000
+
+!--- uses 360-(CSN2-CS2-CS1 angle)%2
+ ANGLE  CSN2 CS2  CS1      500.00 {sd=0.031}    113.8000
+ ANGLE  HA   CT1   NH1     500.00 {sd=0.031}     109.5
+ ANGLE  HA   CT1   C       500.00 {sd=0.031}     109.5
+ ANGLE  CT2  S     S       500.00 {sd=0.031}     104.2
+
+ IMPRoper  S    CS1  HA   HA        500.00 {sd=0.031}    0    -70.4072
+
+ ! changed from -70.4072 so that fixupCovalentGeom works with new default threshold values (CDS 2007/12/04)
+ IMPRoper  C3S8 C3S9 NO   CS1       500.00 {sd=0.031}    0    -72.8670
+ IMPRoper  C3S6 C3S7 NO   CS2       500.00 {sd=0.031}    0     70.4072
+
+ IMPRoper  ON   NO   CSN1 CSN2      500.00 {sd=0.031}    0   -180.0000
+ IMPRoper  HA   CS2  CSN2 CS1       500.00 {sd=0.031}    0   -180.0000
+ IMPRoper  CT2  CS1  CSN1 CS2       500.00 {sd=0.031}    0   -180.0000
+
+ IMPRoper  NO   CSN1 CS1  CS2       500.00 {sd=0.031}    0      0.0000
+ IMPRoper  CSN1 CS1  CS2  CSN2      500.00 {sd=0.031}    0      0.0000
+ IMPRoper  CS1  CS2  CSN2 NO        500.00 {sd=0.031}    0      0.0000
+ IMPRoper  CS2  CSN2 NO   CSN1      500.00 {sd=0.031}    0      0.0000
+ IMPRoper  CSN2 NO   CSN1 CS1       500.00 {sd=0.031}    0      0.0000
+
+ IMPRoper  HA   HA   HA   CSN1      500.00 {sd=0.031}    0     75.0000
+ IMPRoper  HA   HA   HA   CSN2      500.00 {sd=0.031}    0     75.0000
+ IMPRoper  HA   NH1  C    CT2       500.00 {sd=0.031}    0     65.977  ! CA chirality
+
+! NONBOND values are type-adapted from existing types in parallhdg
+!--NONBONDED--------EPS------SIGMA---EPS(1:4)--SIGMA(1:4)
+ NONBonded  CS1     0.1200   3.3409   0.1200   3.3409	  !C5
+ NONBonded  CSN1    0.1200   3.3409   0.1200   3.3409	  !CR*
+ NONBonded  C3S8    0.0903   3.3409   0.0903   3.3409	  !CH3E
+ NONBonded  C3S9    0.0903   3.3409   0.0903   3.3409	  !CH3E
+ NONBonded  NO      0.1592   3.0068   0.1592   3.0068	  !N
+ NONBonded  ON      0.2342   2.7755   0.2342   2.7755	  !OH1
+ NONBonded  CSN2    0.1200   3.3409   0.1200   3.3409	  !CR*
+ NONBonded  C3S6    0.0903   3.3409   0.0903   3.3409	  !CH3E
+ NONBonded  C3S7    0.0903   3.3409   0.0903   3.3409	  !CH3E
+ NONBonded  CS2     0.1200   3.3409   0.1200   3.3409	  !CR1E
+ 
+
+!=====================================================================
+!=====================================================================
+! Residue LYR: modified Lysine with retinoic acid, protonated schiff base.
+!   structure from:      [Hamanaka et al (1972) Acta Cryst B28: 214]
+!   charges from:        [Hayashi & Ohmine (2000) J Phys Chem B 104: 10678]
+!                        [Hayashi et al (2001) J Phys Chem B 105: 10124]
+!   bonds/angles from:   [Nina et al. (1995) Biophys J 68: 25]
+!                        [Baudry et al. (1997) J. Chem. Info. Comput. Sci. 37: 1018. 
+!                        [Tajkhorshid et al (1997) J Phys. Chem B 101: 8021]
+!                        [Tajkhorshid et al (1999) J Phys Chem B 103: 5581]
+!                        [Tajkhorshid et al (2000) Biophys J 78: 683]
+!=====================================================================
+
+! BONDS (CHARMM36 values).
+ BOND   CT2   NCH1  1000.000   {sd=0.001}   1.49
+ BOND   NCH1  HCR   1000.000   {sd=0.001}   1.00
+ BOND   NCH1  CR15  1000.000   {sd=0.001}   1.32
+ BOND   CR15  HPL1  1000.000   {sd=0.001}   1.07
+ BOND   CR15  CR14  1000.000   {sd=0.001}   1.37
+ BOND   CR14  HPL   1000.000   {sd=0.001}   1.07
+ BOND   CR14  CR13  1000.000   {sd=0.001}   1.40
+ BOND   CR13  CT3   1000.000   {sd=0.001}   1.52
+ BOND   CR13  CR12  1000.000   {sd=0.001}   1.40
+ BOND   CR12  HPL   1000.000   {sd=0.001}   1.07
+ BOND   CR12  CR11  1000.000   {sd=0.001}   1.37
+ BOND   CR11  HPL   1000.000   {sd=0.001}   1.07
+ BOND   CR11  CR10  1000.000   {sd=0.001}   1.41
+ BOND   CR10  HPL   1000.000   {sd=0.001}   1.07
+ BOND   CR10  CR9   1000.000   {sd=0.001}   1.37
+ BOND   CR9   CT3   1000.000   {sd=0.001}   1.52
+ BOND   CR9   CR8   1000.000   {sd=0.001}   1.45
+ BOND   CR8   HPL   1000.000   {sd=0.001}   1.07
+ BOND   CR8   CR7   1000.000   {sd=0.001}   1.34
+ BOND   CR7   HPL   1000.000   {sd=0.001}   1.07
+ BOND   CR7   CR6   1000.000   {sd=0.001}   1.47
+ BOND   CR6   CT    1000.000   {sd=0.001}   1.54
+ BOND   CR6   CR5   1000.000   {sd=0.001}   1.34
+ BOND   CR5   CT3   1000.000   {sd=0.001}   1.52
+ BOND   CR5   CT2   1000.000   {sd=0.001}   1.52
+ BOND   CT    CT3   1000.000   {sd=0.001}   1.54  
+ BOND   CT    CT2   1000.000   {sd=0.001}   1.52  
+
+! ANGLES (CHARMM36 values).
+ ANGLE   CT2   CT2   NCH1    500.00   {sd=0.031}    111.20
+ ANGLE   HCR   NCH1  CT2     500.00   {sd=0.031}    118.40
+ ANGLE   CT2   NCH1  CR15    500.00   {sd=0.031}    123.20
+ ANGLE   CR15  NCH1  HCR     500.00   {sd=0.031}    120.00
+ ANGLE   HA    CT2   NCH1    500.00   {sd=0.031}    109.50
+ ANGLE   NCH1  CR15  HPL1    500.00   {sd=0.031}    119.10
+ ANGLE   NCH1  CR15  CR14    500.00   {sd=0.031}    122.90
+ ANGLE   CR15  CR14  HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR14  CR15  HPL1    500.00   {sd=0.031}    119.70
+ ANGLE   CR15  CR14  CR13    500.00   {sd=0.031}    122.90
+ ANGLE   CR14  CR13  CT3     500.00   {sd=0.031}    119.70
+ ANGLE   CR13  CR14  HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR13  CT3   HA      500.00   {sd=0.031}    109.50
+ ANGLE   CR14  CR13  CR12    500.00   {sd=0.031}    122.90
+ ANGLE   CR13  CR12  HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR12  CR13  CT3     500.00   {sd=0.031}    119.70
+ ANGLE   CR13  CR12  CR11    500.00   {sd=0.031}    122.90
+ ANGLE   CR12  CR11  HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR11  CR12  HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR12  CR11  CR10    500.00   {sd=0.031}    122.90
+ ANGLE   CR11  CR10  HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR10  CR11  HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR11  CR10  CR9     500.00   {sd=0.031}    122.90
+ ANGLE   CR10  CR9   CT3     500.00   {sd=0.031}    119.70
+ ANGLE   CR9   CT3   HA      500.00   {sd=0.031}    109.50
+ ANGLE   CR9   CR10  HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR10  CR9   CR8     500.00   {sd=0.031}    122.90
+ ANGLE   CR9   CR8   HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR8   CR9   CT3     500.00   {sd=0.031}    119.70
+ ANGLE   CR9   CR8   CR7     500.00   {sd=0.031}    122.90
+ ANGLE   CR8   CR7   HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR7   CR8   HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR8   CR7   CR6     500.00   {sd=0.031}    122.90
+ ANGLE   CR7   CR6   CT      500.00   {sd=0.031}    119.70
+ ANGLE   CR6   CR7   HPL     500.00   {sd=0.031}    119.70
+ ANGLE   CR7   CR6   CR5     500.00   {sd=0.031}    122.90  
+ ANGLE   CR6   CR5   CT3     500.00   {sd=0.031}    119.70  
+ ANGLE   CR6   CR5   CT2     500.00   {sd=0.031}    119.70  
+ ANGLE   CT3   CR5   CT2     500.00   {sd=0.031}    119.70
+ ANGLE   CR5   CT2   HA      500.00   {sd=0.031}    109.50
+ ANGLE   CR5   CT3   HA      500.00   {sd=0.031}    109.50
+ ANGLE   CR6   CT    CT2     500.00   {sd=0.031}    111.10
+ ANGLE   CR6   CT    CT3     500.00   {sd=0.031}    111.10
+ ANGLE   CR5   CT2   CT2     500.00   {sd=0.031}    111.10
+ ANGLE   CR5   CR6   CT      500.00   {sd=0.031}    119.70
+ ANGLE   CT3   CT    CT3     500.00   {sd=0.031}    109.50 ! for C16-C1-C17 (tetrahedron)
+ ANGLE   CT2   CT    CT3     500.00   {sd=0.031}    109.50 ! for C2-C1-C16 / C2-C1-C17
+ ANGLE   CT    CT2   CT2     500.00   {sd=0.031}    113.50 ! for C1-C2-C3
+ ANGLE   CT    CT2   HA      500.00   {sd=0.031}    109.50 ! for C1-C2-H2A / C1-C2-H2B
+ ANGLE   CT    CT3   HA      500.00   {sd=0.031}    110.10 ! for C1-C16-H16A
+
+! IMPROPERS used to define chain and ring planarity (Marassi 2016)
+! LYS moiety geometry
+ IMPRoper   HA    HA    CT2   NCH1  500.00   {sd=0.031}    0  -70.4126 !stereo CE from LYS
+! Retinal chain double bond planarity
+ IMPRoper   NCH1  CT2   CR15  HCR   500.00   {sd=0.031}    0    0.0000
+ IMPRoper   CR15  NCH1  CR14  HPL1  500.00   {sd=0.031}    0    0.0000
+ IMPRoper   CR14  CR13  CR15  HPL   500.00   {sd=0.031}    0    0.0000
+ IMPRoper   CR13  CR14  CR12  CT3   500.00   {sd=0.031}    0    0.0000
+ IMPRoper   CR12  CR11  CR13  HPL   500.00   {sd=0.031}    0    0.0000
+ IMPRoper   CR11  CR12  CR10  HPL   500.00   {sd=0.031}    0    0.0000
+ IMPRoper   CR10  CR9   CR11  HPL   500.00   {sd=0.031}    0    0.0000
+ IMPRoper   CR9   CR10  CR8   CT3   500.00   {sd=0.031}    0    0.0000
+ IMPRoper   CR8   CR7   CR9   HPL   500.00   {sd=0.031}    0    0.0000
+ IMPRoper   CR7   CR8   CR6   HPL   500.00   {sd=0.031}    0    0.0000
+! Retinal ring  planarity
+ IMPRoper   CR6   CT    CR5   CR7   500.00   {sd=0.031}    0    0.0000 
+ IMPRoper   CR5   CR6   CT2   CT3   500.00   {sd=0.031}    0    0.0000 
+ IMPRoper   CR5   CR6   CT    CT2   500.00   {sd=0.031}    0    0.0000 
+ IMPRoper   CR7   HPL   CR5   CT    500.00   {sd=0.031}    0    0.0000 
+! LYS moiety dihedrals converted to impropers to allow use of torsionDB without DIHE
+ IMPRoper   NH1   CT1   CT2   CT2   500.00   {sd=0.031}    3    0.000   ! N    CA   CB   CG  (LYS chi1)
+ IMPRoper   CT1   CT2   CT2   CT2   500.00   {sd=0.031}    3    0.000   ! CA   CB   CG   CD  (LYS chi2)
+ IMPRoper   CT2   CT2   CT2   CT2   500.00   {sd=0.031}    3    0.000   ! CB   CG   CD   CE  (LYS chi3)  
+ IMPRoper   CT2   CT2   CT2   NCH1  500.00   {sd=0.031}    3    0.000   ! CG   CD   CE   N16 (LYS chi4)
+ IMPRoper   CT2   CT2   NCH1  CR15  500.00   {sd=0.031}    2    0.000   ! CD-CE-N16-C15 (LYR schiff base)
+
+! NONBONDED (CHARMM36 values)
+!--------------------- EPS    SIGMA    EPS(1:4)  SIGMA(1:4)
+ NONBonded  NCH1       0.2000   3.4745    0.2000    3.4745   
+ NONBonded  CR15       0.1100   3.7418    0.1100    2.8509   
+ NONBonded  CR14       0.1100   3.7418    0.1100    2.8509   
+ NONBonded  CR13       0.1100   3.7418    0.1100    2.8509   
+ NONBonded  CR12       0.1100   3.7418    0.1100    2.8509   
+ NONBonded  CR11       0.1100   3.7418    0.1100    2.8509   
+ NONBonded  CR10       0.1100   3.7418    0.1100    2.8509   
+ NONBonded  CR9        0.1100   3.7418    0.1100    2.8509   
+ NONBonded  CR8        0.1100   3.7418    0.1100    2.8509   
+ NONBonded  CR7        0.1100   3.7418    0.1100    2.8509   
+ NONBonded  CR6        0.1100   3.7418    0.1100    2.8509   
+ NONBonded  CR5        0.1100   3.7418    0.1100    2.8509   
+ NONBonded  HCR        0.046    0.4000    0.0460    0.4000   
+ NONBonded  HPL        0.0460   1.5502    0.0460    1.5502   
+ NONBonded  HPL1       0.0078   1.5502    0.0078    1.5502   
+ NONBonded  CT         0.0200   4.0536    0.0100    3.3854 
+
+!=====================================================================
+!=====================================================================
+
+ SET ECHO=TRUE END
+
+
+
+

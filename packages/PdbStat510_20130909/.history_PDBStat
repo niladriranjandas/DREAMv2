@@ -1,0 +1,37 @@
+exit
+rea sequence 5x1x.seq
+rea cons cyana 5x1x_param_5x1x_concatupl.upl
+write
+exit
+exit
+exit
+exit
+exit
+exit
+men
+rea 5x1x.seq 
+rea sequence 5x1x.seq 
+rea cons cyana 5x1x_param_5x1x_concatupl.upl 
+write
+exit
+men
+hel codes
+hel kabsch
+men
+hel get
+hel save
+men
+hel load
+load
+quit
+quit
+rea sequence 5x1x.seq 
+rea cons cyana 5x1x_param_5x1x_concatupl.upl
+write
+quit
+quit
+quit
+rea sequence /data2/nmr/our_algo_final/code/toberun_test/2m4k_1725305661/2m4k.seq 
+rea cons cyana /data2/nmr/our_algo_final/code/toberun_test/2m4k_1725305661/2m4k_param_2m4k_concatupl_noempty.upl
+write
+quit

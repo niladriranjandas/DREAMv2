@@ -1,0 +1,110 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+opts,args = xplor.parseArguments(("probeR:1",
+                                  "molSelection:1",
+                                  "reportSelection:1",
+                                  "maxTessLen:1",
+                                  "byResidue:0"
+                                  ),
+                                 cmdline="[options] <file.pdb>",
+                                 description="""
+Compute solvent-accessible surface area for the specified atoms or residues
+using the algorithm in
+A. Varshney et al. IEEE Comput. Graphics Appl. 1994, 14, 19-25.
+""",
+                      usageString="""
+options::
+
+  -probeR <val>  - specify the probe (solvent) radius in Angstroms. [1.4]
+  -molSelection  - specify the portion of the input structure to be considered
+                   as the molecule in the calculation. [all]
+  -reportSelection - specify the atom(s) to report the surface area of. These
+                     atoms must be contained within molSelection. [name HN]
+  -maxTessLen <val> - set the max_tess_len tessellation parameter in 
+                      Angstroms. [1.4]
+  -byResidue       - if specified, for each atom in reportSelection, instead
+                     report the surface area of the containing residue.
+"""                                 
+                                 )
+probeRadius=1.4
+maxTessLen=1.4#6.0
+molSelection="all"
+reportSelection="name HN"
+byResidue=False
+for opt in opts:
+    if opt[0]=="probeR":
+        probeRadius=float(opt[1])
+        pass
+    if opt[0]=="maxTessLen":
+        maxTessLen=float(opt[1])
+        pass
+    if opt[0]=="molSelection":
+        molSelection=opt[1] 
+        pass
+    if opt[0]=="reportSelection":
+        reportSelection=opt[1] 
+        pass
+    if opt[0]=="byResidue":
+        byResidue=True
+        pass
+    pass
+
+import protocol
+protocol.loadPDB(args[0],deleteUnknownAtoms=True)
+
+from surfD import Surf
+
+from selectTools import convertToAtomSel
+molSelection = convertToAtomSel(molSelection)
+surf = Surf(molSelection)
+
+#set up radii
+radii=[]
+for atom in molSelection:
+    if     atom.atomName()[0] == 'H': radius = 1.00
+    elif   atom.atomName()[0] == 'C': radius = 1.85;
+    elif   atom.atomName()[0] == 'N': radius = 1.75;
+    elif   atom.atomName()[0] == 'O': radius = 1.60;
+    elif   atom.atomName()[0] == 'S': radius = 2.00;
+    elif   atom.atomName()[0] == 'P': radius = 2.00;
+    elif   atom.atomName()[:2].upper() == 'MN': radius = 1.30
+    else:
+        radius=1.7
+        print("WARNING: Atom " + atom.string(), end=' ')
+        print(" is not supported by psolPot. radius=1.7 is used for this.")
+        pass
+    radii.append(radius)
+    pass
+
+
+surf.update_radii(radii)
+surf.setProbeRadius(probeRadius)
+surf.setMaxTessLen(maxTessLen)
+
+surf.tessellate()
+
+
+for atom in convertToAtomSel(reportSelection):
+    sel = atom
+    if byResidue:
+        sel = AtomSel('byres ATOM "%s" %d %s' % (atom.segmentName(),
+                                                 atom.residueNum(),
+                                                 atom.atomName()))
+    else:
+        sel = AtomSel('atom "%s" %d %s' % (sel.segmentName(),
+                                           sel.residueNum(),
+                                           sel.atomName()))
+        pass
+    
+    #sel = convertToAtomSel(sel)
+    sa = surf.calcSA(sel)
+    print(" %4s %4d" %(atom.segmentName(),atom.residueNum())
+          if byResidue else " %s" % atom.string(),"%.4f" % sa)
+    pass
+
+
+
+
+
+
+                                 

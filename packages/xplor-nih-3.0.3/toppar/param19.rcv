@@ -1,0 +1,349 @@
+remarks
+remarks   PARAM19.RCV
+remarks   ==========
+remarks
+remarks   Force field parameters for the prosthetic groups of the
+remarks   photosynthetic reaction center of Rps. viridis
+remarks
+remarks   (H. Treutlein et al., in: The photosynthetic bacterial
+remarks   reaction center: Structure and dynamics, J.Breton, A.Vermeglio,Eds.
+remarks   (Plenum Press, London 1987), p. 139.
+remarks
+remarks   !! ALL PARAMETERS have been ESTIMATED from existing parameters
+remarks   !! used for similar chemical structures inside proteins and hem groups
+remarks   !! to reproduce the X-ray structure  (3.0 A resolution,  
+remarks   !! J.Deisenhofer et al., Nature 318(1985)618 )  AS GOOD AS POSSIBLE.
+remarks
+remarks   Parameters of the heme group are from John Kuriyan (26-Oct-1985).
+remarks   The Heme group is for the liganded FE(II) state
+remarks   with perfect D4H symmetry. The atom types used are for
+remarks   PARAM19 and the structural parameters are taken from
+remarks   Kitagawa, Abe and Ogoshi J.C.P. 69, (1978) pages 4526-4534
+remarks
+remarks   H. Treutlein   (6-Sept-1989)
+
+set echo=false end
+
+!             Eb = Kb ( r - r0 ) **2
+!
+!                 Kb          r0
+!            (Kcal/mol A**2)   A
+!
+bond FE   OM     250.0  1.8!    JUST A GUESS.
+bond FE   NR      65.0  1.98!   FROM NAGAI ET AL(1980)
+bond FE   CM     258.0  1.90!   FROM MB-CO X-RAY KURYAN ET AL.
+bond FE   NP      65.0  1.96!   FROM KITAGAWA ET AL.
+!bond LP   OH2    450.0  0.080! FROM ST2 GEOMETRY
+bond H    H        0.0  1.6329931 !  FROM ST2 GEOMETRY (for SHAKE )
+!bond HT   OT     450.0  0.9572  ! FROM TIPS3P GEOMETRY
+!bond HT   HT       0.0  1.5139  ! FROM TIPS3P GEOMETRY (for SHAKE )
+bond CPA  CPB    450.0  1.44 ! FOLLOWING bondS ARE FROM KITAGAWA ET AL.
+bond CPB  CPB    450.0  1.36
+bond CPA  NP     471.0  1.38
+bond CPB  CH2E   405.0  1.52
+bond CPB  CH3E   405.0  1.52
+bond CPB  CR1E   450.0  1.38
+bond CPA  CPM    450.0  1.37
+bond CC   CF     450.0  1.40
+bond CC   CH2E   405.0  1.52 ! HISTIDINE PARAMETERS FROM MBCO STRUCT.
+bond CF   NB     450.0  1.40
+bond NB   CP     450.0  1.30
+bond CP   NA     450.0  1.35 
+bond NB   FE      65.0  2.20
+bond CC   NA     471.0  1.40
+bond NA   H      405.0  0.98
+
+!               Et = Kt ( theta - theta0 )**2
+!
+!                       Kt       theta0
+!                (Kcal/mol A**2)  deg.
+!
+angle C    NP   FE      50.0 128.0!  FORCE CONSTANT FROM PARMFIX9
+angle CR1E NR   FE      30.0 124.8!  FORCE CONSTANT FROM PARMFIX9
+angle CH1E CH2E CC      35.0 112.5
+angle CH2E CC   NA      20.0 117.5
+angle CH2E CC   CF      70.0 121.5
+angle CPA  NP   CPA     70.0 104.0
+angle CPA  CPB  CPB     70.0 106.4
+angle CPA  CPB  CR1E    70.0 126.8
+angle CPA  CPB  CH3E    65.0 126.8
+angle CPA  CPB  CH2E    65.0 126.8
+angle CPA  CPM  CPA     90.0 125.2
+angle CPB  CPB  CR1E    70.0 126.8
+angle CPB  CPB  CH3E    65.0 126.8
+angle CPB  CPB  CH2E    65.0 126.8
+angle CPB  CR1E CH2E    70.0 121.5
+angle CPB  CH2E CH2E    70.0 113.0
+angle CPB  CPA  CPM     70.0 124.0
+angle CC   CF   NB      90.0 102.0
+angle CC   NA   H       30.0 127.5
+angle CF   NB   CP      65.0 110.0
+angle CP   NA   CC      60.0 105.0
+angle CP   NA   H       35.0 127.5
+angle FE   CM   OM      35.0 180.0! F.C. FROM JONES (1972) JCP 57 2050
+angle FE   NP   CPA     50.0 128.0
+angle FE   NB   CP      30.0 130.0
+angle FE   NB   CF      30.0 120.0
+angle FE   OM   OM       0.0 180.0!  DUMMY PARAMETER FOR PATCH AND ANALYSIS.
+angle H    OH2  H       55.0 109.47122 ! TETRAHEDRAL FOR ST2'S
+!angle H    OH2  LP      55.0 109.47122 ! TETRAHEDRAL FOR ST2'S
+!angle HT   OT   HT      55.0 104.52 ! FROM TIPS3P GEOMETRY
+angle NP   FE   NP      50.0  90.0
+!angle NP   FE   NR      5.0  115.0 ! for myoglobin
+angle NP   FE   NR      5.0  90.0 ! for cytochrome
+angle NP   FE   CM      50.0 90.0! F.C. FROM JONES (1972) JCP 57 2050
+angle NP   FE   OM      5.0  180.0! JUST A GUESS FROM EXISTING FE CM DATA
+angle NP   CPA  CPM     65.0 124.4
+angle NP   CPA  CPB     65.0 111.6
+angle NB   CP   NA      70.0 111.0
+angle NB   FE   NP      50.  90.0 ! HIS/HEME/LIG LINKAGE PARAMS FOLLOW
+angle NB   FE   CM      50.  180.0 ! F.C. FROM JONES (1972) JCP 57 2050
+angle NA   CC   CF      65.0 110.5
+angle NR   FE   CM      5.0  180.0
+angle NR   FE   OM      5.0  180.0! JUST A GUESS FROM EXISTING FE CM DATA
+!angle LP   OH2  LP      55.0 109.47122 ! TETRAHEDRAL FOR ST2'S
+
+
+
+!                    Ed = Kd ( 1.0 + cos( n*phi + d )
+!
+!                            Kd         n       d     ,
+!                     (kcal/mol A**2)          deg.
+!
+!                      where d can be 0.0 or 180.0
+!
+dihe X    FE   NR   X    0.05      4       0.0
+dihe X    FE   CM   X    0.05      4       0.0
+dihe X    FE   OM   X    0.00      4       0.0
+dihe X    CH2E CC   X    0.0       3       0.0! NEW HISTIDINE (WHY ZERO??)
+dihe X    CPA  CPM  X    10.0      2     180.0
+dihe X    CPB  CR1E X    1.0       2     180.0! JUST A GUESS  J.K.
+dihe X    CPB  CH2E X    1.0       3       0.0!
+
+!                     Ei = Ki ( omega - omega0 )**2  (for periodicity=0)
+!
+!                               Ki    periodicity  omega0
+!                         (Kcal/mol A**2)           deg.
+!
+impr NP   X    X    NP    25.0    0 180.0 ! FOR PORPHYRIN NITROGEN PLANARIT
+impr CPM  X    X    CPA   90.0    0   0.0
+impr CPB  X    X    CH2E  90.0    0   0.0
+impr CPB  X    X    CH3E  90.0    0   0.0
+impr CPB  X    X    CR1E  90.0    0   0.0
+impr CC   X    X    CH2E  90.0    0   0.0 ! NEW HIS PARAM
+impr NA   X    X    H     45.0    0   0.0
+impr CC   X    X    NB    25.0    0   0.0 ! HIS OUT OF PLANE imprS
+impr NA   X    X    CF    25.0    0   0.0
+impr CP   X    X    CC    25.0    0   0.0
+impr CF   X    X    CP    25.0    0   0.0
+impr NB   X    X    NA    25.0    0   0.0
+impr FE   X    X    NP    20.0    0   0.0! FROM PARMFIX9
+
+
+!                   Lennard-Jones parameters
+!                                       ------1-4-------
+!                  epsilon   sigma       epsilon   sigma
+!                 (Kcal/mol)   (A)      (Kcal/mol) (A)
+!
+NONBonded CC        0.1200    3.7418      0.1   3.3854 !HISTIDINE CG
+NONBonded CPA       0.1200    3.7418      0.1   3.3854 !HEME ST2 carbon
+NONBonded CPB       0.1200    3.7418      0.1   3.3854 !HEME ST2 carbon
+NONBonded CPM       0.1200    3.7418      0.1   3.3854 !HEME MESO carbon
+NONBonded CP        0.1200    3.7418      0.1   3.3854 !HIS RING carbon
+NONBonded CF        0.1200    3.7418      0.1   3.3854 !HIS RING carbon
+NONBonded CT        0.0262    4.4367      0.1   3.3854 ! explicit H carbon
+NONBonded CM        0.0262    4.4367      0.1   3.3854 !for carbon monoxide
+NONBonded FE        0.001     1.1582      0.001  1.1582
+!NONBonded HT        0.0498    1.4254      0.0498 1.4254! TIPS3 water hydrogen
+NONBonded NA        0.2384    2.8509      0.2384  2.8509  
+NONBonded NB        0.2384    2.8509      0.2384  2.8509  
+!NONBonded OT        0.1591   2.8509       0.1591  2.8509! TIPS3 water oxigeN
+
+
+bond CH2E CPM    225.0  1.54! bond length from x-ray
+bond CH2E OS     292.0  1.38! inference from CH3E - OS
+bond CPA  C      450.0  1.36! bond length from x-ray
+bond CPA  CH1E   405.0  1.52! inference from CPB - CH2E
+bond CPA  CH2E   405.0  1.53! bond length from x-ray
+bond CPA  CH3E   405.0  1.54! bond length from x-ray
+bond CPB  C      450.0  1.36! bond length from x-ray
+bond CPB  CH1E   405.0  1.52! inference from CPB - CH2E
+bond CR1E CH3E   225.0  1.53! bond length from x-ray
+bond MG   NP      65.0  2.00! inference from FE - NP and x-ray
+bond NH1  CPA    471.0  1.38! from CPA - NP
+bond NR   MG      65.0  2.23! inference from FE - NR AND X-RAY
+bond S    CH1E   450.0  1.79! bond length from x-ray
+bond S    FE     450.0  2.12! bond length from x-ray
+bond OC   FE     250.0  2.09! just a guess and x-ray
+
+bond CH3E N      422.0  1.45! from CH1(2)E - N and x-ray
+bond ON  N      400.0  1.22! from x-ray
+bond CPM  CPM    225.0  1.53! from CH3E - CH3E
+bond CPA  O      292.0  1.23! x-ray and C-O
+bond CPB  OS     292.0  1.34! x-ray
+bond CR1E O      292.0  1.23! x-ray
+
+
+!bond NR   MG      65.0  1.98! inference from FE - NR
+
+angle CH1E C    CH2E    70.0 120.0
+angle CH1E C    CH3E    70.0 120.0
+angle CH1E C    CPA     65.0 110.0
+angle CH1E C    CR1E    65.0 130.0
+angle CH3E C    CH2E    70.0 120.0
+angle CPA  C    CPA     65.0 125.0   
+angle CPA  C    CR1E    65.0 123.5
+angle CPB  C    CH1E    65.0 103.5! angle from x-ray
+angle CPB  C    CH3E    65.0 120.0! standart geometry
+angle CPB  C    O       65.0 130.0! angle from x-ray
+angle CR1E C    CH3E    70.0 120.0
+angle OC   C    OS      70.0 121.0!
+!angle CH1E C    CPA     65.0 117.4! FROM X-RAY, MEAN OF TWO POSSIBLE VALUES   
+!angle CH1E C    CPA     65.0 105.0
+!angle CPB  C    CH2E    65.0 112.9! angle from x-ray
+angle C    CH1E C       65.0 107.0! angle from x-ray
+angle C    CH1E CPM     65.0 111.0! angle from x-ray
+angle CH2E CH1E CH2E    45.0 112.5
+angle CPA  CH1E C       65.0 105.0! angle from x-ray
+angle CPA  CH1E CH1E    65.0 105.0! angle from x-ray
+angle CPA  CH1E CH2E    65.0 118.0! angle from x-ray
+angle CPA  CH1E CH3E    65.0 112.0! angle from x-ray
+angle CPB  CH1E CH3E    65.0 112.9! angle from x-ray
+angle S    CH1E CH3E    65.0 110.0! angle from x-ray
+angle S    CH1E CPB     65.0 110.5! angle from x-ray
+angle OS   CH2E CH1E    65.0 111.5!
+angle CPA  CH2E CH2E    65.0 112.5!
+angle CH2E CH2E CPM     65.0 111.0!
+angle CH2E CH2E CR1E    70.0 120.0
+angle OS   CH2E CPM     65.0 112.0   
+angle C    CH2E CPM     65.0 105.0!
+angle CH1E CPA  CPM     70.0 124.5! angle from x-ray ?
+angle NH1  CPA  CPM     65.0 124.4! from NP - CPA - CPM
+angle NH1  CPA  CPB     65.0 111.6! from NP - CPA - CPB
+angle NH1  CPA  C       65.0 126.5! 
+angle NP   CPA  CH1E    65.0 110.0! angle from x-ray
+angle CH1E CPA  C       70.0 125.0! angle from x-ray
+angle CPM  CPA  CH3E    65.0 124.5!
+angle CPM  CPA  CH2E    65.0 122.5!
+angle CH3E CPA  CH2E    65.0 112.6!
+angle CH3E CPA  CH3E    65.0 112.6!
+angle NP   CPA  C       65.0 126.5!   
+angle CPB  CPA  C       65.0 120.0!   
+angle C    CPA  CPM     70.0 124.5
+angle CPA  CPB  C       70.0 117.5! angle from x-ray
+angle CPA  CPB  CH1E    70.0 117.5! angle from x-ray
+angle CPB  CPB  C       70.0 134.0! angle from x-ray
+angle CPB  CPB  CH1E    70.0 134.0! angle from x-ray
+angle CH2E CPM  CPA     65.0 131.0!
+angle C    CR1E CH3E    90.0 125.0
+angle S    FE   NP      65.0  90.0! angle from x-ray
+!angle NR   MG   NP       5.0 115.0! inference from NR - FE - NP
+angle NP   MG   NP      50.0  90.0! inference from NP - FE - NP
+angle NR   MG   NP       5.0 90.0! inference from NR FE NP and symetry
+angle CPA  NH1  CPA     70.0 104.0! from CPA - NP - CPA
+angle CPA  NH1  H       30.0 128.0! from C - NH1 - H and geometry
+angle MG   NP   CPA     50.0 128.0! inference from FE - NP - CPA
+angle CR1E NR   MG      30.0 124.8! inference from CR1E - NR - MG
+angle C    OS   CH2E    65.0 113.5!
+angle CH2E S    CH1E    65.0 101.3! angle from x-ray
+angle CH2E S    FE      65.0 128.8! angle from x-ray
+angle CH3E S    FE      65.0 123.2! angle from x-ray
+angle OC   C    OH1     85.0 122.2! from x-ray and OC C OC and O C OH1
+angle C    OC   FE       5.0  87.5! x-ray and guess
+
+
+
+angle CH3E N    CH3E    60.0 102.0! X-RAY 
+angle CH3E N    ON     60.0 110.0! X-RAY
+angle ON  N    CH2E    60.0 110.0! X-RAY
+angle C    C    OS      65.0 119.0! from C C OH1/O
+angle CPM  CPM  CPM     65.0 120.0! x-ray
+angle CPM  CPA  CPM     65.0 120.0! x-ray    
+angle CPM  CPM  CPA     65.0 120.0! x-ray
+angle CPB  CPA  O       65.0 120.0! X-RAY
+angle CPB  CPA  CPB     65.0 120.0! X-RAY
+angle CPA  CPB  OS      65.0 120.0! X-RAY
+angle CPB  CPB  OS      65.0 120.0! X-RAY
+angle CPB  OS   CH3E    65.0 120.0! X-RAY
+angle CPB  CH2E CPM     65.0 112.0! X-RAY
+angle O    CR1E NH1     80.0 111.6! X-RAY
+angle CR1E NH1  CH1E    65.0 109.5! X-RAY AND CH1E-NH3-CH2E
+angle CPB  CR1E CR1E    90.0 119.0! FROM C-CR1E-CR1E
+
+dihe CPB  CPB  C    CH3E 1.0       2     180.0
+dihe CH2E C    C    CH3E 1.0       2     180.0
+dihe CH3E C    C    O    1.0       2     180.0
+dihe C    C    C    C    1.0       2     180.0
+dihe C    C    C    O    1.0       2     180.0
+dihe C    C    C    CH2E 1.0       2     180.0
+dihe C    CR1E CR1E CR1E 1.0       2     180.0
+dihe CR1E CR1E CR1E CR1E 1.0       2     180.0
+dihe C    CH2E CR1E C    1.0       2     180.0
+dihe CH2E CH2E CR1E C    1.0       2     180.0
+dihe CH2E S    FE   NP   0.05      4       0.0
+dihe X    OS   CH2E X    0.5       3       0.0
+dihe X    CH2E CPM  X    1.0       3       0.0
+dihe CPM  CPA  CH2E CH2E 1.0       3       0.0
+dihe CH2E CH2E CPM  CPA  1.0       3       0.0
+dihe CPA  C    CPA  NH1  1.0       2     180.0
+dihe CPA  C    CPA  NP   1.0       2     180.0
+!dihe CPB  CPB  C    CH2E 1.0       3       0.0
+dihe CPB  CPB  CH1E CH3E 1.0       3       0.0
+!dihe CH2E S    C    CPB  1.0       3       0.0
+dihe CH2E S    CH1E CPB  1.0       3       0.0
+!dihe C    CH2E CPM  CPA  0.0       2       0.0
+!dihe C    OS   CH2E CPM 
+!dihe C    OS   CH2E CH1E 0.0       2       0.0
+!dihe OS   CH2E CPM  CPA 
+dihe X    CPA  NP   X    8.2      2     180.0 !from X-C-N-X for TOPRC.MOD !!!!
+dihe CPA  NH1  CPA  CPM  8.2      2     180.0 !from X-C-N-X
+dihe CPA  NH1  CPA  C    8.2      2     180.0 !from X-C-N-X
+dihe CPA  CPA  CPB  C    2.5      2     180.0 !from  C-C
+dihe CPA  CPB  CPA  C    2.5      2     180.0 !from  C-C
+
+dihe X    CPM  CPM  X    1.6      3       0.0 !CH1E-CH1E
+dihe X    CPA  CPB  X    2.5      2     180.0 !C-C   
+dihe X    CPB  CPB  X    2.5      2     180.0 !C-C   
+dihe CPA  CPB  OS   CH3E 1.8      2     180.0 !C-OS x-ray
+dihe X    CR1E NH1  X    0.3       3       0.0!FROM X-CH1E-NH1-X
+dihe CPB  CR1E CR1E CR1E 1.0       2     180.0!FROM C-... (S.O.)
+
+       
+
+impr CPB  X    X    C     50.0    0   0.0
+impr CPA  X    X    NP    50.0    0   0.0
+impr CPA  C    CPB  NH1   50.0    0   0.0
+impr CH1E X    X    C     50.0    0   0.0
+impr MG   CPA  CPA  NP    50.0    0   0.0
+impr CPB  CPA  C    CPB   50.0    0   0.0! 180.0 ! ???????????
+impr C    X    X    CPA   50.0    0   0.0
+impr C    CPA  NP   CPA   50.0    0 180.0
+impr CPM  CPA  NP   CPA   50.0    0 180.0
+impr CPA  CPM  CH2E CH3E  50.0    0   0.0
+impr CPA  CPA  CH1E CH1E  50.0    0 180.0
+impr CH1E CPM  C    C     50.0    0   0.0
+impr CH1E C    CPA  C     50.0    0   0.0
+impr CH1E C    C    C     50.0    0  35.264
+impr CPB  CPB  CPA  CH1E  50.0    0   0.0
+
+impr CH3E N    ON  CH3E  55.0    0 -110.0! X-RAY 
+impr C    C    C    OS   100.0    0   0.0 
+impr CPB  X    X    CPB   25.0    0   0.0 !FROM C X X C
+impr CPA  X    X    CPA  100.0    0   0.0 !FROM C X X C
+impr CPA  CPB  CPB  O    100.0    0   0.0 !FROM C X X O
+impr CPB  CPB  CPA  OS   100.0    0   0.0 !FROM C X X O/OC
+
+!impr CPB  CPB  CPA  C     50.0    0   0.0
+!impr CPA  CPM  CPB  NP    50.0    0   0.0
+!impr C    O    CH3E CPB    0.0    0 180.0 ! ???????????
+!impr C    NP   CH1E CPA 
+!impr C    NP   CPB  CPA 
+!impr CPA  C    CPB  NP  
+!impr C    CPA  CH1E CPA 
+!impr CH1E OC   OS   C     50.0    0   0.0! 180.0 ! ???????????
+
+NONBonded  MG      0.2000   2.8509      0.2000   2.8509   ! G U E S S
+NONBonded  ON      0.1591   2.8509      0.1591   2.8509   ! from O
+NONBonded  EL      0.0250   0.7000      0.0250   0.7000
+
+set echo=true end

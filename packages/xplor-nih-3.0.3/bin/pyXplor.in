@@ -1,0 +1,23 @@
+#!/bin/sh -f
+#
+# shell to run Xplor-NIH python scripts as command interpreters
+#
+#  make sure this command is in your path, then begin
+#  your python script (script.py) with the line
+#!/usr/bin/env pyXplor
+#  and make it executable:
+# chmod +x script.py
+#  you can then run your script directly:
+# ./script.py
+#
+
+args=$1
+while [ $# -gt 1 ]; do         #protect space and single quotes in arguments
+    arg=`printf "%s\n" "$2"|sed s/\'/%q%/g`
+    args="$args '""$arg""'"
+    shift
+done
+
+[ "$PROGNAME" = "" ] && PROGNAME=$0
+
+eval __XPLOR_DIR__/bin/xplor -program_name $PROGNAME -pyshell $args

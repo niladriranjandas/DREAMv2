@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/ramachandran/ -->
+<html lang="en-GB" class="js svg svgfilters rgba smil mediaqueries no-touchevents generatedcontent flexbox not-selector no-safari"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <!--<base href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/ramachandran/">--><base href=".">
+
+        
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Drawing Ramachandran (phi/psi) plots for Proteins with R</title>
+
+<meta name="description" content="Using R to draw Ramachandran Plots (phi/psi) for proteins in R">
+<meta name="keywords" content="">
+
+<link rel="search" type="application/opensearchdescription+xml" title="Warwick Search" href="http://search.warwick.ac.uk/static/search/osd.xml">
+
+<!-- Google canonical URL - the main URL for this page -->
+
+    
+    
+        <link rel="canonical" href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/ramachandran/">
+    
+
+
+
+
+  
+
+
+
+
+<link rel="apple-touch-icon" sizes="57x57" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/apple-touch-icon-180x180.png">
+<link rel="icon" type="image/png" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/android-chrome-192x192.png" sizes="192x192">
+<link rel="icon" type="image/png" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/favicon-16x16.png" sizes="16x16">
+<meta name="msapplication-TileImage" content="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/mstile-144x144.png">
+
+
+    
+        <meta name="msapplication-TileColor" content="#003655">
+        <meta name="theme-color" content="#003655">
+    
+    
+
+
+
+
+
+<link href="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/css" rel="stylesheet" type="text/css">
+
+
+    
+    
+        <link rel="stylesheet" href="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/pack7.css.289264578485" type="text/css">
+    
+
+
+
+
+    
+    
+    
+        <link rel="shortcut icon" type="image/x-icon" href="http://d36jn9qou1tztq.cloudfront.net/static_war/render/id7/images/favicon.ico">
+    
+
+
+
+
+
+    <link rel="stylesheet" href="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/site.css.234439284723" type="text/css">
+
+
+
+
+
+
+
+    
+    
+        <script type="text/javascript" async="" src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/linkid.js"></script><script async="" src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/analytics.js"></script><script type="text/javascript" src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/id7scripts.js.204332968142"></script>
+    
+
+
+
+
+
+    <script type="text/javascript" src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/site.js.136389972597"></script>
+
+
+<!-- HTML5 shim for IE8 support of HTML5 elements -->
+
+<!--[if lt IE 9]>
+<script type="text/javascript" src="http://d36jn9qou1tztq.cloudfront.net/static_war/render/scripts/html5shiv-3.7.2.min.js.1493976965325"></script>
+<![endif]-->
+
+
+
+
+<script type="text/javascript">
+    SitebuilderInfo.url = '/fac/sci/moac/people/students/peter_cock/r/ramachandran';
+    SitebuilderInfo.lastUpdated = 1471365518948;
+    SitebuilderInfo.lastContentUpdated = 1166214264000;
+    SitebuilderInfo.buildTimestamp = '1493976965325';
+</script>
+
+
+
+
+
+
+
+
+    
+
+
+<link rel="alternate" type="application/rss+xml" title="Changes in /fac/sci/moac/ (RSS 2.0)" href="http://www2.warwick.ac.uk/sitebuilder2/api/rss/siteChanges.rss?page=/fac/sci/moac">
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+
+    
+
+    
+        
+            
+            
+            
+            
+        
+    
+
+
+    <style type="text/css">html {-webkit-filter: invert(100%);}body{background-color: black !important;}</style><style type="text/css">html {-webkit-filter: invert(0%);}body{background-color: white !important;}</style></head>
+
+    
+    
+    
+    
+        
+    
+
+    <body class="in-fac in-sci in-moac in-people in-students in-peter_cock in-r in-ramachandran">
+        <div class="id7-left-border"></div>
+        <div class="id7-fixed-width-container">
+
+            <a class="sr-only sr-only-focusable" href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/ramachandran/#main">Skip to main content</a>
+
+            <header class="id7-page-header">
+                <div class="id7-utility-masthead">
+    <nav class="id7-utility-bar">
+    <ul>
+        
+            
+
+            
+                
+<li id="toggle-text-only-link"><a accesskey="t" href="http://text.www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/ramachandran/?external=true" rel="nofollow" class="ut">Text only</a> </li>
+            
+
+            
+                
+            
+
+            
+
+            
+        
+
+        
+            
+                
+                
+                
+                    
+                    
+                        
+<li id="sign-in-link"><a href="https://websignon.warwick.ac.uk/origin/slogin?shire=https%3A%2F%2Fwww2.warwick.ac.uk%2Fsitebuilder2%2Fshire-read&amp;providerId=urn%3Awww2.warwick.ac.uk%3Asitebuilder2%3Aread%3Aservice&amp;target=http%3A%2F%2Fwww2.warwick.ac.uk%2Ffac%2Fsci%2Fmoac%2Fpeople%2Fstudents%2Fpeter_cock%2Fr%2Framachandran%2F" rel="nofollow" class="ut">Sign in</a> </li>
+                    
+                
+            
+            
+        
+    </ul>
+</nav>
+    <div class="id7-masthead">
+    <div class="id7-masthead-contents">
+        <div class="clearfix">
+            <div class="id7-logo-column">
+                
+                    <div class="id7-logo-row">
+                        <div class="id7-logo">
+                            <a href="http://warwick.ac.uk/" title="Warwick home page">
+                                <img src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/shim.gif" alt="Warwick">
+                            </a>
+                        </div>
+
+                        
+                            
+                            
+                                <nav class="id7-site-links">
+                                    <ul>
+                                        <li><a href="http://warwick.ac.uk/study">Study</a></li>
+                                        <li><a href="http://warwick.ac.uk/research">Research</a></li>
+                                        <li><a href="http://warwick.ac.uk/business">Business</a></li>
+                                        <li><a href="http://warwick.ac.uk/alumni">Alumni</a></li>
+                                        <li><a href="http://warwick.ac.uk/news">News</a></li>
+                                        <li><a href="http://warwick.ac.uk/global">Global</a></li>
+                                    </ul>
+                                </nav>
+                            
+                        
+                    </div>
+                
+            </div>
+            <div class="id7-search-column">
+                
+                    <div class="id7-search">
+                        <form action="http://search.warwick.ac.uk/website" role="search">
+                            <input type="hidden" name="source" value="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/ramachandran/">
+                            <div class="form-group">
+                                <label class="sr-only" for="id7-search-box">Search</label>
+                                <div class="id7-search-box-container">
+                                    <span class="twitter-typeahead" style="position: relative; display: inline-block;"><input type="search" class="form-control input-lg tt-input" id="id7-search-box" name="q" placeholder="Search Warwick" data-suggest="go" autocomplete="off" spellcheck="false" dir="auto" style="position: relative; vertical-align: top;"><pre aria-hidden="true" style="position: absolute; visibility: hidden; white-space: pre; font-family: Lato, &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif; font-size: 18px; font-style: normal; font-variant: common-ligatures; font-weight: 400; word-spacing: 0px; letter-spacing: 0px; text-indent: 0px; text-rendering: auto; text-transform: none;"></pre><div class="tt-menu" style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none;"><div class="tt-dataset tt-dataset-go"></div></div></span>
+                                    <i class="fa fa-search fa-2x"></i>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                
+            </div>
+        </div>
+
+        <div class="id7-header-text clearfix" style="height: 54px;">
+            <h1 class="headroom headroom--not-bottom affix headroom--not-top headroom--pinned">
+                
+
+                
+                
+
+                <span class="id7-current-site-link visible-xs-inline">
+                    <a accesskey="1" title="MOAC home page [1]" href="http://www2.warwick.ac.uk/fac/sci/moac/">MOAC</a>
+                </span><span class="id7-current-site-link hidden-xs">
+                    <a accesskey="1" title="MOAC home page [1]" href="http://www2.warwick.ac.uk/fac/sci/moac/">Molecular Organisation and Assembly in Cells</a>
+                </span>
+            </h1>
+        </div>
+    </div>
+</div>
+</div>
+
+                
+                <div class="id7-navigation headroom headroom--not-bottom affix headroom--not-top headroom--pinned">
+                    <nav class="navbar navbar-primary hidden-xs" role="navigation"> <ul class="nav navbar-nav"><li class="first dropdown" data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/about/" data-page-url="/fac/sci/moac/about/"> About MOAC </a> <ul class="dropdown-menu" role="menu"><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/about/find_us/" data-page-url="/fac/sci/moac/about/find_us/"> Find MOAC </a> </li></ul> </li><li class="second dropdown" data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/research/" data-page-url="/fac/sci/moac/research/"> MOAC Research </a> <ul class="dropdown-menu" role="menu"><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/research/proteinstructure/" data-page-url="/fac/sci/moac/research/proteinstructure/"> Protein Structure </a> </li><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/research/cellularstructure/" data-page-url="/fac/sci/moac/research/cellularstructure/"> Cellular Structure </a> </li><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/research/biologicalfibres/" data-page-url="/fac/sci/moac/research/biologicalfibres/"> Biological Fibres </a> </li><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/research/cellularcommunication/" data-page-url="/fac/sci/moac/research/cellularcommunication/"> Intercellular Communication </a> </li><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/research/molecularinteractions/" data-page-url="/fac/sci/moac/research/molecularinteractions/"> Molecular Interactions </a> </li><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/research/analytical/" data-page-url="/fac/sci/moac/research/analytical/"> Analytical Science </a> </li><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/research/publicationlist/" data-page-url="/fac/sci/moac/research/publicationlist/"> Student Publications </a> </li></ul> </li><li class="dropdown" data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/degrees/" data-page-url="/fac/sci/moac/degrees/"> MOAC Degrees </a> <ul class="dropdown-menu" role="menu"><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/degrees/csw/" data-page-url="/fac/sci/moac/degrees/csw/"> Chemistry with Scientific Writing (MSc) </a> </li><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/degrees/cms/" data-page-url="/fac/sci/moac/degrees/cms/"> Scientific Research and Communication (MSc) </a> </li></ul> </li><li class="dropdown" data-lastmodified="1477352848656"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/news_events/" data-page-url="/fac/sci/moac/news_events/"> MOAC News </a> <ul class="dropdown-menu" role="menu"><li data-lastmodified="1477352848656"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/news_events/calendar/" data-page-url="/fac/sci/moac/news_events/calendar/"> MOAC Events Calendar </a> </li><li data-lastmodified="1485270487703"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/news_events/news/" data-page-url="/fac/sci/moac/news_events/news/"> News </a> </li><li data-lastmodified="1477352848656"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/news_events/graduations/" data-page-url="/fac/sci/moac/news_events/graduations/"> Graduations </a> </li><li data-lastmodified="1477352848656"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/news_events/dtc_conf/" data-page-url="/fac/sci/moac/news_events/dtc_conf/"> Joint DTC Conferences </a> </li><li data-lastmodified="1491906772660"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/news_events/annual_conf/" data-page-url="/fac/sci/moac/news_events/annual_conf/"> Annual Conferences </a> </li><li data-lastmodified="1477352848656"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/news_events/seminars/" data-page-url="/fac/sci/moac/news_events/seminars/"> MOAC Seminars </a> </li></ul> </li><li class="next-secondary active dropdown" data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/" data-page-url="/fac/sci/moac/people/"> MOAC People </a> <ul class="dropdown-menu" role="menu"><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/" data-page-url="/fac/sci/moac/people/students/"> MOAC Students </a> </li><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/staff/" data-page-url="/fac/sci/moac/people/staff/"> Staff </a> </li><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/find_us/" data-page-url="/fac/sci/moac/people/find_us/"> How to find and contact MOAC </a> </li><li data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/studentdestinations/" data-page-url="/fac/sci/moac/people/studentdestinations/"> Student Destinations </a> </li></ul> </li></ul></nav><nav class="navbar navbar-secondary" role="navigation"> <ul class="nav navbar-nav"><li class="nav-breadcrumb first" data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/" data-page-url="/fac/sci/moac/people/"> MOAC People </a></li><li class="nav-breadcrumb second" data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/" data-page-url="/fac/sci/moac/people/students/"> MOAC Students </a></li><li class="nav-breadcrumb" data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/" data-page-url="/fac/sci/moac/people/students/peter_cock/"> Peter Cock </a></li><li class="nav-breadcrumb" data-lastmodified="1471365518948"> <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/" data-page-url="/fac/sci/moac/people/students/peter_cock/r/"> R Programming </a></li><li class="active nav-breadcrumb last" data-lastmodified="1471365518948"> <a data-page-url="/fac/sci/moac/people/students/peter_cock/r/ramachandran/"> Ramachandran Plots </a></li></ul></nav>
+                </div><div class="id7-navigation-marker" style="height: 70px;"></div>
+            </header>
+
+            
+            <main id="main" class="id7-main-content-area">
+                <header>
+                    <div class="id7-horizontal-divider">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0" y="0" version="1.1" width="1130" height="41" viewBox="0, 0, 1130, 41">
+                            <path d="m 0,0.5 1030.48, 0 22.8,40 16.96,-31.4 16.96,31.4 22.8,-40 20,0" class="divider" stroke="#383838" fill="none"></path>
+                        </svg>
+                    </div>
+
+                    <div class="id7-page-title">
+                        <h1>
+                            
+                            
+                                Drawing Ramachandran (phi/psi) plots for Proteins
+                            
+                        </h1>
+                    </div>
+                </header>
+
+                
+
+                
+                <div class="id7-main-content">
+                    
+
+                    <div class="layout layout-75-25">
+                        <div class="column-1"><div class="column-1-content">
+                            
+                                
+                                    
+
+<p> These pages shows how to use R to draw a protein backbone's psi/phi torsion angles (&#981;,&#968;) from a supplied file as a scatter plot overlayed on a filled contour plot showing the favoured and allowed regions, for example: </p>
+
+<p align="center"> <img src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/1hmp.gif" width="410" height="410" alt="[Ramachandran Diagram for PDB code 1HMP]" title="Ramachandran Diagram for PDB code 1HMP" border="0"> </p>
+
+<p> This R example does not read PDB files to calculate the (&#981;,&#968;) angles directly - you have to supply them as an input file. For example, this <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/python/ramachandran/calculate/1hmp_mmtk.tsv">tab separated variable file</a> which I <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/python/ramachandran/calculate/">created using Python</a> from <a href="http://www.rcsb.org/pdb/explore.do?structureId=1HMP">PDB file 1HMP</a>. </p>
+
+<p> The code also relies on supplied background distributions to draw its filled contour plot - these datafiles are from Lovell <em>et al.</em> 2003 (see <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/python/ramachandran/#references">references</a>). The colour scheme used is that of their online tool <a href="http://eds.bmc.uu.se/ramachan.html">RAMPAGE</a> (see <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/python/ramachandran/other/">other tools/programs</a> for Ramachandran Plots), which produces even nicer images. </p>
+
+<h2>Loading the Phi/Psi angles for your protein</h2>
+
+<p> My code assumes you will have an input file where each line contains one (&#981;,&#968;) angle pair (between -180 and 180 degrees) with the associated "Ramachandran Type" - i.e. Glycine, Proline, Pre-Proline or General. </p>
+
+<p> The example input file (<a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/python/ramachandran/calculate/1HMP_mmtk.tsv">1HMP_mmtk.tsv</a>, tab separated variable file <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/python/ramachandran/calculate/">created in python</a>) looks like this: </p>
+
+<pre class="example"><tt>1HMP:chain0:Pro5	-92.926842	12.941312	Proline
+1HMP:chain0:Gly6	65.796807	-162.229709	Glycine
+1HMP:chain0:Val7	-81.132082	121.413022	General
+...
+1HMP:chain1:Lys216	-168.783005	-116.244225	General
+</tt></pre>
+<p> We can read this into R using the first column as the row name with one command: </p>
+
+<p class="example"><tt> scatter.data &lt;- read.table("1HMP_mmtk.tsv", header=FALSE, comment.char="", row.names=1, colClasses=c("character","numeric","numeric","factor"), col.names=c("name","phi","psi","type")) </tt></p>
+
+<p> Its then very easy to filter this to get just the "Glycine" pairs for example: </p>
+
+<pre class="example"><tt>&gt; scatter.data[which(scatter.data[,"type"]=="Glycine"),"phi"]
+ [1]   65.79681   79.01638  -54.12254  -56.43478   85.66304
+ [6] -109.14374 -170.14536   23.78637 -106.75558 -115.52499
+[11]   61.59938   95.28372   68.70101  -75.43935  103.26203
+[16]  -60.65742   81.68372   71.33807  -69.08505  -66.91649
+[21]  101.40772  107.48315 -131.43212  -67.83675  -95.88951
+[26]  -86.20875   86.26477   87.74782   79.22726  -83.67055
+[31]  103.86635  -55.16140
+&gt; scatter.data[which(scatter.data[,"type"]=="Glycine"),"psi"]
+ [1] -162.229709 -136.703332  -38.858768  151.516345    9.247443
+ [6]   11.702525  178.494853  -52.570408   22.092137  -17.593558
+[11]   14.708826    6.490617   24.583907  -53.403879  159.510235
+[16]  -29.319241 -164.401138 -155.176242  -32.708979  165.032486
+[21]  -39.933464   32.899630   56.793570    6.169893    1.919425
+[26]    5.175914  -17.154791  -15.588814   -4.129135  -52.845410
+[31]  163.277791  -51.899098</tt></pre>
+<p> Using R's plot command creating a simple scatter plot is then very easy: </p>
+
+<p class="example"><tt> &gt; scatter.psi &lt;- scatter.data[which(scatter.data[,"type"]=="General"),"psi"]<br>
+   &gt; scatter.phi &lt;- scatter.data[which(scatter.data[,"type"]=="General"),"phi"]<br>
+   &gt; par(pty="s")<br>
+   &gt; plot(x=scatter.phi, y=scatter.psi, xlim=c(-180,180), ylim=c(-180,180), main="General", pch=20, xlab=expression(phi), ylab=expression(psi), pch=20, cex=0.1, asp=1.0)<br>
+   <img title="Scatter Graph" alt="[Scatter Graph]" src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/1hmp_general_scatter.png" border="0"> </tt></p>
+
+<p> Note that we used <tt>xlab=expression(phi)</tt> to get the Greek letter &#981; as the x-axis label. The option <tt>pch=20</tt> gives dots (rather than the default of circles) for each datapoint, and <tt>cex=0.1</tt> makes them smaller than by default. Finally <tt>asp=1.0</tt> asks for an aspect ratio of one, and <tt>par(pty="s")</tt> requested a square plotting area. </p>
+
+<h2>Loading the Phi/Psi density profile</h2>
+
+<p> The following code is written to load the <tt>rama500-*.data</tt> files from Lovell <em>et al.</em> 2003 (see <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/python/ramachandran/#references">references</a>, and <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/ramachandran/#downloads">downloads</a>). For example, their file <tt>rama500-general.data</tt> looks like this: </p>
+
+<pre class="example"><tt># Table name/description: "Top500 General case (not Gly, Pro, or pre-Pro) B&lt;30"
+# Number of dimensions: 2
+# For each dimension, 1 to 2: lower_bound  upper_bound  number_of_bins  wrapping
+#   x1: -180.0 180.0 180 true
+#   x2: -180.0 180.0 180 true
+# List of table coordinates and values. (Value is last number on each line.)
+-179.0 -179.0 0.00782923406455425
+-179.0 -177.0 0.00641357067237856
+-179.0 -175.0 0.005231799492823202
+-179.0 -173.0 0.004234680060073368
+...
+179.0 179.0 0.006881355097619223</tt></pre>
+<!--
+<pre class="example"><tt>load.grid &lt;- function(filename, mid.points) {
+    data &lt;- as.matrix(read.table(filename, header=FALSE, comment.char="#",
+                                 colClasses=c("numeric","numeric","numeric"),
+                                 col.names=c("phi","psi","value")))
+
+    stopifnot(mid.points == seq(-179,179,2))
+    stopifnot(min(data[,"phi"])==-179)
+    stopifnot(min(data[,"psi"])==-179)
+    stopifnot(max(data[,"phi"])==+179)
+    stopifnot(max(data[,"psi"])==+179)
+
+    # Want to turn our list of pairs (variable data)
+    # into an array (variable grid)
+    grid &lt;- array(0.0, dim = c(length(mid.points),length(mid.points)))
+
+    #This is fast, but assumes the file is in a precise order:
+    row.number &lt;- 0
+    for (i in 1:180) for (j in 1:180) {
+        row.number &lt;- row.number+1
+        if (row.number %% 100 == 0) {
+            #Only check every few hundred rows,
+            #doing 32,400 checks is too slow!
+            stopifnot(data[row.number,"phi"]==mid.points[i])
+            stopifnot(data[row.number,"psi"]==mid.points[j])
+        }
+        grid[i,j] &lt;- data[row.number,"value"]
+    }
+    remove(row.number)
+    remove(data)
+    return(grid)
+}
+</tt></pre>
+-->
+<p> I wrote an R function to load this data format, and turn it into an array suitable for use with R's contour functions (see <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/ramachandran/#downloads">downloads</a>). It <em>assumes</em> that the grid is 180 by 180 in size (2 degrees per bin) with the grid points (mid points) at -179, -177, ..., to 179 degrees. For reasons of speed, it also make a big assumption about the order that the data will be found in... </p>
+
+<p> Having loaded the data, you can draw it using the <tt>contour</tt> or <tt>filled.contour</tt> functions: </p>
+
+<p class="example"><tt>&gt; par(pty="s")<br>
+   &gt; filled.contour(x=mid.points, y=mid.points, z=grid, levels=c(0,0.002,0.02,1), col=c("#FFFFFF","#FFE8C5","#FFCC7F"), main="Glycine (Symmetric)", asp=1.0, xlab=expression(phi), ylab=expression(psi))<br>
+   <img width="382" height="325" src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/glycine_contour.gif" alt="[Filled Contour plot]" title="Filled Contours" border="0"> </tt></p>
+
+<p> The thresholds are from the original reference, and the glycine colours are as used in RAMPAGE. </p>
+
+<p> As before, we ensured a square plot area with <tt>par(pty="s")</tt> and setting the aspect ratio to one (<tt>asp=1.0</tt>). As far as I can tell, there is no way to turn off the key (which is worse the useless in this case), but all is not lost... </p>
+
+<h2>Combining Scatter &amp; Contour Plots</h2>
+
+<p> One of the nice things about R is that you can look at the source code to most of the built in functions - just try typing <tt>filled.contour</tt> at the R command prompt. I started with a copy of this code, removed the bits to draw the key, and added code to overlay a scatter plot to make my own function, <tt>ramachandran.plot</tt> (see <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/ramachandran/#downloads">downloads</a>). </p>
+
+<!--
+<pre class="example"><tt>ramachandran.plot &lt;- function(x.scatter, y.scatter,
+    x.grid = seq(0, 1, len = nrow(z)), y.grid = seq(0, 1, len = ncol(z)), z.grid,
+    xlim = range(x.grid, finite = TRUE), ylim = range(y.grid, finite = TRUE),
+    zlim = range(z.grid, finite = TRUE), levels = pretty(zlim, nlevels),
+    nlevels = 20, color.palette = cm.colors, col = color.palette(length(levels) -
+        1), plot.title="", plot.axes, key.title, key.axes, asp = NA,
+    xaxs = "i", yaxs = "i", las = 1, axes = TRUE, frame.plot = axes,
+    ...)
+{
+    #Code based on filled.contour
+
+    if (missing(z.grid)) {
+        stop("no 'z.grid' matrix specified")
+    }
+    else if (is.list(x.grid)) {
+        y.grid &lt;- x.grid$y
+        x.grid &lt;- x.grid$x
+    }
+    if (any(diff(x.grid) &lt;= 0) || any(diff(y.grid) &lt;= 0))
+        stop("increasing 'x.grid' and 'y.grid' values expected")
+
+    plot.new()
+    plot.window(xlim, ylim, "", xaxs = xaxs, yaxs = yaxs, asp = asp)
+
+    if (!is.matrix(z.grid) || nrow(z.grid) &lt;= 1 || ncol(z.grid) &lt;= 1)
+        stop("no proper 'z.grid' matrix specified")
+    if (!is.double(z.grid))
+        storage.mode(z.grid) &lt;- "double"
+    .Internal(filledcontour(as.double(x.grid), as.double(y.grid),
+                            z.grid, as.double(levels), col = col))
+
+    if (!(missing(x.scatter)) && !(missing(y.scatter))) {
+        plot.xy(xy.coords(x.scatter,y.scatter,NULL,NULL,NULL,NULL),
+                xlim=xlim, ylim=ylim, xlab="", ylab="", asp=asp,
+                type="p", pch=20, cex=0.1)
+    }
+        
+    if (missing(plot.axes)) {
+        if (axes) {
+            title(main=plot.title,
+                  xlab=expression(phi),
+                  ylab=expression(psi))
+            axis(1, at=c(-180,-90,0,90,180))
+            axis(2, at=c(-180,-90,0,90,180))
+        }
+    }
+    else plot.axes
+    if (frame.plot)
+        box()
+    if (missing(plot.title))
+        title(...)
+    else plot.title
+    invisible()
+}
+</tt></pre>
+-->
+<p> This preample code setups the filenames, thresholds, and colours for the four different plots: </p>
+
+<pre class="example"><tt>mid.points &lt;- seq(-179,179,2)
+
+grid.filenames &lt;- c(General="rama500-general.data",
+                    Glycine="rama500-gly-sym.data",
+                    Proline="rama500-pro.data",
+                    Pre.Pro="rama500-prepro.data")
+
+grid.columnnames &lt;- c(General="General",
+                      Glycine="Glycine",
+                      Proline="Proline",
+                      Pre.Pro="Pre-Pro")
+
+grid.levels &lt;- t(cbind(General=c(0, 0.0005, 0.02, 1),
+                       Glycine=c(0, 0.002,  0.02, 1),
+                       Proline=c(0, 0.002,  0.02, 1),
+                       Pre.Pro=c(0, 0.002,  0.02, 1)))
+
+grid.colors &lt;- t(cbind(General=c('#FFFFFF','#B3E8FF','#7FD9FF'),
+                       Glycine=c('#FFFFFF','#FFE8C5','#FFCC7F'),
+                       Proline=c('#FFFFFF','#D0FFC5','#7FFF8C'),
+                       Pre.Pro=c('#FFFFFF','#B3E8FF','#7FD9FF')))
+
+grid.dir &lt;- "top500-angles/pct/rama/"
+scatter.filename &lt;- "1HMP.tsv"</tt></pre>
+<p> The following loads the example datafile, and then draws the four Ramachandran plots, using the specified four distributions loaded from their files: </p>
+
+<pre class="example"><tt>scatter.data &lt;- load.scatter(scatter.filename)
+
+# Split the plot into quadrants:
+par(mfrow=c(2,2))
+
+for(rama.type in names(grid.filenames)) {
+    # Filter the input data for this graph type
+    col.name = grid.columnnames[rama.type]
+    scatter.phi &lt;- scatter.data[which(scatter.data[,"type"]==col.name), "phi"]
+    scatter.psi &lt;- scatter.data[which(scatter.data[,"type"]==col.name), "psi"]
+
+    # Load the distribution for this graph type
+    grid.filename &lt;- paste(grid.dir, grid.filenames[rama.type], sep="")
+    grid &lt;- load.grid(grid.filename, mid.points)
+
+    # Use small margins to make the plots nice and big, which as a
+    # side effect means squeezing the axes labels a bit, and specify
+    # a SQUARE plot area (to go with aspect ratio, asp=1)
+    par(mar=c(3,3,3,3), mgp=c(1.75,0.75,0), pty="s")
+
+    ramachandran.plot(scatter.phi, scatter.psi,
+             x.grid=mid.points, y.grid=mid.points, z.grid=grid,
+             plot.title=col.name,
+             levels=grid.levels[rama.type,],
+             col=grid.colors[rama.type,])
+}
+<img src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/1hmp.gif" width="410" height="410" alt="[Ramachandran Diagram for PDB code 1HMP]" title="Ramachandran Diagram for PDB code 1HMP" border="0"></tt></pre>
+<a name="downloads"></a><h2>Downloads</h2>
+
+<p> You might want the following files: </p>
+
+<ul>
+  <li><a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/python/ramachandran/calculate/1hmp_mmtk.tsv">1hmp_mmtk.tsv</a> - Example phi/psi angle input file, tab separated variables </li>
+  <li><a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/r/ramachandran/draw_rama.r">draw_rama.r</a> - Example R script with all the above code </li>
+  <li>Expected occupancy files <tt>top500-angles/pct/rama/rama500-*.data</tt> from one of the following archives:     <ul>
+      <li><a href="http://kinemage.biochem.duke.edu/website/php/downlode.php?filename=../../downloads/datasets/top500-angles.050606.zip">top500-angles.050606.zip (80MB) <img border="0" width="16" height="16" alt="[TGZ]" title="Archive file" src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/zip.gif"></a> (newer, 2005-06-06) </li>
+      <li><a href="http://kinemage.biochem.duke.edu/databases/top500-angles.040823.tgz">top500-angles.040823.tgz (69MB) <img border="0" width="16" height="16" alt="[TGZ]" title="Archive file" src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/zip.gif"></a> (older, 2004-08-23) </li>
+      <li><a href="http://kinemage.biochem.duke.edu/databases/READMEforTop500angleData.html">Readme file</a> </li>
+    </ul>
+
+  </li>
+</ul>
+
+<a name="python"></a><h2>But I Like Python!</h2>
+
+<p> Don't worry - using RPy you can <a href="http://www2.warwick.ac.uk/fac/sci/moac/people/students/peter_cock/python/ramachandran/drawing/">draw these graphs by calling R from python</a>. </p>
+
+
+
+                                
+                                
+                            
+                        </div></div>
+                        
+                            <div class="column-2"><div class="column-2-content">
+                                
+                                    
+                                        
+                                            
+
+<p align="center"> <a href="http://www.r-project.org/"><img alt="[R logo]" src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/rlogo2.png" border="0"></a> <br>
+   <a href="http://www.r-project.org/">The R Project</a> </p>
+
+<p>&nbsp;</p>
+
+<p align="center"> <a href="http://www.pdb.org/"><img alt="[PDB logo]" src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/pdb_small.png" border="0"></a> <br>
+   <a href="http://www.pdb.org/">Protein Data Bank (PDB)</a> </p>
+
+
+
+                                        
+                                        
+                                    
+                                
+                            </div></div>
+                        
+                    </div>
+                    
+                </div>
+
+                
+            </main>
+
+            
+
+            
+
+    
+    
+
+
+<footer class="id7-page-footer id7-footer-coloured">
+    <div class="id7-site-footer">
+
+        
+
+        
+        
+
+        
+
+        
+            
+            
+                
+            
+        
+
+        <div class="row"> 
+  <div class="col-md-4"> 
+    <p>MOAC DTC, Senate House, University of Warwick, Coventry CV4 7AL<br>
+       Tel: 024 765 75808<br>
+       Email: <a href="mailto:moac2@warwick.ac.uk">moac@warwick.ac.uk</a>    </p>
+
+  </div>
+
+  <div class="col-md-4"> 
+    <h4><a href="http://www2.warwick.ac.uk/fac/sci/moac/intranet/">MOAC Intranet</a>    </h4>
+
+  </div>
+
+  <div class="col-md-4"><a href="https://www.epsrc.ac.uk/"><img src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/epsrclogo.png" border="0" alt="EPSRC logo" style="float: right;"></a>  </div>
+
+</div>
+
+
+    </div>
+    <div class="id7-app-footer">
+
+        
+            <div class="id7-logo-bleed"></div>
+        
+
+        
+            <div id="page-footer-elements" class="nofollow clearfix page-footer-elements">
+                <div id="email-owner-div" style="display:none;">
+                    <div id="email-owner-div-inner">
+                        <img id="email-owner-popup-close-button" src="./Drawing Ramachandran (phi_psi) plots for Proteins with R_files/close.png" alt="Close this email form">
+
+                        <div id="email-owner-div-content"></div>
+                    </div>
+                </div>
+
+                <ul>
+                    
+
+
+
+
+
+
+ 
+  
+  
+  
+  
+  
+  
+	
+	Page contact: <a id="email-owner-link" href="http://www2.warwick.ac.uk/sitebuilder2/api/ajax/emailOwner.htm?page=%2Ffac%2Fsci%2Fmoac%2Fpeople%2Fstudents%2Fpeter_cock%2Fr%2Framachandran" class="no-print-expand" title="Send an email to MAS Resource" rel="nofollow">MAS Resource</a>
+  
+
+<br>
+                    Last revised: Fri 15 Dec 2006
+                </ul>
+            </div>
+        
+
+        <div class="id7-footer-utility">
+            <ul>
+                <li id="powered-by-link">
+                    Powered by <a href="http://warwick.ac.uk/sitebuilder" title="More information about SiteBuilder">Sitebuilder</a>
+                </li>
+
+                
+                    
+                    
+                        
+                        
+                        
+                        
+                        
+                    
+                
+
+                <li id="copyright-link"><a href="http://warwick.ac.uk/copyright" title="Copyright Statement">© MMXVII</a></li>
+
+                
+                    <li id="terms-link"><a href="http://warwick.ac.uk/terms/general" title="Terms of use">Terms</a></li>
+                
+
+                <li id="privacy-link"><a href="http://warwick.ac.uk/privacy" title="Privacy statement">Privacy</a></li>
+
+                <li id="cookies-link"><a href="http://warwick.ac.uk/cookies" title="Information about cookies">Cookies</a></li>
+
+                <li id="accessibility-link"><a href="http://warwick.ac.uk/accessibility" title="Accessibility information [0]" accesskey="0">Accessibility</a></li>
+
+                
+            </ul>
+        </div>
+    </div>
+</footer>
+        </div>
+        <div class="id7-right-border"></div>
+
+        
+		
+	
+	
+
+	
+
+<!-- New analytics -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('require', 'linkid', 'linkid.js');
+
+
+
+ga('create', 'UA-1022818-8', 'auto', 'global1');
+ga('global1.send', 'pageview', '\/fac\/sci\/moac\/people\/students\/peter_cock\/r\/ramachandran');
+
+ga('create', 'UA-40911470-1', 'auto', 'global2');
+ga('global2.send', 'pageview', '\/fac\/sci\/moac\/people\/students\/peter_cock\/r\/ramachandran');
+
+
+
+
+</script>
+
+
+    
+
+<div class="modal image-modal" id="image-modal"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button><h4 class="modal-title">&nbsp;</h4></div><div class="modal-body"></div><div style="line-height: normal; text-align: left;" class="modal-footer"></div><i class="image-controls left fa fa-chevron-left fa-2x"></i><i class="image-controls right fa fa-chevron-right fa-2x"></i></div></div></div></body></html>

@@ -1,0 +1,39 @@
+Changes to nucleic-1.1.top to convert it into nucleic-3.0.top.  Guillermo A. Bermejo.
+
+DONE:
+
+Changed atom types.
+
+Charges unchanged.
+
+BOND, DONO, ACCE, and IC statements unchanged. 
+
+Replaced DIHE and IMPR statements by those in CNS.
+
+Swapped the following names in the added DIHE and IMPR statements:
+
+	H2' <-> H2''
+GUA:	H21 <-> H22
+ADE:	H61 <-> H62
+CYT:	H41 <-> H42
+
+
+TO DO:
+
+Delete "DELEte BOND ... ADD BOND" statements in PRESidue DEOX.
+
+Delete IC statements, including PRESidue 2END.
+
+Highlight (with comments) non-IUPAC names:
+
+	H2''	should be	H2'
+	H2'			HO2' (RNA)
+	H2'			H2'' (DNA)
+	O2P			O1P and vice versa (check!)
+THY:	C5A			C7
+THY:	H5#			H7#		
+
+
+Type XBR, defined via MASS, is actually not used.
+
+Comment DIHE statements in TED residue? (Note that all other dihedrals in the file are commented.)

@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1tvm</protein_name>
+		<seq_file>1tvm.seq</seq_file>
+		<upl_file>1tvm_concat_dist.upl</upl_file>
+		<hbond_file>1tvm_concat_hBond.upl</hbond_file>
+		<ang_file></ang_file>
+		<protein_path>../protein/1tvm</protein_path>
+	</inputs>

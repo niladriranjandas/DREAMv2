@@ -1,0 +1,275 @@
+#!/bin/sh -f
+
+#number of processes to use in ensembleSimulation calculations
+NUM_THREADS=${XPLOR_NUM_THREADS:-1}
+exported="$exported NUM_THREADS"
+
+#maximum number of OpenMP threads to use
+[ "$OMP_NUM_THREADS" = "" ] && OMP_NUM_THREADS=1
+exported="$exported OMP_NUM_THREADS"
+
+#
+# Xplor-NIH xplor script frontend to launch pbs jobs
+#
+help_cmdline () {
+    name=`echo $0 | sed 's/.*\///'`
+    echo "$name: [option]"
+}
+help_usage () {
+    echo "where option is any of those listed under xplor -help, with"
+    echo "the additional PBS-specific options below. By default,"
+    echo "the output (log) file name prefix is the root name of the"
+    echo "run script."
+    echo
+    echo "Options::\n"
+    echo " -f        - specify that the job is fault-tolerate - see man qsub."
+    echo " -l <PBS job options>"
+    echo " -W <PBS -W conditionals>"
+    echo " -jobs_per_node <num> - "
+    echo "              manually specify how many parallel structure "
+    echo "              calculations will occur on all nodes. By default, "
+    echo "              this is automatically determined to be the number of "
+    echo "              cores present."
+    echo " -max_procs - run at most this many total simultaneous Xplor-NIH"
+    echo "              jobs."
+    echo " -nomail   - do not send emails at jobs start and stop"
+    echo " -toQsub <arg>   - pass the specified argument to qsub. Thos option"
+    echo "                   can be specified more than once."
+    echo " -keep     - do not delete the automatically generated PBS script"
+    echo " -rsh      - specify the command to execute a remote command"
+    echo " -N <name> - specify PBS job name"
+}
+help_description () {
+    echo "Generate a PBS script and submit it as a PBS job using qsub."
+}
+
+sendMail=True #send email at process startup and finish
+rsh=""
+outFile=""
+jobsPerNode=""
+[ -z $XPLOR_JOBSPERNODE ] || jobsPerNode=$XPLOR_JOBSPERNODE
+maxcnt=0
+while [ -n "$1" ]; do
+ opt="$1"
+ case "$1" in
+     -*)
+	 opt=`echo $1 | sed 's/^--/-/' | cut -d= -f 1`
+	 arg=`echo $1|grep =|sed 's/[^=]*=\(.*\)/\1/'`
+	 shift
+	 ;;
+    *)
+	 shift
+	 ;;
+ esac
+ 
+ case "$opt" in
+    -help|-h|--help|-*help-script)
+	 help_description
+	 echo
+	 help_cmdline
+	 help_usage
+	exit 0
+    ;;
+    -*help-description)
+	 help_description
+	 exit 0
+    ;;
+   -l)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        pbs_options="$pbs_options -l $arg"
+    ;;
+   -f)
+        pbs_options="$pbs_options -f"
+    ;;
+   -nomail)
+        sendMail=False
+    ;;
+   -W)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        pbs_w_options=$arg
+    ;;
+   -keep)                 #don't remove the generated pbs script
+        keep=1
+    ;;
+    -num_threads)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        args="$args $opt $arg"
+        NUM_THREADS=$arg
+	export NUM_THREADS
+    ;;
+    -omp)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        args="$args $opt $arg"
+        OMP_NUM_THREADS=$arg
+	export OMP_NUM_THREADS
+    ;;
+    -jobs_per_node)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        jobsPerNode=$arg
+    ;;
+    -max_procs)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        maxcnt=$arg
+    ;;
+    -rsh)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+        args="$args $opt $arg"
+	rsh=$arg
+    ;;
+    -sh)
+        args="$args -sh"
+	shName=sh.$$
+	maxcnt=1
+    ;;
+     -toQsub)
+	 [ "$arg" = "" ] && { arg=$1; shift; }
+	 pbs_options="$pbs_options $arg"
+	 ;;
+    -N)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	name=$arg
+    ;;
+     -o)
+	[ "$arg" = "" ] && { arg=$1; shift; }
+	outFile=$arg
+	;;
+    *.py|*.inp|*.tcl)
+        args="$args $opt"
+	name=`echo $opt|sed 's/\.\(\(py\)\|\(tcl\)\|\(inp\)\)$//'`
+    ;;
+    *)
+        arg=`echo "$opt"|sed 's/[ ?&|()*"'\/']/\\\\&/g'`
+        args="$args $arg"
+    ;;
+ esac
+done
+
+[ "$name" = "" ] && name=$shName
+
+if [ "$name" = "" ]; then
+    echo "Could not find a script to run."
+    echo "  Please specify a filename with a suffix of .tcl, .py, or .inp"
+    exit 1
+fi
+
+if [ "$outFile" = "" ]; then
+    outFile=${name}.out
+fi
+
+args="$args -o $outFile"
+
+#maximum length for pbs -N argument
+name=`echo $name|cut -c -15`
+
+scriptName=$name.pbs.$$
+
+#space protection, for directory names which include spaces
+cwd=`pwd`
+pbs_options="$pbs_options"
+cat > $scriptName <<EOF
+#!/bin/sh
+
+#
+# This is an auto-generated PBS script to run parallel Xplor-NIH jobs 
+#
+
+#
+# PBS stuff
+#
+#PBS -N $name
+#PBS -S /bin/sh
+#PBS -j oe
+EOF
+
+[ $sendMail = True ] && echo "#PBS -m be" >> $scriptName
+
+#echo "#PBS -d ${cwd}" >> $scriptName
+echo "cd '${cwd}'" >> $scriptName
+
+#
+#location of xplor script
+#
+XPLOR=/data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/xplor
+
+echo "jobsPerNode=$jobsPerNode" >> $scriptName
+echo "maxcnt=$maxcnt" >> $scriptName
+
+cat >> $scriptName <<EOF
+#
+# number of parallel processes for ensemble calculations (usually 1)
+#
+NUM_THREADS=$NUM_THREADS
+OMP_NUM_THREADS=$OMP_NUM_THREADS
+EOF
+
+cat >> $scriptName <<\EOF
+#
+#list of nodes on which to run:
+# this bit of code determines how many processors are on each node and
+# runs the appropriate number of Xplor-NIH instances on that node.
+#
+XPLOR_MACHINES=xplor_machines.$PBS_JOBCOOKIE
+totcnt=0
+for node in `cat $PBS_NODEFILE`; do
+    if [ -z "$jobsPerNode" ]; then
+        ncpus=`pbsnodes $node | \
+                grep "status =" | sed 's/.*ncpus=\([0-9]*\).*/\1/'`
+        [ -z "$ncpus" ] && ncpus=`pbsnodes $node | \
+            grep resources_available.cores | cut -d= -f2`
+        [ -z "$ncpus" ] && \
+            ncpus=`pbsnodes $node | grep pcpus | cut -d= -f2`
+        echo $ncpus | egrep -q '^[0-9]*$' || \
+            ncpus=$NCPUS
+        if [ -z "$ncpus" ]; then
+            echo "Could not determine the CPU count for node $node in pbsnodes"
+        fi
+    else
+        #override all other settings
+        ncpus=$jobsPerNode
+    fi
+    [ "$node" = `hostname` ] && node="localhost"
+    echo "$node  ncpus: $ncpus"
+    numInstances=`expr $ncpus / \( $NUM_THREADS \* $OMP_NUM_THREADS \)`
+    [ $numInstances -lt 1 ] && numInstances=1
+    cnt=0
+    while [ $cnt -lt $numInstances ]; do
+	echo $node >> $XPLOR_MACHINES
+	cnt=`expr $cnt + 1`
+	totcnt=`expr $totcnt + 1`
+        [ $maxcnt -gt 0 -a $totcnt -ge $maxcnt ] && break
+    done
+    [ $maxcnt -gt 0 -a $totcnt -ge $maxcnt ] && break
+done
+
+
+EOF
+
+if [ "$rsh" = "" ] && [ "$XPLOR_RSH" != "" ]; then
+    args="-rsh $XPLOR_RSH $args"
+fi
+
+#
+# run xplor
+#
+echo "$XPLOR -parallel -machines \$XPLOR_MACHINES \\" >> $scriptName
+echo "  $args" >> $scriptName
+
+cat >> $scriptName <<\EOF
+#
+# clean up
+#
+rm $XPLOR_MACHINES
+EOF
+
+#
+# submit job
+#
+[ "$pbs_w_options" != "" ] && wopt="-W $pbs_w_options"
+ret=`qsub $pbs_options -o ${cwd}/${name}.log $wopt $scriptName`
+
+#
+# clean up
+#
+[ "$keep" ] ||  rm $scriptName
+echo $ret
+exit 0

@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>2cr9</protein_name>
+		<seq_file>2cr9.seq</seq_file>
+		<upl_file>2cr9_concat_dist.upl</upl_file>
+		<hbond_file></hbond_file>
+		<ang_file>2cr9_concat_dihed.aco</ang_file>
+		<protein_path>../protein/2cr9</protein_path>
+	</inputs>

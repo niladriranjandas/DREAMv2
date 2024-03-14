@@ -1,0 +1,180 @@
+remarks   TOPH19.HEM (HEME RESIDUE and patches)
+remarks   =====================================
+
+AUTOGENERATE  ANGLES=TRUE  END      {* but see the two omitted angles below *}
+{*============================         ==================================== *}
+
+{* protein default masses *}
+MASS   H      1.00800! hydrogen which can h-bond to neutral atom
+MASS   HC     1.00800!    ="=     ="=     ="=    to charged atom
+MASS   HT     1.00800! TIPS3P water hydrogen
+!MASS   HA     1.00800! aliphatic hydrogen
+!MASS   CT    12.01100! aliphatic carbon
+MASS   C     12.01100! carbonyl carbon
+MASS   CH1E  13.01900! extended atom carbon with one hydrogen
+MASS   CH2E  14.02700!    ="=      ="=     ="=   two hydrogens
+MASS   CH3E  15.03500!    ="=      ="=     ="=   three hydrogens
+MASS   CR1E  13.01900!    ="=      ="=      in an aromatic ring with one H
+MASS   N     14.00670! peptide nitrogen with no hydrogens attached
+MASS   NR    14.00670! nitrogen in an aromatic ring with no hydrogens
+MASS   NP    14.00670! pyrole nitrogen
+MASS   NH1   14.00670! peptide nitrogen bound to one hydrogen
+MASS   NH2   14.00670!    ="=       ="=      ="= two hydrogens
+MASS   NH3   14.00670! nitrogen bound to three hydrogens
+MASS   NC2   14.00670! charged guandinium nitrogen bound to two hydrogens
+MASS   O     15.99940! carbonyl oxygen
+MASS   OC    15.99940! carboxy oxygen
+MASS   OH1   15.99940! hydroxy oxygen
+MASS   OT    15.99940 ! TIPS3P water oxygen
+MASS   S     32.06000! sulphur
+MASS   SH1E  33.06800! extended atom sulfur with one hydrogen
+MASS   FE    55.84700! iron (as in heme)
+
+RESIdue HEME
+ GROUp
+  ATOM FE   TYPE=FE    CHARGE=0.24    END
+  ATOM NA   TYPE=NP    CHARGE=-0.18   END
+  ATOM NB   TYPE=NP    CHARGE=-0.18   END
+  ATOM NC   TYPE=NP    CHARGE=-0.18   END
+  ATOM ND   TYPE=NP    CHARGE=-0.18   END
+ GROUp
+  ATOM C1A  TYPE=C     CHARGE=0.03    END
+  ATOM CHA  TYPE=CR1E  CHARGE=0.04    END
+  ATOM C4D  TYPE=C     CHARGE=0.02    END
+ GROUp
+  ATOM C1B  TYPE=C     CHARGE=0.03    END
+  ATOM CHB  TYPE=CR1E  CHARGE=0.04    END
+  ATOM C4A  TYPE=C     CHARGE=0.02    END
+ GROUp
+  ATOM C1C  TYPE=C     CHARGE=0.03    END
+  ATOM CHC  TYPE=CR1E  CHARGE=0.04    END
+  ATOM C4B  TYPE=C     CHARGE=0.02    END
+ GROUp
+  ATOM C1D  TYPE=C     CHARGE=0.03    END
+  ATOM CHD  TYPE=CR1E  CHARGE=0.04    END
+  ATOM C4C  TYPE=C     CHARGE=0.02    END
+ GROUp
+  ATOM C2A  TYPE=C     CHARGE=-0.02   END
+  ATOM CAA  TYPE=CH2E  CHARGE=0.04    END
+ GROUp
+  ATOM C3A  TYPE=C     CHARGE=0.02    END
+  ATOM CMA  TYPE=CH3E  CHARGE=-0.04   END
+ GROUp
+  ATOM CBA  TYPE=CH2E  CHARGE=-0.10   END
+  ATOM CGA  TYPE=C     CHARGE=0.30    END
+  ATOM O1A  TYPE=OC    CHARGE=-0.50   END
+  ATOM O2A  TYPE=OC    CHARGE=-0.50   END
+ GROUp
+  ATOM C2B  TYPE=C     CHARGE=0.02    END
+  ATOM CMB  TYPE=CH3E  CHARGE=-0.04   END
+ GROUp
+  ATOM C3B  TYPE=C     CHARGE=-0.05   END
+  ATOM CAB  TYPE=CR1E  CHARGE=0.03    END
+  ATOM CBB  TYPE=CH2E  CHARGE=-0.10   END
+ GROUp
+  ATOM C2C  TYPE=C     CHARGE=0.02    END
+  ATOM CMC  TYPE=CH3E  CHARGE=-0.04   END
+ GROUp
+  ATOM C3C  TYPE=C     CHARGE=-0.05   END
+  ATOM CAC  TYPE=CR1E  CHARGE=0.03    END
+  ATOM CBC  TYPE=CH2E  CHARGE=-0.10   END
+ GROUp
+  ATOM C2D  TYPE=C     CHARGE=0.02    END
+  ATOM CMD  TYPE=CH3E  CHARGE=-0.04   END
+ GROUp
+  ATOM C3D  TYPE=C     CHARGE=-0.02   END
+  ATOM CAD  TYPE=CH2E  CHARGE=0.04    END
+ GROUp
+  ATOM CBD  TYPE=CH2E  CHARGE=-0.10   END
+  ATOM CGD  TYPE=C     CHARGE=0.30    END
+  ATOM O1D  TYPE=OC    CHARGE=-0.50   END
+  ATOM O2D  TYPE=OC    CHARGE=-0.50   END
+
+ BOND FE   NA        BOND FE   NB        BOND FE   NC        BOND FE   ND
+ BOND NA   C1A       BOND C1A  C2A       BOND C2A  C3A       BOND C3A  C4A
+ BOND NA   C4A       BOND C2A  CAA       BOND CAA  CBA       BOND CBA  CGA
+ BOND CGA  O1A       BOND CGA  O2A       BOND C3A  CMA       BOND CHB  C4A
+ BOND CHB  C1B       BOND NB   C1B       BOND C1B  C2B       BOND C2B  C3B
+ BOND C3B  C4B       BOND NB   C4B       BOND C2B  CMB       BOND C3B  CAB
+ BOND CAB  CBB       BOND CHC  C4B       BOND CHC  C1C       BOND NC   C1C
+ BOND C1C  C2C       BOND C2C  C3C       BOND C3C  C4C       BOND NC   C4C
+ BOND C2C  CMC       BOND C3C  CAC       BOND CAC  CBC       BOND CHD  C4C
+ BOND CHD  C1D       BOND ND   C1D       BOND C1D  C2D       BOND C2D  C3D
+ BOND C3D  C4D       BOND ND   C4D       BOND C2D  CMD       BOND C3D  CAD
+ BOND CAD  CBD       BOND CBD  CGD       BOND CGD  O1D       BOND CGD  O2D
+ BOND CHA  C4D       BOND CHA  C1A
+
+ OMIT ANGLE NA FE NC
+ OMIT ANGLE NB FE ND
+ 
+ DIHEdral NA   C4A  CHB  C1B           DIHEdral C4A  CHB  C1B  NB
+ DIHEdral NB   C4B  CHC  C1C           DIHEdral C4B  CHC  C1C  NC
+ DIHEdral NC   C4C  CHD  C1D           DIHEdral C4C  CHD  C1D  ND
+ DIHEdral ND   C4D  CHA  C1A           DIHEdral C4D  CHA  C1A  NA
+ DIHEdral C1A  C2A  CAA  CBA           DIHEdral C2A  CAA  CBA  CGA
+ DIHEdral CAA  CBA  CGA  O1A           DIHEdral C2B  C3B  CAB  CBB
+ DIHEdral C2C  C3C  CAC  CBC           DIHEdral C2D  C3D  CAD  CBD
+ DIHEdral C3D  CAD  CBD  CGD           DIHEdral CAD  CBD  CGD  O1D
+
+ IMPRoper FE   C1A  C4A  NA            IMPRoper FE   C1B  C4B  NB
+ IMPRoper FE   C1C  C4C  NC            IMPRoper FE   C1D  C4D  ND
+ IMPRoper CHA  NA   C2A  C1A           IMPRoper CHB  NA   C3A  C4A
+ IMPRoper CHB  NB   C2B  C1B           IMPRoper CHC  NB   C3B  C4B
+ IMPRoper CHC  NC   C2C  C1C           IMPRoper CHD  NC   C3C  C4C
+ IMPRoper CHD  ND   C2D  C1D           IMPRoper CHA  ND   C3D  C4D
+ IMPRoper C2A  C1A  C3A  CAA           IMPRoper C3A  C2A  C4A  CMA
+ IMPRoper C2B  C1B  C3B  CMB           IMPRoper C3B  C2B  C4B  CAB
+ IMPRoper C2C  C1C  C3C  CMC           IMPRoper C3C  C2C  C4C  CAC
+ IMPRoper C2D  C1D  C3D  CMD           IMPRoper C3D  C2D  C4D  CAD
+ IMPRoper CBA  O1A  O2A  CGA           IMPRoper CBD  O1D  O2D  CGD
+
+ ACCEptor NA  " "            ACCEptor O1A CGA
+ ACCEptor O2A CGA            ACCEptor NB " "
+ ACCEptor NC  " "            ACCEptor ND " "
+ ACCEptor O1D CGD            ACCEptor O2D CGD
+
+END {HEME}
+
+!--------------------------------------------------------------------------
+
+PRESidue PHEM  ! Patch for HEME. Patch residues must be 1-HIS, and 2-HEME.
+  BOND 1NE2 2FE
+  ANGLe 1CD2  1NE2  2FE    
+  ANGLe 1CE1  1NE2  2FE    
+  ANGLe 1NE2  2FE  2NA    
+  ANGLe 1NE2  2FE  2NB
+  ANGLe 1NE2  2FE   2NC    
+  ANGLe 1NE2  2FE   2ND
+  DIHEdral 1CD2  1NE2  2FE  2NA
+END {* PHEM *}
+
+!-------------------------------------------------------------------------
+
+PRESidue PLO2 ! Patch residue for Heme ligand.  Residues must be
+! 1-O2 , 2-HEME , and 3-HIS
+! O1 of the oxygen is bonded to the iron.
+  BOND 1O1  2FE
+  !ANGLe 1O1  2FE  3NE2
+  ANGLe 1O2  1O1  2FE    
+  ANGLe 1O1  2FE  2NA    
+  ANGLe 1O1  2FE  2NB
+  ANGLe 1O1  2FE  2NC     
+  ANGLe 1O1  2FE 2ND
+  DIHEdral 1O2  1O1  2FE  2NA
+END {* PLO2 *}
+
+!-------------------------------------------------------------------
+
+PRESidue PLIG ! Patch residue for Heme ligand. Residues must be,
+!                           1-CO , 2-HEME , and 3-HIS
+ BOND 1C  2FE
+ !ANGL 1C  2FE  3NE2
+ ANGLe 1O  1C  2FE    
+ ANGLe 1C  2FE  2NA    
+ ANGLe 1C  2FE  2NB
+ ANGLe 1C  2FE  2NC
+ ANGle 1C  2FE 2ND
+ DIHEdral 1O  1C  2FE  2NA
+END {* PLIG *}
+
+!--------------------------------------------------------------------

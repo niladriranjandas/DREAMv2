@@ -1,0 +1,121 @@
+#!/bin/sh
+
+#
+# test binary xplor distribution
+#
+#
+
+XPLOR_DIR=/data2/nmr/our_algo/packages/xplor-nih-3.0.3
+cd $XPLOR_DIR
+
+if [ "$USER" = "root" ]; then
+    echo "You are running these tests as user 'root.'"
+    echo "    This is not necessary and is, in fact, dangerous."
+    echo
+    echo "Please, run this script as a normal unprivileged user, to"
+    echo "avoid the possibility of damaging your system."
+    exit 1
+fi
+
+#this silences free() tracebacks caused by race conditions at exit
+# note that with MALLOC_CHECK_=2, abort() should be called if any error
+# occurs. It's just that the race doesn't occur with this setting.
+MALLOC_CHECK_=2; export MALLOC_CHECK_
+
+PATH="$XPLOR_DIR/bin:/usr/bin:/bin:$PATH"; export PATH
+
+ARCH=`uname -sr |sed 's/ /_/g'`
+
+if [ `uname` = "Linux" ]; then
+    ARCH=Linux_`uname -m`
+fi
+
+if [ -d $XPLOR_DIR/bin.$ARCH ]; then
+    arch=$ARCH
+else
+    #see if arch is in equivList
+    arch=`grep $ARCH $XPLOR_DIR/arch/equivList|cut -d' ' -f1`
+fi
+
+if echo "$ARCH" |grep -q Darwin; then
+    ECHO=/bin/echo
+    export ECHO
+fi
+
+[ "$TMPDIR" = "" ] && TMPDIR=/tmp
+WORKDIR=$TMPDIR/$USER-xplorNIH-test/$ARCH
+rm -rf $WORKDIR
+[ -d $WORKDIR ] || mkdirhier $WORKDIR
+
+outputDir=$XPLOR_DIR/testOutput
+outputFile=
+if [ -w $outputDir ]; then
+    eval `xplor -sh-env`
+    version=3.0.3
+    OMP=$OMP_NUM_THREADS
+    date=`date -u +"%F_%H:%M"`
+    [ "$HOST" = "" ] && HOST=`hostname`
+    outputFile=$outputDir/${ARCH}-${HOST}-${version}-OMP=${OMP}-${date}.txt
+fi
+    
+
+(
+failures=""
+
+echo "Running XPLOR tests:"
+(cd test
+ env ARCH=$arch TESTDIR=`pwd` PATH=$XPLOR_DIR/test:$PATH  \
+	./runTests --run-dir $WORKDIR/xplor \
+                `cat f77Tests` `cat c++Tests` pyCmd tclCmd)
+if [ $? -eq 0 ]; then
+    #cleanup
+    rm -rf $WORKDIR/xplor
+else
+    failures="$failures XPLOR"
+fi
+
+
+if [ -d $XPLOR_DIR/python ]; then
+	 echo "Running Python tests:"
+	 (cd python/tests; \
+	   env ARCH=$arch PATH=$XPLOR_DIR/bin:$XPLOR_DIR/test:$PATH  \
+		 runTests --command "xplor -py" --run-dir $WORKDIR/python\
+	             --suffix py `sed 's/\.py//g' <testScripts`)
+	 if [ $? -eq 0 ]; then
+	     #cleanup
+	     rm -rf $WORKDIR/python
+	 else
+	     failures="$failures python"
+	 fi
+fi
+
+if [ -d $XPLOR_DIR/tcl ]; then
+	 echo "Running TCL tests:"
+	 (cd tcl/tests; \
+	   env ARCH=$arch PATH=$XPLOR_DIR/bin:$XPLOR_DIR/test:$PATH  \
+		 runTests --command "xplor -tcl" --run-dir $WORKDIR/tcl \
+	             --suffix tcl `sed 's/\.tcl//g' <testScripts`)
+	 if [ $? -eq 0 ]; then
+	     #cleanup
+	     rm -rf $WORKDIR/tcl
+	 else
+	     failures="$failures tcl"
+	 fi
+fi
+
+echo "Running eginput tests:"
+(cd eginput; \
+  env ARCH=$arch PATH=$XPLOR_DIR/bin:$XPLOR_DIR/test:$PATH  \
+    runDirPrefix=$WORKDIR/eginput \
+    ./runTests)
+
+if [ $? -eq 0 ]; then
+    #cleanup
+    rm -rf $WORKDIR/eginput
+else
+    failures="$failures eginput"
+fi
+
+[ "$failures" = "" ] && echo "all tests passed succesfully"
+[ "$failures" = "" ] || echo "failures detected in $failures"
+) | tee $outputFile

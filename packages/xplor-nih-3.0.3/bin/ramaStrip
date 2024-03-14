@@ -1,0 +1,302 @@
+#!/usr/bin/env /data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/pyXplor
+
+
+
+
+(optList, args) = xplor.parseArguments(["psf:1",
+                                        "rows:1",
+                                        "columns:1",
+                                        "selection:1",
+                                        "noplot:0",
+                                        'wintitle:1',
+					'axesNumbers:0',],
+                                       cmdline=
+        "[options]  <pdb file1> [<pdb file2> ...]",
+                                       description="""
+Perform Ramachandran analysis on each specified residue.
+
+Print contours levels containing 98% and 99.8% of all high-resolution
+structure. For each structure specified, plots a blue point if the
+associated phi/psi value lies inside the 99.8% contour, and a red
+point otherwise. For each structure, also print out all violated
+phi/psi values on stdout. For a description of the structure database
+and generation of the density surface, please see G.A. Bermejo,
+G.M. Clore, and C.D. Schwieters, Protein Science 21, 1824-1836 (2012).
+
+                                       """,
+                                       usageString="""
+where options are one or more of::
+
+  -psf <file.psf>         - psf file- necessary if nonstandard residues
+       			    are present.
+  -selection <sel string> - XPLOR atom selection string specifying which 
+  	     	  	    residues to display information about.
+  -rows <num>             - specify the number of rows in the output figure.
+  -columns <num>          - specify the number of columns in the output figure.
+  -noplot                 - do not make a plot- only make a list of
+  			    violations.
+  -axesNumbers            - on plot, print the values of phi and psi along the
+  			    axes.
+  -wintitle <text>        - window title (for interactive display). If not
+  	    		    set the title will be set to the first coordinate
+			    file name.
+			    
+
+Interleaved in the PDB file list can be entries with the form
+color:colorName. If these are specified, the points are colored by
+the most recently preceeding color, instead of its violation status.
+
+"""
+)
+
+psf=None
+selection="known"
+rows=3
+columns=3
+noPlot=False
+wintitle=None
+axesNumbers=False
+
+for opt in optList:
+    if opt[0]=="rows":
+        rows=int(opt[1])
+        pass
+    if opt[0]=="columns":
+        columns=int(opt[1])
+        pass
+    if opt[0]=="psf":
+        psf=opt[1]
+        pass
+    if opt[0]=="selection":
+        selection=opt[1]
+        pass
+    if opt[0]=="noplot":
+        noPlot=True
+        pass
+    if opt[0]=="axesNumbers":
+        axesNumbers=True
+        pass
+    if opt[0]=='wintitle':
+        wintitle=opt[1]
+        pass
+    pass
+
+
+pdbFiles=[arg for arg in args if not arg.startswith('color:')]
+
+if len(pdbFiles)<1:
+    print("must specify one or more PDB files")
+    sys.exit(1)
+    pass
+
+
+import protocol
+
+if not psf:
+    protocol.loadPDB(pdbFiles[0])
+else:
+    protocol.initStruct(psf)
+    protocol.initCoords(pdbFiles[0])
+    pass
+
+from atomSel import AtomSel
+sel=AtomSel('tag and (%s)' % selection)
+
+if len(sel)>rows*columns:
+     print("selection size too large to fit on one sheet.", end=' ')
+     print("Recalculating rows/columns.")
+     from math import sqrt, ceil
+     columns=int(ceil(sqrt(len(sel))))
+     rows=columns
+     while columns*(rows-1)>=len(sel):
+         rows -= 1
+         pass
+     pass
+
+from torsionDBPotTools import create_TorsionDBPot
+
+tdbl = create_TorsionDBPot('tdbl',selection=sel,
+                           threshold='98',
+                           database='top8K_bb')
+
+tdb = create_TorsionDBPot('tdb',selection=sel,
+                          threshold='99.8',
+                           database='top8K_bb')
+
+tdb.calcEnergy()
+
+
+import matplotlib
+import pylab
+from pylab import figure, arange, randn, exp, xlim, ylim, show
+
+fig=figure(facecolor='w',figsize=(8, 8))
+if wintitle==None:
+    fig.canvas.set_window_title(pdbFiles[0])
+else:
+    fig.canvas.set_window_title(wintitle)
+    pass
+#pylab.subplots_adjust(hspace=0.001)
+
+axes=[]
+
+def getLabel(atom):
+    return "%s %s %d " % (atom.segmentName(),
+                          atom.residueName(),atom.residueNum() )
+
+
+from matplotlib.ticker import MultipleLocator, FixedLocator
+
+width = height = 0.9 / columns
+if axesNumbers:
+    width = height = 0.8 / columns
+    pass
+
+
+axMap={}
+for winnum,atom in enumerate(sel):
+
+    
+    kwargs={}
+
+    left   = 0.05+winnum%columns * width
+    if axesNumbers:
+        left   = 0.05+winnum%columns * (width+0.02)
+    bottom = 0.05+(columns-winnum//columns-1) * height
+    if axesNumbers:
+        bottom = 0.05+(columns-winnum/columns-1) * (height+0.02)
+    rect=(left,bottom,0.85*width,0.85*height)
+
+
+    ax = fig.add_axes(rect, **kwargs)
+    axes.append( ax )
+
+    ax.set_xticks([-150,-50,50,150])
+    ax.set_yticks([-150,-50,50,150])
+    ax.xaxis.set_minor_locator(FixedLocator( [-100,0,100] ))
+    ax.yaxis.set_minor_locator(FixedLocator( [-100,0,100] ))
+    
+    pylab.setp(ax.get_xticklabels(), visible=axesNumbers, fontsize='xx-small')
+    pylab.setp(ax.get_yticklabels(), visible=axesNumbers, fontsize='xx-small')
+
+
+    label="%s %s %d " % (atom.segmentName(),
+                         atom.residueName(),atom.residueNum() )
+    ax.set_ylim(-180,180)
+    ax.set_xlim(-180,180)
+
+    ax.text(-180,190,label,size=33./rows)
+
+#    ax.set_aspect('equal', 'datalim')
+    axMap[label] = ax
+
+    pass
+
+
+
+gridSize= 60
+xgrid=[-180 + float(i)*360/gridSize for i in range(0,gridSize+1)]
+ygrid=[-180 + float(i)*360/gridSize for i in range(0,gridSize+1)]
+import atomSel
+for pl in tdb:
+    pot=pl[0]
+    
+    haveContour=False
+    thresholdl=tdbl[pl.instanceName()][0].threshold()
+    threshold=pot.threshold()
+    surfl=[]
+    for r in pot.restraints():
+        tagAtom=AtomSel('tag and resid %d and segid "%s"' %
+                        (r.angle1.atom2().residueNum(),
+                         r.angle1.atom2().segmentName()))[0]
+        label=getLabel(tagAtom)
+        if label in axMap:
+
+            if not haveContour:
+                haveContour=True
+
+                for x in xgrid:
+                    l=[]
+                    for y in ygrid:
+                        l.append( pot.surf(y,x) )
+                        pass
+                    surfl.append(l)
+                    pass
+                pass
+            
+
+            levels=[threshold/8 * i for i in range(8)]
+            if not noPlot:
+                cf=axMap[label].contourf(xgrid,ygrid,surfl,
+#                                         extend="both",
+                                         levels=[0,thresholdl,
+                                                 threshold,5*threshold],
+						 colors=((0.9,0.9,0.9),
+						 (0.6,0.6,0.6),
+						 (0.3,0.3,0.3),
+						 ))#'0.5')
+                cf.cmap.set_under('yellow')
+                cf.cmap.set_over('blue')
+                axMap[label].contour(xgrid,ygrid,surfl,
+                                     levels=[thresholdl,threshold],
+                                     colors='k')
+#                axMap[label].colorbar(cf)
+
+                pass
+            pass
+        pass
+    pass
+
+
+markerSize=0.5*pylab.rcParams['lines.markersize']
+from math import pi
+staticColor=None
+for i in range(len(args)):
+
+    arg =args[i]
+    if arg.startswith('color:'):
+        staticColor=arg.split(':')[1]
+        continue
+        pass
+
+    protocol.initCoords(arg)
+
+    violatedResidues=[]
+    for pot in [pl[0] for pl in tdb]:
+    
+        threshold=pot.threshold()
+
+        for r in pot.restraints():
+            tagAtom=AtomSel('tag and resid %d and segid "%s"' %
+                            (r.angle1.atom2().residueNum(),
+                             r.angle1.atom2().segmentName()))[0]
+            label=getLabel(tagAtom)
+
+            if label in axMap:
+                color='b' if not staticColor else staticColor
+                if r.violated():
+                    color='r' if not staticColor else staticColor
+                    violatedResidues.append(label)
+                    pass
+                phi=r.angle1.value()*180/pi
+                psi=r.angle2.value()*180/pi
+                if not noPlot:
+                    axMap[label].plot([phi],
+                                      [psi],'o',
+                                      markersize=markerSize,
+                                      markeredgecolor=color,
+                                      color=color)
+                    pass
+                pass
+            pass
+
+        pass
+    print('%30s %4d' % (args[i], len(violatedResidues)), violatedResidues)
+    pass
+
+    pass
+
+
+if not noPlot:
+    show()
+    pass

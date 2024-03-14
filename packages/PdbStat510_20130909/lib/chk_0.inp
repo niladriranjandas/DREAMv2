@@ -1,0 +1,133 @@
+    
+      === Checking MOLECULAUSUARIO
+
+ Roberto Tejero, Valencia, Abril 1994
+*
+
+!
+!$Id: chk_0.inp,v 4.10 2010/11/22 15:41:35 roberto Exp roberto $
+!
+!
+
+
+DEBUG CORE 0
+NOBOMB
+WRNLEV 3
+
+#FFIELD_TOP
+#FFIELD_PRM
+
+OPEN UNIT 03 NAME TOPOL:MOLECULAUSUARIO.seq FORM READ
+#FFIELD_SEQ
+CLOSE UNIT 03
+
+#FFIELD_GEN
+
+#DISULPHIDE
+
+OPEN UNIT 13 NAME objetivo FORM READ
+READ COOR BROOK UNIT 13
+CLOSE UNIT 13
+
+OPEN UNIT 55 NAME TOPOL:MOLECULAUSUARIO_omega.inp FORM READ
+STREAM UNIT 55
+CLOSE UNIT 55
+
+OPEN UNIT 57 NAME TOPOL:MOLECULAUSUARIO_chiral.inp FORM READ
+STREAM UNIT 57
+CLOSE UNIT 57
+
+OPEN UNIT 58 NAME TOPOL:MOLECULAUSUARIO_sidechain_chiral.inp FORM READ
+STREAM UNIT 58
+CLOSE UNIT 58
+
+#DIHE
+
+OPEN UNIT 17 NAME TOPOL:MOLECULAUSUARIO.w1.noe FORM READ
+NMRC UNIT 17 FMAX   500.0 SLOP   10.0 CLEAR NOE
+CLOSE UNIT 17
+
+NBOND ATOM EPS 1.0 CUTNB 10.0 
+HBOND
+ENERGY
+
+PRINT NMR ALL INDIVIDUAL 9000
+PRINT CONS
+
+CONS CLDH
+WEIGHT ENOE 0.0 END
+
+!_________________________________________________________________________
+!
+!    CALCULATING STATISTICS ABOUT THE FINAL STRUCTURE
+!_________________________________________________________________________
+!
+
+#FFIELD_SPC
+
+! This little file that can be appended or streamed with
+! the stream command in CONGEN is for calculating the dihedrals
+! (omega, phi, psi and chi1) for any structure.
+
+OPEN UNIT 90 NAME PHI_PSI.OUT FORM WRITE
+ANAL 
+     BUILD TORSION GEOMETRY
+     DELETE TAGS EXCEPT  ALLSEG ALLRES C-N-CA-C -
+                                       N-CA-C-N -
+	                               CA-C-N-CA -
+	                               CG-CB-CA-N -
+				       N-CA-CB-CG -
+                                       OG-CB-CA-N -
+				       SG-CB-CA-N - 
+				       CG1-CB-CA-N -
+				       OG1-CB-CA-N $	
+     SET PRUNIT 90 LINESZ 60 PAGESZ 200
+     PRINT TABLE PRETTY
+END
+CLOSE UNIT 90 
+
+! This little file can be streamed with the stream command 
+! in CONGEN.. It is used to get some useful statistics about
+! the structures
+
+OPEN UNIT 91 NAME STATISTICS.OUT FORM WRITE
+ANAL 
+    SET PRUNIT 91  LINESZ 50  PAGESZ 200
+    BUILD BOND ENERGY $ GEOMETRY $
+       DELETE VALUE PROPERTY ENERGY$ LT 0.0050 $$
+#FFIELD_TBL
+!      PRINT TABLE PRETTY
+    BUILD BOND ENERGY
+       ADD STATS ALL $ PLACE STRUCTURE $ $$
+       DELETE TAGS EXCEPT ALLSEG ALLRES AVE MAX RMS SD $ 
+       PRINT TABLE  COLUMN 
+    BUILD ANGLE ENERGY $ GEOMETRY $
+       DELETE VALUE PROPERTY ENERGY $ LT 0.05 $$
+       PRINT TABLE PRETTY
+    BUILD ANGLE ENERGY
+       ADD STATS ALL $ PLACE STRUCTURE $ $$
+       DELETE TAGS EXCEPT ALLSEG ALLRES AVE MAX RMS SD $ 
+       PRINT TABLE  COLUMN 
+    BUILD IMPROPER ENERGY $ GEOMETRY $
+!       DELETE TAGS EXCEPT ALLSEG ALLRES C-CA-N-O N-C-CA-H $
+      DELETE VALUE PROPERTY ENERGY $ LT 0.01 $$
+       PRINT TABLE PRETTY
+    BUILD IMPROPER ENERGY
+!       DELETE TAGS EXCEPT ALLSEG ALLRES C-CA-N-O N-C-CA-H $
+       ADD STATS ALL $ PLACE STRUCTURE $ $$
+       DELETE TAGS EXCEPT ALLSEG ALLRES AVE MAX RMS SD $ 
+       PRINT TABLE COLUMN
+END
+
+!_________________________________________________________________________
+!
+!    CALCULATING ENERGY FOR FINAL STRUCTURE TAKING A BIG CUTOFF AND
+!    USING THE NORMAL PARAMETER FILE (THE STANDARD IN CHARMM)
+!_________________________________________________________________________
+!
+
+#FFIELD_PRM
+NBOND ATOM EPS 1.0 CUTNB 10.0 
+HBOND
+ENERGY
+STOP

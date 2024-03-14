@@ -1,0 +1,15 @@
+
+  bond  s zn+2 500.0 2.30
+  bond  NB zn+2 500.0 2.30      !FIX!
+  bond  NA zn+2 500.0 2.30      !FIX!!!
+  bond  NR1 zn+2 500.0 2.30     !FIX31012020
+  
+  angle s zn+2 s 500.0 109.0
+  angle NB zn+2 NB 500.0 109.0
+  angle NB zn+2 S 500.0 109.0
+  angle NA zn+2 NB 500.0 109.0  !FIX!
+!  angle NA zn+2 NA 500.0 109.0  !FIX!
+  angle NA zn+2 S 500.0 109.0   !FIX!
+  angle s zn+2 NR1 500.0 109.0    !FIX!31012020
+  angle NR2 zn+2 NR1 500.0 109.0    !FIX!31012020
+

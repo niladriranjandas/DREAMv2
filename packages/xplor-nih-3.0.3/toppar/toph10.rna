@@ -1,0 +1,535 @@
+REMARKS TOPH10 RIBONUCLEASE SUBSTRATES STRUCTURE FILE
+REMARKS =====================
+REMARKS By Axel Brunger, 1983
+REMARKS =====================
+
+AUTOGENERATE  ANGLES=TRUE  END
+
+RESIdue 3UMP                         ! URIDINE 3' MONOPHOSPHATE
+ GROUP                               !
+  ATOM H5' TYPE HO  CHARGE  0.25 END !charges from TOPDNA5; further references:
+  ATOM O5' TYPE OH  CHARGE -0.40 END !A.Pullman, H.Berthod  Int.J.Q.Chem. 
+  ATOM C5' TYPE C2  CHARGE  0.15 END !Q.Biol.
+ GROUP                               ! 
+  ATOM C4' TYPE CH  CHARGE  0.10 END !P.Liebmann, G.Loew, A.D.McLean, G.R.Pack 
+  ATOM O4' TYPE OS  CHARGE -0.30 END !JACS 104 (1982) 661-670  (PHOSPHATE 
+  ATOM C1' TYPE CH  CHARGE  0.20 END !  H2PO4NA)
+ GROUP                               !
+  ATOM C2  TYPE CN  CHARGE  0.35 END !                              O4  
+  ATOM O2  TYPE ON  CHARGE -0.35 END !                              ||
+ GROUP                               !                              C4  
+  ATOM N3  TYPE NA  CHARGE -0.26 END !                            /   \  
+  ATOM H3  TYPE HN  CHARGE  0.26 END !            H5'       H3 - N3    C5 -
+ GROUP                               !            |              |     ||  
+  ATOM C4  TYPE CN  CHARGE  0.30 END !            O5'       O2 = C2    C6 -
+  ATOM O4  TYPE ON  CHARGE -0.30 END !            |               \   /  
+ GROUP                               !          - C5' -             N1   
+  ATOM C5  TYPE CF  CHARGE  0.00 END !            |                 |    
+ GROUP                               !            |                 |
+  ATOM C6  TYPE CF  CHARGE  0.19 END !          - C4' ---- 04' ---- C1' -
+  ATOM N1  TYPE N*  CHARGE -0.19 END !             \               /     
+ GROUP                               !            - C3' --------- C2' -  
+  ATOM O2' TYPE OH  CHARGE -0.40 END !              |             |  
+  ATOM H2' TYPE HO  CHARGE  0.25 END !              O3'           O2'
+  ATOM C2' TYPE CH  CHARGE  0.15 END !              |             |  
+ GROUP                               !              |             H2'
+  ATOM C3' TYPE CH  CHARGE  0.00 END !    H8 - O8 - P = O1P
+ GROUP                               !              |
+  ATOM O3' TYPE OS  CHARGE -0.46 END !              O2P
+  ATOM P   TYPE P   CHARGE  1.36 END !                 (-)
+  ATOM O1P TYPE O2  CHARGE -0.72 END !
+  ATOM O2P TYPE O2  CHARGE -0.72 END !
+  ATOM O8  TYPE OH  CHARGE -0.71 END !
+  ATOM H8  TYPE HO  CHARGE  0.25 END !
+
+ BOND O5'  C5'
+ BOND C5'  C4'
+ BOND C4'  O4'
+ BOND C4'  C3'
+ BOND O4'  C1' 
+ BOND C1'  N1
+ BOND C1'  C2'
+ BOND N1   C2
+ BOND N1   C6
+ BOND C2   O2  
+ BOND C2   N3
+ BOND N3   H3
+ BOND N3   C4
+ BOND C4   O4
+ BOND C4   C5  
+ BOND C5   C6
+ BOND C2'  C3'
+ BOND C3'  O3'
+ BOND O3'  P
+ BOND C2'  O2' 
+ BOND O2'  H2'
+ BOND P    O1P
+ BOND P    O8
+ BOND P    O2P
+ BOND O8   H8  
+ BOND H5'  O5' 
+
+
+ DIHEdral H5'  O5'  C5'  C4'    !!
+ DIHEdral O5'  C5'  C4'  O4'    !!
+ DIHEdral O5'  C5'  C4'  C3'    !! 
+ DIHEdral C3'  C4'  O4'  C1'    !!
+ DIHEdral C4'  O4'  C1'  C2'    !!
+ DIHEdral O4'  C1'  C2'  C3'    !! 
+ DIHEdral C1'  C2'  C3'  C4'    !! minimal set of dihedrals  
+ DIHEdral O4'  C4'  C3'  O3'    !!
+ DIHEdral C5'  C4'  C3'  C2'    !!
+ DIHEdral C4'  C3'  O3'   P     !!
+ DIHEdral O4'  C1'  N1   C2     !!
+ DIHEdral C1'  C2'  O2'  H2'    !!
+ DIHEdral O3'  P    O8   H8     !!
+
+ DIHEdral C3'  O3'  P    O8     !!\ ester double dihedral
+ DIHEdral C3'  O3'  P    O8     !!/ 
+
+ IMPRoper C5'  O4'  C3'  C4'  !tetrahedral C4'   UP
+ IMPRoper O3'  C2'  C4'  C3'  !tetrahedral C3'   DOWN
+ IMPRoper N1   C2'  O4'  C1'  !tetrahedral C1'   DOWN
+ IMPRoper O2'  C1'  C3'  C2'  !tetrahedral C2'   UP
+ IMPRoper C1'  C2   C6   N1   !planar N1
+ IMPRoper O2   N1   N3   C2   !planar C2
+ IMPRoper H3   C2   C4   N3   !planar N3
+ IMPRoper O4   N3   C5   C4   !planar C4
+ IMPRoper N1   C2   N3   C4  !!
+ IMPRoper C2   N3   C4   C5  !!
+ IMPRoper N3   C4   C5   C6  !!
+ IMPRoper C4   C5   C6   N1  !! base ring torsions
+ IMPRoper C5   C6   N1   C2  !!
+ IMPRoper C6   N1   C2   N3  !!
+
+ DONOr H3   N3
+ DONOr H2'  O2'
+ DONOr H8   O8 
+ DONOr H5'  O5'
+
+ ACCEptor O2   C2 
+ ACCEptor O4   C4 
+ ACCEptor O2' "   "
+ ACCEptor O1P  P  
+ ACCEptor O2P  P  
+ ACCEptor O8  "   "    
+ ACCEptor O5' "   "
+
+ IC H5'  O5'  C5'  C4'    1.0     110.00  180.00  110.04   1.5160
+ IC O5'  C5'  C4'  C3'    1.4401  110.04   30.88  115.78   1.5284
+ IC C5'  C4'  C3'  O3'    1.5160  115.78  156.53  111.92   1.4212
+ IC C4'  C3'  O3'   P     1.5284  111.92  159.13  119.05   1.6001
+ IC C3'  O3'   P   O8     1.4212  119.05  -98.86  101.45   1.5996
+ IC O4'  C3'  *C4' C5'    1.4572  104.37 -119.62  115.78   1.5160
+ IC C2'  C4'  *C3' O3'    1.5284  102.78 -117.16  111.92   1.4212
+ IC C4'  C3'  C2'  C1'    1.5284  102.78  -34.79  101.97   1.5251
+ IC C3'  C2'  C1'  N1     1.5284  101.97  144.39  113.71   1.4896
+ IC C2'  C1'  N1   C2     1.5251  113.71  144.99  117.06   1.3746
+ IC C1'  C2   *N1  C6     1.4896  117.06 -179.96  122.08   1.3704
+ IC C2   N1   C6   C5     1.3746  122.08   -0.02  121.23   1.3432
+ IC C6   N1   C2   N3     1.3704  122.08    0.06  115.38   1.3813
+ IC N1   N3   *C2  O2     1.3746  115.38 -179.95  121.70   1.2191
+ IC N1   C2   N3   C4     1.3746  115.38   -0.07  126.46   1.3795
+ IC C5   N3   *C4  O4     1.4439  114.07  179.98  120.59   1.2327
+ IC C2   C4   *N3  H3     1.3813  126.46  180.00  116.77   1.0900
+ IC C3'  C1'  *C2' O2'    0.0     0.0    +120.00  0.0      0.0   
+ IC C1'  C2'  O2'  H2'    0.0     0.0     180.00  0.0      0.0   
+ IC O8   O3'  *P   O2P    0.0     0.0    +120.00  0.0      0.0   
+ IC O8   O3'  *P   O1P    0.0     0.0    -120.00  0.0      0.0   
+ IC O3'  P    O8   H8     0.0     0.0     180.00  0.0      0.0   
+
+END {3UMP}
+
+!=========================================================================
+
+
+
+RESIdue CCMP                         !  CYTIDINE 2',3' CYCLIC PHOSPHATE
+ GROUP                               !  INTERMEDIATE
+  ATOM H5' TYPE HO  CHARGE  0.25 END !
+  ATOM O5' TYPE OH  CHARGE -0.40 END !
+  ATOM C5' TYPE C2  CHARGE  0.15 END !
+ GROUP                               !                   H41 - N4 - H42
+  ATOM C4' TYPE CH  CHARGE  0.10 END !                         |    
+  ATOM O4' TYPE OS  CHARGE -0.30 END !                         C4   
+  ATOM C1' TYPE CH  CHARGE  0.20 END !                       /    \  
+ GROUP                               !       H5'            N3     C5 -
+  ATOM N1  TYPE N*  CHARGE -0.19 END !       |              |      ||  
+  ATOM C6  TYPE CF  CHARGE  0.19 END !       O5'       O2 = C2     C6 -
+ GROUP                               !       |               \    /  
+  ATOM C2  TYPE CN  CHARGE  0.30 END !     - C5' -             N1    
+  ATOM O2  TYPE ON  CHARGE -0.30 END !       |                 |     
+ GROUP                               !     - C4' ---- O4' ---- C1' - 
+  ATOM N3  TYPE NC  CHARGE -0.28 END !        \               /     
+  ATOM C4  TYPE CA  CHARGE  0.28 END !       - C3' --------- C2' -
+ GROUP                               !         |             | 
+  ATOM N4  TYPE N2  CHARGE -0.42 END !         O3'          O2'
+  ATOM H41 TYPE H2  CHARGE  0.21 END !           \         / 
+  ATOM H42 TYPE H2  CHARGE  0.21 END !            \       /
+ GROUP                               !             \     /
+  ATOM C5  TYPE CF  CHARGE  0.00 END !                P
+ GROUP                               !             //    \  
+  ATOM C2' TYPE CH  CHARGE  0.00 END !            O2P     O1P
+  ATOM C3' TYPE CH  CHARGE  0.00 END !                       (-)
+ GROUP                               !
+  ATOM O3' TYPE OS  CHARGE -0.46 END !
+  ATOM O2' TYPE OS  CHARGE -0.46 END !
+  ATOM P   TYPE P   CHARGE  1.36 END !
+  ATOM O1P TYPE O2  CHARGE -0.72 END !
+  ATOM O2P TYPE O2  CHARGE -0.72 END !
+
+ BOND P    O1P
+ BOND P    O2P
+ BOND P    O2'
+ BOND P    O3'
+ BOND H5'  O5'
+ BOND O5'  C5'
+ BOND C5'  C4'
+ BOND C4'  O4'
+ BOND C4'  C3'
+ BOND O4'  C1' 
+ BOND C1'  N1
+ BOND C1'  C2'
+ BOND N1   C2
+ BOND N1   C6
+ BOND C2   O2  
+ BOND C2   N3
+ BOND N3   C4
+ BOND C4   N4
+ BOND N4   H41
+ BOND N4   H42 
+ BOND C4   C5
+ BOND C5   C6
+ BOND C2'  C3'
+ BOND C3'  O3'
+ BOND C2'  O2'
+
+
+ DIHEdral C3'  O3'  P    O2' {* ester double dihedral *}
+ DIHEdral C3'  O3'  P    O2' {* ====================  *}
+ DIHEdral C2'  O2'  P    O3' {* ester double dihedral *}
+ DIHEdral C2'  O2'  P    O3' {* ===================== *}
+ DIHEdral C4'  C3'  O3'  P     !
+ DIHEdral C1'  C2'  O2'  P     !
+ DIHEdral H5'  O5'  C5'  C4'   !
+ DIHEdral O5'  C5'  C4'  O4'   !
+ DIHEdral O5'  C5'  C4'  C3'   !
+ DIHEdral C3'  C4'  O4'  C1'   !
+ DIHEdral C4'  O4'  C1'  C2'   ! 
+ DIHEdral O4'  C1'  C2'  C3'   !   {* minimal set of dihedrals specified *}
+ DIHEdral C1'  C2'  C3'  C4'   !  
+ DIHEdral O4'  C4'  C3'  O3'   !
+ DIHEdral C5'  C4'  C3'  C2'   !  
+ DIHEdral O4'  C1'  C2'  O2'   !
+ DIHEdral O2'  C2'  C3'  O3'   !
+ DIHEdral O4'  C1'  N1   C2    !
+ DIHEdral C5   C4   N4   H41   !
+
+ IMPRoper C5'  O4'  C3'  C4'  !tetrahedral C4'
+ IMPRoper O3'  C2'  C4'  C3'  !tetrahedral C3'
+ IMPRoper N1   C2'  O4'  C1'  !tetrahedral C1'
+ IMPRoper O2'  C1'  C3'  C2'  !tetrahedral C2'
+ IMPRoper C1'  C2   C6   N1   !planar N1
+ IMPRoper O2   N1   N3   C2   !planar C2
+ IMPRoper N4   N3   C5   C4   !planar C4
+ IMPRoper H42  C4   H41  N4   !planar N4
+ IMPRoper N1   C2   N3   C4  !!
+ IMPRoper C2   N3   C4   C5  !!
+ IMPRoper N3   C4   C5   C6  !! base ring torsions
+ IMPRoper C4   C5   C6   N1  !!
+ IMPRoper C5   C6   N1   C2  !!
+ IMPRoper C6   N1   C2   N3  !!
+
+ DONOr H42  N4
+ DONOr H41  N4
+ DONOr H5'  O5'
+
+ ACCEptor O2  "  "
+ ACCEptor N3  "  "      
+ ACCEptor O5' "  "
+ ACCEptor O2P  P
+ ACCEptor O1P  P
+
+ IC H5'  O5'  C5'  C4'    1.5996  119.00 -151.39  110.04   1.5160
+ IC O5'  C5'  C4'  C3'    1.4401  110.04   30.88  115.78   1.5284
+ IC C5'  C4'  C3'  O3'    1.5160  115.78  156.53  111.92   1.4212
+ IC C4'  C3'  O3'  P      1.5284  111.92  159.13  119.05   1.6001
+ IC O4'  C3'  *C4' C5'    1.4572  104.37 -119.62  115.78   1.5160
+ IC C2'  C4'  *C3' O3'    1.5284  102.78 -117.16  111.92   1.4212
+ IC C4'  C3'  C2'  C1'    1.5284  102.78  -34.79  101.97   1.5251
+ IC C3'  C2'  C1'  N1     1.5284  101.97  144.39  113.71   1.4896
+ IC C2'  C1'  N1   C2     1.5251  113.71  144.97  117.79   1.3923
+ IC C1'  C2   *N1  C6     1.4896  117.79 -179.99  121.13   1.3595
+ IC C2   N1   C6   C5     1.3923  121.13    0.02  121.13   1.3570
+ IC C6   N1   C2   N3     1.3595  121.13    0.01  118.71   1.3578
+ IC N1   N3   *C2  O2     1.3923  118.71  179.98  122.46   1.2378
+ IC N1   C2   N3   C4     1.3923  118.71   -0.03  120.61   1.3386
+ IC C5   N3   *C4  N4     1.4331  121.58  180.00  118.32   1.3246
+ IC N3   C4   N4   H41    1.3386  118.32  180.00  117.70   1.0100
+ IC H41  C4   *N4  H42    1.0100  117.70  180.00  120.27   1.0100
+ IC C3'  C1'  *C2' O2'    0.0     0.0    +120.00  0.0      0.0
+ IC O2'  O3'  *P   O2P    0.0     0.0    +120.00  0.0      0.0
+ IC O2'  O3'  *P   O1P    0.0     0.0    -120.00  0.0      0.0
+
+ 
+END {CCMP}
+
+!======================================================================
+
+
+
+
+RESIdue CPA                           ! CYTIDYL-P-ADENYL SUBSTRATE
+ GROUP                                !
+  ATOM H5T  TYPE HO  CHARGE  0.25 END !
+  ATOM O5'C TYPE OH  CHARGE -0.40 END !
+  ATOM C5'C TYPE C2  CHARGE  0.15 END !
+ GROUP                                !
+  ATOM C4'C TYPE CH  CHARGE  0.10 END !                 H41C - N4C - H42C
+  ATOM O4'C TYPE OS  CHARGE -0.30 END !                        ||
+  ATOM C1'C TYPE CH  CHARGE  0.20 END !                        C4C
+ GROUP                                !                      /    \
+  ATOM N1C  TYPE N*  CHARGE -0.19 END !    H5T              N3C    C5C -
+  ATOM C6C  TYPE CF  CHARGE  0.19 END !    |                |      ||
+ GROUP                                !    O5'C       O2C = C2C    C6C -
+  ATOM C2C  TYPE CN  CHARGE  0.30 END !    |                 \    /
+  ATOM O2C  TYPE ON  CHARGE -0.30 END !  - C5'C -              N1C
+ GROUP                                !    |                   |  
+  ATOM N3C  TYPE NC  CHARGE -0.28 END !  - C4'C ---- O4'C ---- C1'C -
+  ATOM C4C  TYPE CA  CHARGE  0.28 END !     \                 /   
+ GROUP                                !    - C3'C ---------- C2'C -
+  ATOM N4C  TYPE N2  CHARGE -0.42 END !      |               |
+  ATOM H41C TYPE H2  CHARGE  0.21 END !      O3'C            O2'C    H61A H62A
+  ATOM H42C TYPE H2  CHARGE  0.21 END !      |               |         \   /
+ GROUP                                !      |               H2'C       N6A   
+  ATOM C5C  TYPE CF  CHARGE  0.00 END !      |      (-)                  |    
+ GROUP                                !O2P = P - O1P             N7A    C6A   
+  ATOM C2'C TYPE CH  CHARGE  0.15 END !      |                 //   \ /   \\ 
+  ATOM O2'C TYPE OH  CHARGE -0.40 END !      |                //     C5A  N1A
+  ATOM H2'C TYPE HO  CHARGE  0.25 END !      |             - C8A     ||     | 
+ GROUP                                !      O5'A             \      C4A  C2A -
+  ATOM C3'C TYPE CH  CHARGE  0.00 END !      |                 \    / \    // 
+ GROUP                                !    - C5'A -              N9A    N3A 
+  ATOM O3'C TYPE OS  CHARGE -0.46 END !      |                   |        
+  ATOM P    TYPE P   CHARGE  1.36 END !    - C4'A ---- O4'A ---- C1'A -   
+  ATOM O1P  TYPE O2  CHARGE -0.72 END !       \                 / 
+  ATOM O2P  TYPE O2  CHARGE -0.72 END !      - C3'A ---------- C2'A -
+  ATOM O5'A TYPE OS  CHARGE -0.46 END !        |               |
+ GROUP                                !        O3'A            O2'A
+  ATOM C5'A TYPE C2  CHARGE  0.00 END !        |               |
+ GROUP                                !        H3T             H2'A
+  ATOM C4'A TYPE CH  CHARGE  0.10 END !
+  ATOM O4'A TYPE OS  CHARGE -0.30 END !
+  ATOM C1'A TYPE CH  CHARGE  0.20 END !
+ GROUP                    
+  ATOM N9A  TYPE N*  CHARGE -0.19 END 
+  ATOM C4A  TYPE CB  CHARGE  0.19 END   
+ GROUP                    
+  ATOM N3A  TYPE NC  CHARGE -0.26 END   
+  ATOM C2A  TYPE CE  CHARGE  0.26 END   
+ GROUP                    
+  ATOM N1A  TYPE NC  CHARGE -0.28 END   
+  ATOM C6A  TYPE CA  CHARGE  0.28 END   
+ GROUP                    
+  ATOM N6A  TYPE N2  CHARGE -0.42 END   
+  ATOM H61A TYPE H2  CHARGE  0.21 END   
+  ATOM H62A TYPE H2  CHARGE  0.21 END   
+ GROUP                    
+  ATOM C5A  TYPE CB  CHARGE  0.02 END   
+  ATOM N7A  TYPE NB  CHARGE -0.25 END   
+  ATOM C8A  TYPE CE  CHARGE  0.23 END   
+ GROUP                    
+  ATOM C2'A TYPE CH  CHARGE  0.15 END 
+  ATOM O2'A TYPE OH  CHARGE -0.40 END 
+  ATOM H2'A TYPE HO  CHARGE  0.25 END      
+ GROUP                    
+  ATOM C3'A TYPE CH  CHARGE  0.15 END   
+  ATOM O3'A TYPE OH  CHARGE -0.40 END 
+  ATOM H3T  TYPE HO  CHARGE  0.25 END  
+
+ BOND O5'C C5'C
+ BOND C5'C C4'C
+ BOND C4'C O4'C
+ BOND C4'C C3'C
+ BOND O4'C C1'C
+ BOND C1'C N1C
+ BOND C1'C C2'C
+ BOND C2'C O2'C
+ BOND O2'C H2'C
+ BOND N1C  C2C
+ BOND N1C  C6C
+ BOND C2C  O2C 
+ BOND C2C  N3C
+ BOND N3C  C4C
+ BOND C4C  N4C
+ BOND N4C  H41C
+ BOND N4C  H42C 
+ BOND C4C  C5C
+ BOND C5C  C6C
+ BOND C2'C C3'C
+ BOND C3'C O3'C
+ BOND O3'C P   
+ BOND H5T  O5'C
+ BOND P    O1P
+ BOND P    O2P
+ BOND P    O5'A
+ BOND O5'A  C5'A
+ BOND C5'A  C4'A
+ BOND C4'A  O4'A
+ BOND C4'A  C3'A
+ BOND O4'A  C1'A
+ BOND C1'A  N9A
+ BOND C1'A  C2'A
+ BOND N9A   C4A
+ BOND N9A   C8A
+ BOND C4A   N3A 
+ BOND C4A  C5A
+ BOND N3A  C2A
+ BOND C2A  N1A
+ BOND N1A  C6A
+ BOND C6A  N6A
+ BOND N6A  H61A
+ BOND N6A  H62A
+ BOND C6A  C5A
+ BOND C5A  N7A
+ BOND N7A  C8A
+ BOND C2'A C3'A
+ BOND C2'A O2'A
+ BOND O2'A H2'A
+ BOND C3'A O3'A
+ BOND O3'A H3T  
+
+
+ DIHEdral C3'C O3'C P    O5'A  {* ester double dihedral *}
+ DIHEdral C3'C O3'C P    O5'A  {* ===================== *}
+ DIHEdral O3'C P    O5'A C5'A  {* ester double dihedral *}
+ DIHEdral O3'C P    O5'A C5'A  {* ===================== *}
+ DIHEdral H5T  O5'C C5'C C4'C
+ DIHEdral O5'C C5'C C4'C O4'C !\
+ DIHEdral O5'C C5'C C4'C C3'C !/
+ DIHEdral C3'C C4'C O4'C C1'C
+ DIHEdral C4'C O4'C C1'C C2'C
+ DIHEdral O4'C C1'C C2'C C3'C
+ DIHEdral C1'C C2'C C3'C C4'C
+ DIHEdral O4'C C4'C C3'C O3'C !\
+ DIHEdral C5'C C4'C C3'C C2'C !/
+ DIHEdral C1'C C2'C O2'C H2'C
+ DIHEdral C4'C C3'C O3'C P
+ DIHEdral O4'C C1'C N1C  C2C
+ DIHEdral C5C  C4C  N4C  H41C
+ DIHEdral P    O5'A C5'A C4'A
+ DIHEdral O5'A C5'A C4'A O4'A !\
+ DIHEdral O5'A C5'A C4'A C3'A !/
+ DIHEdral C3'A C4'A O4'A C1'A
+ DIHEdral C4'A O4'A C1'A C2'A
+ DIHEdral O4'A C1'A C2'A C3'A
+ DIHEdral C1'A C2'A C3'A C4'A
+ DIHEdral O4'A C4'A C3'A O3'A !\
+ DIHEdral C5'A C4'A C3'A C2'A !/
+ DIHEdral C1'A C2'A O2'A H2'A
+ DIHEdral C4'A C3'A O3'A H3T 
+ DIHEdral O4'A C1'A N9A  C4A
+ DIHEdral C5A  C6A  N6A  H61A
+
+ IMPRoper C5'C O4'C C3'C C4'C  !tetrahedral C4'C
+ IMPRoper O3'C C2'C C4'C C3'C  !tetrahedral C3'C
+ IMPRoper O2'C C1'C C3'C C2'C  !tetrahedral C2'C
+ IMPRoper N1C  C2'C O4'C C1'C  !tetrahedral C1'C
+ IMPRoper C1'C C2C  C6C  N1C   !planar N1C
+ IMPRoper O2C  N1C  N3C  C2C   !planar C2C
+ IMPRoper N4C  N3C  C5C  C4C   !planar C4C
+ IMPRoper H42C C4C  H41C N4C   !planar N4C
+ IMPRoper N1C  C2C  N3C  C4C  !!
+ IMPRoper C2C  N3C  C4C  C5C  !!
+ IMPRoper N3C  C4C  C5C  C6C  !! C ring torsions
+ IMPRoper C4C  C5C  C6C  N1C  !!
+ IMPRoper C5C  C6C  N1C  C2C  !!
+ IMPRoper C6C  N1C  C2C  N3C  !!
+
+ IMPRoper C5'A O4'A C3'A C4'A  !tetrahedral C4'A
+ IMPRoper O3'A C2'A C4'A C3'A  !tetrahedral C3'A
+ IMPRoper O2'A C1'A C3'A C2'A  !tetrahedral C2'A
+ IMPRoper N9A  C2'A O4'A C1'A  !tetrahedral C1'A
+ IMPRoper C1'A C4A  C8A  N9A   !planar N9A
+ IMPRoper N3A  N9A  C5A  C4A   !planar C4A
+ IMPRoper C6A  C4A  N7A  C5A   !planar C5A
+ IMPRoper N6A  C5A  N1A  C6A   !planar C6A 
+ IMPRoper H62A C6A  H61A N6A   !planar N6A
+ IMPRoper N9A  C4A  C5A  N7A   !!!
+ IMPRoper C4A  C5A  N7A  C8A   !!!
+ IMPRoper C5A  N7A  C8A  N9A   !!!  A ring 1 torsions
+ IMPRoper N7A  C8A  N9A  C4A   !!!
+ IMPRoper C8A  N9A  C4A  C5A   !!!
+ IMPRoper C4A  N3A  C2A  N1A   !!
+ IMPRoper N3A  C2A  N1A  C6A   !!
+ IMPRoper C2A  N1A  C6A  C5A   !! A ring 2 torsions
+ IMPRoper N1A  C6A  C5A  C4A   !!
+ IMPRoper C6A  C5A  C4A  N3A   !!
+ IMPRoper C5A  C4A  N3A  C2A   !!
+
+ DONOr H42C N4C
+ DONOr H41C N4C
+ DONOr H5T  O5'C
+ DONOr H61A N6A 
+ DONOr H62A N6A
+ DONOr H3T  O3'A
+ DONOr H2'C O2'C
+ DONOr H2'A O2'A
+
+ ACCEptor O2C   "  "
+ ACCEptor N3C   "  "     
+ ACCEptor O5'C  "  "
+ ACCEptor O2'C  "  "
+ ACCEptor O2'A  "  "
+ ACCEptor O3'A  "  "
+ ACCEptor N3A   "  " 
+ ACCEptor N1A   "  "
+
+ IC H5T  O5'C C5'C  C4'C   0.00      0.00  180.00    0.00   0.00
+ IC O5'C C5'C C4'C  C3'C   1.4401  110.04   30.88  115.78   1.5284
+ IC C5'C C4'C C3'C  O3'C   1.5160  115.78  156.53  111.92   1.4212
+ IC C4'C C3'C O3'C  P      1.5284  111.92  159.13  119.05   1.6001
+ IC C3'C O3'C P     O5'A   1.4212  119.05  -98.86  101.45   1.5996
+ IC O4'C C3'C *C4'C C5'C   1.4572  104.37 -119.62  115.78   1.5160
+ IC C2'C C4'C *C3'C O3'C   1.5284  102.78 -117.16  111.92   1.4212
+ IC C4'C C3'C C2'C  C1'C   1.5284  102.78  -34.79  101.97   1.5251
+ IC C3'C C2'C C1'C  N1C    1.5284  101.97  144.39  113.71   1.4896
+ IC C3'C C1'C *C2'C O2'C   0.0     0.0     120.0   0.0      0.0
+ IC C1'C C2'C O2'C  H2'C   0.0     0.0     180.0   0.0      0.0
+ IC C2'C C1'C N1C   C2C    1.5251  113.71  144.97  117.79   1.3923
+ IC C1'C C2C  *N1C  C6C    1.4896  117.79 -179.99  121.13   1.3595
+ IC C2C  N1C  C6C   C5C    1.3923  121.13    0.02  121.13   1.3570
+ IC C6C  N1C  C2C   N3C    1.3595  121.13    0.01  118.71   1.3578
+ IC N1C  N3C  *C2C  O2C    1.3923  118.71  179.98  122.46   1.2378
+ IC N1C  C2C  N3C   C4C    1.3923  118.71   -0.03  120.61   1.3386
+ IC C5C  N3C  *C4C  N4C    1.4331  121.58  180.00  118.32   1.3246
+ IC N3C  C4C  N4C   H41C   1.3386  118.32  180.00  117.70   1.0100
+ IC H41C C4C  *N4C  H42C   1.0100  117.70  180.00  120.27   1.0100
+ IC O3'C P    O5'A  C5'A   1.6001  101.45  -39.25  119.00   1.4401
+ IC O3'C O5'A *P    O1P    1.6001  101.45 -115.82  109.74   1.4802
+ IC O3'C O5'A *P    O2P    1.6001  101.45  115.90  109.80   1.4801
+ IC  P   O5'A C5'A  C4'A   1.5996  119.00 -151.39  110.04   1.5160
+ IC O5'A C5'A C4'A  C3'A   1.4401  110.04   30.88  115.78   1.5284
+ IC C5'A C4'A C3'A  O3'A   1.5160  115.78  156.53  111.92   1.4212
+ IC H3T  O3'A C3'A  C4'A   0.9600  114.97  148.63  111.92   1.5284
+ IC O4'A C3'A *C4'A C5'A   1.4572  104.37 -119.62  115.78   1.5160
+ IC C2'A C4'A *C3'A O3'A   1.5284  102.78 -117.16  111.92   1.4212
+ IC C3'A C1'A *C2'A O2'A   0.0     0.0     120.0   0.0      0.0
+ IC C1'A C2'A O2'A  H2'A   0.0     0.0     180.0   0.0      0.0
+ IC C4'A C3'A C2'A  C1'A   1.5284  102.78  -34.79  101.97   1.5251
+ IC C3'A C2'A C1'A  N9A    1.5284  101.97  144.39  113.71   1.4896
+ IC C2'A C1'A N9A   C4A    1.5251  113.71  145.00  125.97   1.3703
+ IC C1'A C4A  *N9A  C8A    1.4896  125.97 -179.94  105.00   1.3768
+ IC C4A  N9A  C8A   N7A    1.3703  105.00   -0.07  113.93   1.2970
+ IC C8A  N9A  C4A   C5A    1.3768  105.00    0.06  106.60   1.3650
+ IC N9A  C5A  *C4A  N3A    1.3703  106.60 -179.93  126.69   1.3486
+ IC C5A  C4A  N3A   C2A    1.3650  126.69   -0.04  111.18   1.3130
+ IC C4A  N3A  C2A   N1A    1.3486  111.18   -0.02  128.64   1.3399
+ IC N3A  C2A  N1A   C6A    1.3130  128.64    0.06  118.95   1.3456
+ IC C5A  N1A  *C6A  N6A    1.4034  117.43 -179.96  119.06   1.3410
+ IC N1A  C6A  N6A   H61A   1.3456  119.06  179.96  120.00   1.0100
+ IC H61A C6A  *N6A  H62A   1.0100  120.00  180.00  120.00   1.0100
+
+END {CPA}
+
+!-----------------------------------------------------------------------

@@ -1,0 +1,77 @@
+#!/usr/bin/env /data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/pyXplor
+
+opts,args = xplor.parseArguments(("R:1","W:1","E:1"),
+                                 cmdline="[options] <file.surf>",
+                                 description="""
+Generate surf output for VMD.
+""",
+                      usageString="""
+options::
+
+  -R <val>   - specify probe radius in Angstroms. [1.4]
+  -E <val>   - specify maxTessLen parameter - smaller for higher fidelity [6].
+  -W <val>   - ignored.
+
+In input .surf file consists of one line per atom in the format:
+
+index radius x y z
+
+where index is a 0-offset counter, radius, x,y,z, denote radius and atomic
+position, respectively.
+
+The output file name is that of the input with suffix '.tri'
+appended. The output format is::
+
+ index
+ V1x V1y V1z N1x N1y N1z
+ V2x V2y V2z N2x N2y N2z
+ V3x V3y V3z N3x N3y N3z
+
+where index is the atom index and Via and Nia specify the three
+triangle vertices and normals in the three Cartesian
+dimensions. For each triangle of each atom, the sequence above is repeated.
+
+"""
+)
+
+probeRadius=1.4
+maxTessLen=6.0
+for opt in opts:
+    if opt[0]=="R":
+        probeRadius=float(opt[1])
+        pass
+    if opt[0]=="E":
+        maxTessLen=float(opt[1])
+        pass
+    if opt[0]=="W":
+        writeOption=int(opt[1]) # not used
+        pass
+    pass
+    
+infile = args[0]
+outfile=infile+".tri"
+
+contents = open(infile).readlines()
+#ind,radius,x,y,z 
+atomInfo = [line.split() for line in contents]
+
+radii = [el[1] for el in atomInfo]
+
+xsim=xplor.simulation
+from vec3 import Vec3
+for ind,radius,x,y,z in atomInfo:
+    xsim.addAtom("",int(ind),"",
+                 pos=Vec3(float(x),float(y),float(z)))
+    pass
+
+from surfD import Surf
+
+surf = Surf('all')
+surf.update_radii(radii)
+surf.setProbeRadius(probeRadius)
+surf.setMaxTessLen(maxTessLen)
+
+surf.tessellate()
+
+ofile=open(outfile,"w")
+ofile.write( surf.surfOutput() )

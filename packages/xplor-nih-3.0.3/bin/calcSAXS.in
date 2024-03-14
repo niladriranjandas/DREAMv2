@@ -1,0 +1,681 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+#
+# calculate the solution X-ray scattering curve for one (or more) pdb files
+
+import sys
+
+#
+
+deltaQ=0.01  #these parameters define the values of q for which I is calc'd
+numQ = None
+angleN = 500 # this specifies the granularity of the solid-angle grid
+
+(opts,pdbFiles) = xplor.parseArguments(('psf:1',
+                                        'expt:1',
+                                        'deltaQ:1','numQ:1',
+                                        'nm:0',
+                                        'minQ:1',
+                                        'maxQ:1',
+                                        'angleN:1',
+                                        'selection:1',
+                                        'radiusScale:1',
+                                        'volumeScale:1',
+                                        'rhob:1',
+                                        'background:1',
+                                        'rhobStart:1',
+                                        'rhobEnd:1',
+                                        'rhobNum:1',
+                                        'bgStart:1',
+                                        'bgEnd:1',
+                                        'bgNum:1',
+                                        'radiusScaleStart:1',
+                                        'radiusScaleEnd:1',
+                                        'radiusScaleNum:1',
+                                        'volumeScaleStart:1',
+                                        'volumeScaleEnd:1',
+                                        'volumeScaleNum:1',
+                                        'addUnknownAtoms:0',
+                                        'fit:0',
+                                        'ensWeights:1',
+                                        'ensWeightsRegexp:1',
+                                        'formFactors:1',
+                                        'normalizeIndex:1',
+                                        'nostderr:0',
+                                        'verbose:0',
+                                        'sans:0',
+                                        'fractionD2O:1',
+                                        'exchangeFraction:1',
+                                        'fractionDeuterated:1',
+                                        'altDeuteratedSel:2',
+                                        'exptPoints:0',
+                                        'noSpline:0',
+                                        'splineToExpt:0'),
+                                        cmdline="[option] <pdb files>",
+                                        description="""
+Given a molecular structure, compute a SAXS or SANS curve, optionally
+fitting to experiment. Also compute
+optimal excluded solvent parameters (including boundary layer contribution).
+""",
+                                       usageString="""
+
+ where options are zero or more of::
+
+   -psf=psf file
+   -expt=filename
+   -deltaQ=value
+   -numQ=value
+   -minQ=value
+   -maxQ=value
+   -angleN=value
+   -normalizeIndex=value
+
+   -nm                - interpret in input q values in inverse nanometers. By 
+   		      	default input units are inverse angstroms, and output
+			values are always in inverse angstroms.
+   -ensWeights <vals> - a colon-separated list of weights to use on
+                        structure ensemble members. If not specified, the
+                        ensemble members are weighted equally.
+   -ensWeightsRegexp=value- regular expression used to extract ensemble weights 
+   		      	    from remarks section of the PDB header. The weights
+                            obtained using this argument are multiplicatively
+                            combined with those from the -ensWeights option.
+
+   -selection=<atoms to include in the scattering calculation>
+   -radiusScale=value
+   -rhob=value
+   -background=value
+   -volumeScale=value
+   -rhobStart=value
+   -rhobEnd=value
+   -rhobNum=value
+   -bgStart=value
+   -bgEnd=value
+   -bgNum=value
+   -radiusScaleStart=value
+   -radiusScaleEnd=value
+   -radiusScaleNum=value
+   -volumeScaleStart=value
+   -volumeScaleEnd=value
+   -volumeScaleNum=value
+   -addUnknownAtoms   - add in heavy atoms whose coordinates are not 
+   		      	specified.
+   -fit               - fit solvent parameters to experimental curve
+   -sans              - compute a SANS curve instead of a SAXS curve
+   -fractionD2O=value - fraction of D2O in solvent (default: 1)
+   -exchangeFraction=value
+                      - fraction of exchangable protons which actually
+                        exchange with deuterons (default: 0.9)
+   -fractionDeuterated=value
+                      - fraction of deuterons for nonexchangable protons
+                        (default: 0)
+   -altDeuteratedSel=selection value
+                      - alternate value of fractionDeuterated which applies
+		        only for protons in the given atom selection.
+   -formFactors=val   - specify alternate form factors. "original" is the 
+   		        default. The other supported value is "JBW" which
+			may work better for RNAs.
+   -exptPoints        - if -expt and -numQ are specified, this option forces
+   		        recalculation of I(q) at the exact experimental q
+			values for final output (and calculation of chi^2).
+			Warning: this option incurs a severe performance 
+			penalty.
+   -noSpline          - This option disables the interpolation of 
+   		      	calculated I(q) values to the q-values 
+			given for the experimental I(q). Instead, the
+			experimental curve is interpolated to the
+			calculated points, and normalization and
+			calculation is done only on the calculated
+			points. This typically gives a worse
+			approximation to I(q).
+   -splineToExpt      - This option should only be given with -noSpline:
+   		      	it specifies that the spline-interpolated values of 
+			I(q) at the exact experimental q values are
+			computed for final output (and calculation of chi^2).
+			Normalization, on the other hand is computed
+			from interpolated experimental points at the
+			numQ grid points used for I(q) calculation.
+   -nostderr
+
+ If -expt is specified, filename should contain two columns:
+ q value, I(q)
+ An optional third column holds err(q).
+ 
+ If -expt is not specified, deltaQ and numQ specify the values at which
+ I(q) is calculated. The chi^2 value is printed. If -nostderr is not 
+ specified, the value is printed to stderr, else it is printed to stdout.
+
+ Default values of the atom selection are all heavy atoms (for SAXS), and
+ all atoms (for SANS).
+
+ If -numQ is and -expt are specified, the experimental data is fit to
+ and sampled uniformly at numQ points from the minimum
+ value (or that specified by -minQ) up to the value specified by -maxQ (by	
+ default, the max value in the data file).
+ 
+ angleN controls how many solid angle values are used in the
+ approximation. 500 is the default, and probably sufficient for most
+ SAXS experiments.
+
+ -normalizeIndex specifies which datapoint is used to normalize calculated to
+ observed curves. The default value is -3, which specifies that the curves
+ are normalized to minimize the chi^2.
+ 
+ If more than one pdb file is specified, the scattering curve resulting
+ from the average scattering of all structures is calculated with weights
+ specified by the -ensWeights option.
+
+ If the -fit option is given, the average radius of the solvent excluded 
+ volume is varied to best-fit the observed curve. The three parameters fitted
+ are radiusScale, volumeScale and rhob, which can be explicitly specified
+ using the -radiusScale -volumeScale and -rhob flags, respectively. These 
+ parameters are described in the Xplor-NIH solnScatPot help page. If one of
+ the parameters is specified on the command-line, it is excluded from the fit 
+ procedure. For SANS, the isotropic background is also fit. This later 
+ parameter can be directly specified using the -background option. The search
+ range for a fit as a fraction of the average value of the last 10 experimental
+ datapoints can be specified using -bgStart and -bgEnd, with the number 
+ of points specified by -bgNum. Note that the specification for -background is
+ absolute, while -bg* options specify relative background values.
+
+ For the scattering curves printed by the script, the background has been
+ added to the calculated curve, rather than subtracted from the experimental
+ curve to make visual comparison more convenient.
+
+ rhobStart and rhobEnd options specify the minimum and maximum boundary 
+ layer solvent density values used in the fit.
+
+""")
+
+psf=None
+expt=None
+selection=None
+normalizeIndex=-3
+write=sys.stderr.write
+doFit=False
+addUnknownAtoms=False
+verbose=False
+ensWeights=None
+ensWeightsRegexp="EnsWeights.*{"
+radiusScale=1
+volumeScale=None
+rhob=None
+bg=None
+solventRadius=1.44
+boundaryThickness=3
+useNM=False
+minQ=None
+maxQ=None
+r0Start=None  ; r0End=None  ; r0Num=None
+V0Start=None  ; V0End=None  ; V0Num=None
+rhobStart=None; rhobEnd=None; rhobNum=None
+bgStart=None  ; bgEnd=None  ; bgNum=None
+calcSANS=False
+fractionD2O=1
+exchangeFraction=0.9
+fractionDeuterated=0
+altDeuteratedSels=[]
+evalAtExptPoints=False
+noSpline=False
+splineToExpt=False
+formFactors="original"
+
+for opt in opts:
+    if opt[0]=='psf':
+        psf=opt[1]
+        pass
+    if opt[0]=='expt':
+        expt=opt[1]
+        pass
+    if opt[0]=='deltaQ':
+        deltaQ=float(opt[1])
+        pass
+    if opt[0]=='numQ':
+        numQ=int(opt[1])
+        pass
+    if opt[0]=='minQ':
+        minQ=float(opt[1])
+        pass
+    if opt[0]=='maxQ':
+        maxQ=float(opt[1])
+        pass
+    if opt[0]=='angleN':
+        angleN=int(opt[1])
+        pass
+    if opt[0]=='selection':
+        selection=opt[1]
+        pass
+    if opt[0]=='normalizeIndex':
+        normalizeIndex=int(opt[1])
+    if opt[0]=='nostderr':
+        write=sys.stdout.write
+        pass
+    if opt[0]=='verbose':
+        verbose=True
+        pass
+    if opt[0]=='nm':
+        useNM=True
+        pass
+    if opt[0]=='radiusScale':
+        radiusScale=float(opt[1])
+        r0Start=radiusScale  ; r0End=radiusScale  ; r0Num=1
+        pass
+    if opt[0]=='volumeScale':
+        volumeScale=float(opt[1])
+        V0Start=volumeScale  ; V0End=volumeScale  ; V0Num=1
+        pass
+    if opt[0]=='rhob':
+        rhob=float(opt[1])
+        rhobStart=rhob  ; rhobEnd=rhob  ; rhobNum=1
+        pass
+    if opt[0]=='background':
+        bg=float(opt[1])
+        bgStart=bg  ; bgEnd=bg  ; bgNum=1
+        pass
+    if opt[0]=='rhobStart':
+        rhobStart=float(opt[1])
+        pass
+    if opt[0]=='rhobEnd':
+        rhobEnd=float(opt[1])
+        pass
+    if opt[0]=='rhobNum':
+        rhobNum=int(opt[1])
+        pass
+    if opt[0]=='bgStart':
+        bgStart=float(opt[1])
+        pass
+    if opt[0]=='bgEnd':
+        bgEnd=float(opt[1])
+        pass
+    if opt[0]=='bgNum':
+        bgNum=int(opt[1])
+        pass
+    if opt[0]=='radiusScaleStart':
+        r0Start=float(opt[1])
+        pass
+    if opt[0]=='radiusScaleEnd':
+        r0End=float(opt[1])
+        pass
+    if opt[0]=='radiusScaleNum':
+        r0Num=int(opt[1])
+        pass
+    if opt[0]=='volumeScaleStart':
+        V0Start=float(opt[1])
+        pass
+    if opt[0]=='volumeScaleEnd':
+        V0End=float(opt[1])
+        pass
+    if opt[0]=='volumeScaleNum':
+        V0Num=int(opt[1])
+        pass
+    if opt[0]=='formFactors':
+        formFactors=opt[1]
+        pass
+    if opt[0]=='addUnknownAtoms':
+        addUnknownAtoms=True
+        pass
+    if opt[0]=='fit':
+        doFit=True
+        pass
+    if opt[0]=='sans':
+        calcSANS=True
+        pass
+    if opt[0]=='fractionD2O':
+        fractionD2O=float(opt[1])
+        pass
+    if opt[0]=='exchangeFraction':
+        exchangeFraction=float(opt[1])
+        pass
+    if opt[0]=='fractionDeuterated':
+        fractionDeuterated=float(opt[1])
+        pass
+    if opt[0]=='altDeuteratedSel':
+        altDeuteratedSels.append((opt[1],float(opt[2])))
+        pass
+    if opt[0]=='ensWeights':
+        if ':' in opt[1]:
+            ensWeights = opt[1].split(':')
+        else:
+            ensWeights = opt[1].split()
+            pass
+        ensWeights = [float(s) for s in ensWeights]
+        pass	   
+    if opt[0]=='ensWeightsRegexp':
+        ensWeightsRegexp = opt[1]
+        pass	   
+    if opt[0]=='exptPoints':
+        evalAtExptPoints=True
+        pass
+    if opt[0]=='noSpline':
+        noSpline=True
+        pass
+    if opt[0]=='splineToExpt':
+        splineToExpt=True
+        pass
+    pass
+
+if not noSpline and splineToExpt:
+   raise Exception("specify -splineToExpt only in conjunction with -noSpline")
+
+from ensembleSimulation import EnsembleSimulation
+if len(pdbFiles)<1:
+    raise Exception("you must specify at least one pdb file")
+
+import os
+import protocol
+for file in pdbFiles:
+    file,model = protocol.splitModel(file,1)
+    os.stat(file)  # will throw exception if a file doesn't exist
+    pass
+
+
+# (try to) sort by ensemble member: we need to line up ensemble weights
+# with files
+from simulationTools import sortFilesByEnsMember
+pdbFiles = sortFilesByEnsMember(pdbFiles)
+
+ens=EnsembleSimulation('ensemble',len(pdbFiles))
+
+
+
+import protocol
+protocol.initRandomSeed()
+pdbData=None
+if psf:
+    if ":" in psf:
+        psf = psf.split(':')[ens.member().memberIndex()]
+        pass
+    protocol.initStruct(psf)
+    pdbData=protocol.initCoords(pdbFiles[ens.member().memberIndex()])
+else:
+    pdbData=protocol.loadPDB(pdbFiles[ens.member().memberIndex()])
+    pass
+
+
+if ens.size()>1:
+    if not ensWeights and ensWeightsRegexp:
+        ensWeights=[1]*ens.size()
+        import re
+        weights={}
+        for remark in pdbData.remarks:
+            match=re.search(ensWeightsRegexp,remark)
+            if match:
+                substr=remark[remark.rfind('{'):]
+                dict=eval(substr)
+                for key,val in list(dict.items()):
+                    weights[key] = val
+                    pass
+                pass
+            pass
+        if len(weights)!=ens.size():
+            raise Exception('ensWeights values differ from ensemble size')
+        for key in list(weights.keys()):
+            ensWeights[key] *= weights[key]
+            pass
+    
+        pass
+    if not ensWeights:
+        ensWeights=[1]*ens.size()
+        pass
+    ens.setWeights( ensWeights )
+    print("#Using ensemble weights:", end=' ')
+    for i in range(ens.size()):
+        print(ens.weight(i), end=' ')
+        pass	
+    print()
+    pass
+
+
+
+if len(AtomSel("name H* and not known")) > 0.6 * len(AtomSel("known")):
+    write('warning: many protons are missing\n')
+
+if addUnknownAtoms:
+    try:
+        write("adding %d heavy atoms" %
+              len(AtomSel("not name H* and not known")))
+        from regularize import addUnknownAtoms_new
+        addUnknownAtoms_new(maxFixupIters=1)
+    except protocol.CovalentViolation:
+        pass
+
+selStr="not known" if calcSANS else "not known and not name H*"
+ens.deleteAtoms(selStr)
+ens.sync()  #FIX: why is this needed?
+
+if expt==None:
+    numQ = 100 if numQ==None else numQ
+    minQ = 0 if minQ==None else minQ
+    if maxQ:
+        deltaQ = (maxQ-minQ) / numQ
+        pass
+    exptDataOrFilename=[]
+    q=0
+    for i in range(numQ):
+        q = i*deltaQ
+        I = 1 #dummy value
+        exptDataOrFilename.append( (q,I) )
+        pass
+    pass
+else:
+    exptDataOrFilename=expt
+    pass
+
+if calcSANS:
+    from sansPotTools import create_SANSPot
+
+    if not selection: selection="all"
+
+    scat = create_SANSPot('scat',selection,exptDataOrFilename,
+                          radiusScale=radiusScale,
+                          volumeScale=volumeScale,
+                          normalizeIndex=normalizeIndex,
+                          numPoints=numQ,
+                          minQ=minQ,
+                          maxQ=maxQ,
+                          cmpType='plain',
+                          fractionD2O=fractionD2O,
+                          exchangeFraction=exchangeFraction,
+                          fractionDeuterated=fractionDeuterated,
+                          altDeuteratedSels=altDeuteratedSels,
+                          preweighted=False,
+                          verbose=verbose)
+
+    if doFit:
+        rhobStart = 0 if rhobStart==None else rhobStart*scat.rho0()
+        rhobEnd   = (0.2 if rhobEnd==None else rhobEnd)*scat.rho0()
+        if bgNum==None: bgNum=10
+        pass
+else:
+    if bgNum==None: bgNum=0
+    import solnXRayPotTools
+    #use this for large-angle DNA calculations
+    #solnXRayPotTools.solventVolume = solnXRayPotTools.solventVolumeSets['tiede']
+    from solnXRayPotTools import create_solnXRayPot
+
+    if not selection: selection="not name H*"
+
+    scat = create_solnXRayPot('scat',selection,exptDataOrFilename,
+                              radiusScale=radiusScale,
+                              volumeScale=volumeScale,
+                              normalizeIndex=normalizeIndex,
+                              numPoints=numQ,
+                              useInternalSpline=not noSpline,
+                              formFactors=formFactors,
+                              useNM=useNM,
+                              minQ=minQ,
+                              maxQ=maxQ,
+                              preweighted=False)
+
+scat.setNumAngles(angleN)
+scat.setSolventRadius(solventRadius)
+scat.setBoundaryThickness(boundaryThickness)
+
+
+if doFit:
+    if scat.calcType() != 'uniform':
+       print('ERROR: uniformly spaced q-values required for fitting.')
+       print('Perhaps you should specifify a -numQ option?')
+       import sys; sys.exit(1)
+       pass
+      
+
+    from solnScatPotTools import fitParams
+    fitParams(scat,
+              r0Start=r0Start    , r0End=r0End    , r0Num=r0Num,
+              V0Start=V0Start    , V0End=V0End    , V0Num=V0Num,
+              rhobStart=rhobStart, rhobEnd=rhobEnd, rhobNum=rhobNum,
+              bgStart=bgStart    , bgEnd=bgEnd    , bgNum=bgNum,
+              verbose=verbose,
+              writer=write)
+#    import cProfile
+#    cProfile.run('''fitParams(scat,
+#              r0Start=r0Start    , r0End=r0End    , r0Num=r0Num,
+#              V0Start=V0Start    , V0End=V0End    , V0Num=V0Num,
+#              rhobStart=rhobStart, rhobEnd=rhobEnd, rhobNum=rhobNum,
+#              verbose=verbose,
+#              writer=write)''','profile.out')
+    pass
+
+
+if bg!=None : scat.setBG(bg)
+scat.calcEnergy()
+
+if rhob:
+   scat.setCalcBoundary(True)
+   scat.setRhob(rhob)
+   scat.calcBoundaryPoints()
+   pass
+
+if evalAtExptPoints:
+    if not exptDataOrFilename:
+        raise Exception('ERROR: -expt argument required.')
+    from solnScatPotTools import readData
+    expt,weights = readData(exptDataOrFilename)
+    
+    scat.setQValues([t[0] for t in expt])
+    scat.setExpt([t[1] for t in expt])
+    scat.setWeights(weights)
+
+    if calcSANS:
+        from sansPotTools import genFormFactors
+        f,fi,a,g,ev = genFormFactors(scat.qValues(),scat.selection(),
+                                     exchangeFraction,fractionDeuterated,
+                                     fractionD2O,
+                                     altDeuteratedSels)
+    else:
+        from solnXRayPotTools import genFormFactors
+        f,fi,a,g = genFormFactors(scat.qValues(),scat.selection())
+        pass
+    scat.setFormFactors(f)
+    scat.setIFormFactors(fi)
+
+    if scat.calcBoundary():
+        scat.calcBoundaryPoints()
+        pass
+    
+    scat.setFormScale( scat.formScale() ) # to recalc internal form factors
+    scat.setCalcType('n')
+    pass
+
+calcd=scat.splined()
+
+I = scat.splined()
+if scat.calcType() == 'uniform':
+   Ib = scat.boundaryI()
+   ratio = sum( Ib/I ) / len(I)
+   write('boundary layer fraction: %.4f  ; magnitude: %8.1f\n'% (ratio,sum(Ib)))
+   pass
+
+expt = scat.expt() / scat.exptScale() #map(lambda x:x/scat.exptScale(),scat.expt())
+
+weights= scat.weights() * scat.exptScale()**2 #map(lambda w:w*scat.exptScale()**2, scat.weights())
+
+from solnScatPotTools import chi2, normalize
+curChi2=chi2(weights,calcd,expt,normalizeIndex)
+
+#normalize
+calcd = normalize(weights,calcd,expt,normalizeIndex)
+
+# so can compare to actual experiment
+calcd=scat.splined()*scat.exptScale()/scat.calcdScale() + scat.bg()
+expt =scat.expt() + scat.bg()
+                 
+
+from gyrPotTools import create_GyrPot
+gyrPot=create_GyrPot('gyr',sel=selection)
+Rg=gyrPot[0].Rg()
+
+print("# input file(s):", pdbFiles[0] if len(pdbFiles)==1 else pdbFiles)
+if calcSANS:
+    print("#  percent D2O in solvent:    %7.2f" % fractionD2O)
+    print("#  precent sample deuterated: %7.2f" % fractionDeuterated)
+    for (sel,val) in altDeuteratedSels:
+        print("#  alt deuteration %%:         %7.2f for (%s)" % (val,sel))
+        pass
+    print("#  exchange fraction:         %7.3f" % exchangeFraction)
+    pass
+print("#  solvent density: %10.6f" % scat.rho0())
+print("#  vacuum radius of gyration: %10.6f" % Rg)
+print("#  isotropic background: %10.6f" % scat.bg())
+
+
+
+qValues = scat.qValuesExpt()
+
+calcd=scat.splined() + scat.bg()
+if splineToExpt:
+    from spline import FloatSpline
+    calcdSpline = FloatSpline(qValues,calcd)
+    exptSpline = FloatSpline(qValues,expt)
+    weightsSpline = FloatSpline(qValues,weights)
+  
+    from solnScatPotTools import readData
+    qExpt,weights = readData(exptDataOrFilename)
+    qValues = [t[0] for t in qExpt]
+    exptSpline = FloatSpline(qValues,[t[1] for t in qExpt])
+    weightsSpline = FloatSpline(qValues,weights)
+    from cdsVector import CDSVector_double
+    weights=CDSVector_double(weights)
+    expt=CDSVector_double([t[1] for t in qExpt])
+    calcd = CDSVector_double([calcdSpline(q) for q in qValues])
+    curChi2 = chi2(weights,calcd,expt,normalizeIndex)
+    pass
+
+print("#  chi^2: %f  radiusScale: %.3f  volumeScale: %.3f  rhob: %.5f"%\
+      (curChi2,scat.radiusScale(),scat.volumeScale(),scat.rhob()))
+print("#")
+print("# %5s %12s %12s %12s %10s" %("q   ",
+                                    "Icalc   ",
+                                    "Iexpt   ",
+                                    "Ierr    ",
+                                    "residual"))
+
+from math import sqrt
+for i,q in enumerate(qValues):
+    weight=weights[i]
+    Icalc=calcd[i]
+    Iexpt=expt[i]
+    if weight>0.:
+        error = 1./sqrt(weight)
+        residual = (Icalc-Iexpt) / error
+    else:
+        error=0
+        residual = Icalc-Iexpt
+        pass
+    print("%6.4f %12.8f %12.8f %12.8f %10.6e"%(q,
+                                               Icalc,
+                                               Iexpt, error,
+                                               residual))
+    pass
+
+
+if verbose:
+   from simulationTools import analyze
+   print(analyze(scat))
+   Ib = scat.boundaryI()
+   I = scat.splined()
+   ratio = sum( Ib/I ) / len(I)
+   print('boundary layer volume:', scat.boundaryVol())
+
+   pass

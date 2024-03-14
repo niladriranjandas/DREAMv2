@@ -1,0 +1,58 @@
+REMARKS  zinc and such,... 
+
+MASS   S     32.06000! sulphur
+MASS   ZN    65.3700 ! ZINC 
+MASS   MG    24.30500
+                    
+remarks  to use it specify the following patch command: (after all four
+remarks  CYS have been generated
+remarks  PATCH ZN  reference=1=( atom a 20 * ) 
+remarks            reference=2=( atom b 30 * )
+remarks            reference=3=( atom a 11 * )
+remarks            reference=4=( atom b 22 * )
+remarks   END
+
+PRESidue ZNK     { disulfide bridge  ...CYS      CYS...
+                                              \DISU/            }
+ GROUP     
+  MODIfy ATOM 1CB           CHARge= 0.19  END
+  MODIfy ATOM 1SG  TYPE=S   CHARge=-0.19  END
+  ATOM 1ZN         TYPE=ZN  CHARGE=+2.0 END
+ GROUP
+  MODIfy ATOM 2CB           CHARge= 0.19  END
+  MODIfy ATOM 2SG  TYPE=S   CHARge=-0.19  END
+ GROUP
+  MODIfy ATOM 3CB           CHARge= 0.19  END
+  MODIfy ATOM 3SG  TYPE=S   CHARge=-0.19  END
+ GROUP
+  MODIfy ATOM 4CB           CHARge= 0.19  END
+  MODIfy ATOM 4SG  TYPE=S   CHARge=-0.19  END
+
+ ADD BOND 1ZN 1SG
+ ADD BOND 1ZN 2SG
+ ADD BOND 1ZN 3SG
+ ADD BOND 1ZN 4SG
+
+ ADD ANGLe  1CB 1SG 1ZN 
+ ADD ANGLe  2CB 2SG 1ZN 
+ ADD ANGLe  3CB 3SG 1ZN 
+ ADD ANGLe  4CB 4SG 1ZN 
+ ADD ANGLe  1SG 2SG 1ZN
+ ADD ANGLe  1SG 3SG 1ZN
+ ADD ANGLe  1SG 4SG 1ZN
+ ADD ANGLe  2SG 3SG 1ZN
+ ADD ANGLe  2SG 4SG 1ZN
+ ADD ANGLe  3SG 4SG 1ZN
+
+END {DISU}
+
+
+RESIdue ZN   {* zinc *}
+ GROUP     
+  ATOM ZN         TYPE=ZN  CHARGE=+2.0 END
+END
+
+RESIdue MG         
+ GROUp
+  ATOM MG  TYPE=MG    CHARGE=2.0    END
+END {MG}

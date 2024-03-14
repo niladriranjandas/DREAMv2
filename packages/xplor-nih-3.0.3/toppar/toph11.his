@@ -1,0 +1,213 @@
+REMARKS TOPH11.HIS 
+REMARKS ==========
+REMARKS PATCHES TO CHANGE PROTONATION DEGREE OF HISTIDINES
+REMAKRS CALCIUM ION RESIDUE INCLUDED
+REMARKS MIP GROUP AS PATCH TO SER INCLUDED
+REMARKS
+REMARKS AUTHOR: AXEL BRUNGER, 28-JAN-1983 
+
+
+{* protein default masses *}
+MASS   H      1.00800! hydrogen which can h-bond to neutral atom
+MASS   HC     1.00800!    ="=     ="=     ="=    to charged atom
+!MASS   HA     1.00800! aliphatic hydrogen
+!MASS   CT    12.01100! aliphatic carbon
+MASS   C     12.01100! carbonyl carbon
+MASS   CH1E  13.01900! extended atom carbon with one hydrogen
+MASS   CH2E  14.02700!    ="=      ="=     ="=   two hydrogens
+MASS   CH3E  15.03500!    ="=      ="=     ="=   three hydrogens
+MASS   CR1E  13.01900!    ="=      ="=      in an aromatic ring with one H
+MASS   N     14.00670! peptide nitrogen with no hydrogens attached
+MASS   NR    14.00670! nitrogen in an aromatic ring with no hydrogens
+MASS   NP    14.00670! pyrole nitrogen
+MASS   NH1   14.00670! peptide nitrogen bound to one hydrogen
+MASS   NH2   14.00670!    ="=       ="=      ="= two hydrogens
+MASS   NH3   14.00670! nitrogen bound to three hydrogens
+MASS   NC2   14.00670! charged guandinium nitrogen bound to two hydrogens
+MASS   O     15.99940! carbonyl oxygen
+MASS   OC    15.99940! carboxy oxygen
+MASS   OH1   15.99940! hydroxy oxygen
+MASS   S     32.06000! sulphur
+MASS   SH1E  33.06800! extended atom sulfur with one hydrogen
+
+! ----------------------------------------------------------------------
+
+RESIdue CA++           ! CA ION
+  ATOM CA  TYPE= S {right now we don't have a CA}  CHARge= 2.00 END
+END {CA++}
+
+! ----------------------------------------------------------------------
+
+PRESidue MIP      ! MIP (MONOISOPROPYLPHOSPHORYL) group patched to SER
+                  ! charges from: Perahia, Pullman, Berthod, 
+                  ! Theor. Chim. Acta (1975) and Kossiakoff et.al.
+                  ! Biochem, 20 6462. (1981)
+                  !
+                  ! has to be patched as REFErence=NIL=<selection>
+ GROUP            !
+  MODIFY ATOM  CB  TYPE=CH2E             END!       CA (SER)
+  DELETE ATOM  HG  END                      !       |
+ GROUP                                      !       CB (SER)
+  MODIFY ATOM  OG  TYPE=OS  CHARge=-0.27 END!                |
+  ADD    ATOM  PD  TYPE=P   CHARge= 0.52 END!                OG
+  ADD    ATOM  OU  TYPE=O2  CHARge=-0.49 END!                |      (-)
+  ADD    ATOM  OP  TYPE=O2  CHARge=-0.49 END!          OU -- PD -- OP
+  ADD    ATOM  OL  TYPE=OS  CHARge=-0.27 END!                |
+ GROUP                                      !                OL
+  ADD    ATOM  CL1 TYPE=CH1E CHARge=0.0  END!         |      |      |
+  ADD    ATOM  CL2 TYPE=CH3E CHARge=0.0  END!       - CL2 -- CL1 -- CL3 -
+  ADD    ATOM  CL3 TYPE=CH3E CHARge=0.0  END!         |      |      |
+!
+BOND    OG   PD
+BOND    PD   OP
+BOND    PD   OU
+BOND    PD   OL
+BOND    OL   CL1
+BOND    CL1  CL3
+BOND    CL1  CL2
+
+ADD ANGLE   CB  OG  PD
+ADD ANGLE   OG  PD  OP
+ADD ANGLE   OG  PD  OU
+ADD ANGLE   OG  PD  OL
+ADD ANGLE   OU  PD  OL 
+ADD ANGLE   OU  PD  OP
+ADD ANGLE   OL  PD  OP
+ADD ANGLE   PD  OL  CL1
+ADD ANGLE   OL  CL1  CL2 
+ADD ANGLE   OL  CL1  CL3
+ADD ANGLE   CL2  CL1  CL3
+
+ADD DIHEDRAL  CA  CB  OG  PD
+ADD DIHEDRAL  PD  OL  CL1  CL2 
+ADD DIHEDRAL  CB  OG  PD  OL  {* double dihedral *}
+ADD DIHEDRAL  CB  OG  PD  OL  {* =============== *}
+ADD DIHEDRAL  OG  PD  OL  CL1 {* double dihedral *}
+ADD DIHEDRAL  OG  PD  OL  CL1 {* =============== *}
+
+ADD IMPROPER   OL  CL2  CL3  CL1
+
+ADD ACCEPTOR   OU  PD
+ADD ACCEPTOR   OP  PD
+DELETE ACCEPTOR  OG "  " 
+
+ADD IC   CA   CB   OG   PD       0.0   0.0   180.0   0.0   0.0
+ADD IC   CB   OG   PD   OL       0.0   0.0  -120.0   0.0   0.0
+ADD IC   OL   OG  *PD   OP       0.0   0.0   120.0   0.0   0.0
+ADD IC   OL   OG  *PD   OU       0.0   0.0  -120.0   0.0   0.0
+ADD IC   OG   PD   OL   CL1      0.0   0.0   180.0   0.0   0.0
+ADD IC   PD   OL   CL1  CL2      0.0   0.0   180.0   0.0   0.0
+ADD IC   CL2  OL  *CL1  CL3      0.0   0.0   180.0   0.0   0.0
+
+
+END {MIP}
+
+!-----------------------------------------------------------------------
+
+PRESidue HISE   ! Patch to change doubly protonated HIS to singly
+                ! protonated histidine (HE2)
+                ! has to be patched as REFErence=NIL=<selection>
+                        
+ GROUP
+  MODIFY ATOM  CB   TYPE=CH2E  CHARge= 0.0   END
+  MODIFY ATOM  CG   TYPE=C     CHARge= 0.0   END
+ GROUP
+  MODIFY ATOM  ND1  TYPE=NR    CHARge=-0.24  END
+  MODIFY ATOM  CE1  TYPE=CR1E  CHARge= 0.24  END
+ GROUP
+  MODIFY ATOM  CD2  TYPE=CR1E  CHARge= 0.10  END
+  MODIFY ATOM  NE2  TYPE=NH1   CHARge=-0.32  END
+  MODIFY ATOM  HE2  TYPE=H     CHARge= 0.22  END
+  DELETE ATOM  HD1                           END
+
+ ADD ACCEPTOR  ND1 " "
+
+END {HISE}
+
+!--------------------------------------------------------------------------
+
+PRES HISD   ! Patch to change doubly protonated HIS to singly
+            ! protonated histidine (HD1)
+            ! has to be patched as REFErence=NIL=<selection>
+ GROUP
+  MODIFY ATOM  CB   TYPE=CH2E  CHARge= 0.00  END
+  MODIFY ATOM  CG   TYPE=C     CHARge= 0.03  END
+ GROUP
+  MODIFY ATOM  ND1  TYPE=NH1   CHARge=-0.31  END
+  MODIFY ATOM  HD1  TYPE=H     CHARge= 0.22  END
+ GROUP
+  MODIFY ATOM  CD2  TYPE=CR1E  CHARge= 0.09  END
+  MODIFY ATOM  NE2  TYPE=NR    CHARge=-0.25  END
+  MODIFY ATOM  CE1  TYPE=CR1E  CHARge= 0.22  END
+  DELETE ATOM  HE2                        END
+
+ ADD ACCEPTOR  NE2 " "
+
+END {HISD}
+
+!-----------------------------------------------------------------------
+
+PRES HIST     !  INVERSE PATCH TO HISD
+              !  has to be patched as REFErence=NIL=<selection>
+
+ GROUP 
+  MODIFY ATOM  CB   TYPE=CH2E    CHARge= 0.10  END
+  MODIFY ATOM  CG   TYPE=C       CHARge= 0.15  END
+  MODIFY ATOM  CD2  TYPE=CR1E    CHARge= 0.20  END
+ GROUP
+  MODIFY ATOM  ND1  TYPE=NH1     CHARge=-0.25  END
+  MODIFY ATOM  HD1  TYPE=H       CHARge= 0.32  END
+ GROUP
+  MODIFY ATOM  CE1  TYPE=CR1E    CHARge= 0.41  END
+ GROUP
+  MODIFY ATOM  NE2  TYPE=NH1     CHARge=-0.25  END
+  ADD    ATOM  HE2  TYPE=H       CHARge= 0.32  END
+
+ ADD BOND  NE2  HE2
+
+ ADD ANGLE  HE2  NE2  CD2
+ ADD ANGLE  HE2  NE2  CE1
+
+ ADD IMPROPER  NE2  CE1  CD2  HE2
+
+ ADD DONOR   HE2  NE2
+ DELETE ACCEPTOR  NE2 " "
+
+ ADD IC  CE1  CD2 *NE2  HE2 0.0 0.0 180.0 0.0 0.0
+
+END {HISD}
+
+!---------------------------------------------------------------------
+
+PRESIDUE HISU   ! INVERSE PATCH TO HISE
+                ! has to be patched as REFErence=NIL=<selection>
+
+ GROUP
+  MODIFY ATOM  CB   TYPE=CH2E   CHARge= 0.10  END
+  MODIFY ATOM  CG   TYPE=C      CHARge= 0.15  END
+  MODIFY ATOM  CD2  TYPE=CR1E   CHARge= 0.20  END
+ GROUP
+  MODIFY ATOM  ND1  TYPE=NH1    CHARge=-0.25  END
+  ADD ATOM  HD1     TYPE=H      CHARge= 0.32  END
+ GROUP
+  MODIFY ATOM  CE1  TYPE=CR1E   CHARge= 0.41  END
+ GROUP
+  MODIFY ATOM  NE2  TYPE=NH1    CHARge=-0.25  END
+  MODIFY ATOM  HE2  TYPE=H      CHARge= 0.32  END
+
+ ADD BOND  ND1    HD1
+
+ ADD ANGLE  CG  ND1  HD1
+ ADD ANGLE  HD1  ND1  CE1
+
+ ADD IMPROPER   ND1  CG  CE1  HD1
+
+ ADD DONOR   HD1  ND1
+ DELETE ACCEPTOR  ND1 " "
+
+ ADD IC  CE1  CG *ND1  HD1    0.0 0.0 180.0 0.0 0.0
+
+END {HISU}
+
+!------------------------------------------------------------------------
+

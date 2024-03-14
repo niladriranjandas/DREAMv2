@@ -1,0 +1,56 @@
+  9 PRO  CD      9 PRO  CG      1.80
+  9 PRO  CD      9 PRO  CB      1.80
+  9 PRO  CD      9 PRO  HG2     1.80
+  9 PRO  CD      9 PRO  HG3     1.80
+  9 PRO  N       9 PRO  CG      1.80
+  9 PRO  HD2     9 PRO  CG      1.80
+  9 PRO  HD3     9 PRO  CG      1.80
+ 84 PRO  CD     84 PRO  CG      1.80
+ 84 PRO  CD     84 PRO  CB      1.80
+ 84 PRO  CD     84 PRO  HG2     1.80
+ 84 PRO  CD     84 PRO  HG3     1.80
+ 84 PRO  N      84 PRO  CG      1.80
+ 84 PRO  HD2    84 PRO  CG      1.80
+ 84 PRO  HD3    84 PRO  CG      1.80
+114 PRO  CD    114 PRO  CG      1.80
+114 PRO  CD    114 PRO  CB      1.80
+114 PRO  CD    114 PRO  HG2     1.80
+114 PRO  CD    114 PRO  HG3     1.80
+114 PRO  N     114 PRO  CG      1.80
+114 PRO  HD2   114 PRO  CG      1.80
+114 PRO  HD3   114 PRO  CG      1.80
+142 PRO  CD    142 PRO  CG      1.80
+142 PRO  CD    142 PRO  CB      1.80
+142 PRO  CD    142 PRO  HG2     1.80
+142 PRO  CD    142 PRO  HG3     1.80
+142 PRO  N     142 PRO  CG      1.80
+142 PRO  HD2   142 PRO  CG      1.80
+142 PRO  HD3   142 PRO  CG      1.80
+  9 PRO  CD      9 PRO  CG      1.80
+  9 PRO  CD      9 PRO  CB      1.80
+  9 PRO  CD      9 PRO  HG2     1.80
+  9 PRO  CD      9 PRO  HG3     1.80
+  9 PRO  N       9 PRO  CG      1.80
+  9 PRO  HD2     9 PRO  CG      1.80
+  9 PRO  HD3     9 PRO  CG      1.80
+ 84 PRO  CD     84 PRO  CG      1.80
+ 84 PRO  CD     84 PRO  CB      1.80
+ 84 PRO  CD     84 PRO  HG2     1.80
+ 84 PRO  CD     84 PRO  HG3     1.80
+ 84 PRO  N      84 PRO  CG      1.80
+ 84 PRO  HD2    84 PRO  CG      1.80
+ 84 PRO  HD3    84 PRO  CG      1.80
+114 PRO  CD    114 PRO  CG      1.80
+114 PRO  CD    114 PRO  CB      1.80
+114 PRO  CD    114 PRO  HG2     1.80
+114 PRO  CD    114 PRO  HG3     1.80
+114 PRO  N     114 PRO  CG      1.80
+114 PRO  HD2   114 PRO  CG      1.80
+114 PRO  HD3   114 PRO  CG      1.80
+142 PRO  CD    142 PRO  CG      1.80
+142 PRO  CD    142 PRO  CB      1.80
+142 PRO  CD    142 PRO  HG2     1.80
+142 PRO  CD    142 PRO  HG3     1.80
+142 PRO  N     142 PRO  CG      1.80
+142 PRO  HD2   142 PRO  CG      1.80
+142 PRO  HD3   142 PRO  CG      1.80

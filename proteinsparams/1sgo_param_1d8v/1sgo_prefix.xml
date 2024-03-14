@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>1sgo</protein_name>
+		<seq_file>1sgo.seq</seq_file>
+		<upl_file>1sgo_concat_dist.upl</upl_file>
+		<hbond_file>1sgo_concat_hBond.upl</hbond_file>
+		<ang_file></ang_file>
+		<protein_path>../protein/1sgo</protein_path>
+	</inputs>

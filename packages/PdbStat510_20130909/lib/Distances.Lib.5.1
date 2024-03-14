@@ -1,0 +1,183 @@
+# $Id: Distances.Lib,v 4.7 2007/06/09 02:23:51 roberto Exp roberto $
+#
+#    In this file we are going to try keeping a list of 
+#    know distances with NO restriction or fixed to help
+#    in cleaning output file from GenCons.
+#
+#    The user can add more distances and these will be used without
+#    recompiling the program. 
+#
+#    Three asterisks '***' mean _ANY_ residue (wildcard)
+#    they should appear _AFTER_ all the other atom names for a given 
+#    atom type as if they are used before the other never gets used. 
+#  
+#    Roberto Tejero. 1999-2000
+#
+# AT1  AT2   RES   Dmin   Dmax     Type         Comment
+#==== ====  ====   =====  ====     =====     ===============
+  HA   CG    ***    2.61   3.52    Intra     NoRestrctn   TooRestrct
+  HA   CZ    TYR    4.74   6.18    Intra     NoRestrctn   TooRestrct
+#
+# ALPHA
+#
+  HA   HN    ***    2.22   2.95    Intra     NoRestrctn   TooRestrct
+  HA   HB*   PRO    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HA   HB*   ***    2.22   3.02    Intra     NoRestrctn   TooRestrct
+  HA   QB    ***    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HA   HG    LEU    2.06   4.26    Intra     NoRestrctn   TooRestrct
+  HA   HG*   ***    2.06   4.60    Intra     NoRestrctn   TooRestrct
+  HA   QG    PRO    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HA   QG    ***    2.23   4.01    Intra     NoRestrctn   TooRestrct
+  HA   QG1   ILE    2.23   4.01    Intra     NoRestrctn   TooRestrct
+  HA   QG1   VAL    2.23   4.90    Intra     NoRestrctn   TooRestrct
+  HA   QG2   ILE    2.63   3.78    Intra     NoRestrctn   TooRestrct
+  HA   QG2   ***    2.00   4.50    Intra     NoRestrctn   TooRestrct
+  HA   HD*   PRO    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HA   QD    PRO    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HA   QD*   LEU    2.11   5.99    Intra     NoRestrctn   TooRestrct
+  HA   QD1   ***    2.11   5.99    Intra     NoRestrctn   TooRestrct
+  HA   QQD   LEU    2.46   4.44    Intra     NoRestrctn   TooRestrct
+  HA   QQG   VAL    2.46   4.44    Intra     NoRestrctn   TooRestrct
+#
+# BETA
+#
+  HB*  HD2   HIS    2.72   4.00    Intra     NoRestrctn   TooRestrct
+  HB*  HB*   ***    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HB*  HD*   PRO    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HB*  HG*   ***    1.99   3.26    Intra     NoRestrctn   TooRestrct
+  HB*  CG    ***    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HB*  QG    GLN    2.32   2.75    Intra     NoRestrctn   TooRestrct
+  HB*  QG    LYS    2.30   3.99    Intra     NoRestrctn   TooRestrct
+  HB   QG    ***    2.32   2.75    Intra     NoRestrctn   TooRestrct
+  HB   QG1   ILE    2.28   2.72    Intra     NoRestrctn   TooRestrct
+  HB   QG*   VAL    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HB   QG2   THR    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HB   QG2   ***    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HB*  HD21  ASN    2.10   3.57    Intra     NoRestrctn   TooRestrct
+  HB   QD1   LEU    2.66   3.79    Intra     NoRestrctn   TooRestrct
+  HB   QD1   ILE    2.63   3.78    Intra     NoRestrctn   TooRestrct
+  HB   QD2   LEU    2.66   3.79    Intra     NoRestrctn   TooRestrct
+  HB   QQG   VAL    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HB*  QQD   LEU    2.00   3.20    Intra     NoRestrctn   TooRestrct
+  HB*  QQD   ***    2.00   6.30    Intra     NoRestrctn   TooRestrct
+
+  HB*  QD    PHE    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HB*  QE    PHE    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HB*  QD    TYR    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HB*  QE    TYR    0.00   0.00    Intra     FixedDistn   FixedDistn
+
+  HB*  QD*   ***    2.00   4.90    Intra     NoRestrctn   TooRestrct
+
+#
+# DELTA and EPSILON
+#
+  HD*  HD*   ***    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HE*  HE*   ***    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HD*  HE*   TYR    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HD*  HE*   PHE    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HD*  HE*   ***    1.99   3.90    Intra     NoRestrctn   TooRestrct
+  HD*  QB    ASN    2.38   3.90    Intra     NoRestrctn   TooRestrct
+  HD*  QE    ***    1.99   3.90    Intra     NoRestrctn   TooRestrct
+  HE2  QG    GLN    3.52   3.90    Intra     NoRestrctn   TooRestrct
+#
+# GAMMA
+#
+  HG   HD*   TYR    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HG   HD*   PHE    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HG   HE*   TYR    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HG   HE*   PHE    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HG*  HD*   ***    2.00   3.90    Intra     NoRestrctn   TooRestrct
+  HG   QD1   LEU    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HG1* QD1   ILE    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HG*  QD1   ILE    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HG   QD2   LEU    0.00   0.00    Intra     FixedDistn   FixedDistn
+  HG*  HE21  GLN    2.00   3.99    Intra     NoRestrctn   TooRestrct
+  HG*  HE22  GLN    3.46   4.15    Intra     NoRestrctn   TooRestrct
+  HG   QQD   LEU    0.00   0.00    Intra     FixedDistn   FixedDistn
+#
+# HN
+#
+  HN   HA*   GLY    2.00   2.99    Intra     NoRestrctn   TooRestrct
+  HN   HB*   ***    2.00   4.30    Intra     NoRestrctn   TooRestrct
+  HN   QA    GLY    2.00   2.99    Intra     NoRestrctn   TooRestrct
+  HN   QB    ALA    2.66   3.68    Intra     NoRestrctn   TooRestrct
+  HN   QB    TYR    2.15   3.88    Intra     NoRestrctn   TooRestrct
+  HN   QB    ***    2.29   3.93    Intra     NoRestrctn   TooRestrct
+  HN   CG    ***    2.00   4.90    Intra     NoRestrctn   TooRestrct
+  HN   QG2   ILE    2.04   4.91    Intra     NoRestrctn   TooRestrct
+  HN   QG2   THR    2.04   5.99    Intra     NoRestrctn   TooRestrct
+  HN   QG*   ***    2.29   6.01    Intra     NoRestrctn   TooRestrct
+  HN   QQG   ***    2.35   4.35    Intra     NoRestrctn   TooRestrct
+  HN   HG*   ***    2.35   6.01    Intra     NoRestrctn   TooRestrct !needs checking, RTT, Apr 2003
+  HN   QD*   ***    2.29   6.01    Intra     NoRestrctn   TooRestrct
+#
+# Pseudo BETAS
+#
+  QB   HA    PRO    4.76   5.42    Intra     NoRestrctn   TooRestrct
+  QB   HD    PRO    0.00   0.00    Intra     FixedDistn   FixedDistn
+  QB   HD21  ASN    2.38   3.16    Intra     NoRestrctn   TooRestrct
+  QB   HD22  ASN    3.52   3.90    Intra     NoRestrctn   TooRestrct
+  QB   HE22  GLN    3.31   5.14    Intra     NoRestrctn   TooRestrct
+  QB   HG    LEU    2.27   2.72    Intra     NoRestrctn   TooRestrct
+  QB   HG*   ***    1.80   3.00    Intra     NoRestrctn   TooRestrct !needs checking, RTT, Apr 2003
+  QB   QD    ARG    2.53   3.73    Intra     NoRestrctn   TooRestrct
+  QB   QD    PRO    0.00   0.00    Intra     FixedDistn   FixedDistn
+  QB   QG    PRO    0.00   0.00    Intra     FixedDistn   FixedDistn
+  QB   QG    ***    2.26   2.50    Intra     NoRestrctn   TooRestrct
+  QB   CG    PHE    0.00   0.00    Intra     FixedDistn   FixedDistn
+  QB   CG    TYR    0.00   0.00    Intra     FixedDistn   FixedDistn
+  QB   CZ    PHE    4.69   4.69    Intra     NoRestrctn   TooRestrct
+  QB   QQD   LEU    2.57   2.89    Intra     NoRestrctn   TooRestrct
+#
+# Pseudo DELTAS
+#
+  QD   HN    ASN    2.91   5.60    Intra     NoRestrctn   TooRestrct
+  QD   QG    ***    2.26   2.50    Intra     NoRestrctn   TooRestrct
+  QD   QG2   ILE    2.92   4.57    Intra     NoRestrctn   TooRestrct
+  QD1  QG2   ILE    2.92   5.00    Intra     NoRestrctn   TooRestrct
+  QD   QE    LYS    2.27   2.51    Intra     NoRestrctn   TooRestrct
+#
+# Pseudo ETAS
+#
+  QE   QG    LYS    2.52   3.73    Intra     NoRestrctn   TooRestrct
+#
+# Pseudo GAMMAS
+#
+  QG   QG2   ILE    2.88   3.47    Intra     NoRestrctn   TooRestrct
+  QG1  QG2   ***    2.00   5.00    Intra     NoRestrctn   TooRestrct
+  QG   HD*   PRO    0.00   0.00    Intra     FixedDistn   FixedDistn
+  QG   QD    PRO    0.00   0.00    Intra     FixedDistn   FixedDistn
+  QG   QD1   ILE    0.00   0.00    Intra     FixedDistn   FixedDistn
+  QG1  QD1   ***    0.00   0.00    Intra     FixedDistn   FixedDistn
+  QG   HE2*  ***    2.00   4.30    Intra     NoRestrctn   TooRestrct
+#
+# GAMMA carbons
+#
+  CG   CZ    PHE    0.00   0.00    Intra     FixedDistn   FixedDistn
+  CG   HZ    PHE    0.00   0.00    Intra     FixedDistn   FixedDistn
+#
+# Sequential 
+#
+  HA   HN    ALA    2.00   3.99    Seque     NoRestrctn   TooRestrct
+  HN   HA    ALA    2.00   5.61    Seque     NoRestrctn   TooRestrct
+
+  HA*  HN    ***    2.00   3.99    Seque     NoRestrctn   TooRestrct
+  HN   HA*   ***    2.00   5.61    Seque     NoRestrctn   TooRestrct
+
+  QA   HN    ***    2.00   3.55    Seque     NoRestrctn   TooRestrct
+  HN   QA    ***    2.00   5.61    Seque     NoRestrctn   TooRestrct
+
+  HA   HD2   PRO    2.00   3.95    Seque     NoRestrctn   TooRestrct
+  HA   HD3   PRO    2.00   3.95    Seque     NoRestrctn   TooRestrct
+
+  HA   QD    PRO    2.00   3.95    Seque     NoRestrctn   TooRestrct
+  QD   HA    PRO    2.00   3.95    Seque     NoRestrctn   TooRestrct
+
+  QB   HA    ***    2.00   6.01    Seque     NoRestrctn   TooRestrct
+  HA   QB    ***    2.00   6.01    Seque     NoRestrctn   TooRestrct
+
+  HN   QB    ***    2.00   6.01    Seque     NoRestrctn   TooRestrct
+  QB   HN    ***    2.00   4.61    Seque     NoRestrctn   TooRestrct
+
+  QB   QD    ***    2.00   5.99    Seque     NoRestrctn   TooRestrct
+  QD   QB    ***    2.00   5.99    Seque     NoRestrctn   TooRestrct

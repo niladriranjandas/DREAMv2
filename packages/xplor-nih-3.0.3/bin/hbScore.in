@@ -1,0 +1,233 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+
+
+
+(optList, args) = xplor.parseArguments(["psf:1",
+                                        "selection:1",
+                                        "showDetails:0",
+                                        "showHBDB:0",
+					],
+                                       cmdline=
+        "[options]  <pdb file1> [<pdb file2> ...]",
+                                       description="""
+Perform H-Bond scoring on each input file.
+
+
+                                       """,
+                                       usageString="""
+where options are one or more of::
+
+  -psf <file.psf>         - psf file- necessary if nonstandard residues
+       			    are present.
+  -selection <sel string> - XPLOR atom selection string specifying which 
+  	     	  	    residues to display information about.
+
+
+"""
+)
+
+psf=None
+selection="known"
+showDetails=False
+showHBDB=False
+bbNames=['sheet',
+         'helix',
+         ]
+for opt in optList:
+    if opt[0]=="psf":
+        psf=opt[1]
+        pass
+    if opt[0]=="selection":
+        selection=opt[1]
+        pass
+    if opt[0]=="showDetails":
+        showDetails=True
+        pass
+    if opt[0]=="showHBDB":
+        showHBDB=True
+        pass
+    pass
+
+
+pdbFiles=[arg for arg in args if not arg.startswith('color:')]
+
+if len(pdbFiles)<1:
+    print("must specify one or more PDB files")
+    import sys
+    sys.exit(1)
+    pass
+
+
+import protocol
+
+if not psf:
+    protocol.loadPDB(pdbFiles[0])
+else:
+    protocol.initStruct(psf)
+    protocol.initCoords(pdbFiles[0])
+    pass
+
+import hbPotTools
+hbond = hbPotTools.create_HBPot('hbond',
+                                selection=selection,
+                                verbose=False)
+
+hbond.setScale(2.5)
+
+if showHBDB:
+    from xplorSimulation import getXplorSimulation    
+    xSim = getXplorSimulation()
+
+    from simulationTools import mktemp
+    xplorFilename=mktemp('xplor-setup')
+    xSim.fastCommand("set display %s end" % xplorFilename)
+    
+    protocol.initHBDB()
+
+    xSim.fastCommand("set display $prev_display_file end" )
+    xSim.fastCommand("close %s end" % xplorFilename)
+    import os
+    os.unlink(xplorFilename)
+
+    from xplorPot import XplorPot
+    hbdb=XplorPot('HBDB')
+    pass
+
+def processHBDB():
+    energy = hbdb.calcEnergy()
+
+    from simulationTools import mktemp
+    xplorFilename=mktemp('xplor-violations')
+    xSim.fastCommand("set print %s end" % xplorFilename)
+    
+    xSim.fastCommand("HBDB print end")
+
+    xSim.fastCommand("set print $prev_print_file end" )
+    xSim.fastCommand("close %s end" % xplorFilename)
+    lines = open(xplorFilename).readlines()
+    import os
+    os.unlink(xplorFilename)
+    line = [line for line in lines
+            if "# of active HBDB terms" in line]
+    if len(line):
+        line=line[0]
+        num = int(line.split()[6])
+        return (num, (energy/num if num>0 else 0))
+    else:
+        return (0,0)
+
+
+hbondInfo=[]
+hbdbInfo=[]
+print("{:20}{:^7} {:9}    {:^8}    {:^9}   {:^5}".format("File",
+                                                      "num",
+                                                      "energy",
+                                                      "num bb",
+                                                      "ener per",
+                                                      "num",
+                                           ), end=' ')
+if showHBDB:
+    print("  {:<8} {:^9}".format("num HBDB",
+                               "ener per",
+                               ))
+else:
+    print()
+    pass
+    
+print("{:20}{:^7} {:9}    {:^8}    {:^9}   {:^5}".format("",
+                                                      "hbonds",
+                                                      "per hbond",
+                                                      "hbonds",
+                                                      "bb hbond",
+                                                      "viols",
+                                                      ), end=' ')
+if showHBDB:
+    print("  {:^8} {:^9}".format("hbonds",
+                               "HBDB bond",
+                               ))
+else:
+    print()
+    pass
+
+for pdbFile in pdbFiles:
+    protocol.initCoords(pdbFile)
+    
+    if showDetails:
+        print("Details for %s:" % pdbFile)
+        from simulationTools import analyze
+        print(analyze(hbond))
+        pass
+
+    bbNum=0
+    bbEnergy=0
+    violations=0
+    for pair in hbond.hbonds():
+        a = hbond.acceptors[pair.a]
+        d = hbond.donors[pair.b]
+        mapStr = hbond.getMapString(a,d)
+        from os.path import basename
+        dbName=basename(mapStr)
+        for name in bbNames:
+            if name in dbName:
+                bbNum += 1
+                bbEnergy += hbond.energy(a,d)
+                if hbond.violated(a,d): violations+=1
+            pass
+        pass
+
+    
+
+    hbondInfo.append( (len(hbond.hbonds()),
+                       hbond.calcEnergy() / len(hbond.hbonds()),
+                       bbNum,
+                       bbEnergy/bbNum if bbNum>0 else 0 ,
+                       violations ,
+                       )
+                      )
+
+    
+    if showHBDB: hbdbInfo.append( processHBDB() )
+
+
+    print("{:20}{:^7d} {:9.3f}    {:^8d}  {:9.3f}    {:5d}".format(pdbFile,
+                                                                hbondInfo[-1][0],
+                                                                hbondInfo[-1][1],
+                                                                hbondInfo[-1][2],
+                                                                hbondInfo[-1][3],
+                                                                hbondInfo[-1][4],
+                                                                ), end=' ')
+    if showHBDB:
+        print("    {:^8d} {:^9.3f}".format(hbdbInfo[-1][0],
+                                       hbdbInfo[-1][1],
+                                       ))
+    else:
+        print()
+    pass
+
+if len(pdbFiles)>1:
+    from restraintStats import aveDev
+    numAD = aveDev([entry[0] for entry in hbondInfo])
+    enerAD = aveDev([entry[1] for entry in hbondInfo])
+    numBBAD = aveDev([entry[2] for entry in hbondInfo])
+    enerBBAD = aveDev([entry[3] for entry in hbondInfo])
+    violsAD = aveDev([entry[4] for entry in hbondInfo])
+
+    print("{:16}{:5.1f}({:4.2f}) {:5.2f}({:4.2f}) {:5.1f}({:4.2f}) {:5.2f}({:4.2f}) {:4.1f}({:3.1f})".format(
+        "ave",
+        numAD[0],numAD[1],
+        enerAD[0],enerAD[1],
+        numBBAD[0],numBBAD[1],
+        enerBBAD[0],enerBBAD[1],
+        violsAD[0],violsAD[1]
+        ), end=' ')
+
+    if showHBDB:
+        hbdbAD = aveDev([entry[0] for entry in hbdbInfo])
+        ehbdbAD = aveDev([entry[1] for entry in hbdbInfo])
+    
+        print("{:5.1f}({:4.2f}) {:5.2f}({:4.2f})".format(
+            hbdbAD[0],hbdbAD[1],
+            ehbdbAD[0],ehbdbAD[1],))
+    else:
+        print()

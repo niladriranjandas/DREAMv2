@@ -1,0 +1,103 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+(opts,pdbFiles) = xplor.parseArguments(cmdline="<pdb files>",
+                                       description="""
+Given two raw Saupe matrices, compute the normalized scalar tensor product
+and the dot product between axes.
+Also, compute angle of rotation between two axes""",
+                                       usageString="""
+
+ example::
+
+  ./tensorProduct < tensors.in
+
+where tensors.in contains 3x3 two matrices::
+
+   -16.640  -17.410   13.879
+   -17.410   -4.591    6.212
+    13.879    6.212   21.231
+
+::
+ 
+    14.743   -3.994    2.070
+    -3.994  -41.233    3.150
+     2.070    3.150   26.490
+ 
+
+""" )
+
+
+import sys
+def readMat3():
+    
+    cnt=0
+    varTensorOutput=False
+    inMat=[]
+    while cnt<3:
+        line=sys.stdin.readline()
+        if line.startswith("REMARK VarTensor   raw matrix form:"):
+            varTensorOutput=True
+            pass
+        try:
+            if varTensorOutput:
+                (a,b,c) = line.split()[-3:]
+            else:
+                (a,b,c) = line.split()[:3]
+                pass
+            row=[float(s) for s in (a,b,c)]
+            inMat.append(row)
+            cnt+=1
+        except ValueError:
+            pass
+        pass
+    from mat3 import SymMat3
+    ret = SymMat3()
+    for i in range(3):
+        for j in range(3):
+            ret[i,j] = inMat[i][j]
+    return ret
+
+mat1 = readMat3()
+
+mat2 = readMat3()
+
+from varTensorTools import create_VarTensor
+
+from varTensorTools import saupeToVarTensor
+
+t1 = saupeToVarTensor(mat1)
+t2 = saupeToVarTensor(mat2)
+
+print("             Da     Rh")
+print('tensor 1   %6.2f %6.2f' %( t1.Da(), t1.Rh()))
+print('tensor 2   %6.2f %6.2f' %( t2.Da(), t2.Rh()))
+
+from varTensorTools import normalizedScalarProduct
+
+print('normalized scalar product:',normalizedScalarProduct(t1,t2))
+
+print('x*x, y*y, z*z:', end=' ') 
+from vec3 import dot, unitVec, cross
+x1 = unitVec(t1.xAtom().pos() - t1.oAtom().pos())
+y1 = unitVec(t1.yAtom().pos() - t1.oAtom().pos())
+z1 = unitVec(t1.zAtom().pos() - t1.oAtom().pos())
+
+x2 = unitVec(t2.xAtom().pos() - t2.oAtom().pos())
+y2 = unitVec(t2.yAtom().pos() - t2.oAtom().pos())
+z2 = unitVec(t2.zAtom().pos() - t2.oAtom().pos())
+
+print("%.3f %.3f %.3f" %(dot(x1,x2), dot(y1,y2), dot(y1,y2)))
+
+from mat3 import Mat3, rotationAmount
+R=Mat3( dot(x1,x2) , dot(x1,y2) , dot(x1,z2),
+        dot(y1,x2) , dot(y1,y2) , dot(y1,z2),
+        dot(z1,x2) , dot(z1,y2) , dot(z1,z2) )
+
+from math import pi
+
+rot = 180./pi*rotationAmount(R)
+print('rotation between two orientational axes: %.2f deg' % rot)
+
+
+
+

@@ -1,0 +1,37 @@
+
+remark  File dihiscu.par
+remark    Parameters associated with dihiscu.top, a patch to describe the 
+remark    conformation of two histidines bound to a Cu+2 ion (via their NE2 atoms)  
+remark    in the adjacent equatorial positions of a square-pyramidal coordination.
+remark
+remark  Use in combination with dihiscu.top.
+remark  Use after loading protein-1.0.par.  
+remark
+remark Guillermo A. Bermejo (03/18/2014).
+
+
+! Force constants below ($kbon, $kang, and $kpla) are not defined here,
+! but in protein-1.0.par, which has to be loaded first.
+
+
+! BONDS
+
+ bond      NB   CU+2               $kbon     2.0   ! [HIS NE2]-[CU+2] 
+
+
+! ANGLES
+
+ angle     NB   CU+2 NB            $kang      90.0  ! [HIS NE2]-[CU+2]-[HIS NE2] 
+ angle     CV   NB   CU+2          $kang     127.35 ! modified from protonated his 
+ angle     CR   NB   CU+2          $kang     127.35 ! modified from protonated his 
+
+
+! IMPROPERS
+
+ improper   NB   CV   CR   CU+2    $kpla    0    0.0  ! planar NE2 in HIS-CU+2-HIS complex 
+
+
+
+! NONBonded  CU+2   0.01  1.550     0.01  1.550  ! not needed because protein-1.0.par loads edta.par,
+                                                 ! which, in turn, loads ion.par containing nonbonded
+                                                 ! info on CU+2  

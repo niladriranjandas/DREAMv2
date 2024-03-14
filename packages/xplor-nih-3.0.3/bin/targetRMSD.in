@@ -1,0 +1,496 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+
+import sys
+import psfGen
+import protocol
+from math import sqrt
+from atomSelAction import RMSD, Fit
+doFit=True
+
+(opts,args) = xplor.parseArguments(('selection:1','fitSelection:1',
+                                    'selection2:1','fitSelection2:1',	
+                                    'psf:1',
+                                    'psf2:1',
+                                    'diffSeq:0',
+                                    'noFit:0',
+                                    'showRigid:0',
+                                    'model:1',
+                                    'write:0',
+                                    'fitSuffix:1',
+                                    'perResidue:0',
+                                    'perStructure:0'),
+                                   cmdline=
+  "[options] <target structure file> <structure files to compare>",
+                                   description="""
+  Compute positional RMSD to a reference structure.
+  """,
+                                   usageString="""
+Options are zero or more of::
+
+  -selection <selection>        - Atoms used in comparison. An atom selection
+                                  enclosed in quotes. Default:
+                                  '(not hydro and not resname ANI)'.
+                                  
+  -fitSelection <selection>     - Atoms used to best-fit structures. An atom
+                                  enclosed in quotes. Default: selection.
+                                  
+  -selection2 <selection>       - Atoms used in comparison for structure 2...
+                                  An atom selection enclosed in quotes.
+                                  Default: selection.
+                                  
+  -fitSelection2 <selection>    - Atoms used to best-fit structures 2... 
+                                  An atom selection enclosed in quotes.
+                                  Default: fitSelection.
+                                  
+  -psf     <psf filename(s)>    - One or more PSF filenames. If more than one
+                                  filename is specified, they must be either
+                                  space-separated and enclosed in quotes, or
+                                  colon-separated. 
+                                  If this option is the value none, or omitted,
+				  the PSF information is auto-generated.
+                                  
+  -psf2    <psf filename(s)>    - One or more PSF filenames for structure 2...
+                                  If more than one filename is specified, they
+                                  must be either space-separated and enclosed in
+                                  quotes, or colon-separated.
+                                  If this option is the value none or omitted,
+				  the PSF information is auto-generated from 
+				  the first input structure file. The presence
+				  of this option implies -diffSeq.
+                                  
+  -diffSeq                      - Target and comparison structures have
+                                  different sequences - generate them
+                                  separately. All comparison structure files
+                                  must have the same sequence, though.
+                                  
+  -noFit                        - Omit the fitting procedure. If not specified,
+                                  the structures are best-fitted before pairwise
+                                  RMSD calculation.
+                                  
+  -showRigid                    - Print full translation+rotation info for each
+                                  rigid body fit.
+  			          
+  -write                        - For each comparison structure file, write the
+                                  corresponding fitted coordinates to a file
+                                  of the same name, appended with ".fit" (or
+                                  the value specified by -fitSuffix).
+				  
+  -fitSuffix <string>           - Suffix for written fit structures (if -write
+                                  option is used). Default: .fit.
+  	     		          
+  -model <model number>        -  Model number to use for the comparison
+                                  structure file[s]. The default behavior is
+                                  to compare to all models.
+                                  
+  -perResidue                   - Report residue-by-residue RMSD values.
+  
+  -perStructure                 - Report per-structure RMSD values.
+
+Structures are first best-fit, and then the rmsd is calculated. This is done
+for each pair of structures. The average, deviation, min and max rmsd are
+printed.
+
+If the -noFit is given, or if fitSelection != selection, the magnitudes of
+rotation and CM translation to fit selection onto selection2 is also printed.
+
+"""                             )
+
+sel="not hydro and not resname ANI"
+fitSel=None
+psf=None
+psf2=None
+diffSeq=False
+sel2String=None
+fitSel2String=None
+writeFit=False
+fitSuffix=".fit"
+showRigid=False
+readModels=[]
+perResidue=False
+perStructure=False
+sumResidue=None
+isOrderedSel=False
+
+
+for opt in opts:
+    if opt[0]=='selection':
+        sel = opt[1]
+    elif opt[0]=='fitSelection':
+        fitSel = opt[1]
+    elif opt[0]=='selection2':
+        sel2String = opt[1]
+    elif opt[0]=='fitSelection2':
+        fitSel2String = opt[1]
+    elif opt[0]=='psf':
+        psf = opt[1]
+        if ":" in opt[1]:
+            psf = opt[1].split(':')
+        else:
+            psf = opt[1].split()
+        pass
+        if opt[1].lower()=='none':
+            psf=None
+            pass
+        pass
+    elif opt[0]=='psf2':
+        diffSeq=True
+        psf2 = opt[1]
+        if ":" in opt[1]:
+            psf2 = opt[1].split(':')
+        else:
+            psf2 = opt[1].split()
+        isOrderedSel=True # atoms may be ordered differently
+        if opt[1].lower()=='none':
+            psf2=None
+            pass
+        pass
+    elif opt[0]=='diffSeq':
+        diffSeq=True
+    elif opt[0]=='noFit':
+        doFit=False
+        pass
+    elif opt[0]=='write':
+        writeFit=True
+        pass
+    elif opt[0]=='fitSuffix':
+        fitSuffix=opt[1]
+        pass
+    elif opt[0]=='showRigid':
+        showRigid=True
+        pass
+    elif opt[0]=='perResidue':
+        perResidue=True
+        pass
+    elif opt[0]=='perStructure':
+        perStructure=True
+        pass
+    elif opt[0]=='model':
+        if ":" in opt[1]:
+            readModels=opt[1].split(':')
+        else:
+            readModels=opt[1].split()
+            pass
+        readModels=[int(model) for model in readModels]
+        pass
+    pass
+
+
+if len(args)<2:
+    raise Exception("at least one target and one comparison file must be specified")
+
+target=args[0]
+pdbFiles=args[1:]
+
+if not sel2String: sel2String=sel
+if not fitSel:
+    fitSel = sel
+    if not fitSel2String: 
+        fitSel2String=sel2String
+        pass
+    pass
+elif not fitSel2String: 
+    fitSel2String=fitSel
+    pass
+
+calcRigid=False    #whether to calc/print rigid body rot/trans info
+if doFit==False or sel!=fitSel:
+   calcRigid=True
+   pass
+
+if psf:
+    protocol.initStruct(psf)
+    protocol.initCoords(target)
+else:
+    protocol.loadPDB(target,suppressExceptions=True)
+    pass
+
+    
+#unknown=AtomSel("not known")
+#if len(unknown)>0:
+#    print "deleting %d atoms with unknown coordinates" % len(unknown)
+#    pass
+xplor.command("delete sele=(not known) end")
+
+sim=xplor.simulation
+
+#
+# to do:
+#  allow structures to have different PSFs
+# place each in a sub- XplorSimulation
+# RMSD and Fit will need to work on specified sets of coords only
+# - should make sure that selections are of the same size.
+#
+
+
+cnt=0
+sum=0.
+variance=0.
+mini=1e20
+maxi=0.
+rsum=0.
+rvariance=0.
+rmini=1e20
+rmaxi=0.
+tsum=0.
+tvariance=0.
+tmini=1e20
+tmaxi=0.
+compSel=AtomSel(sel,ordered=isOrderedSel)
+fitSel=AtomSel(fitSel,ordered=isOrderedSel)
+first=True
+from atomSel import intersection
+import math
+import pdbTool
+cnt=0
+remarks=[]
+for i in range(0,len(pdbFiles)):
+
+    models=[-1]
+    filename,model=protocol.splitModel(pdbFiles[i],-1)
+    pdb = pdbTool.PDBTool(filename)
+    pdbModels = pdb.models()
+    if readModels:
+        models=readModels
+    elif len(pdbModels)>0:
+        if model>=0:
+            models=[model]
+        else:
+            models = pdbModels
+            pass
+        pass
+    if writeFit:
+        remarks.append(pdb.readRemarks())
+        pass
+
+    for model in models:
+
+        if not model in models:
+            raise Exception("no such model: %d" % model)
+
+        fitter=None
+        
+        if diffSeq:
+            if first:
+                # create new XplorSimulation for first comparison structure
+                # assume all other comparison structures have same sequence
+                # and have same atom coordinates defined.
+                import xplorSimulation, simulation
+                xSim = xplorSimulation.XplorSimulation()
+                simulation.makeCurrent( xSim )
+    
+                if psf2!=None:
+                    protocol.initStruct(psf2)
+                    protocol.initCoords(pdbFiles[i],model=model,
+                                        maxUnreadEntries=None        )
+                    xplor.simulation.deleteAtoms("not known")
+                else:
+                    protocol.loadPDB(pdbFiles[i],model=model,
+                                     suppressExceptions=True,
+                                     deleteUnknownAtoms=True)
+                    first=False
+                    pass
+                pass
+            else:
+                protocol.initCoords(pdbFiles[i],model=model,
+                                        maxUnreadEntries=None        )
+                pass
+    
+            fitSel2=AtomSel(fitSel2String,ordered=isOrderedSel)
+        else:
+            if first:
+                # create new XplorSimulation for first comparison structure
+                # assume all other comparison structures have same sequence
+                # and have same atom coordinates defined.
+                import xplorSimulation, simulation
+                xSim = xplorSimulation.XplorSimulation(clone=True)
+                simulation.makeCurrent( xSim )
+                first=False
+                pass
+            
+    
+            fitSel2=AtomSel(fitSel2String,ordered=isOrderedSel)
+            try:
+                protocol.initCoords(pdbFiles[i],erase=True,
+                                    model=model,
+                                    strictResNames=True,
+                                    maxUnreadEntries=(400, 20.))
+            except:
+                print("Error reading %s, model %d" %(pdbFiles[i],model))
+                raise
+    
+            unknown=intersection(AtomSel("not known"),fitSel)
+            if unknown:
+                print("these fit atoms have undefined coordinates:")
+                for atom in unknown:
+                    print("\t%s" % atom.string())
+                    pass
+                print("try using the -diffSeq flag")
+                raise Exception("unknown fit atoms in %s:" % pdbFiles[i])
+            
+                
+    
+            pass
+
+        measure = RMSD(compSel)
+        if doFit:
+            if len(fitSel) != len(fitSel2):
+                print("Fit selections of different size: %d != %d" %(
+                    len(fitSel), len(fitSel2)))
+                for i,atom in enumerate(fitSel):
+                    j=i
+                    try:
+                        atom2=fitSel2[j]
+                    except IndexError:
+                        print("no matching atom in fitSel2:", atom.string())
+                        break
+                    if (atom.atomName()    != atom2.atomName() or
+                        atom.residueName() != atom2.residueName() ):
+                        print("  possible mismatch: %s != %s" % (atom.string(),
+                                                                atom2.string()))
+                        break
+                        pass
+                    pass
+                exit(1)
+                pass
+            fitter = Fit(fitSel,fitSel2)
+            AtomSel("known").apply( fitter )
+            pass
+    
+        selection = AtomSel(sel2String,ordered=isOrderedSel)
+        if len(selection) != len(compSel):
+            print("measure selections of different size: %d != %d" %(
+                len(selection), len(compSel)))
+            for i,atom in enumerate(selection):
+                j=i
+                try:
+                    atom2=compSel[j]
+                except IndexError:
+                    print("no matching atom in selection2:", atom.string())
+                    break
+                if (atom.atomName()    != atom2.atomName() or
+                    atom.residueName() != atom2.residueName() ):
+                    print("  possible mismatch: %s != %s" % (atom.string(),
+                                                            atom2.string()))
+                    break
+                    pass
+                pass
+            exit(1)
+            pass
+        selection.apply( measure )
+    
+        if writeFit:
+            outFilename=pdbFiles[i]+fitSuffix
+            if model>=0:
+                outFilename+=":%d"%model
+                pass
+            pdb = pdbTool.PDBTool(outFilename)
+            pdb.addRemarks( remarks[i] )
+            pdb.write()
+            pass
+
+        if perStructure:
+            printFilename = filename
+            if model>=0:
+                printFilename += ":%s" % model
+                pass
+                
+            print('  %-40s: %.4f' % ( printFilename, measure.rmsd() ))
+            pass
+                                  
+
+    
+        sum += measure.rmsd()
+        variance += measure.rmsd()**2
+        mini=min(mini,measure.rmsd())
+        maxi=max(maxi,measure.rmsd())
+
+        if perResidue:
+            byResidue=measure.perResidue()
+            resNames=[name for name,val in byResidue]
+            if not sumResidue:
+                sumResidue={}
+                varResidue={}
+                for key in resNames:
+                    sumResidue[key]=0.
+                    varResidue[key]=0.
+                    pass
+                pass
+            for j,key in enumerate(resNames):
+                sumResidue[key] += byResidue[j][1]
+                varResidue[key] += byResidue[j][1]**2
+                pass
+            pass
+    
+        if calcRigid:
+            from mat3 import rotationAmount
+            from vec3 import norm
+            fitter=Fit(compSel,AtomSel(sel2String,ordered=isOrderedSel))
+            AtomSel(sel2String,ordered=isOrderedSel).apply(fitter)
+            rot=rotationAmount(fitter.rotation())*180/math.pi
+            trans=norm(fitter.transDiff())
+            
+            rsum += rot
+            rvariance += rot**2
+            rmini=min(rmini,rot)
+            rmaxi=max(rmaxi,rot)
+    
+            tsum += trans
+            tvariance += trans**2
+            tmini=min(tmini,trans)
+            tmaxi=max(tmaxi,trans)
+            pass
+    
+        if fitter and showRigid:
+            name=pdbFiles[i]
+            if model>=0:
+                name+=":%d" %model
+                pass
+            print(" [%s]" % name)
+            print("Rigid body fit::")
+            print(" Centroid translation:")
+            print("   %.3f %.3f %.3f" % tuple(fitter.transDiff()))
+            print(" Rotation matrix:")
+            rot=fitter.rotation()
+            for r in (0,1,2):
+                row=[ rot[r,0], rot[r,1], rot[r,2] ]
+                print("   %6.3f %6.3f %6.3f" % tuple(row))
+                pass
+            pass
+        cnt += 1
+        pass
+    pass
+
+
+ave = sum / cnt
+sdev = sqrt( variance/cnt  - ave**2 )
+
+print('rmsd:', end=' ')
+print('ave: %.4f   std dev: %.4f   min: %.4f   max: %.4f  # atoms: %d' % \
+      (ave,sdev,mini,maxi,len(compSel)))
+        
+        
+if calcRigid:
+   rave = rsum / cnt
+   rsdev = sqrt( rvariance/cnt  - rave**2 )
+   tave = tsum / cnt
+   tsdev = sqrt( tvariance/cnt  - tave**2 )
+   print('Rigid body motion:')
+   print(' rotation(deg):', end=' ')
+   print('ave: %7.2f   std dev: %7.2f   min: %7.2f   max: %7.2f' % \
+         (rave,rsdev,rmini,rmaxi))
+  
+   print(' centroid diff:', end=' ')
+   print('ave: %7.4f   std dev: %7.4f   min: %7.4f   max: %7.4f' % \
+         (tave,tsdev,tmini,tmaxi))
+   
+
+if perResidue:
+    print("Per-Residue RMSD values")
+    print("%20s %7s %7s" % ("Resid","RMSD","Dev"))
+    for name in resNames:
+        ave=sumResidue[name]/cnt
+        dev= sqrt( varResidue[name]/cnt - ave**2 )
+        print('%20s %7.3f %7.3f' % (name,ave,dev))
+        pass
+    pass

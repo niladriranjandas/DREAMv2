@@ -1,0 +1,1 @@
+../newstripe.tcl

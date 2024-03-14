@@ -1,0 +1,3 @@
+Look at rama.inp to see how the conformational database torsion angle potentials are read in.
+
+sa_newmods.inp gives an example of a full smulated annealing protocol with torsion angle database potential.

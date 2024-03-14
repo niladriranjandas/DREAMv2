@@ -1,0 +1,88 @@
+%% $Id: psdefs.ps,v 4.10 2010/11/22 15:41:35 roberto Exp roberto $
+%%
+%%%% The following parameters can be changed to modify appearance of plot.
+/mmlargefontsize 4.5 def		%% fontsize in millimeters
+/mmmedlargefontsize 3.8 def             %% fontsize in millimeters
+/mmmedfontsize 2.4 def			%% fontsize in millimeters
+/mmsmallfontsize 1.3 def		%% fontsize in millimeters
+/mmtickwidth 0.16 def			%% tickwidth in millimeters
+/mmshortticklen 1.0 def			%% ticklength in millimeters
+/mmlongticklen 3.0 def			%% ticklength in millimeters
+/mmframewidth 0.4 def			%% frame line width in millimeters
+/mmlabeloffset 13.0 def			%% Title and axis text label offset
+/mmxnumoffset 7.0 def			%% x-axis number label offset
+/mmynumoffset 4.0 def			%% y-axis number label offset
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+/plotoffset {20.0 120.0} def /ptpagewidth 500 def
+/M {moveto} def /L {lineto} def /S {show} def
+/plotxscale 1.0 def /plotyscale 1.0 def %% initialize variables to 1
+%/xscale {tempctm currentmatrix pop tempctm 0 get 6.0 25.0 div mul} def
+%/yscale {tempctm currentmatrix pop tempctm 3 get -6.0 25.0 div mul} def
+/xmm {72.00 div	25.4 mul 8.5 mul plotxscale div} def
+/ymm {72.00 div 25.4 mul 8.5 mul plotyscale div} def
+/definelargefont {/Helvetica findfont [mmlargefontsize xmm 0 0 mmlargefontsize
+ymm 0 0] makefont setfont} def
+/definemedlargefont {/Helvetica findfont [mmlargefontsize xmm 0 0 mmmedlargefontsize ymm 0 0] makefont setfont} def
+/definemedfont {/Helvetica findfont [mmmedfontsize xmm 0 0 mmmedfontsize
+ymm 0 0] makefont setfont} def
+/definesmallfont {/Helvetica findfont [mmsmallfontsize xmm 0 0 mmsmallfontsize
+ymm 0 0] makefont setfont} def
+/printgreek {/Symbol findfont [mmlargefontsize 1.2 mul xmm 0 0 mmlargefontsize
+1.2 mul ymm 0 0] makefont setfont show definelargefont} def
+/Xtick {gsave newpath mmtickwidth xmm setlinewidth exch dup ymin M
+ymin 3 -1 roll sub L stroke grestore} def
+/Ytick {gsave newpath mmtickwidth ymm setlinewidth exch dup xmax exch M
+xmax 3 -1 roll add exch L stroke grestore} def
+/XGL {gsave newpath 0.6 setgray 0 setlinewidth dup ymin M ymax L stroke
+grestore} def
+/YGL {gsave newpath 0.6 setgray 0
+setlinewidth dup xmin exch M xmax exch L stroke grestore} def
+%% new feature
+/Xnumber {exch ymin mmxnumoffset ymm sub M show} def
+/Ynumber {exch xmax mmynumoffset xmm add exch M show} def
+/plotframe { gsave mmframewidth xmm setlinewidth
+xmin ymin M xmin ymax L
+xmax ymin M xmax ymax L stroke
+mmframewidth ymm setlinewidth
+xmin mmframewidth 2.0 div xmm sub ymin M
+xmax mmframewidth 2.0 div xmm add ymin L
+xmin mmframewidth 2.0 div xmm sub ymax M
+xmax mmframewidth 2.0 div xmm add ymax L stroke grestore} def
+/textlabels {gsave /Helvetica findfont [mmlargefontsize 1.25 mul xmm 0 0
+mmlargefontsize 1.25 mul ymm 0 0] makefont setfont
+3 -1 roll dup xmax xmin
+sub 2 div xmin add exch stringwidth pop 2.0 div sub ymax mmlabeloffset
+2.0 div ymm add M show grestore gsave
+dup xmax mmlabeloffset xmm add 6 xmm add ymax ymin sub 2.0 div
+ymin add M gsave (y) stringwidth pop 2 div -1 mul 0 rmoveto (y)
+printgreek grestore currentpoint mmlargefontsize ymm 1 ymm add sub M
+stringwidth pop (\(\)) stringwidth pop add 2 div -1 mul 0 rmoveto (\()
+show show (\)) show dup xmax xmin sub 2.0 div xmin add (f \(\))
+stringwidth pop 3 -1 roll stringwidth pop add 2.0 div sub ymin
+mmlabeloffset ymm sub M (f) printgreek ( \() show show (\)) show
+stroke grestore} def
+/DoScaleTranslate {
+plotoffset translate
+dup 100.0 lt
+	{100.0 div dup dup dup scale
+	/plotxscale exch plotxscale mul def
+	/plotyscale exch plotyscale mul def}
+	{pop} ifelse
+ptpagewidth xmax xmin sub div dup
+ptpagewidth ymax ymin sub div dup 3 1 roll scale
+/plotxscale exch plotxscale mul def
+/plotyscale exch plotyscale mul def
+-1.0 dup xmin 0.01 sub mul exch ymin 0.01 sub mul translate
+} def
+%
+%%%% Uncomment the following line to remove GRID LINES
+% /XGL {pop} def /YGL {pop} def
+%%%% Uncomment the following line to remove TICK MARKS
+% /Xtick {pop pop} def /Ytick {pop pop} def
+%%%% Uncomment the following line to remove AXIS NUMBERING
+% /Xnumber {pop pop} def /Ynumber {pop pop} def
+%%%% Uncomment the following line to remove PLOT FRAME
+% /plotframe {} def
+%%%% Uncomment the following line to remove TITLE, X UNIT, Y UNIT LABELS
+% /textlabels {pop pop pop} def
+%

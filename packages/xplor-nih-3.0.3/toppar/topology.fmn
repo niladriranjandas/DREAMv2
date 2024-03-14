@@ -1,0 +1,130 @@
+remarks  file TOPPAR/topology.fmn   topology for FMN
+remarks shall be used in conjunction with param11.dna and param.fmn
+remarks  Author: Neena Summers
+remark1   RESIDUE TOPOLOGY FILE FOR FMN USING EXPLICIT HYDROGENS
+remark2   This is a BEST GUESS which will allow a butterfly-twist
+remark2   about N5-N10 as noted in some proteins (see, for example
+remark2   TMAH, L Lim & S Mathews).
+remark3   Current FMN setup has some coupling between
+remark3   C1'-C10-C9A-N10 improper and fused ring butterfly-twist
+remark3   C1'-C10-C9A-N10 improper currently tuned to JUST maintain
+remark3   N10 sp2 hydridization when FMN undergoes 2nd derivative
+remark3   minization.
+remark4   nomenclature as per Karplus & Schulz (PDB:3GRS)
+set echo=false end
+autogenerate angles=true end
+{*DNA/RNA default masses *}
+MASS     1 HN     1.00800! hydrogen which can h-bond to neutral atom
+MASS     2 H2     1.00800! hydrogen in NH2
+MASS     3 HO     1.00800! hydroxy hydrogen
+MASS    11 CN    12.01100! carbonyl carbon
+MASS    12 CH    13.01900! extended atom carbon with one hydrogen
+MASS    13 C2    14.02700!      -      "     -       two   -"-
+MASS    14 CA    12.01100! carbon in ring bound to two or three nitorgens
+MASS    15 CB    12.01100! carbon in ring"bridge" (eg in GUA)
+MASS    16 CE    13.01900! extended atom carbon in (5) ring with one H
+MASS    31 N2    14.00670! nitrogen in NH2
+MASS    32 NA    14.00670! nitrogen which binds one hydrogen
+MASS    33 NB    14.00670! nitrogen in (5) ring with no hydrogens
+MASS    34 NC    14.00670! nitrogen in aromatic ring with no hydrogens
+MASS    35 NS    14.00670! nitrogen in ring >N-
+MASS    51 ON    15.99940! carbonyl oxygen
+MASS    52 O2    15.99940! =O in phosphate
+MASS    53 OS    15.99940! ester -P-O-C-, and also in sugars C-O-C
+MASS    54 OH    15.99940! hydroxy oxygen
+MASS    71 P     30.97400! phosphorus
+AUTOGENERATE ANGLES
+RESI FMN
+ GROUp
+  ATOM PF   TYPE=P       CHARGE=1.2    END
+  ATOM OF1  TYPE=O2      CHARGE=-0.4   END
+  ATOM OF2  TYPE=O2      CHARGE=-0.4   END
+  ATOM OF3  TYPE=O2      CHARGE=-0.4   END
+ GROUp
+  ATOM O5'  TYPE=OS      CHARGE=-0.2   END
+  ATOM C5'  TYPE=C2      CHARGE=0.15   END
+ GROUp
+  ATOM C4'  TYPE=CH      CHARGE=0.15   END
+  ATOM O4'  TYPE=OH      CHARGE=-0.4   END
+  ATOM H4'  TYPE=HO      CHARGE=0.25   END
+ GROUp
+  ATOM C3'  TYPE=CH      CHARGE=0.15   END
+  ATOM O3'  TYPE=OH      CHARGE=-0.4   END
+  ATOM H3'  TYPE=HO      CHARGE=0.25   END
+ GROUp
+  ATOM C2'  TYPE=CH      CHARGE=0.15   END
+  ATOM O2'  TYPE=OH      CHARGE=-0.4   END
+  ATOM H2'  TYPE=HO      CHARGE=0.25   END
+ GROUp
+  ATOM C1'  TYPE=C2      CHARGE=0.1    END
+ GROUp
+  ATOM N5   TYPE=NC      CHARGE=-0.2   END
+ GROUp
+  ATOM N10  TYPE=NC      CHARGE=-0.25  END
+ GROUp
+  ATOM N1   TYPE=NS      CHARGE=-0.25  END
+  ATOM C10  TYPE=CB      CHARGE=0.25   END
+ GROUp
+  ATOM C2   TYPE=CN      CHARGE=0.35   END
+  ATOM O2   TYPE=ON      CHARGE=-0.35  END
+ GROUp
+  ATOM N3   TYPE=NA      CHARGE=-0.26  END
+  ATOM H3   TYPE=HN      CHARGE=0.26   END
+ GROUp
+  ATOM C4   TYPE=CN      CHARGE=0.30   END
+  ATOM O4   TYPE=ON      CHARGE=-0.30  END
+ GROUp
+  ATOM C4A  TYPE=CB      CHARGE=0.2    END
+ GROUp
+  ATOM C5A  TYPE=CB      CHARGE=0.1    END
+  ATOM C6   TYPE=CF      CHARGE=0.0    END
+ GROUp
+  ATOM C7   TYPE=CS      CHARGE=0.0    END
+  ATOM C7M  TYPE=C3      CHARGE=0.0    END
+ GROUp
+  ATOM C8   TYPE=CS      CHARGE=0.0    END
+  ATOM C8M  TYPE=C3      CHARGE=0.0    END
+ GROUp
+  ATOM C9   TYPE=CF      CHARGE=0.0    END
+  ATOM C9A  TYPE=CB      CHARGE=0.1    END
+ BOND PF   OF1       BOND PF   OF2       BOND PF   OF3
+ BOND PF   O5'       BOND O5'  C5'       BOND C5'  C4'
+ BOND C4'  O4'       BOND O4'  H4'       BOND C4'  C3'
+ BOND C3'  O3'       BOND O3'  H3'       BOND C3'  C2'
+ BOND C2'  O2'       BOND O2'  H2'       BOND C2'  C1'
+ BOND C1'  N10       BOND N10  C10       BOND C10  C4A
+ BOND C10  N1        BOND N1   C2        BOND C2   O2
+ BOND C2   N3        BOND N3   H3        BOND N3   C4
+ BOND C4   O4        BOND C4   C4A       BOND C4A  N5
+ BOND N5   C5A       BOND C5A  C6        BOND C6   C7
+ BOND C7   C7M       BOND C7   C8        BOND C8   C8M
+ BOND C8   C9        BOND C9   C9A       BOND C9A  C5A
+ BOND C9A  N10
+ DIHEdral OF3  PF   O5'  C5'       DIHEdral PF   O5'  C5'  C4'
+ DIHEdral O5'  C5'  C4'  C3'       DIHEdral C5'  C4'  C3'  C2'
+ DIHEdral C4'  C3'  C2'  C1'       DIHEdral C5'  C4'  O4'  H4'
+ DIHEdral C4'  C3'  O3'  H3'       DIHEdral C3'  C2'  O2'  H2'
+ DIHEdral C3'  C2'  C1'  N10       DIHEdral C2'  C1'  N10  C10
+ IMPRoper C4A  N10  N1   C10       IMPRoper C10  C4   N5   C4A
+ IMPRoper C4   C4A  C10  N1        IMPRoper N3   C4   C4A  C10
+ IMPRoper C2   N3   C4   C4A       IMPRoper N1   C2   N3   C4
+ IMPRoper C10  N1   C2   N3        IMPRoper C4A  C10  N1   C2
+ IMPRoper O2   N1   N3   C2        IMPRoper H3   C2   C4   N3
+ IMPRoper O4   C4A  N3   C4
+ IMPRoper O4'  C5'  C3'  C4'       IMPRoper O3'  C2'  C4'  C3'
+ IMPRoper O2'  C3'  C1'  C2'
+ IMPRoper N10  C10  C4A  N5        IMPRoper N5   C5A  C9A  N10
+ IMPRoper C9A  C6   N5   C5A       IMPRoper C9   N10  C5A  C9A
+ IMPRoper C6   C7   C8   C9        IMPRoper C7   C8   C9   C9A
+ IMPRoper C8   C9   C9A  C5A       IMPRoper C9   C9A  C5A  C6
+ IMPRoper C9A  C5A  C6   C7        IMPRoper C5A  C6   C7   C8
+ IMPRoper C7M  C8   C6   C7        IMPRoper C8M  C7   C9   C8
+ DONOr H3   N3          DONOr H2'  O2'          DONOr H3'  O3'
+ DONOr H4'  O4'
+ ACCEptor OF1  PF       ACCEptor OF2  PF        ACCEptor OF3  PF
+ ACCEptor O5'  PF       ACCEptor O2'  C2'       ACCEptor O3'  C3'
+ ACCEptor O4'  C4'      ACCEptor N1             ACCEptor N5
+ ACCEptor O2   C2       ACCEptor O4   C4
+ END {FMN}
+!-----------------------------------------------------------------------
+set echo=true end

@@ -1,0 +1,108 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+(optList, args) = xplor.parseArguments([
+    "out:1",
+    "predFile:1",
+    "predAllFile:1",
+    "ignoreWeights:0",
+    "widthCushion:1",
+    "minWidth:1",
+    "segName:1",
+    "omitResids:1",],
+                                       cmdline="[options]",
+                                       description="""
+Convert Talos+ and talos-N output to phi/psi torsion-angle restraints
+for use in Xplor-NIH. 
+
+The allowed range of torsion angles will be all those from the ten
+Talos+/TalosN hit values. This script will produce restraints for all
+residues which for which Talos+/N classifies its predictions as
+"Good" or "Strong". By default, hits are ignored if Talos+/N give them 
+zero weight.
+                                       """,
+                                       usageString = """
+By default, this script converts pred.tab and predAll.tab files in
+the current working directory to an output file name talosn.tbl.
+
+ options::
+
+   -out <tbl filename>      - specify an output diehdral restraints filename.
+                              [talosn.tbl]
+   -predFile <filename>     - input filename for Talos+'s prediction table
+                              which lists phi/psi angle mean and width
+                              values, and the prediction quality.
+                              [pred.tab]
+   -predAllFile <filename>  - input filename for Talos+'s detailed results
+                              file which contains results information
+                              about hits from the chemical shift database.
+                              [predAll.tab]
+   -ignoreWeights           - use all Talos+/N's hits, not just those with
+   			      nonzero weight.
+   -widthCushion <val>      - specify (in degrees) extra amounts to
+                              add/subtract to/from the maximal/minimal
+                              angle values. [5 degrees]
+   -minWidth <val>          - minimum value of the restraint width. [20 
+                              degrees]
+   -segName <segment id>    - segment name to use for the generated
+                              restraints - blank by default.
+   -omitResids <resids>     - exclude phi/psi restraints for the specified 
+                              residues, given as a space- or colon-delimited 
+			      list.
+ 
+"""
+)
+
+outFilename="talosn.tbl"
+predFile="pred.tab"
+predAllFile="predAll.tab"
+widthPadding= 5 # degrees
+minWidth = 20 # degrees
+ignoreWeights=False
+segName=None
+omitResids=[]
+
+for opt in optList:
+    if opt[0]=="out":
+        outFilename=opt[1]
+        pass
+    if opt[0]=="predFile":
+        predFile=opt[1]
+        pass
+    if opt[0]=="predAllFile":
+        predAllFile=opt[1]
+        pass
+    if opt[0]=="ignoreWeights":
+        ignoreWeights=True
+        pass
+    if opt[0]=="widthCushion":
+        widthPadding=float(opt[1])
+        pass
+    if opt[0]=="minWidth":
+        minWidth=float(opt[1])
+        pass
+    if opt[0]=="segName":
+        segName=opt[1]
+        pass
+    if opt[0]=="omitResids":
+        sep=' '
+        if ":" in opt[1]: sep=":"
+        omitResids = opt[1].split(sep)
+        pass
+    pass
+
+from talosTools import convertTalosN
+
+
+string = convertTalosN(predFile,
+                       predAllFile,
+                       widthPadding,
+                       minWidth,
+                       not ignoreWeights,
+                       segName,
+                       omitResids=omitResids
+                       )                       
+
+
+open(outFilename,"w").write(string)
+
+

@@ -1,0 +1,9 @@
+<set_up>
+	<inputs>
+		<protein_name>2baf</protein_name>
+		<seq_file>2baf.seq</seq_file>
+		<upl_file>2baf_concat_dist.upl</upl_file>
+		<hbond_file>2baf_concat_hBond.upl</hbond_file>
+		<ang_file>2baf_concat_dihed.aco</ang_file>
+		<protein_path>../protein/2baf</protein_path>
+	</inputs>

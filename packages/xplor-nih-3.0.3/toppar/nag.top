@@ -1,0 +1,150 @@
+REMARKS nag.top {N-acetyl-d-glucosamine} 
+REMARKS FOR USE WITH PROTEIN.TOP
+REMARKS =====================================================
+REMARKS John Vakonakis 08/05/2007 
+REMARKS Adapted from toph3.cho
+
+set echo=false end
+
+AUTOGENERATE ANGLES=TRUE END
+{*===========================*}
+ 
+MASS   CC    12.01100! carbohydrate carbon
+MASS   CC6   12.01100! carbohydrate carbon, exocyclic C6 
+MASS   CCE   12.01100! carbohydrate carbon, equatorial C1
+MASS   OE    15.99900! ether oxygen
+MASS   HA     1.00800! aliphatic hydrogen
+
+RESIdue NAG  !2-N-Acetyl-beta-d-glucose, pyranose form
+ GROUP
+  ATOM C1   TYPE=CCE  CHARge= 0.350   END
+  ATOM H1   TYPE=HA   CHARge= 0.100   END
+ GROUP
+  ATOM O1   TYPE=OH   CHARge=-0.650   END
+  ATOM HO1  TYPE=H    CHARge= 0.400   END
+ GROUP
+  ATOM C2   TYPE=CC   CHARge= 0.000   END
+  ATOM H2   TYPE=HA   CHARge= 0.100   END
+ GROUP
+  ATOM N2   TYPE=NH1  CHARge=-0.350   END
+  ATOM HN2  TYPE=H    CHARge= 0.250   END
+ GROUP
+  ATOM C7   TYPE=C    CHARge= 0.550   END
+  ATOM O7   TYPE=O    CHARge=-0.550   END 
+ GROUP
+  ATOM C8   TYPE=CC   CHARge=-0.300   END
+  ATOM H81  TYPE=HA   CHARge= 0.100   END
+  ATOM H82  TYPE=HA   CHARge= 0.100   END
+  ATOM H83  TYPE=HA   CHARge= 0.100   END
+ GROUP
+  ATOM C3   TYPE=CC   CHARge= 0.150   END
+  ATOM H3   TYPE=HA   CHARge= 0.100   END
+ GROUP
+  ATOM O3   TYPE=OH   CHARge=-0.650   END
+  ATOM HO3  TYPE=H    CHARge= 0.400   END
+ GROUP
+  ATOM C4   TYPE=CC   CHARge= 0.150   END
+  ATOM H4   TYPE=HA   CHARge= 0.100   END
+ GROUP
+  ATOM O4   TYPE=OH   CHARge=-0.650   END
+  ATOM HO4  TYPE=H    CHARge= 0.400   END
+ GROUP
+  ATOM C5   TYPE=CC   CHARge= 0.100   END
+  ATOM H5   TYPE=HA   CHARge= 0.100   END
+ GROUP
+  ATOM O5   TYPE=OE   CHARge=-0.400   END
+ GROUP
+  ATOM C6   TYPE=CC6  CHARge= 0.050   END
+  ATOM H61  TYPE=HA   CHARge= 0.100   END
+  ATOM H62  TYPE=HA   CHARge= 0.100   END
+ GROUP
+  ATOM O6   TYPE=OH   CHARge=-0.650   END
+  ATOM HO6  TYPE=H    CHARge= 0.400   END
+
+  BOND C1 O1  
+  BOND C1 H1
+  BOND O1 HO1
+  BOND C1 O5
+  BOND C1 C2
+  BOND C2 H2 
+  BOND C2 N2
+  BOND N2 HN2
+  BOND N2 C7
+  BOND C7 O7
+  BOND C7 C8
+  BOND C8 H81
+  BOND C8 H82
+  BOND C8 H83
+  BOND C2 C3
+  BOND C3 H3
+  BOND C3 O3
+  BOND O3 HO3
+  BOND C3 C4
+  BOND C4 H4
+  BOND C4 O4
+  BOND O4 HO4
+  BOND C4 C5
+  BOND C5 H5
+  BOND C5 C6
+  BOND C6 H61
+  BOND C6 H62
+  BOND C6 O6
+  BOND O6 HO6
+  BOND C5 O5
+
+  IMPRoper  O1   C1   C2   C3  
+  IMPRoper  O5   C1   C2   N2  
+  IMPRoper  O1   C1   O5   C5  
+  IMPRoper  C1   C2   C3   O3  
+  IMPRoper  C6   C5   O5   C1  
+  IMPRoper  C8   C7   N2   C2  
+  IMPRoper  O7   C7   N2   C2  
+  IMPRoper  C1   C2   O1   O5  
+  IMPRoper  C2   N2   C3   C1  
+  IMPRoper  C3   C2   C4   O3  
+  IMPRoper  C4   O4   C5   C3  
+!  IMPRoper  C5   O5   C6   C4  ! stereo C5
+  IMPRoper  H5   O5   C6   C4  ! stereo C5
+  IMPRoper  C7   C8   N2   O7  
+  improper H81 H82 C7 H83    !stereo methyl
+  improper H61 H62 C5 O6     !stereo methyl
+
+  DONOr HO1 O1
+  DONOr HN2 N2 
+  DONOr HO3 O3
+  DONOr HO4 O4
+  DONOr HO6 O6
+  ACCEptor O1 C1
+  ACCEptor O7 C7
+  ACCEptor O3 C3
+  ACCEptor O4 C4
+  ACCEptor O5 C5
+  ACCEptor O6 C6
+
+END
+
+PRESidue B1N {beta link from C1 to Asn Nd2}
+ MODIfy  ATOM +ND2  TYPE=NH1 CHARge=-0.35  END
+ MODIfy  ATOM +HD22          CHARge= 0.25  END
+ DELEte  ATOM +HD21                        END
+ MODIfy  ATOM -C1            CHARge= 0.20  END
+ DELEte  ATOM -O1                          END
+ DELEte  ATOM -HO1                         END
+
+ ADD BOND  -C1  +ND2   
+ 
+ ADD ANGLe +CG   +ND2   -C1  
+ ADD ANGLe +HD22 +ND2   -C1  
+ ADD ANGLe +ND2  -C1    -C2  
+ ADD ANGLe +ND2  -C1    -O5  
+ ADD ANGLe +ND2  -C1    -H1  
+
+ ADD IMPRoper  +CG   +ND2   -C1   -H1  
+ ADD IMPRoper  +CB   +CG    +ND2  -C1  
+ ADD IMPRoper  +ND2  +CG    -C1   +HD22      
+ ADD IMPRoper  +ND2  -C1    -C2   -C3
+ ADD IMPRoper  +ND2  -C1    -O5   -C5
+ ADD IMPRoper  -H1   -C2    +ND2  -O5 ! C1 center
+END
+
+set echo=true end

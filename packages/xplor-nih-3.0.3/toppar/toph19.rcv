@@ -1,0 +1,1680 @@
+remarks
+remarks   TOPH19.RCV 
+remarks   ==========
+remarks
+remarks   Topology file for prosthetic groups of the 
+remarks   photosynthetic reaction center of Rps. viridis
+remarks
+remarks   (H. Treutlein et al., in: The photosynthetical bacterial
+remarks   reaction center: Structure and dynamics, J.Breton, A.Vermeglio,Eds.
+remarks   (Plenum Press, London 1987), p. 139    
+remarks   
+remarks   The charge distributions of the groups have been calculated
+remarks   by means of the semi-empirical quantum chemistry program
+remarks   MOPAC  (see M.J.S. Dewar, W. Thiel, J.Am.Chem.Soc. 99(1977)4899)
+remarks   Each group has been calculated seperately in vacuum. The 
+remarks   Mg-atom was represented by a sparkle with charge 2.
+remarks
+remarks   The file include all prosthetic groups in their neutral charge
+remarks   state and ionized states of the bacteriochlorophylls BCMP, BCLA
+remarks   and the bacteriopheophytin BPL.  However, in reality, the positve
+remarks   charge is distributed among the whole special pair (BCMP and BCLP),
+remarks   see e.g. M. Plato et al., in: "The photosynthetic bacterial 
+remarks   reaction center: structure and dynamics, 
+remarks   J.Breton and A.Vermeglio, Eds.,
+remarks   (Plenum Press, London 1987), p. 379.  Patches to protein residues
+remarks   are also provided.
+remarks                
+remarks   The topology and parameters of the heme group which is 
+remarks   included in this file are from John Kuriyan (26-Oct-1985).
+remarks   The Heme group is for the liganded FE(II) state
+remarks   with perfect D4H symmetry. The atom types used are for 
+remarks   PARAM19 and the structural parameters are taken from
+remarks   Kitagawa, Abe and Ogoshi J.C.P. 69, (1978) pages 4526-4534
+remarks
+remarks   H. Treutlein   (6-Sept-1989)
+
+
+set echo=false end
+
+AUTOGENERATE  ANGLES=TRUE  END      {* but see the two omitted angles below *}
+{*============================         ==================================== *}
+
+{* protein default masses *}
+MASS   H      1.00800! hydrogen which can h-bond to neutral atom
+MASS   HC     1.00800!    ="=     ="=     ="=    to charged atom
+MASS   C     12.01100! carbonyl carbon
+MASS   CH1E  13.01900! extended atom carbon with one hydrogen
+MASS   CH2E  14.02700!    ="=      ="=     ="=   two hydrogens
+MASS   CH3E  15.03500!    ="=      ="=     ="=   three hydrogens
+MASS   CR1E  13.01900!    ="=      ="=      in an aromatic ring with one H
+MASS   N     14.00670! peptide nitrogen with no hydrogens attached
+MASS   NR    14.00670! nitrogen in an aromatic ring with no hydrogens
+MASS   NP    14.00670! pyrole nitrogen
+MASS   NH1   14.00670! peptide nitrogen bound to one hydrogen
+MASS   NH2   14.00670!    ="=       ="=      ="= two hydrogens
+MASS   NH3   14.00670! nitrogen bound to three hydrogens
+MASS   NC2   14.00670! charged guandinium nitrogen bound to two hydrogens
+MASS   O     15.99940! carbonyl oxygen
+MASS   OC    15.99940! carboxy oxygen
+MASS   OH1   15.99940! hydroxy oxygen
+MASS   ON    15.99940! oxygen in LDAO ( bond N-O )
+MASS   S     32.06000! sulphur
+MASS   SH1E  33.06800! extended atom sulfur with one hydrogen
+
+MASS   HP     1.00800! ST2 water hydrogen
+MASS   LP     0.00000! ST2 lone pair
+MASS   HT     1.00800! TIPS3P water hydrogen
+MASS   HA     1.00800! aliphatic hydrogen
+MASS   CT    12.01100! aliphatic carbon
+MASS   OH2   15.99940! ST2 water oxygen
+MASS   OT    15.99940 ! TIPS3P water oxygen
+MASS   HT     1.00800 ! TIPS3P WATER HYDROGEN
+MASS   CM    12.01100 ! carbon in carbonmonoxide
+MASS   OM    15.99940 ! oxygen in carbonmonoxide
+MASS   OS    15.99940 ! ester oxygen
+MASS   CP    13.019   ! (AMBER)imidazole carbon for assymm. histidine CE1
+MASS   CF    13.019   ! IMIDAZOLE CARBON FOR ASSYM. HISTIDINE CE2
+MASS   NB    14.0067  ! IMIDAZOLE NITROGEN NE2
+MASS   CC    12.011   ! IMIDAZOLE CARBON  CG
+MASS   NA    14.0067  ! IMIDAZOLE PROTONATED NITROGEN
+MASS   CPA   12.01100 ! HEME SP2 CARBON
+MASS   CPB   12.01100 ! HEME SP2 CARBON
+MASS   CPM   13.01900 ! HEME MESO CARBON, EXTENDED
+MASS   FE    55.84700 ! IRON
+MASS   MG    24.30500 ! magnesium
+MASS   EL     0.00054 ! magnesium
+
+RESIdue FE1
+ GROUp
+  ATOM FE   TYPE=FE    CHARGE=2.0    END                
+       
+END {* FE1 *}
+
+RESIdue BCB       ! Bacteriochlorophyll b 
+                  ! Charge 0.0
+                  ! Charge distribution from MOPAC calculations
+ GROUp
+  ATOM MG   TYPE=MG    CHARGE=2.00    END                
+  ATOM NA   TYPE=NP    CHARGE=-0.54   END
+  ATOM NB   TYPE=NP    CHARGE=-0.58   END
+  ATOM NC   TYPE=NP    CHARGE=-0.52   END
+  ATOM ND   TYPE=NP    CHARGE=-0.60   END
+ GROUp
+  ATOM C1A  TYPE=CPA   CHARGE=0.13    END
+  ATOM CHA  TYPE=C     CHARGE=-0.15   END
+  ATOM C4D  TYPE=CPA   CHARGE=0.11    END
+ GROUp
+  ATOM C1B  TYPE=CPA   CHARGE=0.00    END
+  ATOM CHB  TYPE=CPM   CHARGE=0.00    END
+  ATOM C4A  TYPE=CPA   CHARGE=0.01    END
+ GROUp
+  ATOM C1C  TYPE=CPA   CHARGE=0.00    END
+  ATOM CHC  TYPE=CPM   CHARGE=0.00    END
+  ATOM C4B  TYPE=CPA   CHARGE=0.01    END
+ GROUp
+  ATOM C1D  TYPE=CPA   CHARGE=0.00    END
+  ATOM CHD  TYPE=CPM   CHARGE=0.00    END
+  ATOM C4C  TYPE=CPA   CHARGE=0.10    END
+ GROUp
+  ATOM C2A  TYPE=CH1E  CHARGE=0.03    END
+  ATOM CAA  TYPE=CH2E  CHARGE=0.03    END
+ GROUp
+  ATOM C3A  TYPE=CH1E  CHARGE=-0.01   END
+  ATOM CMA  TYPE=CH3E  CHARGE=0.08    END
+ GROUp
+  ATOM C2B  TYPE=CPB   CHARGE=-0.05   END
+  ATOM CMB  TYPE=CH3E  CHARGE=0.13    END
+ GROUp                           
+  ATOM C3B  TYPE=CPB   CHARGE=-0.18   END
+  ATOM CAB  TYPE=C     CHARGE=0.43    END
+  ATOM CBB  TYPE=CH3E  CHARGE=0.10    END
+  ATOM OBB  TYPE=O     CHARGE=-0.51   END
+ GROUp
+  ATOM C2C  TYPE=CH1E  CHARGE=0.04    END                 
+  ATOM CMC  TYPE=CH3E  CHARGE=0.08    END
+ GROUp
+  ATOM C3C  TYPE=C     CHARGE=-0.19   END
+  ATOM CAC  TYPE=CR1E  CHARGE=0.02    END
+  ATOM CBC  TYPE=CH3E  CHARGE=0.10    END
+ GROUp
+  ATOM C2D  TYPE=CPB   CHARGE=0.02    END
+  ATOM CMD  TYPE=CH3E  CHARGE=0.15    END
+ GROUp
+  ATOM C3D  TYPE=CPB   CHARGE=-0.22   END
+  ATOM CAD  TYPE=C     CHARGE=0.49    END
+  ATOM OBD  TYPE=O     CHARGE=-0.47   END
+ GROUp
+  ATOM CBD  TYPE=CH1E  CHARGE=0.07    END
+  ATOM CGD  TYPE=C     CHARGE=0.54    END
+  ATOM O1D  TYPE=OC    CHARGE=-0.53   END
+  ATOM O2D  TYPE=OS    CHARGE=-0.49   END
+  ATOM CED  TYPE=CH3E  CHARGE=0.42    END
+ GROUp                            
+  ATOM CBA  TYPE=CH2E  CHARGE=0.02    END
+  ATOM CGA  TYPE=C     CHARGE=0.54    END
+  ATOM O1A  TYPE=O     CHARGE=-0.49   END
+GROUp           
+  ATOM O2A  TYPE=OS    CHARGE=-0.52   END
+  ATOM CP1  TYPE=CH2E  CHARGE=0.45    END
+  ATOM CP2  TYPE=CPM   CHARGE=-0.11   END
+  ATOM CP3  TYPE=CPA   CHARGE=-0.07   END
+  ATOM CP4  TYPE=CH3E  CHARGE=0.07    END
+  ATOM CP5  TYPE=CH2E  CHARGE=0.05    END
+  ATOM CP6  TYPE=CH2E  CHARGE=0.00    END
+  ATOM CP7  TYPE=CH2E  CHARGE=0.06    END
+  ATOM CP8  TYPE=CH1E  CHARGE=-0.05   END
+  ATOM CP9  TYPE=CH3E  CHARGE=0.02    END
+  ATOM CP10 TYPE=CH2E  CHARGE=0.00    END
+  ATOM CP11 TYPE=CH2E  CHARGE=0.00    END
+  ATOM CP12 TYPE=CH2E  CHARGE=0.00    END
+  ATOM CP13 TYPE=CH1E  CHARGE=-0.04   END
+  ATOM CP14 TYPE=CH3E  CHARGE=0.02    END
+  ATOM CP15 TYPE=CH2E  CHARGE=0.01    END
+  ATOM CP16 TYPE=CH2E  CHARGE=0.00    END
+  ATOM CP17 TYPE=CH2E  CHARGE=0.01    END
+  ATOM CP18 TYPE=CH1E  CHARGE=-0.06   END
+  ATOM CP19 TYPE=CH3E  CHARGE=0.02    END
+  ATOM CP20 TYPE=CH3E  CHARGE=0.02    END
+                   
+ BOND MG   NA        BOND MG   NB        BOND MG   NC        BOND MG   ND
+ BOND NA   C1A       BOND C1A  C2A       BOND C2A  C3A       BOND C3A  C4A
+ BOND NA   C4A       BOND C2A  CAA       BOND CAA  CBA       BOND CBA  CGA
+ BOND CGA  O1A       BOND CGA  O2A       BOND C3A  CMA       BOND CHB  C4A
+ BOND CHB  C1B       BOND NB   C1B       BOND C1B  C2B       BOND C2B  C3B
+ BOND C3B  C4B       BOND NB   C4B       BOND C2B  CMB       BOND C3B  CAB
+ BOND CAB  CBB       BOND CHC  C4B       BOND CHC  C1C       BOND NC   C1C
+ BOND C1C  C2C       BOND C2C  C3C       BOND C3C  C4C       BOND NC   C4C
+ BOND CAB  OBB
+ BOND C2C  CMC       BOND C3C  CAC       BOND CAC  CBC       BOND CHD  C4C
+ BOND CHD  C1D       BOND ND   C1D       BOND C1D  C2D       BOND C2D  C3D
+ BOND C3D  C4D       BOND ND   C4D       BOND C2D  CMD       BOND C3D  CAD
+ BOND CAD  CBD       BOND CBD  CGD       BOND CGD  O1D       BOND CGD  O2D
+ BOND O2D  CED       BOND CAD  OBD       BOND CBD  CHA
+ BOND CHA  C4D       BOND CHA  C1A
+ BOND O2A  CP1       BOND CP1  CP2       BOND CP2  CP3       BOND CP3  CP4
+ BOND CP3  CP5       BOND CP5  CP6       BOND CP6  CP7       BOND CP7  CP8
+ BOND CP8  CP9       BOND CP8  CP10      BOND CP10 CP11      BOND CP11 CP12
+ BOND CP12 CP13      BOND CP13 CP14      BOND CP13 CP15      BOND CP15 CP16
+ BOND CP16 CP17      BOND CP17 CP18      BOND CP18 CP19      BOND CP18 CP20
+
+ OMIT ANGLE NA MG NC
+ OMIT ANGLE NB MG ND
+ 
+ DIHEdral NA   C4A  CHB  C1B           DIHEdral C4A  CHB  C1B  NB
+ DIHEdral NB   C4B  CHC  C1C           DIHEdral C4B  CHC  C1C  NC
+ DIHEdral NC   C4C  CHD  C1D           DIHEdral C4C  CHD  C1D  ND
+ DIHEdral C4D  CHA  C1A  NA
+
+ DIHEdral C1A  C2A  CAA  CBA           DIHEdral C2A  CAA  CBA  CGA
+ DIHEdral CAA  CBA  CGA  O1A           DIHEdral O1A  CGA  O2A  CP1
+ DIHEdral CGA  O2A  CP1  CP2           DIHEdral O2A  CP1  CP2  CP3
+ DIHEdral CP1  CP2  CP3  CP4           DIHEdral CP2  CP3  CP5  CP6
+ DIHEdral CP3  CP5  CP6  CP7           DIHEdral CP5  CP6  CP7  CP8
+ DIHEdral CP6  CP7  CP8  CP9           DIHEdral CP9  CP8  CP10 CP11
+ DIHEdral CP8  CP10 CP11 CP12          DIHEdral CP10 CP11 CP12 CP13
+ DIHEdral CP11 CP12 CP13 CP14          DIHEdral CP14 CP13 CP15 CP16
+ DIHEdral CP13 CP15 CP16 CP17          DIHEdral CP15 CP16 CP17 CP18
+ DIHEdral CP16 CP17 CP18 CP19
+
+ DIHEdral C2B  C3B  CAB  CBB           DIHEdral C2C  C3C  CAC  CBC           
+ DIHEdral CAD  CBD  CGD  O1D           DIHEdral CBD  CGD  O2D  CED
+            
+ IMPRoper MG   C1A  C4A  NA            IMPRoper MG   C1B  C4B  NB
+ IMPRoper MG   C1C  C4C  NC            IMPRoper MG   C1D  C4D  ND
+ IMPRoper CHA  NA   C2A  C1A           IMPRoper CHB  NA   C3A  C4A
+ IMPRoper CHB  NB   C2B  C1B           IMPRoper CHC  NB   C3B  C4B
+ IMPRoper CHC  NC   C2C  C1C           IMPRoper CHD  NC   C3C  C4C
+ IMPRoper CHD  ND   C2D  C1D           IMPRoper CHA  ND   C3D  C4D
+ IMPRoper C2A  C1A  C3A  CAA           IMPRoper C3A  C4A  C2A  CMA
+ IMPRoper C2B  C1B  C3B  CMB           IMPRoper C3B  C2B  C4B  CAB
+ IMPRoper C2C  C3C  C1C  CMC           IMPRoper C3C  C4C  C1C  C2C
+ IMPRoper C2D  C1D  C3D  CMD           IMPRoper C3D  C2D  C4D  CAD
+ IMPRoper O1A  O2A  CBA  CGA           IMPRoper O1D  O2D  CBD  CGD
+ IMPRoper NA   NB   MG   NC            IMPRoper NB   NC   MG   ND
+ IMPRoper NC   ND   MG   NA            IMPRoper ND   NA   MG   NB
+
+ IMPRoper C4D  CHA  C3D  ND            IMPRoper CAD  C3D  CBD  OBD
+ IMPRoper CBD  C4D  CAD  CHA           IMPRoper CHA  C4D  CBD  C1A
+ IMPRoper C3D  C4D  CAD  C2D           IMPRoper CAB  OBB  CBB  C3B
+ IMPRoper CP3  CP2  CP5  CP4           IMPRoper CBD  CHA  CAD  CGD
+
+
+ ACCEptor NA  " "            ACCEptor NB " "
+ ACCEptor NC  " "            ACCEptor ND " "
+ ACCEptor O1D CGD           
+ ACCEptor O1A CGA
+ ACCEPTOR OBD CAD
+ ACCEPTOR OBB CAB
+ ACCEPTOR O2D " "
+ ACCEPTOR O2A " "
+
+END {BCL}
+
+!--------------------------------------------------------------------
+
+RESIdue BPB       ! Bacteriopheophytin b
+                  ! Charge 0
+                  ! Charge distribution from MOPAC calculations
+ GROUp
+  ATOM NA   TYPE=NP    CHARGE=-0.26   END
+  ATOM NB   TYPE=NH1   CHARGE=-0.12   END
+  ATOM HB   TYPE=H     CHARGE=0.24    END
+  ATOM NC   TYPE=NP    CHARGE=-0.27   END
+  ATOM ND   TYPE=NH1   CHARGE=-0.21   END
+  ATOM HD   TYPE=H     CHARGE=0.26    END
+ GROUp
+  ATOM C1A  TYPE=CPA   CHARGE=0.09    END
+  ATOM CHA  TYPE=C     CHARGE=-0.11   END
+  ATOM C4D  TYPE=CPA   CHARGE=0.13    END
+ GROUp
+  ATOM C1B  TYPE=CPA   CHARGE=-0.02   END
+  ATOM CHB  TYPE=CPM   CHARGE=0.07    END
+  ATOM C4A  TYPE=CPA   CHARGE=-0.05   END
+ GROUp
+  ATOM C1C  TYPE=CPA   CHARGE=-0.04   END
+  ATOM CHC  TYPE=CPM   CHARGE=0.04    END
+  ATOM C4B  TYPE=CPA   CHARGE=0.05    END
+ GROUp
+  ATOM C1D  TYPE=CPA   CHARGE=0.08    END
+  ATOM CHD  TYPE=CPM   CHARGE=-0.01   END
+  ATOM C4C  TYPE=CPA   CHARGE=0.08    END
+ GROUp
+  ATOM C2A  TYPE=CH1E  CHARGE=0.03    END
+  ATOM CAA  TYPE=CH2E  CHARGE=0.03    END
+ GROUp
+  ATOM C3A  TYPE=CH1E  CHARGE=-0.03   END
+  ATOM CMA  TYPE=CH3E  CHARGE=0.07    END
+ GROUp
+  ATOM C2B  TYPE=CPB   CHARGE=-0.05   END
+  ATOM CMB  TYPE=CH3E  CHARGE=0.13    END
+ GROUp
+  ATOM C3B  TYPE=CPB   CHARGE=-0.20   END
+  ATOM CAB  TYPE=C     CHARGE=0.44    END
+  ATOM CBB  TYPE=CH3E  CHARGE=0.09    END
+  ATOM OBB  TYPE=O     CHARGE=-0.52   END
+ GROUp
+  ATOM C2C  TYPE=CH1E  CHARGE=0.05    END
+  ATOM CMC  TYPE=CH3E  CHARGE=0.08    END
+ GROUp
+  ATOM C3C  TYPE=C     CHARGE=-0.15   END
+  ATOM CAC  TYPE=CR1E  CHARGE=0.02    END
+  ATOM CBC  TYPE=CH3E  CHARGE=0.10   END
+ GROUp
+  ATOM C2D  TYPE=CPB   CHARGE=0.03    END
+  ATOM CMD  TYPE=CH3E  CHARGE=0.15    END
+ GROUp
+  ATOM C3D  TYPE=CPB   CHARGE=-0.19   END
+  ATOM CAD  TYPE=C     CHARGE=0.50    END
+  ATOM OBD  TYPE=O     CHARGE=-0.47   END
+ GROUp
+  ATOM CBD  TYPE=CH1E  CHARGE=0.06    END
+  ATOM CGD  TYPE=C     CHARGE=0.53    END
+  ATOM O1D  TYPE=OC    CHARGE=-0.55   END
+  ATOM O2D  TYPE=OS    CHARGE=-0.48   END
+  ATOM CED  TYPE=CH3E  CHARGE=0.41    END
+ GROUp
+  ATOM CBA  TYPE=CH2E  CHARGE=0.06    END
+  ATOM CGA  TYPE=C     CHARGE=0.54    END
+  ATOM O1A  TYPE=O     CHARGE=-0.50   END
+GROUp 
+  ATOM O2A  TYPE=OS    CHARGE=-0.54   END
+  ATOM CP1  TYPE=CH2E  CHARGE=0.46    END
+  ATOM CP2  TYPE=CPM   CHARGE=-0.06   END
+  ATOM CP3  TYPE=CPA   CHARGE=-0.11   END
+  ATOM CP4  TYPE=CH3E  CHARGE=0.07    END
+  ATOM CP5  TYPE=CH2E  CHARGE=0.05    END
+  ATOM CP6  TYPE=CH2E  CHARGE=0.00    END
+  ATOM CP7  TYPE=CH2E  CHARGE=0.05    END
+  ATOM CP8  TYPE=CH1E  CHARGE=-0.05   END
+  ATOM CP9  TYPE=CH3E  CHARGE=0.02    END
+  ATOM CP10 TYPE=CH2E  CHARGE=0.00    END
+  ATOM CP11 TYPE=CH2E  CHARGE=0.00    END
+  ATOM CP12 TYPE=CH2E  CHARGE=0.00    END
+  ATOM CP13 TYPE=CH1E  CHARGE=-0.04   END
+  ATOM CP14 TYPE=CH3E  CHARGE=0.02    END
+  ATOM CP15 TYPE=CH2E  CHARGE=0.01    END
+  ATOM CP16 TYPE=CH2E  CHARGE=0.00    END
+  ATOM CP17 TYPE=CH2E  CHARGE=0.01    END
+  ATOM CP18 TYPE=CH1E  CHARGE=-0.06   END
+  ATOM CP19 TYPE=CH3E  CHARGE=0.02    END
+  ATOM CP20 TYPE=CH3E  CHARGE=0.02    END
+                   
+ BOND NB   HB        BOND ND   HD
+ BOND NA   C1A       BOND C1A  C2A       BOND C2A  C3A       BOND C3A  C4A
+ BOND NA   C4A       BOND C2A  CAA       BOND CAA  CBA       BOND CBA  CGA
+ BOND CGA  O1A       BOND CGA  O2A       BOND C3A  CMA       BOND CHB  C4A
+ BOND CHB  C1B       BOND NB   C1B       BOND C1B  C2B       BOND C2B  C3B
+ BOND C3B  C4B       BOND NB   C4B       BOND C2B  CMB       BOND C3B  CAB
+ BOND CAB  CBB       BOND CHC  C4B       BOND CHC  C1C       BOND NC   C1C
+ BOND C1C  C2C       BOND C2C  C3C       BOND C3C  C4C       BOND NC   C4C
+ BOND CAB  OBB
+ BOND C2C  CMC       BOND C3C  CAC       BOND CAC  CBC       BOND CHD  C4C
+ BOND CHD  C1D       BOND ND   C1D       BOND C1D  C2D       BOND C2D  C3D
+ BOND C3D  C4D       BOND ND   C4D       BOND C2D  CMD       BOND C3D  CAD
+ BOND CAD  CBD       BOND CBD  CGD       BOND CGD  O1D       BOND CGD  O2D
+ BOND O2D  CED       BOND CAD  OBD       BOND CBD  CHA
+ BOND CHA  C4D       BOND CHA  C1A
+ BOND O2A  CP1       BOND CP1  CP2       BOND CP2  CP3       BOND CP3  CP4
+ BOND CP3  CP5       BOND CP5  CP6       BOND CP6  CP7       BOND CP7  CP8
+ BOND CP8  CP9       BOND CP8  CP10      BOND CP10 CP11      BOND CP11 CP12
+ BOND CP12 CP13      BOND CP13 CP14      BOND CP13 CP15      BOND CP15 CP16
+ BOND CP16 CP17      BOND CP17 CP18      BOND CP18 CP19      BOND CP18 CP20
+
+ DIHEdral NA   C4A  CHB  C1B           DIHEdral C4A  CHB  C1B  NB
+ DIHEdral NB   C4B  CHC  C1C           DIHEdral C4B  CHC  C1C  NC
+ DIHEdral NC   C4C  CHD  C1D           DIHEdral C4C  CHD  C1D  ND
+ DIHEdral C4D  CHA  C1A  NA
+
+ DIHEdral C1A  C2A  CAA  CBA           DIHEdral C2A  CAA  CBA  CGA
+ DIHEdral CAA  CBA  CGA  O1A           DIHEdral O1A  CGA  O2A  CP1
+ DIHEdral CGA  O2A  CP1  CP2           DIHEdral O2A  CP1  CP2  CP3
+ DIHEdral CP1  CP2  CP3  CP4           DIHEdral CP2  CP3  CP5  CP6
+ DIHEdral CP3  CP5  CP6  CP7           DIHEdral CP5  CP6  CP7  CP8
+ DIHEdral CP6  CP7  CP8  CP9           DIHEdral CP9  CP8  CP10 CP11
+ DIHEdral CP8  CP10 CP11 CP12          DIHEdral CP10 CP11 CP12 CP13
+ DIHEdral CP11 CP12 CP13 CP14          DIHEdral CP14 CP13 CP15 CP16
+ DIHEdral CP13 CP15 CP16 CP17          DIHEdral CP15 CP16 CP17 CP18
+ DIHEdral CP16 CP17 CP18 CP19
+
+ DIHEdral C2B  C3B  CAB  CBB           DIHEdral C2C  C3C  CAC  CBC           
+ DIHEdral CAD  CBD  CGD  O1D           DIHEdral CBD  CGD  O2D  CED
+            
+ DIHEdral CHA  C1A  NA   C4A           DIHEdral C1A  NA   C4A  CHB !! 
+ DIHEdral NA   C4A  CHB  C1B           DIHEdral C4A  CHB  C1B  NB  !! keep 
+ DIHEdral CHB  C1B  NB   C4B           DIHEdral C1B  NB   C4B  CHC !! 
+ DIHEdral NB   C4B  CHC  C1C           DIHEdral C4B  CHC  C1C  NC  !! N*
+ DIHEdral CHC  C1C  NC   C4C           DIHEdral C1C  NC   C4C  CHD !!
+ DIHEdral NC   C4C  CHD  C1D           DIHEdral C4C  CHD  C1D  ND  !! planar
+ DIHEdral CHD  C1D  ND   C4D           DIHEdral C1D  ND   C4D  CHA !!
+ DIHEdral ND   C4D  CHA  C1A           DIHEdral C4D  CHA  C1A  NA  !! !
+
+ DIHEdral C1D  C3D  C4D  CHA           DIHEdral C1D  C4D  C3D  CAD
+
+ IMPRoper HB   C1A  C4A  NB            IMPRoper HD   C1B  C4B  ND
+ IMPRoper CHA  NA   C2A  C1A           IMPRoper CHB  NA   C3A  C4A
+ IMPRoper CHB  NB   C2B  C1B           IMPRoper CHC  NB   C3B  C4B
+ IMPRoper CHC  NC   C2C  C1C           IMPRoper CHD  NC   C3C  C4C
+ IMPRoper CHD  ND   C2D  C1D           IMPRoper CHA  ND   C3D  C4D
+ IMPRoper C2A  C1A  C3A  CAA           IMPRoper C3A  C4A  C2A  CMA
+ IMPRoper C2B  C1B  C3B  CMB           IMPRoper C3B  C2B  C4B  CAB
+ IMPRoper C2C  C3C  C1C  CMC           IMPRoper C3C  C4C  C1C  C2C
+ IMPRoper C2D  C1D  C3D  CMD           IMPRoper C3D  C2D  C4D  CAD
+ IMPRoper O1A  O2A  CBA  CGA           IMPRoper O1D  O2D  CBD  CGD
+
+ IMPRoper C4D  CHA  C3D  ND            IMPRoper CAD  C3D  CBD  OBD
+ IMPRoper CBD  C4D  CAD  CHA           IMPRoper CHA  C4D  CBD  C1A
+ IMPRoper C3D  C4D  CAD  C2D           IMPRoper CAB  OBB  CBB  C3B
+ IMPRoper CP3  CP2  CP5  CP4           IMPRoper CBD  CHA  CAD  CGD
+
+ DONOR HB NB
+ DONOR HD ND
+
+ ACCEptor NA  " "
+ ACCEptor NC  " "
+ ACCEptor O1D CGD           
+ ACCEptor O1A CGA
+ ACCEPTOR OBD CAD
+ ACCEPTOR OBB CAB
+ ACCEPTOR O2D " "
+ ACCEPTOR O2A " "
+
+END {BPB}
+
+!---------------------------------------------------------------------
+               
+RESIdue MQ7       ! Menaquinone  (includes 8 isoprene groups)
+                  ! Charges from MOPAC calculations
+ GROUp
+  ATOM C1   TYPE=CPB   CHARGE=-0.1  EXCL=(C4 C3D C3C C3B C3A)   END
+  ATOM C1M  TYPE=CH3E  CHARGE= 0.1                              END
+  ATOM C2   TYPE=CPA   CHARGE= 0.5  EXCL=(C5 C3D C3C C3B)       END
+  ATOM O2   TYPE=O     CHARGE=-0.5                              END
+  ATOM C3   TYPE=CPB   CHARGE=-0.1  EXCL=(C6 C3C)               END
+  ATOM C4   TYPE=CPB   CHARGE=-0.1  EXCL=(C3B)                  END
+  ATOM C5   TYPE=CPA   CHARGE= 0.5  EXCL=(C3C C3A C3B)          END
+  ATOM O5   TYPE=O     CHARGE=-0.5                              END
+  ATOM C6   TYPE=CPB   CHARGE=-0.1  EXCL=(C3D C3C C3B C3A)      END
+ GROUp
+  ATOM C3A  TYPE=CR1E  CHARGE= 0.1  EXCL=(C3D)                  END
+  ATOM C3B  TYPE=CR1E  CHARGE= 0.0     END
+  ATOM C3C  TYPE=CR1E  CHARGE= 0.0     END
+  ATOM C3D  TYPE=CR1E  CHARGE= 0.1     END
+ GROUp
+  ATOM C7   TYPE=CH2E  CHARGE= 0.1     END
+  ATOM C8   TYPE=CPM   CHARGE=-.05     END
+  ATOM C9   TYPE=CPA   CHARGE=-0.1     END
+  ATOM C10  TYPE=CH3E  CHARGE= .05     END
+  ATOM C11  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C12  TYPE=CH2E  CHARGE= .05     END
+  ATOM C13  TYPE=CPM   CHARGE=-.05     END
+  ATOM C14  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C15  TYPE=CH3E  CHARGE= .05     END
+  ATOM C16  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C17  TYPE=CH2E  CHARGE= .05     END
+  ATOM C18  TYPE=CPM   CHARGE=-.05     END
+  ATOM C19  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C20  TYPE=CH3E  CHARGE= .05     END
+  ATOM C21  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C22  TYPE=CH2E  CHARGE= .05     END
+  ATOM C23  TYPE=CPM   CHARGE=-.05     END
+  ATOM C24  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C25  TYPE=CH3E  CHARGE= .05     END
+  ATOM C26  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C27  TYPE=CH2E  CHARGE= .05     END
+  ATOM C28  TYPE=CPM   CHARGE=-.05     END
+  ATOM C29  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C30  TYPE=CH3E  CHARGE= .05     END
+  ATOM C31  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C32  TYPE=CH2E  CHARGE= .05     END
+  ATOM C33  TYPE=CPM   CHARGE=-.05     END
+  ATOM C34  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C35  TYPE=CH3E  CHARGE= .05     END
+  ATOM C36  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C37  TYPE=CH2E  CHARGE= .05     END
+  ATOM C38  TYPE=CPM   CHARGE=-.05     END
+  ATOM C39  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C40  TYPE=CH3E  CHARGE= .05     END
+  ATOM C41  TYPE=CH2E  CHARGE= .05     END
+ GROUp               
+  ATOM C42  TYPE=CH2E  CHARGE= .05     END
+  ATOM C43  TYPE=CPM   CHARGE=-.05     END
+  ATOM C44  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C45  TYPE=CH3E  CHARGE= .075    END
+  ATOM C46  TYPE=CH3E  CHARGE= .075    END
+                    
+ BOND C1   C1M       BOND C1   C2        BOND C2   O2        BOND C2   C3
+ BOND C3   C4        BOND C3   C3A       BOND C3A  C3B       BOND C3B  C3C 
+ BOND C3C  C3D       BOND C3D  C4        BOND C4   C5        BOND C5   O5
+ BOND C5   C6        BOND C6   C1        BOND C6   C7        BOND C7   C8 
+ BOND C8   C9        BOND C9   C10       BOND C9   C11       BOND C11  C12
+ BOND C12  C13       BOND C13  C14       BOND C14  C15       BOND C14  C16
+ BOND C16  C17       BOND C17  C18       BOND C18  C19       BOND C19  C20
+ BOND C19  C21       BOND C21  C22       BOND C22  C23       
+ BOND C23  C24       BOND C24  C25
+ BOND C24  C26       BOND C26  C27       BOND C27  C28       BOND C28  C29
+ BOND C29  C30       BOND C29  C31       BOND C31  C32       BOND C32  C33
+ BOND C33  C34       BOND C34  C35       BOND C34  C36       BOND C36  C37
+
+ BOND C37  C38
+ BOND C38  C39       BOND C39  C40       BOND C39  C41       BOND C41  C42
+
+ BOND C42  C43       BOND C43  C44       BOND C44  C45       BOND C44  C46
+ 
+ OMITT ANGLE C2 C3 C3A
+ OMITT ANGLE C5 C4 C3D
+
+ DIHEdral C7   C6   C1   C1M           DIHEdral C1M  C1   C2   O2
+ DIHEdral C1   C2   C3   C4            DIHEdral C2   C3   C4   C5
+ DIHEdral C3   C4   C5   O5            DIHEdral C4   C5   C6   C7
+ DIHEdral C2   C3   C3A  C3B           DIHEdral C3   C3A  C3B  C3C
+ DIHEdral C3A  C3B  C3C  C3D           DIHEdral C3B  C3C  C3D  C4
+ DIHEdral C3C  C3D  C4   C5            DIHEdral C5   C6   C7   C8
+ DIHEdral C6   C7   C8   C9            DIHEdral C8   C9   C11  C12
+ DIHEdral C7   C8   C9   C11           DIHEdral C11  C12  C13  C14
+ DIHEdral C9   C11  C12  C13           DIHEdral C12  C13  C14  C16        
+ DIHEdral C13  C14  C16  C17           DIHEdral C14  C16  C17  C18
+ DIHEdral C16  C17  C18  C19           DIHEdral C17  C18  C19  C21
+ DIHEdral C18  C19  C21  C22           DIHEdral C19  C21  C22  C23
+ DIHEdral C21  C22  C23  C24           DIHEdral C23  C24  C26  C27
+ DIHEdral C22  C23  C24  C26
+ DIHEdral C24  C26  C27  C28           DIHEdral C26  C27  C28  C29
+
+ DIHEdral C27  C28  C29  C31           DIHEdral C28  C29  C31  C32
+ DIHEdral C29  C31  C32  C33           DIHEdral C31  C32  C33  C34
+ DIHEdral C32  C33  C34  C36           
+
+ DIHEdral C33  C34  C36  C37
+ DIHEdral C34  C36  C37  C38           DIHEdral C36  C37  C38  C39
+ DIHEdral C37  C38  C39  C41           DIHEdral C38  C39  C41  C42
+ DIHEdral C39  C41  C42  C43           DIHEdral C41  C42  C43  C44
+ DIHEdral C42  C43  C44  C45                           
+
+
+ DIHEdral C1   C3   C4   C3C  !!  SPAWN RINGS AND KEEP
+ DIHEdral C1   C4   C3   C3B  !!  PARALLEL
+
+ IMPRoper C1   C6   C2   C1M           IMPRoper C2   C1   C3   O2 
+ IMPRoper C3   C2   C3A  C4            IMPRoper C4   C3   C5   C3D
+ IMPRoper C5   C6   C4   O5            IMPRoper C1   C6   C5   C4
+ IMPRoper C6   C5   C4   C3            IMPRoper C5   C4   C3   C2
+ IMPRoper C4   C3   C2   C1            IMPRoper C3   C2   C1   C6
+ IMPRoper C2   C1   C6   C5
+ IMPRoper C6   C5   C1   C7 
+ IMPRoper C9   C10  C11  C8            IMPRoper C14  C15  C16  C13
+ IMPRoper C19  C20  C21  C18           IMPRoper C24  C25  C26  C23
+ IMPRoper C29  C30  C31  C28         
+ IMPRoper C34  C35  C36  C33
+ IMPRoper C39  C40  C41  C38
+ IMPRoper C44  C45  C46  C43
+ IMPRoper C3   C4   C3D  C3C           IMPRoper C4   C3D  C3C  C3B
+ IMPRoper C3D  C3C  C3B  C3A           IMPRoper C3C  C3B  C3A  C3
+ IMPRoper C3B  C3A  C3   C4            IMPRoper C3A  C3   C4   C3D
+                  
+ ACCEPTOR O2 C2
+ ACCEPTOR O5 C5
+
+ IC   C36  C37  C38  C39    0.0000    0.00 -180.00    0.00   0.0000
+ IC   C37  C38  C39  C41    0.0000    0.00  180.00    0.00   0.0000
+ IC   C37  C38  C39  C40    0.0000    0.00    0.00    0.00   0.0000
+ IC   C38  C39  C41  C42    0.0000    0.00  -60.00    0.00   0.0000
+ IC   C39  C41  C42  C43    0.0000    0.00  180.00    0.00   0.0000
+ IC   C41  C42  C43  C44    0.0000    0.00  180.00    0.00   0.0000
+ IC   C42  C43  C44  C45    0.0000    0.00    0.00    0.00   0.0000
+ IC   C42  C43  C44  C46    0.0000    0.00 -180.00    0.00   0.0000
+
+END {MQ7}
+
+!---------------------------------------------------------------------
+                                                
+RESIdue UQ1       ! Ubiquinone 1 (includes 8 isoprene groups)
+                  ! Charges from MOPAC calculations
+ GROUp
+  ATOM C1   TYPE=CPB   CHARGE=-0.1     END
+  ATOM CM1  TYPE=CH3E  CHARGE= 0.1     END
+  ATOM C2   TYPE=CPA   CHARGE= 0.5     END
+  ATOM O2   TYPE=O     CHARGE=-0.5     END
+  ATOM C3   TYPE=CPB   CHARGE= 0.1     END
+  ATOM C4   TYPE=CPB   CHARGE=-0.05    END
+  ATOM C5   TYPE=CPA   CHARGE= 0.5     END
+  ATOM O5   TYPE=O     CHARGE=-0.5     END
+  ATOM C6   TYPE=CPB   CHARGE=-0.1     END
+ GROUp              
+  ATOM O3   TYPE=OS    CHARGE=-0.5     END
+  ATOM CM3  TYPE=CH3E  CHARGE= 0.5     END
+  ATOM O4   TYPE=OS    CHARGE=-0.55    END
+  ATOM CM4  TYPE=CH3E  CHARGE= 0.5     END
+ GROUp              
+  ATOM C7   TYPE=CH2E  CHARGE= 0.12    END
+  ATOM C8   TYPE=CPM   CHARGE=-.02     END
+  ATOM C9   TYPE=CPA   CHARGE=-0.15    END
+  ATOM C10  TYPE=CH3E  CHARGE= .05     END
+  ATOM C11  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C12  TYPE=CH2E  CHARGE= .05     END
+  ATOM C13  TYPE=CPM   CHARGE=-.05     END
+  ATOM C14  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C15  TYPE=CH3E  CHARGE= .05     END
+  ATOM C16  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C17  TYPE=CH2E  CHARGE= .05     END
+  ATOM C18  TYPE=CPM   CHARGE=-.05     END
+  ATOM C19  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C20  TYPE=CH3E  CHARGE= .05     END
+  ATOM C21  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C22  TYPE=CH2E  CHARGE= .05     END
+  ATOM C23  TYPE=CPM   CHARGE=-.05     END
+  ATOM C24  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C25  TYPE=CH3E  CHARGE= .05     END
+  ATOM C26  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C27  TYPE=CH2E  CHARGE= .05     END
+  ATOM C28  TYPE=CPM   CHARGE=-.05     END
+  ATOM C29  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C30  TYPE=CH3E  CHARGE= .05     END
+  ATOM C31  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C32  TYPE=CH2E  CHARGE= .05     END
+  ATOM C33  TYPE=CPM   CHARGE=-.05     END
+  ATOM C34  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C35  TYPE=CH3E  CHARGE= .05     END
+  ATOM C36  TYPE=CH2E  CHARGE= .05     END
+ GROUp
+  ATOM C37  TYPE=CH2E  CHARGE= .05     END
+  ATOM C38  TYPE=CPM   CHARGE=-.05     END
+  ATOM C39  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C40  TYPE=CH3E  CHARGE= .05     END
+  ATOM C41  TYPE=CH2E  CHARGE= .05     END
+ GROUp               
+  ATOM C42  TYPE=CH2E  CHARGE= .05     END
+  ATOM C43  TYPE=CPM   CHARGE=-.05     END
+  ATOM C44  TYPE=CPA   CHARGE=-0.1     END
+  ATOM C45  TYPE=CH3E  CHARGE= .075    END
+  ATOM C46  TYPE=CH3E  CHARGE= .075    END
+                    
+ BOND C1   CM1       BOND C1   C2        BOND C2   O2        BOND C2   C3
+ BOND C3   C4        BOND C3   O3        BOND O3   CM3       
+ BOND C4   O4        BOND O4   CM4       BOND C4   C5        BOND C5   O5
+ BOND C5   C6        BOND C6   C1        BOND C6   C7        BOND C7   C8 
+ BOND C8   C9        BOND C9   C10       BOND C9   C11       BOND C11  C12
+ BOND C12  C13       BOND C13  C14       BOND C14  C15       BOND C14  C16
+ BOND C16  C17       BOND C17  C18       BOND C18  C19       BOND C19  C20
+ BOND C19  C21       BOND C21  C22       BOND C22  C23       
+ BOND C23  C24       BOND C24  C25
+ BOND C24  C26       BOND C26  C27       BOND C27  C28       BOND C28  C29
+ BOND C29  C30       BOND C29  C31       BOND C31  C32       BOND C32  C33
+ BOND C33  C34       BOND C34  C35       BOND C34  C36       BOND C36  C37
+
+ BOND C37  C38
+ BOND C38  C39       BOND C39  C40       BOND C39  C41       BOND C41  C42
+
+ BOND C42  C43       BOND C43  C44       BOND C44  C45       BOND C44  C46
+ 
+
+
+ DIHEdral C7   C6   C1   CM1           DIHEdral CM1  C1   C2   O2
+ DIHEdral C1   C2   C3   C4            DIHEdral C2   C3   C4   C5
+ DIHEdral C3   C4   C5   O5            DIHEdral C4   C5   C6   C7
+ DIHEdral C2   C3   O3   CM3           DIHEdral C5   C4   O4   CM4
+ DIHEdral C5   C6   C7   C8
+ DIHEdral C6   C7   C8   C9            DIHEdral C7   C8   C9   C11
+ DIHEdral C8   C9   C11  C12           DIHEdral C11  C12  C13  C14
+ DIHEdral C9   C11  C12  C13           DIHEdral C12  C13  C14  C16        
+ DIHEdral C13  C14  C16  C17           DIHEdral C14  C16  C17  C18
+ DIHEdral C16  C17  C18  C19           DIHEdral C17  C18  C19  C21
+ DIHEdral C18  C19  C21  C22           DIHEdral C19  C21  C22  C23
+ DIHEdral C21  C22  C23  C24           DIHEdral C23  C24  C26  C27
+ DIHEdral C22  C23  C24  C26
+ DIHEdral C24  C26  C27  C28           DIHEdral C26  C27  C28  C29
+
+ DIHEdral C27  C28  C29  C31           DIHEdral C28  C29  C31  C32
+ DIHEdral C29  C31  C32  C33           DIHEdral C31  C32  C33  C34
+ DIHEdral C32  C33  C34  C36           
+
+ DIHEdral C33  C34  C36  C37
+ DIHEdral C34  C36  C37  C38           DIHEdral C36  C37  C38  C39
+ DIHEdral C37  C38  C39  C41           DIHEdral C38  C39  C41  C42
+ DIHEdral C39  C41  C42  C43           DIHEdral C41  C42  C43  C44
+ DIHEdral C42  C43  C44  C45                           
+
+
+ IMPRoper C1   C6   C2   CM1           IMPRoper C2   C1   C3   O2 
+ IMPRoper C3   C2   O3   C4            IMPRoper C4   C3   C5   O4
+ IMPRoper C5   C6   C4   O5            IMPRoper C1   C6   C5   C4
+ IMPRoper C6   C5   C4   C3            IMPRoper C5   C4   C3   C2
+ IMPRoper C4   C3   C2   C1            IMPRoper C3   C2   C1   C6
+ IMPRoper C2   C1   C6   C5
+ IMPRoper C6   C5   C1   C7 
+ IMPRoper C9   C10  C11  C8            IMPRoper C14  C15  C16  C13
+ IMPRoper C19  C20  C21  C18           IMPRoper C24  C25  C26  C23
+ IMPRoper C29  C30  C31  C28         
+ IMPRoper C34  C35  C36  C33
+ IMPRoper C39  C40  C41  C38
+ IMPRoper C44  C45  C46  C43
+
+                  
+ ACCEPTOR O2 C2
+ ACCEPTOR O5 C5
+ ACCEPTOR O3 " "
+ ACCEPTOR O4 " "
+
+! Internal coordinates from MQ7:
+
+ IC   C8   C9   C11  C12    0.0000    0.00 -110.67    0.00   0.0000
+ IC   C7   C8   C9   C11    0.0000    0.00  176.95    0.00   0.0000
+ IC   C9   C11  C12  C13    0.0000    0.00   58.05    0.00   0.0000
+ IC   C11  C12  C13  C14    0.0000    0.00  126.62    0.00   0.0000
+ IC   C12  C13  C14  C16    0.0000    0.00  179.84    0.00   0.0000
+ IC   C12  C13  C14  C15    0.0000    0.00    1.00    0.00   0.0000
+ IC   C13  C14  C16  C17    0.0000    0.00 -111.23    0.00   0.0000
+ IC   C14  C16  C17  C18    0.0000    0.00   77.65    0.00   0.0000
+ IC   C16  C17  C18  C19    0.0000    0.00 -155.17    0.00   0.0000
+ IC   C17  C18  C19  C21    0.0000    0.00  179.55    0.00   0.0000
+ IC   C17  C18  C19  C20    0.0000    0.00    0.45    0.00   0.0000
+ IC   C18  C19  C21  C22    0.0000    0.00   97.74    0.00   0.0000
+ IC   C19  C21  C22  C23    0.0000    0.00 -174.86    0.00   0.0000
+ IC   C21  C22  C23  C24    0.0000    0.00  165.53    0.00   0.0000
+ IC   C23  C24  C26  C27    0.0000    0.00 -125.88    0.00   0.0000
+ IC   C22  C23  C24  C26    0.0000    0.00 -176.92    0.00   0.0000
+ IC   C22  C23  C24  C25    0.0000    0.00   -3.00    0.00   0.0000
+ IC   C24  C26  C27  C28    0.0000    0.00 -176.94    0.00   0.0000
+ IC   C26  C27  C28  C29    0.0000    0.00  134.74    0.00   0.0000
+ IC   C27  C28  C29  C31    0.0000    0.00 -179.70    0.00   0.0000
+ IC   C27  C28  C29  C30    0.0000    0.00   -0.30    0.00   0.0000
+ IC   C28  C29  C31  C32    0.0000    0.00  125.53    0.00   0.0000
+ IC   C29  C31  C32  C33    0.0000    0.00  176.37    0.00   0.0000
+ IC   C31  C32  C33  C34    0.0000    0.00 -168.64    0.00   0.0000
+ IC   C32  C33  C34  C36    0.0000    0.00  178.03    0.00   0.0000
+ IC   C32  C33  C34  C35    0.0000    0.00    2.00    0.00   0.0000
+ IC   C33  C34  C36  C37    0.0000    0.00  -57.22    0.00   0.0000
+ IC   C34  C36  C37  C38    0.0000    0.00  178.32    0.00   0.0000
+ IC   C36  C37  C38  C39    0.0000    0.00  148.80    0.00   0.0000
+ IC   C37  C38  C39  C41    0.0000    0.00 -170.66    0.00   0.0000
+ IC   C37  C38  C39  C40    0.0000    0.00   -9.00    0.00   0.0000
+ IC   C38  C39  C41  C42    0.0000    0.00  -78.70    0.00   0.0000
+ IC   C39  C41  C42  C43    0.0000    0.00  172.51    0.00   0.0000
+ IC   C41  C42  C43  C44    0.0000    0.00 -169.68    0.00   0.0000
+ IC   C42  C43  C44  C45    0.0000    0.00    0.26    0.00   0.0000
+ IC   C42  C43  C44  C46    0.0000    0.00  180.00    0.00   0.0000
+
+END {UQ1}
+
+!---------------------------------------------------------------------
+                                                
+RESIdue NS1       ! di-hydro-neurosporene
+                  ! Charges from MOPAC calculations
+
+ GROUp
+  ATOM CM1  TYPE=CH3E  CHARGE= 0.075   END
+  ATOM CM2  TYPE=CH3E  CHARGE= 0.075   END
+  ATOM C1   TYPE=CPA   CHARGE=-0.15    END
+  ATOM C2   TYPE=CPM   CHARGE=-0.025   END
+  ATOM C3   TYPE=CH2E  CHARGE= 0.05    END
+ GROUp
+  ATOM C4   TYPE=CH2E  CHARGE= 0.06    END
+  ATOM C5   TYPE=CPA   CHARGE=-0.13    END
+  ATOM CM3  TYPE=CH3E  CHARGE= 0.075   END
+  ATOM C6   TYPE=CPM   CHARGE=-0.02    END
+  ATOM C7   TYPE=CPM   CHARGE=-0.02    END
+ GROUp
+  ATOM C8   TYPE=CPM   CHARGE=-0.025   END
+  ATOM C9   TYPE=CPA   CHARGE=-0.13    END
+  ATOM CM4  TYPE=CH3E  CHARGE= 0.075   END
+  ATOM C10  TYPE=CPM   CHARGE= 0.025   END
+  ATOM C11  TYPE=CPM   CHARGE= 0.025   END
+ GROUp
+  ATOM C12  TYPE=CPM   CHARGE= 0.025   END
+  ATOM C13  TYPE=CPA   CHARGE=-0.1     END
+  ATOM CM5  TYPE=CH3E  CHARGE= 0.075   END
+  ATOM C14  TYPE=CPM   CHARGE= 0.025   END
+  ATOM C15  TYPE=CPM   CHARGE= 0.025   END
+  ATOM C16  TYPE=CPM   CHARGE= 0.025   END
+ GROUp
+  ATOM C17  TYPE=CPM   CHARGE=-0.01    END
+  ATOM C18  TYPE=CPA   CHARGE=-0.1     END
+  ATOM CM6  TYPE=CH3E  CHARGE= 0.075   END
+  ATOM C19  TYPE=CPM   CHARGE= 0.025   END
+  ATOM C20  TYPE=CPM   CHARGE= 0.01    END
+ GROUp
+  ATOM C21  TYPE=CPM   CHARGE= 0.01    END
+  ATOM C22  TYPE=CPA   CHARGE=-0.1     END
+  ATOM CM7  TYPE=CH3E  CHARGE= 0.075   END
+  ATOM C23  TYPE=CPM   CHARGE= 0.01    END
+  ATOM C24  TYPE=CPM   CHARGE=-0.04    END
+ GROUp
+  ATOM C25  TYPE=CPM   CHARGE= 0.01    END
+  ATOM C26  TYPE=CPA   CHARGE=-0.13    END
+  ATOM CM8  TYPE=CH3E  CHARGE= 0.075   END
+  ATOM C27  TYPE=CH2E  CHARGE= 0.04    END
+  ATOM C28  TYPE=CH2E  CHARGE= 0.0     END
+ GROUp
+  ATOM C29  TYPE=CH2E  CHARGE=-0.02    END
+  ATOM C30  TYPE=CH1E  CHARGE=-0.015   END
+  ATOM CM9  TYPE=CH3E  CHARGE=-0.02    END
+  ATOM CM10 TYPE=CH3E  CHARGE= 0.07    END
+
+ BOND CM1  C1        BOND CM2  C1        BOND C1   C2        BOND C3   C4 
+ BOND C4   C5        BOND C5   CM3       BOND C5   C6        BOND C6   C7 
+ BOND C7   C8        BOND C8   C9        BOND C9   CM4       BOND C9   C10
+ BOND C10  C11       BOND C11  C12       BOND C12  C13       BOND C13  CM5
+ BOND C13  C14       BOND C14  C15       BOND C15  C16       BOND C16  C17
+ BOND C17  C18       BOND C18  CM6       BOND C18  C19       BOND C19  C20
+ BOND C20  C21       BOND C21  C22       BOND C22  CM7       BOND C22  C23
+ BOND C23  C24       BOND C24  C25       BOND C25  C26       BOND C26  CM8
+ BOND C26  C27       BOND C27  C28       BOND C28  C29       BOND C29  C30
+ BOND C30  CM9       BOND C30  CM10      BOND C2   C3
+
+ DIHEdral CM1  C1   C2   C3            DIHEdral C1   C2   C3   C4
+ DIHEdral C2   C3   C4   C5            DIHEdral C3   C4   C5   C6
+ DIHEdral C4   C5   C6   C7            DIHEdral C5   C6   C7   C8
+ DIHEdral C6   C7   C8   C9            DIHEdral C7   C8   C9   C10
+ DIHEdral C8   C9   C10  C11           DIHEdral C9   C10  C11  C12
+ DIHEdral C10  C11  C12  C13           DIHEdral C11  C12  C13  C14
+ DIHEdral C12  C13  C14  C15           DIHEdral C13  C14  C15  C16
+ DIHEdral C14  C15  C16  C17           DIHEdral C15  C16  C17  C18
+ DIHEdral C16  C17  C18  C19           DIHEdral C17  C18  C19  C20
+ DIHEdral C18  C19  C20  C21           DIHEdral C19  C20  C21  C22
+ DIHEdral C20  C21  C22  C23           DIHEdral C21  C22  C23  C24
+ DIHEdral C22  C23  C24  C25           DIHEdral C23  C24  C25  C26
+ DIHEdral C24  C25  C26  C27           DIHEdral C25  C26  C27  C28
+ DIHEdral C26  C27  C28  C29           DIHEdral C27  C28  C29  C30
+ DIHEdral C28  C29  C30  CM10
+
+END {NS1}
+
+!---------------------------------------------------------------------
+                                                
+RESIdue LDA     ! Lauryl-dimethyl-amino-oxid
+                ! Charges 
+                ! from MOPAC calculations
+
+ GROUp
+  ATOM CM1  TYPE=CH3E  CHARGE= 0.15    END
+  ATOM CM2  TYPE=CH3E  CHARGE= 0.15    END
+  ATOM N1   TYPE=N     CHARGE= 0.6     END
+  ATOM O1   TYPE=ON    CHARGE=-1.2     END
+ GROUp
+  ATOM C1   TYPE=CH2E  CHARGE= 0.1     END
+  ATOM C2   TYPE=CH2E  CHARGE= 0.2     END
+  ATOM C3   TYPE=CH2E  CHARGE= 0.0     END
+  ATOM C4   TYPE=CH2E  CHARGE= 0.0     END
+  ATOM C5   TYPE=CH2E  CHARGE= 0.0     END
+  ATOM C6   TYPE=CH2E  CHARGE= 0.0     END
+  ATOM C7   TYPE=CH2E  CHARGE= 0.0     END
+  ATOM C8   TYPE=CH2E  CHARGE= 0.0     END
+  ATOM C9   TYPE=CH2E  CHARGE= 0.0     END
+  ATOM C10  TYPE=CH2E  CHARGE= 0.0     END
+  ATOM C11  TYPE=CH2E  CHARGE=-0.01    END
+  ATOM C12  TYPE=CH3E  CHARGE= 0.01    END
+
+ BOND CM1  N1        BOND CM2  N1        BOND O1   N1         
+ BOND C1   N1        BOND C1   C2        BOND C2   C3        BOND C3   C4
+ BOND C4   C5        BOND C5   C6        BOND C6   C7        BOND C7   C8
+ BOND C8   C9        BOND C9   C10       BOND C10  C11       BOND C11  C12
+ 
+ DIHEdral CM1  N1   C1   C2            DIHEdral N1   C1   C2   C3 
+ DIHEdral C1   C2   C3   C4            DIHEdral C2   C3   C4   C5 
+ DIHEdral C3   C4   C5   C6            DIHEdral C4   C5   C6   C7 
+ DIHEdral C5   C6   C7   C8            DIHEdral C6   C7   C8   C9 
+ DIHEdral C7   C8   C9   C10           DIHEdral C8   C9   C10  C11
+ DIHEdral C9   C10  C11  C12
+
+ IMPRoper CM1  N1   O1   CM2
+
+ ACCEptor O1  N1             
+
+END {LDA}
+
+!--------------------------------------------------------------------
+                
+! THE HEME GROUP WHICH FOLLOWS IS FOR THE LIGANDED FE(II) STATE
+! WITH PERFECT D4H SYMMETRY. THE ATOM TYPES USED ARE FOR 
+! P19TEST AND THE STRUCTURAL PARAMETERS ARE TAKEN FROM
+! KITAGAWA, ABE AND OGOSHI J.C.P. 69, (1978) PAGES 4526-4534
+! JOHN KURIYAN 26-OCT-1985
+
+RESIdue HEM
+ GROUp
+  ATOM FE   TYPE=FE    CHARGE=0.24    END
+  ATOM NA   TYPE=NP    CHARGE=-0.18   END
+  ATOM NB   TYPE=NP    CHARGE=-0.18   END
+  ATOM NC   TYPE=NP    CHARGE=-0.18   END
+  ATOM ND   TYPE=NP    CHARGE=-0.18   END
+ GROUp
+  ATOM C1A  TYPE=CPA   CHARGE=0.03    END
+  ATOM CHA  TYPE=CPM   CHARGE=0.04    END
+  ATOM C4D  TYPE=CPA   CHARGE=0.02    END
+ GROUp
+  ATOM C1B  TYPE=CPA   CHARGE=0.03    END
+  ATOM CHB  TYPE=CPM   CHARGE=0.04    END
+  ATOM C4A  TYPE=CPA   CHARGE=0.02    END
+ GROUp
+  ATOM C1C  TYPE=CPA   CHARGE=0.03    END
+  ATOM CHC  TYPE=CPM   CHARGE=0.04    END
+  ATOM C4B  TYPE=CPA   CHARGE=0.02    END
+ GROUp
+  ATOM C1D  TYPE=CPA   CHARGE=0.03    END
+  ATOM CHD  TYPE=CPM   CHARGE=0.04    END
+  ATOM C4C  TYPE=CPA   CHARGE=0.02    END
+ GROUp
+  ATOM C2A  TYPE=CPB   CHARGE=-0.02   END
+  ATOM CAA  TYPE=CH2E  CHARGE=0.04    END
+ GROUp
+  ATOM C3A  TYPE=CPB   CHARGE=0.02    END
+  ATOM CMA  TYPE=CH3E  CHARGE=-0.04   END
+ GROUp
+  ATOM CBA  TYPE=CH2E  CHARGE=-0.10   END
+  ATOM CGA  TYPE=C     CHARGE=0.30    END
+  ATOM O1A  TYPE=OC    CHARGE=-0.50   END
+  ATOM O2A  TYPE=OC    CHARGE=-0.50   END
+ GROUp
+  ATOM C2B  TYPE=CPB   CHARGE=0.02    END
+  ATOM CMB  TYPE=CH3E  CHARGE=-0.04   END
+ GROUp
+  ATOM C3B  TYPE=CPB   CHARGE=-0.05   END
+  ATOM CAB  TYPE=CR1E  CHARGE=0.03    END
+  ATOM CBB  TYPE=CH2E  CHARGE=-0.10   END
+ GROUp
+  ATOM C2C  TYPE=CPB   CHARGE=0.02    END
+  ATOM CMC  TYPE=CH3E  CHARGE=-0.04   END
+ GROUp
+  ATOM C3C  TYPE=CPB   CHARGE=-0.05   END
+  ATOM CAC  TYPE=CR1E  CHARGE=0.03    END
+  ATOM CBC  TYPE=CH2E  CHARGE=-0.10   END
+ GROUp
+  ATOM C2D  TYPE=CPB   CHARGE=0.02    END
+  ATOM CMD  TYPE=CH3E  CHARGE=-0.04   END
+ GROUp
+  ATOM C3D  TYPE=CPB   CHARGE=-0.02   END
+  ATOM CAD  TYPE=CH2E  CHARGE=0.04    END
+ GROUp
+  ATOM CBD  TYPE=CH2E  CHARGE=-0.10   END
+  ATOM CGD  TYPE=C     CHARGE=0.30    END
+  ATOM O1D  TYPE=OC    CHARGE=-0.50   END
+  ATOM O2D  TYPE=OC    CHARGE=-0.50   END
+
+ BOND FE   NA        BOND FE   NB        BOND FE   NC        BOND FE   ND
+ BOND NA   C1A       BOND C1A  C2A       BOND C2A  C3A       BOND C3A  C4A
+ BOND NA   C4A       BOND C2A  CAA       BOND CAA  CBA       BOND CBA  CGA
+ BOND CGA  O1A       BOND CGA  O2A       BOND C3A  CMA       BOND CHB  C4A
+ BOND CHB  C1B       BOND NB   C1B       BOND C1B  C2B       BOND C2B  C3B
+ BOND C3B  C4B       BOND NB   C4B       BOND C2B  CMB       BOND C3B  CAB
+ BOND CAB  CBB       BOND CHC  C4B       BOND CHC  C1C       BOND NC   C1C
+ BOND C1C  C2C       BOND C2C  C3C       BOND C3C  C4C       BOND NC   C4C
+ BOND C2C  CMC       BOND C3C  CAC       BOND CAC  CBC       BOND CHD  C4C
+ BOND CHD  C1D       BOND ND   C1D       BOND C1D  C2D       BOND C2D  C3D
+ BOND C3D  C4D       BOND ND   C4D       BOND C2D  CMD       BOND C3D  CAD
+ BOND CAD  CBD       BOND CBD  CGD       BOND CGD  O1D       BOND CGD  O2D
+ BOND CHA  C4D       BOND CHA  C1A
+
+ OMIT ANGLE NA FE NC
+ OMIT ANGLE NB FE ND
+ 
+ DIHEdral NA   C4A  CHB  C1B           DIHEdral C4A  CHB  C1B  NB
+ DIHEdral NB   C4B  CHC  C1C           DIHEdral C4B  CHC  C1C  NC
+ DIHEdral NC   C4C  CHD  C1D           DIHEdral C4C  CHD  C1D  ND
+ DIHEdral ND   C4D  CHA  C1A           DIHEdral C4D  CHA  C1A  NA
+ DIHEdral C1A  C2A  CAA  CBA           DIHEdral C2A  CAA  CBA  CGA
+ DIHEdral CAA  CBA  CGA  O1A           DIHEdral C2B  C3B  CAB  CBB
+ DIHEdral C2C  C3C  CAC  CBC           DIHEdral C2D  C3D  CAD  CBD
+ DIHEdral C3D  CAD  CBD  CGD           DIHEdral CAD  CBD  CGD  O1D
+
+ IMPRoper FE   C1A  C4A  NA            IMPRoper FE   C1B  C4B  NB
+ IMPRoper FE   C1C  C4C  NC            IMPRoper FE   C1D  C4D  ND
+ IMPRoper CHA  NA   C2A  C1A           IMPRoper CHB  NA   C3A  C4A
+ IMPRoper CHB  NB   C2B  C1B           IMPRoper CHC  NB   C3B  C4B
+ IMPRoper CHC  NC   C2C  C1C           IMPRoper CHD  NC   C3C  C4C
+ IMPRoper CHD  ND   C2D  C1D           IMPRoper CHA  ND   C3D  C4D
+ IMPRoper C2A  C1A  C3A  CAA           IMPRoper C3A  C2A  C4A  CMA
+ IMPRoper C2B  C1B  C3B  CMB           IMPRoper C3B  C2B  C4B  CAB
+ IMPRoper C2C  C1C  C3C  CMC           IMPRoper C3C  C2C  C4C  CAC
+ IMPRoper C2D  C1D  C3D  CMD           IMPRoper C3D  C2D  C4D  CAD
+ IMPRoper CBA  O1A  O2A  CGA           IMPRoper CBD  O1D  O2D  CGD
+ IMPRoper NA   NB   FE   NC            IMPRoper NB   NC   FE   ND
+ IMPRoper NC   ND   FE   NA            IMPRoper ND   NA   FE   NB
+
+ ACCEptor NA  " "            ACCEptor O1A CGA
+ ACCEptor O2A CGA            ACCEptor NB " "
+ ACCEptor NC  " "            ACCEptor ND " "
+ ACCEptor O1D CGD            ACCEptor O2D CGD
+
+IC   FE   NA    C4A  CHB    0.0000    0.00    0.00    0.00   0.0000
+IC   NA   C4A   CHB  C1B    0.0000    0.00    0.00    0.00   0.0000
+IC   NA   CHB  *C4A  C3A    0.0000    0.00  180.00    0.00   0.0000
+IC   C4A  CHB   C1B  NB     0.0000    0.00    0.00    0.00   0.0000
+IC   CHB  NB   *C1B  C2B    0.0000    0.00  180.00    0.00   0.0000
+IC   FE   C1B  *NB   C4B    0.0000    0.00  180.00    0.00   0.0000
+IC   FE   NB    C4B  CHC    0.0000    0.00    0.00    0.00   0.0000
+IC   CHC  NB   *C4B  C3B    0.0000    0.00  180.00    0.00   0.0000
+IC   C3B  C1B  *C2B  CMB    0.0000    0.00  180.00    0.00   0.0000
+IC   C4B  C2B  *C3B  CAB    0.0000    0.00  180.00    0.00   0.0000
+IC   C2B  C3B   CAB  CBB 0.0 0.00 -45.00 0.00 0.0 ! PREVENTS VINYL COLLISION
+IC   NB   C4B   CHC  C1C    0.0000    0.00    0.00    0.00   0.0000
+IC   C4B  CHC   C1C  NC     0.0000    0.00    0.00    0.00   0.0000
+IC   CHC  NC   *C1C  C2C    0.0000    0.00  180.00    0.00   0.0000
+IC   FE   C1C  *NC   C4C    0.0000    0.00  180.00    0.00   0.0000
+IC   FE   NC    C4C  CHD    0.0000    0.00    0.00    0.00   0.0000
+IC   CHD  NC   *C4C  C3C    0.0000    0.00  180.00    0.00   0.0000
+IC   CHC  C1C   C2C  CMC    0.0000    0.00    0.00    0.00   0.0000
+IC   C4C  C2C  *C3C  CAC    0.0000    0.00  180.00    0.00   0.0000
+IC   C2C  C3C   CAC  CBC 0.0 0.00  -45.0 0.00 0.0 ! PREVENTS VINYL COLLISION
+IC   NC   C4C   CHD  C1D    0.0000    0.00    0.00    0.00   0.0000
+IC   C4C  CHD   C1D  ND     0.0000    0.00    0.00    0.00   0.0000
+IC   FE   C1D  *ND   C4D    0.0000    0.00  180.00    0.00   0.0000
+IC   CHD  ND   *C1D  C2D    0.0000    0.00  180.00    0.00   0.0000
+IC   FE   ND    C4D  CHA    0.0000    0.00    0.00    0.00   0.0000
+IC   CHA  ND   *C4D  C3D    0.0000    0.00  180.00    0.00   0.0000
+IC   C4D  C2D  *C3D  CAD    0.0000    0.00  180.00    0.00   0.0000
+IC   C3D  C1D  *C2D  CMD    0.0000    0.00  180.00    0.00   0.0000
+IC   C2D  C3D   CAD  CBD    0.0000    0.00 -120.00    0.00   0.0000
+IC   C3D  CAD   CBD  CGD    0.0000    0.00  180.00    0.00   0.0000
+IC   CAD  CBD   CGD  O1D    0.0000    0.00    0.00    0.00   0.0000
+IC   CAD  CBD   CGD  O2D    0.0000    0.00  180.00    0.00   0.0000
+IC   ND   C4D   CHA  C1A    0.0000    0.00    0.00    0.00   0.0000
+IC   CHA  NA   *C1A  C2A    0.0000    0.00  180.00    0.00   0.0000
+IC   C4A  C2A  *C3A  CMA    0.0000    0.00  180.00    0.00   0.0000
+IC   C3A  C1A  *C2A  CAA    0.0000    0.00  180.00    0.00   0.0000
+IC   C1A  C2A   CAA  CBA    0.0000    0.00  120.00    0.00   0.0000
+IC   C2A  CAA   CBA  CGA    0.0000    0.00  180.00    0.00   0.0000
+IC   CAA  CBA   CGA  O1A    0.0000    0.00    0.00    0.00   0.0000
+IC   CAA  CBA   CGA  O2A    0.0000    0.00  180.00    0.00   0.0000
+IC   C4D  CHA   C1A  NA     0.0000    0.00    0.00    0.00   0.0000
+IC   C1D  ND    FE   NC     0.0000    0.00    0.00    0.00   0.0000
+IC   C4A  NA    FE   NB     0.0000    0.00    0.00    0.00   0.0000
+IC   C4C  NC    FE   ND     0.0000    0.00    0.00    0.00   0.0000
+IC   C1B  NB    FE   NA     0.0000    0.00    0.00    0.00   0.0000
+IC   FE   C1A  *NA   C4A    0.0000    0.00  180.00    0.00   0.0000
+IC   C3C  C1C  *C2C  CMC    0.0000    0.00  180.00    0.00   0.0000
+IC   CBA  O1A  *O2A  CGA    0.0000    0.00  180.00    0.00   0.0000
+IC CBD  O1D  *O2D  CGD      0.0000    0.00  180.00    0.00   0.0000
+IC NA   NB   *NC   ND       0.0000    0.00  180.00    0.00   0.0000
+IC NB   NC   *ND   NA       0.0000    0.00  180.00    0.00   0.0000
+IC NC   ND   *NA   NB       0.0000    0.00  180.00    0.00   0.0000
+IC ND   NA   *NB   NC       0.0       0.0   180.0     0.0    0.0
+IC NA   ND   *FE   NB       0.0       0.0   180.0     0.0    0.0
+IC ND   NC   *FE   NA       0.0       0.0   180.0     0.0    0.0
+IC NC   NB   *FE   ND       0.0       0.0   180.0     0.0    0.0
+IC NB   NA   *FE   NC       0.0       0.0   180.0     0.0    0.0
+
+END {HEM}
+
+!--------------------------------------------------------------------------
+
+PRESidue PHEM  ! Patch for HEME. Patch residues must be 1-HIS, and 2-HEME.
+  BOND 1NE2 2FE
+  ANGLe 1CD2  1NE2  2FE    
+  ANGLe 1CE1  1NE2  2FE    
+  ANGLe 1NE2  2FE  2NA    
+  ANGLe 1NE2  2FE  2NB
+  ANGLe 1NE2  2FE   2NC    
+  ANGLe 1NE2  2FE   2ND
+!  DIHEdral 1CD2  1NE2  2FE  2NA
+
+IC   1CD2 1NE2 2FE  2NA    0.0       0.0     0.0     0.0    0.0                 
+IC   1CD2 1NE2 2FE  2NB    0.0       0.0     0.0     0.0    0.0
+IC   1CD2 1NE2 2FE  2NB    0.0       0.0     0.0     0.0    0.0
+IC   1CD2 1NE2 2FE  2NB    0.0       0.0     0.0     0.0    0.0
+IC   1CE1 1NE2 2FE  2NA    0.0       0.0     0.0     0.0    0.0
+
+END {* PHEM *}
+
+!--------------------------------------------------------------------------
+
+PRESidue PMET  ! Patch for HEME. Patch residues must be 1-MET, and 2-HEME.
+
+ADD  BOND  1SD   2FE
+
+ADD  ANGLe 1CG   1SD   2FE    
+ADD  ANGLe 1CE   1SD   2FE    
+ADD  ANGLe 1SD   2FE   2NA    
+ADD  ANGLe 1SD   2FE   2NB
+ADD  ANGLe 1SD   2FE   2NC    
+ADD  ANGLe 1SD   2FE   2ND
+
+! ADD  DIHEdral 1CG   1SD   2FE  2NA
+
+END {* PMET *}
+
+!-------------------------------------------------------------------------
+
+PRESidue PLO2 ! Patch residue for Heme ligand.  Residues must be
+! 1-O2 , 2-HEME , and 3-HIS
+! O1 of the oxygen is bonded to the iron.
+  BOND 1O1  2FE
+  !ANGLe 1O1  2FE  3NE2
+  ANGLe 1O2  1O1  2FE    
+  ANGLe 1O1  2FE  2NA    
+  ANGLe 1O1  2FE  2NB
+  ANGLe 1O1  2FE  2NC     
+  ANGLe 1O1  2FE 2ND
+  DIHEdral 1O2  1O1  2FE  2NA
+
+IC   1O2  1O1  2FE  2NA    0.0       0.0     0.0     0.0    0.0
+IC   1O2  1O1  2FE  3NE2   0.0       0.0     0.0     0.0    0.0
+
+END {* PLO2 *}
+
+!-------------------------------------------------------------------
+
+PRESidue PLIG ! Patch residue for Heme ligand. Residues must be,
+!                           1-CO , 2-HEME , and 3-HIS
+ BOND 1C  2FE
+ ANGLe 1C  2FE  3NE2
+ ANGLe 1O  1C  2FE    
+ ANGLe 1C  2FE  2NA    
+ ANGLe 1C  2FE  2NB
+ ANGLe 1C  2FE  2NC
+ ANGle 1C  2FE 2ND
+! DIHEdral 1O  1C  2FE  2NA
+
+IC   1O   1C   2FE  2NA    0.0       0.0     0.0     0.0    0.0
+IC   1O   1C   2FE  3NE2   0.0       0.0     0.0     0.0    0.0
+
+END {* PLIG *}
+
+
+!--------------------------------------------------------------------------
+
+PRESidue PCYB  ! Patch for HEME. Patch residues must be 1-CYS, and 2-HEME.
+!                                Patch to heme CAB atom
+
+ GROUP
+  MODIfy ATOM 1SG  TYPE=S    CHARge=-0.19  END
+ GROUP
+  MODIfy ATOM 2CAB TYPE=CH1E CHARGE=0.03   END
+  MODIfy ATOM 2CBB TYPE=CH3E CHARGE=-0.10  END
+
+  ADD  BOND 1SG  2CAB
+
+  ADD  ANGLe 1CB   1SG   2CAB    
+  ADD  ANGLe 1SG   2CAB 2CBB    
+  ADD  ANGLe 1SG   2CAB 2C3C
+
+  ADD  DIHEdral 1CB    1SG   2CAB 2C3B
+  ADD  IMPRoper 2CAB   1SG   2C3B 2CBB
+
+END {* PCYB *}
+
+!--------------------------------------------------------------------------
+
+PRESidue PCYC  ! Patch for HEME. Patch residues must be 1-CYS, and 2-HEME.
+!                                Patch to heme CAC atom
+
+ GROUP
+  MODIfy ATOM 1SG  TYPE=S    CHARge=-0.19  END
+ GROUP
+  MODIfy ATOM 2CAC TYPE=CH1E CHARGE=0.03   END
+  MODIfy ATOM 2CBC TYPE=CH3E CHARGE=-0.10  END
+
+  ADD  BOND 1SG  2CAC
+
+  ADD  ANGLe 1CB   1SG   2CAC    
+  ADD  ANGLe 1SG   2CAC 2CBB    
+  ADD  ANGLe 1SG   2CAC 2C3C
+
+  ADD  DIHEdral 1CB    1SG   2CAC 2C3B
+  ADD  IMPRoper 2CAC   1SG   2C3C 2CBC
+
+END {* PCYC *}
+
+!--------------------------------------------------------------------------
+                                                                       
+PRES GLUA   ! Patch to change deprotonated GLU to protonated glutamine 
+            ! has to be patched as REFErence=NIL=<selection>
+GROUp
+ MODIFY ATOM  CB   TYPE=CH2E  CHARge= 0.10   END  !#
+GROUp
+ MODIFY ATOM  CG   TYPE=CH2E  CHARge= 0.15   END  !#
+ MODIFY ATOM  CD   TYPE=C     CHARge= 0.40   END  !#                   
+ MODIFY ATOM  OE1  TYPE=OC    CHARge=-0.40   END  !#
+ MODIFY ATOM  OE2  TYPE=OH1   CHARge=-0.50   END  !#
+ ADD    ATOM  HE   TYPE=H     CHARge= 0.25   END  !#
+
+ ADD BOND OE2 HE
+ ADD ANGLe CD OE2 HE
+ ADD DIHEdral OE1 CD OE2 HE
+ 
+ DELETE ACCEptor OE2 CD    
+
+ ADD DONOr HE OE2 
+
+END {GLUA}
+
+ !--------------------------------------------------------------------------
+
+PRES HISD   ! Patch to change doubly protonated HIS to singly
+            ! protonated histidine (HD1)
+            ! has to be patched as REFErence=NIL=<selection>
+ GROUP
+  MODIFY ATOM  CB   TYPE=CH2E  CHARge= 0.00  END
+ GROUP
+  MODIFY ATOM  CG   TYPE=C     CHARge= 0.10  END  !#
+  MODIFY ATOM  ND1  TYPE=NH1   CHARge=-0.40  END  !#
+  MODIFY ATOM  HD1  TYPE=H     CHARge= 0.30  END  !#
+ GROUP
+  MODIFY ATOM  CD2  TYPE=CR1E  CHARge= 0.10  END  !#
+  MODIFY ATOM  NE2  TYPE=NR    CHARge=-0.40  END  !#
+  MODIFY ATOM  CE1  TYPE=CR1E  CHARge= 0.30  END  !#
+  DELETE ATOM  HE2                        END
+
+ ADD ACCEPTOR  NE2 " "
+
+END {HISD}
+
+!--------------------------------------------------------------------
+
+PRES HIBD   ! Patch to change doubly protonated HIS to singly
+            ! protonated histidine (HD1) (MOPAC calculation for 
+            ! patch to Mg(2+) in  Bchl b (BCL)
+            ! has to be patched as REFErence=NIL=<selection>
+ GROUP
+  MODIFY ATOM  CB   TYPE=CH2E  CHARge= 0.15  END
+ GROUP
+  MODIFY ATOM  CG   TYPE=C     CHARge= 0.04  END  !#
+  MODIFY ATOM  ND1  TYPE=NH1   CHARge=-0.17  END  !#
+  MODIFY ATOM  HD1  TYPE=H     CHARge= 0.27  END  !#
+ GROUP
+  MODIFY ATOM  CD2  TYPE=CR1E  CHARge= 0.01  END  !#
+  MODIFY ATOM  NE2  TYPE=NR    CHARge=-0.67  END  !#
+  MODIFY ATOM  CE1  TYPE=CR1E  CHARge= 0.37  END  !#
+  DELETE ATOM  HE2                           END
+
+ ADD ACCEPTOR  NE2 " "
+
+END {HISD}
+
+!--------------------------------------------------------------------------
+                                             
+PRESidue PBCL  ! Patch for BCL. Patch residues must be 1-HIS, and 2-BCL.
+
+  BOND 1NE2 2MG
+  ANGLe 1CD2  1NE2  2MG    
+  ANGLe 1CE1  1NE2  2MG    
+  ANGLe 1NE2  2MG  2NA    
+  ANGLe 1NE2  2MG  2NB
+  ANGLe 1NE2  2MG   2NC    
+  ANGLe 1NE2  2MG   2ND
+!  DIHEdral 1CD2  1NE2  2MG  2NA
+
+IC   1CD2 1NE2 2MG  2NA    0.0       0.0     0.0     0.0    0.0                 
+IC   1CD2 1NE2 2MG  2NB    0.0       0.0     0.0     0.0    0.0
+IC   1CD2 1NE2 2MG  2NB    0.0       0.0     0.0     0.0    0.0
+IC   1CD2 1NE2 2MG  2NB    0.0       0.0     0.0     0.0    0.0
+IC   1CE1 1NE2 2MG  2NA    0.0       0.0     0.0     0.0    0.0
+
+END {* PBCL *}
+
+!--------------------------------------------------------------------------
+
+PRESidue PFE   ! Patch for FE 2+ . Patch residues must be 1-HIS, and 2-FE1.
+
+ADD  BOND 1NE2 2FE
+
+ADD  ANGLe 1CD2  1NE2  2FE    
+ADD  ANGLe 1CE1  1NE2  2FE    
+
+MODIFY ATOM  1NE2  TYPE=NR    CHARge=-0.65  END  !#
+
+END {* PFE *}
+
+!--------------------------------------------------------------------------
+
+PRESidue FEGL   ! Patch for FE 2+ . Patch residues must be 1-GLU, and 2-FE1.
+
+ADD  BOND 1OE1 2FE
+ADD  BOND 1OE2 2FE
+
+ADD  ANGLe 1CD  1OE1  2FE    
+ADD  ANGLe 1CD  1OE2  2FE    
+
+GROUp
+ MODIFY ATOM  CB   TYPE=CH2E  CHARge= 0.06   END  !#
+GROUp
+ MODIFY ATOM  CG   TYPE=CH2E  CHARge= 0.08   END  !#
+ MODIFY ATOM  CD   TYPE=C     CHARge= 0.36   END  !#
+ MODIFY ATOM  OE1  TYPE=OC    CHARge=-0.75   END  !#
+ MODIFY ATOM  OE2  TYPE=OC    CHARge=-0.75   END  !#
+         
+END {* PFE *}
+
+! ---------------------------------------------------------------------
+!        
+! Following:
+! special protein residues used in the reaction center
+!
+
+! ---------------------------------------------------------------------
+
+
+RESIdue FME    ! Formylmethionine 
+               ! use in connection with TFME to repair NTER patch
+ GROUp
+  ATOM OF   TYPE=O     CHARGE=-0.55   END
+  ATOM CF   TYPE=CR1E  CHARGE= 0.58   END
+ GROUp
+  ATOM N    TYPE=NH1   CHARge=-0.38   END
+  ATOM H    TYPE=H     CHARge= 0.25   END
+  ATOM CA   TYPE=CH1E  CHARge= 0.10   END     ! different MOPAC charges:
+ GROUp 
+  ATOM CB   TYPE=CH2E  CHARge= 0.00   END     !-0.02
+ GROUp
+  ATOM CG   TYPE=CH2E  CHARge= 0.06   END     ! 0.07
+  ATOM SD   TYPE=S     CHARge=-0.12   END     !-0.15
+  ATOM CE   TYPE=CH3E  CHARge= 0.06   END     ! 0.09
+ GROUp
+  ATOM C    TYPE=C     CHARge= 0.55   END  !#
+  ATOM O    TYPE=O     CHARge=-0.55   END  !#
+
+ BOND OF   CF
+ BOND CF   N
+ BOND N    CA
+ BOND CA   C
+ BOND C    O
+ BOND N    H
+ BOND CA   CB
+ BOND CB   CG
+ BOND CG   SD
+ BOND SD   CE
+
+ DIHEdral OF   CF   N    CA
+ DIHEdral N    CA   CB   CG
+ DIHEdral CA   CB   CG   SD
+ DIHEdral CB   CG   SD   CE
+
+ IMPRoper CA   N    C    CB  !tetrahedral CA
+            
+ DONOr H    N
+ ACCEptor O C
+ ACCEptor OF CF
+
+END {FME}
+
+!------------------------------------------------------------------
+
+PRESidue TFME             { UNDO THE PATCH TO NTER-FME } 
+
+ GROUp
+  DELETE ATOM HT1  TYPE=HC                 END
+  DELETE ATOM HT2  TYPE=HC                 END
+  MODIfy ATOM N    TYPE=NH1  CHARge=-0.38  END
+  DELETE ATOM HT3  TYPE=HC                 END
+  ADD    ATOM H    TYPE=H    CHARge= 0.25  END
+  MODIfy ATOM CA   TYPE=CH1E CHARge= 0.10  END
+
+ ADD BOND H N
+
+ ADD ANGLE H N CA
+
+ ADD DIHEdral H    N    CA   C
+
+ ADD DONOr H    N
+
+END {TFME}
+
+
+!------------------------------------------------------------------
+
+RESIdue CPR
+ GROUp
+  ATOM N    TYPE=N     CHARge=-0.20   END
+  ATOM CD   TYPE=CH2E  CHARge= 0.10   END
+  ATOM CA   TYPE=CH1E  CHARge= 0.10   END
+ GROUp
+  ATOM CB   TYPE=CH2E  CHARge= 0.00   END
+  ATOM CG   TYPE=CH2E  CHARge= 0.00   END
+ GROUp
+  ATOM C    TYPE=C     CHARge= 0.55   END
+  ATOM O    TYPE=O     CHARge=-0.55   END
+
+ BOND N    CA
+ BOND CA   C 
+ BOND C    O
+ BOND N    CD
+ BOND CA   CB
+ BOND CB   CG
+ BOND CG   CD
+
+ DIHEdral N    CA   CB   CG  !! 
+ DIHEdral CA   CB   CG   CD  !!
+ DIHEdral CB   CG   CD   N   !! the PROline ring is represented by dihedrals
+ DIHEdral CG   CD   N    CA  !!
+
+ IMPRoper CA   N    C    CB  !tetrahedral CA
+
+ ACCEptor O C
+
+ IC   N    C    *CA  CB     0.0000    0.00 -120.00    0.00   0.0000
+ IC   N    CA   CB   CG     0.0000    0.00    0.00    0.00   0.0000
+
+END {CPR}
+
+
+!--------------------------------------------------------------------
+!
+!Following patches are used for charge transfer 
+! 
+!   BCMP --------> BPL
+!           e-
+!
+!--------------------------------------------------------------------
+
+PRESidue BMPP     ! Patch from residue BCL to
+                  ! Bacteriochlorophyll b BCMP in the SPECIAL PAIR of 
+                  ! the reaction-center
+                  ! Charge 1.0 
+                  ! Charge distribution from MOPAC calculations
+                  ! NO planar C4B, OBB, CBB, C3B !!!!!
+ GROUp                            
+  MODIFY ATOM  MG   TYPE=MG    CHARGE=2.00    END                
+  MODIFY ATOM  NA   TYPE=NP    CHARGE=-0.60   END
+  MODIFY ATOM  NB   TYPE=NP    CHARGE=-0.61   END
+  MODIFY ATOM  NC   TYPE=NP    CHARGE=-0.66   END
+  MODIFY ATOM  ND   TYPE=NP    CHARGE=-0.66   END
+ GROUp
+  MODIFY ATOM  C1A  TYPE=CPA   CHARGE=0.25    END
+  MODIFY ATOM  CHA  TYPE=C     CHARGE=-0.14   END
+  MODIFY ATOM  C4D  TYPE=CPA   CHARGE=0.22    END
+ GROUp
+  MODIFY ATOM  C1B  TYPE=CPA   CHARGE=0.07   END
+  MODIFY ATOM  CHB  TYPE=CPM   CHARGE=0.00    END
+  MODIFY ATOM  C4A  TYPE=CPA   CHARGE=0.16   END
+ GROUp
+  MODIFY ATOM  C1C  TYPE=CPA   CHARGE=0.18    END
+  MODIFY ATOM  CHC  TYPE=CPM   CHARGE=-0.08   END
+  MODIFY ATOM  C4B  TYPE=CPA   CHARGE=0.20    END
+ GROUp
+  MODIFY ATOM  C1D  TYPE=CPA   CHARGE=0.20    END
+  MODIFY ATOM  CHD  TYPE=CPM   CHARGE=-0.04   END
+  MODIFY ATOM  C4C  TYPE=CPA   CHARGE=0.28    END
+ GROUp
+  MODIFY ATOM  C2A  TYPE=CH1E  CHARGE=0.04    END
+  MODIFY ATOM  CAA  TYPE=CH2E  CHARGE=0.05    END
+ GROUp
+  MODIFY ATOM  C3A  TYPE=CH1E  CHARGE=0.00    END
+  MODIFY ATOM  CMA  TYPE=CH3E  CHARGE=0.11    END
+ GROUp
+  MODIFY ATOM  C2B  TYPE=CPB   CHARGE=0.01   END
+  MODIFY ATOM  CMB  TYPE=CH3E  CHARGE=0.13    END 
+ GROUp
+  MODIFY ATOM  C3B  TYPE=CPB   CHARGE=-0.29   END !!
+  MODIFY ATOM  CAB  TYPE=C     CHARGE=0.47    END !!  not 
+  MODIFY ATOM  CBB  TYPE=CH3E  CHARGE=0.17    END !!  planar !!!!
+  MODIFY ATOM  OBB  TYPE=O     CHARGE=-0.85   END !!
+ GROUp
+  MODIFY ATOM  C2C  TYPE=CH1E  CHARGE=0.07    END
+  MODIFY ATOM  CMC  TYPE=CH3E  CHARGE=0.10    END
+ GROUp
+  MODIFY ATOM  C3C  TYPE=C     CHARGE=-0.22   END
+  MODIFY ATOM  CAC  TYPE=CR1E  CHARGE=0.22    END
+  MODIFY ATOM  CBC  TYPE=CH3E  CHARGE=0.11    END
+ GROUp
+  MODIFY ATOM  C2D  TYPE=CPB   CHARGE=0.05    END
+  MODIFY ATOM  CMD  TYPE=CH3E  CHARGE=0.17    END
+ GROUp
+  MODIFY ATOM  C3D  TYPE=CPB   CHARGE=-0.15   END
+  MODIFY ATOM  CAD  TYPE=C     CHARGE=0.47    END
+  MODIFY ATOM  OBD  TYPE=O     CHARGE=-0.40   END
+ GROUp
+  MODIFY ATOM  CBD  TYPE=CH1E  CHARGE=0.06    END
+  MODIFY ATOM  CGD  TYPE=C     CHARGE=0.53    END
+  MODIFY ATOM  O1D  TYPE=OC    CHARGE=-0.51   END
+  MODIFY ATOM  O2D  TYPE=OS    CHARGE=-0.52   END
+  MODIFY ATOM  CED  TYPE=CH3E  CHARGE=0.44    END
+ GROUp                            
+  MODIFY ATOM  CBA  TYPE=CH2E  CHARGE=0.02    END
+  MODIFY ATOM  CGA  TYPE=C     CHARGE=0.54    END
+  MODIFY ATOM  O1A  TYPE=O     CHARGE=-0.48   END
+GROUp   ! Phytol residue
+  MODIFY ATOM  O2A  TYPE=OS    CHARGE=-0.51   END
+  MODIFY ATOM  CP1  TYPE=CH2E  CHARGE=0.45    END
+  MODIFY ATOM  CP2  TYPE=CPM   CHARGE=-0.11   END
+  MODIFY ATOM  CP3  TYPE=CPA   CHARGE=-0.07   END
+  MODIFY ATOM  CP4  TYPE=CH3E  CHARGE=0.07    END
+  MODIFY ATOM  CP5  TYPE=CH2E  CHARGE=0.05    END
+  MODIFY ATOM  CP6  TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM  CP7  TYPE=CH2E  CHARGE=0.06    END
+  MODIFY ATOM  CP8  TYPE=CH1E  CHARGE=-0.05   END
+  MODIFY ATOM  CP9  TYPE=CH3E  CHARGE=0.02    END
+  MODIFY ATOM  CP10 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM  CP11 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM  CP12 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM  CP13 TYPE=CH1E  CHARGE=-0.04   END
+  MODIFY ATOM  CP14 TYPE=CH3E  CHARGE=0.02    END
+  MODIFY ATOM  CP15 TYPE=CH2E  CHARGE=0.01    END
+  MODIFY ATOM  CP16 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM  CP17 TYPE=CH2E  CHARGE=0.01    END
+  MODIFY ATOM  CP18 TYPE=CH1E  CHARGE=-0.06   END
+  MODIFY ATOM  CP19 TYPE=CH3E  CHARGE=0.02    END
+  MODIFY ATOM  CP20 TYPE=CH3E  CHARGE=0.02    END
+
+END {BMPP}
+
+!--------------------------------------------------------------------
+
+PRESidue BPHC     ! Patch to charged Bacteriopheophytin b BPL
+                  ! Charge -1.0
+                  ! Charge distribution from MOPAC calculations
+ GROUp
+  MODIFY ATOM NA   TYPE=NP    CHARGE=-0.33   END
+  MODIFY ATOM NB   TYPE=NH1   CHARGE=-0.15   END
+  MODIFY ATOM HB   TYPE=H     CHARGE=0.25    END
+  MODIFY ATOM NC   TYPE=NP    CHARGE=-0.34   END
+  MODIFY ATOM ND   TYPE=NH1   CHARGE=-0.14   END
+  MODIFY ATOM HD   TYPE=H     CHARGE=0.26    END
+ GROUp
+  MODIFY ATOM C1A  TYPE=CPA   CHARGE=0.12    END
+  MODIFY ATOM CHA  TYPE=C     CHARGE=-0.21   END
+  MODIFY ATOM C4D  TYPE=CPA   CHARGE=0.14    END
+ GROUp
+  MODIFY ATOM C1B  TYPE=CPA   CHARGE=0.01    END
+  MODIFY ATOM CHB  TYPE=CPM   CHARGE=-0.06   END
+  MODIFY ATOM C4A  TYPE=CPA   CHARGE=0.02    END
+ GROUp
+  MODIFY ATOM C1C  TYPE=CPA   CHARGE=0.06    END
+  MODIFY ATOM CHC  TYPE=CPM   CHARGE=-0.11   END
+  MODIFY ATOM C4B  TYPE=CPA   CHARGE=0.13    END
+ GROUp
+  MODIFY ATOM C1D  TYPE=CPA   CHARGE=0.00    END
+  MODIFY ATOM CHD  TYPE=CPM   CHARGE=-0.04   END
+  MODIFY ATOM C4C  TYPE=CPA   CHARGE=0.03    END
+ GROUp
+  MODIFY ATOM C2A  TYPE=CH1E  CHARGE=0.02    END
+  MODIFY ATOM CAA  TYPE=CH2E  CHARGE=0.00    END
+ GROUp
+  MODIFY ATOM C3A  TYPE=CH1E  CHARGE=0.00    END
+  MODIFY ATOM CMA  TYPE=CH3E  CHARGE=0.01    END
+ GROUp
+  MODIFY ATOM C2B  TYPE=CPB   CHARGE=-0.04   END
+  MODIFY ATOM CMB  TYPE=CH3E  CHARGE=0.06    END
+ GROUp                                   
+  MODIFY ATOM C3B  TYPE=CPB   CHARGE=-0.22   END
+  MODIFY ATOM CAB  TYPE=C     CHARGE=0.44    END
+  MODIFY ATOM CBB  TYPE=CH3E  CHARGE=-0.08   END
+  MODIFY ATOM OBB  TYPE=O     CHARGE=-0.52   END
+ GROUp
+  MODIFY ATOM C2C  TYPE=CH1E  CHARGE=0.09    END
+  MODIFY ATOM CMC  TYPE=CH3E  CHARGE=-0.01   END
+ GROUp
+  MODIFY ATOM C3C  TYPE=C     CHARGE=-0.11   END
+  MODIFY ATOM CAC  TYPE=CR1E  CHARGE=0.02    END
+  MODIFY ATOM CBC  TYPE=CH3E  CHARGE=-0.04  END
+ GROUp
+  MODIFY ATOM C2D  TYPE=CPB   CHARGE=-0.01   END
+  MODIFY ATOM CMD  TYPE=CH3E  CHARGE=0.09    END
+ GROUp
+  MODIFY ATOM C3D  TYPE=CPB   CHARGE=-0.27   END
+  MODIFY ATOM CAD  TYPE=C     CHARGE=0.53    END
+  MODIFY ATOM OBD  TYPE=O     CHARGE=-0.55   END
+ GROUp
+  MODIFY ATOM CBD  TYPE=CH1E  CHARGE=0.06    END
+  MODIFY ATOM CGD  TYPE=C     CHARGE=0.53    END
+  MODIFY ATOM O1D  TYPE=OC    CHARGE=-0.54   END
+  MODIFY ATOM O2D  TYPE=OS    CHARGE=-0.48   END
+  MODIFY ATOM CED  TYPE=CH3E  CHARGE=0.41    END
+ GROUp
+  MODIFY ATOM CBA  TYPE=CH2E  CHARGE=0.06    END
+  MODIFY ATOM CGA  TYPE=C     CHARGE=0.54    END
+  MODIFY ATOM O1A  TYPE=O     CHARGE=-0.50   END
+GROUp   ! Phytol residue
+  MODIFY ATOM O2A  TYPE=OS    CHARGE=-0.54   END
+  MODIFY ATOM CP1  TYPE=CH2E  CHARGE=0.46    END
+  MODIFY ATOM CP2  TYPE=CPM   CHARGE=-0.06   END
+  MODIFY ATOM CP3  TYPE=CPA   CHARGE=-0.11   END
+  MODIFY ATOM CP4  TYPE=CH3E  CHARGE=0.07    END
+  MODIFY ATOM CP5  TYPE=CH2E  CHARGE=0.05    END
+  MODIFY ATOM CP6  TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM CP7  TYPE=CH2E  CHARGE=0.05    END
+  MODIFY ATOM CP8  TYPE=CH1E  CHARGE=-0.05   END
+  MODIFY ATOM CP9  TYPE=CH3E  CHARGE=0.02    END
+  MODIFY ATOM CP10 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM CP11 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM CP12 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM CP13 TYPE=CH1E  CHARGE=-0.04   END
+  MODIFY ATOM CP14 TYPE=CH3E  CHARGE=0.02    END
+  MODIFY ATOM CP15 TYPE=CH2E  CHARGE=0.01    END
+  MODIFY ATOM CP16 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM CP17 TYPE=CH2E  CHARGE=0.01    END
+  MODIFY ATOM CP18 TYPE=CH1E  CHARGE=-0.06   END
+  MODIFY ATOM CP19 TYPE=CH3E  CHARGE=0.02    END
+  MODIFY ATOM CP20 TYPE=CH3E  CHARGE=0.02    END
+
+END {BPHC}
+!--------------------------------------------------------------------
+
+PRESidue BCHC     ! Patch to charged Bacteriochlorophyll b BCLA
+                  ! Charge -1.0
+                  ! Charge distribution from MOPAC calculations
+ GROUp
+  MODIFY ATOM MG   TYPE=MG    CHARGE=2.00    END                
+  MODIFY ATOM NA   TYPE=NP    CHARGE=-0.60   END
+  MODIFY ATOM NB   TYPE=NP    CHARGE=-0.55   END
+  MODIFY ATOM NC   TYPE=NP    CHARGE=-0.60   END
+  MODIFY ATOM ND   TYPE=NP    CHARGE=-0.55   END
+ GROUp
+  MODIFY ATOM C1A  TYPE=CPA   CHARGE=0.14    END
+  MODIFY ATOM CHA  TYPE=C     CHARGE=-0.20   END
+  MODIFY ATOM C4D  TYPE=CPA   CHARGE=0.10    END
+ GROUp
+  MODIFY ATOM C1B  TYPE=CPA   CHARGE=-0.04   END
+  MODIFY ATOM CHB  TYPE=CPM   CHARGE=-0.10   END
+  MODIFY ATOM C4A  TYPE=CPA   CHARGE=0.01    END
+ GROUp
+  MODIFY ATOM C1C  TYPE=CPA   CHARGE=0.06    END
+  MODIFY ATOM CHC  TYPE=CPM   CHARGE=-0.11   END
+  MODIFY ATOM C4B  TYPE=CPA   CHARGE=0.10    END
+ GROUp
+  MODIFY ATOM C1D  TYPE=CPA   CHARGE=0.0     END
+  MODIFY ATOM CHD  TYPE=CPM   CHARGE=-0.07   END
+  MODIFY ATOM C4C  TYPE=CPA   CHARGE=0.05    END
+ GROUp
+  MODIFY ATOM C2A  TYPE=CH1E  CHARGE=0.02    END
+  MODIFY ATOM CAA  TYPE=CH2E  CHARGE=0.00    END
+ GROUp
+  MODIFY ATOM C3A  TYPE=CH1E  CHARGE=0.00    END
+  MODIFY ATOM CMA  TYPE=CH3E  CHARGE=0.01    END
+ GROUp
+  MODIFY ATOM C2B  TYPE=CPB   CHARGE=-0.06   END
+  MODIFY ATOM CMB  TYPE=CH3E  CHARGE=0.07    END
+ GROUp                                   
+  MODIFY ATOM C3B  TYPE=CPB   CHARGE=-0.22   END
+  MODIFY ATOM CAB  TYPE=C     CHARGE=0.44    END
+  MODIFY ATOM CBB  TYPE=CH3E  CHARGE=-0.08   END
+  MODIFY ATOM OBB  TYPE=O     CHARGE=-0.52   END
+ GROUp
+  MODIFY ATOM C2C  TYPE=CH1E  CHARGE=0.09    END
+  MODIFY ATOM CMC  TYPE=CH3E  CHARGE=0.00    END
+ GROUp
+  MODIFY ATOM C3C  TYPE=C     CHARGE=-0.11   END
+  MODIFY ATOM CAC  TYPE=CR1E  CHARGE=0.02    END
+  MODIFY ATOM CBC  TYPE=CH3E  CHARGE=-0.04  END
+ GROUp
+  MODIFY ATOM C2D  TYPE=CPB   CHARGE=-0.01   END
+  MODIFY ATOM CMD  TYPE=CH3E  CHARGE=0.09    END
+ GROUp
+  MODIFY ATOM C3D  TYPE=CPB   CHARGE=-0.27   END
+  MODIFY ATOM CAD  TYPE=C     CHARGE=0.53    END
+  MODIFY ATOM OBD  TYPE=O     CHARGE=-0.55   END
+ GROUp
+  MODIFY ATOM CBD  TYPE=CH1E  CHARGE=0.06    END
+  MODIFY ATOM CGD  TYPE=C     CHARGE=0.53    END
+  MODIFY ATOM O1D  TYPE=OC    CHARGE=-0.54   END
+  MODIFY ATOM O2D  TYPE=OS    CHARGE=-0.48   END
+  MODIFY ATOM CED  TYPE=CH3E  CHARGE=0.41    END
+ GROUp
+  MODIFY ATOM CBA  TYPE=CH2E  CHARGE=0.06    END
+  MODIFY ATOM CGA  TYPE=C     CHARGE=0.54    END
+  MODIFY ATOM O1A  TYPE=O     CHARGE=-0.50   END
+GROUp   ! Phytol residue
+  MODIFY ATOM O2A  TYPE=OS    CHARGE=-0.54   END
+  MODIFY ATOM CP1  TYPE=CH2E  CHARGE=0.46    END
+  MODIFY ATOM CP2  TYPE=CPM   CHARGE=-0.06   END
+  MODIFY ATOM CP3  TYPE=CPA   CHARGE=-0.11   END
+  MODIFY ATOM CP4  TYPE=CH3E  CHARGE=0.07    END
+  MODIFY ATOM CP5  TYPE=CH2E  CHARGE=0.05    END
+  MODIFY ATOM CP6  TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM CP7  TYPE=CH2E  CHARGE=0.05    END
+  MODIFY ATOM CP8  TYPE=CH1E  CHARGE=-0.05   END
+  MODIFY ATOM CP9  TYPE=CH3E  CHARGE=0.02    END
+  MODIFY ATOM CP10 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM CP11 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM CP12 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM CP13 TYPE=CH1E  CHARGE=-0.04   END
+  MODIFY ATOM CP14 TYPE=CH3E  CHARGE=0.02    END
+  MODIFY ATOM CP15 TYPE=CH2E  CHARGE=0.01    END
+  MODIFY ATOM CP16 TYPE=CH2E  CHARGE=0.00    END
+  MODIFY ATOM CP17 TYPE=CH2E  CHARGE=0.01    END
+  MODIFY ATOM CP18 TYPE=CH1E  CHARGE=-0.06   END
+  MODIFY ATOM CP19 TYPE=CH3E  CHARGE=0.02    END
+  MODIFY ATOM CP20 TYPE=CH3E  CHARGE=0.02    END
+
+END {BCHC}
+!--------------------------------------------------------------------
+
+set echo=true end

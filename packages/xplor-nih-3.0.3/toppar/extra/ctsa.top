@@ -1,0 +1,375 @@
+Remarks ctsa.top
+Remarks Topology for M8-DOTA-SPy tag.
+Remarks Charles D. Schwieters, Guillermo A. Bermejo - 4-SEP-2018.
+
+
+ set echo=false end
+
+ { Note: edit masses if necessary }
+ MASS N_1    14.00700 ! assuming N -> 14.00700 + 1.008 * 0 (Hs)
+ MASS C_2    12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS C_3    12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_4     1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS C_5    12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_6     1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_7     1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS N_8    14.00700 ! assuming N -> 14.00700 + 1.008 * 0 (Hs)
+ MASS C_9    12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS C_10   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_11    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS C_12   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_13    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_14    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS C_15   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS C_16   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_17    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS C_18   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS O_19   15.99900 ! assuming O -> 15.99900 + 1.008 * 0 (Hs)
+ MASS O_20   15.99900 ! assuming O -> 15.99900 + 1.008 * 0 (Hs)
+ MASS C_21   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS C_22   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_23    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS C_24   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS O_25   15.99900 ! assuming O -> 15.99900 + 1.008 * 0 (Hs)
+ MASS O_26   15.99900 ! assuming O -> 15.99900 + 1.008 * 0 (Hs)
+ MASS N_27   14.00700 ! assuming N -> 14.00700 + 1.008 * 0 (Hs)
+ MASS C_28   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS C_29   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_30    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS C_31   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_32    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_33    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS N_34   14.00700 ! assuming N -> 14.00700 + 1.008 * 0 (Hs)
+ MASS C_35   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS C_36   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS C_37   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_38    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS C_39   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS O_40   15.99900 ! assuming O -> 15.99900 + 1.008 * 0 (Hs)
+ MASS O_41   15.99900 ! assuming O -> 15.99900 + 1.008 * 0 (Hs)
+ MASS C_42   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS C_43   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS C_44   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_45    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_46    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS C_47   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_48    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS O_49   15.99900 ! assuming O -> 15.99900 + 1.008 * 0 (Hs)
+ MASS C_50   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_51    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_52    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_53    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_54    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_55    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_56    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_57    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_58    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_59    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_60    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_61    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_62    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_63    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_64    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_65    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_66    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_67    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_68    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_69    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_70    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_71    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_72    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_73    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS N_74   14.00700 ! assuming N -> 14.00700 + 1.008 * 0 (Hs)
+ MASS H_75    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS C_76   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_77    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_78    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS C_79   12.01100 ! assuming C -> 12.01100 + 1.008 * 0 (Hs)
+ MASS H_80    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_81    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)
+ MASS H_1    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)  
+ MASS H_2    1.00800 ! assuming H -> 1.00800 + 1.008 * 0 (Hs)  
+ MASS YB_1  173.03999 ! assuming YB -> 173.03999 + 1.008 * 0 (Hs)
+
+
+ autogenerate angles=true end
+
+RESIdue CTSA
+
+ ! CYS minus HG from protein-3.2.top 
+ group
+    atom N   type=NH1 charge=-0.36 end
+    atom HN  type=H   charge= 0.26 end
+ group
+    atom CA  type=CT  charge= 0.00 end
+    atom HA  type=HA  charge= 0.10 end
+ group
+    atom CB  type=CT  charge=-0.20 end
+    atom HB1 type=HA  charge= 0.10 end
+    atom HB2 type=HA  charge= 0.10 end
+ group
+    atom SG  type=S   charge=-0.05 end
+ group
+    atom C   type=C   charge= 0.48 end
+    atom O   type=O   charge=-0.48 end
+
+
+ ! Beyond SG:
+
+ { Note: electrostatics should normally not be used in }
+ { crystallographic refinement since it can produce }
+ { artefacts. For this reason, all charges are set to }
+ { zero by default. Edit them if necessary }
+GROUp
+ ATOM  SBN  TYPE S     CHARge  0.0  END  
+ ATOM  NR   TYPE N_1   CHARge  0.0  END
+ ATOM  CAC  TYPE C_2   CHARge  0.0  END
+ ATOM  CAD  TYPE C_3   CHARge  0.0  END
+ ATOM  HAC  TYPE H_4   CHARge  0.0  END
+ ATOM  CAE  TYPE C_5   CHARge  0.0  END
+ ATOM  HAH  TYPE H_6   CHARge  0.0  END
+ ATOM  HAG  TYPE H_7   CHARge  0.0  END
+ ATOM  NAF  TYPE N_8   CHARge  0.0  END
+ ATOM  CAG  TYPE C_9   CHARge  0.0  END
+ ATOM  CAH  TYPE C_10  CHARge  0.0  END
+ ATOM  HAI  TYPE H_11  CHARge  0.0  END
+ ATOM  CAI  TYPE C_12  CHARge  0.0  END
+ ATOM  HAM  TYPE H_13  CHARge  0.0  END
+ ATOM  HAN  TYPE H_14  CHARge  0.0  END
+ ATOM  CAR  TYPE C_15  CHARge  0.0  END
+ ATOM  CBR  TYPE C_16  CHARge  0.0  END
+ ATOM  HAR  TYPE H_17  CHARge  0.0  END
+ ATOM  CR   TYPE C_18  CHARge  0.0  END
+ ATOM  OR1  TYPE O_19  CHARge  0.0  END
+ ATOM  ORT  TYPE O_20  CHARge  0.0  END
+ ATOM  CAO  TYPE C_21  CHARge  0.0  END
+ ATOM  CAP  TYPE C_22  CHARge  0.0  END
+ ATOM  HAO  TYPE H_23  CHARge  0.0  END
+ ATOM  CAQ  TYPE C_24  CHARge  0.0  END
+ ATOM  OAR  TYPE O_25  CHARge  0.0  END
+ ATOM  OAS  TYPE O_26  CHARge  0.0  END
+ ATOM  NAT  TYPE N_27  CHARge  0.0  END
+ ATOM  CAU  TYPE C_28  CHARge  0.0  END
+ ATOM  CAV  TYPE C_29  CHARge  0.0  END
+ ATOM  HAU  TYPE H_30  CHARge  0.0  END
+ ATOM  CAW  TYPE C_31  CHARge  0.0  END
+ ATOM  HBB  TYPE H_32  CHARge  0.0  END
+ ATOM  HAW  TYPE H_33  CHARge  0.0  END
+ ATOM  NAX  TYPE N_34  CHARge  0.0  END
+ ATOM  CAY  TYPE C_35  CHARge  0.0  END
+ ATOM  CAZ  TYPE C_36  CHARge  0.0  END
+ ATOM  CBA  TYPE C_37  CHARge  0.0  END
+ ATOM  HAZ  TYPE H_38  CHARge  0.0  END
+ ATOM  CBB  TYPE C_39  CHARge  0.0  END
+ ATOM  OBC  TYPE O_40  CHARge  0.0  END
+ ATOM  OBD  TYPE O_41  CHARge  0.0  END
+ ATOM  CBE  TYPE C_42  CHARge  0.0  END
+ ATOM  CBF  TYPE C_43  CHARge  0.0  END
+ ATOM  CBG  TYPE C_44  CHARge  0.0  END
+ ATOM  HCB  TYPE H_45  CHARge  0.0  END
+ ATOM  HBG  TYPE H_46  CHARge  0.0  END
+ ATOM  CBH  TYPE C_47  CHARge  0.0  END
+ ATOM  HBF  TYPE H_48  CHARge  0.0  END
+ ATOM  OBI  TYPE O_49  CHARge  0.0  END
+ ATOM  CBJ  TYPE C_50  CHARge  0.0  END
+ ATOM  HAY  TYPE H_51  CHARge  0.0  END
+ ATOM  HBH  TYPE H_52  CHARge  0.0  END
+ ATOM  HCD  TYPE H_53  CHARge  0.0  END
+ ATOM  HCC  TYPE H_54  CHARge  0.0  END
+ ATOM  HAP  TYPE H_55  CHARge  0.0  END
+ ATOM  HBC  TYPE H_56  CHARge  0.0  END
+ ATOM  HBD  TYPE H_57  CHARge  0.0  END
+ ATOM  HBR  TYPE H_58  CHARge  0.0  END
+ ATOM  HBA  TYPE H_59  CHARge  0.0  END
+ ATOM  HCA  TYPE H_60  CHARge  0.0  END
+ ATOM  HBE  TYPE H_61  CHARge  0.0  END
+ ATOM  HAD  TYPE H_62  CHARge  0.0  END
+ ATOM  HAF  TYPE H_63  CHARge  0.0  END
+ ATOM  HAE  TYPE H_64  CHARge  0.0  END
+ ATOM  HCF  TYPE H_65  CHARge  0.0  END
+ ATOM  HCE  TYPE H_66  CHARge  0.0  END
+ ATOM  HBJ  TYPE H_67  CHARge  0.0  END
+ ATOM  HBI  TYPE H_68  CHARge  0.0  END
+ ATOM  HBN  TYPE H_69  CHARge  0.0  END
+ ATOM  HAV  TYPE H_70  CHARge  0.0  END
+ ATOM  HAL  TYPE H_71  CHARge  0.0  END
+ ATOM  HAK  TYPE H_72  CHARge  0.0  END
+ ATOM  HAJ  TYPE H_73  CHARge  0.0  END
+ ATOM  NBK  TYPE N_74  CHARge  0.0  END
+ ATOM  HBK  TYPE H_75  CHARge  0.0  END
+ ATOM  CBL  TYPE C_76  CHARge  0.0  END
+ ATOM  HCG  TYPE H_77  CHARge  0.0  END
+ ATOM  HBL  TYPE H_78  CHARge  0.0  END
+ ATOM  CBM  TYPE C_79  CHARge  0.0  END
+ ATOM  HBM  TYPE H_80  CHARge  0.0  END
+ ATOM  HCH  TYPE H_81  CHARge  0.0  END
+ ATOM YBUS  TYPE YB_1  CHARge  0.0  END
+ ATOM HR1   TYPE H_1  CHARge  0.0  END  
+ ATOM HR2   TYPE H_2  CHARge  0.0  END  
+
+
+  bond N  HN
+  bond N  CA     bond CA HA
+  bond CA CB     bond CB HB1     bond CB HB2
+  bond CB SG    
+  bond CA C
+  bond C  O
+  bond  SBN  SG  bond  SBN  CBM
+
+
+
+bond HR1 CBR  
+bond HR2 CBR  
+
+BOND  NR  YBUS
+BOND  NAF YBUS
+BOND  OR1 YBUS
+BOND  OAR YBUS
+BOND  NAT YBUS
+BOND  NAX YBUS
+BOND  OBC YBUS
+BOND  OBD YBUS
+ BOND  NR   CAC      BOND  NR   CAI      BOND  NR   CAR      BOND  CAC  CAD
+ BOND  CAC  HAC      BOND  CAC  CAE      BOND  CAD  HAD      BOND  CAD  HAF
+ BOND  CAD  HAE      BOND  CAE  HAH      BOND  CAE  HAG      BOND  CAE  NAF
+ BOND  NAF  CAG      BOND  NAF  CAO      BOND  CAG  CAH      BOND  CAG  HAI
+ BOND  CAG  CBG      BOND  CAH  HAL      BOND  CAH  HAK      BOND  CAH  HAJ
+ BOND  CAI  HAM      BOND  CAI  HAN      BOND  CAI  CAY      BOND  CAR  CBR
+ BOND  CAR  HAR      BOND  CAR  CR       BOND  CBR  HBR      BOND  CR   OR1
+ BOND  CR   ORT      BOND  CAO  CAP      BOND  CAO  HAO      BOND  CAO  CAQ
+ BOND  CAP  HAP      BOND  CAP  HBC      BOND  CAP  HBD      BOND  CAQ  OAR
+ BOND  CAQ  OAS      BOND  NAT  CAU      BOND  NAT  CBF      BOND  NAT  CBG
+ BOND  CAU  CAV      BOND  CAU  HAU      BOND  CAU  CAW      BOND  CAV  HBI
+ BOND  CAV  HBN      BOND  CAV  HAV      BOND  CAW  HBB      BOND  CAW  HAW
+ BOND  CAW  NAX      BOND  NAX  CAY      BOND  NAX  CAZ      BOND  CAY  CBJ
+ BOND  CAY  HAY      BOND  CAZ  CBA      BOND  CAZ  HAZ      BOND  CAZ  CBB
+ BOND  CBA  HBA      BOND  CBA  HCA      BOND  CBA  HBE      BOND  CBB  OBC
+ BOND  CBB  OBI      BOND  OBD  CBE      BOND  CBE  CBF      BOND  CBE  NBK
+ BOND  CBF  CBH      BOND  CBF  HBF      BOND  CBG  HCB      BOND  CBG  HBG
+ BOND  CBH  HBH      BOND  CBH  HCD      BOND  CBH  HCC      BOND  CBJ  HCF
+ BOND  CBJ  HCE      BOND  CBJ  HBJ      BOND  NBK  HBK      BOND  NBK  CBL
+ BOND  CBL  HCG      BOND  CBL  HBL      BOND  CBL  CBM      BOND  CBM  HBM
+ BOND  CBM  HCH          
+          
+    
+  improper HA N C CB   !stereo CA
+  improper HB1 HB2 CA SG  !stereo CB
+
+
+ IMPRoper YBUS  NR   NAF  OR1   
+ IMPRoper YBUS  NAF  NAT  OAR 
+ IMPRoper YBUS  NAT  NAX  OBD 
+ IMPRoper YBUS  NAX  NR   OBC 
+
+ IMPRoper YBUS  NAT  NAF  NAX 
+ IMPRoper YBUS  NAF  NR   NAT 
+ IMPRoper YBUS  NR   NAX  NAF 
+ IMPRoper YBUS  NAX  NAT  NR  
+
+
+ IMPRoper  NR   CAC  CAI  CAR ! chirality or flatness improper   
+ IMPRoper  CAC  NR   CAD  HAC ! chirality or flatness improper    
+ IMPRoper  CAE  CAC  HAH  HAG ! chirality or flatness improper   
+ IMPRoper  NAF  CAE  CAG  CAO ! chirality or flatness improper    
+ IMPRoper  CAG  NAF  CAH  HAI ! chirality or flatness improper    
+ IMPRoper  CAI  NR   HAM  HAN ! chirality or flatness improper    
+ IMPRoper  CAR  NR   CBR  HAR ! chirality or flatness improper    
+ IMPRoper  CR   CAR  OR1  ORT ! chirality or flatness improper     
+ IMPRoper  CAO  NAF  CAP  HAO ! chirality or flatness improper    
+ IMPRoper  CAQ  CAO  OAR  OAS ! chirality or flatness improper     
+ IMPRoper  NAT  CAU  CBF  CBG ! chirality or flatness improper    
+ IMPRoper  CAU  NAT  CAV  HAU ! chirality or flatness improper    
+ IMPRoper  CAW  CAU  HBB  HAW ! chirality or flatness improper   
+ IMPRoper  NAX  CAW  CAY  CAZ ! chirality or flatness improper    
+ IMPRoper  CAY  CAI  NAX  CBJ ! chirality or flatness improper   
+ IMPRoper  CAZ  NAX  CBA  HAZ ! chirality or flatness improper    
+ IMPRoper  CBB  CAZ  OBC  OBI ! chirality or flatness improper    
+ IMPRoper  CBE  OBD  CBF  NBK ! chirality or flatness improper - CBF planarity     
+ IMPRoper  CBF  NAT  CBE  CBH ! chirality or flatness improper    
+ IMPRoper  CBG  CAG  NAT  HCB ! chirality or flatness improper   
+ IMPRoper  NBK  CBE  HBK  CBL ! chirality or flatness improper - NBK planarity    
+
+
+ IMPRoper  OBD  CBE  NBK  HBK ! amide planarity   
+
+
+ IMPRoper  CAC  NR   CAR  HAR ! flat ? (180 degrees = trans)   
+ IMPRoper  CAE  NAF  CAO  CAQ ! flat ? (180 degrees = trans)   
+ IMPRoper  CAU  NAT  CBF  HBF ! flat ? (180 degrees = trans)   
+ IMPRoper  CAY  NAX  CAZ  HAZ ! flat ? (180 degrees = trans)   
+ IMPRoper  OBD  CBE  CBF  NAT ! flat ? (0 degrees = cis)     
+ IMPRoper  CAD  CAC  CAE  NAF ! flat ? (180 degrees = trans)   
+ IMPRoper  CAH  CAG  CBG  NAT ! flat ? (180 degrees = trans)   
+ IMPRoper  NR   CAI  CAY  CBJ ! flat ? (180 degrees = trans)   
+ IMPRoper  CAV  CAU  CAW  NAX ! flat ? (180 degrees = trans)   
+
+ IMPRoper  CAP  CAO  CAQ  OAR ! flat ? (180 degrees = trans)   
+ IMPRoper  CBR  CAR  CR   OR1
+ IMPRoper  CBA  CAZ  CBB  OBC
+
+
+  ! WARNING: Methyls effectively locked in a staggered rotamer!
+  IMPRoper  CAE  CAC  CAD  HAF ! CAD methyl stagger 
+  IMPRoper  CBG  CAG  CAH  HAK ! CAH methyl stagger 
+  IMPRoper  CAQ  CAO  CAP  HBC ! CAP methyl stagger 
+  IMPRoper  NAT  CAU  CAV  HBI ! CAV methyl stagger 
+  IMPRoper  NAX  CAZ  CBA  HBA ! CBA methyl stagger 
+  IMPRoper  CAI  CAY  CBJ  HCF ! CBJ methyl stagger 
+  IMPRoper  CR   CAR  CBR  HBR ! CBR methyl stagger 
+  IMPRoper  CBE  CBF  CBH  HCD ! CBH methyl stagger 
+
+
+
+IMPROPER CAC CAI CAR YBUS  !chiral center: NR
+IMPROPER NR CAD HAC CAE  !chiral center: CAC
+IMPROPER CAC HAD HAF HAE  !chiral center: CAD
+IMPROPER CAC HAH HAG NAF  !chiral center: CAE
+IMPROPER CAE CAG CAO YBUS  !chiral center: NAF
+IMPROPER NAF CAH HAI CBG  !chiral center: CAG
+IMPROPER CAG HAL HAK HAJ  !chiral center: CAH
+IMPROPER NR HAM HAN CAY  !chiral center: CAI
+IMPROPER NR CBR HAR CR  !chiral center: CAR
+IMPROPER CAR HBR HR1 HR2  !chiral center: CBR
+IMPROPER NAF CAP HAO CAQ  !chiral center: CAO
+IMPROPER CAO HAP HBC HBD  !chiral center: CAP
+IMPROPER CAU CBF CBG YBUS  !chiral center: NAT
+IMPROPER NAT CAV HAU CAW  !chiral center: CAU
+IMPROPER CAU HBI HBN HAV  !chiral center: CAV
+IMPROPER CAU HBB HAW NAX  !chiral center: CAW
+IMPROPER CAW CAY CAZ YBUS  !chiral center: NAX
+IMPROPER CAI NAX CBJ HAY  !chiral center: CAY
+IMPROPER NAX CBA HAZ CBB  !chiral center: CAZ
+IMPROPER CAZ HBA HCA HBE  !chiral center: CBA
+IMPROPER NAT CBE CBH HBF  !chiral center: CBF
+IMPROPER CAG NAT HCB HBG  !chiral center: CBG
+IMPROPER CBF HBH HCD HCC  !chiral center: CBH
+IMPROPER CAY HCF HCE HBJ  !chiral center: CBJ
+IMPROPER NBK HCG HBL CBM  !chiral center: CBL
+IMPROPER CBL HBM HCH SBN  !chiral center: CBM
+
+
+
+ { Note: edit any DONOrs and ACCEptors if necessary }
+! DONOr H?  OR1 ! only true if -OHx (x>0)
+ ACCEptor  OR1  CR
+! DONOr H?  ORT ! only true if -OHx (x>0)
+ ACCEptor  ORT  CR
+! DONOr H?  OAR ! only true if -OHx (x>0)
+ ACCEptor  OAR  CAQ
+! DONOr H?  OAS ! only true if -OHx (x>0)
+ ACCEptor  OAS  CAQ
+! DONOr H?  OBC ! only true if -OHx (x>0)
+ ACCEptor  OBC  CBB
+! DONOr H?  OBD ! only true if -OHx (x>0)
+ ACCEptor  OBD  CBE
+! DONOr H?  OBI ! only true if -OHx (x>0)
+ ACCEptor  OBI  CBB
+
+
+
+
+
+
+
+END { RESIdue   CTSA }
+

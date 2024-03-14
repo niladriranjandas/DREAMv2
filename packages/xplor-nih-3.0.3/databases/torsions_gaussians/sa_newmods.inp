@@ -1,0 +1,817 @@
+
+remark   This protocol allows computer to select dimer noes
+REMARKS very slow cooling with increase of vdw 
+evaluate ($seed=54638320)
+
+set seed $seed  end
+!evaluate ($kbbang = 500.0)
+!evaluate ($kbbimp = 500.0)
+
+!----------------------------------------------------------------------
+! read in the PSF file and initial structure
+
+structure @sry_mut.psf  @axis_new.psf @sry_dna.psf @axis_600.psf  end !@h2o.psf end
+param @parallhdg_new.pro  @par_axis_3.pro @parnah1er1_mod_new.inp
+end !@h2o.pro end
+
+!coor @sa_model.pdb
+!coor @axis_xyzo_3.pdb
+
+!coor @srywt_2_model.sa
+!coor @srywt_coup5.sa
+!coor @model_mut_complex.pdb
+!coor @srymut_model2.pdb
+!coor @axis_600.pdb
+!coor @h2o.pdb
+!coor @modelx.pdb
+coor @model_new.pdb
+
+!----------------------------------------------------------------------
+! set the weights for the experimental energy terms
+    
+evaluate ($knoe  = 30.0)   ! noes
+evaluate ($asym  = 0.1)   ! slope of NOE potential
+evaluate ($kcdi  = 10.0)   ! torsion angles
+evaluate ($krama = 0.002)    !rama
+evaluate ($kandb = 0.001)      
+evaluate ($kimdb = 0.001)      
+evaluate ($kramalr = 0.001) !long range rama
+evaluate ($kvirt1doverall=0.0001)
+evaluate ($kvirt1d=0.001)
+evaluate ($kvirt2d=0.001)
+evaluate ($kvirt3d=0.001)
+evaluate ($knuc = 0.001)    !rama
+
+!----------------------------------------------------------------------
+! The next statement makes sure the experimental energies are used in the
+! calculation, and switches off the unwanted energy terms.
+! note that the NMR torsions are only switched on in the cooling stage
+! we include the noncrystallographic symmetry right from the start
+!--------------------------------------------------------------------------- 
+! Read experimental restraints
+!set message off echo off end
+
+noe
+   reset
+   nres = 5000             
+   ceiling 1000
+!   set message off echo off end
+   class all 
+   @6_22noe_prot_fin.tbl
+   @6_22noe_prot_fin_new.tbl
+   @6_30n15noe_arg.tbl
+   @7_2metonly.tbl
+   @helix_hbond.tbl 
+   @noe_dna_new.tbl !noe_dna_all18.tbl
+   !@hbonds_dna.tbl
+!   @3_30noe_inter.tbl
+!   @6_10noe_inter.tbl
+!   @c12c13noe_new.tbl
+!   @8_3c12c13noe_all.tbl
+   @class_inter.tbl
+   @6_22nh_inter.tbl
+!   @6_30inter_5pr.tbl
+!   @pp.tbl
+   @inter_hb.tbl
+!   @h2o_test.tbl
+  averaging  all sum
+  potential  all square   !soft
+  scale      all $knoe
+  sqconstant all 1.0
+  sqexponent all 2
+end
+
+noe
+   class dnah
+   @hbonds_dna.tbl
+   averaging dnah sum
+   potential dnah biharm
+   scale dnah 10.0
+   sqexponent dnah 2
+   sqconstant dnah 1.0
+end
+ 
+! set echo on message on end
+
+!set message off echo off end
+
+
+carbon
+  phistep=180
+  psistep=180
+  nres=300
+  class all
+  force 0.5
+  potential harmonic
+  @rcoil_c13.tbl      !rcoil shifts
+  @expected_edited_c13.tbl   !13C shift database
+  !set echo off message off end
+  @c13_shifts.tbl         !carbon shifts
+  !set echo on message on end
+end
+
+
+
+restraints dihed 
+ reset
+  scale $kcdi  
+  nass = 10000
+  set message off echo off end
+  @dihed_newx.tbl    	!has some psi from GC/families
+  @dihedral_dna.tbl
+  @chi_newx.tbl
+  !set message on echo on end
+end 
+
+
+
+couplings
+  nres 400
+  potential harmonic
+ class phi
+  degen 1
+  force 1.0
+  !set echo off message off end
+  coefficients 6.98 -1.38 1.72 -60.0 
+     @hnha_xplr.tbl
+{ class gly  !for gly where you don't know stereoassignement
+  degen 2
+  force 1.0 0.2
+  coefficients 6.98 -1.38 1.72 -60.0
+     @../phij_gly_final.tbl     
+  !set echo on message on end
+}
+ class e
+  degen 1
+  force 1.0
+  coefficients 15.3 -6.2 1.5 120.0 !15.3cos2(e+120)-6.2cos(e+120)+1.5
+     @dna_pcoup.tbl
+  !set echo on message on end
+end
+
+
+evaluate ($ksani = 0.01)
+evaluate ($ksani_CH = 1.0*$ksani)
+evaluate ($ksani_CACO = 0.035*$ksani)
+evaluate ($ksani_NCO = 0.050*$ksani)
+evaluate ($ksani_HNC = 0.108*$ksani)
+evaluate ($ksani_prot = 1.0*$ksani)
+evaluate ($ksani_dna = 1.0*$ksani)
+evaluate ($ksani_CH_dna = 1.0*$ksani)
+
+
+sani
+   nres=1000
+   class JNH
+   force $ksani
+   potential harmonic
+   coeff 0.0 8.2 0.50
+   @dip_nh.tbl
+
+   class JCH
+   force $ksani_CH
+   potential harmonic
+   coeff 0.0 8.2 0.50
+   @dip_caha.tbl
+
+!   class JCACO
+!   force $ksani_CACO
+!   potential harmonic
+!   coeff 0.0 8.2 0.50
+!   @dip_caco.tbl
+
+   class JNCO
+   force $ksani_NCO
+   potential harmonic
+   coeff 0.0 8.2 0.50
+   @dip_nc.tbl
+
+   class JHNC
+   force $ksani_HNC
+   potential harmonic
+   coeff 0.0 8.2 0.50
+   @dip_hnc.tbl
+
+   class JNHp
+   force $ksani_prot
+   potential harmonic
+   coeff 0.0 7.9 0.49
+   @17dip_protnh.tbl
+
+   class JNHd
+   force $ksani_dna
+   potential harmonic
+   coeff 0.0 7.9 0.49
+   @17dip_nh.tbl
+
+   class JCHd
+   force $ksani_CH_dna
+   potential harmonic
+   coeff 0.0 7.9 0.49
+   @17dip_aro.tbl
+   @17dip_sug.tbl
+
+end
+
+
+evaluate ($rcon  = 0.003) 
+
+parameters
+  nbonds
+    atom
+    nbxmod 3
+    wmin  =   0.01  ! warning off
+    cutnb =   4.5   ! nonbonded cutoff
+    tolerance 0.5
+    repel=    0.9   ! scale factor for vdW radii = 1 ( L-J radii)
+    rexp   =  2     ! exponents in (r^irex - R0^irex)^rexp
+    irex   =  2
+    rcon=$rcon      ! actually set the vdW weight
+      end
+end 
+
+rama
+nres=10000
+!set message off echo off end
+
+@/net/octave2/clore/xplor_40/gaussians/shortrange_gaussians.tbl
+@/net/octave2/clore/xplor_40/gaussians/new_shortrange_force.tbl
+
+@/net/octave2/clore/xplor_40/gaussians/longrange_gaussians.tbl
+@/net/octave2/clore/xplor_40/gaussians/longrange_4D_hstgp_force.tbl
+
+@/net/octave2/clore/xplor_40/gaussians/virtualTA_hstgp_gauss.tbl
+@/net/octave2/clore/xplor_40/gaussians/virtualTA_force_hstgp.tbl
+
+
+@/net/octave2/clore/xplor_40/gaussians/all_na_gaussians.tbl
+@/net/octave2/clore/xplor_40/gaussians/force_nucleic.tbl
+
+end
+
+set message on echo on end
+@/net/octave2/clore/xplor_40/gaussians/newshortrange_setup.tbl
+@/net/octave2/clore/xplor_40/gaussians/setup_4D_hstgp.tbl
+@/net/octave2/clore/xplor_40/gaussians/setup_virtualTA_hstgp.tbl
+@/net/octave2/clore/xplor_40/gaussians/setup_nucleic_new.tbl
+
+restraints plane
+ group
+  select= ((resid 128 and (name n1 or name c6 or name c2)) or
+              (resid 101 and (name n3 or name c2 or name c4)))
+  weight=800.0
+ end
+ group
+  select= ((resid 127 and (name n1 or name c6 or name c2)) or
+              (resid 102 and (name n3 or name c2 or name c4)))
+  weight=400.0
+ end
+ group
+  select= ((resid 126 and (name n1 or name c6 or name c2)) or
+              (resid 103 and (name n3 or name c2 or name c4)))
+  weight=200.0
+ end
+ group
+  select= ((resid 104 and (name n1 or name c6 or name c2)) or
+              (resid 125 and (name n3 or name c2 or name c4)))
+  weight=50.0
+ end
+ group
+  select= ((resid 124 and (name n1 or name c6 or name c2)) or
+              (resid 105 and (name n3 or name c2 or name c4)))
+  weight=20.0
+ end
+ group
+  select= ((resid 106 and (name n1 or name c6 or name c2)) or
+              (resid 123 and (name n3 or name c2 or name c4)))
+  weight=10.0
+ end
+ group
+  select= ((resid 122 and (name n1 or name c6 or name c2)) or
+              (resid 107 and (name n3 or name c2 or name c4)))
+  weight=10.0
+ end
+ group
+  select= ((resid 108 and (name n1 or name c6 or name c2)) or
+              (resid 121 and (name n3 or name c2 or name c4)))
+  weight=10.0
+ end
+ group
+  select= ((resid 109 and (name n1 or name c6 or name c2)) or
+              (resid 120 and (name n3 or name c2 or name c4)))
+  weight=10.0
+ end
+ group
+  select= ((resid 110 and (name n1 or name c6 or name c2)) or
+              (resid 119 and (name n3 or name c2 or name c4)))
+  weight=20.0
+ end
+ group
+  select= ((resid 118 and (name n1 or name c6 or name c2)) or
+              (resid 111 and (name n3 or name c2 or name c4)))
+  weight=50.0
+ end
+ group
+  select= ((resid 112 and (name n1 or name c6 or name c2)) or
+              (resid 117 and (name n3 or name c2 or name c4)))
+  weight=200.0
+ end
+ group
+  select= ((resid 116 and (name n1 or name c6 or name c2)) or
+              (resid 113 and (name n3 or name c2 or name c4)))
+  weight=400.0
+ end
+ group
+  select= ((resid 115 and (name n1 or name c6 or name c2)) or
+              (resid 114 and (name n3 or name c2 or name c4)))
+  weight=800.0
+ end
+
+
+
+
+group
+  select =  ((resid 128 and (name n1 or name h1 or name n9)) or
+         (resid 101 and (name n3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 127 and (name n1 or name h1 or name n9)) or
+         (resid 102 and (name n3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 104 and (name n1 or name h1 or name n9)) or
+         (resid 125 and (name n3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 124 and (name n1 or name h1 or name n9)) or
+         (resid 105 and (name n3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 122 and (name n1 or name h1 or name n9)) or
+         (resid 107 and (name n3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 118 and (name n1 or name h1 or name n9)) or
+         (resid 111 and (name n3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 116 and (name n1 or name h1 or name n9)) or
+         (resid 113 and (name n3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 115 and (name n1 or name h1 or name n9)) or
+         (resid 114 and (name n3 or name c6)))
+  weight = 800.0
+end
+
+
+
+group
+  select =  ((resid 126 and (name n1 or name n9)) or
+         (resid 103 and (name n3 or name h3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 106 and (name n1 or name n9)) or
+         (resid 123 and (name n3 or name h3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 108 and (name n1 or name n9)) or
+         (resid 121 and (name n3 or name h3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 109 and (name n1 or name n9)) or
+         (resid 120 and (name n3 or name h3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 110 and (name n1 or name n9)) or
+         (resid 119 and (name n3 or name h3 or name c6)))
+  weight = 800.0
+end
+
+group
+  select =  ((resid 112 and (name n1 or name n9)) or
+         (resid 117 and (name n3 or name h3 or name c6)))
+  weight = 800.0
+end
+
+
+
+
+
+
+
+end
+
+! Fixing the axis using harmonic restraint
+! leave out, let both rotate
+
+vector do (refx=x) (all)
+vector do (refy=y) (all)
+vector do (refz=z) (all)
+
+!vector do (harmonic=20.0) (resid 500 and name OO)
+!vector do (harmonic=0.0) (resid 500 and name Z )
+!vector do (harmonic=0.0) (resid 500 and name X )
+!vector do (harmonic=0.0) (resid 500 and name Y )
+!vector do (harmonic=0.0) (not (resid 500))
+!restraints harmonic exponent=2 end
+!flags include harm end
+
+constraints fix ((resid 500 or resid 600) and name OO) end
+
+
+evaluate ($cool_steps = 3000)
+evaluate ($init_t  = 2000.01)
+
+vector do (mass  = 100.0) (not (resid 500 or resid 600))         ! uniform mass for all atoms
+vector do (mass  = 30.0) (resid 500 or resid 600)
+vector do (fbeta = 10.0) (all)         ! coupling to heat bath
+
+
+coor copy end
+
+
+{* Generate Structures 1 -> 50 *}
+
+evaluate ($count =0)
+while ($count < 20)
+  loop structure
+  evaluate ($count = $count + 1)
+
+{====>}                             {*Filename(s) for embedded coordinates.*}
+
+vector do (x=xcomp) (all)
+vector do (y=ycomp) (all)
+vector do (z=zcomp) (all)
+
+evaluate ($ini_rad  = 0.9)        evaluate ($fin_rad  = 0.80)
+evaluate ($ini_con=  0.004)       evaluate ($fin_con=  4.0)
+evaluate ($ini_ang = 0.4)         evaluate ($fin_ang = 1.0)
+evaluate ($ini_imp = 0.1)         evaluate ($fin_imp = 1.0) 
+
+evaluate ($ini_noe = 2.0)         evaluate ($fin_noe = 30.0)
+evaluate ($knoe  = $ini_noe)   ! slope of NOE potential
+evaluate ($ini_rama = 0.002)        evaluate ($fin_rama = 1.0)
+evaluate ($krama = $ini_rama)
+evaluate ($ini_lr = 0.0002)        evaluate ($fin_lr = 0.15)
+evaluate ($kramalr = $ini_lr)
+evaluate ($ini_nuc = 1.000)        evaluate ($fin_nuc = 2.0)
+evaluate ($knuc = $ini_nuc)
+evaluate ($virt1d=$kramalr)
+evaluate ($virt2d=$kramalr)
+evaluate ($virt3d=$kramalr)
+
+evaluate ($ini_andb = 0.001)        evaluate ($fin_andb = 1000.0)
+evaluate ($kandb = $ini_andb)
+evaluate ($ini_imdb = 0.001)        evaluate ($fin_imdb = 2000.0)
+evaluate ($kimdb = $ini_imdb)
+
+evaluate ($ini_kbb_a = 500.0)        evaluate ($fin_kbb_a = 100.0)
+evaluate ($kbbang = $ini_kbb_a)
+evaluate ($ini_kbb_i = 500.0)        evaluate ($fin_kbb_i = 10.0)
+evaluate ($kbbimp = $ini_kbb_i)
+
+evaluate ($kcdi  = 10.0)   ! torsion angles
+
+evaluate ($ini_sani = 0.01)         evaluate ($fin_sani = 2.0)
+evaluate ($ksani  = $ini_sani)   ! slope of NOE potential
+evaluate ($ksani_CH = 1.0*$ksani)
+evaluate ($ksani_CACO = 0.035*$ksani)
+evaluate ($ksani_NCO = 0.050*$ksani)
+evaluate ($ksani_HNC = 0.108*$ksani)
+evaluate ($ksani_prot = 1.0*$ksani)
+evaluate ($ksani_dna = 1.0*$ksani)
+evaluate ($ksani_CH_dna = 1.0*$ksani)
+
+sani class JNH force $ksani end
+!sani class JCACO force $ksani_CACO end
+sani class JNCO force $ksani_NCO end
+sani class JCH force $ksani_CH end
+sani class JHNC force $ksani_HNC end
+sani class JNHp force $ksani_prot end
+sani class JNHd force $ksani_dna end
+sani class JCHd force $ksani_CH_dna end
+
+
+flags 
+  exclude *
+  include bonds angl impr vdw noe rama carb cdih coup plan sani
+end
+
+
+restraints dihed 
+  scale $kcdi  
+end 
+
+noe scale all $knoe end
+rama
+@/net/octave2/clore/xplor_40/gaussians/new_shortrange_force.tbl
+@/net/octave2/clore/xplor_40/gaussians/longrange_4D_hstgp_force.tbl
+@/net/octave2/clore/xplor_40/gaussians/virtualTA_force_hstgp.tbl
+@/net/octave2/clore/xplor_40/gaussians/force_nucleic.tbl
+end
+
+evaluate ($rcon  = 1.0) 
+
+parameters
+  nbonds
+    atom
+    nbxmod 3
+    wmin  =   0.01  ! warning off
+    cutnb =   100   ! nonbonded cutoff
+    tolerance 45
+    repel=    1.2   ! scale factor for vdW radii = 1 ( L-J radii)
+    rexp   =  2     ! exponents in (r^irex - R0^irex)^rexp
+    irex   =  2
+    rcon=$rcon      ! actually set the vdW weight
+     end
+end 
+
+
+
+constraints 
+
+        interaction (not name ca) (all) 
+
+        weights * 1 angl 0.4 impr 0.1 vdw 0 elec 0 end 
+
+        interaction (name ca) (name ca) 
+
+        weights * 1 angl 0.4 impr 0.1 vdw 1.0 end 
+
+end
+
+
+dynamics  verlet
+      nstep=5000           ! 
+
+      timestep=0.002        ! 
+
+      iasvel=maxwell        firsttemp= $init_t
+      tcoupling = true
+      tbath = $init_t   
+
+      nprint=50
+      iprfrq=0
+      ntrfr = 99999999
+end
+
+
+
+parameters
+  nbonds
+    atom
+    nbxmod 3
+    wmin  =   0.01  ! warning off
+    cutnb =   4.5   ! nonbonded cutoff
+    tolerance 0.5
+    repel=    0.9   ! scale factor for vdW radii = 1 ( L-J radii)
+    rexp   =  2     ! exponents in (r^irex - R0^irex)^rexp
+    irex   =  2
+    rcon =1.0      ! actually set the vdW weight
+  end
+end 
+
+
+evaluate ($kcdi = 200)
+restraints dihed 
+
+  scale $kcdi  
+
+end
+
+
+evaluate ($final_t = 100)     { K }
+evaluate ($tempstep = 25)     { K }
+
+evaluate ($ncycle = ($init_t-$final_t)/$tempstep)
+evaluate ($nstep = int($cool_steps*4.0/$ncycle))
+
+evaluate ($bath  = $init_t)
+evaluate ($k_vdw = $ini_con)
+evaluate ($k_vdwfact = ($fin_con/$ini_con)^(1/$ncycle))
+evaluate ($radius=    $ini_rad)
+evaluate ($radfact = ($fin_rad/$ini_rad)^(1/$ncycle))
+evaluate ($k_ang = $ini_ang)
+evaluate ($ang_fac = ($fin_ang/$ini_ang)^(1/$ncycle))
+evaluate ($k_imp = $ini_imp)
+evaluate ($imp_fac = ($fin_imp/$ini_imp)^(1/$ncycle))
+evaluate ($noe_fac = ($fin_noe/$ini_noe)^(1/$ncycle))
+evaluate ($knoe = $ini_noe)
+evaluate ($rama_fac = ($fin_rama/$ini_rama)^(1/$ncycle))
+evaluate ($krama = $ini_rama)
+evaluate ($lr_fac = ($fin_lr/$ini_lr)^(1/$ncycle))
+evaluate ($kramalr = $ini_lr)
+evaluate ($nuc_fac = ($fin_nuc/$ini_nuc)^(1/$ncycle))
+evaluate ($knuc = $ini_nuc)
+
+evaluate ($virt1d=$kramalr)
+evaluate ($virt2d=$kramalr)
+evaluate ($virt3d=$kramalr)
+evaluate ($andb_fac = ($fin_andb/$ini_andb)^(1/$ncycle))
+evaluate ($kandb = $ini_andb)
+evaluate ($imdb_fac = ($fin_imdb/$ini_imdb)^(1/$ncycle))
+evaluate ($kimdb = $ini_imdb)
+evaluate ($kbb_fac_i = ($fin_kbb_i/$ini_kbb_i)^(1/$ncycle))
+evaluate ($kbb_fac_a = ($fin_kbb_a/$ini_kbb_a)^(1/$ncycle))
+evaluate ($kbbang = $ini_kbb_a)
+evaluate ($kbbimp = $ini_kbb_i)
+
+evaluate ($sani_fac = ($fin_sani/$ini_sani)^(1/$ncycle))
+evaluate ($ksani = $ini_sani)
+evaluate ($ksani_CH = 1.0*$ksani)
+evaluate ($ksani_CACO = 0.035*$ksani)
+evaluate ($ksani_NCO = 0.050*$ksani)
+evaluate ($ksani_HNC = 0.108*$ksani)
+evaluate ($ksani_prot = 1.0*$ksani)
+evaluate ($ksani_dna = 1.0*$ksani)
+evaluate ($ksani_CH_dna = 1.0*$ksani)
+
+flags 
+  exclude *
+  include bonds angl impr vdw noe rama carb cdih coup plan sani 
+end
+
+vector do (vx = maxwell($bath)) (all)
+vector do (vy = maxwell($bath)) (all)
+vector do (vz = maxwell($bath)) (all)
+
+evaluate ($i_cool = 0)
+while ($i_cool < $ncycle) loop cool
+    evaluate ($i_cool=$i_cool+1)
+
+    evaluate ($bath  = $bath  - $tempstep)
+    evaluate ($k_vdw=min($fin_con,$k_vdw*$k_vdwfact))
+    evaluate ($radius=max($fin_rad,$radius*$radfact))
+    evaluate ($k_ang = $k_ang*$ang_fac)
+    evaluate ($k_imp = $k_imp*$imp_fac)
+    evaluate ($knoe  = $knoe*$noe_fac)
+    evaluate ($krama  = $krama*$rama_fac)
+    evaluate ($kramalr  = $kramalr*$lr_fac)
+    evaluate ($knuc  = $knuc*$nuc_fac)
+evaluate ($virt1d=$kramalr)
+evaluate ($virt2d=$kramalr)
+evaluate ($virt3d=$kramalr)
+    evaluate ($kandb  = $kandb*$andb_fac)
+    evaluate ($kimdb  = $kimdb*$imdb_fac)
+    evaluate ($kbbang  = $kbbang*$kbb_fac_a)
+    evaluate ($kbbimp  = $kbbimp*$kbb_fac_i)
+
+evaluate ($ksani  = $ksani*$sani_fac)
+evaluate ($ksani_CH = 1.0*$ksani)
+evaluate ($ksani_CACO = 0.035*$ksani)
+evaluate ($ksani_NCO = 0.050*$ksani)
+evaluate ($ksani_HNC = 0.108*$ksani)
+evaluate ($ksani_prot = 1.0*$ksani)
+evaluate ($ksani_dna = 1.0*$ksani)
+evaluate ($ksani_CH_dna = 1.0*$ksani)
+    
+    !parameter reset @parallhdg_new_db.pro @zn.pro end
+    constraints interaction (all) (all) weights
+        * 1 angles $k_ang improper $k_imp
+    end end
+    parameter
+        nbonds
+        cutnb=4.5 rcon=$k_vdw nbxmod=3 repel=$radius
+    end       end
+    noe scale all $knoe  end
+    sani class JNH force $ksani end
+  !  sani class JCACO force $ksani_CACO end
+    sani class JNCO force $ksani_NCO end
+    sani class JCH force $ksani_CH end
+    sani class JHNC force $ksani_HNC end
+    sani class JNHp force $ksani_prot end
+    sani class JNHd force $ksani_dna end
+    sani class JCHd force $ksani_CH_dna end
+
+
+rama
+@/net/octave2/clore/xplor_40/gaussians/new_shortrange_force.tbl
+@/net/octave2/clore/xplor_40/gaussians/longrange_4D_hstgp_force.tbl
+@/net/octave2/clore/xplor_40/gaussians/virtualTA_force_hstgp.tbl
+@/net/octave2/clore/xplor_40/gaussians/force_nucleic.tbl
+end
+
+    dynamics  verlet
+        nstep=$nstep  timestep=0.002 iasvel=current  firsttemp= $bath
+        tcoupling = true  tbath = $bath   nprint=$nstep  iprfrq=0
+        ntrfr = 99999999
+    end
+end loop cool
+
+
+mini powell nstep= 250 nprint= 50 end
+
+   print threshold=0.5 noe
+   evaluate ($rms_noe=$result)
+   evaluate ($violations_noe=$violations)
+   print threshold=5. cdih
+   evaluate ($rms_cdih=$result)
+   evaluate ($violations_cdih=$violations)
+   print thres=0.05 bonds          
+   evaluate ($rms_bonds=$result)
+   print thres=5. angles
+   evaluate ($rms_angles=$result)
+   print thres=5. impropers
+   evaluate ($rms_impropers=$result)
+   couplings print threshold 1.0 class phi end
+   evaluate ($rms_coup = $result)
+   evaluate ($end_viols = $violations)
+   couplings print threshold 1.0 class gly end
+   evaluate ($rms_coup_g = $result)
+   evaluate ($end_viols_g = $violations)
+   couplings print threshold 1.0 class e end
+   evaluate ($rms_coup_e = $result)
+   evaluate ($end_viols_e = $violations)
+   carbon print threshold = 1.0 end
+   evaluate ($rms_ashift = $rmsca)
+   evaluate ($rms_bshift = $rmscb)
+   evaluate ($viol_shift = $violations)
+   angledb print threshold=0.5 type torsion end
+   evaluate ($rms_tordb = $rms)
+   angledb print threshold=0.5 type angle end
+   evaluate ($rms_angdb = $rms)
+
+!   sani print threshold=2.0 all end
+!   evaluate ($rms_sani_all=$result)
+!   evaluate ($viol_sani_all=$violations)
+   sani print threshold=0.0 class JNH end
+   evaluate ($rms_sani_JNH=$result)
+   evaluate ($viol_sani_JNH=$violations)
+!   sani print threshold=0.0 class JCACO end
+!   evaluate ($rms_sani_JCACO=$result*0.18666)
+!   evaluate ($viol_sani_JCACO=$violations)
+   sani print threshold=0.0 class JNCO end
+   evaluate ($rms_sani_JNCO=$result*0.11068)
+   evaluate ($viol_sani_JNCO=$violations)
+   sani print threshold=0.0 class JCH end
+   evaluate ($rms_sani_JCH=$result*2.08953)
+   evaluate ($viol_sani_JCH=$violations)
+   sani print threshold=0.0 class JHNC end
+   evaluate ($rms_sani_JHNC=$result*0.329)
+   evaluate ($viol_sani_JHNC=$violations)
+   sani print threshold=0.0 class JNHp end
+   evaluate ($rms_sani_JNH_prot=$result)
+   evaluate ($viol_sani_JNH_prot=$violations)
+   sani print threshold=0.0 class JNHd end
+   evaluate ($rms_sani_JNH_dna=$result)
+   evaluate ($viol_sani_JNH_dna=$violations)
+   sani print threshold=0.0 class JCHd end
+   evaluate ($rms_sani_JCH_dna=$result*2.08953)
+   evaluate ($viol_sani_JCH_dna=$violations)
+
+
+
+   remarks =============================================================== 
+   remarks      overall,bonds,angles,improper,vdw,cdih,noe,coup,rama,carb,plane,sani
+   remarks energies: $ener, $bond, $angl, $impr, $vdw, $cdih, $noe, $coup, $rama, $carb, $plan, $sani
+   remarks =============================================================== 
+   remarks            bonds,angles,impropers,cdih,noe,coup
+   remarks  bonds etc: $rms_bonds,$rms_angles,$rms_impropers,$rms_cdih,$rms_noe,$rms_coup
+   remarks  shifts RMS a, b: $rms_ashift, $rms_bshift
+   remarks =============================================================== 
+   remarks                cdih end_coup end_coup_gly noe 
+   remarks violations :  $violations_cdih  $end_viols $end_viols_g $violations_noe 
+   remarks shifts:  $viol_shift
+   remarks =============================================================== 
+   remarks jcoup stats:  end_rms  end_rms_gly end_rms_e
+   remarks rms-d:  $rms_coup $rms_coup_g $rms_coup_e
+   remarks ===============================================================
+   remarks  sani   NH CH NCO HNCO 
+   remarks  RMS sani: $rms_sani_JNH $rms_sani_JCH $rms_sani_JNCO $rms_sani_JHNC 
+   remarks  viol sani: $viol_sani_JNH $viol_sani_JCH $viol_sani_JNCO $viol_sani_JHNC 
+   remarks  sani   NH_prot NH_dna CH_dna
+   remarks  RMS sani DNA: $rms_sani_JNH_prot $rms_sani_JNH_dna $rms_sani_JCH_dna
+   remarks  viol sani DNA: $viol_sani_JNH_prot $viol_sani_JNH_dna $viol_sani_JCH_dna
+   remarks ===============================================================
+
+
+{====>}                        {*Name(s) of the family of final structures.*}
+evaluate ($file = "srymut_new_" + encode($count) + ".sa")
+write coor output= $file end
+
+end loop structure
+stop
+

@@ -1,0 +1,548 @@
+
+!
+! setup_na.tbl
+! Sets up the selections for the various database energies
+! Works with all_na.tbl
+!
+! WARNING: this script overwrites the store7, store8, and store9 arrays
+!
+! by John Kuszewski 10/22/96
+! modified from earlier version for protein torsion angle database
+!
+
+set message off echo off end
+
+!
+! get selections for 5' and 3' termini
+! 
+! atoms that are in 5' terminal residues are selected in store7
+! atoms that are in 3' terminal residues are selected in store8
+! 
+
+vector do (store7 = 0) (all)
+vector do (store8 = 0) (all)
+
+for $count in id (name C4') loop database
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = decode($result))
+   eval ($nextRes = $curRes + 1)
+   eval ($prevRes = $curRes - 1)
+   vector do (store9 = 1) (all)
+   vector show sum (store9) (resid $nextRes and segid $curSeg)
+   eval ($nextResExists = $result)
+   vector show sum (store9) (resid $prevRes and segid $curSeg)
+   eval ($prevResExists = $result)
+   if ($nextResExists = 0) then
+      vector identify (store7) (store7 or (resid $curRes and segid $curSeg))
+   end if
+   if ($prevResExists = 0) then
+      vector identity (store8) (store8 or (resid $curRes and segid $curSeg))
+   end if
+end loop database
+
+
+!
+! now loop through the structure, picking the angles
+!
+
+for $count in id (name c4') loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+!
+! first, select all the correlations that need to have the previous
+! residue defined.  These are those that depend on alpha, epsilon0, or zeta0.
+!
+
+   vector do (x = x) (segid $curSeg and resid $curRes and not store8)
+   if ($select > 0) then
+
+      xrama
+      class alpha_beta
+      assign
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+      end
+
+      xrama 
+      class alpha_beta_zeta0
+      assign 
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $prevRes and name C3')
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+      end
+      
+      xrama 
+      class alpha_beta_gamma
+      assign 
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+      end
+
+      xrama 
+      class alpha_chi
+      assign 
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name O4')
+         (segid $curSeg and resid $curRes and name C1')
+         (segid $curSeg and resid $curRes and (
+            ((resn ADE or resn GUA) and name N9) or 
+            ((resn THY or resn CYT or resn URI) and name N1)))
+         (segid $curSeg and resid $curRes and (
+            ((resn ADE or resn GUA) and name C4) or 
+            ((resn THY or resn CYT or resn URI) and name C2)))
+      end
+
+      xrama 
+      class alpha_delta
+      assign 
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+      end
+
+      xrama 
+      class alpha_epsilon0_zeta0
+      assign 
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $prevRes and name C4')
+         (segid $curSeg and resid $prevRes and name C3')
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $prevRes and name C3')
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+      end
+      
+      xrama 
+      class alpha_gamma
+      assign 
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+      end
+
+   end if
+
+
+!
+! second, select all the correlations that need to have the next
+! residue defined.  These are those that depend on epsilon or zeta.
+!
+
+   vector do (x = x) (segid $curSeg and resid $curRes and not store7)
+   if ($select > 0) then
+
+      xrama 
+      class beta_epsilon
+      assign 
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+      end
+
+      xrama 
+      class delta_epsilon_chi
+      assign 
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+         (segid $curSeg and resid $curRes and name O4')
+         (segid $curSeg and resid $curRes and name C1')
+         (segid $curSeg and resid $curRes and (
+            ((resn ADE or resn GUA) and name N9) or 
+            ((resn THY or resn CYT or resn URI) and name N1)))
+         (segid $curSeg and resid $curRes and (
+            ((resn ADE or resn GUA) and name C4) or 
+            ((resn THY or resn CYT or resn URI) and name C2)))
+      end
+
+      xrama 
+      class delta_epsilon
+      assign 
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+      end
+
+      xrama 
+      class delta_epsilon_zeta
+      assign 
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+         (segid $curSeg and resid $nextRes and name O5')
+      end
+
+      xrama 
+      class delta_zeta
+      assign 
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+         (segid $curSeg and resid $nextRes and name O5')
+      end
+
+      xrama 
+      class epsilon_chi
+      assign 
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+         (segid $curSeg and resid $curRes and name O4')
+         (segid $curSeg and resid $curRes and name C1')
+         (segid $curSeg and resid $curRes and (
+            ((resn ADE or resn GUA) and name N9) or 
+            ((resn THY or resn CYT or resn URI) and name N1)))
+         (segid $curSeg and resid $curRes and (
+            ((resn ADE or resn GUA) and name C4) or 
+            ((resn THY or resn CYT or resn URI) and name C2)))
+      end
+
+      xrama 
+      class epsilon_zeta
+      assign 
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+         (segid $curSeg and resid $nextRes and name O5')
+      end
+
+      xrama 
+      class gamma_delta_epsilon
+      assign 
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+      end
+
+      xrama 
+      class gamma_epsilon
+      assign 
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+      end
+
+      xrama 
+      class gamma_zeta
+      assign 
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+         (segid $curSeg and resid $nextRes and name O5')
+      end
+
+      xrama 
+      class zeta_chi
+      assign 
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+         (segid $curSeg and resid $nextRes and name O5')
+         (segid $curSeg and resid $curRes and name O4')
+         (segid $curSeg and resid $curRes and name C1')
+         (segid $curSeg and resid $curRes and (
+            ((resn ADE or resn GUA) and name N9) or 
+            ((resn THY or resn CYT or resn URI) and name N1)))
+         (segid $curSeg and resid $curRes and (
+            ((resn ADE or resn GUA) and name C4) or 
+            ((resn THY or resn CYT or resn URI) and name C2)))
+      end
+
+      xrama 
+      class beta_zeta
+      assign 
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+         (segid $curSeg and resid $nextRes and name O5')
+      end
+
+   end if
+
+!
+! third, select all the correlations that need to have both the previous
+! and the next residue defined.  These are those that depend on epsilon or zeta
+! as well as alpha, epsilon0, or zeta0.
+!
+
+   vector do (x = x) (segid $curSeg and resid $curRes and not (store7 or store8))
+   if ($select > 0) then
+
+      xrama 
+      class alpha_epsilon
+      assign 
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C4')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+      end
+
+      xrama 
+      class alpha_zeta
+      assign 
+         (segid $curSeg and resid $prevRes and name O3')
+         (segid $curSeg and resid $curRes and name P)
+         (segid $curSeg and resid $curRes and name O5')
+         (segid $curSeg and resid $curRes and name C5')
+         (segid $curSeg and resid $curRes and name C3')
+         (segid $curSeg and resid $curRes and name O3')
+         (segid $curSeg and resid $nextRes and name P)
+         (segid $curSeg and resid $nextRes and name O5')
+      end
+
+   end if
+
+!
+! fourth, select all the correlations that only need the current residue
+!
+
+   xrama 
+   class beta_chi
+   assign 
+      (segid $curSeg and resid $curRes and name P)
+      (segid $curSeg and resid $curRes and name O5')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name O4')
+      (segid $curSeg and resid $curRes and name C1')
+      (segid $curSeg and resid $curRes and (
+         ((resn ADE or resn GUA) and name N9) or 
+         ((resn THY or resn CYT or resn URI) and name N1)))
+      (segid $curSeg and resid $curRes and (
+         ((resn ADE or resn GUA) and name C4) or 
+         ((resn THY or resn CYT or resn URI) and name C2)))
+   end
+
+   xrama 
+   class beta_delta
+   assign 
+      (segid $curSeg and resid $curRes and name P)
+      (segid $curSeg and resid $curRes and name O5')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name C3')
+      (segid $curSeg and resid $curRes and name O3')
+   end
+
+   xrama 
+   class beta_gamma_delta
+   assign 
+      (segid $curSeg and resid $curRes and name P)
+      (segid $curSeg and resid $curRes and name O5')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name O5')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name C3')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name C3')
+      (segid $curSeg and resid $curRes and name O3')
+   end
+
+   xrama 
+   class beta_gamma
+   assign 
+      (segid $curSeg and resid $curRes and name P)
+      (segid $curSeg and resid $curRes and name O5')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name O5')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name C3')
+   end
+
+   xrama 
+   class delta_chi
+   assign 
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name C3')
+      (segid $curSeg and resid $curRes and name O3')
+      (segid $curSeg and resid $curRes and name O4')
+      (segid $curSeg and resid $curRes and name C1')
+      (segid $curSeg and resid $curRes and (
+         ((resn ADE or resn GUA) and name N9) or 
+         ((resn THY or resn CYT or resn URI) and name N1)))
+      (segid $curSeg and resid $curRes and (
+         ((resn ADE or resn GUA) and name C4) or 
+         ((resn THY or resn CYT or resn URI) and name C2)))
+   end
+
+
+   xrama 
+   class gamma_chi
+   assign 
+      (segid $curSeg and resid $curRes and name O5')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name C3')
+      (segid $curSeg and resid $curRes and name O4')
+      (segid $curSeg and resid $curRes and name C1')
+      (segid $curSeg and resid $curRes and (
+         ((resn ADE or resn GUA) and name N9) or 
+         ((resn THY or resn CYT or resn URI) and name N1)))
+      (segid $curSeg and resid $curRes and (
+         ((resn ADE or resn GUA) and name C4) or 
+         ((resn THY or resn CYT or resn URI) and name C2)))
+   end
+
+   xrama 
+   class gamma_delta_chi
+   assign 
+      (segid $curSeg and resid $curRes and name O5')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name C3')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name C3')
+      (segid $curSeg and resid $curRes and name O3')
+      (segid $curSeg and resid $curRes and name O4')
+      (segid $curSeg and resid $curRes and name C1')
+      (segid $curSeg and resid $curRes and (
+         ((resn ADE or resn GUA) and name N9) or 
+         ((resn THY or resn CYT or resn URI) and name N1)))
+      (segid $curSeg and resid $curRes and (
+         ((resn ADE or resn GUA) and name C4) or 
+         ((resn THY or resn CYT or resn URI) and name C2)))
+   end
+
+   xrama 
+   class gamma_delta
+   assign 
+      (segid $curSeg and resid $curRes and name O5')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name C3')
+      (segid $curSeg and resid $curRes and name C5')
+      (segid $curSeg and resid $curRes and name C4')
+      (segid $curSeg and resid $curRes and name C3')
+      (segid $curSeg and resid $curRes and name O3')
+   end
+
+
+!
+! the end
+!
+
+end loop database
+
+set message on echo on end
+
+
+
+

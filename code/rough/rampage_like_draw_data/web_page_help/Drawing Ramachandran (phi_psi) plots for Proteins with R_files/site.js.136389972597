@@ -1,0 +1,9 @@
+var pageLayout = 'plain';
+
+var LAYOUTS_SOURCE_SITE = "/static_site/templates/id7/layouts/"
+
+jQuery(function($){
+  
+  $.ajax(LAYOUTS_SOURCE_SITE + "simple-text.js?" + Math.floor(new Date()/8.64e7), {cache: true, dataType:'script'});
+ 
+});

@@ -1,0 +1,772 @@
+#!/usr/bin/env __XPLOR_DIR__/bin/pyXplor
+
+#
+# calculate the solution X-ray scattering curve for one (or more) pdb files
+
+import sys
+
+#
+
+deltaQ=0.01  #these parameters define the values of q for which I is calc'd
+numQ = None
+angleN = 500 # this specifies the granularity of the solid-angle grid
+
+(opts,pdbFiles) = xplor.parseArguments(('psf:1',
+                                        'sample:1',
+                                        'buffer:1',
+                                        'deltaQ:1','numQ:1',
+                                        'minQ:1',
+                                        'maxQ:1',
+                                        'angleN:1',
+                                        'selection:1',
+                                        'radiusScale:1',
+                                        'volumeScale:1',
+                                        'rho0:1',
+                                        'rhob:1',
+                                        'alpha:1',
+                                        'background:1',
+                                        'errorScale:1',
+                                        'addUnknownAtoms:0',
+                                        'fit:0',
+                                        'minFitQ:1',
+                                        'maxFitQ:1',
+                                        'ensWeights:1',
+                                        'ensWeightsRegexp:1',
+                                        'nostderr:0',
+                                        'verbose:0',
+                                        'sans:0',
+                                        'fractionD2O:1',
+                                        'exchangeFraction:1',
+                                        'fractionDeuterated:1',
+                                        'altDeuteratedSel:2',
+                                        'fitRho0:0',
+                                        'noFitRhob:0',
+                                        'boundaryThickness:1',
+                                        'solventRadius:1',
+                                        'plot:0',
+                                        'plotFilename:1',
+                                        'wintitle:1'),
+                                       cmdline="[option] <pdb files>",
+                                       description="""
+Given a molecular structure, compute a SAXS curve, fitting to experimental
+an SAXS curve, while performing background subtraction.
+
+This is an adaptation of the AXES algorithm:  A. Grishaev, L.A. Guo,
+T. Irving, and A. Bax, "Improved fitting of solution X-ray
+scattering data to macromolecular structures and structural
+ensembles by explicit water modeling,"  J. Am. Chem. Soc. 132,
+15484-15486 (2010).
+""",
+                                       usageString="""
+
+ where options are zero or more of::
+
+   -psf=psf file
+   -sample=filename    - file containing sample w/out buffer subtraction
+   -buffer=filename    - file containing buffer scattering curves, sampled
+                         at the same points as those in the sample file. 
+			 Multiple sample and buffer files can be specified, 
+			 separated by spaces or colons. The number of sample
+			 files must be the same as the number of buffer files. 
+   -deltaQ=value
+   -numQ=value
+   -minQ=value
+   -maxQ=value
+   -angleN=value
+
+   -ensWeights <vals> - a colon-separated list of weights to use on
+                        structure ensemble members. If not specified, the
+                        ensemble members are weighted equally.
+   -ensWeightsRegexp=value- regular expression used to extract ensemble weights 
+   		      	    from remarks section of the PDB header. The weights
+                            obtained using this argument are multiplicatively
+                            combined with those from the -ensWeights option.
+
+   -selection=<atoms to include in the scattering calculation>
+
+   -radiusScale=value
+   -volumeScale=value
+   -rho0=value              - initial rho0 value.
+   -rhob=value              - initial rhob value.
+   -alpha=value             - initial alpha value.
+   -background=value        - initial bg value- see below.
+   -boundaryThickness=value - parameters for bound solvent calculation
+   -solventRadius=value
+   -errorScale=value  - factor to scale experimental errors by.
+   -addUnknownAtoms   - add in heavy atoms whose coordinates are not 
+   		      	specified.
+   -fit               - fit solvent parameters to experimental curve
+   -minFitQ           - specify a reduced range for the fit.
+   -maxFitQ
+   -sans              - compute a SANS curve instead of a SAXS curve
+   -fractionD2O=value - fraction of D2O in solvent (default: 1)
+   -exchangeFraction=value
+                      - fraction of exchangable protons which actually
+                        exchange with deuterons (default: 0.9)
+   -fractionDeuterated=value
+                      - fraction of deuterons for nonexchangable protons
+                        (default: 0)
+   -altDeuteratedSel=selection value
+                      - alternate value of fractionDeuterated which applies
+		        only for protons in the given atom selection.
+   -fitRho0           - if specified, fit the solvent density.
+   -noFitRhob         - if specified, do not fit the density of the solvent
+                        boundary layer.
+   -showContributions - write out vacuum, excluded solvent, boundary,
+                        and vacuum+excluded solvent curves
+   -nostderr
+   -plot              - plot results.
+   -plotFilename      - optional plot file name.
+   -wintitle <text>   - window title for interactive plot
+
+
+ If -expt is specified, filename should contain two columns:
+ q value, I(q)
+ An optional third column holds err(q).
+ 
+ If -expt is not specified, deltaQ and numQ specify the values at which
+ I(q) is calculated. The chi^2 value is printed. If -nostderr is not 
+ specified, the value is printed to stderr, else it is printed to stdout.
+
+ Default values of the atom selection are all heavy atoms (for SAXS), and
+ all atoms (for SANS).
+
+ If -numQ is and -expt are specified, the experimental data is fit to
+ and sampled uniformly at numQ points from the minimum
+ value (or that specified by -minQ) up to the value specified by -maxQ (by	
+ default, the max value in the data file).
+ 
+ angleN controls how many solid angle values are used in the
+ approximation. 500 is the default, and probably sufficient for most
+ SAXS experiments.
+
+ If more than one pdb file is specified, the scattering curve resulting
+ from the average scattering of all structures is calculated with weights
+ specified by the -ensWeights option.
+
+ 
+    The experimental curve is computed as:
+
+       I_expt(q) = I_samp(q) - alpha I_buff(q) + bg
+
+    The calculated curve is given by:
+
+       I(q) = N * < \|A(q) + rhob Ab(q)\|^2 >
+
+    where N is overall normalization, A(q) is the scattering amplitude from
+    solute molecule and excluded solvent,  Ab(q) is scattering from
+    the solvent boundary layer, and rhob is the coefficient of the boundary
+    layer scattering.
+
+ If the -fit option is given, a gradient search is performed for alpha, bg,
+ N, and  rhob.
+
+
+
+
+""")
+
+psf=None
+sampleFiles=None
+bufferFiles=None
+selection=None
+normalizeIndex=-3
+write=sys.stderr.write
+doFit=False
+addUnknownAtoms=False
+verbose=False
+ensWeights=None
+ensWeightsRegexp="EnsWeights.*{"
+radiusScale=1
+volumeScale=None
+rho0=None
+rhob=None
+alpha=1.
+bg=0.
+solventRadius=1.44
+boundaryThickness=3
+minQ=None #FIX: these should also be sequences
+maxQ=None #
+minFitQ=None
+maxFitQ=None
+calcSANS=False
+fractionD2O=1
+exchangeFraction=0.9
+fractionDeuterated=0
+altDeuteratedSels=[]
+noSpline=False
+showContributions=False
+errorScale=1.
+fitRho0=False
+fitRhob=True
+plot=False
+plotFilename=None
+wintitle="calcSAXS-bufSub"
+
+for opt in opts:
+    if opt[0]=='psf':
+        psf=opt[1]
+        pass
+    if opt[0]=='sample':
+        sep=None
+        if " " in opt[1]: sep=' '
+        if ":" in opt[1]: sep=':'
+        if sep==None:
+            sampleFiles=[opt[1]]
+        else:
+            sampleFiles=opt[1].split(sep)
+            pass
+        pass
+    if opt[0]=='buffer':
+        sep=None
+        if " " in opt[1]: sep=' '
+        if ":" in opt[1]: sep=':'
+        if sep==None:
+            bufferFiles=[opt[1]]
+        else:
+            bufferFiles=opt[1].split(sep)
+            pass
+        pass
+    if opt[0]=='deltaQ':
+        deltaQ=float(opt[1])
+        pass
+    if opt[0]=='numQ':
+        numQ=int(opt[1])
+        pass
+    if opt[0]=='minQ':
+        minQ=float(opt[1])
+        pass
+    if opt[0]=='maxQ':
+        maxQ=float(opt[1])
+        pass
+    if opt[0]=='minFitQ':
+        minFitQ=float(opt[1])
+        pass
+    if opt[0]=='maxFitQ':
+        maxFitQ=float(opt[1])
+        pass
+    if opt[0]=='angleN':
+        angleN=int(opt[1])
+        pass
+    if opt[0]=='selection':
+        selection=opt[1]
+        pass
+    if opt[0]=='nostderr':
+        write=sys.stdout.write
+        pass
+    if opt[0]=='verbose':
+        verbose=True
+        pass
+    if opt[0]=='radiusScale':
+        radiusScale=float(opt[1])
+        pass
+    if opt[0]=='volumeScale':
+        volumeScale=float(opt[1])
+        pass
+    if opt[0]=='rho0':
+        rho0=float(opt[1])
+        pass
+    if opt[0]=='rhob':
+        rhob=float(opt[1])
+        pass
+    if opt[0]=='alpha':
+        alpha=float(opt[1])
+        pass
+    if opt[0]=='background':
+        bg=float(opt[1])
+        pass
+    if opt[0]=='radiusScaleNum':
+        r0Num=int(opt[1])
+        pass
+    if opt[0]=='volumeScaleNum':
+        V0Num=int(opt[1])
+        pass
+    if opt[0]=='boundaryThickness':
+        boundaryThickness=float(opt[1])
+        pass
+    if opt[0]=='solventRadius':
+        solventRadius=float(opt[1])
+        pass
+    if opt[0]=='errorScale':
+        errorScale=float(opt[1])
+        pass
+    if opt[0]=='addUnknownAtoms':
+        addUnknownAtoms=True
+        pass
+    if opt[0]=='fit':
+        doFit=True
+        pass
+    if opt[0]=='sans':
+        calcSANS=True
+        pass
+    if opt[0]=='fractionD2O':
+        fractionD2O=float(opt[1])
+        pass
+    if opt[0]=='exchangeFraction':
+        exchangeFraction=float(opt[1])
+        pass
+    if opt[0]=='fractionDeuterated':
+        fractionDeuterated=float(opt[1])
+        pass
+    if opt[0]=='altDeuteratedSel':
+        altDeuteratedSels.append((opt[1],float(opt[2])))
+        pass
+    if opt[0]=='ensWeights':
+        if ':' in opt[1]:
+            ensWeights = opt[1].split(':')
+        else:
+            ensWeights = opt[1].split()
+            pass
+        ensWeights = [float(s) for s in ensWeights]
+        pass           
+    if opt[0]=='ensWeightsRegexp':
+        ensWeightsRegexp = opt[1]
+        pass           
+    if opt[0]=='noSpline':
+        noSpline=True
+        pass
+    if opt[0]=='showContributions':
+        showContributions=True
+        pass
+    if opt[0]=='fitRho0':
+        fitRho0=True
+        pass
+    if opt[0]=='noFitRhob':
+        fitRhob=False
+        pass
+    if opt[0]=='plot':
+        plot=True
+        pass
+    if opt[0]=='plotFilename':
+        plotFilename=opt[1]
+        pass
+    if opt[0]=='wintitle':
+        wintitle=opt[1]
+        pass
+    pass
+
+from ensembleSimulation import EnsembleSimulation
+if len(pdbFiles)<1:
+    raise Exception("you must specify at least one pdb file")
+
+import os
+for file in pdbFiles:
+    os.stat(file)  # will throw exception if a file doesn't exist
+    pass
+
+
+# (try to) sort by ensemble member: we need to line up ensemble weights
+# with files
+from simulationTools import sortFilesByEnsMember
+pdbFiles = sortFilesByEnsMember(pdbFiles)
+
+ens=EnsembleSimulation('ensemble',len(pdbFiles))
+
+
+
+import protocol
+protocol.initRandomSeed()
+pdbData=None
+if psf:
+    if ":" in psf:
+        psf = psf.split(':')[ens.member().memberIndex()]
+        pass
+    protocol.initStruct(psf)
+    pdbData=protocol.initCoords(pdbFiles[ens.member().memberIndex()])
+else:
+    pdbData=protocol.loadPDB(pdbFiles[ens.member().memberIndex()])
+    pass
+
+if not ensWeights:
+    ensWeights=[1]*ens.size()
+    pass
+
+if ens.size()>1:
+    if ensWeightsRegexp:
+        import re
+        weights={}
+        for remark in pdbData.remarks:
+            match=re.search(ensWeightsRegexp,remark)
+            if match:
+                substr=remark[remark.rfind('{'):]
+                dict=eval(substr)
+                for key,val in list(dict.items()):
+                    weights[key] = val
+                    pass
+                pass
+            pass
+        if len(weights)!=ens.size():
+            raise Exception('ensWeights values differ from ensemble size')
+        for key in list(weights.keys()):
+            ensWeights[key] *= weights[key]
+            pass
+        pass
+    ens.setWeights( ensWeights )
+    print("#Using ensemble weights:", end=' ')
+    for i in range(ens.size()):
+        print(ens.weight(i), end=' ')
+        pass
+    print()
+    pass
+
+
+
+if len(AtomSel("name H* and not known")) > 0.6 * len(AtomSel("known")):
+    write('warning: many protons are missing\n')
+
+if addUnknownAtoms:
+    try:
+        write("adding %d heavy atoms" %
+              len(AtomSel("not name H* and not known")))
+        from regularize import addUnknownAtoms_new
+        addUnknownAtoms_new(maxFixupIters=1)
+    except protocol.CovalentViolation:
+        pass
+
+
+
+selStr="not known" if calcSANS else "not known and not name H*"
+ens.deleteAtoms(selStr)
+ens.sync()  #FIX: why is this needed?
+
+if sampleFiles==None:
+    raise Exception("no -sample option specified")
+
+if bufferFiles==None:
+    raise Exception("no -buffer option specified")
+
+if len(sampleFiles)!=len(bufferFiles):
+    raise Exception("The number of buffer and sample files must be the same")
+
+import solnScatPotTools
+Isamps=[]; Iweights=[]; Ibufs=[]
+qVals=[]
+combinedData=[]
+for i in range(len(sampleFiles)):
+    Isamp, weight = solnScatPotTools.readData(sampleFiles[i],False,
+                                              minQ,maxQ)
+    from math import sqrt
+    error=[]
+    for w in weight:
+        error.append( 1./sqrt(w) )
+        pass
+
+    Ibuf, weight = solnScatPotTools.readData(bufferFiles[i],False,
+                                             minQ,maxQ)
+    for j,w in enumerate(weight):
+        error[j] +=  1./sqrt(w)
+        pass
+        
+    from cdsVector import CDSVector_double
+        
+    qVals.append( CDSVector_double([q for q,I in Ibuf]) )
+    Isamp = CDSVector_double([I for q,I in Isamp])
+    Ibuf  = CDSVector_double([I for q,I in Ibuf])
+    weight  = CDSVector_double([1./e**2 for e in error])
+
+    if len(Isamp)!=len(Ibuf):
+        raise Exception("the number of q points in %s and %s differ" %
+                        (sampleFiles[i],bufferFiles[i]))
+    
+    Isamps.append(Isamp)
+    Ibufs.append(Ibuf)
+    Iweights.append(weight)
+    for j,q in enumerate(qVals[-1]):
+        combinedData.append( (q,Isamp[j],weight[j]) )
+        pass
+    pass
+
+
+combinedData.sort(lambda x,y:cmp(x[0],y[0]))
+
+if calcSANS:
+    from sansPotTools import create_SANSPot
+
+    if not selection: selection="all"
+
+    scat = create_SANSPot('scat',selection,combinedData,
+                          radiusScale=radiusScale,
+                          volumeScale=volumeScale,
+                          normalizeIndex=normalizeIndex,
+                          numPoints=numQ,
+                          minQ=minQ,
+                          maxQ=maxQ,
+                          cmpType='plain',
+                          fractionD2O=fractionD2O,
+                          exchangeFraction=exchangeFraction,
+                          fractionDeuterated=fractionDeuterated,
+                          altDeuteratedSels=altDeuteratedSels,
+                          preweighted=False,
+                          verbose=verbose)
+
+else:
+    import solnXRayPotTools
+    #use this for large-angle DNA calculations
+    #solnXRayPotTools.solventVolume = solnXRayPotTools.solventVolumeSets['tiede']
+    from solnXRayPotTools import create_solnXRayPot
+
+    if not selection: selection="not name H*"
+
+    scat = create_solnXRayPot('scat',selection,combinedData,
+                              radiusScale=radiusScale,
+                              volumeScale=volumeScale,
+                              normalizeIndex=normalizeIndex,
+                              numPoints=numQ,
+                              useInternalSpline=not noSpline,
+                              minQ=minQ,
+                              maxQ=maxQ,
+                              verbose=verbose,
+                              preweighted=False)
+
+scat.setNumAngles(angleN)
+#weights=[]
+#for error in errors:
+#    weights.append( error**-2 )
+#    pass
+#scat.setWeights( weights )
+#scat.setWeights( (1./errorScale**2) * scat.weights() )
+
+#if len(Isamp) != len(scat.expt()):
+#    raise Exception("curve in %s has incorrect number of points: %d" %
+#                    (sampleFile,len(Isamp)))
+#if len(Ibuf) != len(scat.expt()):
+#    raise Exception("curve in %s has incorrect number of points: %d" %
+#                    (bufferFile,len(Ibuf)))
+
+
+
+scat.setSolventRadius(solventRadius)
+scat.setBoundaryThickness(boundaryThickness)
+scat.setRhob(rhob if rhob!=None else 0.)
+if rho0!=None: scat.setRho0(rho0)
+
+if doFit:
+    if scat.calcType() != 'uniform':
+       print('ERROR: uniformly spaced q-values required for fitting.')
+       print('Perhaps you should specifify a -numQ option?')
+       import sys; sys.exit(1)
+       pass
+      
+
+    from solnScatPotTools import fitSolventBuffer
+    fitReturn = fitSolventBuffer(scat,qVals,Isamps,Ibufs,Iweights,
+                                 bg0=bg,                
+                                 alpha0=alpha,
+                                 optimizeRho0=fitRho0,
+                                 optimizeRhob=fitRhob,
+                                 minQ = minFitQ,
+                                 maxQ = maxFitQ,
+#                                 rhob0=rhob if rhob!=None else 1e-3,
+                                 verbose=2,
+                                 computeContributions=showContributions,
+                                 writer=write)
+    S     = fitReturn["S"]
+    alpha = fitReturn["alpha"]
+    bg    = fitReturn["bg"]
+    N     = fitReturn["N"]
+    rhob  = fitReturn["rhob"]
+else:
+#    expt = Isamp + alpha*Ibuf + bg
+    expt = CDSVector_double(Ibufs[0])
+    expt *= -alpha
+    expt += Isamps[0]
+    expt += bg
+    scat.setExpt(expt)
+    if rhob:
+        scat.setRhob(rhob)
+        scat.setCalcBoundary(True)
+        scat.calcBoundaryPoints()
+    else:
+        rhob=0.
+        pass
+    pass
+
+scat.calcEnergy()
+
+
+calcd=scat.splined()
+
+I = scat.splined()
+#Ib = N**2  * scat.boundaryI()
+#ratio = sum( Ib/I ) / len(I)
+#write('boundary layer fraction: %.4e  ; magnitude: %8.1f\n'% (ratio,sum(Ib)))
+
+expt = scat.expt() / scat.exptScale() 
+
+weights= scat.weights() * scat.exptScale()**2 
+
+from solnScatPotTools import chi2, normalize
+curChi2=chi2(weights,calcd,expt,normalizeIndex)
+
+#normalize
+calcd = normalize(weights,calcd,expt,normalizeIndex)
+
+# so can compare to actual experiment
+calcd=scat.splined()*scat.exptScale()/scat.calcdScale() + scat.bg()
+expt =scat.expt() + scat.bg()
+
+#for i,q in enumerate(scat.qValues()):
+#    print q,expt[i]
+                 
+
+from gyrPotTools import create_GyrPot
+gyrPot=create_GyrPot('gyr',sel=selection)
+Rg=gyrPot[0].Rg()
+
+print("# input file(s):", pdbFiles[0] if len(pdbFiles)==1 else pdbFiles)
+if calcSANS:
+    print("#  percent D2O in solvent:    %7.2f" % fractionD2O)
+    print("#  precent sample deuterated: %7.2f" % fractionDeuterated)
+    for (sel,val) in altDeuteratedSels:
+        print("#  alt deuteration %%:         %7.2f for (%s)" % (val,sel))
+        pass
+    print("#  exchange fraction:         %7.3f" % exchangeFraction)
+    pass
+print("#  solvent density: %10.6f" % scat.rho0())
+print("#  vacuum radius of gyration: %10.6f" % Rg)
+print("#")
+print("#  Iexpt = \sum_i S_i (Isample_i - alpha_i * Ibuffer_i + c_i)")
+print("#")
+print("#  with S     = "+", ".join(["%.5f" % v for v in S]))
+print("#       alpha = "+", ".join(["%.5f" % v for v in alpha]))
+print("#       c     = "+", ".join(["%.5f" % v for v in bg]))
+print("#")
+print("# Calculated I(q):")
+print("# I = N < |A(q) + rhob * Ab(q)|^2 >")
+print("#  with N    = %.4e" % (1./scat.calcdScale()))
+print("#       rhob = %.6f" % rhob)
+print("#")
+
+
+
+qValues = scat.qValuesExpt()
+
+calcd=scat.splined()
+
+print("#  chi^2: %f  radiusScale: %.3f  volumeScale: %.3f  rhob: %.5f"%\
+      (curChi2,scat.radiusScale(),scat.volumeScale(),scat.rhob()))
+print("#")
+print("# %5s %12s %12s %12s %10s" %("q   ",
+                                    "Icalc   ",
+                                    "Iexpt   ",
+                                    "Ierr    ",
+                                    "residual"), end=' ')
+if showContributions:
+    print("%12s %12s %12s %12s" %("Ivac    ",
+                                  "Isol    ",
+                                  "Ib      ",
+                                  "Ivac+sol"))
+else:
+    print()
+    pass
+
+    
+    
+
+from math import sqrt
+errors=[]
+residuals=[]
+for i,q in enumerate(qValues):
+    weight=weights[i]
+    Icalc=calcd[i]
+    Iexpt=expt[i]
+    if weight>0.:
+        error = 1./sqrt(weight)
+        residual = (Icalc-Iexpt) / error
+    else:
+        error=0
+        residual = Icalc-Iexpt
+        pass
+    errors.append(error)
+    residuals.append(residual)
+    pass
+
+for i,q in enumerate(qValues):
+    print("%6.4f %12.8f %12.8f %12.8f %10.6e"%(q,
+                                               calcd[i],
+                                               expt[i], errors[i],
+                                               residuals[i]), end=' ')
+    if showContributions:
+        print("%12.8f %12.8f %12.8f %12.8f"%(fitReturn["Ivac"][i],
+                                             fitReturn["Isol"][i],
+                                             fitReturn["Ib"][i],
+                                             fitReturn["Inob"][i]))
+    else:
+        print()
+        pass
+    pass
+
+
+if verbose:
+   from simulationTools import analyze
+   print(analyze(scat))
+#   Ib = N**2 * scat.boundaryI()
+#   I = scat.splined()
+#   ratio = sum( Ib/I ) / len(I)
+#   print 'boundary layer volume:', scat.boundaryVol()
+
+   pass
+
+if plot:
+        
+    import pylab
+
+
+    ensSize = len(pdbFiles)
+#    pylab.figtext(x0,y,'$N_e$ = %d' % ensSize if ensSize>1 else "")
+
+
+    fig=pylab.figure(facecolor='w')
+    fig.canvas.set_window_title(wintitle)
+    axMain  =  fig.add_axes([0.15,0.15,0.8,0.6],yscale='log')
+    axResid =  fig.add_axes([0.15,0.75,0.8,0.2],sharex=axMain)
+#    xticklabels.append( ax[row].get_xticklabels() )
+    pylab.setp( [axResid.get_xticklabels()], visible=False)
+
+
+
+    axMain.errorbar(qValues, expt, yerr=errors,
+#                    fmt=style,
+                    linewidth=1,
+#                    markersize=markerSize,
+                    ecolor='grey')
+    
+    axMain.errorbar(qValues, calcd,
+                    fmt="-r",
+                    linewidth=1,
+#                    markersize=markerSize,
+                    ecolor='grey')
+
+    axResid.errorbar(qValues, residuals,
+                    fmt="-r",
+                    linewidth=1,
+#                    markersize=markerSize,
+                    ecolor='grey')
+    miny=min(list(expt) + list(calcd))
+    maxy=max(list(expt) + list(calcd))
+
+    if minFitQ!=None:
+        axMain.plot([minFitQ,minFitQ],[miny,maxy],"k-")
+        pass
+    if maxFitQ!=None:
+        axMain.plot([maxFitQ,maxFitQ],[miny,maxy],"k-")
+        pass
+        
+
+
+    chi2Text = r"$\chi^2$ = %.3f" % curChi2
+    if minFitQ!=None or maxFitQ!=None:
+        fig.text(0.55,0.68,r"Fit $\chi^2$ = %.3f" % fitReturn["chi2"],size=22)
+        chi2Text = "Overall " + chi2Text
+    fig.text(0.55,0.62,chi2Text,size=22)
+
+    axMain.set_ylabel("I($q$)",size=22)
+    axResid.set_ylabel("Residual",size=20)
+
+    axMain.set_xlabel(r"$q(\AA^{-1})$",size=22)
+
+    if plotFilename:
+        pylab.savefig(plotFilename)
+    else:
+        pylab.show()
+        pass

@@ -1,0 +1,455 @@
+#!/usr/bin/env /data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/pyXplor
+
+import sys
+
+import protocol
+
+(opts,files) = xplor.parseArguments(("psf:1",
+                                     "renameSegid:2",
+                                     "renameResname:2",
+                                     "keepOccupanciesBfactors:0",
+                                     "altLoc:2",
+                                     "altLocOccupancy:1",
+                                     "weightsName:1",
+                                     "weightsTerm:1",
+                                     "delete:1",
+                                     "threeLetter:0",
+                                     "twoLetter:0",
+                                     "hetatmSel:1",
+                                     "ensMemberOrder:1"),
+                                     cmdline="[options] <structure files>",
+                                    description="""
+Converts an ensemble of structure files to a single PDB, with structures
+separated by MODEL records. The SEGID field is written to the ChainID field
+so it must be, at most, a single character. The result should be acceptable 
+for PDB submission.""",
+                                    usageString='''
+
+
+Options::
+
+   -psf <psf filename>      - specify a psf filename. If omitted PSF info is
+                              automatically generated from the pdb file.
+  -renameSegid <selection> <new name>
+                            - renames the SEGID to a new value. This option may
+                              be specified more than once to rename multiple
+                              selections.
+  -renameResname <selection> <new name>
+                            - renames the residue name to a new value. This
+			      option may be specified more than once to
+			      rename multiple selections.
+  -keepOccupanciesBfactors  - causes occupancies and B-factor fields of the
+                              input files to be preserved in the output.
+  -delete <selection>       - specifies an atom selection (in the input files)
+                              to be omitted from the output file.
+  -altLoc <selection> <altLoc characters>
+                            - specifies an atom selection for which the altLoc
+                              PDB field is to be specified. AltLoc characters
+                              are also specified, and number of these should
+                              match the ensemble size. Occupancies will be
+                              taken from ensemble weights. If altLoc is not
+                              specified for an ensemble of input structures,
+                              then the ensemble members are all placed in
+                              separate MODEL entries, and ensemble weights are
+                              reported in the REMARKs section.
+  -altLocOccupancy <val>    - The occupancy value for the preceeding -altLoc
+  		   	      specification. If not specified, occupancies
+			      take a value of 1.
+  -weightsName <name>       - specifies an entry in the EnsWeights field in the
+                              REMARK header of the input files giving ensemble
+                              weights. If this argument is not specified and
+                              there is a single EnsWeights entry, that will be
+                              used.
+  -weightsTerm <name>       - specifies an entry in the listing of per-term
+                              Ensemble Weights in the REMARK sectuib header of
+                              the input files giving ensemble weights. Use only
+                              a maximum of one of -weightsName or -weightsTerm.
+  -ensMemberOrder <indices> - used to rearrange ensemble members. The indices
+                              argument should be a colon-separated list of
+                              0-offset ensemble member indices to print. 
+  -threeLetter              - turns on three character residue names for
+                              nucleic acids. By default, nucleic acid residue
+                              names are converted to their single character
+                              version. 
+  -twoLetter                - specifies two character residue names, which are
+                              apparently used for DNA depositions.
+  -hetatmSel <selection>    - specify which atoms should have HETATM records
+  	     		      instead of ATOM records.
+
+
+Structure filenames which contain glob wildcards will be treated as ensembles,
+and each matching file will be inserted into its own MODEL entry sorted
+by the ensemble member number.
+
+The result is printed to stdout.
+''')
+
+psf=None
+renamedSegids=[]
+renamedResnames=[]
+loadOccupanciesBfactors=False
+deleteSel=None
+altLocs=[]
+altLocOccupancies=[]
+weightsName=None
+weightsTerm=None
+useSingleCharResName=True
+useTwoCharResName=False
+ensMemberOrder=None
+hetatmSel=""
+for opt in opts:
+    if opt[0]=='psf':
+        psf=opt[1]
+        pass
+    if opt[0]=="renameSegid":
+        renamedSegids.append( opt[1:] )
+        pass
+    if opt[0]=="renameResname":
+        renamedResnames.append( opt[1:] )
+        pass
+    if opt[0]=="keepOccupanciesBfactors":
+        loadOccupanciesBfactors=True
+        pass
+    if opt[0]=="delete":
+        deleteSel=opt[1]
+        pass
+    if opt[0]=="altLoc":
+        altLocs.append( (opt[1],opt[2]) )
+        altLocOccupancies.append( 1.0 )
+        pass
+    if opt[0]=="altLocOccupancy":
+        altLocOccupancies[-1] = float(opt[1])
+        pass
+    if opt[0]=="weightsName":
+        weightsName=opt[1]
+        pass
+    if opt[0]=="weightsTerm":
+        weightsTerm=opt[1]
+        pass
+    if opt[0]=='threeLetter':
+        useSingleCharResName=False
+        pass    
+    if opt[0]=='twoLetter':
+        useTwoCharResName=True
+        pass
+    if opt[0]=='hetatmSel':
+        hetatmSel=opt[1]
+        pass
+    if opt[0]=='ensMemberOrder':
+        ensMemberOrder=[int(i) for i in opt[1].split(':')]
+        pass
+    pass
+
+import os
+from glob import glob
+globList=glob(files[0])
+ensSize=len(globList)
+ensembleFiles=sorted(globList)
+numEnsembles=len(files)
+
+import sys
+sys.stderr.write("found %d ensembles of size %d\n" % (numEnsembles,
+                                                      ensSize))
+
+if ensSize>1:
+    print("REMARK Xplor-NIH Ensemble Calculation")
+    print("REMARK   This file contains %d ensembles of size %d" %(numEnsembles,
+                                                                  ensSize))
+    print("REMARK")
+    pass
+
+from ensembleSimulation import EnsembleSimulation
+esim = EnsembleSimulation('ensemsble',ensSize)
+memberIndex = esim.member().memberIndex()
+
+
+# (try to) sort by ensemble member: we need to line up ensemble weights
+# with files
+from simulationTools import sortFilesByEnsMember
+sortedEnsembleFiles = sortFilesByEnsMember(ensembleFiles)
+
+
+if psf:
+    protocol.initStruct(psf)
+    pdbData=protocol.initCoords(sortedEnsembleFiles[memberIndex],
+                                deleteUnknownAtoms=True)
+else:
+    protocol.loadPDB(sortedEnsembleFiles[memberIndex],
+                     deleteUnknownAtoms=True)
+    pass
+
+if deleteSel:
+   xplor.simulation.deleteAtoms(deleteSel)
+   pass
+
+from selectTools import convertToAtomSel
+hetatmSel = convertToAtomSel(hetatmSel)
+
+for i,(sel,chars) in enumerate(altLocs):
+    if len(chars) != ensSize:
+        raise Exception("there must be ensSize number of altLoc chars")
+    altLocs[i] = (AtomSel(sel), chars)
+    pass
+
+import pdbTool
+
+renamedResidues=[]
+from psfGen import residueMap #for nucleic acids only
+if useTwoCharResName:
+    for double,three in list(residueMap.items()):
+        if len(double)==2:
+            #right-justified
+            renamedResidues.append( (three," %s"%double) )
+            pass
+        pass
+    pass
+elif useSingleCharResName:
+    for single,three in list(residueMap.items()):
+        if len(single)==1:
+            #right-justified
+            renamedResidues.append( (three,"  %s"%single) )
+            pass
+        pass
+    pass
+
+origSegNames=[]
+for (sel,newName) in renamedSegids:
+    for atom in AtomSel(sel):
+        origSegNames.append( (atom.index(),atom.segmentName()) )
+        pass
+    pass
+
+origResNames=[]
+for (sel,newName) in renamedResnames:
+    for atom in AtomSel(sel):
+        origResNames.append( (atom.index(),atom.residueName()) )
+        pass
+    pass
+
+model=0
+
+
+initSegids=xplor.simulation.segmentNameArr()
+
+from atomSelAction import SetProperty
+
+contents=''
+atomIndex=1
+from atom import Atom
+for ifile,fileSpec in enumerate(files): 
+    ensembleFile = sortFilesByEnsMember(glob(fileSpec))[memberIndex]
+
+    esim.barrier()
+    for (index,origName) in origSegNames:
+        Atom(esim,index).setSegmentName( origName )
+        pass
+    for (index,origName) in origResNames:
+        Atom(esim,index).setResidueName( origName )
+        pass
+    for (origName,newName) in renamedResidues:
+        AtomSel('resname "%s"' % newName).apply( 
+            SetProperty("residueName",origName) )
+        pass
+
+    r=protocol.initCoords(ensembleFile,
+                          erase=True,
+                          loadOccupanciesBfactors=loadOccupanciesBfactors,
+                          maxUnreadEntries=None)
+    for (sel,newName) in renamedSegids:
+        AtomSel(sel).apply( SetProperty("segmentName",newName) )
+        pass
+    for (sel,newName) in renamedResnames:
+        AtomSel(sel).apply( SetProperty("residueName",newName) )
+        pass
+    for (oldName,newName) in renamedResidues:
+        AtomSel('resname "%s"'%oldName ).apply( 
+            SetProperty("residueName",newName) )
+        pass
+
+    if weightsTerm:
+        import re
+        memWeight=-1
+        for remark in r.remarks:
+            match=re.search("^EnsWeights *(.*): Ensemble Weight:",remark)
+            if match and match.group(1)==weightsTerm:
+                memWeight = float(remark.split()[-1])
+                pass
+            pass
+        if memWeight==-1:
+            raise Exception("weightsTerm %s does not exist" %
+                            weightsTerm)
+        sharedWeights=[]
+        for i in range(esim.size()):
+            sharedWeights.append( esim.sharedObj(0) )
+            pass
+        sharedWeights[memberIndex].set( memWeight )
+        esim.barrier()
+        weights = [w.get() for w in sharedWeights]
+        pass
+
+    
+    esim.barrier()
+    if memberIndex>0:
+        continue
+
+    if esim.size()>1:
+        if weightsTerm:
+            pass
+        else:
+            weightEntries={}
+            for remark in r.remarks:
+                if (remark.startswith("EnsWeights") and
+                    remark.endswith("}")):
+                    name = remark.split()[1]
+                    substr=remark[remark.rfind('{'):]
+                    dict=eval(substr)
+                    weights=[]
+                    for key,val in sorted(list(dict.items()),
+                                          key=lambda item: item[0]):
+                        weights.append(val)
+                        pass
+                    weightEntries[name] = weights
+                    pass
+                pass
+            
+            if weightsName:
+                weights = weightEntries[weightsName]
+            elif len(weightEntries)==1:
+                weights = list(weightEntries.items())[0][1]
+            elif len(weightEntries)==0:
+                weights = [1./ensSize]*ensSize
+                pass
+            else:
+                raise Exception('multiple EnsWeights entries are present: '
+                                'you must specify -weightsName to specify one.')
+            
+            
+            print(weights, esim.size())
+            if len(weights)!=esim.size():
+                raise Exception('ensWeights values differ from ensemble size')
+            pass
+        pass
+    else:
+        weights=[1]
+        pass
+    
+        
+    
+    pdb=pdbTool.PDBTool()
+    pdb.setWriteChainID(True)
+    pdb.setHetatmSel( hetatmSel )
+    
+    if loadOccupanciesBfactors:
+        for atom in AtomSel("all"):
+            b=r.bfactors[atom.index()]
+            pdb.setAux2(atom,b)
+            pass
+        pass
+
+    contentsDone=False
+    if esim.size()==1 and not altLocs:
+        pdb.writeAtoms()
+    elif altLocs:
+        from cdsVector import CDSVector_bool as boolVec
+        seenIndices = boolVec(esim.numAtoms(),False)
+        for atom in AtomSel('all'):
+            if seenIndices[ atom.index() ]:
+                continue
+            atomOrHetatm = "HETATM" if hetatmSel.containsAtom(atom) else "ATOM  "
+            inAltLoc=False
+            #want all atoms the same, aside from altLoc, together in the PDB
+            for sel,altChars in altLocs:
+                if sel.containsAtom(atom):
+                    if esim.size()>1:
+                        for i in range(esim.size()):
+                            pos = esim.members(i).atomPos(atom.index())
+                            pdb.writeOneAtom(atom,
+                                             atomOrHetatm,
+                                             atomPos=pos,
+                                             aux1Val=weights[i],
+                                             altLoc=altChars[i])
+                            pass
+                        pass
+                    else: #size one EnsembleSimulation
+                        # find all other atoms with same name, resid
+                        nameResidSel = AtomSel(
+                            "resid %d and name %s" % (atom.residueNum(),
+                                                      atom.atomName()))
+                        for aCnt,(sel2,altChars) in enumerate(altLocs):
+                            altLoc = altChars[0]
+                            from atomSel import intersection
+                            aSel = intersection(sel2,nameResidSel)
+#                            print model, aCnt,aSel.string()
+                            indx=0
+                            while ( indx<len( aSel ) and
+                                    seenIndices[ aSel[indx].index() ]):
+#                                print "seen:",aSel[indx].string(), altLoc
+                                indx+=1
+                                pass
+                                
+                            if indx>=len( aSel ):
+                                raise Exception("no unseen atom in: " +
+                                                aSel.string() +
+                                                " [%d atoms]" % len(aSel))
+                            atom = aSel[indx]
+#                            print "writing:",atom.string(), altLoc, atom.pos()
+                            seenIndices[atom.index()]=True
+                            pdb.writeOneAtom(atom,
+                                             atomOrHetatm,
+                                             atomPos=atom.pos(),
+                                             aux1Val=altLocOccupancies[aCnt],
+                                             altLoc=altLoc)
+                            pass
+                        pass
+                    inAltLoc=True
+                    break
+                pass
+            if not inAltLoc:
+                pdb.writeOneAtom(atom,atomOrHetatm)
+                pass
+            seenIndices[ atom.index() ] = True
+            pass
+        pass
+    else: #ensemble with one each ensemble member in a separate MODEL
+        print("REMARK Ensemble %d:" % (ifile+1))
+        memberIndices = list(range(ensSize)) if ensMemberOrder==None else ensMemberOrder
+        for i in memberIndices:
+            model += 1
+            print("REMARK   MODEL %d, weight: %.3f" % (model,weights[i]))
+            pdb.writeInitialize()
+            sel=AtomSel("all",esim.members(i))
+            atomIndex += sel.size()
+            pdb.setSelection(sel)
+            pdb.writeAtoms()
+            contents+="MODEL     %4d\n" % model
+            contents+= pdb.contents()
+            contents += "TER\n" #spurious TER seems necessary
+            contents += "ENDMDL\n"
+            pass
+        contentsDone=True
+        pass
+
+    if not contentsDone:
+        model += 1
+        
+        contents += "MODEL     %4d\n" % model
+        contents += pdb.contents()
+        contents += "TER\n"  #spurious TER seems necessary if there's a single chain
+        contents += "ENDMDL\n"
+        pass
+    pass
+print(contents, end='') # suppress extra newline
+if hetatmSel:
+    for atom in hetatmSel:
+        ids=[atom.index()+1]
+        for atom2 in AtomSel('bondedto ATOM "%s" %d %s' % (atom.segmentName(),
+                                                           atom.residueNum(),
+                                                           atom.atomName())):
+            ids.append( atom2.index()+1 )
+            pass
+        str='CONECT' + "".join(["%5d"%id for id in ids])
+        print(str)
+    pass
+print("END")
+
+    

@@ -1,0 +1,28 @@
+{* adjustment of force constants fo the "parhcsdx.pro" force field to *}
+{* avoid blow-ups.                                                    *}
+
+{* location:                                                          *}
+{* =========                                                          *}
+{* *after* reading the structure and the parameter files and *before* *}
+{* running minimization or dynamics.                                  *}
+
+parameter
+
+   bonds ( all ) ( all ) 1000 TOKEN
+
+   angle ( all ) ( all ) ( all ) 500 TOKEN
+
+   improper ( all ) ( all ) ( all ) (all ) 500 TOKEN TOKEN
+
+   dihe ( chemical CH1E ) ( chemical C )  ( chemical N ) ( chemical  CH1E )
+                        500.0   2 180.0 ! trans or cis PRO
+   dihe ( chemical CH2E ) ( chemical C  ) ( chemical N ) ( chemical CH1E )
+                        500.0   2 180.0 ! trans or cis PRO
+   dihe (chemical CH2G ) ( chemical  C ) ( chemical N ) ( chemical CH1E )
+                        500.0   2 180.0 ! trans or cis PRO
+   dihe (all ) ( chemical C ) ( chemical NH1 ) ( all )  
+                        500.0   1 0.0   ! always trans for other peptide bonds
+end
+
+
+ 

@@ -1,0 +1,114 @@
+RESIDUE ALA
+0
+
+RESIDUE ARG
+6
+HB2     CB
+HB3     CB
+HG2     CG
+HG3     CG
+HD2     CD
+HD3     CD
+
+RESIDUE ASN
+2
+HB2     CB
+HB3     CB
+
+RESIDUE	ASP
+2
+HB2     CB
+HB3     CB
+
+RESIDUE CYS
+3
+HB2     CB
+HB3     CB
+HG      SG
+
+RESIDUE CYSS
+2
+HB2     CB
+HB3     CB
+
+RESIDUE	GLN
+4
+HB2     CB
+HB3     CB
+HG2     CG
+HG3     CG
+
+RESIDUE	GLU
+4
+HB2     CB
+HB3     CB
+HG2     CG
+HG3     CG
+
+RESIDUE GLY
+0
+
+RESIDUE	HIS
+2
+HB2     CB
+HB3     CB
+
+RESIDUE ILE
+2
+QG1     CG1
+QG1     CG1
+
+RESIDUE LEU
+2
+HB2     CB
+HB3     CB
+
+RESIDUE LYS
+8
+HB2     CB
+HB3     CB
+HG2     CG
+HG3     CG
+HD2     CD
+HD3     CD
+HE2     CE
+HE3     CE
+
+RESIDUE	MET
+4
+HB2     CB
+HB3     CB
+HG2     CG
+HG3     CG
+
+RESIDUE PHE
+2
+HB2     CB
+HB3     CB
+
+RESIDUE PRO
+0
+
+RESIDUE SER
+3
+HB2     CB
+HB3     CB
+HG      OG
+
+RESIDUE THR
+1
+HG1     OG1
+
+RESIDUE TRP
+2
+HB2     CB
+HB3     CB
+
+RESIDUE TYR
+3
+HB2     CB
+HB3     CB
+HH      OH
+
+RESIDUE VAL
+0

@@ -1,0 +1,2 @@
+129 ILE  QD1   129 ILE  HA      1.80
+ 75 ILE  QD1    75 ILE  HA      1.80

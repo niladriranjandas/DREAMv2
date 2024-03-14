@@ -1,0 +1,8 @@
+while IFS='' read -r line || [[ -n "$line" ]]; do echo $line | awk '{
+for(i=1;i<=NF;i++){
+printf "%s|",$i
+}
+printf "\n"
+}'; done < nomanclature_edit.txt >> nomanclature_edit2.txt
+
+

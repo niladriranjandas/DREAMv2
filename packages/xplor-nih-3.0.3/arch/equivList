@@ -1,0 +1,19 @@
+# this file consists of lines of the format
+target current
+# where target is an architecture on which Xplor-NIH was compiled
+# and current is the architecture on which it is being attempted to run
+# target and current should be separated by one or more spaces and
+# there should be no spaces at the end of each line.
+# If current matches more than one line, the last one will be used.
+IRIX64_6.5 IRIX_6.5
+SunOS_5.8  SunOS_5.6
+SunOS_5.8  SunOS_5.7
+SunOS_5.8  SunOS_5.9
+SunOS_5.8  SunOS_5.10
+Linux_2.4_i686 Linux_2.4_i586
+Linux_2.4_i686 Linux_2.6_i686
+Linux_2.4_i686 Linux_2.4_x86_64
+Linux_x86_64.old Linux_x86_64
+Linux_2.4_alpha Linux_2.2_alpha
+OSF1_V4.0 OSF1_V5.1
+Linux_2.6_ia64 Linux_2.4_ia64

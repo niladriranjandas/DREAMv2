@@ -1,0 +1,40 @@
+
+remark  File dihiscu.top
+remark    Topology patch to describe the conformation of two histidines
+remark    bound to a Cu+2 ion (via their NE2 atoms) in the adjacent equatorial 
+remark    positions of a square-pyramidal coordination. 
+remark
+remark  Use in combination with dihiscu.par.
+remark  Use after loading protein-1.0.top.  It loads ion.top.
+remark
+remark  Author: Guillermo A. Bermejo (03/18/2014).
+
+
+
+! Load topology info of ions (we need CU2).
+@TOPPAR:ion.top
+
+
+
+presidue DIHCU2  ! 1=HIS 2=CU2 3=HIS
+   
+   delete    atom 1HE2               end
+   delete    atom 3HE2               end
+   ! modify charges of remaining atoms?
+
+   add bond 1NE2 2CU+2
+   add bond 3NE2 2CU+2
+
+   add angle 1NE2 2CU+2 3NE2
+   
+   add angle 1CD2 1NE2  2CU+2
+   add angle 1CE1 1NE2  2CU+2
+
+   add angle 3CD2 3NE2  2CU+2
+   add angle 3CE1 3NE2  2CU+2
+
+   add IMPRoper 1NE2  1CD2  1CE1  2CU+2 !planar NE2
+   add IMPRoper 3NE2  3CD2  3CE1  2CU+2 !planar NE2
+  
+end
+

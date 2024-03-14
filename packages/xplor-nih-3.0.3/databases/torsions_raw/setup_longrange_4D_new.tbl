@@ -1,0 +1,1391 @@
+!
+! setup_longrange.tbl
+! Sets up the selections for the various long-range torsion angle database energies
+! Works with longrange_4D_energy_*.tbl
+!
+! WARNING: this script overwrites the store7, store8, and store9 arrays
+!
+! by John Kuszewski 4/17/97
+!
+
+set message off echo off end
+
+!
+! get selections for N and C termini
+! 
+! atoms that are in N terminal residues are selected in store7
+! atoms that are in C terminal residues are selected in store8
+! 
+
+vector do (store7 = 0) (all)
+vector do (store8 = 0) (all)
+
+for $count in id (name ca) loop database
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = decode($result))
+   eval ($nextRes = $curRes + 1)
+   eval ($prevRes = $curRes - 1)
+   vector do (store9 = 1) (all)
+   vector show sum (store9) (resid $nextRes and segid $curSeg)
+   eval ($nextResExists = $result)
+   vector show sum (store9) (resid $prevRes and segid $curSeg)
+   eval ($prevResExists = $result)
+   if ($nextResExists = 0) then
+      vector identify (store7) (store7 or (resid $curRes and segid $curSeg))
+   end if
+   if ($prevResExists = 0) then
+      vector identity (store8) (store8 or (resid $curRes and segid $curSeg))
+   end if
+end loop database
+
+
+!
+! First, select all i..i+4 interactions in which i, i+4, and the residues
+! in between are all non-turn.
+!
+
+for $count in id (name ca and not (resn gly or resn pro)) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 4))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class nonturn_nonturn_noturningap_phi_psi_phi_psi_p4
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i+3 interactions in which i, i+3, and the residues
+! in between are all non-turn.
+!
+
+for $count in id (name ca and not (resn gly or resn pro)) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 3))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class nonturn_nonturn_noturningap_phi_psi_phi_psi_p3
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i+2 interactions in which i, i+2, and the residues
+! in between are all non-turn.
+!
+
+for $count in id (name ca and not (resn gly or resn pro)) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 2))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class nonturn_nonturn_noturningap_phi_psi_phi_psi_p2
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i+1 interactions in which i, i+1, and the residues
+! in between are all non-turn.
+!
+
+for $count in id (name ca and not (resn gly or resn pro)) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 1))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class nonturn_nonturn_noturningap_phi_psi_phi_psi_p1
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+
+
+!
+! Second, select all i..i+4 interactions in which i, i+4, are non-turn, 
+! but the residues in between include at least one turn.
+!
+
+for $count in id (name ca and not (resn gly or resn pro)) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 4))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap > 0) then
+      xrama 
+      class nonturn_nonturn_turningap_phi_psi_phi_psi_p4
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i+3 interactions in which i, i+3, are non-turn, 
+! but the residues in between include at least one turn.
+!
+
+for $count in id (name ca and not (resn gly or resn pro)) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 3))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap > 0) then
+      xrama 
+      class nonturn_nonturn_turningap_phi_psi_phi_psi_p3
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i+2 interactions in which i, i+2, are non-turn, 
+! but the residues in between include at least one turn.
+!
+
+for $count in id (name ca and not (resn gly or resn pro)) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 2))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap > 0) then
+      xrama 
+      class nonturn_nonturn_turningap_phi_psi_phi_psi_p2
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+
+
+!
+! Third, select all i..i+4 interactions in which i is a gly, 
+! but i+4 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn gly) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 4))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class gly_nonturn_noturningap_phi_psi_phi_psi_p4
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i+3 interactions in which i is a gly, 
+! but i+3 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn gly) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 3))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class gly_nonturn_noturningap_phi_psi_phi_psi_p3
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i+2 interactions in which i is a gly, 
+! but i+2 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn gly) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 2))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class gly_nonturn_noturningap_phi_psi_phi_psi_p2
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i+1 interactions in which i is a gly, 
+! but i+1 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn gly) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 1))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class gly_nonturn_noturningap_phi_psi_phi_psi_p1
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i-4 interactions in which i is a gly, 
+! but i-4 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn gly) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) - 4))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class gly_nonturn_noturningap_phi_psi_phi_psi_m4
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i-3 interactions in which i is a gly, 
+! but i-3 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn gly) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) - 3))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class gly_nonturn_noturningap_phi_psi_phi_psi_m3
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i-2 interactions in which i is a gly, 
+! but i-2 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn gly) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) - 2))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class gly_nonturn_noturningap_phi_psi_phi_psi_m2
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i-1 interactions in which i is a gly, 
+! but i-1 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn gly) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) - 1))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class gly_nonturn_noturningap_phi_psi_phi_psi_m1
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+
+
+!
+! Fourth, select all i..i+4 interactions in which i is a pro, 
+! but i+4 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn pro) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 4))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class pro_nonturn_noturningap_phi_psi_phi_psi_p4
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i+3 interactions in which i is a pro, 
+! but i+3 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn pro) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 3))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class pro_nonturn_noturningap_phi_psi_phi_psi_p3
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i+2 interactions in which i is a pro, 
+! but i+2 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn pro) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 2))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class pro_nonturn_noturningap_phi_psi_phi_psi_p2
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i+1 interactions in which i is a pro, 
+! but i+1 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn pro) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) + 1))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class pro_nonturn_noturningap_phi_psi_phi_psi_p1
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i-4 interactions in which i is a pro, 
+! but i-4 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn pro) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) - 4))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class pro_nonturn_noturningap_phi_psi_phi_psi_m4
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i-3 interactions in which i is a pro, 
+! but i-3 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn pro) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) - 3))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class pro_nonturn_noturningap_phi_psi_phi_psi_m3
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i-2 interactions in which i is a pro, 
+! but i-2 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn pro) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) - 2))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class pro_nonturn_noturningap_phi_psi_phi_psi_m2
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+!
+! Now select all i..i-1 interactions in which i is a pro, 
+! but i-1 and the residues in between are all non-turn.
+!
+
+for $count in id (name ca and resn pro) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode($curRes) + 1))
+   eval ($prevRes = encode(decode($curRes) - 1))
+   eval ($otherRes = encode(decode ($curRes) - 1))
+   eval ($prevOtherRes = encode(decode($otherRes) - 1))
+   eval ($nextOtherRes = encode(decode($otherRes) + 1))
+
+   vector do (x = x) (segid $curSeg and resid $curRes and (store7 or store8))
+   eval ($notOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (resn gly or resn pro))
+   eval ($otherNotTurn = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes and (store7 or store8))
+   eval ($otherNotOnEnd = $select)
+   vector do (x = x) (segid $curSeg and resid $otherRes : $curRes 
+                      and (resn gly or resn pro))
+   eval ($turnsInGap = $select)
+
+   if ($notOnEnd = 0) then
+   if ($otherNotTurn = 0) then
+   if ($otherNotOnEnd = 0) then
+   if ($turnsInGap = 0) then
+      xrama 
+      class pro_nonturn_noturningap_phi_psi_phi_psi_m1
+      assign
+         (segid $curSeg and resid $prevRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $curRes and name n)
+         (segid $curSeg and resid $curRes and name ca)
+         (segid $curSeg and resid $curRes and name c)
+         (segid $curSeg and resid $nextRes and name n)
+         (segid $curSeg and resid $prevOtherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $otherRes and name n)
+         (segid $curSeg and resid $otherRes and name ca)
+         (segid $curSeg and resid $otherRes and name c)
+         (segid $curSeg and resid $nextOtherRes and name n)
+      end
+   end if
+   end if
+   end if
+   end if
+
+end loop database
+
+
+
+
+!
+! the end
+!
+
+set echo on message on end

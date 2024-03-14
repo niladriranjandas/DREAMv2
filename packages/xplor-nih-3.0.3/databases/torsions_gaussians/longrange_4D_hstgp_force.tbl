@@ -1,0 +1,59 @@
+!
+! longrange_4D_hstgp_force.tbl
+!
+! force constant settings for each sequence-specific 
+! 
+! JJK 4/9/98
+!
+
+
+class phi_psi_phi_psi_hlx_hlx
+force $kramalr
+class phi_psi_phi_psi_hlx_sht
+force $kramalr
+class phi_psi_phi_psi_hlx_trn
+force $kramalr
+class phi_psi_phi_psi_hlx_gly
+force $kramalr
+class phi_psi_phi_psi_hlx_pro
+force $kramalr
+class phi_psi_phi_psi_sht_hlx
+force $kramalr
+class phi_psi_phi_psi_sht_sht
+force $kramalr
+class phi_psi_phi_psi_sht_trn
+force $kramalr
+class phi_psi_phi_psi_sht_gly
+force $kramalr
+class phi_psi_phi_psi_sht_pro
+force $kramalr
+class phi_psi_phi_psi_trn_hlx
+force $kramalr
+class phi_psi_phi_psi_trn_sht
+force $kramalr
+class phi_psi_phi_psi_trn_trn
+force $kramalr
+class phi_psi_phi_psi_trn_gly
+force $kramalr
+class phi_psi_phi_psi_trn_pro
+force $kramalr
+class phi_psi_phi_psi_gly_hlx
+force $kramalr
+class phi_psi_phi_psi_gly_sht
+force $kramalr
+class phi_psi_phi_psi_gly_trn
+force $kramalr
+class phi_psi_phi_psi_gly_gly
+force $kramalr
+class phi_psi_phi_psi_gly_pro
+force $kramalr
+class phi_psi_phi_psi_pro_hlx
+force $kramalr
+class phi_psi_phi_psi_pro_sht
+force $kramalr
+class phi_psi_phi_psi_pro_trn
+force $kramalr
+class phi_psi_phi_psi_pro_gly
+force $kramalr
+class phi_psi_phi_psi_pro_pro
+force $kramalr

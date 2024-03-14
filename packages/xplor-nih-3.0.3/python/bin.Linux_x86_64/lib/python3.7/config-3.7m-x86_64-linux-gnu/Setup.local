@@ -1,0 +1,13 @@
+# Edit this file for local setup changes
+
+
+#*shared*
+
+#editline editline.c \
+#        -I/home/schwitrs//opt/libedit-20160903-3.1-amd64/include \
+#        -L/home/schwitrs/opt/libedit-20160903-3.1-amd64/lib/ -ledit
+#
+#_tkinter _tkinter.c tkappinit.c -DWITH_APPINIT \
+#        -I/home/schwitrs/opt/tcl-amd64/include \
+#        -L/home/schwitrs/opt/tcl-amd64/lib -ltk8.6 -ltcl8.6\
+#        -lX11

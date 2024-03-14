@@ -1,0 +1,172 @@
+#!/usr/bin/env /data2/nmr/our_algo/packages/xplor-nih-3.0.3/bin/pyXplor
+
+sel = "name ca or name c or name n or name o"
+selComp = "not hydro"
+
+
+(optList,structs)= xplor.parseArguments(('selection:1',
+                                         'fitSelection:1',
+                                         'writeStructs',
+                                         'psf:1'),
+                                        cmdline=
+                             "[options] <structure files to be averaged>",
+                                        description="""
+Given an ensemble of structures, compute an unregularized average structure
+and report per-atom RMSD.
+                                        """,
+                                        usageString="""
+options are zero or more of::
+
+  -fitSelection <XPLOR selection> - specify atoms used in the fit.
+  -selection  <selection>         - specify atoms used in reported comparison
+                                    RMSD
+  -writeStructs                   - write out fit structures in .fit files.
+  -psf <psf file>                 - specify a PSF file. If not specified, PSF
+                                    information will be automatically
+                                    generated.
+
+The average PDB record is written to stdout.
+
+By default, the average is performed over coordinates in all MODEL records. 
+An individual MODEL can be specified using the structure file argument, and 
+this notation: file.pdb:MODEL, where MODEL is replaced by a model number.
+
+Note that this script does not perform refinement, so that if the input
+structures have large differences, the average structure will have distorted
+bonds and angles.
+""")
+
+import sys
+writeFitStruct=False
+psf=None
+import protocol
+for opt in optList:
+    if opt[0]=='fitSelection':
+        sel = opt[1]
+    elif opt[0]=='selection':
+        selComp = opt[1]
+        pass
+    elif opt[0]=='writeStructs':
+        writeFitStruct=True
+        pass
+    elif opt[0]=='psf':
+        psf=opt[1]
+        pass
+    pass
+
+def split120(str):
+    """
+    given string str, insert newline characters such that there is no sequence
+    of characters longer than 120 without a newline character
+    """
+    newStr=""
+    cnt=0
+    for c in str:
+        cnt += 1
+        if cnt>=120:
+            cnt=0
+            newStr += '\n'
+            pass
+        newStr += c
+        pass
+    return newStr
+        
+
+sel=split120(sel)
+
+
+from psfGen import pdbToPSF
+if psf:
+    protocol.initStruct(psf)
+    protocol.initCoords(structs[0])
+else:
+    protocol.loadPDB(structs[0],
+                     deleteUnknownAtoms=True)
+    pass
+
+pdbFiles=[]
+import pdbTool
+#if no models specified, add in all
+for spec in structs:
+    filename,model=protocol.splitModel(spec,-1)
+    pdb = pdbTool.PDBTool(filename)
+    pdbModels = pdb.models()
+    if model==-1 and pdbModels:
+        for model in pdbModels:
+            pdbFiles.append( filename+":"+str(model) )
+            pass
+        pass
+    else:
+        pdbFiles.append( spec )
+        pass
+    pass
+
+
+sim = xplor.simulation
+
+fitTo = sim.atomPosArr()
+
+from atomSel import AtomSel
+from atomSelAction import Fit, RMSD
+from cdsVector import vec_norm, sqrt
+
+aveCoords = sim.atomPosArr() # must be separate copy
+var = vec_norm(aveCoords)**2
+for struct in pdbFiles[1:]:
+    protocol.initCoords(struct)
+    AtomSel("known").apply( Fit(fitTo,sel) )
+    aveCoords += sim.atomPosArr()
+    var += vec_norm(sim.atomPosArr())**2
+    pass
+
+aveCoords /= len(pdbFiles)
+var /= len(pdbFiles)
+bFactors = var - vec_norm(aveCoords)**2
+from math import pi
+bFactors.scale( 8*pi**2 ) 
+
+fitTo=aveCoords
+aveRMSD=0.
+aveRMSDcomp=0.
+for struct in pdbFiles:
+    protocol.initCoords(struct)
+    AtomSel("known").apply( Fit(fitTo,sel) )
+
+    if writeFitStruct:
+        protocol.writePDB(struct+'.fit')
+
+    comparer=RMSD(fitTo)
+    AtomSel(sel).apply(comparer)
+    aveRMSD += comparer.rmsd()
+
+    AtomSel(selComp).apply(comparer)
+    aveRMSDcomp += comparer.rmsd()
+    pass
+
+aveRMSD      /= len(pdbFiles)
+aveRMSDcomp /= len(pdbFiles)
+
+remarks  = "average structure over %d files\n" % len(pdbFiles)
+remarks += "fitted using atoms: %s\n" % sel
+remarks += "RMSD diff. for fitted atoms: %f\n" % aveRMSD
+remarks += "comparison atoms: %s\n" % selComp
+remarks += "RMSD diff. for comparison atoms: %f\n" % aveRMSDcomp
+remarks += "B array (last column) is rms diff from mean\n"
+remarks += "Filenames:\n"
+for struct in pdbFiles:
+    remarks += "    %s\n" % struct
+    pass
+remarks += '\n'
+
+sim.setAtomPosArr( aveCoords )
+
+from pdbTool import PDBTool
+outPDB = PDBTool()
+outPDB.addRemarks(remarks)
+for atom in AtomSel('known'):
+    outPDB.setAux2(atom,bFactors[atom.index()])
+outPDB.write()
+print(outPDB.contents())
+    
+    
+

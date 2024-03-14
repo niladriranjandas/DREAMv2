@@ -1,0 +1,2632 @@
+ REMARKS Charmm topology set for lipids v22 b4
+ REMARKS FILENAME="topallh22x.lip"
+ 
+ SET ECHO=FALSE END 
+
+ { \\\\\\\\\\ All-Hydrogen Lipid Topology File ////////////
+   \\\\\\\\\\\\\\\\\\ Developmental ///////////////////////
+      Alexander D. MacKerell Jr. and Michael Schlenkrick
+              Version 4.0, January, 1993
+  All comments to ADM jr.  bitnet: alex,tammy.harvard.edu
+                  telephone: 410-706-7442
+  These files are a beta release; additional parameter development
+  and testing may lead to alteration of the contents.}
+ 
+ AUTOGENERATE ANGLES=TRUE  DIHEDRALS=TRUE  END
+ 
+ MASS HL     1.0080 ! polar H (equivalent to protein H) 
+ MASS HCL    1.0080 ! charged H for PE (equivalent to protein HC) 
+ MASS HT     1.0080 ! TIPS3P WATER HYDROGEN 
+ MASS HOL    1.0080 ! Nucleic acid phosphate hydroxyl proton 
+ MASS CL    12.0110 ! carbonyl C (acetic acid/methyl acetate) 
+ MASS HAL    1.0080 ! Nucleic acid proton (equivalent to protein HA) 
+ MASS CTL1  12.0110 ! sp3 carbon with 1 H  (-CH1-) 
+ MASS CTL2  12.0110 ! carbon of methylene group (-CH2-) 
+ MASS CTL3  12.0110 ! carbon of methyl group (-CH3) 
+ MASS OBL   15.9994 ! acetic acid carboxyl oxygen (e. to protein OB) 
+ MASS OT    15.9994 ! TIPS3P WATER OXYGEN 
+ MASS OSL   15.9994 ! Nucleic acid phosphate ester oxygen 
+ MASS O2L   15.9994 ! Nucleic acid =O in phosphate or sulfate 
+ MASS OHL   15.9994 ! Nucleic acid phosphate hydroxyl oxygen 
+ MASS NTL   14.0070 ! ammonium nitrogen 
+ MASS NH3L  14.0070 ! nitrogen phosphatidylethanolamine 
+ MASS PL    30.9740 ! phosphorus 
+ MASS CLA   34.0000 ! CHLORIDE Anion 
+ MASS SOD   22.9898 ! Sodium Ion 
+ MASS MG    24.3050 ! Magnesium Ion 
+ MASS SL    32.0600 ! Sulphate sulfur 
+ !-----------------------------------------------------------
+ 
+ RESIDUE MAS  ! methylacetate 
+ 
+ GROUP ! 
+       ATOM  C1    TYPE=CTL3 CHARGE=    -.1700  END !           H22 
+       ATOM  C     TYPE=CL   CHARGE=     .6300  END !           | 
+       ATOM  OM    TYPE=OSL  CHARGE=    -.3400  END !       H21-C2-H23 
+       ATOM  C2    TYPE=CTL3 CHARGE=    -.1400  END !             \ 
+       ATOM  O     TYPE=OBL  CHARGE=    -.5200  END !             OM 
+       ATOM  H11   TYPE=HAL  CHARGE=     .0900  END !            / 
+       ATOM  H12   TYPE=HAL  CHARGE=     .0900  END !         O=C 
+       ATOM  H13   TYPE=HAL  CHARGE=     .0900  END !           | 
+       ATOM  H21   TYPE=HAL  CHARGE=     .0900  END !       H11-C1-H13 
+       ATOM  H22   TYPE=HAL  CHARGE=     .0900  END !           | 
+       ATOM  H23   TYPE=HAL  CHARGE=     .0900  END !           H12 
+ !END GROUP
+ 
+      BOND  C1    C      
+      BOND  C     OM     
+      BOND  C     O      
+      BOND  OM    C2     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    H13    
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    H23    
+
+      DIHEDRAL  O     C     OM    C2 ! multiple dihedral 
+      DIHEDRAL  O     C     OM    C2 ! multiple dihedral 
+
+      IMPROPER  O     C1    OM    C     
+
+      ! internal coordinates from experiment for heavy atoms 
+ 
+      IC  C1    C      OM    C2       1.5200  109.00  180.00  114.80   1.4370  
+      IC  O     C      OM    C2       1.2000  125.90     .00  114.80   1.4370  
+      IC  H11   C1     C     OM       1.1000  108.90  180.00  109.00   1.3340  
+      IC  H12   C1     C     OM       1.1000  109.75   60.40  109.00   1.3340  
+      IC  H13   C1     C     OM       1.1000  109.75  -60.40  109.00   1.3340  
+      IC  H21   C2     OM    C        1.0788  109.94  180.00  114.80   1.3340  
+      IC  H22   C2     OM    C        1.0802  110.50   60.50  114.80   1.3340  
+      IC  H23   C2     OM    C        1.0802  110.50  -60.50  114.80   1.3340  
+ 
+ 
+ END {MAS }
+ !-----------------------------------------------------------
+ 
+ RESIDUE ETAC ! Ethylacetate 
+						    !            H213 
+ GROUP						    !             | 
+       ATOM  C1    TYPE=CTL3 CHARGE=    -.1700  END !        H211-C21-H212 
+       ATOM  C     TYPE=CL   CHARGE=     .6300  END !             / 
+       ATOM  OM    TYPE=OSL  CHARGE=    -.3400  END !        H22-C2-H23 
+       ATOM  C2    TYPE=CTL2 CHARGE=    -.0500  END !             \ 
+       ATOM  O     TYPE=OBL  CHARGE=    -.5200  END !             OM 
+       ATOM  H11   TYPE=HAL  CHARGE=     .0900  END !            / 
+       ATOM  H12   TYPE=HAL  CHARGE=     .0900  END !         O=C 
+       ATOM  H13   TYPE=HAL  CHARGE=     .0900  END !            \ 
+       ATOM  H22   TYPE=HAL  CHARGE=     .0900  END !         H11-C1-H13 
+       ATOM  H23   TYPE=HAL  CHARGE=     .0900  END !             | 
+ GROUP						    !             H12 
+       ATOM  C21   TYPE=CTL3 CHARGE=    -.2700  END  
+       ATOM  H211  TYPE=HAL  CHARGE=     .0900  END  
+       ATOM  H212  TYPE=HAL  CHARGE=     .0900  END  
+       ATOM  H213  TYPE=HAL  CHARGE=     .0900  END  
+ !END GROUP
+ 
+      BOND  C1    C      
+      BOND  C     OM     
+      BOND  C     O      
+      BOND  OM    C2     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    H13    
+      BOND  C2    C21    
+      BOND  C2    H22    
+      BOND  C2    H23    
+      BOND  C21   H211   
+      BOND  C21   H212   
+      BOND  C21   H213   
+
+      DIHEDRAL  O     C     OM    C2 ! multiple dihedral
+      DIHEDRAL  O     C     OM    C2 ! multiple dihedral
+
+      IMPROPER  O     C1    OM    C
+
+      ! internal coordinates from experiment for heavy atoms 
+ 
+      IC  C1    C      OM    C2       1.5200  109.00  180.00  114.80   1.4370  
+      IC  O     C      OM    C2       1.2000  125.90     .00  114.80   1.4370  
+      IC  H11   C1     C     OM       1.1000  108.90  180.00  109.00   1.3340  
+      IC  H12   C1     C     OM       1.1000  109.75   60.40  109.00   1.3340  
+      IC  H13   C1     C     OM       1.1000  109.75  -60.40  109.00   1.3340  
+      IC  C21   C2     OM    C        1.5200  109.94  180.00  114.80   1.3340  
+      IC  H22   C2     OM    C        1.0802  110.50   60.50  114.80   1.3340  
+      IC  H23   C2     OM    C        1.0802  110.50  -60.50  114.80   1.3340  
+      IC  H211  C21    C2    OM       1.1000  108.90  180.00  116.70   1.4370  
+      IC  H212  C21    C2    OM       1.1000  108.90   60.00  116.70   1.4370  
+      IC  H213  C21    C2    OM       1.1000  108.90  -60.00  116.70   1.4370  
+ 
+ 
+ END {ETAC}
+ !-----------------------------------------------------------
+ 
+ RESIDUE MPRO ! Methylpropionate 
+ 
+ GROUP ! 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.0800  END !           H22 
+       ATOM  C     TYPE=CL   CHARGE=     .6300  END !           | 
+       ATOM  OM    TYPE=OSL  CHARGE=    -.3400  END !       H21-C2-H23 
+       ATOM  C2    TYPE=CTL3 CHARGE=    -.1400  END !             \ 
+       ATOM  O     TYPE=OBL  CHARGE=    -.5200  END !             OM 
+       ATOM  H12   TYPE=HAL  CHARGE=     .0900  END !            / 
+       ATOM  H13   TYPE=HAL  CHARGE=     .0900  END !         O=C 
+       ATOM  H21   TYPE=HAL  CHARGE=     .0900  END !            \ 
+       ATOM  H22   TYPE=HAL  CHARGE=     .0900  END !         H12-C1-H13 
+       ATOM  H23   TYPE=HAL  CHARGE=     .0900  END !            / 
+ GROUP						    !     H112-C11-H111 
+       ATOM  C11   TYPE=CTL3 CHARGE=    -.2700  END !           | 
+       ATOM  H111  TYPE=HAL  CHARGE=     .0900  END !          H113 
+       ATOM  H112  TYPE=HAL  CHARGE=     .0900  END ! 
+       ATOM  H113  TYPE=HAL  CHARGE=     .0900  END ! 
+ !END GROUP
+ 
+      BOND  C1    C      
+      BOND  C     OM     
+      BOND  C     O      
+      BOND  OM    C2     
+      BOND  C1    C11    
+      BOND  C1    H12    
+      BOND  C1    H13    
+      BOND  C11   H111   
+      BOND  C11   H112   
+      BOND  C11   H113   
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    H23    
+ 
+      DIHEDRAL  O     C     OM    C2  ! multiple dihedral
+      DIHEDRAL  O     C     OM    C2  ! multiple dihedral
+      DIHEDRAL  OM    C     C1    C11 ! multiple dihedral
+      DIHEDRAL  OM    C     C1    C11 ! multiple dihedral
+
+      IMPROPER  O     C1    OM    C
+
+      ! internal coordinates from experiment for heavy atoms 
+ 
+      IC  C1    C      OM    C2       1.5200  109.00  180.00  114.80   1.4370  
+      IC  O     C      OM    C2       1.2000  125.90     .00  114.80   1.4370  
+      IC  C11   C1     C     OM       1.5200  108.90  180.00  109.00   1.3340  
+      IC  H12   C1     C     OM       1.1000  109.75   60.40  109.00   1.3340  
+      IC  H13   C1     C     OM       1.1000  109.75  -60.40  109.00   1.3340  
+      IC  H21   C2     OM    C        1.0788  109.94  180.00  114.80   1.3340  
+      IC  H22   C2     OM    C        1.0802  110.50   60.50  114.80   1.3340  
+      IC  H23   C2     OM    C        1.0802  110.50  -60.50  114.80   1.3340  
+      IC  H111  C11    C1    C        1.1000  109.75  180.00  109.00   1.5200  
+      IC  H112  C11    C1    C        1.1000  109.75   60.40  109.00   1.5200  
+      IC  H113  C11    C1    C        1.1000  109.75  -60.40  109.00   1.5200  
+ 
+ 
+ END {MPRO}
+ !-----------------------------------------------------------
+ 
+ RESIDUE ACEH ! acetic acid 
+	      ! atoms in proper order for molvib input 
+ 
+ GROUP ! 
+       ATOM  C2    TYPE=CTL3 CHARGE=    -.3000  END ! 
+       ATOM  C1    TYPE=CL   CHARGE=     .7500  END !   H21      O2 
+       ATOM  H21   TYPE=HAL  CHARGE=     .0900  END !      \    // 
+       ATOM  H22   TYPE=HAL  CHARGE=     .0900  END !  H22-C2--C1 
+       ATOM  H23   TYPE=HAL  CHARGE=     .0900  END !      /     \ 
+       ATOM  O2    TYPE=OBL  CHARGE=    -.5500  END !   H23       O1-HO1 
+       ATOM  O1    TYPE=OHL  CHARGE=    -.6100  END ! 
+       ATOM  HO1   TYPE=HOL  CHARGE=     .4400  END ! 
+ !END GROUP
+ 
+      BOND  C1    O1     
+      BOND  O1    HO1    
+      BOND  C1    O2     
+      BOND  C1    C2     
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    H23    
+ 
+      IMPROPER  O2    C2    O1    C1     
+ 
+      IC  O2    C1     C2    H21       .0000     .00     .00     .00    .0000  
+      IC  HO1   O1     C1    O2        .0000     .00     .00     .00    .0000  
+      IC  HO1   O1     C1    C2        .0000     .00  180.00     .00    .0000  
+      IC  O1    C1     C2    H21       .0000     .00  180.00     .00    .0000  
+      IC  O1    C1     C2    H22       .0000     .00   60.00     .00    .0000  
+      IC  O1    C1     C2    H23       .0000     .00  -60.00     .00    .0000  
+ 
+ 
+ END {ACEH}
+ !-----------------------------------------------------------
+ 
+ RESIDUE DMPA ! Dimethylphosphate 
+ 
+ GROUP ! 
+       ATOM  P1    TYPE=PL   CHARGE=    1.5000  END ! 
+       ATOM  O3    TYPE=O2L  CHARGE=    -.8000  END ! 
+       ATOM  O4    TYPE=O2L  CHARGE=    -.8000  END !           H11 
+       ATOM  O1    TYPE=OSL  CHARGE=    -.5500  END !            | 
+       ATOM  O2    TYPE=OSL  CHARGE=    -.5500  END !       H13- C1-H12 
+					            !             \ 
+       ATOM  C1    TYPE=CTL3 CHARGE=    -.1700  END !         O3   O1 
+       ATOM  H11   TYPE=HAL  CHARGE=     .0900  END !          \\ / 
+       ATOM  H12   TYPE=HAL  CHARGE=     .0900  END !      (-)   P1 
+       ATOM  H13   TYPE=HAL  CHARGE=     .0900  END !          // \ 
+ 					            !         O4   O2 
+       ATOM  C2    TYPE=CTL3 CHARGE=    -.1700  END !             / 
+       ATOM  H21   TYPE=HAL  CHARGE=     .0900  END !        H23-C2-H22 
+       ATOM  H22   TYPE=HAL  CHARGE=     .0900  END !            | 
+       ATOM  H23   TYPE=HAL  CHARGE=     .0900  END !           H21 
+      ! 
+ !END GROUP
+ 
+      BOND  P1    O1     
+      BOND  P1    O2     
+      BOND  P1    O3     
+      BOND  P1    O4     
+      BOND  O1    C1     
+      BOND  O2    C2     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    H13    
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    H23
+
+      DIHEDRAL  O1   P1   O2    C2 ! multiple dihedral
+      DIHEDRAL  O1   P1   O2    C2 ! multiple dihedral
+      DIHEDRAL  O2   P1   O1    C1 ! multiple dihedral
+      DIHEDRAL  O2   P1   O1    C1 ! multiple dihedral
+
+      ! IC FOR THE g,g conformation (3-21G* opt. structure) 
+ 
+      IC  O3    P1     O1    C1       1.4723  107.31     .00  117.79   1.4356  
+      IC  O4    P1     O2    C2       1.4722     .00     .00  117.79   1.4357  
+      IC  O1    P1     O2    C2       1.6343     .00   73.80  117.79   1.4357  
+      IC  O2    P1     O1    C1       1.6344     .00   73.70  117.79   1.4356  
+      IC  H11   C1     O1    P1       1.0827  107.80  174.80  117.79   1.6343  
+      IC  H12   C1     O1    P1       1.0800  110.40   54.10  117.79   1.6343  
+      IC  H13   C1     O1    P1       1.0848  110.70  294.30  117.79   1.6343  
+      IC  H21   C2     O2    P1       1.0827  107.90  174.70  117.79   1.6344  
+      IC  H22   C2     O2    P1       1.0800  110.40   54.10  117.79   1.6344  
+      IC  H23   C2     O2    P1       1.0848  110.70  294.20  117.79   1.6344  
+ 
+ 
+ END {DMPA}
+ !-----------------------------------------------------------
+ 
+ RESIDUE MP_1 ! Methylphosphate, anionic 
+ 
+ GROUP ! 
+       ATOM  P1    TYPE=PL   CHARGE=    1.5000  END ! 
+       ATOM  O3    TYPE=O2L  CHARGE=    -.8200  END ! 
+       ATOM  O4    TYPE=O2L  CHARGE=    -.8200  END !                 H11 
+       ATOM  O1    TYPE=OSL  CHARGE=    -.6200  END !                  | 
+       ATOM  O2    TYPE=OHL  CHARGE=    -.6800  END !            H13--C1--H12 
+       ATOM  H2    TYPE=HOL  CHARGE=     .3400  END !                  | 
+					            !                 O1 
+       ATOM  C1    TYPE=CTL3 CHARGE=    -.1700  END !                  | 
+       ATOM  H11   TYPE=HAL  CHARGE=     .0900  END !             O4==P1==O3 (-) 
+       ATOM  H12   TYPE=HAL  CHARGE=     .0900  END !                  | 
+       ATOM  H13   TYPE=HAL  CHARGE=     .0900  END !                 O2 
+ 					            !                   \ 
+					            !                    H2 
+      ! 
+ !END GROUP
+ 
+      BOND  P1    O1     
+      BOND  P1    O2     
+      BOND  P1    O3     
+      BOND  P1    O4     
+      BOND  O1    C1     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    H13    
+      BOND  O2    H2    
+
+      DIHEDRAL  O2   P1   O1    C1 ! multiple dihedral
+      DIHEDRAL  O2   P1   O1    C1 ! multiple dihedral
+
+      IC  O3    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  O4    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  O2    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  H11   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H12   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H13   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H2    O2     P1    O1        .0000     .00     .00     .00    .0000  
+ 
+ 
+ END {MP_1}
+ !-----------------------------------------------------------
+ 
+ RESIDUE MP_2 ! Methylphosphate, dianionic 
+ 
+ GROUP ! 
+       ATOM  P1    TYPE=PL   CHARGE=    1.1000  END ! 
+       ATOM  O1    TYPE=OSL  CHARGE=    -.4000  END !                 H11 
+       ATOM  O2    TYPE=O2L  CHARGE=    -.9000  END !                  | 
+       ATOM  O3    TYPE=O2L  CHARGE=    -.9000  END !            H13--C1--H12 
+       ATOM  O4    TYPE=O2L  CHARGE=    -.9000  END !                  | 
+ GROUP						    !                 O1 
+       ATOM  C1    TYPE=CTL3 CHARGE=    -.2700  END !                  | 
+       ATOM  H11   TYPE=HAL  CHARGE=     .0900  END !        (-)  O4==P1==O3  (-) 
+       ATOM  H12   TYPE=HAL  CHARGE=     .0900  END !                 || 
+       ATOM  H13   TYPE=HAL  CHARGE=     .0900  END !                 O2 
+      ! 
+ !END GROUP
+ 
+      BOND  P1    O1     
+      BOND  P1    O2     
+      BOND  P1    O3     
+      BOND  P1    O4     
+      BOND  O1    C1     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    H13  	
+
+      IC  O3    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  O4    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  O2    P1     O1    C1        .0000     .00     .00     .00    .0000  
+      IC  H11   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H12   C1     O1    P1        .0000     .00     .00     .00    .0000  
+      IC  H13   C1     O1    P1        .0000     .00     .00     .00    .0000
+      ! dummy to analyze cetain angles 
+      IC  O3    P1     O4    O1        .0000     .00     .00     .00    .0000  
+ 
+ 
+ END {MP_2}
+ !-----------------------------------------------------------
+ 
+ RESIDUE MSO4 ! Methylsulfate 
+ 
+ GROUP ! 
+       ATOM  S     TYPE=SL   CHARGE=    1.3300  END !    OS2(-1) 
+       ATOM  OS1   TYPE=OSL  CHARGE=    -.2800  END !     | 
+       ATOM  OS2   TYPE=O2L  CHARGE=    -.6500  END ! OS2=S=OS4 
+       ATOM  OS3   TYPE=O2L  CHARGE=    -.6500  END !     | 
+       ATOM  OS4   TYPE=O2L  CHARGE=    -.6500  END !    OS1 
+       ATOM  C1    TYPE=CTL3 CHARGE=    -.3700  END !      \ 
+       ATOM  H11   TYPE=HAL  CHARGE=     .0900  END !  H11-C1-H13 
+       ATOM  H12   TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H13   TYPE=HAL  CHARGE=     .0900  END !      H12 
+      ! 
+ !END GROUP
+ 
+      BOND  S     OS1    
+      BOND  S     OS2    
+      BOND  S     OS3    
+      BOND  S     OS4    
+      BOND  OS1   C1     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    H13    
+ 
+      ACCEPTOR  OS1   NONE   
+      ACCEPTOR  OS2   NONE   
+      ACCEPTOR  OS3   NONE   
+      ACCEPTOR  OS4   NONE   
+ 
+      IC  OS4   S      OS2   OS1       .0000     .00   60.00     .00    .0000  
+      IC  OS2   S      OS2   OS3       .0000     .00  -60.00     .00    .0000  
+      IC  OS3   S      OS1   OS4       .0000     .00   60.00     .00    .0000  
+      IC  OS1   S      OS3   OS2       .0000     .00   60.00     .00    .0000  
+      IC  C1    OS1    S     OS2       .0000     .00   60.00     .00    .0000  
+      IC  S     OS1    C1    OS3       .0000     .00   60.00     .00    .0000  
+      IC  OS1   S      OS4   OS2       .0000     .00  180.00     .00    .0000  
+      IC  OS1   S      OS2   OS3       .0000     .00  180.00     .00    .0000  
+      IC  OS1   S      OS3   OS2       .0000     .00  180.00     .00    .0000  
+      IC  OS4   S      OS2   OS1       .0000     .00   60.00     .00    .0000  
+      IC  OS4   S      OS3   OS1       .0000     .00   60.00     .00    .0000  
+      IC  OS3   S      OS2   OS1       .0000     .00   60.00     .00    .0000  
+      IC  OS4   S      OS1   C1        .0000     .00   60.00     .00    .0000  
+      IC  OS2   S      OS1   C1        .0000     .00   60.00     .00    .0000  
+      IC  OS3   S      OS1   C1        .0000     .00   60.00     .00    .0000  
+ 
+ 
+ END {MSO4}
+ !-----------------------------------------------------------
+ 
+ RESIDUE TIP3 ! TIPS3P WATER MODEL 
+	      ! GENERATE USING NOANGLE NODIHEDRAL 
+ 
+ GROUP ! 
+       ATOM  OH2   TYPE=OT   CHARGE=    -.8340  END  
+       ATOM  H1    TYPE=HT   CHARGE=     .4170  END  
+       ATOM  H2    TYPE=HT   CHARGE=     .4170  END  
+ !END GROUP
+ 
+      BOND  OH2   H1     
+      BOND  OH2   H2     
+{*      BOND  H1    H2    ! THE LAST BOND IS NEEDED FOR SHAKE 
+*}
+      ANGLE  H1    OH2   H2    ! REQUIRED 
+ 
+      ACCEPTOR  OH2   NONE   
+ 
+ 
+ END {TIP3}
+ !-----------------------------------------------------------
+ 
+ RESIDUE SOD  ! Sodium Ion 
+ 
+ GROUP  
+       ATOM  SOD   TYPE=SOD  CHARGE=    1.0000  END  
+ !END GROUP
+ 
+ 
+ END {SOD }
+ !-----------------------------------------------------------
+ 
+ RESIDUE CL   ! Chloride Anion 
+ 
+ GROUP  
+       ATOM  CL1   TYPE=CLA  CHARGE=   -1.0000  END  
+ !END GROUP
+ 
+ 
+ END {CL  }
+ !-----------------------------------------------------------
+ 
+ RESIDUE MG   ! Magnesium Ion 
+ 
+ GROUP  
+       ATOM  MG    TYPE=MG   CHARGE=    2.0000  END  
+ !END GROUP
+ 
+ 
+ END {MG  }
+ !-----------------------------------------------------------
+ 
+ RESIDUE NC4  ! tetramethylammonium 
+ 
+ GROUP ! 
+       ATOM  N     TYPE=NTL  CHARGE=    -.6000  END !                H32 
+       ATOM  C1    TYPE=CTL3 CHARGE=    -.3500  END !                 | 
+       ATOM  C2    TYPE=CTL3 CHARGE=    -.3500  END !            H31-C3-H33 
+       ATOM  C3    TYPE=CTL3 CHARGE=    -.3500  END !         H23     |      H41 
+       ATOM  C4    TYPE=CTL3 CHARGE=    -.3500  END !         |       |      | 
+       ATOM  H11   TYPE=HL   CHARGE=     .2500  END !     H22-C2------N------C4-H42    (+) 
+       ATOM  H12   TYPE=HL   CHARGE=     .2500  END !         |       |      | 
+       ATOM  H13   TYPE=HL   CHARGE=     .2500  END !         H21     |      H43 
+       ATOM  H21   TYPE=HL   CHARGE=     .2500  END !            H11-C1-H13 
+       ATOM  H22   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H23   TYPE=HL   CHARGE=     .2500  END !                 H12 
+       ATOM  H31   TYPE=HL   CHARGE=     .2500  END  
+       ATOM  H32   TYPE=HL   CHARGE=     .2500  END  
+       ATOM  H33   TYPE=HL   CHARGE=     .2500  END  
+       ATOM  H41   TYPE=HL   CHARGE=     .2500  END  
+       ATOM  H42   TYPE=HL   CHARGE=     .2500  END  
+       ATOM  H43   TYPE=HL   CHARGE=     .2500  END  
+ !END GROUP
+ 
+      BOND  N     C1     
+      BOND  N     C2     
+      BOND  N     C3     
+      BOND  N     C4     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    H13    
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    H23    
+      BOND  C3    H31    
+      BOND  C3    H32    
+      BOND  C3    H33    
+      BOND  C4    H41    
+      BOND  C4    H42    
+      BOND  C4    H43
+
+      ! internal are wrong 
+ 
+      IC  C2    N      C1    H11       .0000     .00  180.00     .00    .0000  
+      IC  C2    N      C1    H12       .0000     .00  -60.00     .00    .0000  
+      IC  C2    N      C1    H13       .0000     .00   60.00     .00    .0000  
+      IC  C2    C1     *N    C3        .0000     .00  120.00     .00    .0000  
+      IC  C2    C1     *N    C4        .0000     .00 -120.00     .00    .0000  
+      IC  C3    N      C2    H21       .0000     .00     .00     .00    .0000  
+      IC  C3    N      C2    H22       .0000     .00 -120.00     .00    .0000  
+      IC  C3    N      C2    H23       .0000     .00  120.00     .00    .0000  
+      IC  C4    N      C3    H31       .0000     .00     .00     .00    .0000  
+      IC  C4    N      C3    H32       .0000     .00 -120.00     .00    .0000  
+      IC  C4    N      C3    H33       .0000     .00  120.00     .00    .0000  
+      IC  C1    N      C4    H41       .0000     .00     .00     .00    .0000  
+      IC  C1    N      C4    H42       .0000     .00 -120.00     .00    .0000  
+      IC  C1    N      C4    H43       .0000     .00  120.00     .00    .0000  
+ 
+ 
+ END {NC4 }
+ !-----------------------------------------------------------
+ 
+ RESIDUE NC5  ! tetramethylammonium ethyl analog 
+ 
+ GROUP  
+       ATOM  N     TYPE=NTL  CHARGE=    -.6000  END ! 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.1000  END !                 | 
+       ATOM  C2    TYPE=CTL3 CHARGE=    -.3500  END !               -C3- 
+       ATOM  C3    TYPE=CTL3 CHARGE=    -.3500  END !                 | 
+       ATOM  C4    TYPE=CTL3 CHARGE=    -.3500  END !            |    |   | 
+       ATOM  H11   TYPE=HL   CHARGE=     .2500  END !           -C2---N---C4-     (+) 
+       ATOM  H12   TYPE=HL   CHARGE=     .2500  END !            |    |   | 
+       ATOM  H21   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H22   TYPE=HL   CHARGE=     .2500  END !               -C1- 
+       ATOM  H23   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H31   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H32   TYPE=HL   CHARGE=     .2500  END !               -C5- 
+       ATOM  H33   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H41   TYPE=HL   CHARGE=     .2500  END  
+       ATOM  H42   TYPE=HL   CHARGE=     .2500  END  
+       ATOM  H43   TYPE=HL   CHARGE=     .2500  END  
+ GROUP  
+       ATOM  C5    TYPE=CTL3 CHARGE=    -.2700  END  
+       ATOM  H51   TYPE=HAL  CHARGE=     .0900  END  
+       ATOM  H52   TYPE=HAL  CHARGE=     .0900  END  
+       ATOM  H53   TYPE=HAL  CHARGE=     .0900  END  
+ !END GROUP
+ 
+      BOND  N     C1     
+      BOND  N     C2     
+      BOND  N     C3     
+      BOND  N     C4     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    C5     
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    H23    
+      BOND  C3    H31    
+      BOND  C3    H32    
+      BOND  C3    H33    
+      BOND  C4    H41    
+      BOND  C4    H42    
+      BOND  C4    H43    
+      BOND  C5    H51    
+      BOND  C5    H52    
+      BOND  C5    H53
+
+      ! ab-initio HF/6-31G* structure 
+ 
+      IC  C4    N      C1    C5       1.4967  107.80  180.00  115.98   1.5217  
+      IC  C5    C1     N     C2       1.5217  115.98  -61.05  111.12   1.4950  
+      IC  C5    C1     N     C3       1.5217  115.98   61.05  111.12   1.4950  
+      IC  C4    N      C1    H11      1.4967  107.80   57.27  105.76   1.0809  
+      IC  C4    N      C1    H12      1.4967  107.80  -57.27  105.76   1.0809  
+      IC  C1    N      C2    H21      1.5176  111.12 -174.50  108.75   1.0795  
+      IC  C1    N      C2    H22      1.5176  111.12   65.81  109.69   1.0773  
+      IC  C1    N      C2    H23      1.5176  111.12  -54.79  109.07   1.0797  
+      IC  C1    N      C3    H31      1.5176  111.12  174.50  108.75   1.0795  
+      IC  C1    N      C3    H32      1.5176  111.12  -65.81  109.69   1.0773  
+      IC  C1    N      C3    H33      1.5176  111.12   54.79  109.07   1.0797  
+      IC  C1    N      C4    H41      1.5176  107.80  180.00  109.11   1.0793  
+      IC  C1    N      C4    H42      1.5176  107.80   60.03  109.12   1.0793  
+      IC  C1    N      C4    H43      1.5176  107.80  -60.03  109.12   1.0793  
+      IC  N     C1     C5    H51      1.5176  115.98  180.00  107.05   1.0836  
+      IC  N     C1     C5    H52      1.5176  115.98   62.29  112.91   1.0820  
+      IC  N     C1     C5    H53      1.5176  115.98  -62.29  112.91   1.0820  
+ 
+ 
+ END {NC5 }
+ !-----------------------------------------------------------
+ 
+ RESIDUE CHOL ! choline 
+ 
+ GROUP ! 
+       ATOM  N     TYPE=NTL  CHARGE=    -.6000  END ! 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.1000  END !                 | 
+       ATOM  C2    TYPE=CTL3 CHARGE=    -.3500  END !               -C3- 
+       ATOM  C3    TYPE=CTL3 CHARGE=    -.3500  END !                 | 
+       ATOM  C4    TYPE=CTL3 CHARGE=    -.3500  END !            |    |   | 
+       ATOM  H11   TYPE=HL   CHARGE=     .2500  END !           -C2---N---C4-     (+) 
+       ATOM  H12   TYPE=HL   CHARGE=     .2500  END !            |    |   | 
+       ATOM  H21   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H22   TYPE=HL   CHARGE=     .2500  END !               -C1- 
+       ATOM  H23   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H31   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H32   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H33   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H41   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H42   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H43   TYPE=HL   CHARGE=     .2500  END !                 | 
+ GROUP						    !                 | 
+       ATOM  C5    TYPE=CTL2 CHARGE=     .0500  END !                 | 
+       ATOM  H51   TYPE=HAL  CHARGE=     .0900  END !               -C5- 
+       ATOM  H52   TYPE=HAL  CHARGE=     .0900  END !                 | 
+       ATOM  OH1   TYPE=OHL  CHARGE=    -.6600  END !                 OH1---HO1 
+       ATOM  HO1   TYPE=HOL  CHARGE=     .4300  END ! 
+ !END GROUP
+ 
+      BOND  N     C1     
+      BOND  N     C2     
+      BOND  N     C3     
+      BOND  N     C4     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    C5     
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    H23    
+      BOND  C3    H31    
+      BOND  C3    H32    
+      BOND  C3    H33    
+      BOND  C4    H41    
+      BOND  C4    H42    
+      BOND  C4    H43    
+      BOND  C5    H51    
+      BOND  C5    H52    
+      BOND  C5    OH1    
+      BOND  OH1   HO1
+
+      DIHEDRAL  N   C1   C5   OH1 ! multiple dihedral
+      DIHEDRAL  N   C1   C5   OH1 ! multiple dihedral
+
+      ! ab-initio HF/6-31G* geometry  of gauche conformer 
+ 
+      IC  C4    N      C1    C5       1.4964  107.76  161.60  116.58   1.5208  
+      IC  C5    C1     N     C2       1.5208  116.58  -80.13  111.04   1.5031  
+      IC  C5    C1     N     C3       1.5208  116.58   42.05  111.71   1.4945  
+      IC  N     C1     C5    OH1      1.5158  116.58   56.02  109.57   1.3947  
+      IC  C1    C5     OH1   HO1      1.5208  109.57  169.05  110.84    .9491  
+      IC  C2    N      C1    H11      1.5031  111.04  158.76  106.72   1.0813  
+      IC  C3    N      C1    H12      1.4945  111.71  165.25  106.14   1.0802  
+      IC  C1    N      C2    H21      1.5158  111.04 -179.38  108.21   1.0796  
+      IC  C3    N      C2    H22      1.4945  109.20  -63.85  109.22   1.0746  
+      IC  C4    N      C2    H23      1.4964  108.15   57.69  108.56   1.0794  
+      IC  C1    N      C3    H31      1.5158  111.71  173.42  108.53   1.0794  
+      IC  C2    N      C3    H32      1.5031  109.20  177.22  109.23   1.0800  
+      IC  C4    N      C3    H33      1.4964  108.88  174.14  109.12   1.0773  
+      IC  C1    N      C4    H41      1.5158  107.76  175.04  109.01   1.0793  
+      IC  C2    N      C4    H42      1.5031  108.15  -64.86  109.05   1.0796  
+      IC  C3    N      C4    H43      1.4945  108.88   56.40  109.30   1.0794  
+      IC  N     C1     C5    H51      1.5158  116.58  176.61  105.66   1.0855  
+      IC  N     C1     C5    H52      1.5158  116.58  -67.32  110.89   1.0847  
+ 
+ 
+ END {CHOL}
+ !-----------------------------------------------------------
+ 
+ RESIDUE ACHO ! acetylcholine 
+ 
+ GROUP ! 
+       ATOM  N     TYPE=NTL  CHARGE=    -.6000  END ! 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.1000  END !                 | 
+       ATOM  C2    TYPE=CTL3 CHARGE=    -.3500  END !               -C3- 
+       ATOM  C3    TYPE=CTL3 CHARGE=    -.3500  END !                 | 
+       ATOM  C4    TYPE=CTL3 CHARGE=    -.3500  END !            |    |   | 
+       ATOM  H11   TYPE=HL   CHARGE=     .2500  END !           -C2---N---C4-     (+) 
+       ATOM  H12   TYPE=HL   CHARGE=     .2500  END !            |    |   | 
+       ATOM  H21   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H22   TYPE=HL   CHARGE=     .2500  END !               -C1- 
+       ATOM  H23   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H31   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H32   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H33   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H41   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H42   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H43   TYPE=HL   CHARGE=     .2500  END !                 | 
+ GROUP						    !                 | 
+       ATOM  C5    TYPE=CTL2 CHARGE=    -.0500  END !               -C5- 
+       ATOM  OM    TYPE=OSL  CHARGE=    -.3400  END !                 | 
+       ATOM  C     TYPE=CL   CHARGE=     .6300  END !                OM 
+       ATOM  C7    TYPE=CTL3 CHARGE=    -.1700  END !                / 
+       ATOM  O     TYPE=OBL  CHARGE=    -.5200  END !            O==C 
+       ATOM  H51   TYPE=HAL  CHARGE=     .0900  END !               | 
+       ATOM  H52   TYPE=HAL  CHARGE=     .0900  END !             --C7-- 
+       ATOM  H71   TYPE=HAL  CHARGE=     .0900  END !               | 
+       ATOM  H72   TYPE=HAL  CHARGE=     .0900  END ! 
+       ATOM  H73   TYPE=HAL  CHARGE=     .0900  END ! 
+ !END GROUP
+ 
+      BOND  N     C1     
+      BOND  N     C2     
+      BOND  N     C3     
+      BOND  N     C4     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    C5     
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    H23    
+      BOND  C3    H31    
+      BOND  C3    H32    
+      BOND  C3    H33    
+      BOND  C4    H41    
+      BOND  C4    H42    
+      BOND  C4    H43    
+      BOND  C5    H51    
+      BOND  C5    H52    
+      BOND  C7    C      
+      BOND  C     OM     
+      BOND  C     O      
+      BOND  OM    C5     
+      BOND  C7    H71    
+      BOND  C7    H72    
+      BOND  C7    H73    
+
+      DIHEDRAL  O     C     OM    C5  ! multiple dihedral
+      DIHEDRAL  O     C     OM    C5  ! multiple dihedral
+      DIHEDRAL  N     C1    C5    OM  ! multiple dihedral
+      DIHEDRAL  N     C1    C5    OM  ! multiple dihedral
+
+      IMPROPER  O     C7    OM    C      
+ 
+      IC  C4    N      C1    C5        .0000     .00  161.60     .00    .0000  
+      IC  C5    C1     N     C2        .0000     .00  -80.13     .00    .0000  
+      IC  C5    C1     N     C3        .0000     .00   42.05     .00    .0000  
+      IC  C2    N      C1    H11       .0000     .00  158.76     .00    .0000  
+      IC  C3    N      C1    H12       .0000     .00  165.25     .00    .0000  
+      IC  C1    N      C2    H21       .0000     .00 -179.38     .00    .0000  
+      IC  C3    N      C2    H22       .0000     .00  -63.85     .00    .0000  
+      IC  C4    N      C2    H23       .0000     .00   57.69     .00    .0000  
+      IC  C1    N      C3    H31       .0000     .00  173.42     .00    .0000  
+      IC  C2    N      C3    H32       .0000     .00  177.22     .00    .0000  
+      IC  C4    N      C3    H33       .0000     .00  174.14     .00    .0000  
+      IC  C1    N      C4    H41       .0000     .00  175.04     .00    .0000  
+      IC  C2    N      C4    H42       .0000     .00  -64.86     .00    .0000  
+      IC  C3    N      C4    H43       .0000     .00   56.40     .00    .0000  
+      IC  N     C1     C5    H51       .0000     .00  180.00     .00    .0000  
+      IC  N     C1     C5    H52       .0000     .00  -60.00     .00    .0000  
+      IC  N     C1     C5    OM        .0000     .00   72.00     .00    .0000  
+      IC  C1    C5     OM    C         .0000     .00  166.90     .00    .0000  
+      IC  C7    C      OM    C5        .0000     .00   20.00     .00    .0000  
+      IC  O     C      OM    C5        .0000     .00 -160.00     .00    .0000  
+      IC  H71   C7     C     OM        .0000     .00  180.00     .00    .0000  
+      IC  H72   C7     C     OM        .0000     .00   60.40     .00    .0000  
+      IC  H73   C7     C     OM        .0000     .00  -60.40     .00    .0000  
+ 
+ 
+ END {ACHO}
+ !-----------------------------------------------------------
+ 
+ RESIDUE PC   ! phosphatidylcholine 
+ 
+ GROUP ! 
+       ATOM  N     TYPE=NTL  CHARGE=    -.6000  END ! 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.1000  END !                 | 
+       ATOM  C2    TYPE=CTL3 CHARGE=    -.3500  END !               -C3- 
+       ATOM  C3    TYPE=CTL3 CHARGE=    -.3500  END !                 | 
+       ATOM  C4    TYPE=CTL3 CHARGE=    -.3500  END !            |    |   | 
+       ATOM  H11   TYPE=HL   CHARGE=     .2500  END !           -C2---N---C4-     (+) 
+       ATOM  H12   TYPE=HL   CHARGE=     .2500  END !            |    |   | 
+       ATOM  H21   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H22   TYPE=HL   CHARGE=     .2500  END !               -C1- 
+       ATOM  H23   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H31   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H32   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H33   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H41   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H42   TYPE=HL   CHARGE=     .2500  END !                 | 
+       ATOM  H43   TYPE=HL   CHARGE=     .2500  END !                 | 
+ GROUP						    !                 | 
+       ATOM  C5    TYPE=CTL2 CHARGE=    -.0800  END !                 | 
+       ATOM  H51   TYPE=HAL  CHARGE=     .0900  END !          H52---C5---H51 
+       ATOM  H52   TYPE=HAL  CHARGE=     .0900  END !                 | 
+ GROUP						    !                 | 
+       ATOM  P1    TYPE=PL   CHARGE=    1.5000  END !           O3   O1 
+       ATOM  O3    TYPE=O2L  CHARGE=    -.8000  END !            \\ / 
+       ATOM  O4    TYPE=O2L  CHARGE=    -.8000  END !        (-)   P1 
+       ATOM  O1    TYPE=OSL  CHARGE=    -.5500  END !            // \ 
+       ATOM  O2    TYPE=OSL  CHARGE=    -.5500  END !           O4   O2 
+ GROUP						    !                 | 
+       ATOM  C6    TYPE=CTL2 CHARGE=    -.1700  END !                 | 
+       ATOM  H61   TYPE=HAL  CHARGE=     .0900  END !            H63-C6-H62 
+       ATOM  H62   TYPE=HAL  CHARGE=     .0900  END !                 | 
+       ATOM  H63   TYPE=HAL  CHARGE=     .0900  END !                H61 
+      ! 
+ !END GROUP
+ 
+      BOND  N     C1     
+      BOND  N     C2     
+      BOND  N     C3     
+      BOND  N     C4     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    C5     
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    H23    
+      BOND  C3    H31    
+      BOND  C3    H32    
+      BOND  C3    H33    
+      BOND  C4    H41    
+      BOND  C4    H42    
+      BOND  C4    H43    
+      BOND  C5    H51    
+      BOND  C5    H52    
+      BOND  P1    O1     
+      BOND  P1    O2     
+      BOND  P1    O3     
+      BOND  P1    O4     
+      BOND  O1    C5     
+      BOND  O2    C6     
+      BOND  C6    H61    
+      BOND  C6    H62    
+      BOND  C6    H63
+
+      DIHEDRAL  O1   P1   O2    C6 ! multiple dihedral
+      DIHEDRAL  O1   P1   O2    C6 ! multiple dihedral
+      DIHEDRAL  O2   P1   O1    C5 ! multiple dihedral
+      DIHEDRAL  O2   P1   O1    C5 ! multiple dihedral
+      DIHEDRAL  N    C1   C5    O1 ! multiple dihedral
+      DIHEDRAL  N    C1   C5    O1 ! multiple dihedral
+
+      IC  C4    N      C1    C5        .0000     .00  112.00     .00    .0000  
+      IC  C5    C1     N     C2        .0000     .00 -121.00     .00    .0000  
+      IC  C5    C1     N     C3        .0000     .00     .00     .00    .0000  
+      IC  C2    N      C1    H11       .0000     .00  120.00     .00    .0000  
+      IC  C3    N      C1    H12       .0000     .00  120.00     .00    .0000  
+      IC  C1    N      C2    H21       .0000     .00  180.00     .00    .0000  
+      IC  C3    N      C2    H22       .0000     .00  -60.00     .00    .0000  
+      IC  C4    N      C2    H23       .0000     .00   60.00     .00    .0000  
+      IC  C1    N      C3    H31       .0000     .00  180.00     .00    .0000  
+      IC  C2    N      C3    H32       .0000     .00  180.00     .00    .0000  
+      IC  C4    N      C3    H33       .0000     .00  180.00     .00    .0000  
+      IC  C1    N      C4    H41       .0000     .00  180.00     .00    .0000  
+      IC  C2    N      C4    H42       .0000     .00  -60.00     .00    .0000  
+      IC  C3    N      C4    H43       .0000     .00   60.00     .00    .0000  
+      IC  N     C1     C5    H51       .0000     .00 -150.00     .00    .0000  
+      IC  N     C1     C5    H52       .0000     .00  100.00     .00    .0000  
+      IC  N     C1     C5    O1        .0000     .00  -30.00     .00    .0000  
+      IC  C1    C5     O1    P1        .0000     .00  130.00     .00    .0000  
+      IC  C5    O1     P1    O2        .0000     .00 -160.00     .00    .0000  
+      IC  O3    P1     O1    C5        .0000     .00   80.00     .00    .0000  
+      IC  O4    P1     O1    C5        .0000     .00  -60.00     .00    .0000  
+      IC  O1    P1     O2    C6        .0000     .00  180.00     .00    .0000  
+      IC  H61   C6     O2    P1        .0000     .00     .00     .00    .0000  
+      IC  H62   C6     O2    P1        .0000     .00  120.00     .00    .0000  
+      IC  H63   C6     O2    P1        .0000     .00 -120.00     .00    .0000  
+ 
+ 
+ END {PC  }
+ !-----------------------------------------------------------
+ 
+ RESIDUE GPC  ! glycerolphosphorylcholine 
+ 
+ GROUP ! 
+       ATOM  N     TYPE=NTL  CHARGE=    -.6000  END ! 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.1000  END !             | 
+       ATOM  C2    TYPE=CTL3 CHARGE=    -.3500  END !           -C3- 
+       ATOM  C3    TYPE=CTL3 CHARGE=    -.3500  END !             | 
+       ATOM  C4    TYPE=CTL3 CHARGE=    -.3500  END !        |    |   | 
+       ATOM  H11   TYPE=HL   CHARGE=     .2500  END !       -C2---N---C4-     (+) 
+       ATOM  H12   TYPE=HL   CHARGE=     .2500  END !        |    |   | 
+       ATOM  H21   TYPE=HL   CHARGE=     .2500  END !             | 
+       ATOM  H22   TYPE=HL   CHARGE=     .2500  END !           -C1- 
+       ATOM  H23   TYPE=HL   CHARGE=     .2500  END !             | 
+       ATOM  H31   TYPE=HL   CHARGE=     .2500  END !             | 
+       ATOM  H32   TYPE=HL   CHARGE=     .2500  END !             | 
+       ATOM  H33   TYPE=HL   CHARGE=     .2500  END !             | 
+       ATOM  H41   TYPE=HL   CHARGE=     .2500  END !             | 
+       ATOM  H42   TYPE=HL   CHARGE=     .2500  END !             | 
+       ATOM  H43   TYPE=HL   CHARGE=     .2500  END !             | 
+ GROUP						    !             | 
+       ATOM  C5    TYPE=CTL2 CHARGE=    -.0800  END !             | 
+       ATOM  H51   TYPE=HAL  CHARGE=     .0900  END !       H51---C5---H52 
+       ATOM  H52   TYPE=HAL  CHARGE=     .0900  END !             | 
+       ATOM  P     TYPE=PL   CHARGE=    1.5000  END !        O3   O1 
+       ATOM  O3    TYPE=O2L  CHARGE=    -.8000  END !         \\ / 
+       ATOM  O4    TYPE=O2L  CHARGE=    -.8000  END !     (-)   P 
+       ATOM  O1    TYPE=OSL  CHARGE=    -.5500  END !         // \ 
+       ATOM  O2    TYPE=OSL  CHARGE=    -.5500  END !        O4   O2 
+       ATOM  CG1   TYPE=CTL2 CHARGE=    -.0800  END !             | 
+       ATOM  HG11  TYPE=HAL  CHARGE=     .0900  END !        HG11-CG1-HG12 
+       ATOM  HG12  TYPE=HAL  CHARGE=     .0900  END !             | 
+ GROUP						    !             | 
+       ATOM  CG2   TYPE=CTL1 CHARGE=     .1400  END !             | 
+       ATOM  HG21  TYPE=HAL  CHARGE=     .0900  END !        HG21-CG2-OG2-HO2 
+       ATOM  OG2   TYPE=OHL  CHARGE=    -.6600  END !             | 
+       ATOM  HO2   TYPE=HOL  CHARGE=     .4300  END !             | 
+ GROUP						    !             | 
+       ATOM  CG3   TYPE=CTL2 CHARGE=     .0500  END !             | 
+       ATOM  HG31  TYPE=HAL  CHARGE=     .0900  END !        HG31-CG3-OG3-HO3 
+       ATOM  HG32  TYPE=HAL  CHARGE=     .0900  END !             | 
+       ATOM  OG3   TYPE=OHL  CHARGE=    -.6600  END !             HG32 
+       ATOM  HO3   TYPE=HOL  CHARGE=     .4300  END ! 
+ !END GROUP
+ 
+      BOND  CG1   O2     
+      BOND  CG1   HG11   
+      BOND  CG1   HG12   
+      BOND  CG2   CG1    
+      BOND  CG2   HG21   
+      BOND  CG2   OG2    
+      BOND  OG2   HO2    
+      BOND  CG3   CG2    
+      BOND  CG3   HG31   
+      BOND  CG3   HG32   
+      BOND  CG3   OG3    
+      BOND  OG3   HO3    
+      BOND  N     C1     
+      BOND  N     C2     
+      BOND  N     C3     
+      BOND  N     C4     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    C5     
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    H23    
+      BOND  C3    H31    
+      BOND  C3    H32    
+      BOND  C3    H33    
+      BOND  C4    H41    
+      BOND  C4    H42    
+      BOND  C4    H43    
+      BOND  C5    H51    
+      BOND  C5    H52    
+      BOND  P     O1     
+      BOND  P     O2     
+      BOND  P     O3     
+      BOND  P     O4     
+      BOND  O1    C5
+
+      DIHEDRAL  O1   P   O2    CG1 ! multiple dihedral
+      DIHEDRAL  O1   P   O2    CG1 ! multiple dihedral
+      DIHEDRAL  O2   P   O1    C5  ! multiple dihedral
+      DIHEDRAL  O2   P   O1    C5  ! multiple dihedral
+      DIHEDRAL  N    C1  C5    O1  ! multiple dihedral
+      DIHEDRAL  N    C1  C5    O1  ! multiple dihedral
+
+      ! internal coordinates for analysis 
+      ! see H.Hauser,I.Pascher,R.H.Pearson,S.Sundell, BBA 650, 21-51 (1981) 
+      !  glycerol backbone 
+ 
+      IC  O2    CG1    CG2   CG3       .0000     .00     .00     .00    .0000 !  t1 
+      IC  O2    CG1    CG2   OG2       .0000     .00     .00     .00    .0000 !  t2 
+      IC  CG1   CG2    CG3   OG3       .0000     .00     .00     .00    .0000 !  t3 
+      IC  OG2   CG2    CG3   OG3       .0000     .00     .00     .00    .0000 !  t3 
+      !  zwitterionic headgroup 
+      IC  P     O2     CG1   CG2       .0000     .00     .00     .00    .0000 !  a1 
+      IC  O1    P      O2    CG1       .0000     .00     .00     .00    .0000 !  a2 
+      IC  O2    P      O1    C5        .0000     .00     .00     .00    .0000 !  a3 
+      IC  C1    C5     O1    P         .0000     .00     .00     .00    .0000 !  a4 
+      IC  N     C1     C5    O1        .0000     .00     .00     .00    .0000 !  a5 
+      IC  C2    N      C1    C5        .0000     .00     .00     .00    .0000 !  a6 
+      IC  C3    N      C1    C5        .0000     .00     .00     .00    .0000 !  a6 
+      IC  C4    N      C1    C5        .0000     .00     .00     .00    .0000 !  a6 
+ 
+ 
+ END {GPC }
+ !-----------------------------------------------------------
+ 
+ RESIDUE LPPC ! deoxylysophosphatidylcholine 
+	      ! Polar Head and glycerol backbone 
+ 
+ GROUP 						    !          H15B 
+       ATOM  N     TYPE=NTL  CHARGE=    -.6000  END !            | 
+       ATOM  C13   TYPE=CTL3 CHARGE=    -.3500  END !      H15A-C15-H15C 
+       ATOM  H13A  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  H13B  TYPE=HL   CHARGE=     .2500  END !    H13B    |    H14A 
+       ATOM  H13C  TYPE=HL   CHARGE=     .2500  END !      |     |     | 
+       ATOM  C14   TYPE=CTL3 CHARGE=    -.3500  END !H13A-C13----N----C14-H14B     (+) 
+       ATOM  H14A  TYPE=HL   CHARGE=     .2500  END !      |     |     | 
+       ATOM  H14B  TYPE=HL   CHARGE=     .2500  END !    H13C    |    H14C 
+       ATOM  H14C  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  C15   TYPE=CTL3 CHARGE=    -.3500  END !            | 
+       ATOM  H15A  TYPE=HL   CHARGE=     .2500  END !            |    alpha6 
+       ATOM  H15B  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  H15C  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  C12   TYPE=CTL2 CHARGE=    -.1000  END !     H12A--C12---H12B 
+       ATOM  H12A  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  H12B  TYPE=HL   CHARGE=     .2500  END !            | 
+ GROUP						    !                  alpha5 
+       ATOM  C11   TYPE=CTL2 CHARGE=    -.0800  END !            | 
+       ATOM  H11A  TYPE=HAL  CHARGE=     .0900  END !     H11A--C11---H11B 
+       ATOM  H11B  TYPE=HAL  CHARGE=     .0900  END !            |     alpha4 
+       ATOM  P     TYPE=PL   CHARGE=    1.5000  END !       O13  O12 
+       ATOM  O13   TYPE=O2L  CHARGE=    -.8000  END !        \\ /      alpha3 
+       ATOM  O14   TYPE=O2L  CHARGE=    -.8000  END !    (-)   P 
+       ATOM  O11   TYPE=OSL  CHARGE=    -.5500  END !        // \      alpha2 
+       ATOM  O12   TYPE=OSL  CHARGE=    -.5500  END !       O14  O11 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.0800  END !            |     alpha1 
+       ATOM  HA    TYPE=HAL  CHARGE=     .0900  END !       HA---C1---HB 
+       ATOM  HB    TYPE=HAL  CHARGE=     .0900  END !            |     theta1 
+ GROUP						    !            | 
+       ATOM  C2    TYPE=CTL2 CHARGE=    -.1800  END !       HR---C2----HS 
+       ATOM  HS    TYPE=HAL  CHARGE=     .0900  END !            | 
+       ATOM  HR    TYPE=HAL  CHARGE=     .0900  END !            | 
+ GROUP						    !            | 
+       ATOM  C3    TYPE=CTL2 CHARGE=    -.0500  END !       HX---C3---HY 
+       ATOM  HX    TYPE=HAL  CHARGE=     .0900  END !            | 
+       ATOM  HY    TYPE=HAL  CHARGE=     .0900  END !            |   gamma1 
+       ATOM  O31   TYPE=OSL  CHARGE=    -.3400  END !      O32  O31 
+       ATOM  C31   TYPE=CL   CHARGE=     .6300  END !       \\ /    gamma2 
+       ATOM  O32   TYPE=OBL  CHARGE=    -.5200  END !        C31 
+       ATOM  C32   TYPE=CTL2 CHARGE=    -.0800  END !         |     gamma3 
+       ATOM  H2X   TYPE=HAL  CHARGE=     .0900  END !  H2X---C32---H2Y 
+       ATOM  H2Y   TYPE=HAL  CHARGE=     .0900  END !         | 
+ GROUP ! 
+       ATOM  C33   TYPE=CTL2 CHARGE=    -.1800  END !         | 
+       ATOM  H3X   TYPE=HAL  CHARGE=     .0900  END !  H3X---C33---H3Y 
+       ATOM  H3Y   TYPE=HAL  CHARGE=     .0900  END !         | 
+ GROUP ! 
+       ATOM  C34   TYPE=CTL2 CHARGE=    -.1800  END !         | 
+       ATOM  H4X   TYPE=HAL  CHARGE=     .0900  END !  H4X---C34---H4Y 
+       ATOM  H4Y   TYPE=HAL  CHARGE=     .0900  END !         | 
+ GROUP ! 
+       ATOM  C35   TYPE=CTL2 CHARGE=    -.1800  END !         | 
+       ATOM  H5X   TYPE=HAL  CHARGE=     .0900  END !  H5X---C35---H5Y 
+       ATOM  H5Y   TYPE=HAL  CHARGE=     .0900  END !         | 
+ GROUP ! 
+       ATOM  C36   TYPE=CTL2 CHARGE=    -.1800  END !         | 
+       ATOM  H6X   TYPE=HAL  CHARGE=     .0900  END !  H6X---C36---H6Y 
+       ATOM  H6Y   TYPE=HAL  CHARGE=     .0900  END !         | 
+ GROUP ! 
+       ATOM  C37   TYPE=CTL2 CHARGE=    -.1800  END !         | 
+       ATOM  H7X   TYPE=HAL  CHARGE=     .0900  END !  H7X---C37---H7Y 
+       ATOM  H7Y   TYPE=HAL  CHARGE=     .0900  END !         | 
+ GROUP ! 
+       ATOM  C38   TYPE=CTL2 CHARGE=    -.1800  END !         | 
+       ATOM  H8X   TYPE=HAL  CHARGE=     .0900  END !  H8X---C38---H8Y 
+       ATOM  H8Y   TYPE=HAL  CHARGE=     .0900  END !         | 
+ GROUP ! 
+       ATOM  C39   TYPE=CTL2 CHARGE=    -.1800  END !         | 
+       ATOM  H9X   TYPE=HAL  CHARGE=     .0900  END !  H9X---C39---H9Y 
+       ATOM  H9Y   TYPE=HAL  CHARGE=     .0900  END !         | 
+ GROUP ! 
+       ATOM  C310  TYPE=CTL2 CHARGE=    -.1800  END !         | 
+       ATOM  H10X  TYPE=HAL  CHARGE=     .0900  END ! H10X---C310--H10Y 
+       ATOM  H10Y  TYPE=HAL  CHARGE=     .0900  END !         | 
+ GROUP ! 
+       ATOM  C311  TYPE=CTL2 CHARGE=    -.1800  END !         | 
+       ATOM  H11X  TYPE=HAL  CHARGE=     .0900  END ! H11X---C311--H11Y 
+       ATOM  H11Y  TYPE=HAL  CHARGE=     .0900  END !         | 
+ GROUP ! 
+       ATOM  C312  TYPE=CTL3 CHARGE=    -.2700  END !         | 
+       ATOM  H12X  TYPE=HAL  CHARGE=     .0900  END ! H12X---C312--H12Y 
+       ATOM  H12Y  TYPE=HAL  CHARGE=     .0900  END !         | 
+       ATOM  H12Z  TYPE=HAL  CHARGE=     .0900  END !        H12Z 
+      ! 
+ !END GROUP
+
+      ! Polar Head 
+      BOND  N     C13    
+      BOND  N     C14    
+      BOND  N     C15    
+      BOND  C13   H13A   
+      BOND  C13   H13B   
+      BOND  C13   H13C   
+      BOND  C14   H14A   
+      BOND  C14   H14B   
+      BOND  C14   H14C   
+      BOND  C15   H15A   
+      BOND  C15   H15B   
+      BOND  C15   H15C   
+      BOND  N     C12    
+      BOND  C12   H12A   
+      BOND  C12   H12B   
+      BOND  C12   C11    
+      BOND  C11   H11A   
+      BOND  C11   H11B   
+      BOND  C11   O12    
+      BOND  O12   P      
+      BOND  P     O11    
+      BOND  P     O13    
+      BOND  P     O14
+      ! Glycerol Backbone 
+      BOND  C1    HA     
+      BOND  C1    HB     
+      BOND  C1    C2     
+      BOND  C1    O11    
+      BOND  C2    HS     
+      BOND  C2    HR     
+      BOND  C2    C3     
+      BOND  C3    HX     
+      BOND  C3    HY     
+      BOND  C3    O31
+      ! Chain #3 
+      BOND  O31   C31    
+      BOND  C31   O32    
+      BOND  C31   C32    
+      BOND  C32   H2X    
+      BOND  C32   H2Y    
+      BOND  C32   C33    
+      BOND  C33   H3X    
+      BOND  C33   H3Y    
+      BOND  C33   C34    
+      BOND  C34   H4X    
+      BOND  C34   H4Y    
+      BOND  C34   C35    
+      BOND  C35   H5X    
+      BOND  C35   H5Y    
+      BOND  C35   C36    
+      BOND  C36   H6X    
+      BOND  C36   H6Y    
+      BOND  C36   C37    
+      BOND  C37   H7X    
+      BOND  C37   H7Y    
+      BOND  C37   C38    
+      BOND  C38   H8X    
+      BOND  C38   H8Y    
+      BOND  C38   C39    
+      BOND  C39   H9X    
+      BOND  C39   H9Y    
+      BOND  C39   C310   
+      BOND  C310  H10X   
+      BOND  C310  H10Y   
+      BOND  C310  C311   
+      BOND  C311  H11X   
+      BOND  C311  H11Y   
+      BOND  C311  C312   
+      BOND  C312  H12X   
+      BOND  C312  H12Y   
+      BOND  C312  H12Z
+
+      DIHEDRAL  O11  P    O12   C11 ! multiple dihedral
+      DIHEDRAL  O11  P    O12   C11 ! multiple dihedral
+      DIHEDRAL  O12  P    O11   C1  ! multiple dihedral
+      DIHEDRAL  O12  P    O11   C1  ! multiple dihedral
+      DIHEDRAL  N    C12  C11   O12 ! multiple dihedral
+      DIHEDRAL  N    C12  C11   O12 ! multiple dihedral
+      DIHEDRAL  O32  C31  O31   C3  ! multiple dihedral
+      DIHEDRAL  O32  C31  O31   C3  ! multiple dihedral
+      DIHEDRAL  O31  C31  C32   C33 ! multiple dihedral
+      DIHEDRAL  O31  C31  C32   C33 ! multiple dihedral
+ 
+      IMPROPER  O32   C32   O31   C31   !from MAS 
+
+      ! Polar head (angle names from Sundaralingam) 
+      IC  C2    C1     O11   P         .0000     .00  180.00     .00    .0000 !alpha1 
+      IC  C1    O11    P     O12       .0000     .00  180.00     .00    .0000 !alpha2 
+      IC  O11   O12    *P    O13       .0000     .00  120.00     .00    .0000  
+      IC  O11   O12    *P    O14       .0000     .00  240.00     .00    .0000  
+      IC  O11   P      O12   C11       .0000     .00  180.00     .00    .0000 !alpha3 
+      IC  O12   C12    *C11  H11A      .0000     .00  120.00     .00    .0000  
+      IC  O12   C12    *C11  H11B      .0000     .00  240.00     .00    .0000  
+      IC  P     O12    C11   C12       .0000     .00  180.00     .00    .0000 !alpha4 
+      IC  N     C11    *C12  H12A      .0000     .00  120.00     .00    .0000  
+      IC  N     C11    *C12  H12B      .0000     .00  240.00     .00    .0000  
+      IC  O12   C11    C12   N         .0000     .00  180.00     .00    .0000 !alpha5 
+      IC  C11   C12    N     C13       .0000     .00  180.00     .00    .0000 !alpha6 
+      IC  C12   C13    *N    C14       .0000     .00  120.00     .00    .0000  
+      IC  C12   C13    *N    C15       .0000     .00  240.00     .00    .0000
+      ! Glycerol 
+      IC  O11   C1     C2    C3        .0000     .00  120.00     .00    .0000 !theta1 
+      IC  C1    C2     C3    O31       .0000     .00  180.00     .00    .0000 !theta3 
+      ! Chain 3 
+      IC  C2    C3     O31   C31       .0000     .00 -120.00     .00    .0000 !gamma1 
+      IC  C3    O31    C31   C32       .0000     .00  180.00     .00    .0000 !gamma2 
+      IC  O31   C31    C32   C33       .0000     .00  180.00     .00    .0000 !gamma3 
+      IC  C32   O31    *C31  O32       .0000     .00  180.00     .00    .0000  
+      IC  C31   C32    C33   C34       .0000     .00  180.00     .00    .0000 !gamma4 
+      IC  C32   C33    C34   C35       .0000     .00  180.00     .00    .0000 !gamma5 
+      IC  C33   C34    C35   C36       .0000     .00  180.00     .00    .0000 !gamma6 
+      IC  C34   C35    C36   C37       .0000     .00  180.00     .00    .0000 !gamma7 
+      IC  C35   C36    C37   C38       .0000     .00  180.00     .00    .0000 !gamma8 
+      IC  C36   C37    C38   C39       .0000     .00  180.00     .00    .0000 !gamma9 
+      IC  C37   C38    C39   C310      .0000     .00  180.00     .00    .0000 !gamma10 
+      IC  C38   C39    C310  C311      .0000     .00  180.00     .00    .0000 !gamma11 
+      IC  C39   C310   C311  C312      .0000     .00  180.00     .00    .0000 !gamma12 
+ 
+ 
+ END {LPPC}
+ !-----------------------------------------------------------
+ 
+ RESIDUE ETAM ! ethanolamine 
+ 
+ GROUP ! 
+       ATOM  N     TYPE=NH3L CHARGE=    -.3000  END !           HN2 
+       ATOM  HN1   TYPE=HCL  CHARGE=     .3300  END !            | 
+       ATOM  HN2   TYPE=HCL  CHARGE=     .3300  END !  (+) HN1---N---HN3 
+       ATOM  HN3   TYPE=HCL  CHARGE=     .3300  END !            | 
+       ATOM  C1    TYPE=CTL2 CHARGE=     .1300  END !            | 
+       ATOM  H11   TYPE=HAL  CHARGE=     .0900  END !     H12---C1---H11 
+       ATOM  H12   TYPE=HAL  CHARGE=     .0900  END !            | 
+ GROUP						    !            | 
+       ATOM  C5    TYPE=CTL2 CHARGE=     .0500  END !            | 
+       ATOM  H51   TYPE=HAL  CHARGE=     .0900  END !      H52---C5---H51 
+       ATOM  H52   TYPE=HAL  CHARGE=     .0900  END !            | 
+       ATOM  OH1   TYPE=OHL  CHARGE=    -.6600  END !            OH1---HO1 
+       ATOM  HO1   TYPE=HOL  CHARGE=     .4300  END ! 
+ !END GROUP
+ 
+      BOND  N     HN1    
+      BOND  N     HN2    
+      BOND  N     HN3    
+      BOND  N     C1     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    C5     
+      BOND  C5    H51    
+      BOND  C5    H52    
+      BOND  C5    OH1    
+      BOND  OH1   HO1   
+
+      ! HF/6-31G* OPTIMIZED STRUCTURE: 
+ 
+      IC  N     C1     C5    OH1      1.5084  107.86   48.44  104.92   1.3987  
+      IC  C1    C5     OH1   HO1      1.5191  104.92  173.19  111.99    .9495  
+      IC  HN1   N      C1    C5       1.0145  108.35  -49.03  107.86   1.5191  
+      IC  HN2   N      C1    C5       1.0107  112.05   69.23  107.86   1.5191  
+      IC  HN3   N      C1    C5       1.0102  112.39 -169.37  107.86   1.5191  
+      IC  N     C5     *C1   H11       .0000     .00  120.00     .00    .0000  
+      IC  N     C5     *C1   H12       .0000     .00 -120.00     .00    .0000  
+      IC  OH1   C1     *C5   H51       .0000     .00  120.00     .00    .0000  
+      IC  OH1   C1     *C5   H52       .0000     .00 -120.00     .00    .0000  
+ 
+ 
+ END {ETAM}
+ !-----------------------------------------------------------
+ 
+ RESIDUE GPE  ! L-alpha-glycerylphosphorylethanolamine 
+      ! 
+ 
+ GROUP ! 
+       ATOM  N     TYPE=NH3L CHARGE=    -.3000  END !           HN2 
+       ATOM  HN1   TYPE=HCL  CHARGE=     .3300  END !            | 
+       ATOM  HN2   TYPE=HCL  CHARGE=     .3300  END !  (+) HN1---N---HN3 
+       ATOM  HN3   TYPE=HCL  CHARGE=     .3300  END !            | 
+       ATOM  C12   TYPE=CTL2 CHARGE=     .1300  END !            | 
+       ATOM  H12A  TYPE=HAL  CHARGE=     .0900  END !     H12A--C12---H12B 
+       ATOM  H12B  TYPE=HAL  CHARGE=     .0900  END !            | 
+ GROUP 						    !            |     alpha5 
+       ATOM  C11   TYPE=CTL2 CHARGE=    -.0800  END !            | 
+       ATOM  H11A  TYPE=HAL  CHARGE=     .0900  END !     H11A--C11---H11B 
+       ATOM  H11B  TYPE=HAL  CHARGE=     .0900  END !            |     alpha4 
+       ATOM  P     TYPE=PL   CHARGE=    1.5000  END !       O13  O12 
+       ATOM  O13   TYPE=O2L  CHARGE=    -.8000  END !        \\ /      alpha3 
+       ATOM  O14   TYPE=O2L  CHARGE=    -.8000  END !    (-)   P 
+       ATOM  O11   TYPE=OSL  CHARGE=    -.5500  END !        // \      alpha2 
+       ATOM  O12   TYPE=OSL  CHARGE=    -.5500  END !       O14  O11 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.0800  END !            |     alpha1 
+       ATOM  HA    TYPE=HAL  CHARGE=     .0900  END !       HA---C1---HB 
+       ATOM  HB    TYPE=HAL  CHARGE=     .0900  END !            |     theta1 
+ GROUP						    !            | 
+       ATOM  C2    TYPE=CTL1 CHARGE=     .1400  END !            | 
+       ATOM  HS    TYPE=HAL  CHARGE=     .0900  END !          HS-C2-OH2-HO2 
+       ATOM  OH2   TYPE=OHL  CHARGE=    -.6600  END !            | 
+       ATOM  HO2   TYPE=HOL  CHARGE=     .4300  END !            | 
+ GROUP						    !            | 
+       ATOM  C3    TYPE=CTL2 CHARGE=     .0500  END !            | 
+       ATOM  HX    TYPE=HAL  CHARGE=     .0900  END !         HX-C3-OH3-HO3 
+       ATOM  HY    TYPE=HAL  CHARGE=     .0900  END !            | 
+       ATOM  OH3   TYPE=OHL  CHARGE=    -.6600  END !            HY 
+       ATOM  HO3   TYPE=HOL  CHARGE=     .4300  END ! 
+ !END GROUP
+
+      ! Polar Head 
+      BOND  N     HN1    
+      BOND  N     HN2    
+      BOND  N     HN3    
+      BOND  N     C12    
+      BOND  C12   H12A   
+      BOND  C12   H12B   
+      BOND  C12   C11    
+      BOND  C11   H11A   
+      BOND  C11   H11B   
+      BOND  C11   O12    
+      BOND  O12   P      
+      BOND  P     O11    
+      BOND  P     O13    
+      BOND  P     O14  
+      ! Glycerol Backbone 
+      BOND  C1    HA     
+      BOND  C1    HB     
+      BOND  C1    C2     
+      BOND  C1    O11    
+      BOND  C2    HS     
+      BOND  C2    C3     
+      BOND  C2    OH2    
+      BOND  C3    HX     
+      BOND  C3    HY     
+      BOND  C3    OH3    
+      BOND  OH2   HO2    
+      BOND  OH3   HO3   ! 
+
+      DIHEDRAL  O11  P    O12   C11 ! multiple dihedral
+      DIHEDRAL  O11  P    O12   C11 ! multiple dihedral
+      DIHEDRAL  O12  P    O11   C1  ! multiple dihedral
+      DIHEDRAL  O12  P    O11   C1  ! multiple dihedral
+
+      ! Polar head (angle names from Sundaralingam) 
+      IC  C2    C1     O11   P         .0000     .00  180.00     .00    .0000 !alpha1 
+      IC  C1    O11    P     O12       .0000     .00  180.00     .00    .0000 !alpha2 
+      IC  O11   O12    *P    O13       .0000     .00  120.00     .00    .0000  
+      IC  O11   O12    *P    O14       .0000     .00  240.00     .00    .0000  
+      IC  O11   P      O12   C11       .0000     .00  180.00     .00    .0000 !alpha3 
+      IC  O12   C12    *C11  H11A      .0000     .00  120.00     .00    .0000  
+      IC  O12   C12    *C11  H11B      .0000     .00  240.00     .00    .0000  
+      IC  P     O12    C11   C12       .0000     .00  180.00     .00    .0000 !alpha4 
+      IC  N     C11    *C12  H12A      .0000     .00  120.00     .00    .0000  
+      IC  N     C11    *C12  H12B      .0000     .00  240.00     .00    .0000  
+      IC  O12   C11    C12   N         .0000     .00  180.00     .00    .0000 !alpha5 
+      IC  C11   C12    N     HN1       .0000     .00  180.00     .00    .0000 !alpha6 
+      IC  C12   HN1    *N    HN2       .0000     .00  120.00     .00    .0000  
+      IC  C12   HN1    *N    HN3       .0000     .00  240.00     .00    .0000
+      ! Glycerol 
+      IC  O11   C1     C2    C3        .0000     .00  120.00     .00    .0000 !theta1 
+      IC  C1    C2     C3    OH3       .0000     .00  180.00     .00    .0000 !theta3 
+      IC  C1    C3     *C2   OH2       .0000     .00 -120.00     .00    .0000 
+      ! for stereo-specific phopholipid at carbon C2 (labeled hydrogen S) 
+      IC  O11   C2     *C1   HA        .0000     .00  120.00     .00    .0000  
+      IC  O11   C2     *C1   HB        .0000     .00 -120.00     .00    .0000  
+      IC  OH2   C1     *C2   HS        .0000     .00  120.00     .00    .0000  
+      IC  OH3   C2     *C3   HX        .0000     .00  120.00     .00    .0000  
+      IC  OH3   C2     *C3   HY        .0000     .00 -120.00     .00    .0000  
+      IC  C1    C2     OH2   HO2       .0000     .00  180.00     .00    .0000 !beta1 
+      IC  C2    C3     OH3   HO3       .0000     .00 -120.00     .00    .0000 !gamma1 
+ 
+ 
+ END {GPE }
+ !-----------------------------------------------------------
+ 
+ RESIDUE DLPE ! 1,2 dilauroyl-DL-Phosphatidylethanolamine 
+      ! 
+      !  R1 - CH2 
+      !       |          (angles and atom names from Sundaralingam) 
+      !  R2 - CH 
+      !       | 
+      !       CH2 - PO4 - CH2 - CH2 - NH3 
+      ! 
+      ! Polar Head and glycerol backbone 
+ 
+ GROUP ! 
+       ATOM  N     TYPE=NH3L CHARGE=    -.3000  END !           HN2 
+       ATOM  HN1   TYPE=HCL  CHARGE=     .3300  END !            | 
+       ATOM  HN2   TYPE=HCL  CHARGE=     .3300  END !  (+) HN1---N---HN3 
+       ATOM  HN3   TYPE=HCL  CHARGE=     .3300  END !            | 
+       ATOM  C12   TYPE=CTL2 CHARGE=     .1300  END !            | 
+       ATOM  H12A  TYPE=HAL  CHARGE=     .0900  END !     H12A--C12---H12B 
+       ATOM  H12B  TYPE=HAL  CHARGE=     .0900  END !            | 
+ GROUP						    !            |     alpha5 
+       ATOM  C11   TYPE=CTL2 CHARGE=    -.0800  END !            | 
+       ATOM  H11A  TYPE=HAL  CHARGE=     .0900  END !     H11A--C11---H11B 
+       ATOM  H11B  TYPE=HAL  CHARGE=     .0900  END !            |     alpha4 
+       ATOM  P     TYPE=PL   CHARGE=    1.5000  END !       O13  O12 
+       ATOM  O13   TYPE=O2L  CHARGE=    -.8000  END !        \\ /      alpha3 
+       ATOM  O14   TYPE=O2L  CHARGE=    -.8000  END !    (-)   P 
+       ATOM  O11   TYPE=OSL  CHARGE=    -.5500  END !        // \      alpha2 
+       ATOM  O12   TYPE=OSL  CHARGE=    -.5500  END !       O14  O11 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.0800  END !            |     alpha1 
+       ATOM  HA    TYPE=HAL  CHARGE=     .0900  END !      H1A---C1---H1B 
+       ATOM  HB    TYPE=HAL  CHARGE=     .0900  END !            |     theta1 
+ GROUP						    !            | 
+       ATOM  C2    TYPE=CTL1 CHARGE=     .0400  END !       HS---C2- - - - - - - 
+       ATOM  HS    TYPE=HAL  CHARGE=     .0900  END !            | beta1        | 
+       ATOM  O21   TYPE=OSL  CHARGE=    -.3400  END !       O22  O21          theta3 
+       ATOM  C21   TYPE=CL   CHARGE=     .6300  END !        \\ /  beta2        | 
+       ATOM  O22   TYPE=OBL  CHARGE=    -.5200  END !          C21 
+       ATOM  C22   TYPE=CTL2 CHARGE=    -.0800  END !          |   beta3        | 
+       ATOM  H2R   TYPE=HAL  CHARGE=     .0900  END !   H2R---C22---H2S 
+       ATOM  H2S   TYPE=HAL  CHARGE=     .0900  END !          |                | 
+ GROUP						    !              beta4 
+       ATOM  C3    TYPE=CTL2 CHARGE=    -.0500  END !          |                | 
+       ATOM  HX    TYPE=HAL  CHARGE=     .0900  END !                      HX---C3---HY 
+       ATOM  HY    TYPE=HAL  CHARGE=     .0900  END !          |                |   gamma1 
+       ATOM  O31   TYPE=OSL  CHARGE=    -.3400  END !                      O32  O31 
+       ATOM  C31   TYPE=CL   CHARGE=     .6300  END !          |            \\ /    gamma2 
+       ATOM  O32   TYPE=OBL  CHARGE=    -.5200  END !                         C31 
+       ATOM  C32   TYPE=CTL2 CHARGE=    -.0800  END !          |              |     gamma3 
+       ATOM  H2X   TYPE=HAL  CHARGE=     .0900  END !                  H2X---C32---H2Y 
+       ATOM  H2Y   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP						    !                               gamma4 
+       ATOM  C23   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H3R   TYPE=HAL  CHARGE=     .0900  END !   H3R ---C23---H3S 
+       ATOM  H3S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C24   TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H4R   TYPE=HAL  CHARGE=     .0900  END !   H4R ---C24---H4S      | 
+       ATOM  H4S   TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C25   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H5R   TYPE=HAL  CHARGE=     .0900  END !   H5R ---C25---H5S 
+       ATOM  H5S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C26   TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H6R   TYPE=HAL  CHARGE=     .0900  END !   H6R ---C26---H6S      | 
+       ATOM  H6S   TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C27   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H7R   TYPE=HAL  CHARGE=     .0900  END !   H7R ---C27---H7S 
+       ATOM  H7S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C28   TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H8R   TYPE=HAL  CHARGE=     .0900  END !   H8R ---C28---H8S      | 
+       ATOM  H8S   TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C29   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H9R   TYPE=HAL  CHARGE=     .0900  END !   H9R ---C29---H9S 
+       ATOM  H9S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C210  TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H10R  TYPE=HAL  CHARGE=     .0900  END !   H10R---C210--H10S     | 
+       ATOM  H10S  TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C211  TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H11R  TYPE=HAL  CHARGE=     .0900  END !   H11R---C211--H11S 
+       ATOM  H11S  TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C212  TYPE=CTL3 CHARGE=    -.2700  END !          | 
+       ATOM  H12R  TYPE=HAL  CHARGE=     .0900  END !   H12R---C212--H12S     | 
+       ATOM  H12S  TYPE=HAL  CHARGE=     .0900  END !          | 
+       ATOM  H12T  TYPE=HAL  CHARGE=     .0900  END !         H12T            | 
+ GROUP ! 
+       ATOM  C33   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H3X   TYPE=HAL  CHARGE=     .0900  END !                  H3X ---C33---H3Y 
+       ATOM  H3Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C34   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H4X   TYPE=HAL  CHARGE=     .0900  END !                  H4X ---C34---H4Y 
+       ATOM  H4Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C35   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H5X   TYPE=HAL  CHARGE=     .0900  END !                  H5X ---C35---H5Y 
+       ATOM  H5Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C36   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H6X   TYPE=HAL  CHARGE=     .0900  END !                  H6X ---C36---H6Y 
+       ATOM  H6Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C37   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H7X   TYPE=HAL  CHARGE=     .0900  END !                  H7X ---C37---H7Y 
+       ATOM  H7Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C38   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H8X   TYPE=HAL  CHARGE=     .0900  END !                  H8X ---C38---H8Y 
+       ATOM  H8Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C39   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H9X   TYPE=HAL  CHARGE=     .0900  END !                  H9X ---C39---H9Y 
+       ATOM  H9Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C310  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H10X  TYPE=HAL  CHARGE=     .0900  END !                  H10X---C310--H10Y 
+       ATOM  H10Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C311  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H11X  TYPE=HAL  CHARGE=     .0900  END !                  H11X---C311--H11Y 
+       ATOM  H11Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C312  TYPE=CTL3 CHARGE=    -.2700  END !                         | 
+       ATOM  H12X  TYPE=HAL  CHARGE=     .0900  END !                  H12X---C312--H12Y 
+       ATOM  H12Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+       ATOM  H12Z  TYPE=HAL  CHARGE=     .0900  END !                         H12Z 
+ !END GROUP
+
+      ! Polar Head 
+      BOND  N     HN1    
+      BOND  N     HN2    
+      BOND  N     HN3    
+      BOND  N     C12    
+      BOND  C12   H12A   
+      BOND  C12   H12B   
+      BOND  C12   C11    
+      BOND  C11   H11A   
+      BOND  C11   H11B   
+      BOND  C11   O12    
+      BOND  O12   P      
+      BOND  P     O11    
+      BOND  P     O13    
+      BOND  P     O14
+      ! Glycerol Backbone 
+      BOND  C1    HA     
+      BOND  C1    HB     
+      BOND  C1    C2     
+      BOND  C1    O11    
+      BOND  C2    HS     
+      BOND  C2    C3     
+      BOND  C2    O21    
+      BOND  C3    HX     
+      BOND  C3    HY     
+      BOND  C3    O31
+      ! Chain #2 
+      BOND  O21   C21    
+      BOND  C21   O22    
+      BOND  C21   C22    
+      BOND  C22   H2R    
+      BOND  C22   H2S    
+      BOND  C22   C23    
+      BOND  C23   H3R    
+      BOND  C23   H3S    
+      BOND  C23   C24    
+      BOND  C24   H4R    
+      BOND  C24   H4S    
+      BOND  C24   C25    
+      BOND  C25   H5R    
+      BOND  C25   H5S    
+      BOND  C25   C26    
+      BOND  C26   H6R    
+      BOND  C26   H6S    
+      BOND  C26   C27    
+      BOND  C27   H7R    
+      BOND  C27   H7S    
+      BOND  C27   C28    
+      BOND  C28   H8R    
+      BOND  C28   H8S    
+      BOND  C28   C29    
+      BOND  C29   H9R    
+      BOND  C29   H9S    
+      BOND  C29   C210   
+      BOND  C210  H10R   
+      BOND  C210  H10S   
+      BOND  C210  C211   
+      BOND  C211  H11R   
+      BOND  C211  H11S   
+      BOND  C211  C212   
+      BOND  C212  H12R   
+      BOND  C212  H12S   
+      BOND  C212  H12T  
+      ! Chain #3 
+      BOND  O31   C31    
+      BOND  C31   O32    
+      BOND  C31   C32    
+      BOND  C32   H2X    
+      BOND  C32   H2Y    
+      BOND  C32   C33    
+      BOND  C33   H3X    
+      BOND  C33   H3Y    
+      BOND  C33   C34    
+      BOND  C34   H4X    
+      BOND  C34   H4Y    
+      BOND  C34   C35    
+      BOND  C35   H5X    
+      BOND  C35   H5Y    
+      BOND  C35   C36    
+      BOND  C36   H6X    
+      BOND  C36   H6Y    
+      BOND  C36   C37    
+      BOND  C37   H7X    
+      BOND  C37   H7Y    
+      BOND  C37   C38    
+      BOND  C38   H8X    
+      BOND  C38   H8Y    
+      BOND  C38   C39    
+      BOND  C39   H9X    
+      BOND  C39   H9Y    
+      BOND  C39   C310   
+      BOND  C310  H10X   
+      BOND  C310  H10Y   
+      BOND  C310  C311   
+      BOND  C311  H11X   
+      BOND  C311  H11Y   
+      BOND  C311  C312   
+      BOND  C312  H12X   
+      BOND  C312  H12Y   
+      BOND  C312  H12Z
+
+      DIHEDRAL  O11  P    O12   C11 ! multiple dihedral
+      DIHEDRAL  O11  P    O12   C11 ! multiple dihedral
+      DIHEDRAL  O12  P    O11   C1  ! multiple dihedral
+      DIHEDRAL  O12  P    O11   C1  ! multiple dihedral
+      DIHEDRAL  O22  C21  O21   C2  ! multiple dihedral
+      DIHEDRAL  O22  C21  O21   C2  ! multiple dihedral
+      DIHEDRAL  O32  C31  O31   C3  ! multiple dihedral
+      DIHEDRAL  O32  C31  O31   C3  ! multiple dihedral
+      DIHEDRAL  O21  C21  C22   C23 ! multiple dihedral
+      DIHEDRAL  O21  C21  C22   C23 ! multiple dihedral
+      DIHEDRAL  O31  C31  C32   C33 ! multiple dihedral
+      DIHEDRAL  O31  C31  C32   C33 ! multiple dihedral
+
+      IMPROPER  O22   C22   O21   C21    
+      IMPROPER  O32   C32   O31   C31   !from MAS 
+
+      ! Polar head (angle names from Sundaralingam) 
+ 
+      IC  C2    C1     O11   P         .0000     .00  180.00     .00    .0000 !alpha1 
+      IC  C1    O11    P     O12       .0000     .00  180.00     .00    .0000 !alpha2 
+      IC  O11   O12    *P    O13       .0000     .00  120.00     .00    .0000  
+      IC  O11   O12    *P    O14       .0000     .00  240.00     .00    .0000  
+      IC  O11   P      O12   C11       .0000     .00  180.00     .00    .0000 !alpha3 
+      IC  O12   C12    *C11  H11A      .0000     .00  120.00     .00    .0000  
+      IC  O12   C12    *C11  H11B      .0000     .00  240.00     .00    .0000  
+      IC  P     O12    C11   C12       .0000     .00  180.00     .00    .0000 !alpha4 
+      IC  N     C11    *C12  H12A      .0000     .00  120.00     .00    .0000  
+      IC  N     C11    *C12  H12B      .0000     .00  240.00     .00    .0000  
+      IC  O12   C11    C12   N         .0000     .00  180.00     .00    .0000 !alpha5 
+      IC  C11   C12    N     HN1       .0000     .00  180.00     .00    .0000 !alpha6 
+      IC  C12   HN1    *N    HN2       .0000     .00  120.00     .00    .0000  
+      IC  C12   HN1    *N    HN3       .0000     .00  240.00     .00    .0000 
+      ! Glycerol 
+      IC  O11   C1     C2    C3        .0000     .00  120.00     .00    .0000 !theta1 
+      IC  C1    C2     C3    O31       .0000     .00  180.00     .00    .0000 !theta3 
+      IC  C1    C3     *C2   O21       .0000     .00 -120.00     .00    .0000 
+      ! for stereo-specific phopholipid at carbon C2 (labeled hydrogen S) 
+      IC  O11   C2     *C1   HA        .0000     .00  120.00     .00    .0000  
+      IC  O11   C2     *C1   HB        .0000     .00 -120.00     .00    .0000  
+      IC  O21   C1     *C2   HS        .0000     .00  120.00     .00    .0000  
+      IC  O31   C2     *C3   HX        .0000     .00  120.00     .00    .0000  
+      IC  O31   C2     *C3   HY        .0000     .00 -120.00     .00    .0000
+      ! Chain 1 
+      IC  C1    C2     O21   C21       .0000     .00  180.00     .00    .0000 !beta1 
+      IC  C2    O21    C21   C22       .0000     .00  120.00     .00    .0000 !beta2 
+      IC  O21   C21    C22   C23       .0000     .00  180.00     .00    .0000 !beta3 
+      IC  C22   O21    *C21  O22       .0000     .00  180.00     .00    .0000  
+      IC  C21   C22    C23   C24       .0000     .00  180.00     .00    .0000 !beta4 
+      IC  C22   C23    C24   C25       .0000     .00  180.00     .00    .0000 !beta5 
+      IC  C23   C24    C25   C26       .0000     .00  180.00     .00    .0000 !beta6 
+      IC  C24   C25    C26   C27       .0000     .00  180.00     .00    .0000 !beta7 
+      IC  C25   C26    C27   C28       .0000     .00  180.00     .00    .0000 !beta8 
+      IC  C26   C27    C28   C29       .0000     .00  180.00     .00    .0000 !beta9 
+      IC  C27   C28    C29   C210      .0000     .00  180.00     .00    .0000 !beta10 
+      IC  C28   C29    C210  C211      .0000     .00  180.00     .00    .0000 !beta11 
+      IC  C29   C210   C211  C212      .0000     .00  180.00     .00    .0000 !beta12 
+      ! Chain 2 
+      IC  C2    C3     O31   C31       .0000     .00 -120.00     .00    .0000 !gamma1 
+      IC  C3    O31    C31   C32       .0000     .00  180.00     .00    .0000 !gamma2 
+      IC  O31   C31    C32   C33       .0000     .00  180.00     .00    .0000 !gamma3 
+      IC  C32   O31    *C31  O32       .0000     .00  180.00     .00    .0000  
+      IC  C31   C32    C33   C34       .0000     .00  180.00     .00    .0000 !gamma4 
+      IC  C32   C33    C34   C35       .0000     .00  180.00     .00    .0000 !gamma5 
+      IC  C33   C34    C35   C36       .0000     .00  180.00     .00    .0000 !gamma6 
+      IC  C34   C35    C36   C37       .0000     .00  180.00     .00    .0000 !gamma7 
+      IC  C35   C36    C37   C38       .0000     .00  180.00     .00    .0000 !gamma8 
+      IC  C36   C37    C38   C39       .0000     .00  180.00     .00    .0000 !gamma9 
+      IC  C37   C38    C39   C310      .0000     .00  180.00     .00    .0000 !gamma10 
+      IC  C38   C39    C310  C311      .0000     .00  180.00     .00    .0000 !gamma11 
+      IC  C39   C310   C311  C312      .0000     .00  180.00     .00    .0000 !gamma12 
+ 
+ 
+ END {DLPE}
+ !-----------------------------------------------------------
+ 
+ RESIDUE DMPC ! 1,2 dimiristoyl-SN-glycero-3-Phosphorylcholine 
+      ! 
+      !  R1 - CH2 
+      !       |          (angles and atom names from Sundaralingam) 
+      !  R2 - CH 
+      !       | 
+      !       CH2 - PO4 - CH2 - CH2 - N(CH3)3 
+      ! 
+      ! Polar Head and glycerol backbone 
+ 
+ GROUP						    !          H15B 
+       ATOM  N     TYPE=NTL  CHARGE=    -.6000  END !            | 
+       ATOM  C13   TYPE=CTL3 CHARGE=    -.3500  END !      H15A-C15-H15C 
+       ATOM  H13A  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  H13B  TYPE=HL   CHARGE=     .2500  END !    H13B    |    H14A 
+       ATOM  H13C  TYPE=HL   CHARGE=     .2500  END !      |     |     | 
+       ATOM  C14   TYPE=CTL3 CHARGE=    -.3500  END !H13A-C13----N----C14-H14B     (+) 
+       ATOM  H14A  TYPE=HL   CHARGE=     .2500  END !      |     |     | 
+       ATOM  H14B  TYPE=HL   CHARGE=     .2500  END !    H13C    |    H14C 
+       ATOM  H14C  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  C15   TYPE=CTL3 CHARGE=    -.3500  END !            | 
+       ATOM  H15A  TYPE=HL   CHARGE=     .2500  END !            |    alpha6 
+       ATOM  H15B  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  H15C  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  C12   TYPE=CTL2 CHARGE=    -.1000  END !     H12A--C12---H12B 
+       ATOM  H12A  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  H12B  TYPE=HL   CHARGE=     .2500  END !            | 
+ GROUP						    !                  alpha5 
+       ATOM  C11   TYPE=CTL2 CHARGE=    -.0800  END !            | 
+       ATOM  H11A  TYPE=HAL  CHARGE=     .0900  END !     H11A--C11---H11B 
+       ATOM  H11B  TYPE=HAL  CHARGE=     .0900  END !            |     alpha4 
+       ATOM  P     TYPE=PL   CHARGE=    1.5000  END !       O13  O12 
+       ATOM  O13   TYPE=O2L  CHARGE=    -.8000  END !        \\ /      alpha3 
+       ATOM  O14   TYPE=O2L  CHARGE=    -.8000  END !    (-)   P 
+       ATOM  O11   TYPE=OSL  CHARGE=    -.5500  END !        // \      alpha2 
+       ATOM  O12   TYPE=OSL  CHARGE=    -.5500  END !       O14  O11 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.0800  END !            |     alpha1 
+       ATOM  HA    TYPE=HAL  CHARGE=     .0900  END !       HA---C1---HB 
+       ATOM  HB    TYPE=HAL  CHARGE=     .0900  END !            |     theta1 
+ GROUP						    !            | 
+       ATOM  C2    TYPE=CTL1 CHARGE=     .0400  END !       HS---C2- - - - - - - 
+       ATOM  HS    TYPE=HAL  CHARGE=     .0900  END !            | beta1        | 
+       ATOM  O21   TYPE=OSL  CHARGE=    -.3400  END !       O22  O21          theta3 
+       ATOM  C21   TYPE=CL   CHARGE=     .6300  END !        \\ /  beta2        | 
+       ATOM  O22   TYPE=OBL  CHARGE=    -.5200  END !          C21 
+       ATOM  C22   TYPE=CTL2 CHARGE=    -.0800  END !          |   beta3        | 
+       ATOM  H2R   TYPE=HAL  CHARGE=     .0900  END !   H2R---C22---H2S 
+       ATOM  H2S   TYPE=HAL  CHARGE=     .0900  END !          |                | 
+ GROUP 						    !              beta4 
+       ATOM  C3    TYPE=CTL2 CHARGE=    -.0500  END !          |                | 
+       ATOM  HX    TYPE=HAL  CHARGE=     .0900  END !                      HX---C3---HY 
+       ATOM  HY    TYPE=HAL  CHARGE=     .0900  END !          |                |   gamma1 
+       ATOM  O31   TYPE=OSL  CHARGE=    -.3400  END !                      O32  O31 
+       ATOM  C31   TYPE=CL   CHARGE=     .6300  END !          |            \\ /    gamma2 
+       ATOM  O32   TYPE=OBL  CHARGE=    -.5200  END !                         C31 
+       ATOM  C32   TYPE=CTL2 CHARGE=    -.0800  END !          |              |     gamma3 
+       ATOM  H2X   TYPE=HAL  CHARGE=     .0900  END !                  H2X---C32---H2Y 
+       ATOM  H2Y   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP						    !                               gamma4 
+       ATOM  C23   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H3R   TYPE=HAL  CHARGE=     .0900  END !   H3R ---C23---H3S 
+       ATOM  H3S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C24   TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H4R   TYPE=HAL  CHARGE=     .0900  END !   H4R ---C24---H4S      | 
+       ATOM  H4S   TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C25   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H5R   TYPE=HAL  CHARGE=     .0900  END !   H5R ---C25---H5S 
+       ATOM  H5S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C26   TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H6R   TYPE=HAL  CHARGE=     .0900  END !   H6R ---C26---H6S      | 
+       ATOM  H6S   TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C27   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H7R   TYPE=HAL  CHARGE=     .0900  END !   H7R ---C27---H7S 
+       ATOM  H7S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C28   TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H8R   TYPE=HAL  CHARGE=     .0900  END !   H8R ---C28---H8S      | 
+       ATOM  H8S   TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C29   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H9R   TYPE=HAL  CHARGE=     .0900  END !   H9R ---C29---H9S 
+       ATOM  H9S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C210  TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H10R  TYPE=HAL  CHARGE=     .0900  END !   H10R---C210--H10S     | 
+       ATOM  H10S  TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C211  TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H11R  TYPE=HAL  CHARGE=     .0900  END !   H11R---C211--H11S 
+       ATOM  H11S  TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C212  TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H12R  TYPE=HAL  CHARGE=     .0900  END !   H12R---C212--H12S     | 
+       ATOM  H12S  TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C213  TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H13R  TYPE=HAL  CHARGE=     .0900  END !   H13R---C213--H13S 
+       ATOM  H13S  TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C214  TYPE=CTL3 CHARGE=    -.2700  END !          | 
+       ATOM  H14R  TYPE=HAL  CHARGE=     .0900  END !   H14R---C214--H14S     | 
+       ATOM  H14S  TYPE=HAL  CHARGE=     .0900  END !          | 
+       ATOM  H14T  TYPE=HAL  CHARGE=     .0900  END !         H14T            | 
+ GROUP ! 
+       ATOM  C33   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H3X   TYPE=HAL  CHARGE=     .0900  END !                  H3X ---C33---H3Y 
+       ATOM  H3Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C34   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H4X   TYPE=HAL  CHARGE=     .0900  END !                  H4X ---C34---H4Y 
+       ATOM  H4Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C35   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H5X   TYPE=HAL  CHARGE=     .0900  END !                  H5X ---C35---H5Y 
+       ATOM  H5Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C36   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H6X   TYPE=HAL  CHARGE=     .0900  END !                  H6X ---C36---H6Y 
+       ATOM  H6Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C37   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H7X   TYPE=HAL  CHARGE=     .0900  END !                  H7X ---C37---H7Y 
+       ATOM  H7Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C38   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H8X   TYPE=HAL  CHARGE=     .0900  END !                  H8X ---C38---H8Y 
+       ATOM  H8Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C39   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H9X   TYPE=HAL  CHARGE=     .0900  END !                  H9X ---C39---H9Y 
+       ATOM  H9Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C310  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H10X  TYPE=HAL  CHARGE=     .0900  END !                  H10X---C310--H10Y 
+       ATOM  H10Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C311  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H11X  TYPE=HAL  CHARGE=     .0900  END !                  H11X---C311--H11Y 
+       ATOM  H11Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C312  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H12X  TYPE=HAL  CHARGE=     .0900  END !                  H12X---C312--H12Y 
+       ATOM  H12Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C313  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H13X  TYPE=HAL  CHARGE=     .0900  END !                  H13X---C313--H13Y 
+       ATOM  H13Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C314  TYPE=CTL3 CHARGE=    -.2700  END !                         | 
+       ATOM  H14X  TYPE=HAL  CHARGE=     .0900  END !                  H14X---C314--H14Y 
+       ATOM  H14Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+       ATOM  H14Z  TYPE=HAL  CHARGE=     .0900  END !                         H14Z 
+ !END GROUP
+
+      ! Polar Head  
+      BOND  N     C13    
+      BOND  N     C14    
+      BOND  N     C15    
+      BOND  C13   H13A   
+      BOND  C13   H13B   
+      BOND  C13   H13C   
+      BOND  C14   H14A   
+      BOND  C14   H14B   
+      BOND  C14   H14C   
+      BOND  C15   H15A   
+      BOND  C15   H15B   
+      BOND  C15   H15C   
+      BOND  N     C12    
+      BOND  C12   H12A   
+      BOND  C12   H12B   
+      BOND  C12   C11    
+      BOND  C11   H11A   
+      BOND  C11   H11B   
+      BOND  C11   O12    
+      BOND  O12   P      
+      BOND  P     O11    
+      BOND  P     O13    
+      BOND  P     O14
+      ! Glycerol Backbone 
+      BOND  C1    HA     
+      BOND  C1    HB     
+      BOND  C1    C2     
+      BOND  C1    O11    
+      BOND  C2    HS     
+      BOND  C2    C3     
+      BOND  C2    O21    
+      BOND  C3    HX     
+      BOND  C3    HY     
+      BOND  C3    O31
+      ! Chain #2 
+      BOND  O21   C21    
+      BOND  C21   O22    
+      BOND  C21   C22    
+      BOND  C22   H2R    
+      BOND  C22   H2S    
+      BOND  C22   C23    
+      BOND  C23   H3R    
+      BOND  C23   H3S    
+      BOND  C23   C24    
+      BOND  C24   H4R    
+      BOND  C24   H4S    
+      BOND  C24   C25    
+      BOND  C25   H5R    
+      BOND  C25   H5S    
+      BOND  C25   C26    
+      BOND  C26   H6R    
+      BOND  C26   H6S    
+      BOND  C26   C27    
+      BOND  C27   H7R    
+      BOND  C27   H7S    
+      BOND  C27   C28    
+      BOND  C28   H8R    
+      BOND  C28   H8S    
+      BOND  C28   C29    
+      BOND  C29   H9R    
+      BOND  C29   H9S    
+      BOND  C29   C210   
+      BOND  C210  H10R   
+      BOND  C210  H10S   
+      BOND  C210  C211   
+      BOND  C211  H11R   
+      BOND  C211  H11S   
+      BOND  C211  C212   
+      BOND  C212  H12R   
+      BOND  C212  H12S   
+      BOND  C212  C213   
+      BOND  C213  H13R   
+      BOND  C213  H13S   
+      BOND  C213  C214   
+      BOND  C214  H14R   
+      BOND  C214  H14S   
+      BOND  C214  H14T
+      ! Chain #3 
+      BOND  O31   C31    
+      BOND  C31   O32    
+      BOND  C31   C32    
+      BOND  C32   H2X    
+      BOND  C32   H2Y    
+      BOND  C32   C33    
+      BOND  C33   H3X    
+      BOND  C33   H3Y    
+      BOND  C33   C34    
+      BOND  C34   H4X    
+      BOND  C34   H4Y    
+      BOND  C34   C35    
+      BOND  C35   H5X    
+      BOND  C35   H5Y    
+      BOND  C35   C36    
+      BOND  C36   H6X    
+      BOND  C36   H6Y    
+      BOND  C36   C37    
+      BOND  C37   H7X    
+      BOND  C37   H7Y    
+      BOND  C37   C38    
+      BOND  C38   H8X    
+      BOND  C38   H8Y    
+      BOND  C38   C39    
+      BOND  C39   H9X    
+      BOND  C39   H9Y    
+      BOND  C39   C310   
+      BOND  C310  H10X   
+      BOND  C310  H10Y   
+      BOND  C310  C311   
+      BOND  C311  H11X   
+      BOND  C311  H11Y   
+      BOND  C311  C312   
+      BOND  C312  H12X   
+      BOND  C312  H12Y   
+      BOND  C312  C313   
+      BOND  C313  H13X   
+      BOND  C313  H13Y   
+      BOND  C313  C314   
+      BOND  C314  H14X   
+      BOND  C314  H14Y   
+      BOND  C314  H14Z
+
+      DIHEDRAL  O11   P     O12   C11 ! multiple dihedral
+      DIHEDRAL  O11   P     O12   C11 ! multiple dihedral
+      DIHEDRAL  O12   P     O11   C1  ! multiple dihedral
+      DIHEDRAL  O12   P     O11   C1  ! multiple dihedral
+      DIHEDRAL  O22   C21   O21   C2  ! multiple dihedral
+      DIHEDRAL  O22   C21   O21   C2  ! multiple dihedral
+      DIHEDRAL  O32   C31   O31   C3  ! multiple dihedral
+      DIHEDRAL  O32   C31   O31   C3  ! multiple dihedral
+      DIHEDRAL  N     C12   C11   O12 ! multiple dihedral
+      DIHEDRAL  N     C12   C11   O12 ! multiple dihedral
+      DIHEDRAL  O21  C21  C22   C23 ! multiple dihedral
+      DIHEDRAL  O21  C21  C22   C23 ! multiple dihedral
+      DIHEDRAL  O31  C31  C32   C33 ! multiple dihedral
+      DIHEDRAL  O31  C31  C32   C33 ! multiple dihedral
+
+      IMPROPER  O22   C22   O21   C21   !from MAS 
+      IMPROPER  O32   C32   O31   C31   !from MAS 
+
+      ! Polar head (angle names from Sundaralingam) 
+      IC  C2    C1     O11   P         .0000     .00  180.00     .00    .0000 !alpha1 
+      IC  C1    O11    P     O12       .0000     .00  180.00     .00    .0000 !alpha2 
+      IC  O11   O12    *P    O13       .0000     .00  120.00     .00    .0000  
+      IC  O11   O12    *P    O14       .0000     .00  240.00     .00    .0000  
+      IC  O11   P      O12   C11       .0000     .00  180.00     .00    .0000 !alpha3 
+      IC  O12   C12    *C11  H11A      .0000     .00  120.00     .00    .0000  
+      IC  O12   C12    *C11  H11B      .0000     .00  240.00     .00    .0000  
+      IC  P     O12    C11   C12       .0000     .00  180.00     .00    .0000 !alpha4 
+      IC  N     C11    *C12  H12A      .0000     .00  120.00     .00    .0000  
+      IC  N     C11    *C12  H12B      .0000     .00  240.00     .00    .0000  
+      IC  O12   C11    C12   N         .0000     .00  180.00     .00    .0000 !alpha5 
+      IC  C11   C12    N     C13       .0000     .00  180.00     .00    .0000 !alpha6 
+      IC  C12   C13    *N    C14       .0000     .00  120.00     .00    .0000  
+      IC  C12   C13    *N    C15       .0000     .00  240.00     .00    .0000
+      ! Glycerol 
+      IC  O11   C1     C2    C3        .0000     .00  120.00     .00    .0000 !theta1 
+      IC  C1    C2     C3    O31       .0000     .00  180.00     .00    .0000 !theta3 
+      IC  C1    C3     *C2   O21       .0000     .00 -120.00     .00    .0000 
+      ! for stereo-specific phopholipid at carbon C2 (labeled hydrogen S) 
+      IC  O11   C2     *C1   HA        .0000     .00  120.00     .00    .0000  
+      IC  O11   C2     *C1   HB        .0000     .00 -120.00     .00    .0000  
+      IC  O21   C1     *C2   HS        .0000     .00  120.00     .00    .0000  
+      IC  O31   C2     *C3   HX        .0000     .00  120.00     .00    .0000  
+      IC  O31   C2     *C3   HY        .0000     .00 -120.00     .00    .0000 
+      ! Chain 1 
+      IC  C1    C2     O21   C21       .0000     .00  180.00     .00    .0000 !beta1 
+      IC  C2    O21    C21   C22       .0000     .00  120.00     .00    .0000 !beta2 
+      IC  O21   C21    C22   C23       .0000     .00  180.00     .00    .0000 !beta3 
+      IC  C22   O21    *C21  O22       .0000     .00  180.00     .00    .0000  
+      IC  C21   C22    C23   C24       .0000     .00  180.00     .00    .0000 !beta4 
+      IC  C22   C23    C24   C25       .0000     .00  180.00     .00    .0000 !beta5 
+      IC  C23   C24    C25   C26       .0000     .00  180.00     .00    .0000 !beta6 
+      IC  C24   C25    C26   C27       .0000     .00  180.00     .00    .0000 !beta7 
+      IC  C25   C26    C27   C28       .0000     .00  180.00     .00    .0000 !beta8 
+      IC  C26   C27    C28   C29       .0000     .00  180.00     .00    .0000 !beta9 
+      IC  C27   C28    C29   C210      .0000     .00  180.00     .00    .0000 !beta10 
+      IC  C28   C29    C210  C211      .0000     .00  180.00     .00    .0000 !beta11 
+      IC  C29   C210   C211  C212      .0000     .00  180.00     .00    .0000 !beta12 
+      IC  C210  C211   C212  C213      .0000     .00  180.00     .00    .0000 !beta13 
+      IC  C211  C212   C213  C214      .0000     .00  180.00     .00    .0000 !beta14 
+      ! Chain 2 
+      IC  C2    C3     O31   C31       .0000     .00 -120.00     .00    .0000 !gamma1 
+      IC  C3    O31    C31   C32       .0000     .00  180.00     .00    .0000 !gamma2 
+      IC  O31   C31    C32   C33       .0000     .00  180.00     .00    .0000 !gamma3 
+      IC  C32   O31    *C31  O32       .0000     .00  180.00     .00    .0000  
+      IC  C31   C32    C33   C34       .0000     .00  180.00     .00    .0000 !gamma4 
+      IC  C32   C33    C34   C35       .0000     .00  180.00     .00    .0000 !gamma5 
+      IC  C33   C34    C35   C36       .0000     .00  180.00     .00    .0000 !gamma6 
+      IC  C34   C35    C36   C37       .0000     .00  180.00     .00    .0000 !gamma7 
+      IC  C35   C36    C37   C38       .0000     .00  180.00     .00    .0000 !gamma8 
+      IC  C36   C37    C38   C39       .0000     .00  180.00     .00    .0000 !gamma9 
+      IC  C37   C38    C39   C310      .0000     .00  180.00     .00    .0000 !gamma10 
+      IC  C38   C39    C310  C311      .0000     .00  180.00     .00    .0000 !gamma11 
+      IC  C39   C310   C311  C312      .0000     .00  180.00     .00    .0000 !gamma12 
+      IC  C310  C311   C312  C313      .0000     .00  180.00     .00    .0000 !gamma13 
+      IC  C311  C312   C313  C314      .0000     .00  180.00     .00    .0000 !gamma14 
+ 
+ 
+ END {DMPC}
+ !-----------------------------------------------------------
+ 
+ RESIDUE DPPC ! 1,2 dipalmitoyl-SN-glycero-3-Phosphorylcholine  ! PDA 15/12/92
+      ! 
+      !  R1 - CH2 
+      !       |          (angles and atom names from Sundaralingam) 
+      !  R2 - CH
+      !       |
+      !       CH2 - PO4 - CH2 - CH2 - N(CH3)3 
+      !
+      !  R1/R2 = C16:0 
+      !
+      ! Polar Head and glycerol backbone
+ GROUP                                              !          H15B 
+       ATOM  N     TYPE=NTL  CHARGE=    -.6000  END !            | 
+       ATOM  C13   TYPE=CTL3 CHARGE=    -.3500  END !      H15A-C15-H15C 
+       ATOM  H13A  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  H13B  TYPE=HL   CHARGE=     .2500  END !    H13B    |    H14A 
+       ATOM  H13C  TYPE=HL   CHARGE=     .2500  END !      |     |     | 
+       ATOM  C14   TYPE=CTL3 CHARGE=    -.3500  END !H13A-C13----N----C14-H14B     (+) 
+       ATOM  H14A  TYPE=HL   CHARGE=     .2500  END !      |     |     | 
+       ATOM  H14B  TYPE=HL   CHARGE=     .2500  END !    H13C    |    H14C 
+       ATOM  H14C  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  C15   TYPE=CTL3 CHARGE=    -.3500  END !            | 
+       ATOM  H15A  TYPE=HL   CHARGE=     .2500  END !            |    alpha6 
+       ATOM  H15B  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  H15C  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  C12   TYPE=CTL2 CHARGE=    -.1000  END !     H12A--C12---H12B 
+       ATOM  H12A  TYPE=HL   CHARGE=     .2500  END !            | 
+       ATOM  H12B  TYPE=HL   CHARGE=     .2500  END !            | 
+ GROUP                                              !                  alpha5 
+       ATOM  C11   TYPE=CTL2 CHARGE=    -.0800  END !            | 
+       ATOM  H11A  TYPE=HAL  CHARGE=     .0900  END !     H11A--C11---H11B 
+       ATOM  H11B  TYPE=HAL  CHARGE=     .0900  END !            |     alpha4 
+       ATOM  P     TYPE=PL   CHARGE=    1.5000  END !       O13  O12 
+       ATOM  O13   TYPE=O2L  CHARGE=    -.8000  END !        \\ /      alpha3 
+       ATOM  O14   TYPE=O2L  CHARGE=    -.8000  END !    (-)   P 
+       ATOM  O11   TYPE=OSL  CHARGE=    -.5500  END !        // \      alpha2 
+       ATOM  O12   TYPE=OSL  CHARGE=    -.5500  END !       O14  O11 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.0800  END !            |     alpha1 
+       ATOM  HA    TYPE=HAL  CHARGE=     .0900  END !       HA---C1---HB 
+       ATOM  HB    TYPE=HAL  CHARGE=     .0900  END !            |     theta1 
+ GROUP                                              !            | 
+       ATOM  C2    TYPE=CTL1 CHARGE=     .0400  END !       HS---C2- - - - - - - 
+       ATOM  HS    TYPE=HAL  CHARGE=     .0900  END !            | beta1        | 
+       ATOM  O21   TYPE=OSL  CHARGE=    -.3400  END !       O22  O21          theta3 
+       ATOM  C21   TYPE=CL   CHARGE=     .6300  END !        \\ /  beta2        | 
+       ATOM  O22   TYPE=OBL  CHARGE=    -.5200  END !          C21 
+       ATOM  C22   TYPE=CTL2 CHARGE=    -.0800  END !          |   beta3        | 
+       ATOM  H2R   TYPE=HAL  CHARGE=     .0900  END !   H2R---C22---H2S 
+       ATOM  H2S   TYPE=HAL  CHARGE=     .0900  END !          |                | 
+ GROUP                                              !              beta4 
+       ATOM  C3    TYPE=CTL2 CHARGE=    -.0500  END !          |                | 
+       ATOM  HX    TYPE=HAL  CHARGE=     .0900  END !                      HX---C3---HY 
+       ATOM  HY    TYPE=HAL  CHARGE=     .0900  END !          |                |   gamma1 
+       ATOM  O31   TYPE=OSL  CHARGE=    -.3400  END !                      O32  O31 
+       ATOM  C31   TYPE=CL   CHARGE=     .6300  END !          |            \\ /    gamma2 
+       ATOM  O32   TYPE=OBL  CHARGE=    -.5200  END !                         C31 
+       ATOM  C32   TYPE=CTL2 CHARGE=    -.0800  END !          |              |     gamma3 
+       ATOM  H2X   TYPE=HAL  CHARGE=     .0900  END !                  H2X---C32---H2Y 
+       ATOM  H2Y   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP                                              !                               gamma4 
+       ATOM  C23   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H3R   TYPE=HAL  CHARGE=     .0900  END !   H3R ---C23---H3S 
+       ATOM  H3S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C24   TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H4R   TYPE=HAL  CHARGE=     .0900  END !   H4R ---C24---H4S      | 
+       ATOM  H4S   TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C25   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H5R   TYPE=HAL  CHARGE=     .0900  END !   H5R ---C25---H5S 
+       ATOM  H5S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C26   TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H6R   TYPE=HAL  CHARGE=     .0900  END !   H6R ---C26---H6S      | 
+       ATOM  H6S   TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C27   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H7R   TYPE=HAL  CHARGE=     .0900  END !   H7R ---C27---H7S 
+       ATOM  H7S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C28   TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H8R   TYPE=HAL  CHARGE=     .0900  END !   H8R ---C28---H8S      | 
+       ATOM  H8S   TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C29   TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H9R   TYPE=HAL  CHARGE=     .0900  END !   H9R ---C29---H9S 
+       ATOM  H9S   TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C210  TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H10R  TYPE=HAL  CHARGE=     .0900  END !   H10R---C210--H10S     | 
+       ATOM  H10S  TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C211  TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H11R  TYPE=HAL  CHARGE=     .0900  END !   H11R---C211--H11S 
+       ATOM  H11S  TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C212  TYPE=CTL2 CHARGE=    -.1800  END !          | 
+       ATOM  H12R  TYPE=HAL  CHARGE=     .0900  END !   H12R---C212--H12S     | 
+       ATOM  H12S  TYPE=HAL  CHARGE=     .0900  END !          | 
+ GROUP ! 
+       ATOM  C213  TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H13R  TYPE=HAL  CHARGE=     .0900  END !   H13R---C213--H13S 
+       ATOM  H13S  TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C214  TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H14R  TYPE=HAL  CHARGE=     .0900  END !   H14R---C214--H14S 
+       ATOM  H14S  TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C215  TYPE=CTL2 CHARGE=    -.1800  END !          |              | 
+       ATOM  H15R  TYPE=HAL  CHARGE=     .0900  END !   H15R---C215--H15S 
+       ATOM  H15S  TYPE=HAL  CHARGE=     .0900  END !          |              | 
+ GROUP ! 
+       ATOM  C216  TYPE=CTL3 CHARGE=    -.2700  END !          | 
+       ATOM  H16R  TYPE=HAL  CHARGE=     .0900  END !   H16R---C216--H16S     | 
+       ATOM  H16S  TYPE=HAL  CHARGE=     .0900  END !          | 
+       ATOM  H16T  TYPE=HAL  CHARGE=     .0900  END !         H16T            | 
+ GROUP ! 
+       ATOM  C33   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H3X   TYPE=HAL  CHARGE=     .0900  END !                  H3X ---C33---H3Y 
+       ATOM  H3Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C34   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H4X   TYPE=HAL  CHARGE=     .0900  END !                  H4X ---C34---H4Y 
+       ATOM  H4Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C35   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H5X   TYPE=HAL  CHARGE=     .0900  END !                  H5X ---C35---H5Y 
+       ATOM  H5Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C36   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H6X   TYPE=HAL  CHARGE=     .0900  END !                  H6X ---C36---H6Y 
+       ATOM  H6Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C37   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H7X   TYPE=HAL  CHARGE=     .0900  END !                  H7X ---C37---H7Y 
+       ATOM  H7Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C38   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H8X   TYPE=HAL  CHARGE=     .0900  END !                  H8X ---C38---H8Y 
+       ATOM  H8Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C39   TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H9X   TYPE=HAL  CHARGE=     .0900  END !                  H9X ---C39---H9Y 
+       ATOM  H9Y   TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C310  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H10X  TYPE=HAL  CHARGE=     .0900  END !                  H10X---C310--H10Y 
+       ATOM  H10Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C311  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H11X  TYPE=HAL  CHARGE=     .0900  END !                  H11X---C311--H11Y 
+       ATOM  H11Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C312  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H12X  TYPE=HAL  CHARGE=     .0900  END !                  H12X---C312--H12Y 
+       ATOM  H12Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C313  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H13X  TYPE=HAL  CHARGE=     .0900  END !                  H13X---C313--H13Y 
+       ATOM  H13Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C314  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H14X  TYPE=HAL  CHARGE=     .0900  END !                  H14X---C314--H14Y 
+       ATOM  H14Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C315  TYPE=CTL2 CHARGE=    -.1800  END !                         | 
+       ATOM  H15X  TYPE=HAL  CHARGE=     .0900  END !                  H15X---C315--H15Y 
+       ATOM  H15Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+ GROUP ! 
+       ATOM  C316  TYPE=CTL3 CHARGE=    -.2700  END !                         | 
+       ATOM  H16X  TYPE=HAL  CHARGE=     .0900  END !                  H16X---C316--H16Y 
+       ATOM  H16Y  TYPE=HAL  CHARGE=     .0900  END !                         | 
+       ATOM  H16Z  TYPE=HAL  CHARGE=     .0900  END !                         H16Z 
+ !END GROUP
+ 
+      ! Polar Head 
+      BOND  N     C13    
+      BOND  N     C14    
+      BOND  N     C15    
+      BOND  C13   H13A   
+      BOND  C13   H13B   
+      BOND  C13   H13C   
+      BOND  C14   H14A   
+      BOND  C14   H14B   
+      BOND  C14   H14C   
+      BOND  C15   H15A   
+      BOND  C15   H15B   
+      BOND  C15   H15C   
+      BOND  N     C12    
+      BOND  C12   H12A   
+      BOND  C12   H12B   
+      BOND  C12   C11    
+      BOND  C11   H11A   
+      BOND  C11   H11B   
+      BOND  C11   O12    
+      BOND  O12   P      
+      BOND  P     O11    
+      BOND  P     O13    
+      BOND  P     O14
+      ! Glycerol Backbone 
+      BOND  C1    HA     
+      BOND  C1    HB     
+      BOND  C1    C2     
+      BOND  C1    O11    
+      BOND  C2    HS     
+      BOND  C2    C3     
+      BOND  C2    O21    
+      BOND  C3    HX     
+      BOND  C3    HY     
+      BOND  C3    O31
+      ! Chain #2 
+      BOND  O21   C21    
+      BOND  C21   O22    
+      BOND  C21   C22    
+      BOND  C22   H2R    
+      BOND  C22   H2S    
+      BOND  C22   C23    
+      BOND  C23   H3R    
+      BOND  C23   H3S    
+      BOND  C23   C24    
+      BOND  C24   H4R    
+      BOND  C24   H4S    
+      BOND  C24   C25    
+      BOND  C25   H5R    
+      BOND  C25   H5S    
+      BOND  C25   C26    
+      BOND  C26   H6R    
+      BOND  C26   H6S    
+      BOND  C26   C27    
+      BOND  C27   H7R    
+      BOND  C27   H7S    
+      BOND  C27   C28    
+      BOND  C28   H8R    
+      BOND  C28   H8S    
+      BOND  C28   C29    
+      BOND  C29   H9R    
+      BOND  C29   H9S    
+      BOND  C29   C210   
+      BOND  C210  H10R   
+      BOND  C210  H10S   
+      BOND  C210  C211   
+      BOND  C211  H11R   
+      BOND  C211  H11S   
+      BOND  C211  C212   
+      BOND  C212  H12R   
+      BOND  C212  H12S   
+      BOND  C212  C213   
+      BOND  C213  H13R   
+      BOND  C213  H13S   
+      BOND  C213  C214   
+      BOND  C214  H14R   
+      BOND  C214  H14S   
+      BOND  C214  C215   
+      BOND  C215  H15R   
+      BOND  C215  H15S   
+      BOND  C215  C216   
+      BOND  C216  H16R   
+      BOND  C216  H16S   
+      BOND  C216  H16T
+      ! Chain #3 
+      BOND  O31   C31    
+      BOND  C31   O32    
+      BOND  C31   C32    
+      BOND  C32   H2X    
+      BOND  C32   H2Y    
+      BOND  C32   C33    
+      BOND  C33   H3X    
+      BOND  C33   H3Y    
+      BOND  C33   C34    
+      BOND  C34   H4X    
+      BOND  C34   H4Y    
+      BOND  C34   C35    
+      BOND  C35   H5X    
+      BOND  C35   H5Y    
+      BOND  C35   C36    
+      BOND  C36   H6X    
+      BOND  C36   H6Y    
+      BOND  C36   C37    
+      BOND  C37   H7X    
+      BOND  C37   H7Y    
+      BOND  C37   C38    
+      BOND  C38   H8X    
+      BOND  C38   H8Y    
+      BOND  C38   C39    
+      BOND  C39   H9X    
+      BOND  C39   H9Y    
+      BOND  C39   C310   
+      BOND  C310  H10X   
+      BOND  C310  H10Y   
+      BOND  C310  C311   
+      BOND  C311  H11X   
+      BOND  C311  H11Y   
+      BOND  C311  C312   
+      BOND  C312  H12X   
+      BOND  C312  H12Y   
+      BOND  C312  C313   
+      BOND  C313  H13X   
+      BOND  C313  H13Y   
+      BOND  C313  C314   
+      BOND  C314  H14X   
+      BOND  C314  H14Y   
+      BOND  C314  C315   
+      BOND  C315  H15X   
+      BOND  C315  H15Y   
+      BOND  C315  C316   
+      BOND  C316  H16X   
+      BOND  C316  H16Y   
+      BOND  C316  H16Z
+
+      DIHEDRAL  O11  P    O12   C11 ! multiple dihedral
+      DIHEDRAL  O11  P    O12   C11 ! multiple dihedral
+      DIHEDRAL  O12  P    O11   C1  ! multiple dihedral
+      DIHEDRAL  O12  P    O11   C1  ! multiple dihedral
+      DIHEDRAL  O22  C21  O21   C2  ! multiple dihedral
+      DIHEDRAL  O22  C21  O21   C2  ! multiple dihedral
+      DIHEDRAL  O32  C31  O31   C3  ! multiple dihedral
+      DIHEDRAL  O32  C31  O31   C3  ! multiple dihedral
+      DIHEDRAL  N    C12  C11   O12 ! multiple dihedral
+      DIHEDRAL  N    C12  C11   O12 ! multiple dihedral
+      DIHEDRAL  O21  C21  C22   C23 ! multiple dihedral
+      DIHEDRAL  O21  C21  C22   C23 ! multiple dihedral
+      DIHEDRAL  O31  C31  C32   C33 ! multiple dihedral
+      DIHEDRAL  O31  C31  C32   C33 ! multiple dihedral
+
+      IMPROPER  O22   C22   O21   C21   !from MAS 
+      IMPROPER  O32   C32   O31   C31   !from MAS 
+
+      ! Polar head (angle names from Sundaralingam) 
+ 
+      IC  C2    C1     O11   P         .0000     .00  180.00     .00    .0000 !alpha1 
+      IC  C1    O11    P     O12       .0000     .00  180.00     .00    .0000 !alpha2 
+      IC  O11   O12    *P    O13       .0000     .00  120.00     .00    .0000  
+      IC  O11   O12    *P    O14       .0000     .00  240.00     .00    .0000  
+      IC  O11   P      O12   C11       .0000     .00  180.00     .00    .0000 !alpha3 
+      IC  O12   C12    *C11  H11A      .0000     .00  120.00     .00    .0000  
+      IC  O12   C12    *C11  H11B      .0000     .00  240.00     .00    .0000  
+      IC  P     O12    C11   C12       .0000     .00  180.00     .00    .0000 !alpha4 
+      IC  N     C11    *C12  H12A      .0000     .00  120.00     .00    .0000  
+      IC  N     C11    *C12  H12B      .0000     .00  240.00     .00    .0000  
+      IC  O12   C11    C12   N         .0000     .00  180.00     .00    .0000 !alpha5 
+      IC  C11   C12    N     C13       .0000     .00  180.00     .00    .0000 !alpha6 
+      IC  C12   C13    *N    C14       .0000     .00  120.00     .00    .0000  
+      IC  C12   C13    *N    C15       .0000     .00  240.00     .00    .0000
+      ! Glycerol 
+      IC  O11   C1     C2    C3        .0000     .00  120.00     .00    .0000 !theta1 
+      IC  C1    C2     C3    O31       .0000     .00  180.00     .00    .0000 !theta3 
+      IC  C1    C3     *C2   O21       .0000     .00 -120.00     .00    .0000
+      ! for stereo-specific phopholipid at carbon C2 (labeled hydrogen S) 
+      IC  O11   C2     *C1   HA        .0000     .00  120.00     .00    .0000  
+      IC  O11   C2     *C1   HB        .0000     .00 -120.00     .00    .0000  
+      IC  O21   C1     *C2   HS        .0000     .00  120.00     .00    .0000  
+      IC  O31   C2     *C3   HX        .0000     .00  120.00     .00    .0000  
+      IC  O31   C2     *C3   HY        .0000     .00 -120.00     .00    .0000
+      ! Chain 1 
+      IC  C1    C2     O21   C21       .0000     .00  180.00     .00    .0000 !beta1 
+      IC  C2    O21    C21   C22       .0000     .00  120.00     .00    .0000 !beta2 
+      IC  O21   C21    C22   C23       .0000     .00  180.00     .00    .0000 !beta3 
+      IC  C22   O21    *C21  O22       .0000     .00  180.00     .00    .0000  
+      IC  C21   C22    C23   C24       .0000     .00  180.00     .00    .0000 !beta4 
+      IC  C22   C23    C24   C25       .0000     .00  180.00     .00    .0000 !beta5 
+      IC  C23   C24    C25   C26       .0000     .00  180.00     .00    .0000 !beta6 
+      IC  C24   C25    C26   C27       .0000     .00  180.00     .00    .0000 !beta7 
+      IC  C25   C26    C27   C28       .0000     .00  180.00     .00    .0000 !beta8 
+      IC  C26   C27    C28   C29       .0000     .00  180.00     .00    .0000 !beta9 
+      IC  C27   C28    C29   C210      .0000     .00  180.00     .00    .0000 !beta10 
+      IC  C28   C29    C210  C211      .0000     .00  180.00     .00    .0000 !beta11 
+      IC  C29   C210   C211  C212      .0000     .00  180.00     .00    .0000 !beta12 
+      IC  C210  C211   C212  C213      .0000     .00  180.00     .00    .0000 !beta13 
+      IC  C211  C212   C213  C214      .0000     .00  180.00     .00    .0000 !beta14 
+      IC  C212  C213   C214  C215      .0000     .00  180.00     .00    .0000 !beta15 
+      IC  C213  C214   C215  C216      .0000     .00  180.00     .00    .0000 !beta16 
+      ! Chain 2 
+      IC  C2    C3     O31   C31       .0000     .00 -120.00     .00    .0000 !gamma1 
+      IC  C3    O31    C31   C32       .0000     .00  180.00     .00    .0000 !gamma2 
+      IC  O31   C31    C32   C33       .0000     .00  180.00     .00    .0000 !gamma3 
+      IC  C32   O31    *C31  O32       .0000     .00  180.00     .00    .0000  
+      IC  C31   C32    C33   C34       .0000     .00  180.00     .00    .0000 !gamma4 
+      IC  C32   C33    C34   C35       .0000     .00  180.00     .00    .0000 !gamma5 
+      IC  C33   C34    C35   C36       .0000     .00  180.00     .00    .0000 !gamma6 
+      IC  C34   C35    C36   C37       .0000     .00  180.00     .00    .0000 !gamma7 
+      IC  C35   C36    C37   C38       .0000     .00  180.00     .00    .0000 !gamma8 
+      IC  C36   C37    C38   C39       .0000     .00  180.00     .00    .0000 !gamma9 
+      IC  C37   C38    C39   C310      .0000     .00  180.00     .00    .0000 !gamma10 
+      IC  C38   C39    C310  C311      .0000     .00  180.00     .00    .0000 !gamma11 
+      IC  C39   C310   C311  C312      .0000     .00  180.00     .00    .0000 !gamma12 
+      IC  C310  C311   C312  C313      .0000     .00  180.00     .00    .0000 !gamma13 
+      IC  C311  C312   C313  C314      .0000     .00  180.00     .00    .0000 !gamma14 
+      IC  C312  C313   C314  C315      .0000     .00  180.00     .00    .0000 !gamma15 
+      IC  C313  C314   C315  C316      .0000     .00  180.00     .00    .0000 !gamma16 
+ 
+ 
+ END {DPPC}
+ !-----------------------------------------------------------
+ 
+ RESIDUE SDS  ! Dodecylsulfate 
+	      ! based on methylsulfate 
+ 
+ GROUP  
+       ATOM  S     TYPE=SL   CHARGE=    1.3300  END !    OS2(-1) 
+       ATOM  OS1   TYPE=OSL  CHARGE=    -.2800  END !     | 
+       ATOM  OS2   TYPE=O2L  CHARGE=    -.6500  END ! OS2=S=OS4 
+       ATOM  OS3   TYPE=O2L  CHARGE=    -.6500  END !     | 
+       ATOM  OS4   TYPE=O2L  CHARGE=    -.6500  END !    OS1 
+       ATOM  C1    TYPE=CTL2 CHARGE=    -.2800  END !      \ 
+       ATOM  H11   TYPE=HAL  CHARGE=     .0900  END !  H11-C1-H12 
+       ATOM  H12   TYPE=HAL  CHARGE=     .0900  END !       | 
+ GROUP						    !       | 
+       ATOM  C2    TYPE=CTL2 CHARGE=    -.1800  END !  H21-C2-H22 
+       ATOM  H21   TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H22   TYPE=HAL  CHARGE=     .0900  END !       | 
+ GROUP						    !       | 
+       ATOM  C3    TYPE=CTL2 CHARGE=    -.1800  END !  H31-C3-H32 
+       ATOM  H31   TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H32   TYPE=HAL  CHARGE=     .0900  END !       | 
+ GROUP						    !       | 
+       ATOM  C4    TYPE=CTL2 CHARGE=    -.1800  END !  H41-C4-H42 
+       ATOM  H41   TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H42   TYPE=HAL  CHARGE=     .0900  END !       | 
+ GROUP						    !       | 
+       ATOM  C5    TYPE=CTL2 CHARGE=    -.1800  END !  H51-C5-H52 
+       ATOM  H51   TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H52   TYPE=HAL  CHARGE=     .0900  END !       | 
+ GROUP						    !       | 
+       ATOM  C6    TYPE=CTL2 CHARGE=    -.1800  END !  H61-C6-H62 
+       ATOM  H61   TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H62   TYPE=HAL  CHARGE=     .0900  END !       | 
+ GROUP						    !       | 
+       ATOM  C7    TYPE=CTL2 CHARGE=    -.1800  END !  H71-C7-H72 
+       ATOM  H71   TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H72   TYPE=HAL  CHARGE=     .0900  END !       | 
+ GROUP						    !       | 
+       ATOM  C8    TYPE=CTL2 CHARGE=    -.1800  END !  H81-C8-H82 
+       ATOM  H81   TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H82   TYPE=HAL  CHARGE=     .0900  END !       | 
+ GROUP						    !       | 
+       ATOM  C9    TYPE=CTL2 CHARGE=    -.1800  END !  H91-C9-H92 
+       ATOM  H91   TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H92   TYPE=HAL  CHARGE=     .0900  END !       | 
+ GROUP						    !       | 
+       ATOM  C10   TYPE=CTL2 CHARGE=    -.1800  END ! H101-C10-H102 
+       ATOM  H101  TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H102  TYPE=HAL  CHARGE=     .0900  END !       | 
+ GROUP 						    !       | 
+       ATOM  C11   TYPE=CTL2 CHARGE=    -.1800  END ! H111-C11-H112 
+       ATOM  H111  TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H112  TYPE=HAL  CHARGE=     .0900  END !       | 
+ GROUP						    !       | 
+       ATOM  C12   TYPE=CTL3 CHARGE=    -.2700  END ! H121-C12-H123 
+       ATOM  H121  TYPE=HAL  CHARGE=     .0900  END !       | 
+       ATOM  H122  TYPE=HAL  CHARGE=     .0900  END !     H122 
+       ATOM  H123  TYPE=HAL  CHARGE=     .0900  END ! 
+ !END GROUP
+ 
+      BOND  S     OS1    
+      BOND  S     OS2    
+      BOND  S     OS3    
+      BOND  S     OS4    
+      BOND  OS1   C1     
+      BOND  C1    H11    
+      BOND  C1    H12    
+      BOND  C1    C2     
+      BOND  C2    H21    
+      BOND  C2    H22    
+      BOND  C2    C3     
+      BOND  C3    H31    
+      BOND  C3    H32    
+      BOND  C3    C4     
+      BOND  C4    H41    
+      BOND  C4    H42    
+      BOND  C4    C5     
+      BOND  C5    H51    
+      BOND  C5    H52    
+      BOND  C5    C6     
+      BOND  C6    H61    
+      BOND  C6    H62    
+      BOND  C6    C7     
+      BOND  C7    H71    
+      BOND  C7    H72    
+      BOND  C7    C8     
+      BOND  C8    H81    
+      BOND  C8    H82    
+      BOND  C8    C9     
+      BOND  C9    H91    
+      BOND  C9    H92    
+      BOND  C9    C10    
+      BOND  C10   H101   
+      BOND  C10   H102   
+      BOND  C10   C11    
+      BOND  C11   H111   
+      BOND  C11   H112   
+      BOND  C11   C12    
+      BOND  C12   H121   
+      BOND  C12   H122   
+      BOND  C12   H123   
+ 
+      ACCEPTOR  OS1   NONE   
+      ACCEPTOR  OS2   NONE   
+      ACCEPTOR  OS3   NONE   
+      ACCEPTOR  OS4   NONE   
+ 
+      IC  C2    OS1    OS2   S        2.5600  179.99     .00   40.10    .0000  
+      IC  OS1   OS2    *S    OS3      2.3700   40.10  120.00     .00    .0000  
+      IC  OS1   OS2    *S    OS4      2.3700   40.10 -120.00     .00    .0000  
+      IC  OS2   S      OS1   C1        .0000     .00  180.00     .00    .0000  
+      IC  OS4   S      OS2   OS1      1.4530  113.50 -113.75   40.11   2.3733  
+      IC  OS2   S      OS2   OS3      1.4522     .00     .00   33.26   2.4296  
+      IC  OS3   S      OS1   OS4      1.4530  105.51  121.17   35.54   2.4088  
+      IC  OS1   S      OS3   OS2      1.5716  105.51  112.45   33.24   2.4296  
+      IC  C1    OS1    S     OS2      1.4263  114.59 -180.00  103.34   1.4522  
+      IC  S     OS1    C1    OS3      1.5716  114.59  -30.52   56.05   2.8947  
+      IC  OS1   S      OS4   OS2      1.5716  105.51 -112.45   33.24   2.4296  
+      IC  OS1   S      OS2   OS3      1.5716  103.34 -113.75   33.26   2.4296  
+      IC  OS1   S      OS3   OS2      1.5716  105.51  112.45   33.24   2.4296  
+      IC  OS4   S      OS2   OS1      1.4530  113.50 -113.75   40.11   2.3733  
+      IC  OS4   S      OS3   OS1      1.4530  114.15  115.37   38.95   2.4088  
+      IC  OS3   S      OS2   OS1      1.4530  113.50  113.75   40.11   2.3733  
+      IC  OS4   S      OS1   C1       1.4530  105.51  -60.58  114.59   1.4263  
+      IC  OS2   S      OS1   C1       1.4522  103.34 -180.00  114.59   1.4263  
+      IC  OS3   S      OS1   C1       1.4530  105.51   60.58  114.59   1.4263
+      ! REMAINDER IS ALL TRANS 
+      IC  S     OS1    C1    C2        .0000     .00  180.00     .00    .0000  
+      IC  OS1   C1     C2    C3        .0000     .00  180.00     .00    .0000  
+      IC  C1    C2     C3    C4        .0000     .00  180.00     .00    .0000  
+      IC  C2    C3     C4    C5        .0000     .00  180.00     .00    .0000  
+      IC  C3    C4     C5    C6        .0000     .00  180.00     .00    .0000  
+      IC  C4    C5     C6    C7        .0000     .00  180.00     .00    .0000  
+      IC  C5    C6     C7    C8        .0000     .00  180.00     .00    .0000  
+      IC  C6    C7     C8    C9        .0000     .00  180.00     .00    .0000  
+      IC  C7    C8     C9    C10       .0000     .00  180.00     .00    .0000  
+      IC  C8    C9     C10   C11       .0000     .00  180.00     .00    .0000  
+      IC  C9    C10    C11   C12       .0000     .00  180.00     .00    .0000  
+      IC  OS1   C2     *C1   H11       .0000     .00  120.00     .00    .0000  
+      IC  OS1   C2     *C1   H12       .0000     .00 -120.00     .00    .0000  
+      IC  C1    C3     *C2   H21       .0000     .00  120.00     .00    .0000  
+      IC  C1    C3     *C2   H22       .0000     .00 -120.00     .00    .0000  
+      IC  C2    C4     *C3   H31       .0000     .00  120.00     .00    .0000  
+      IC  C2    C4     *C3   H32       .0000     .00 -120.00     .00    .0000  
+      IC  C3    C5     *C4   H41       .0000     .00  120.00     .00    .0000  
+      IC  C3    C5     *C4   H42       .0000     .00 -120.00     .00    .0000  
+      IC  C4    C6     *C5   H51       .0000     .00  120.00     .00    .0000  
+      IC  C4    C6     *C5   H52       .0000     .00 -120.00     .00    .0000  
+      IC  C5    C7     *C6   H61       .0000     .00  120.00     .00    .0000  
+      IC  C5    C7     *C6   H62       .0000     .00 -120.00     .00    .0000  
+      IC  C6    C8     *C7   H71       .0000     .00  120.00     .00    .0000  
+      IC  C6    C8     *C7   H72       .0000     .00 -120.00     .00    .0000  
+      IC  C7    C9     *C8   H81       .0000     .00  120.00     .00    .0000  
+      IC  C7    C9     *C8   H82       .0000     .00 -120.00     .00    .0000  
+      IC  C8    C10    *C9   H91       .0000     .00  120.00     .00    .0000  
+      IC  C8    C10    *C9   H92       .0000     .00 -120.00     .00    .0000  
+      IC  C9    C11    *C10  H101      .0000     .00  120.00     .00    .0000  
+      IC  C9    C11    *C10  H102      .0000     .00 -120.00     .00    .0000  
+      IC  C10   C12    *C11  H111      .0000     .00  120.00     .00    .0000  
+      IC  C10   C12    *C11  H112      .0000     .00 -120.00     .00    .0000  
+      IC  C10   C11    C12   H121      .0000     .00  180.00     .00    .0000  
+      IC  C11   H121   *C12  H122      .0000     .00  120.00     .00    .0000  
+      IC  C11   H121   *C12  H123      .0000     .00 -120.00     .00    .0000  
+ 
+ 
+ END {SDS }
+ !-----------------------------------------------------------
+ 
+ RESIDUE BUTA ! BUTANE 
+ 
+ GROUP  
+       ATOM  H1    TYPE=HAL  CHARGE=     .0900  END !    H2 
+       ATOM  H2    TYPE=HAL  CHARGE=     .0900  END !     | 
+       ATOM  H3    TYPE=HAL  CHARGE=     .0900  END ! H1-C1-H3 
+       ATOM  C1    TYPE=CTL3 CHARGE=    -.2700  END !     | 
+ GROUP						    !     | 
+       ATOM  H4    TYPE=HAL  CHARGE=     .0900  END ! H4-C2-H5 
+       ATOM  H5    TYPE=HAL  CHARGE=     .0900  END !     | 
+       ATOM  C2    TYPE=CTL2 CHARGE=    -.1800  END !     | 
+ GROUP						    !     | 
+       ATOM  H6    TYPE=HAL  CHARGE=     .0900  END ! H6-C3-H7 
+       ATOM  H7    TYPE=HAL  CHARGE=     .0900  END !     | 
+       ATOM  C3    TYPE=CTL2 CHARGE=    -.1800  END !     | 
+ GROUP						    !     | 
+       ATOM  H8    TYPE=HAL  CHARGE=     .0900  END ! H8-C4-H10 
+       ATOM  H9    TYPE=HAL  CHARGE=     .0900  END !     | 
+       ATOM  H10   TYPE=HAL  CHARGE=     .0900  END !    H9 
+       ATOM  C4    TYPE=CTL3 CHARGE=    -.2700  END ! 
+ !END GROUP
+ 
+      BOND  H1    C1     
+      BOND  H2    C1     
+      BOND  H3    C1     
+      BOND  C1    C2     
+      BOND  H4    C2     
+      BOND  H5    C2     
+      BOND  C2    C3     
+      BOND  H6    C3     
+      BOND  H7    C3     
+      BOND  C3    C4     
+      BOND  H8    C4     
+      BOND  H9    C4     
+      BOND  H10   C4     
+
+      IC  H1    C1     C2    C3        .0000     .00     .00     .00    .0000  
+      IC  H1    C1     C2    H4        .0000     .00  120.00     .00    .0000  
+      IC  H1    C1     C2    H5        .0000     .00  240.00     .00    .0000  
+      IC  H2    C1     C2    C3        .0000     .00  120.00     .00    .0000  
+      IC  H3    C1     C2    C3        .0000     .00  240.00     .00    .0000  
+      IC  C1    C2     C3    C4        .0000     .00     .00     .00    .0000  
+      IC  C1    C2     C3    H6        .0000     .00  120.00     .00    .0000  
+      IC  C1    C2     C3    H7        .0000     .00  240.00     .00    .0000  
+      IC  H4    C2     C3    C4        .0000     .00  120.00     .00    .0000  
+      IC  H5    C2     C3    C4        .0000     .00  240.00     .00    .0000  
+      IC  C2    C3     C4    H8        .0000     .00     .00     .00    .0000  
+      IC  C2    C3     C4    H9        .0000     .00  120.00     .00    .0000  
+      IC  C2    C3     C4    H10       .0000     .00  240.00     .00    .0000  
+      IC  H6    C3     C4    H10       .0000     .00  120.00     .00    .0000  
+      IC  H7    C3     C4    H10       .0000     .00  240.00     .00    .0000  
+ 
+ 
+ END {BUTA}
+ 
+ SET ECHO=TRUE END 

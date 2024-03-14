@@ -1,0 +1,369 @@
+!
+! setup_dnadna_cartesian.tbl
+!
+! Automatically builds RNA-RNA DELPHIC position restraints
+!
+! 
+! adapted from DNA restraints created by JJK July 2000
+!
+!
+
+!
+! select the residues that are to be used here.  
+!
+! eg. vector identify (store9) (resid 101:128)
+
+
+!
+! To set up double stranded DNA,
+!
+! Record the resid of a residue's Watson-Crick partner in the store4 array.
+! Record the segid of a residue's Watson-Crick partner in the ustring array.
+! Note that the values stored in the ustring array MUST be ALL CAPS
+!
+! Note that separate strands (ie., not a hairpin) MUST have different segids!
+!
+! eg., vector do (store4 = 115) (segid dna1 and resid 101)
+!      vector do (ustring = "dna2") (segid dna1 and resid 101)
+!      vector do (store4 = 116) (segid dna1 and resid 102)
+!      vector do (ustring = "dna2") (segid dna1 and resid 102)
+!      vector do (store4 = 117) (segid dna1 and resid 103)
+!      vector do (ustring = "dna2") (segid dna1 and resid 103)
+!
+
+!set message off echo off end
+
+!
+! for every residue type "a",
+!
+
+eval ($acount = 20)
+while ($acount < 24) loop acount
+   eval ($acount = $acount + 1)
+
+!
+! select the appropriate atoms for each residue type
+!
+
+   if ($acount = 21) then
+      vector identify (store1) (store9 and resn ade and name n7)
+      vector identify (store2) (store9 and resn ade and name n6)
+      vector identify (store3) (store9 and resn ade and name n3)
+      eval ($aresn = "ADE")
+   elseif ($acount = 22) then
+      vector identify (store1) (store9 and resn gua and name n7)
+      vector identify (store2) (store9 and resn gua and name o6)
+      vector identify (store3) (store9 and resn gua and name n3)
+      eval ($aresn = "GUA")
+   elseif ($acount = 23) then
+      vector identify (store1) (store9 and resn uri and name c5)
+      vector identify (store2) (store9 and resn uri and name o4)
+      vector identify (store3) (store9 and resn uri and name o2)
+      eval ($aresn = "URI")
+   elseif ($acount = 24) then
+      vector identify (store1) (store9 and resn cyt and name c5)
+      vector identify (store2) (store9 and resn cyt and name n4)
+      vector identify (store3) (store9 and resn cyt and name o2)
+      eval ($aresn = "CYT")
+   elseif ($acount = 25) then
+      vector identify (store1) (store9 and name c2')
+      vector identify (store2) (store9 and name c3')
+      vector identify (store3) (store9 and name c4')
+      eval ($aresn = "RIB")
+   elseif ($acount = 26) then
+      vector identify (store1) (store9 and name o1p)
+      vector identify (store2) (store9 and name p)
+      vector identify (store3) (store9 and name o5')
+      eval ($aresn = "PHS")
+   else
+      vector identify (store1) (store9 and resn error and name err1)
+      vector identify (store2) (store9 and resn error and name err2)
+      vector identify (store3) (store9 and resn error and name err3)
+      eval ($aresn = "ERR")
+   end if
+
+!
+! for every residue type "b", 
+!
+
+   eval ($bcount = 20)
+   while ($bcount < 24) loop bcount
+      eval ($bcount = $bcount + 1)
+
+!
+! select the appropriate atoms for each residue type
+!
+
+      if ($bcount = 21) then
+         vector identify (store5) (store9 and resn ade and name n7)
+         vector identify (store6) (store9 and resn ade and name n6)
+         vector identify (store7) (store9 and resn ade and name n3)
+         eval ($bresn = "ADE")
+         eval ($batomname1 = "N7")
+         eval ($batomname2 = "N6")
+         eval ($batomname3 = "N3")
+      elseif ($bcount = 22) then
+         vector identify (store5) (store9 and resn gua and name n7)
+         vector identify (store6) (store9 and resn gua and name o6)
+         vector identify (store7) (store9 and resn gua and name n3)
+         eval ($bresn = "GUA")
+         eval ($batomname1 = "N7")
+         eval ($batomname2 = "O6")
+         eval ($batomname3 = "N3")
+      elseif ($bcount = 23) then
+         vector identify (store5) (store9 and resn uri and name c5)
+         vector identify (store6) (store9 and resn uri and name o4)
+         vector identify (store7) (store9 and resn uri and name o2)
+         eval ($bresn = "URI")
+         eval ($batomname1 = "C5")
+         eval ($batomname2 = "O4")
+         eval ($batomname3 = "O2")
+      elseif ($bcount = 24) then
+         vector identify (store5) (store9 and resn cyt and name c5)
+         vector identify (store6) (store9 and resn cyt and name n4)
+         vector identify (store7) (store9 and resn cyt and name o2)
+         eval ($bresn = "CYT")
+         eval ($batomname1 = "C5")
+         eval ($batomname2 = "N4")
+         eval ($batomname3 = "O2")
+      elseif ($bcount = 25) then
+         vector identify (store5) (store9 and name c2')
+         vector identify (store6) (store9 and name c3')
+         vector identify (store7) (store9 and name c4')
+         eval ($bresn = "RIB")
+         eval ($batomname1 = "C2'")
+         eval ($batomname2 = "C3'")
+         eval ($batomname3 = "C4'")
+      elseif ($bcount = 26) then
+         vector identify (store5) (store9 and name o1p)
+         vector identify (store6) (store9 and name p)
+         vector identify (store7) (store9 and name o5')
+         eval ($bresn = "PHS")
+         eval ($batomname1 = "O1P")
+         eval ($batomname2 = "P")
+         eval ($batomname3 = "O5'")
+      else
+         vector identify (store5) (store9 and resn error and name err1)
+         vector identify (store6) (store9 and resn error and name err2)
+         vector identify (store7) (store9 and resn error and name err3)
+         eval ($bresn = "ERR")
+         eval ($batomname1 = "E1")
+         eval ($batomname2 = "E2")
+         eval ($batomname3 = "E3")
+      end if
+
+
+      !
+      ! enter assignments for DELPHIC positions of classes $a_$b_b1, $a_$b_b2, and $a_$b_b3
+      !
+
+      for $a in id (store1) loop a
+
+         !
+         ! get residue A number.
+         !
+
+	 vector show elem (segid) (id $a)
+         eval ($asegid = $result)
+	 vector show elem (resid) (id $a)
+         eval ($aresid = $result)
+         eval ($aresnum = decode($aresid))
+         vector show elem (store4) (id $a)
+         eval ($apartnernum = $result)
+	 if ($apartnernum # 0) then
+             vector show elem (ustring) (id $a)
+             eval ($apartnerseg = $result)
+	 end if
+
+         for $b in id (store5) loop b
+
+	    vector show elem (segid) (id $b)
+            eval ($bsegid = $result)
+            vector show elem (resid) (id $b)
+            eval ($bresid = $result)
+            eval ($bresnum = decode($bresid))
+	    if ($apartnernum # 0) then
+                vector show elem (store4) (id $b)
+                eval ($bpartnernum = $result)
+                vector show elem (ustring) (id $b)
+                eval ($bpartnerseg = $result)
+	    end if
+
+            !
+            ! determine normal primary sequence distance from A to B
+            !
+
+            if ($asegid # $bsegid) then
+               eval ($normpsd = 9999)
+            else
+               eval ($normpsd = $bresnum - $aresnum)
+            end if
+
+            !
+            ! determine the primary sequence distance from A's W-C partner to B
+            !
+
+            eval ($wcpsd = 9999)
+	    if ($apartnernum # 0) then
+                if ($apartnerseg = $bsegid) then
+                    eval ($wcpsd = $bresnum - $apartnernum)
+                end if
+            end if
+
+            !
+            ! create normal-position pairings for everything in the prim seq dist
+            ! range of -1 .. +1 except a residue with itself (PSD = 0, aresn = bresn)
+            ! or (base/sug)_phos_norm_-1 (which is actually too far), and
+            ! phs_(base/sug)_norm_+1
+            !
+
+            eval ($okNormPair = "no")
+
+            if ($normpsd = 1) then
+               if ($aresn # "PHS") then
+                  eval ($okNormPair = "yes")
+               end if
+               if ($aresn = "PHS") then
+                  if ($bresn = "PHS") then
+                     eval ($okNormPair = "yes")
+                  end if
+               end if
+            end if
+
+            if ($normpsd = -1) then
+               eval ($okNormPair = "yes")
+               if ($aresn # "PHS") then
+                  if ($bresn = "PHS") then
+                     eval ($okNormPair = "no")
+                  end if
+               end if
+            end if
+
+            if ($normpsd = 0) then
+               if ($aresn # $bresn) then
+                  eval ($okNormPair = "yes")
+               end if
+            end if
+
+            if ($okNormPair = "yes") then
+         
+               eval ($name1 = "RNA_" + $aresn + "_" + $bresn + "_" + encode($normpsd) + "_NORMAL_1")
+               eval ($name2 = "RNA_" + $aresn + "_" + $bresn + "_" + encode($normpsd) + "_NORMAL_2")
+               eval ($name3 = "RNA_" + $aresn + "_" + $bresn + "_" + encode($normpsd) + "_NORMAL_3")
+
+            end if
+
+            !
+            ! create Watson-Crick-position pairings for everything in the prim seq dist
+            ! range of -1 .. +1 except (base/sug)_phos_wc_-1 (which is actually too far)
+            ! and phs_*_wc_-1.
+            !
+            ! Also create phs_phs_wc_+2
+            !
+
+            eval ($okWCPair = "no")
+
+            if ($wcpsd = 1) then
+               eval ($okWCPair = "yes")
+            end if
+
+            if ($wcpsd = -1) then
+               eval ($okWCPair = "yes")
+               if ($aresn # "PHS") then
+                  if ($bresn = "PHS") then
+                     eval ($okWCPair = "no")
+                  end if
+               end if
+
+               if ($aresn = "PHS") then
+                  eval ($okWCPair = "no")
+               end if
+            end if
+
+            if ($wcpsd = 0) then
+               eval ($okWCPair = "yes")
+            end if
+
+            if ($wcpsd = 2) then
+               if ($aresn = "PHS") then
+                  if ($bresn = "PHS") then
+                     eval ($okWCPair = "yes")
+                  end if
+               end if
+            end if
+
+            if ($okWCPair = "yes") then
+         
+               eval ($name1 = "RNA_" + $aresn + "_" + $bresn + "_" + encode($wcpsd) + "_WATSONCRICK_1")
+               eval ($name2 = "RNA_" + $aresn + "_" + $bresn + "_" + encode($wcpsd) + "_WATSONCRICK_2")
+               eval ($name3 = "RNA_" + $aresn + "_" + $bresn + "_" + encode($wcpsd) + "_WATSONCRICK_3")
+
+            end if
+
+            !
+            ! punt if this comes up as both a valid normal and Watson-Crick pair
+            !
+
+            if ($okNormPair = "yes") then
+               if ($okWCPair = "yes") then
+                  display "RNA-RNA DELPHIC position setup problem -- pair OK as both normal and watson-crick"
+                  display $asegid $aresid $aresn $apartnerseg $apartnernum
+                  display $bsegid $bresid $bresn $bpartnerseg $bpartnernum 
+                  display $normpsd $wcpsd
+               end if
+            end if
+
+            eval ($onlyOnePairOK = "no") 
+            if ($okNormPair = "yes") then
+               if ($okWCPair = "no") then
+                  eval ($onlyOnePairOK = "yes")
+               end if
+            end if
+            if ($okNormPair = "no") then
+               if ($okWCPair = "yes") then
+                  eval ($onlyOnePairOK = "yes")
+               end if
+            end if
+         
+            if ($onlyOnePairOK = "yes") then
+
+               !
+               ! syntax is:  Four selections to define the orienting and oriented atoms
+               !
+
+               orientation 
+                  class $name1
+                  assign (store1 and resid $aresid and segid $asegid) 
+                         (store2 and resid $aresid and segid $asegid) 
+                         (store3 and resid $aresid and segid $asegid) 
+                         (store5 and resid $bresid and segid $bsegid) 
+                  class $name2
+                  assign (store1 and resid $aresid and segid $asegid)
+                         (store2 and resid $aresid and segid $asegid) 
+                         (store3 and resid $aresid and segid $asegid) 
+                         (store6 and resid $bresid and segid $bsegid) 
+                  class $name3
+                  assign (store1 and resid $aresid and segid $asegid) 
+                         (store2 and resid $aresid and segid $asegid) 
+                         (store3 and resid $aresid and segid $asegid) 
+                         (store7 and resid $bresid and segid $bsegid)
+               end
+
+
+            end if
+
+         end loop b
+
+      end loop a
+
+   end loop bcount
+
+end loop acount
+
+
+
+!
+! finis
+!
+
+set echo on message on end

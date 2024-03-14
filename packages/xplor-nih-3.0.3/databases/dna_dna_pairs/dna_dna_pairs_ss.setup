@@ -1,0 +1,60 @@
+vector do (segid = DNA1) (resid 204:211)
+!vector do (segid = DNA2) (resid 13:24)
+
+
+!vector do (segid = DNA1) (resid 101:105 or resid 111:114)
+!vector do (segid = DNA2) (resid 115:118 or resid 124:128)
+
+
+
+vector identify (store9) (segid DNA1 )
+
+vector do (ustring = "") (all)
+!vector do (ustring = "DNA2") (segid DNA1)
+!vector do (ustring = "DNA1") (segid DNA2)
+
+vector do (store4 = 0) (all)
+
+
+
+{
+vector do (store4 = 16) (resid 9)
+vector do (store4 = 15) (resid 10)
+vector do (store4 = 14) (resid 11)
+vector do (store4 = 13) (resid 12)
+
+vector do (store4 = 12) (resid 13)
+vector do (store4 = 11) (resid 14)
+vector do (store4 = 10) (resid 15)
+vector do (store4 = 9) (resid 16)
+vector do (store4 = 8) (resid 17)
+vector do (store4 = 7) (resid 18)
+vector do (store4 = 6) (resid 19)
+vector do (store4 = 5) (resid 20)
+vector do (store4 = 4) (resid 21)
+vector do (store4 = 3) (resid 22)
+vector do (store4 = 2) (resid 23)
+vector do (store4 = 1) (resid 24)
+}
+
+
+set echo off message off end
+orient
+   nres 10000
+   residues 10000
+   cuto=-10
+   scale 0.25
+   maxgauss 128
+   shape gauss
+   @/net/octave2/clore/xplor_40/dna_dna_pairs/dna_gaussians.tbl
+end
+set echo on message on end
+
+@/net/octave2/clore/xplor_40/dna_dna_pairs/dna_gaussians_bases_setup.tbl
+
+
+vector do (segid = "") (segid DNA1)
+!vector do (segid = "") (segid DNA2)
+
+
+

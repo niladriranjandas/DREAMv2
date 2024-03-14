@@ -1,0 +1,1452 @@
+!
+! setup_quarts_torsion_intra.tbl
+!
+! Automatically enters delphic torsion restraints for proteins.
+! Based on the maximum-dimensionality classes.
+!
+!
+!
+!
+
+!
+! select the Cas of the residues you want to create delphic torsion 
+! assignments for here
+!
+
+vector identify (store2) (all)
+
+!
+! select all cis-prolines here
+! fix this
+!
+
+vector identify (store6) (resn cisp)
+
+!
+! need to select all the residues that immediately preceed a proline
+! in order to designate them "xpr"
+!
+! xpr residues are stored in the store7 array
+!
+
+vector do (store7 = 0) (all)
+
+for $count in id (name ca and resn pro) loop database
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = decode($result))
+   eval ($prevRes = $curRes - 1)
+   vector identify (store7) (store7 or (resid $prevRes and segid $curSeg))
+end loop database
+
+
+set echo off message off end
+
+!
+! these are the groups--cis residues should be eliminated from these selections
+!
+
+vector do (store1 = 1) (resn glu or resn ala or resn leu or resn met or resn gln or
+                        resn lys or resn arg or resn his)
+vector do (store1 = 2) (resn val or resn ile or resn tyr or resn cys or resn trp or
+                        resn phe or resn thr)
+vector do (store1 = 3) (resn asn or resn ser or resn asp)
+vector do (store1 = 4) (resn gly)
+vector do (store1 = 5) (resn pro)
+
+!
+
+
+
+!
+! ala
+!
+
+for $count in id (name ca and resn ala and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class ala_phi_psi
+   assign 
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+end loop database
+
+!
+! arg
+!
+
+for $count in id (name ca and resn arg and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama
+   class arg_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+   
+   rama
+   class arg_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+   end
+
+   rama
+   class arg_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+   end
+
+   rama
+   class arg_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ne)
+   end
+
+   rama
+   class arg_chi3_chi4
+   assign
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ne)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ne)
+      (segid $curSeg and resid $curRes and name cz)
+   end
+
+   rama
+   class arg_chi1_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ne)
+   end
+
+   rama
+   class arg_chi2_chi3_chi4
+   assign
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ne)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ne)
+      (segid $curSeg and resid $curRes and name cz)
+   end
+
+end loop database
+
+!
+! asn
+!
+
+for $count in id (name ca and resn asn and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama
+   class asn_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class asn_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+   end
+
+   rama
+   class asn_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name od1)
+   end
+
+
+end loop database
+
+!
+! asp
+!
+
+for $count in id (name ca and resn asp and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama
+   class asp_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class asp_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+   end
+
+   rama
+   class asp_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name od1)
+   end
+
+
+
+end loop database
+
+!
+! cys
+!
+
+for $count in id (name ca and resn cys and not store7 and store2) loop database
+vector show elem (resn) (name sg and bondedto (byresidue id $count and name sg))
+if ($select = 0) then
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama
+   class cys_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+   
+   rama
+   class cys_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+   end
+end if
+end loop database
+
+!
+! disulfide
+!
+
+for $count in id (name ca and resn cys and not store7 and store2) loop database
+vector show elem (resn) (name sg and bondedto (byresidue id $count and name sg))
+if ($select = 1) then
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   vector show elem (segid) (name sg and bondedto (name sg and resid $curRes and segid $curSeg))
+   eval ($otherSeg = $result)
+
+   vector show elem (resid) (name sg and bondedto (name sg and resid $curRes and segid $curSeg))
+   eval ($otherRes = $result)
+
+   rama
+   class dis_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+
+   rama
+   class dis_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+   end
+
+   rama
+   class dis_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+      (segid $otherSeg and resid $otherRes and name sg)
+   end
+
+   rama
+   class dis_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+      (segid $otherSeg and resid $otherRes and name sg)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+      (segid $otherSeg and resid $otherRes and name sg)
+      (segid $otherSeg and resid $otherRes and name cb)
+   end
+
+   rama
+   class dis_chi1_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+      (segid $otherSeg and resid $otherRes and name sg)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+      (segid $otherSeg and resid $otherRes and name sg)
+      (segid $otherSeg and resid $otherRes and name cb)
+   end
+
+   rama
+   class dis_chi2_chi3_chi4
+   assign
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+      (segid $otherSeg and resid $otherRes and name sg)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+      (segid $otherSeg and resid $otherRes and name sg)
+      (segid $otherSeg and resid $otherRes and name cb)
+      (segid $curSeg and resid $curRes and name sg)
+      (segid $otherSeg and resid $otherRes and name sg)
+      (segid $otherSeg and resid $otherRes and name cb)
+      (segid $otherSeg and resid $otherRes and name ca)
+
+   end
+
+end if
+end loop database
+
+
+!
+! gln
+!
+
+for $count in id (name ca and resn gln and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class gln_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class gln_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+   end
+
+   rama
+   class gln_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name oe1)
+   end
+
+   rama
+   class gln_chi1_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name oe1)
+   end
+
+
+
+
+end loop database
+
+
+!
+! glu
+!
+
+for $count in id (name ca and resn glu and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class glu_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class glu_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+   end
+
+   rama
+   class glu_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name oe1)
+   end
+
+   rama
+   class glu_chi1_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name oe1)
+   end
+
+
+
+end loop database
+
+
+!
+! gly
+!
+
+for $count in id (name ca and resn gly and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class gly_phi_psi
+   assign 
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+end loop database
+
+
+!
+! his
+!
+
+for $count in id (name ca and resn his and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class his_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class his_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+   end
+
+   rama
+   class his_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name nd1)
+   end
+
+
+
+end loop database
+
+
+
+!
+! ile
+!
+
+for $count in id (name ca and resn ile and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class ile_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class ile_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg1)
+   end
+
+   rama
+   class ile_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg1)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg1)
+      (segid $curSeg and resid $curRes and (name cd or name cd1))
+   end
+
+
+
+end loop database
+
+
+!
+! leu
+!
+
+for $count in id (name ca and resn leu and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class leu_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+
+   rama
+   class leu_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+   end
+
+
+   rama
+   class leu_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd1)
+   end
+
+
+end loop database
+
+
+!
+! lys
+!
+
+for $count in id (name ca and resn lys and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class lys_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class lys_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+   end
+
+   rama
+   class lys_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+   end
+
+   rama
+   class lys_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ce)
+   end
+
+   rama
+   class lys_chi3_chi4
+   assign
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ce)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ce)
+      (segid $curSeg and resid $curRes and name nz)
+   end
+
+
+
+   rama
+   class lys_chi1_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ce)
+   end
+
+  
+   rama
+   class lys_chi2_chi3_chi4
+   assign
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ce)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd)
+      (segid $curSeg and resid $curRes and name ce)
+      (segid $curSeg and resid $curRes and name nz)
+   end
+
+
+end loop database
+
+
+!
+! met
+!
+
+for $count in id (name ca and resn met and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class met_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+   
+   rama
+   class met_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+   end
+
+   rama
+   class met_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name sd)
+   end
+
+   rama
+   class met_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name sd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name sd)
+      (segid $curSeg and resid $curRes and name ce)
+   end
+
+
+   rama
+   class met_chi1_chi2_chi3
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name sd)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name sd)
+      (segid $curSeg and resid $curRes and name ce)
+   end
+
+
+end loop database
+
+
+!
+! phe
+!
+
+for $count in id (name ca and resn phe and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class phe_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class phe_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+   end
+
+   rama
+   class phe_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd1)
+   end
+
+   
+
+end loop database
+
+
+
+!
+! pro
+!
+
+for $count in id (name ca and resn pro and not store7 and store2 and not store6) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class pro_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class pro_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+   end
+
+   rama
+   class pro_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd1)
+   end
+
+
+end loop database
+
+!
+! ser
+!
+
+for $count in id (name ca and resn ser and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama
+   class ser_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class ser_phi_psi_chi1
+   assign 
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name og)
+   end
+
+end loop database
+
+
+!
+! thr
+!
+
+for $count in id (name ca and resn thr and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama
+   class thr_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+   
+   rama
+   class thr_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name og1)
+   end
+
+end loop database
+
+
+!
+! trp
+!
+
+for $count in id (name ca and resn trp and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class trp_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class trp_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+   end
+
+   rama
+   class trp_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd1)
+   end
+
+
+
+end loop database
+
+
+!
+! tyr
+!
+
+for $count in id (name ca and resn tyr and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama 
+   class tyr_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+
+   rama
+   class tyr_phi_psi_chi1
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+   end
+
+   rama
+   class tyr_chi1_chi2
+   assign
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg)
+      (segid $curSeg and resid $curRes and name cd1)
+   end
+
+
+
+end loop database
+
+
+!
+! val
+!
+
+for $count in id (name ca and resn val and not store7 and store2) loop database
+
+   vector show elem (segid) (id $count)
+   eval ($curSeg = $result)
+   vector show elem (resid) (id $count)
+   eval ($curRes = $result)
+   eval ($nextRes = encode(decode ($curRes) + 1))
+   eval ($prevRes = encode(decode ($curRes) - 1))
+
+   rama
+   class val_phi_psi
+   assign
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+   end
+   
+   rama
+   class val_phi_psi_chi1
+   assign 
+      (segid $curSeg and resid $prevRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name c)
+      (segid $curSeg and resid $nextRes and name n)
+      (segid $curSeg and resid $curRes and name n)
+      (segid $curSeg and resid $curRes and name ca)
+      (segid $curSeg and resid $curRes and name cb)
+      (segid $curSeg and resid $curRes and name cg1)
+   end
+
+end loop database
+
+
+!
+! finis
+!
+
+set echo $prev_echo message $prev_messages end
+

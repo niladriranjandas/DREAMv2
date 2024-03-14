@@ -1,0 +1,168 @@
+RESIDUE ALA
+3
+HB1     QB
+HB2     QB
+HB3     QB
+
+RESIDUE ARG
+10
+HB2     QB      CB
+HB3     QB      CB
+HG2     QG      CG
+HG3     QG      CG
+HD2     QD      CD
+HD3     QD      CD
+HH11    QH1
+HH12    QH1
+HH21    QH2
+HH22    QH2
+
+RESIDUE ASN
+4
+HB2     QB      CB
+HB3     QB      CB
+HD21    QD2
+HD22    QD2
+
+RESIDUE	ASP
+2
+HB2     QB      CB
+HB3     QB      CB
+
+RESIDUE CYS
+3
+HB2     QB      CB
+HB3     QB      CB
+HG      HG      SG
+
+RESIDUE CYSS
+2
+HB2     QB      CB
+HB3     QB      CB
+
+RESIDUE	GLN
+6
+HB2     QB      CB
+HB3     QB      CB
+HG2     QG      CG
+HG3     QG      CG
+HE21    QE2
+HE22    QE2
+
+RESIDUE	GLU
+4
+HB2     QB      CB
+HB3     QB      CB
+HG2     QG      CG
+HG3     QG      CG
+
+RESIDUE GLY
+2
+HA2     QA
+HA3     QA
+
+RESIDUE	HIS
+2
+HB2     QB      CB
+HB3     QB      CB
+
+RESIDUE ILE
+8
+HG12    QG1     CG1
+HG13    QG1     CG1
+HG21    QG2
+HG22    QG2
+HG22    QG2
+HD11    QD1
+HD12    QD1
+HD13    QD1
+
+RESIDUE LEU
+8
+HB2     QB      CB
+HB3     QB      CB
+HD11    QD1
+HD12    QD1
+HD13    QD1
+HD21    QD2
+HD22    QD2
+HD23    QD2
+
+RESIDUE LYS
+11
+HB2     QB      CB
+HB3     QB      CB
+HG2     QG      CG
+HG3     QG      CG
+HD2     QD      CD
+HD3     QD      CD
+HE2     QE      CE
+HE3     QE      CE
+HZ1     QZ
+HZ2     QZ
+HZ3     QZ
+
+RESIDUE	MET
+7
+HB2     QB      CB
+HB3     QB      CB
+HG2     QG      CG
+HG3     QG      CG
+HE1     QE
+HE2     QE
+HE3     QE
+
+RESIDUE PHE
+6
+HB2     QB      CB
+HB3     QB      CB
+HE1     QE
+HE2     QE
+HD1     QD
+HD2     QD
+
+RESIDUE PRO
+6
+HB2     QB      CB
+HB3     QB      CB
+HG2     QG      CG
+HG3     QG      CG
+HD2     QD      CD
+HD3     QD      CD
+
+RESIDUE SER
+3
+HB2     QB      CB
+HB3     QB      CB
+HG      HG      OG
+
+RESIDUE THR
+4
+HG1     HG1     OG1
+HG21    QG2     CG2
+HG22    QG2     CG2
+HG23    QG2     CG2
+
+RESIDUE TRP
+2
+HB2     QB      CB
+HB3     QB      CB
+
+RESIDUE TYR
+7
+HB2     QB      CB
+HB3     QB      CB
+HH      HH      OH
+HD1     QD
+HD2     QD
+HE1     QE
+HE2     QE
+
+RESIDUE VAL
+6
+HG11    QG1
+HG12    QG1
+HG13    QG1
+HG21    QG2
+HG22    QG2
+HG23    QG2
