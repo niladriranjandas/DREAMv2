@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#Copyright (c) 2024 niladriranjandas
 # check if all the files in xml are present
 
 
