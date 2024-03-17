@@ -1,4 +1,9 @@
 #!/bin/bash
+
+#
+#Copyright (c) 2024 niladriranjandas
+#call scripts to check artifacts and fill gaps
+
 protname="$1"
 
 alreadyrun="../proteinsparams/listoffiles.txt"
