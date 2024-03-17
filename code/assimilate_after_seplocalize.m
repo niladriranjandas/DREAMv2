@@ -1,3 +1,8 @@
+%%
+%Copyright (c) 2024 niladriranjandas
+%make the localize data structure after substructures has been modeled from fragments separately
+%%
+
 function localize = assimilate_after_seplocalize(oppfile, test_dup_flag)
 
 %%
