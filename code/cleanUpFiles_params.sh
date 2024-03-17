@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Copyright (c) 2024 niladriranjandas
+# clean up files created and transfer them to the proteins folder
+
 protname="$1"
 
 alreadyrun="../proteinsparams/listoffiles.txt"
