@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Copyright (c) 2024 niladriranjandas
+# check if input files in xml are empty or not
+
 protname="$1"
 
 alreadyrun="../proteinsparams/listoffiles.txt"
