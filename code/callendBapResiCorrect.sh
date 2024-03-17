@@ -1,4 +1,9 @@
 #!/bin/bash
+
+#
+#Copyright (c) 2024 niladriranjandas
+#Bad gap correct module
+
 protname="$1"
 
 alreadyrun="../proteinsparams/listoffiles.txt"
