@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+#Copyright (c) 2024 niladriranjandas
+#convert the dihedral angle bound from CYANA to XPLOR format for "normal mode"
 
 protname="$1"
 
