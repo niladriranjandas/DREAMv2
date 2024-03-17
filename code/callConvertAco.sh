@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+#Copyright (c) 2024 niladriranjandas
+#script to convert the dihedral angle file from cyana to xplor format
+
 protname="$1"
 
 aco_convert_cmd="python3 ../packages/PdbStat510_20130909/acoCyanaToXplor.py"
