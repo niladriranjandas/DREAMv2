@@ -1,4 +1,9 @@
 #!/bin/bash
+
+# 
+#Copyright (c) 2024 niladriranjandas
+#call the scripts to fill the "Gaps"
+
 protname="$1"
 
 alreadyrun="../proteinsparams/listoffiles.txt"
