@@ -1,4 +1,9 @@
 #!/bin/bash
+
+#
+#Copyright (c) 2024 niladriranjandas
+#call the gap correct for "normal mode" for DREAMv2
+
 protname="$1"
 
 alreadyrun="../proteinsparams/listoffiles.txt"
