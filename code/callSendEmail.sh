@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+#Copyright (c) 2024 niladriranjandas
+#send emails to end user
+
 protname="$1"
 email="$2"
 
