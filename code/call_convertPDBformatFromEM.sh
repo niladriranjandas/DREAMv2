@@ -1,5 +1,9 @@
 #!/bin/bash
 
+#
+#Copyright (c) 2024 niladriranjandas
+#convert PDB format from gromacs to DREAMv2 format (same as CYANA)
+
 if [ $# -ne 2 ]; then
 	echo "call_convertPDBformatFromEM 2 args needed"
 	exit -1
